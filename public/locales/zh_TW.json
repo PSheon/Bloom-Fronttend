@@ -1,0 +1,22 @@
+{
+  "System": "系統",
+  "System.Dashboard": "系統監控",
+  "System.Roles & Permissions": "角色 & 權限",
+  "Management": "管理",
+  "Management.Dashboard": "分析報表",
+  "Management.Users": "使用者管理",
+  "Management.Media Assets": "文件管理",
+  "Management.Request Sheets": "申請管理",
+  "Management.Announcements": "公告管理",
+  "Management.Notifications": "通知管理",
+  "Review": "審核",
+  "Review.Dashboard": "儀表板",
+  "Review.Request Sheets": "申請審核",
+  "Me": "我的",
+  "Me.Dashboard": "主頁",
+  "Me.Request Sheet": "申請計畫",
+  "General": "一般",
+  "General.Account": "帳號",
+  "General.Notifications": "通知",
+  "General.Settings": "設定"
+}

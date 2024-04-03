@@ -1,0 +1,22 @@
+{
+  "System": "System",
+  "System.Dashboard": "System Monitoring",
+  "System.Roles & Permissions": "Roles & Permissions",
+  "Management": "Management",
+  "Management.Dashboard": "Analytics Reports",
+  "Management.Users": "Users",
+  "Management.Media Assets": "Media Assets",
+  "Management.Request Sheets": "Request Sheets",
+  "Management.Announcements": "Announcements",
+  "Management.Notifications": "Notifications",
+  "Review": "Review",
+  "Review.Dashboard": "Dashboard",
+  "Review.Request Sheets": "Request Sheet Reviews",
+  "Me": "Me",
+  "Me.Dashboard": "Home",
+  "Me.Request Sheet": "Request Sheets",
+  "General": "General",
+  "General.Account": "Account",
+  "General.Notifications": "Notifications",
+  "General.Settings": "Settings"
+}
