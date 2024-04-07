@@ -1,3 +1,4 @@
+export * from 'src/utils/acl'
 export * from 'src/utils/media-asset'
 export * from 'src/utils/request-sheet'
 export * from 'src/utils/notification'

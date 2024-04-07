@@ -25,11 +25,11 @@ import Icon from 'src/@core/components/icon'
 // ** Hooks
 import { useAuth } from 'src/hooks/useAuth'
 
+// ** Utils Imports
+import { getUserRoleAttributes } from 'src/utils'
+
 // ** Types
 import { UserDataType } from 'src/context/types'
-
-// ** Config Import
-import { userRoleAttributes } from 'src/configs/acl'
 
 // ** Api Imports
 import { useFindQuery } from 'src/store/api/roleAndPermission'
@@ -50,6 +50,9 @@ const UserEditRoleCard = (props: Props) => {
   const auth = useAuth()
   const { data: roles = [], isLoading: isFindRolesLoading } = useFindQuery(null)
   const [updateUser, { data: updatedUser = initUserEntity }] = useUpdateOneMutation()
+
+  // ** Vars
+  const userRoleAttributes = getUserRoleAttributes(updatedUser.role!.name)
 
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
@@ -77,7 +80,7 @@ const UserEditRoleCard = (props: Props) => {
             <Typography
               variant='h4'
               sx={{
-                color: `${userRoleAttributes[updatedUser.role!.name].color}.main`
+                color: `${userRoleAttributes.color}.main`
               }}
             >
               {updatedUser.role!.name}

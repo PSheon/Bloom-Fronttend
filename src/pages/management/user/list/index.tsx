@@ -26,13 +26,10 @@ import useDebounce from 'src/hooks/useDebounce'
 
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
-import { getPublicMediaAssetUrl } from 'src/utils'
+import { getPublicMediaAssetUrl, getUserRoleAttributes } from 'src/utils'
 
 // ** Api Imports
 import { useFindQuery, useUpdateOneMutation } from 'src/store/api/management/user'
-
-// ** Config Import
-import { userRoleAttributes } from 'src/configs/acl'
 
 // ** Types Imports
 import { UserDataType } from 'src/context/types'
@@ -184,20 +181,24 @@ const UserListPage = () => {
       field: 'role',
       minWidth: 120,
       headerName: '角色權限',
-      renderCell: ({ row }: CellType) => (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            '& svg': { mr: 3, color: `${userRoleAttributes[row.role!.name].color}.main` }
-          }}
-        >
-          <Icon icon={userRoleAttributes[row.role!.name].icon} fontSize={20} />
-          <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-            {row.role!.name}
-          </Typography>
-        </Box>
-      ),
+      renderCell: ({ row }: CellType) => {
+        const userRoleAttributes = getUserRoleAttributes(row.role!.name)
+
+        return (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              '& svg': { mr: 3, color: `${userRoleAttributes.color}.main` }
+            }}
+          >
+            <Icon icon={userRoleAttributes.icon} fontSize={20} />
+            <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+              {row.role!.name}
+            </Typography>
+          </Box>
+        )
+      },
       valueGetter: ({ row }: CellType) => row.role!.name
     },
     {

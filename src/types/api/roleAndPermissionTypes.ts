@@ -1,6 +1,9 @@
+// ** Types Imports
+import { Role } from 'src/context/types'
+
 export type RoleType = {
   id: number
-  name: string
+  name: Role
   description: string
   type: string
   createdAt: string

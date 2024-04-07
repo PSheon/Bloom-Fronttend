@@ -25,12 +25,10 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Utils Import
 import { getInitials } from 'src/@core/utils/get-initials'
+import { getUserRoleAttributes } from 'src/utils'
 
 // ** Actions Imports
 import { fetchData } from 'src/store/apps/user'
-
-// ** Config Import
-import { userRoleAttributes } from 'src/configs/acl'
 
 // ** Types Imports
 import { RootState, AppDispatch } from 'src/store'
@@ -114,20 +112,24 @@ const UserList = () => {
       field: 'role',
       minWidth: 150,
       headerName: 'Role',
-      renderCell: ({ row }: CellType) => (
-        <Box
-          sx={{
-            display: 'flex',
-            alignItems: 'center',
-            '& svg': { mr: 3, color: `${userRoleAttributes[row.role].color}.main` }
-          }}
-        >
-          <Icon icon={userRoleAttributes[row.role].icon} fontSize={20} />
-          <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
-            {row.role}
-          </Typography>
-        </Box>
-      )
+      renderCell: ({ row }: CellType) => {
+        const userRoleAttributes = getUserRoleAttributes(row.role as any)
+
+        return (
+          <Box
+            sx={{
+              display: 'flex',
+              alignItems: 'center',
+              '& svg': { mr: 3, color: `${userRoleAttributes.color}.main` }
+            }}
+          >
+            <Icon icon={userRoleAttributes.icon} fontSize={20} />
+            <Typography noWrap sx={{ color: 'text.secondary', textTransform: 'capitalize' }}>
+              {row.role}
+            </Typography>
+          </Box>
+        )
+      }
     },
     {
       flex: 0.15,

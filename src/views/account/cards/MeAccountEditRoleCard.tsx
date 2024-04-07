@@ -9,11 +9,11 @@ import Divider from '@mui/material/Divider'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
+// ** Util Imports
+import { getUserRoleAttributes } from 'src/utils'
+
 // ** Types
 import { UserDataType } from 'src/context/types'
-
-// ** Config Import
-import { userRoleAttributes } from 'src/configs/acl'
 
 interface Props {
   initMeUserEntity: UserDataType
@@ -22,6 +22,9 @@ interface Props {
 const MeAccountEditRoleCard = (props: Props) => {
   // ** Props
   const { initMeUserEntity } = props
+
+  // ** Vars
+  const userRoleAttributes = getUserRoleAttributes(initMeUserEntity.role!.name)
 
   return (
     <Card sx={{ boxShadow: 'none', border: theme => `2px solid ${theme.palette.primary.main}` }}>
@@ -37,7 +40,7 @@ const MeAccountEditRoleCard = (props: Props) => {
             <Typography
               variant='h4'
               sx={{
-                color: `${userRoleAttributes[initMeUserEntity.role!.name].color}.main`
+                color: `${userRoleAttributes.color}.main`
               }}
             >
               {initMeUserEntity.role!.name}
