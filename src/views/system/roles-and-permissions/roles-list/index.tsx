@@ -45,7 +45,7 @@ const RolesList = (props: Props) => {
                     </Box>
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
                       <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-                        <Typography variant='h6'>{userRoleAttributes.title}</Typography>
+                        <Typography variant='h6'>{userRoleAttributes.displayName}</Typography>
                         <Typography variant='body2'>{userRoleAttributes.description}</Typography>
                       </Box>
                       <IconButton sx={{ color: `${userRoleAttributes.color}.main` }}>

@@ -153,7 +153,7 @@ const UserListPage = () => {
           <Tooltip title={row.confirmed ? '已驗證' : '未驗證'}>
             <ConfirmedStatusStyledBox
               sx={{
-                backgroundColor: theme => (row.confirmed ? theme.palette.success.main : theme.palette.info.main),
+                backgroundColor: theme => (row.confirmed ? theme.palette.success.main : theme.palette.warning.main),
                 boxShadow: theme => `0 0 0 2px ${theme.palette.background.paper}`
               }}
             />
@@ -194,7 +194,7 @@ const UserListPage = () => {
           >
             <Icon icon={userRoleAttributes.icon} fontSize={20} />
             <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-              {row.role!.name}
+              {userRoleAttributes.displayName}
             </Typography>
           </Box>
         )

@@ -224,7 +224,7 @@ const UserEditProfileCard = (props: Props) => {
       </CardContent>
 
       <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
-        <Button fullWidth variant='contained' sx={{ mr: 2 }} onClick={handleEditOpen}>
+        <Button fullWidth variant='contained' onClick={handleEditOpen}>
           編輯
         </Button>
       </CardActions>

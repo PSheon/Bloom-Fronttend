@@ -72,7 +72,7 @@ const PermissionsList = () => {
               skin='light'
               rounded
               color={userRoleAttributes.color}
-              label={userRoleAttributes.title}
+              label={userRoleAttributes.displayName}
               sx={{ '& .MuiChip-label': { textTransform: 'capitalize' }, '&:not(:last-of-type)': { mr: 3 } }}
             />
           )

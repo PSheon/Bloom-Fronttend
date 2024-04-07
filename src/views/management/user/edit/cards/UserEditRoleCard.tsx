@@ -18,6 +18,7 @@ import Divider from '@mui/material/Divider'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Skeleton from '@mui/material/Skeleton'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -27,6 +28,9 @@ import { useAuth } from 'src/hooks/useAuth'
 
 // ** Utils Imports
 import { getUserRoleAttributes } from 'src/utils'
+
+// ** Config Imports
+import { Permissions } from 'src/configs/acl'
 
 // ** Types
 import { UserDataType } from 'src/context/types'
@@ -45,25 +49,33 @@ const UserEditRoleCard = (props: Props) => {
 
   // ** States
   const [openEdit, setOpenEdit] = useState<boolean>(false)
+  const [selectedRoleId, setSelectedRoleId] = useState<number>(initUserEntity.role!.id)
 
   // ** Hooks
   const auth = useAuth()
   const { data: roles = [], isLoading: isFindRolesLoading } = useFindQuery(null)
-  const [updateUser, { data: updatedUser = initUserEntity }] = useUpdateOneMutation()
+  const [updateUser, { data: updatedUser = initUserEntity, isLoading: isUpdateUserLoading }] = useUpdateOneMutation()
 
   // ** Vars
   const userRoleAttributes = getUserRoleAttributes(updatedUser.role!.name)
+  const userPermissions = Permissions.filter(permission =>
+    permission.assignedTo.includes(roles.find(role => role.id === selectedRoleId)!.name)
+  )
 
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
-  const handleRoleChange = async (event: SelectChangeEvent) => {
+  const handleRoleSelected = async (event: SelectChangeEvent) => {
+    setSelectedRoleId(() => Number(event.target.value))
+  }
+  const handleRoleChange = async () => {
     await updateUser({
       id: initUserEntity.id,
       data: {
-        role: Number(event.target.value)
+        role: selectedRoleId
       }
     })
+    handleEditClose()
   }
 
   return (
@@ -83,19 +95,12 @@ const UserEditRoleCard = (props: Props) => {
                 color: `${userRoleAttributes.color}.main`
               }}
             >
-              {updatedUser.role!.name}
+              {userRoleAttributes.displayName}
             </Typography>
           </Grid>
           <Grid item xs={12}>
-            <Box sx={{ display: 'flex', mb: 2.5, alignItems: 'center', '& svg': { mr: 2, color: 'text.secondary' } }}>
-              <Icon icon='mdi:circle' fontSize='0.625rem' />
-              <Typography component='span' sx={{ fontSize: '0.875rem' }}>
-                待加入權限說明
-              </Typography>
-            </Box>
             <Box
               sx={{
-                mt: 2.5,
                 display: 'flex',
                 mb: 2.5,
                 alignItems: 'center',
@@ -104,21 +109,7 @@ const UserEditRoleCard = (props: Props) => {
             >
               <Icon icon='mdi:circle' fontSize='0.625rem' />
               <Typography component='span' sx={{ fontSize: '0.875rem' }}>
-                待加入權限說明
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                mt: 2.5,
-                display: 'flex',
-                mb: 2.5,
-                alignItems: 'center',
-                '& svg': { mr: 2, color: 'text.secondary' }
-              }}
-            >
-              <Icon icon='mdi:circle' fontSize='0.625rem' />
-              <Typography component='span' sx={{ fontSize: '0.875rem' }}>
-                待加入權限說明
+                {userRoleAttributes.description}
               </Typography>
             </Box>
           </Grid>
@@ -172,18 +163,41 @@ const UserEditRoleCard = (props: Props) => {
                   <Select
                     fullWidth
                     disabled={auth.user!.id === initUserEntity.id}
-                    defaultValue={updatedUser.role!.id.toString(10)}
-                    sx={{ mb: 4 }}
-                    onChange={handleRoleChange}
+                    value={selectedRoleId.toString(10)}
+                    onChange={handleRoleSelected}
                   >
                     {roles!.map(role => (
                       <MenuItem key={`role-${role.id}`} value={role.id}>
-                        {role.name}
+                        {getUserRoleAttributes(role.name).displayName}
                       </MenuItem>
                     ))}
                   </Select>
                 )}
               </FormControl>
+            </Grid>
+            <Grid item xs={12}>
+              <Typography variant='subtitle1' sx={{ fontSize: '0.875rem' }}>
+                包含以下權限：
+              </Typography>
+            </Grid>
+            <Grid item xs={12}>
+              {userPermissions.map((permission, index) => (
+                <Box
+                  key={`permission-${permission.id}`}
+                  sx={{
+                    display: 'flex',
+                    mb: 2.5,
+                    alignItems: 'center',
+                    '& svg': { mr: 2, color: 'text.secondary' },
+                    ...(index > 0 && { mt: 2.5 })
+                  }}
+                >
+                  <Icon icon='mdi:circle' fontSize='0.625rem' />
+                  <Typography component='span' sx={{ fontSize: '0.875rem' }}>
+                    {permission.displayName}
+                  </Typography>
+                </Box>
+              ))}
             </Grid>
           </Grid>
         </DialogContent>
@@ -197,9 +211,15 @@ const UserEditRoleCard = (props: Props) => {
           <Button variant='outlined' color='secondary' onClick={handleEditClose}>
             取消
           </Button>
-          <Button variant='contained' onClick={handleEditClose} endIcon={<Icon icon='mdi:content-save-outline' />}>
+          <LoadingButton
+            loading={isUpdateUserLoading}
+            disabled={updatedUser.role!.id === selectedRoleId}
+            variant='contained'
+            onClick={handleRoleChange}
+            endIcon={<Icon icon='mdi:content-save-outline' />}
+          >
             儲存
-          </Button>
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </Card>
