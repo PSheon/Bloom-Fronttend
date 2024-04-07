@@ -27,7 +27,7 @@ export const getUserRoleAttributes = (role: Role) => {
     },
     'Asset Manager': {
       icon: 'mdi:rate-review',
-      color: 'info',
+      color: 'warning',
       title: '資產管理員',
       description: '管理特定專案'
     },
@@ -39,7 +39,7 @@ export const getUserRoleAttributes = (role: Role) => {
     },
     Public: {
       icon: 'mdi:public',
-      color: 'warning',
+      color: 'secondary',
       title: '公開',
       description: '未登入的使用者'
     }
