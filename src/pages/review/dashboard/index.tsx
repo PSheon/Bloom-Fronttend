@@ -27,7 +27,7 @@ const ReviewDashboardPage = () => {
 
 ReviewDashboardPage.acl = {
   action: 'read',
-  subject: 'reviewer-page'
+  subject: 'asset-manager-page'
 }
 
 export default ReviewDashboardPage
