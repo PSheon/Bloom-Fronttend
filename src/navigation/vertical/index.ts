@@ -37,6 +37,13 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'manager-page'
     },
     {
+      title: 'Management.Projects',
+      icon: 'mdi:newspaper-variant-multiple-outline',
+      path: '/management/project/list',
+      action: 'read',
+      subject: 'manager-page'
+    },
+    {
       title: 'Management.Users',
       icon: 'mdi:user-group-outline',
       path: '/management/user/list',
@@ -47,13 +54,6 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Management.Media Assets',
       icon: 'mdi:multimedia',
       path: '/management/media-asset/list',
-      action: 'read',
-      subject: 'manager-page'
-    },
-    {
-      title: 'Management.Request Sheets',
-      icon: 'mdi:newspaper-variant-multiple-outline',
-      path: '/management/request-sheet/list',
       action: 'read',
       subject: 'manager-page'
     },
@@ -74,21 +74,14 @@ const navigation = (): VerticalNavItemsType => {
     {
       sectionTitle: 'Review',
       action: 'read',
-      subject: 'reviewer-page'
+      subject: 'asset-manager-page'
     },
     {
       title: 'Review.Dashboard',
       icon: 'mdi:chart-pie-outline',
       path: '/review/dashboard',
       action: 'read',
-      subject: 'reviewer-page'
-    },
-    {
-      title: 'Review.Request Sheets',
-      icon: 'mdi:rate-review',
-      path: '/review/request-sheet/list',
-      action: 'read',
-      subject: 'reviewer-page'
+      subject: 'asset-manager-page'
     },
     {
       sectionTitle: 'Me',
