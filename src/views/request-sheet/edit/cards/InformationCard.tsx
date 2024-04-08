@@ -62,7 +62,7 @@ const InformationCard = (props: Props) => {
                 更新日期
               </Typography>
               <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {format(new Date(initRequestSheetEntity.updatedAt), 'yyyy/MM/dd HH:mm:ss')}
+                {format(new Date(initRequestSheetEntity.updatedAt), 'PPpp')}
               </Typography>
             </Box>
           </Grid>
@@ -80,7 +80,7 @@ const InformationCard = (props: Props) => {
                 建立日期
               </Typography>
               <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {format(new Date(initRequestSheetEntity.createdAt), 'yyyy/MM/dd HH:mm:ss')}
+                {format(new Date(initRequestSheetEntity.createdAt), 'PPpp')}
               </Typography>
             </Box>
           </Grid>

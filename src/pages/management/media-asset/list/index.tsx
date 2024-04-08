@@ -146,10 +146,10 @@ const MediaAssetListPage = () => {
       headerName: '建立日期',
       renderCell: ({ row }: CellType) => (
         <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          {format(new Date(row.createdAt), 'yyyy/MM/dd HH:mm:ss')}
+          {format(new Date(row.createdAt), 'PPpp')}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.createdAt), 'yyyy/MM/dd HH:mm:ss')
+      valueGetter: ({ row }: CellType) => format(new Date(row.createdAt), 'PPpp')
     },
     {
       flex: 1,

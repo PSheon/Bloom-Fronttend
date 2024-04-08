@@ -119,7 +119,7 @@ const MediaAssetSelectorList = (props: Props) => {
       headerName: '建立日期',
       renderCell: ({ row }: CellType) => (
         <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          {format(new Date(row.createdAt), 'yyyy/MM/dd HH:mm:ss')}
+          {format(new Date(row.createdAt), 'PPpp')}
         </Typography>
       )
     }

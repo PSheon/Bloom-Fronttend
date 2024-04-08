@@ -111,10 +111,10 @@ const UserEditAccessLogListCard = (props: Props) => {
       headerName: '日期',
       renderCell: ({ row }: CellType) => (
         <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          {format(new Date(row.date), 'yyyy/MM/dd HH:mm:ss')}
+          {format(new Date(row.date), 'PPpp')}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.date), 'yyyy/MM/dd HH:mm:ss')
+      valueGetter: ({ row }: CellType) => format(new Date(row.date), 'PPpp')
     }
   ]
 

@@ -62,7 +62,7 @@ const MeAccountEditMetadataCard = (props: Props) => {
                 更新日期
               </Typography>
               <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {format(new Date(initMeUserEntity.updatedAt), 'yyyy/MM/dd HH:mm:ss')}
+                {format(new Date(initMeUserEntity.updatedAt), 'PPpp')}
               </Typography>
             </Box>
           </Grid>
@@ -80,7 +80,7 @@ const MeAccountEditMetadataCard = (props: Props) => {
                 建立日期
               </Typography>
               <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {format(new Date(initMeUserEntity.createdAt), 'yyyy/MM/dd HH:mm:ss')}
+                {format(new Date(initMeUserEntity.createdAt), 'PPpp')}
               </Typography>
             </Box>
           </Grid>

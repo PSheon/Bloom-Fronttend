@@ -62,7 +62,7 @@ const AnnouncementEditMetadataCard = (props: Props) => {
                 更新日期
               </Typography>
               <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {format(new Date(initAnnouncementEntity.updatedAt), 'yyyy/MM/dd HH:mm:ss')}
+                {format(new Date(initAnnouncementEntity.updatedAt), 'PPpp')}
               </Typography>
             </Box>
           </Grid>
@@ -80,7 +80,7 @@ const AnnouncementEditMetadataCard = (props: Props) => {
                 建立日期
               </Typography>
               <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {format(new Date(initAnnouncementEntity.createdAt), 'yyyy/MM/dd HH:mm:ss')}
+                {format(new Date(initAnnouncementEntity.createdAt), 'PPpp')}
               </Typography>
             </Box>
           </Grid>
