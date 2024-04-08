@@ -43,42 +43,14 @@ const MeAccountEditRoleCard = (props: Props) => {
                 color: `${userRoleAttributes.color}.main`
               }}
             >
-              {initMeUserEntity.role!.name}
+              {userRoleAttributes.displayName}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Box sx={{ display: 'flex', mb: 2.5, alignItems: 'center', '& svg': { mr: 2, color: 'text.secondary' } }}>
               <Icon icon='mdi:circle' fontSize='0.625rem' />
               <Typography component='span' sx={{ fontSize: '0.875rem' }}>
-                待加入權限說明
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                mt: 2.5,
-                display: 'flex',
-                mb: 2.5,
-                alignItems: 'center',
-                '& svg': { mr: 2, color: 'text.secondary' }
-              }}
-            >
-              <Icon icon='mdi:circle' fontSize='0.625rem' />
-              <Typography component='span' sx={{ fontSize: '0.875rem' }}>
-                待加入權限說明
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                mt: 2.5,
-                display: 'flex',
-                mb: 2.5,
-                alignItems: 'center',
-                '& svg': { mr: 2, color: 'text.secondary' }
-              }}
-            >
-              <Icon icon='mdi:circle' fontSize='0.625rem' />
-              <Typography component='span' sx={{ fontSize: '0.875rem' }}>
-                待加入權限說明
+                {userRoleAttributes.description}
               </Typography>
             </Box>
           </Grid>
