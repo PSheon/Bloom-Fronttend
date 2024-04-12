@@ -37,9 +37,9 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'manager-page'
     },
     {
-      title: 'Management.Projects',
-      icon: 'mdi:newspaper-variant-multiple-outline',
-      path: '/management/project/list',
+      title: 'Management.Funds',
+      icon: 'ant-design:fund-projection-screen-outlined',
+      path: '/management/fund/list',
       action: 'read',
       subject: 'manager-page'
     },
@@ -78,10 +78,22 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'Review.Dashboard',
-      icon: 'mdi:chart-pie-outline',
+      icon: 'mdi:newspaper-variant-outline',
       path: '/review/dashboard',
       action: 'read',
       subject: 'asset-manager-page'
+    },
+    {
+      sectionTitle: 'Public',
+      action: 'read',
+      subject: 'user-page'
+    },
+    {
+      title: 'Public.Funds & Strategies',
+      path: '/fund/list',
+      icon: 'mdi:strategy',
+      action: 'read',
+      subject: 'user-page'
     },
     {
       sectionTitle: 'Me',
@@ -89,16 +101,9 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'user-page'
     },
     {
-      title: 'Me.Dashboard',
-      icon: 'mdi:home-outline',
-      path: '/dashboard',
-      action: 'read',
-      subject: 'user-page'
-    },
-    {
-      title: 'Me.Request Sheet',
-      icon: 'mdi:newspaper-variant-outline',
-      path: '/request-sheet/list',
+      title: 'Me.Portfolio',
+      icon: 'mdi:chart-pie-outline',
+      path: '/portfolio',
       action: 'read',
       subject: 'user-page'
     },
