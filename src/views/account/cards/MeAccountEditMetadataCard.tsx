@@ -6,10 +6,10 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
 
-// ** Third Party Components
+// ** Third-Party Components
 import { format } from 'date-fns'
 
-// ** Types
+// ** Type Imports
 import { UserDataType } from 'src/context/types'
 
 interface Props {

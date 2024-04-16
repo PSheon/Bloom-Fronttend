@@ -4,19 +4,19 @@ import Box, { BoxProps } from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
 
+// ** Custom Component Imports
+import AvatarUploader from 'src/views/shared/avatar-uploader'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
+// ** API Imports
 import { useUpdateMeOneMutation } from 'src/store/api/management/user'
 
-// ** Component Imports
-import AvatarUploader from 'src/views/shared/avatar-uploader'
-
-// ** Utils Import
+// ** Util Imports
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { UserDataType } from 'src/context/types'
 
 // ** Styled Preview Box

@@ -16,16 +16,16 @@ import InputAdornment from '@mui/material/InputAdornment'
 import FormHelperText from '@mui/material/FormHelperText'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { AxiosError } from 'axios'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Hooks
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
 
 interface PasswordVisibilityState {

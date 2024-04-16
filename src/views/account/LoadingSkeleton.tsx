@@ -10,11 +10,11 @@ import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
+// ** Custom Component Imports
+import AccountBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Styled Component
-import AccountBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 // ** Styled Tab component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({

@@ -21,24 +21,24 @@ import InputAdornment from '@mui/material/InputAdornment'
 import DialogContentText from '@mui/material/DialogContentText'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Components
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Styled Component
-import MeAccountAvatarPreviewBox from 'src/views/account/boxes/MeAccountAvatarPreviewBox'
-
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
-// ** Api Imports
+// ** Custom Component Imports
+import MeAccountAvatarPreviewBox from 'src/views/account/boxes/MeAccountAvatarPreviewBox'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
 import { useUpdateMeOneMutation } from 'src/store/api/management/user'
 
-// ** Types
+// ** Type Imports
 import { UserDataType } from 'src/context/types'
 
 const schema = yup.object().shape({

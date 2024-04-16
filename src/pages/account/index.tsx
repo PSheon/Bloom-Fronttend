@@ -1,10 +1,10 @@
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** Api Imports
+// ** API Imports
 import { useFindMeOneQuery } from 'src/store/api/management/user'
 
-// ** Styled Component
+// ** Custom Component Imports
 import AccountLoadingSkeleton from 'src/views/account/LoadingSkeleton'
 import AccountSection from 'src/views/account'
 

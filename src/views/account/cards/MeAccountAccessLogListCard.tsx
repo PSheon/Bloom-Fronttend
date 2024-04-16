@@ -7,20 +7,22 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+
+// ** Custom Component Imports
+import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
-
-// ** Utils Import
-import { format } from 'date-fns'
-
-// ** Api Imports
+// ** API Imports
 import { useFindMeQuery } from 'src/store/api/management/accessLog'
 
-// ** Types Imports
+// ** Util Imports
+import { format } from 'date-fns'
+
+// ** Type Imports
 import { AccessLogType } from 'src/types/api/accessLogTypes'
 import { ThemeColor } from 'src/@core/layouts/types'
 

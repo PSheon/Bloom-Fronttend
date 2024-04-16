@@ -2,22 +2,22 @@
 import { SyntheticEvent, useState } from 'react'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
-import { styled } from '@mui/material/styles'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Demo Components Imports
+// ** Custom Component Imports
 import MeAccountActivityLogListCard from 'src/views/account/cards/MeAccountActivityLogListCard'
 import MeAccountChangePasswordCard from 'src/views/account/cards/MeAccountChangePasswordCard'
 import MeAccountAccessLogListCard from 'src/views/account/cards/MeAccountAccessLogListCard'
 import MeAccountDangerZoneCard from 'src/views/account/cards/MeAccountDangerZoneCard'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 // ** Styled Tab component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
