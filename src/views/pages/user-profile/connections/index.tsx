@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
@@ -10,15 +10,15 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
+// ** Core Components Imports
+import CustomChip from 'src/@core/components/mui/chip'
+import OptionsMenu from 'src/@core/components/option-menu'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { ConnectionsTabType } from 'src/@fake-db/types'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import OptionsMenu from 'src/@core/components/option-menu'
 
 const Connections = ({ data }: { data: ConnectionsTabType[] }) => {
   return (

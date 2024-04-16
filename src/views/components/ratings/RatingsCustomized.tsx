@@ -30,6 +30,7 @@ const customIcons: CustomIcons = {
 }
 
 const IconContainer = (props: IconContainerProps) => {
+  // ** Props
   const { value } = props
 
   return (

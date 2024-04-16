@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
@@ -16,16 +16,16 @@ import LinearProgress from '@mui/material/LinearProgress'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
-import { ProjectsTabType } from 'src/@fake-db/types'
-
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
+
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
+
+// ** Type Imports
+import { ProjectsTabType } from 'src/@fake-db/types'
 
 const ProjectAvatar = ({ project }: { project: ProjectsTabType }) => {
   const { title, avatar, avatarColor = 'primary' } = project

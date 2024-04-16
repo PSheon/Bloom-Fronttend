@@ -10,13 +10,13 @@ import IconButton from '@mui/material/IconButton'
 import Icon from 'src/@core/components/icon'
 
 const SnackbarSimple = () => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
+  // ** Logics
   const handleClick = () => {
     setOpen(true)
   }
-
   const handleClose = (event: Event | SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return

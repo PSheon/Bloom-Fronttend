@@ -1,7 +1,7 @@
-// ** React Import
+// ** React Imports
 import { useEffect, useRef } from 'react'
 
-// ** Full Calendar & it's Plugins
+// ** Third-Party Imports
 import FullCalendar from '@fullcalendar/react'
 import listPlugin from '@fullcalendar/list'
 import dayGridPlugin from '@fullcalendar/daygrid'
@@ -9,10 +9,10 @@ import timeGridPlugin from '@fullcalendar/timegrid'
 import bootstrap5Plugin from '@fullcalendar/bootstrap5'
 import interactionPlugin from '@fullcalendar/interaction'
 
-// ** Types
+// ** Type Imports
 import { CalendarType } from 'src/types/apps/calendarTypes'
 
-// ** Third Party Style Import
+// ** Style Imports
 import 'bootstrap-icons/font/bootstrap-icons.css'
 
 const blankEvent = {

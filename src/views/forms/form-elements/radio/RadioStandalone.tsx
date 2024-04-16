@@ -5,9 +5,10 @@ import { ChangeEvent, useState } from 'react'
 import Radio from '@mui/material/Radio'
 
 const RadioStandalone = () => {
-  // ** State
+  // ** States
   const [selectedValue, setSelectedValue] = useState<string>('a')
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setSelectedValue(event.target.value)
   }

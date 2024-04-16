@@ -6,9 +6,10 @@ import Typography from '@mui/material/Typography'
 import Pagination from '@mui/material/Pagination'
 
 const PaginationControlled = () => {
-  // ** State
+  // ** States
   const [page, setPage] = useState<number>(1)
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<unknown>, value: number) => {
     setPage(value)
   }

@@ -8,7 +8,7 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import InputAdornment from '@mui/material/InputAdornment'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import format from 'date-fns/format'
 import { Line } from 'react-chartjs-2'
 import DatePicker from 'react-datepicker'
@@ -17,7 +17,7 @@ import { ChartData, ChartOptions } from 'chart.js'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 interface AreaProps {
@@ -43,6 +43,7 @@ const ChartjsAreaChart = (props: AreaProps) => {
   const [endDate, setEndDate] = useState<DateType>(null)
   const [startDate, setStartDate] = useState<DateType>(null)
 
+  // ** Vars
   const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,

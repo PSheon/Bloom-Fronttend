@@ -12,19 +12,19 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Skeleton from '@mui/material/Skeleton'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-// ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
-
-// ** Hooks
+// ** Hook Imports
 import { useInterval } from 'src/hooks/useInterval'
 
-// ** Types
+// ** Util Imports
+import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
 import { RootState } from 'src/store'
 
 interface Props {
@@ -43,7 +43,7 @@ const DriveUsageRadialBarChartCard = (props: Props) => {
   // ** Props
   const { keepElements = 5, checkInterval = 5_000 } = props
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
   const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
   const socket = useSelector((state: RootState) => state.dashboard.socket)

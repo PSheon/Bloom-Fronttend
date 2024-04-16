@@ -27,19 +27,19 @@ import CardContent, { CardContentProps } from '@mui/material/CardContent'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 import DatePicker from 'react-datepicker'
 
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-import { SingleInvoiceType, InvoiceClientType } from 'src/types/apps/invoiceTypes'
-
 // ** Custom Component Imports
 import Repeater from 'src/@core/components/repeater'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
+import { SingleInvoiceType, InvoiceClientType } from 'src/types/apps/invoiceTypes'
 
 interface Props {
   data: SingleInvoiceType
@@ -120,7 +120,7 @@ const EditCard = ({ data }: Props) => {
   const [dueDate, setDueDate] = useState<DateType>(data ? new Date(data.invoice.dueDate) : new Date())
   const [issueDate, setIssueDate] = useState<DateType>(data ? new Date(data.invoice.issuedDate) : new Date())
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   useEffect(() => {

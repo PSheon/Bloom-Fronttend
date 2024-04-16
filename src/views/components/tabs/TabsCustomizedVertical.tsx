@@ -10,7 +10,7 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import MuiTabList, { TabListProps } from '@mui/lab/TabList'
 
-// Styled TabList component
+// ** Styled TabList component
 const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
   minWidth: 110,
   borderRight: 0,
@@ -32,9 +32,10 @@ const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
 }))
 
 const TabsCustomizedVertical = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('1')
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }

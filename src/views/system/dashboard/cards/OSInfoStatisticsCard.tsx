@@ -14,16 +14,16 @@ import CardContent from '@mui/material/CardContent'
 import IconButton from '@mui/material/IconButton'
 import Skeleton from '@mui/material/Skeleton'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Hooks
+// ** Hook Imports
 import { useTimeout } from 'src/hooks/useTimeout'
 
-// ** Types
+// ** Type Imports
 import { RootState } from 'src/store'
 
 interface OSInfo {
@@ -34,7 +34,7 @@ interface OSInfo {
 }
 
 const OSInfoStatisticsCard = () => {
-  // ** Hook
+  // ** Hooks
   const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
   const socket = useSelector((state: RootState) => state.dashboard.socket)
 

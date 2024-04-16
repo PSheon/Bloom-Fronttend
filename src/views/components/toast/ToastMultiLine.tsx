@@ -3,13 +3,14 @@ import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
+// ** Third-Party Imports
+import toast from 'react-hot-toast'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Components
-import toast from 'react-hot-toast'
-
 const ToastMultiLine = () => {
+  // ** Logics
   const handleClick = () => {
     return toast(
       "This toast is super big. I don't think anyone could eat it in one bite. It's larger than you expected. You eat it but it does not seem to get smaller."

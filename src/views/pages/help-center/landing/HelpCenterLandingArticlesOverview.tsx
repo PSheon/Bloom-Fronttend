@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -7,12 +7,13 @@ import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
-// ** Types
+// ** Type Imports
 import { HelpCenterArticlesOverviewType } from 'src/@fake-db/types'
 
 type Props = { articles: HelpCenterArticlesOverviewType[] }
 
 const HelpCenterLandingArticlesOverview = (props: Props) => {
+  // ** Props
   const { articles } = props
 
   const renderArticles = () => {

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 const ActivityTimelineNoRecords = () => {

@@ -8,20 +8,22 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import { DataGrid, GridColDef, GridRenderCellParams, GridSortModel } from '@mui/x-data-grid'
 
-// ** ThirdParty Components
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Custom Component Imports
 import ServerSideToolbar from 'src/views/table/data-grid/ServerSideToolbar'
 
-// ** Types Imports
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
+
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 import { DataGridRowType } from 'src/@fake-db/types'
-
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
 
 interface StatusObj {
   [key: number]: {

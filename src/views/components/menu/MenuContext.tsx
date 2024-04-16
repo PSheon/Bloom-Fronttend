@@ -18,9 +18,10 @@ const initialState = {
 }
 
 const MenuContext = () => {
-  // ** State
+  // ** States
   const [state, setState] = useState<State>(initialState)
 
+  // ** Logics
   const handleClick = (event: MouseEvent<HTMLDivElement>) => {
     event.preventDefault()
     setState({
@@ -28,7 +29,6 @@ const MenuContext = () => {
       mouseY: event.clientY - 4
     })
   }
-
   const handleClose = () => {
     setState(initialState)
   }

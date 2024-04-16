@@ -13,7 +13,7 @@ import AccordionDetails from '@mui/material/AccordionDetails'
 import Icon from 'src/@core/components/icon'
 
 const AccordionActions = () => {
-  // ** State
+  // ** States
   const [expanded, setExpanded] = useState<string | false>(false)
 
   const handleChange = (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {

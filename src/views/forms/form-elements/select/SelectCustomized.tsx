@@ -9,7 +9,7 @@ import InputLabel from '@mui/material/InputLabel'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MuiFormControl, { FormControlProps } from '@mui/material/FormControl'
 
-// Styled FormControl component
+// ** Styled FormControl component
 const FormControl = styled(MuiFormControl)<FormControlProps>(({ theme }) => ({
   '& .MuiFormLabel-root.Mui-focused': {
     color: '#80BDFF'
@@ -53,9 +53,10 @@ const FormControl = styled(MuiFormControl)<FormControlProps>(({ theme }) => ({
 }))
 
 const SelectCustomized = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('')
 
+  // ** Logics
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string)
   }

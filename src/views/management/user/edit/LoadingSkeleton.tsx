@@ -11,13 +11,13 @@ import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
+// ** Custom Component Imports
+import UserEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Styled Component
-import UserEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-
-// ** Styled Tab component
+// ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
   minHeight: 48,
   flexDirection: 'row',

@@ -13,13 +13,13 @@ import MuiTabList, { TabListProps } from '@mui/lab/TabList'
 import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Types
+// ** Type Imports
 import { FaqType } from 'src/@fake-db/types'
 
 interface Props {
@@ -28,7 +28,7 @@ interface Props {
   handleChange: (event: SyntheticEvent, newValue: string) => void
 }
 
-// Styled TabList component
+// ** Styled TabList component
 const MuiBox = styled(Box)<BoxProps>(({ theme }) => ({
   display: 'flex',
   marginTop: theme.spacing(8),

@@ -6,15 +6,17 @@ import Box from '@mui/material/Box'
 import Radio from '@mui/material/Radio'
 import Typography from '@mui/material/Typography'
 
+// ** Custom Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Avatar Component
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
 const TabFramework = () => {
+  // ** States
   const [value, setValue] = useState<string>('react')
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }

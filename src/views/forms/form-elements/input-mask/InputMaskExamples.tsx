@@ -2,7 +2,7 @@
 import Grid from '@mui/material/Grid'
 import InputLabel from '@mui/material/InputLabel'
 
-// ** CleaveJS Imports
+// ** Third-Party Imports
 import Cleave from 'cleave.js/react'
 import 'cleave.js/dist/addons/cleave-phone.us'
 

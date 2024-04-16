@@ -17,7 +17,7 @@ const marks = [
   }
 ]
 
-// Styled Slider component
+// ** Styled Slider component
 const Slider = styled(MuiSlider)<SliderProps>(({ theme }) => ({
   height: 2,
   padding: '15px 0',

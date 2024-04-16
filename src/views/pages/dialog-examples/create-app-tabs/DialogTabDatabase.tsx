@@ -7,15 +7,17 @@ import Radio from '@mui/material/Radio'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Avatar Component
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
 const TabDatabase = () => {
+  // ** States
   const [value, setValue] = useState<string>('firebase')
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }

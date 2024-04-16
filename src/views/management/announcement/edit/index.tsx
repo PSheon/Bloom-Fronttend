@@ -1,14 +1,14 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Types
-import { AnnouncementType } from 'src/types/api/announcementTypes'
-
-// ** Styled Component
+// ** Custom Component Imports
 import AnnouncementEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import AnnouncementEditProfileCard from 'src/views/management/announcement/edit/cards/AnnouncementEditProfileCard'
 import AnnouncementEditMetadataCard from 'src/views/management/announcement/edit/cards/AnnouncementEditMetadataCard'
 import AnnouncementEditTabContext from 'src/views/management/announcement/edit/tabs/AnnouncementEditTabContext'
+
+// ** Type Imports
+import { AnnouncementType } from 'src/types/api/announcementTypes'
 
 interface Props {
   initAnnouncementEntity: AnnouncementType

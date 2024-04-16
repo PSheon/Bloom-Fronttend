@@ -1,7 +1,7 @@
 // ** React Imports
 import { useEffect, useState } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports

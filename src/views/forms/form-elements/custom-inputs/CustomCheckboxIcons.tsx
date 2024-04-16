@@ -4,11 +4,11 @@ import { useState } from 'react'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Type Import
-import { CustomCheckboxIconsData, CustomCheckboxIconsProps } from 'src/@core/components/custom-checkbox/types'
-
-// ** Demo Components Imports
+// ** Core Component Imports
 import CustomCheckboxIcons from 'src/@core/components/custom-checkbox/icons'
+
+// ** Type Imports
+import { CustomCheckboxIconsData, CustomCheckboxIconsProps } from 'src/@core/components/custom-checkbox/types'
 
 interface IconType {
   icon: CustomCheckboxIconsProps['icon']
@@ -43,9 +43,10 @@ const icons: IconType[] = [
 const CustomCheckboxWithIcons = () => {
   const initialSelected: string[] = data.filter(item => item.isSelected).map(item => item.value)
 
-  // ** State
+  // ** States
   const [selected, setSelected] = useState<string[]>(initialSelected)
 
+  // ** Logics
   const handleChange = (value: string) => {
     if (selected.includes(value)) {
       const updatedArr = selected.filter(item => item !== value)

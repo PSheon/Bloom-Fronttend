@@ -6,19 +6,19 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
+// ** Custom Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import PerfectScrollbarComponent, { ScrollBarProps } from 'react-perfect-scrollbar'
 
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Utils Imports
+// ** Util Imports
 import { getInitials } from 'src/@core/utils/get-initials'
 
-// ** Types Imports
+// ** Type Imports
 import {
   ChatLogType,
   MessageType,
@@ -36,7 +36,7 @@ const ChatLog = (props: ChatLogType) => {
   // ** Props
   const { data, hidden } = props
 
-  // ** Ref
+  // ** Refs
   const chatArea = useRef(null)
 
   // ** Scroll to chat bottom

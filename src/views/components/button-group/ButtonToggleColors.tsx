@@ -6,9 +6,10 @@ import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
 const ButtonToggleColors = () => {
-  // ** State
+  // ** States
   const [alignment, setAlignment] = useState<string | null>('web')
 
+  // ** Logics
   const handleAlignment = (event: MouseEvent<HTMLElement>, newAlignment: string | null) => {
     setAlignment(newAlignment)
   }

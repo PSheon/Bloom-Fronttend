@@ -13,7 +13,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// Styled component for a wrapper
+// ** Styled component for a wrapper
 const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',

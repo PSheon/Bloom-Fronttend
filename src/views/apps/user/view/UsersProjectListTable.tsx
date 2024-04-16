@@ -12,7 +12,7 @@ import CardContent from '@mui/material/CardContent'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import LinearProgress from '@mui/material/LinearProgress'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
 // ** Type Imports
@@ -80,7 +80,7 @@ const columns: GridColDef[] = [
 ]
 
 const InvoiceListTable = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('')
   const [data, setData] = useState<ProjectListDataType[]>([])
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 7 })

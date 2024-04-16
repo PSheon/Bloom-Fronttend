@@ -1,4 +1,4 @@
-// ** React Import
+// ** React Imports
 import { useState } from 'react'
 
 // ** MUI Imports
@@ -8,18 +8,18 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import { DataGrid, GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Types Imports
-import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Utils Import
+// ** Util Imports
 import { getInitials } from 'src/@core/utils/get-initials'
 
-// ** Data Import
+// ** Constant Imports
 import { rows } from 'src/@fake-db/table/static-data'
+
+// ** Type Imports
+import { ThemeColor } from 'src/@core/layouts/types'
 
 interface StatusObj {
   [key: number]: {
@@ -139,7 +139,7 @@ const columns: GridColDef[] = [
 ]
 
 const TableSelection = () => {
-  // ** State
+  // ** States
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 7 })
 
   return (

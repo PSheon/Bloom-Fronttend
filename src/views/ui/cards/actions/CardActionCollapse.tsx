@@ -14,7 +14,7 @@ import CardContent from '@mui/material/CardContent'
 import Icon from 'src/@core/components/icon'
 
 const CardActionCollapse = () => {
-  // ** State
+  // ** States
   const [collapsed, setCollapsed] = useState<boolean>(true)
 
   return (

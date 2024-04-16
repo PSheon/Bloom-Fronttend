@@ -6,28 +6,28 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
+
+// ** Core Component Imports
+import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import ReactApexcharts from 'src/@core/components/react-apexcharts'
-
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-const series = [
-  {
-    data: [70, 118, 92, 49, 19, 49, 23, 82, 65, 23, 49, 65, 65]
-  }
-]
-
 const CardStatisticsLiveVisitors = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
+  const series = [
+    {
+      data: [70, 118, 92, 49, 19, 49, 23, 82, 65, 23, 49, 65, 65]
+    }
+  ]
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

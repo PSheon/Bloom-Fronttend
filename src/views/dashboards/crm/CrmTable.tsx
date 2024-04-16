@@ -1,4 +1,4 @@
-// ** React Import
+// ** React Imports
 import { ReactElement } from 'react'
 
 // ** MUI Imports
@@ -7,18 +7,18 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Types Imports
-import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Utils Import
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
 import { getInitials } from 'src/@core/utils/get-initials'
+
+// ** Type Imports
+import { ThemeColor } from 'src/@core/layouts/types'
 
 interface TableBodyRowType {
   id: number

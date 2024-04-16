@@ -12,15 +12,15 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
 
 const DialogRespoFullScreen = () => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
   // ** Hooks
   const theme = useTheme()
   const fullScreen = useMediaQuery(theme.breakpoints.down('sm'))
 
+  // ** Logics
   const handleClickOpen = () => setOpen(true)
-
   const handleClose = () => setOpen(false)
 
   return (

@@ -12,11 +12,11 @@ import Fade, { FadeProps } from '@mui/material/Fade'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 
+// ** Custom Component Imports
+import MediaAssetSelectorList from 'src/views/shared/media-asset-selector/list'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Styled Component
-import MediaAssetSelectorList from 'src/views/shared/media-asset-selector/list'
 
 const Transition = forwardRef(function Transition(
   props: FadeProps & { children?: ReactElement<any, any> },

@@ -9,15 +9,15 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+import OptionsMenu from 'src/@core/components/option-menu'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
-import OptionsMenu from 'src/@core/components/option-menu'
 
 interface SaleDataType {
   stats: string
@@ -26,28 +26,29 @@ interface SaleDataType {
   icon: ReactElement
 }
 
-const salesData: SaleDataType[] = [
-  {
-    stats: '8,458',
-    color: 'primary',
-    title: 'Customers',
-    icon: <Icon icon='mdi:account-outline' />
-  },
-  {
-    stats: '$28.5k',
-    color: 'warning',
-    title: 'Total Profit',
-    icon: <Icon icon='mdi:poll' />
-  },
-  {
-    color: 'info',
-    stats: '2,450k',
-    title: 'Transactions',
-    icon: <Icon icon='mdi:trending-up' />
-  }
-]
-
 const renderStats = () => {
+  // ** Vars
+  const salesData: SaleDataType[] = [
+    {
+      stats: '8,458',
+      color: 'primary',
+      title: 'Customers',
+      icon: <Icon icon='mdi:account-outline' />
+    },
+    {
+      stats: '$28.5k',
+      color: 'warning',
+      title: 'Total Profit',
+      icon: <Icon icon='mdi:poll' />
+    },
+    {
+      color: 'info',
+      stats: '2,450k',
+      title: 'Transactions',
+      icon: <Icon icon='mdi:trending-up' />
+    }
+  ]
+
   return salesData.map((sale: SaleDataType, index: number) => (
     <Grid item xs={12} sm={4} key={index}>
       <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>

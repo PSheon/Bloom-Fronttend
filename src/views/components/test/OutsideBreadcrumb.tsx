@@ -1,7 +1,7 @@
 // ** React Imports
 import { MouseEvent } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -13,6 +13,7 @@ import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Icon from 'src/@core/components/icon'
 
 const OutsideBreadcrumb = () => {
+  // ** Logics
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     event.preventDefault()
     console.info('You clicked a breadcrumb.')

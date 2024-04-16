@@ -16,7 +16,7 @@ import FormHelperText from '@mui/material/FormHelperText'
 import InputAdornment from '@mui/material/InputAdornment'
 import CircularProgress from '@mui/material/CircularProgress'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import toast from 'react-hot-toast'
 import { useForm, Controller } from 'react-hook-form'
 
@@ -50,17 +50,17 @@ const FormValidationAsync = () => {
     showPassword: false
   })
 
-  // ** Hook
+  // ** Hooks
   const {
     control,
     handleSubmit,
     formState: { errors }
   } = useForm<FormInputs>({ defaultValues })
 
+  // ** Logics
   const handleClickShowPassword = () => {
     setState({ ...state, showPassword: !state.showPassword })
   }
-
   const onSubmit = async () => {
     setLoading(true)
     const sleep = (ms: number) => new Promise(resolve => setTimeout(resolve, ms))

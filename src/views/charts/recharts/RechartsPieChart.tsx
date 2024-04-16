@@ -5,7 +5,7 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { Tooltip, PieChart, Pie, Cell, ResponsiveContainer } from 'recharts'
 
 // ** Icon Imports

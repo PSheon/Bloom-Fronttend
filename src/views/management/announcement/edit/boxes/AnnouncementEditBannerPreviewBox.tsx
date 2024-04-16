@@ -4,23 +4,23 @@ import Box, { BoxProps } from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
 
+// ** Custom Component Imports
+import MediaAssetSelector from 'src/views/shared/media-asset-selector'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/announcement'
 
-// ** Component Imports
-import MediaAssetSelector from 'src/views/shared/media-asset-selector'
-
-// ** Utils Import
+// ** Util Imports
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { AnnouncementType } from 'src/types/api/announcementTypes'
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
-// ** Styled Preview Box
+// ** Styled Previews
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   position: 'relative',

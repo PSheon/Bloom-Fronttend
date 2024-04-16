@@ -9,13 +9,13 @@ import TableCell from '@mui/material/TableCell'
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
 
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Types
+// ** Type Imports
 import { PricingDataType, PricingTableRowType } from 'src/@core/components/plan-details/types'
 
 interface Props {

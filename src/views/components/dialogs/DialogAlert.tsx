@@ -10,11 +10,11 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContentText from '@mui/material/DialogContentText'
 
 const DialogAlert = () => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
+  // ** Logics
   const handleClickOpen = () => setOpen(true)
-
   const handleClose = () => setOpen(false)
 
   return (

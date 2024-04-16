@@ -1,7 +1,7 @@
 // ** React Imports
 import { useEffect, useState } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -17,14 +17,14 @@ import Box, { BoxProps } from '@mui/material/Box'
 import { styled, useTheme } from '@mui/material/styles'
 import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
 
-// ** Types
-import { SingleInvoiceType, InvoiceLayoutProps } from 'src/types/apps/invoiceTypes'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Configs
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import { SingleInvoiceType, InvoiceLayoutProps } from 'src/types/apps/invoiceTypes'
 
 const CalcWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   display: 'flex',
@@ -41,7 +41,7 @@ const MUITableCell = styled(TableCell)<TableCellBaseProps>(({ theme }) => ({
 }))
 
 const InvoicePrint = ({ id }: InvoiceLayoutProps) => {
-  // ** State
+  // ** States
   const [error, setError] = useState<boolean>(false)
   const [data, setData] = useState<null | SingleInvoiceType>(null)
 

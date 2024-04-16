@@ -7,7 +7,7 @@ import Rating from '@mui/material/Rating'
 import Typography from '@mui/material/Typography'
 
 const RatingsBasic = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<number | null>(2)
 
   return (

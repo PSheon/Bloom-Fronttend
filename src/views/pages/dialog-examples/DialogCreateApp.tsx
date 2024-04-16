@@ -17,17 +17,17 @@ import CardContent from '@mui/material/CardContent'
 import Fade, { FadeProps } from '@mui/material/Fade'
 import DialogContent from '@mui/material/DialogContent'
 
+// ** Custom Component Imports
+import DialogTabDetails from 'src/views/pages/dialog-examples/create-app-tabs/DialogTabDetails'
+import DialogTabBilling from 'src/views/pages/dialog-examples/create-app-tabs/DialogTabBilling'
+import DialogTabDatabase from 'src/views/pages/dialog-examples/create-app-tabs/DialogTabDatabase'
+import DialogTabFramework from 'src/views/pages/dialog-examples/create-app-tabs/DialogTabFramework'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 // ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Tab Content Imports
-import DialogTabDetails from 'src/views/pages/dialog-examples/create-app-tabs/DialogTabDetails'
-import DialogTabBilling from 'src/views/pages/dialog-examples/create-app-tabs/DialogTabBilling'
-import DialogTabDatabase from 'src/views/pages/dialog-examples/create-app-tabs/DialogTabDatabase'
-import DialogTabFramework from 'src/views/pages/dialog-examples/create-app-tabs/DialogTabFramework'
 
 interface TabLabelProps {
   title: string
@@ -76,10 +76,10 @@ const DialogCreateApp = () => {
   const [show, setShow] = useState<boolean>(false)
   const [activeTab, setActiveTab] = useState<string>('detailsTab')
 
-  // ** Hook
+  // ** Hooks
   const { settings } = useSettings()
 
-  // ** Var
+  // ** Vars
   const { direction } = settings
 
   const handleClose = () => {

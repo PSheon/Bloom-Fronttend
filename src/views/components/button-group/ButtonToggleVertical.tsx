@@ -9,9 +9,10 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import Icon from 'src/@core/components/icon'
 
 const ButtonToggleVertical = () => {
-  // ** State
+  // ** States
   const [view, setView] = useState<string | null>('left')
 
+  // ** Logics
   const handleView = (event: MouseEvent<HTMLElement>, newView: string | null) => {
     setView(newView)
   }

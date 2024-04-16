@@ -117,7 +117,7 @@ export const SettingsContext = createContext<SettingsContextValue>({
 })
 
 export const SettingsProvider = ({ children, pageSettings }: SettingsProviderProps) => {
-  // ** State
+  // ** States
   const [settings, setSettings] = useState<Settings>({ ...initialSettings })
 
   useEffect(() => {

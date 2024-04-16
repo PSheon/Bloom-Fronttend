@@ -10,13 +10,13 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { ProfileHeaderType } from 'src/@fake-db/types'
 
 const ProfilePicture = styled('img')(({ theme }) => ({
@@ -30,9 +30,10 @@ const ProfilePicture = styled('img')(({ theme }) => ({
 }))
 
 const UserProfileHeader = () => {
-  // ** State
+  // ** States
   const [data, setData] = useState<ProfileHeaderType | null>(null)
 
+  // ** Side Effects
   useEffect(() => {
     axios.get('/pages/profile-header').then(response => {
       setData(response.data)

@@ -13,7 +13,7 @@ import MuiTab, { TabProps } from '@mui/material/Tab'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Styled Component
+// ** Custom Component Imports
 import AnnouncementEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 // ** Styled Tab component

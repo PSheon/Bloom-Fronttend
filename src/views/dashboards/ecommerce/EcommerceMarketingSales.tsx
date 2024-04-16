@@ -12,15 +12,15 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import clsx from 'clsx'
 import { useKeenSlider } from 'keen-slider/react'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
 
 interface SwiperData {
   img: string
@@ -28,40 +28,41 @@ interface SwiperData {
   details: { [key: string]: string }
 }
 
-const data: SwiperData[] = [
-  {
-    title: 'Marketing Expense',
-    img: '/images/cards/marketing-expense-logo.png',
-    details: {
-      Operating: '5k',
-      Financial: '2k',
-      COGF: '6k',
-      Expense: '1k'
-    }
-  },
-  {
-    title: 'Accounting',
-    img: '/images/cards/accounting-logo.png',
-    details: {
-      Billing: '18',
-      Sales: '28',
-      Leads: '30',
-      Impression: '80'
-    }
-  },
-  {
-    title: 'Sales Overview',
-    img: '/images/cards/sales-overview-logo.png',
-    details: {
-      Open: '68',
-      Converted: '52',
-      Lost: '04',
-      Quotations: '12'
-    }
-  }
-]
-
 const Slides = () => {
+  // ** Vars
+  const data: SwiperData[] = [
+    {
+      title: 'Marketing Expense',
+      img: '/images/cards/marketing-expense-logo.png',
+      details: {
+        Operating: '5k',
+        Financial: '2k',
+        COGF: '6k',
+        Expense: '1k'
+      }
+    },
+    {
+      title: 'Accounting',
+      img: '/images/cards/accounting-logo.png',
+      details: {
+        Billing: '18',
+        Sales: '28',
+        Leads: '30',
+        Impression: '80'
+      }
+    },
+    {
+      title: 'Sales Overview',
+      img: '/images/cards/sales-overview-logo.png',
+      details: {
+        Open: '68',
+        Converted: '52',
+        Lost: '04',
+        Quotations: '12'
+      }
+    }
+  ]
+
   return (
     <>
       {data.map((slide: SwiperData, index: number) => {
@@ -117,7 +118,7 @@ const EcommerceMarketingSales = () => {
   const [loaded, setLoaded] = useState<boolean>(false)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,

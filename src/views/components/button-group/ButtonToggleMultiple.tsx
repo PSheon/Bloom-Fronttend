@@ -9,9 +9,10 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import Icon from 'src/@core/components/icon'
 
 const ButtonToggleMultiple = () => {
-  // ** State
+  // ** States
   const [formats, setFormats] = useState<string[]>(() => ['bold', 'italic'])
 
+  // ** Logics
   const handleFormat = (event: MouseEvent<HTMLElement>, newFormats: string[]) => {
     setFormats(newFormats)
   }

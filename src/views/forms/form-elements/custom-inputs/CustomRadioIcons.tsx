@@ -4,11 +4,11 @@ import { ChangeEvent, useState } from 'react'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
+// ** Core Component Imports
+import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
+
 // ** Type Import
 import { CustomRadioIconsData, CustomRadioIconsProps } from 'src/@core/components/custom-radio/types'
-
-// ** Demo Components Imports
-import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
 
 interface IconType {
   icon: CustomRadioIconsProps['icon']
@@ -44,9 +44,10 @@ const CustomRadioWithIcons = () => {
   const initialSelected: string = data.filter(item => item.isSelected)[data.filter(item => item.isSelected).length - 1]
     .value
 
-  // ** State
+  // ** States
   const [selected, setSelected] = useState<string>(initialSelected)
 
+  // ** Logics
   const handleChange = (prop: string | ChangeEvent<HTMLInputElement>) => {
     if (typeof prop === 'string') {
       setSelected(prop)

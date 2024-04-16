@@ -15,14 +15,14 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import format from 'date-fns/format'
 import DatePicker from 'react-datepicker'
 
-// ** Types
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+
+// ** Type Imports
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 interface PickerProps {
@@ -50,18 +50,18 @@ const CustomInput = forwardRef((props: PickerProps, ref) => {
 })
 
 const StepDealDetails = () => {
-  // ** State
+  // ** States
   const [endDate, setEndDate] = useState<DateType>(null)
   const [startDate, setStartDate] = useState<DateType>(null)
   const [offeredItems, setOfferedItems] = useState<string[]>([])
 
+  // ** Logics
   const handleChange = (event: SelectChangeEvent<typeof offeredItems>) => {
     const {
       target: { value }
     } = event
     setOfferedItems(typeof value === 'string' ? value.split(',') : value)
   }
-
   const handleDateChange = (dates: any) => {
     const [start, end] = dates
     setStartDate(start)

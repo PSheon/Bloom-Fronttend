@@ -1,9 +1,10 @@
 // ** MUI Imports
 import Autocomplete from '@mui/material/Autocomplete'
 
-const options = ['Option 1', 'Option 2']
-
 const AutocompleteCustomInput = () => {
+  // ** Vars
+  const options = ['Option 1', 'Option 2']
+
   return (
     <Autocomplete
       options={options}

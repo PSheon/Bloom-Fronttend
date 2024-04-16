@@ -1,7 +1,7 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import CardStatsSalesMonth from 'src/views/ui/cards/statistics/CardStatsSalesMonth'
 import CardStatsTotalVisits from 'src/views/ui/cards/statistics/CardStatsTotalVisits'
 import CardStatsSalesProfit from 'src/views/ui/cards/statistics/CardStatsSalesProfit'

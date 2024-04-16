@@ -7,18 +7,18 @@ import Popover from '@mui/material/Popover'
 import Typography from '@mui/material/Typography'
 
 const OutsidePopover = () => {
-  // ** State
+  // ** States
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
+  // ** Logics
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
-
   const handleClose = () => {
     setAnchorEl(null)
   }
 
-  // ** Hook
+  // ** Vars
   const open = Boolean(anchorEl)
 
   return (

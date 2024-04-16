@@ -1,13 +1,13 @@
 // ** MUI Components
 import Grid from '@mui/material/Grid'
 
-// ** Demo Components
+// ** Custom Component Imports
 import AboutOverivew from 'src/views/pages/user-profile/profile/AboutOverivew'
 import ProjectsTable from 'src/views/pages/user-profile/profile/ProjectsTable'
 import ActivityTimeline from 'src/views/pages/user-profile/profile/ActivityTimeline'
 import ConnectionsTeams from 'src/views/pages/user-profile/profile/ConnectionsTeams'
 
-// ** Types
+// ** Type Imports
 import { ProfileTabType } from 'src/@fake-db/types'
 
 const ProfileTab = ({ data }: { data: ProfileTabType }) => {

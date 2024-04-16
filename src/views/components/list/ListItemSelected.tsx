@@ -15,9 +15,10 @@ import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 import Icon from 'src/@core/components/icon'
 
 const ListItemSelected = () => {
-  // ** State
+  // ** States
   const [selectedIndex, setSelectedIndex] = useState<number>(1)
 
+  // ** Logics
   const handleListItemClick = (index: number) => {
     setSelectedIndex(index)
   }

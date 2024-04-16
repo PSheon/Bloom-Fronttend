@@ -11,19 +11,19 @@ import AvatarGroup from '@mui/material/AvatarGroup'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import LinearProgress from '@mui/material/LinearProgress'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Types Imports
-import { ThemeColor } from 'src/@core/layouts/types'
-import { ProjectTableRowType } from 'src/@fake-db/types'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Utils Import
+// ** Util Imports
 import { getInitials } from 'src/@core/utils/get-initials'
+
+// ** Type Imports
+import { ThemeColor } from 'src/@core/layouts/types'
+import { ProjectTableRowType } from 'src/@fake-db/types'
 
 interface CellType {
   row: ProjectTableRowType
@@ -137,7 +137,7 @@ const columns: GridColDef[] = [
 ]
 
 const ProfileTable = () => {
-  // ** State
+  // ** States
   const [data, setData] = useState([])
   const [value, setValue] = useState<string>('')
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 7 })

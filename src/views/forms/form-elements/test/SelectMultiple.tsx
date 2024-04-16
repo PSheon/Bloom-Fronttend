@@ -16,7 +16,7 @@ import FormControl from '@mui/material/FormControl'
 import ListItemText from '@mui/material/ListItemText'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// Styled component for a wrapper
+// ** Styled component for a wrapper
 const Wrapper = styled('div')(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -51,14 +51,14 @@ const names = [
 ]
 
 const SelectMultiple = () => {
-  // ** State
+  // ** States
   const [personName, setPersonName] = useState<string[]>([])
   const [personNameNative, setPersonNameNative] = useState<string[]>([])
 
+  // ** Logics
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     setPersonName(event.target.value as string[])
   }
-
   const handleChangeMultipleNative = (event: ChangeEvent<HTMLSelectElement>) => {
     const { options } = event.target
     const value: string[] = []

@@ -5,19 +5,19 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 
-// ** Hook Import
-import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Demo Components Imports
+// ** Custom Component Imports
 import ThemeConfigSelectBox from 'src/views/settings/select-box/ThemeConfigSelectBox'
 import ThemeColorSelectBox from 'src/views/settings/select-box/ThemeColorSelectBox'
 
-// ** Type Import
+// ** Hook Imports
+import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
 import { Skin, Mode, ThemeColor } from 'src/@core/layouts/types'
 
 const SettingsThemingSettingCard = () => {
-  // ** Hook
+  // ** Hooks
   const { settings, saveSettings } = useSettings()
 
   // ** Vars

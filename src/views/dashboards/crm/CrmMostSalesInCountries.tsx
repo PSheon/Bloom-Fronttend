@@ -13,12 +13,12 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import TableContainer from '@mui/material/TableContainer'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import OptionsMenu from 'src/@core/components/option-menu'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 interface DataType {
   title: string
@@ -27,70 +27,71 @@ interface DataType {
   trendNumber: string
 }
 
-const data: DataType[] = [
-  {
-    sales: '18,879',
-    title: 'Australia',
-    trendNumber: '15%',
-    trend: (
-      <Box component='span' sx={{ display: 'flex', color: 'error.main' }}>
-        <Icon icon='mdi:chevron-down' />
-      </Box>
-    )
-  },
-  {
-    sales: '10,357',
-    title: 'Canada',
-    trendNumber: '85%',
-    trend: (
-      <Box component='span' sx={{ display: 'flex', color: 'success.main' }}>
-        <Icon icon='mdi:chevron-up' />
-      </Box>
-    )
-  },
-  {
-    sales: '4,860',
-    title: 'India',
-    trendNumber: '48%',
-    trend: (
-      <Box component='span' sx={{ display: 'flex', color: 'success.main' }}>
-        <Icon icon='mdi:chevron-up' />
-      </Box>
-    )
-  },
-  {
-    sales: '899',
-    title: 'US',
-    trendNumber: '16%',
-    trend: (
-      <Box component='span' sx={{ display: 'flex', color: 'error.main' }}>
-        <Icon icon='mdi:chevron-down' />
-      </Box>
-    )
-  },
-  {
-    sales: '43',
-    title: 'Japan',
-    trendNumber: '35%',
-    trend: (
-      <Box component='span' sx={{ display: 'flex', color: 'success.main' }}>
-        <Icon icon='mdi:chevron-up' />
-      </Box>
-    )
-  },
-  {
-    sales: '18',
-    title: 'Brazil',
-    trendNumber: '12%',
-    trend: (
-      <Box component='span' sx={{ display: 'flex', color: 'success.main' }}>
-        <Icon icon='mdi:chevron-up' />
-      </Box>
-    )
-  }
-]
-
 const CrmMostSalesInCountries = () => {
+  // ** Vars
+  const data: DataType[] = [
+    {
+      sales: '18,879',
+      title: 'Australia',
+      trendNumber: '15%',
+      trend: (
+        <Box component='span' sx={{ display: 'flex', color: 'error.main' }}>
+          <Icon icon='mdi:chevron-down' />
+        </Box>
+      )
+    },
+    {
+      sales: '10,357',
+      title: 'Canada',
+      trendNumber: '85%',
+      trend: (
+        <Box component='span' sx={{ display: 'flex', color: 'success.main' }}>
+          <Icon icon='mdi:chevron-up' />
+        </Box>
+      )
+    },
+    {
+      sales: '4,860',
+      title: 'India',
+      trendNumber: '48%',
+      trend: (
+        <Box component='span' sx={{ display: 'flex', color: 'success.main' }}>
+          <Icon icon='mdi:chevron-up' />
+        </Box>
+      )
+    },
+    {
+      sales: '899',
+      title: 'US',
+      trendNumber: '16%',
+      trend: (
+        <Box component='span' sx={{ display: 'flex', color: 'error.main' }}>
+          <Icon icon='mdi:chevron-down' />
+        </Box>
+      )
+    },
+    {
+      sales: '43',
+      title: 'Japan',
+      trendNumber: '35%',
+      trend: (
+        <Box component='span' sx={{ display: 'flex', color: 'success.main' }}>
+          <Icon icon='mdi:chevron-up' />
+        </Box>
+      )
+    },
+    {
+      sales: '18',
+      title: 'Brazil',
+      trendNumber: '12%',
+      trend: (
+        <Box component='span' sx={{ display: 'flex', color: 'success.main' }}>
+          <Icon icon='mdi:chevron-up' />
+        </Box>
+      )
+    }
+  ]
+
   return (
     <Card>
       <CardHeader

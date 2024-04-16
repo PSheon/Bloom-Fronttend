@@ -7,34 +7,33 @@ import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
+// ** Third-Party Imports
+import { ApexOptions } from 'apexcharts'
+
+// ** Core Component Imports
+import ReactApexcharts from 'src/@core/components/react-apexcharts'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Imports
-import { ApexOptions } from 'apexcharts'
-
-// ** Custom Components Imports
-import ReactApexcharts from 'src/@core/components/react-apexcharts'
-
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-const seriesSales = [
-  {
-    data: [0, 15, 0, 17, 5, 30]
-  }
-]
-
-const seriesProfit = [
-  {
-    data: [5, 25, 0, 30, 15, 30]
-  }
-]
-
 const CardStatsSalesProfit = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
+  const seriesSales = [
+    {
+      data: [0, 15, 0, 17, 5, 30]
+    }
+  ]
+  const seriesProfit = [
+    {
+      data: [5, 25, 0, 30, 15, 30]
+    }
+  ]
   const optionsSales: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

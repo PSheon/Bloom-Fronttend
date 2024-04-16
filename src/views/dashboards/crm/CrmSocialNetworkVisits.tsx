@@ -5,15 +5,15 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+import OptionsMenu from 'src/@core/components/option-menu'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import OptionsMenu from 'src/@core/components/option-menu'
 
 interface DataType {
   title: string
@@ -25,46 +25,47 @@ interface DataType {
   chipColor: ThemeColor
 }
 
-const data: DataType[] = [
-  {
-    amount: '12,348',
-    chipText: '+12%',
-    title: 'Facebook',
-    imgAlt: 'facebook',
-    chipColor: 'success',
-    subtitle: 'Social Media',
-    imgSrc: '/images/cards/social-facebook.png'
-  },
-  {
-    amount: '8,450',
-    chipText: '+32%',
-    title: 'Dribbble',
-    imgAlt: 'dribbble',
-    chipColor: 'success',
-    subtitle: 'Community',
-    imgSrc: '/images/cards/social-dribbble.png'
-  },
-  {
-    amount: '350',
-    chipText: '-18%',
-    title: 'Twitter',
-    imgAlt: 'twitter',
-    chipColor: 'error',
-    subtitle: 'Social Media',
-    imgSrc: '/images/cards/social-twitter.png'
-  },
-  {
-    amount: '25,566',
-    chipText: '+45%',
-    title: 'Instagram',
-    imgAlt: 'instagram',
-    chipColor: 'success',
-    subtitle: 'Social Media',
-    imgSrc: '/images/cards/social-instagram.png'
-  }
-]
-
 const CrmSocialNetworkVisits = () => {
+  // ** Vars
+  const data: DataType[] = [
+    {
+      amount: '12,348',
+      chipText: '+12%',
+      title: 'Facebook',
+      imgAlt: 'facebook',
+      chipColor: 'success',
+      subtitle: 'Social Media',
+      imgSrc: '/images/cards/social-facebook.png'
+    },
+    {
+      amount: '8,450',
+      chipText: '+32%',
+      title: 'Dribbble',
+      imgAlt: 'dribbble',
+      chipColor: 'success',
+      subtitle: 'Community',
+      imgSrc: '/images/cards/social-dribbble.png'
+    },
+    {
+      amount: '350',
+      chipText: '-18%',
+      title: 'Twitter',
+      imgAlt: 'twitter',
+      chipColor: 'error',
+      subtitle: 'Social Media',
+      imgSrc: '/images/cards/social-twitter.png'
+    },
+    {
+      amount: '25,566',
+      chipText: '+45%',
+      title: 'Instagram',
+      imgAlt: 'instagram',
+      chipColor: 'success',
+      subtitle: 'Social Media',
+      imgSrc: '/images/cards/social-instagram.png'
+    }
+  ]
+
   return (
     <Card>
       <CardHeader

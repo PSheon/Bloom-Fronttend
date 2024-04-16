@@ -3,7 +3,7 @@ import Switch from '@mui/material/Switch'
 import { styled } from '@mui/material/styles'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
-// Styled FormControlLabel component
+// ** Styled FormControlLabel component
 const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ theme }) => ({
   marginLeft: 0,
   '& .MuiSwitch-root': {

@@ -26,7 +26,7 @@ interface State {
   showPassword: boolean
 }
 
-// Styled component for the form
+// ** Styled component for the form
 const Form = styled('form')(({ theme }) => ({
   maxWidth: 400,
   padding: theme.spacing(12),
@@ -35,13 +35,13 @@ const Form = styled('form')(({ theme }) => ({
 }))
 
 const FormLayoutsAlignment = () => {
-  // ** State
+  // ** States
   const [values, setValues] = useState<State>({
     password: '',
     showPassword: false
   })
 
-  // Handle Password
+  // ** Logics
   const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value })
   }

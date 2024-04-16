@@ -17,7 +17,7 @@ import Grid, { GridProps } from '@mui/material/Grid'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// Styled Grid component
+// ** Styled Grid component
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -31,11 +31,13 @@ const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
 }))
 
 const CardMobile = () => {
-  // ** State
+  // ** States
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
+  // ** Vars
   const open = Boolean(anchorEl)
 
+  // ** Logics
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }

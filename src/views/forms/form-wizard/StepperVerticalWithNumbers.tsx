@@ -13,15 +13,15 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import StepContent from '@mui/material/StepContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import clsx from 'clsx'
 import toast from 'react-hot-toast'
 
-// ** Custom Components Imports
-import StepperCustomDot from './StepperCustomDot'
-
-// ** Styled Component
+// ** Core Component Imports
 import StepperWrapper from 'src/@core/styles/mui/stepper'
+
+// ** Custom Component Imports
+import StepperCustomDot from './StepperCustomDot'
 
 const steps = [
   {
@@ -48,7 +48,7 @@ const StepperVerticalWithNumbers = () => {
   // ** States
   const [activeStep, setActiveStep] = useState<number>(0)
 
-  // Handle Stepper
+  // ** Logics
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1)
   }

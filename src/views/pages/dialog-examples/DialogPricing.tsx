@@ -14,14 +14,14 @@ import CardContent from '@mui/material/CardContent'
 import Fade, { FadeProps } from '@mui/material/Fade'
 import DialogContent from '@mui/material/DialogContent'
 
+// ** Custom Component Imports
+import PricingPlans from 'src/views/pages/pricing/PricingPlans'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { PricingPlanType } from 'src/@core/components/plan-details/types'
-
-// ** Component Import
-import PricingPlans from 'src/views/pages/pricing/PricingPlans'
 
 interface Props {
   data: PricingPlanType[]

@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, useEffect, ChangeEvent, ReactNode } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -20,20 +20,20 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemButton from '@mui/material/ListItemButton'
 import InputAdornment from '@mui/material/InputAdornment'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import PerfectScrollbar from 'react-perfect-scrollbar'
+
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Custom Component Imports
+import UserProfileLeft from 'src/views/apps/chat/UserProfileLeft'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { ContactType, ChatSidebarLeftType, ChatsArrType } from 'src/types/apps/chatTypes'
-
-// ** Custom Components Import
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Chat App Components Imports
-import UserProfileLeft from 'src/views/apps/chat/UserProfileLeft'
 
 const ScrollWrapper = ({ children, hidden }: { children: ReactNode; hidden: boolean }) => {
   if (hidden) {

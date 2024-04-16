@@ -5,7 +5,7 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// Styled component for the avatar image
+// ** Styled component for the avatar image
 const AvatarImg = styled('img')(({ theme }) => ({
   right: 21,
   bottom: 24,

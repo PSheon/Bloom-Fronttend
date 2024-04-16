@@ -6,20 +6,20 @@ import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Component Imports
+// ** Custom Component Imports
 import LogoImage from 'src/views/shared/LogoImage'
 
-// ** Configs
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Styled Preview Box
+// ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   position: 'relative',

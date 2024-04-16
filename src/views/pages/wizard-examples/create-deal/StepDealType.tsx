@@ -13,12 +13,12 @@ import { styled, useTheme } from '@mui/material/styles'
 import FormHelperText from '@mui/material/FormHelperText'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Type Imports
-import { CustomRadioIconsData, CustomRadioIconsProps } from 'src/@core/components/custom-radio/types'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
+
+// ** Type Imports
+import { CustomRadioIconsData, CustomRadioIconsProps } from 'src/@core/components/custom-radio/types'
 
 interface IconType {
   icon: CustomRadioIconsProps['icon']
@@ -61,7 +61,7 @@ const StepDealType = () => {
   const [region, setRegion] = useState<string[]>([])
   const [selectedRadio, setSelectedRadio] = useState<string>(initialIconSelected)
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   const icons: IconType[] = [

@@ -3,7 +3,7 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { Line } from 'react-chartjs-2'
 import { ChartData, ChartOptions } from 'chart.js'
 
@@ -21,6 +21,7 @@ const ChartjsLineChart = (props: LineProps) => {
   // ** Props
   const { white, primary, success, warning, labelColor, borderColor, legendColor } = props
 
+  // ** Vars
   const options: ChartOptions<'line'> = {
     responsive: true,
     maintainAspectRatio: false,

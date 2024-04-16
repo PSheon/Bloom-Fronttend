@@ -6,7 +6,7 @@ import Box from '@mui/material/Box'
 import { Direction } from '@mui/material'
 import { useTheme } from '@mui/material/styles'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import { useKeenSlider, KeenSliderPlugin, KeenSliderInstance } from 'keen-slider/react'
 
 const ThumbnailPlugin = (mainRef: MutableRefObject<KeenSliderInstance | null>): KeenSliderPlugin => {

@@ -20,11 +20,11 @@ import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomTimelineDot from 'src/@core/components/mui/timeline-dot'
 
-// Styled Timeline component
+// ** Styled Timeline component
 const Timeline = styled(MuiTimeline)<TimelineProps>(({ theme }) => ({
   paddingLeft: 0,
   paddingRight: 0,
@@ -41,7 +41,7 @@ const Timeline = styled(MuiTimeline)<TimelineProps>(({ theme }) => ({
   }
 }))
 
-// Styled component for the image of a shoe
+// ** Styled component for the image of a shoe
 const ImgShoe = styled('img')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius
 }))

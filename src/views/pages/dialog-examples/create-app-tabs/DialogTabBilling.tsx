@@ -7,17 +7,17 @@ import Switch from '@mui/material/Switch'
 import TextField from '@mui/material/TextField'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import Payment from 'payment'
 import Cards, { Focused } from 'react-credit-cards'
 
-// ** Util Import
-import { formatCVC, formatExpirationDate, formatCreditCardNumber } from 'src/@core/utils/format'
-
-// ** Styled Component Imports
+// ** Core Component Imports
 import CardWrapper from 'src/@core/styles/libs/react-credit-cards'
 
-// ** Styles Import
+// ** Util Imports
+import { formatCVC, formatExpirationDate, formatCreditCardNumber } from 'src/@core/utils/format'
+
+// ** Style Imports
 import 'react-credit-cards/es/styles-compiled.css'
 
 const TabBilling = () => {

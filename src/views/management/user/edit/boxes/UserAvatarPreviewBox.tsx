@@ -2,13 +2,13 @@
 import { styled, darken } from '@mui/material/styles'
 import Box, { BoxProps } from '@mui/material/Box'
 
-// ** Utils Import
+// ** Util Imports
 import { getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { UserDataType } from 'src/context/types'
 
-// ** Styled Preview Box
+// ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   position: 'relative',

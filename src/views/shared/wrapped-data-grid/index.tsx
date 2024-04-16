@@ -2,7 +2,7 @@
 import { DataGrid, DataGridProps, GridColDef, GridRowId, GridRowParams, zhTW } from '@mui/x-data-grid'
 import LinearProgress from '@mui/material/LinearProgress'
 
-// ** Custom Components
+// ** Custom Component Imports
 import ExportToolbar from 'src/views/shared/wrapped-data-grid/ExportToolbar'
 
 const WrappedDataGrid = (props: DataGridProps) => {

@@ -7,13 +7,13 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 
 const MenuBasic = () => {
-  // ** State
+  // ** States
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
+  // ** Logics
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
-
   const handleClose = () => {
     setAnchorEl(null)
   }

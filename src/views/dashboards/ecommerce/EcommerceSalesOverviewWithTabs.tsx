@@ -18,18 +18,18 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import OptionsMenu from 'src/@core/components/option-menu'
 
-// ** Util Import
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import { ThemeColor } from 'src/@core/layouts/types'
 
 interface StatusObj {
   [ke: string]: {
@@ -239,9 +239,10 @@ const RenderTabContent = ({ data }: { data: TabContentType[] }) => {
 }
 
 const EcommerceSalesOverviewWithTabs = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('mobile')
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }

@@ -10,18 +10,18 @@ import TabContext from '@mui/lab/TabContext'
 import { styled } from '@mui/material/styles'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Components Imports
+// ** Custom Component Imports
 import MediaAssetEditPreviewCard from 'src/views/management/media-asset/edit/cards/MediaAssetEditPreviewCard'
 import MediaAssetEditShareCard from 'src/views/management/media-asset/edit/cards/MediaAssetEditShareCard'
 import MediaAssetEditDangerZoneCard from 'src/views/management/media-asset/edit/cards/MediaAssetEditDangerZoneCard'
 
-// ** Types
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
-// ** Styled Tab component
+// ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
   minHeight: 48,
   flexDirection: 'row',

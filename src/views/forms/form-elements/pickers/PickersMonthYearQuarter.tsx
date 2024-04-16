@@ -4,14 +4,14 @@ import { useState } from 'react'
 // ** MUI Imports
 import Box from '@mui/material/Box'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
-
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
+
+// ** Type Imports
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 const PickersMonthYear = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
   // ** States

@@ -7,14 +7,14 @@ import Stack from '@mui/material/Stack'
 import Collapse from '@mui/material/Collapse'
 import { TransitionGroup } from 'react-transition-group'
 
-// ** Api Imports
+// ** API Imports
 import { useFindQuery } from 'src/store/api/management/review'
 
-// ** Components Imports
+// ** Custom Component Imports
 import ReviewListLoadingSkeleton from 'src/views/management/request-sheet/edit/cards/review/shared/LoadingSkeleton'
 import ReviewListViewForm from 'src/views/management/request-sheet/edit/cards/review/shared/ViewForm'
 
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {

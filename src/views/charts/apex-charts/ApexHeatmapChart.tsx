@@ -4,13 +4,11 @@ import { useTheme } from '@mui/material/styles'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Component Import
+// ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
-
-// ** Custom Components Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 
 interface YRange {
@@ -66,9 +64,10 @@ const series = [
 ]
 
 const ApexHeatmapChart = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

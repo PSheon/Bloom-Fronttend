@@ -5,9 +5,10 @@ import { ChangeEvent, useState } from 'react'
 import TextField from '@mui/material/TextField'
 
 const TextFieldControlledUncontrolled = () => {
-  // ** State
+  // ** States
   const [name, setName] = useState<string>('Cat in the Hat')
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)
   }

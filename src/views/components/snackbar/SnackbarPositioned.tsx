@@ -18,10 +18,10 @@ const SnackbarPositioned = () => {
   })
   const { vertical, horizontal, open } = state
 
+  // ** Logics
   const handleClick = (newState: SnackbarOrigin) => () => {
     setState({ open: true, ...newState })
   }
-
   const handleClose = () => {
     setState({ ...state, open: false })
   }

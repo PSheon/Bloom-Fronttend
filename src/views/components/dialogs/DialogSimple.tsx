@@ -13,12 +13,13 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemButton from '@mui/material/ListItemButton'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
+// ** Variables
 const emails = ['username@gmail.com', 'user02@gmail.com']
 
 const DialogSimple = () => {
@@ -26,10 +27,9 @@ const DialogSimple = () => {
   const [open, setOpen] = useState<boolean>(false)
   const [selectedValue, setSelectedValue] = useState<string>(emails[1])
 
+  // ** Logics
   const handleClickOpen = () => setOpen(true)
-
   const handleDialogClose = () => setOpen(false)
-
   const handleClose = (value: string) => {
     setOpen(false)
     setSelectedValue(value)

@@ -1,7 +1,7 @@
 // ** React Imports
 import { ElementType, ReactNode } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -15,16 +15,16 @@ import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemText from '@mui/material/ListItemText'
 import ListItem, { ListItemProps } from '@mui/material/ListItem'
 
+// ** Third-Party Imports
+import PerfectScrollbar from 'react-perfect-scrollbar'
+
+// ** Custom Component Imports
+import CustomBadge from 'src/@core/components/mui/badge'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Imports
-import PerfectScrollbar from 'react-perfect-scrollbar'
-
-// ** Custom Components Imports
-import CustomBadge from 'src/@core/components/mui/badge'
-
-// ** Types
+// ** Type Imports
 import { CustomBadgeProps } from 'src/@core/components/mui/badge/types'
 import { MailFolderType, MailLabelType, MailSidebarType } from 'src/types/apps/emailTypes'
 

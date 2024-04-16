@@ -8,32 +8,21 @@ import CardContent from '@mui/material/CardContent'
 import Grid, { GridProps } from '@mui/material/Grid'
 import { styled, useTheme } from '@mui/material/styles'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-// ** Util Import
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-const series = [
-  {
-    name: 'Last Week',
-    data: [83, 153, 213, 279, 213, 153, 83]
-  },
-  {
-    name: 'This Week',
-    data: [-84, -156, -216, -282, -216, -156, -84]
-  }
-]
-
-// Styled Grid component
+// ** Styled Grid component
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     borderBottom: `1px solid ${theme.palette.divider}`
@@ -44,9 +33,20 @@ const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
 }))
 
 const CardWidgetsTotalTransactions = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
+  const series = [
+    {
+      name: 'Last Week',
+      data: [83, 153, 213, 279, 213, 153, 83]
+    },
+    {
+      name: 'This Week',
+      data: [-84, -156, -216, -282, -216, -156, -84]
+    }
+  ]
   const options: ApexOptions = {
     chart: {
       stacked: true,

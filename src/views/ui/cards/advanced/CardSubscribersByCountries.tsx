@@ -11,11 +11,11 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import TableContainer from '@mui/material/TableContainer'
 
+// ** Core Component Imports
+import OptionsMenu from 'src/@core/components/option-menu'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
-import OptionsMenu from 'src/@core/components/option-menu'
 
 interface DataType {
   title: string

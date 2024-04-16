@@ -8,7 +8,7 @@ import Button from '@mui/material/Button'
 import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import { useKeenSlider, KeenSliderPlugin } from 'keen-slider/react'
 
 const MutationPlugin: KeenSliderPlugin = slider => {

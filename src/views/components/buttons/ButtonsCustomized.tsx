@@ -3,7 +3,7 @@ import { brown } from '@mui/material/colors'
 import { styled } from '@mui/material/styles'
 import Button, { ButtonProps } from '@mui/material/Button'
 
-// Styled component for a custom button
+// ** Styled component for a custom button
 const CustomButton = styled(Button)<ButtonProps>(({ theme }) => ({
   backgroundColor: brown[500],
   color: theme.palette.getContrastText(brown[500]),
@@ -12,7 +12,7 @@ const CustomButton = styled(Button)<ButtonProps>(({ theme }) => ({
   }
 }))
 
-// Styled component for a Bootstrap button
+// ** Styled component for a Bootstrap button
 const BootstrapButton = styled(Button)({
   fontSize: 16,
   lineHeight: 1.5,

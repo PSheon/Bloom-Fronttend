@@ -23,21 +23,21 @@ import LoadingButton from '@mui/lab/LoadingButton'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Hooks
+// ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
 
-// ** Utils Imports
+// ** API Imports
+import { useFindQuery } from 'src/store/api/roleAndPermission'
+import { useUpdateOneMutation } from 'src/store/api/management/user'
+
+// ** Util Imports
 import { getUserRoleAttributes } from 'src/utils'
 
 // ** Config Imports
 import { Permissions } from 'src/configs/acl'
 
-// ** Types
+// ** Type Imports
 import { UserDataType } from 'src/context/types'
-
-// ** Api Imports
-import { useFindQuery } from 'src/store/api/roleAndPermission'
-import { useUpdateOneMutation } from 'src/store/api/management/user'
 
 interface Props {
   initUserEntity: UserDataType

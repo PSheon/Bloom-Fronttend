@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -7,14 +7,14 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import Box, { BoxProps } from '@mui/material/Box'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// Styled Box component
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Styled Box Component
 const StyledBox1 = styled(Box)<BoxProps>(({ theme }) => ({
   display: 'flex',
   borderRadius: '10px',
@@ -24,7 +24,7 @@ const StyledBox1 = styled(Box)<BoxProps>(({ theme }) => ({
   backgroundColor: `rgba(${theme.palette.customColors.main}, 0.04)`
 }))
 
-// Styled Box component
+// ** Styled Box Component
 const StyledBox2 = styled(Box)<BoxProps>(({ theme }) => ({
   display: 'flex',
   borderRadius: '10px',

@@ -9,18 +9,18 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
 const CardPopover = () => {
-  // ** State
+  // ** States
   const [anchorEl, setAnchorEl] = useState<HTMLButtonElement | null>(null)
 
+  // ** Logics
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }
-
   const handleClose = () => {
     setAnchorEl(null)
   }
 
-  // ** Hook
+  // ** Hooks
   const open = Boolean(anchorEl)
 
   return (

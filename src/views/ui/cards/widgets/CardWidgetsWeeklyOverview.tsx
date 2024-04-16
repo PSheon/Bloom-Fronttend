@@ -7,33 +7,33 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-const series = [
-  {
-    name: 'Sales',
-    type: 'column',
-    data: [83, 68, 56, 65, 65, 50, 39]
-  },
-  {
-    type: 'line',
-    name: 'Sales',
-    data: [63, 38, 31, 45, 46, 27, 18]
-  }
-]
-
 const CardWidgetsWeeklyOverview = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
+  const series = [
+    {
+      name: 'Sales',
+      type: 'column',
+      data: [83, 68, 56, 65, 65, 50, 39]
+    },
+    {
+      type: 'line',
+      name: 'Sales',
+      data: [63, 38, 31, 45, 46, 27, 18]
+    }
+  ]
   const options: ApexOptions = {
     chart: {
       offsetY: -9,

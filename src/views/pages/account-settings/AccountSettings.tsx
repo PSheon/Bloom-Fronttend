@@ -1,7 +1,7 @@
 // ** React Imports
 import { ReactElement, useState, useEffect, SyntheticEvent } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -19,15 +19,15 @@ import CircularProgress from '@mui/material/CircularProgress'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
-import { PricingPlanType } from 'src/@core/components/plan-details/types'
-
-// ** Demo Tabs Imports
+// ** Custom Component Imports
 import TabAccount from 'src/views/pages/account-settings/TabAccount'
 import TabBilling from 'src/views/pages/account-settings/TabBilling'
 import TabSecurity from 'src/views/pages/account-settings/TabSecurity'
 import TabConnections from 'src/views/pages/account-settings/TabConnections'
 import TabNotifications from 'src/views/pages/account-settings/TabNotifications'
+
+// ** Type Imports
+import { PricingPlanType } from 'src/@core/components/plan-details/types'
 
 const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
   '& .MuiTabs-indicator': {
@@ -48,7 +48,7 @@ const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
 }))
 
 const AccountSettings = ({ tab, apiPricingPlanData }: { tab: string; apiPricingPlanData: PricingPlanType[] }) => {
-  // ** State
+  // ** States
   const [activeTab, setActiveTab] = useState<string>(tab)
   const [isLoading, setIsLoading] = useState<boolean>(false)
 
@@ -56,11 +56,13 @@ const AccountSettings = ({ tab, apiPricingPlanData }: { tab: string; apiPricingP
   const router = useRouter()
   const hideText = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, value: string) => {
     setIsLoading(true)
     router.push(`/pages/account-settings/${value.toLowerCase()}`).then(() => setIsLoading(false))
   }
 
+  // ** Side Effects
   useEffect(() => {
     if (tab && tab !== activeTab) {
       setActiveTab(tab)

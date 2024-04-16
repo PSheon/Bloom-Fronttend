@@ -8,9 +8,10 @@ import FormControl from '@mui/material/FormControl'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
 const SelectControlledUncontrolled = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('')
 
+  // ** Logics
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string)
   }

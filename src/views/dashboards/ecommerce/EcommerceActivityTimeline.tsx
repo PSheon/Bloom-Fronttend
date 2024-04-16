@@ -13,10 +13,10 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
 import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 
-// Styled Timeline component
+// ** Styled Timeline component
 const Timeline = styled(MuiTimeline)<TimelineProps>({
   paddingLeft: 0,
   paddingRight: 0,

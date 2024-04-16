@@ -17,20 +17,20 @@ import InputAdornment from '@mui/material/InputAdornment'
 import CircularProgress from '@mui/material/CircularProgress'
 import ListItem, { ListItemProps } from '@mui/material/ListItem'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 
-// ** Email App Component Imports
+// ** Custom Component Imports
 import { setTimeout } from 'timers'
 import MailDetails from './MailDetails'
 
-// ** Types
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
 import {
   MailType,
   MailLogType,
@@ -99,7 +99,7 @@ const MailLog = (props: MailLogType) => {
     handleLeftSidebarToggle
   } = props
 
-  // ** State
+  // ** States
   const [refresh, setRefresh] = useState<boolean>(false)
 
   // ** Vars

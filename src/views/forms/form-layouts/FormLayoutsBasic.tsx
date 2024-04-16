@@ -1,7 +1,7 @@
 // ** React Imports
 import { ChangeEvent, useState } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -39,17 +39,16 @@ const FormLayoutsBasic = () => {
     showPassword: false
   })
 
+  // ** Logics
   const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value })
   }
-
   const handleConfirmPassChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
     setConfirmPassValues({ ...confirmPassValues, [prop]: event.target.value })
   }
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
-
   const handleClickConfirmPassShow = () => {
     setConfirmPassValues({ ...confirmPassValues, showPassword: !confirmPassValues.showPassword })
   }

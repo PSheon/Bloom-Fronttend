@@ -12,7 +12,7 @@ import MuiAccordion, { AccordionProps } from '@mui/material/Accordion'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { PricingDataType, PricingFaqType } from 'src/@core/components/plan-details/types'
 
 interface Props {
@@ -33,9 +33,10 @@ const PricingFooter = (props: Props) => {
   // ** Props
   const { data } = props
 
-  // ** Props
+  // ** States
   const [expanded, setExpanded] = useState<string | false>(false)
 
+  // ** Logics
   const handleChange = (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false)
   }

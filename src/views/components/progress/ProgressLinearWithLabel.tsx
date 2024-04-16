@@ -20,9 +20,10 @@ const LinearProgressWithLabel = (props: LinearProgressProps & { value: number })
 }
 
 export default function ProcessLinearWithLabel() {
-  // ** State
+  // ** States
   const [progress, setProgress] = useState<number>(10)
 
+  // ** Side Effects
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress(prevProgress => (prevProgress >= 100 ? 10 : prevProgress + 10))

@@ -32,27 +32,27 @@ import TableContainer from '@mui/material/TableContainer'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import DialogContentText from '@mui/material/DialogContentText'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import Payment from 'payment'
 import Cards, { Focused } from 'react-credit-cards'
 
-// ** Custom Components
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
-import UserSubscriptionDialog from 'src/views/apps/user/view/UserSubscriptionDialog'
-
-// ** Util Import
-import { formatCVC, formatExpirationDate, formatCreditCardNumber } from 'src/@core/utils/format'
-
-// ** Types
-import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Styled Component Imports
 import CardWrapper from 'src/@core/styles/libs/react-credit-cards'
 
-// ** Styles Import
+// ** Custom Component Imports
+import UserSubscriptionDialog from 'src/views/apps/user/view/UserSubscriptionDialog'
+
+// ** Util Imports
+import { formatCVC, formatExpirationDate, formatCreditCardNumber } from 'src/@core/utils/format'
+
+// ** Type Imports
+import { ThemeColor } from 'src/@core/layouts/types'
+
+// ** Style Imports
 import 'react-credit-cards/es/styles-compiled.css'
 
 interface DataType {

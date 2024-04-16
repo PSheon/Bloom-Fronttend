@@ -4,14 +4,14 @@ import { ReactNode, useEffect, Fragment } from 'react'
 // ** Redux Imports
 import { useDispatch } from 'react-redux'
 
-// ** Socket.io Imports
+// ** Third-Party Imports
 import { io } from 'socket.io-client'
 import toast from 'react-hot-toast'
 
-// ** Actions
+// ** Action Imports
 import { setGlobalSocket, setSocketConnection } from 'src/store/dashboard'
 
-// ** Config
+// ** Config Imports
 import authConfig from 'src/configs/auth'
 
 interface Props {

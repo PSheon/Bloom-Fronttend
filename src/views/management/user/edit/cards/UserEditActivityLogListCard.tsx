@@ -6,17 +6,19 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
+
+// ** Custom Component Imports
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 
-// ** Utils Import
-import { format } from 'date-fns'
-
-// ** Api Imports
+// ** API Imports
 import { useFindQuery } from 'src/store/api/management/activityLog'
 
-// ** Types Imports
+// ** Util Imports
+import { format } from 'date-fns'
+
+// ** Type Imports
 import { ActivityLogType } from 'src/types/api/activityLogTypes'
 import { UserDataType } from 'src/context/types'
 

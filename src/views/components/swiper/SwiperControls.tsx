@@ -6,19 +6,19 @@ import Box from '@mui/material/Box'
 import Badge from '@mui/material/Badge'
 import { Direction } from '@mui/material'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import clsx from 'clsx'
 import { useKeenSlider } from 'keen-slider/react'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 const SwiperControls = ({ direction }: { direction: Direction }) => {
   // ** States
   const [loaded, setLoaded] = useState<boolean>(false)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
 
-  // ** Hook
+  // ** Hooks
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     rtl: direction === 'rtl',
     slideChanged(slider) {

@@ -9,6 +9,7 @@ import Typography from '@mui/material/Typography'
 import Icon from 'src/@core/components/icon'
 
 const ChipsOnDelete = () => {
+  // ** Logics
   const handleDelete = () => {
     console.info('You clicked the delete icon.')
   }

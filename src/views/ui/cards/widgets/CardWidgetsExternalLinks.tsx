@@ -1,4 +1,4 @@
-// ** React Import
+// ** React Imports
 import { ReactNode } from 'react'
 
 // ** MUI Imports
@@ -14,21 +14,21 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import TableContainer from '@mui/material/TableContainer'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Type Import
-import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-// ** Util Import
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import { ThemeColor } from 'src/@core/layouts/types'
 
 interface DataType {
   title: string
@@ -75,7 +75,7 @@ const series = [
 ]
 
 const CardWidgetsExternalLinks = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   const options: ApexOptions = {

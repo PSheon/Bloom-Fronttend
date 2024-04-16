@@ -6,16 +6,16 @@ import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
 import Divider from '@mui/material/Divider'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import format from 'date-fns/format'
 
-// ** Utils Import
-import { getPublicMediaAssetUrl } from 'src/utils'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
-// ** Types
+// ** Util Imports
+import { getPublicMediaAssetUrl } from 'src/utils'
+
+// ** Type Imports
 import { ReviewType } from 'src/types/api/reviewTypes'
 
 interface Props {

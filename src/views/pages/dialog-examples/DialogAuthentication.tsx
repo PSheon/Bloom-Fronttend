@@ -19,7 +19,7 @@ import DialogContent from '@mui/material/DialogContent'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Hooks
+// ** Hook Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
@@ -40,7 +40,7 @@ const DialogAuthentication = () => {
   const bgColors = useBgColor()
   const { settings } = useSettings()
 
-  // ** Var
+  // ** Vars
   const { direction } = settings
 
   const handleClose = () => {

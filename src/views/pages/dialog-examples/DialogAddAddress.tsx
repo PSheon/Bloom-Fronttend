@@ -24,7 +24,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Hooks
+// ** Hook Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
 
 const Transition = forwardRef(function Transition(

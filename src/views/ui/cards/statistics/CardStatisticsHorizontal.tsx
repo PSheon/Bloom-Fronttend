@@ -4,11 +4,11 @@ import Grid from '@mui/material/Grid'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types Imports
-import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/types'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardStatisticsHorizontal from 'src/@core/components/card-statistics/card-stats-horizontal'
+
+// ** Type Imports
+import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/types'
 
 interface Props {
   data: CardStatsHorizontalProps[]

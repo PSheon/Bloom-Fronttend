@@ -44,7 +44,7 @@ const Row = (props: { row: ReturnType<typeof createData> }) => {
   // ** Props
   const { row } = props
 
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
   return (

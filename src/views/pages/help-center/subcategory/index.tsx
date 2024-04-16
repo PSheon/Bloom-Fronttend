@@ -18,13 +18,13 @@ import CardContent from '@mui/material/CardContent'
 import MuiTabList, { TabListProps } from '@mui/lab/TabList'
 import CircularProgress from '@mui/material/CircularProgress'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Import
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Types
+// ** Type Imports
 import {
   HelpCenterCategoriesType,
   HelpCenterSubcategoriesType,
@@ -70,18 +70,20 @@ const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
 }))
 
 const HelpCenterSubcategory = ({ data, activeTab }: Props) => {
-  // ** State
+  // ** States
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [tabValue, setTabValue] = useState<string>(activeTab)
 
-  // ** Hook
+  // ** Hooks
   const router = useRouter()
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setIsLoading(true)
     router.push(`/pages/help-center/${data.slug}/${newValue}`).then(() => setIsLoading(false))
   }
 
+  // ** Side Effects
   useEffect(() => {
     if (activeTab && activeTab !== tabValue) {
       setTabValue(activeTab)

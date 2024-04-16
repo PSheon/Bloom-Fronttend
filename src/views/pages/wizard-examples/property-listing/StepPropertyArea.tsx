@@ -11,10 +11,10 @@ import FormControl from '@mui/material/FormControl'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import DatePicker from 'react-datepicker'
 
-// ** Types
+// ** Type Imports
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 interface PickerProps {

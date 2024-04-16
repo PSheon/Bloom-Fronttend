@@ -13,16 +13,16 @@ import CardContent from '@mui/material/CardContent'
 import IconButton from '@mui/material/IconButton'
 import Skeleton from '@mui/material/Skeleton'
 
+// ** Third-Party Imports
+import { format } from 'date-fns'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Components
-import { format } from 'date-fns'
-
-// ** Hooks
+// ** Hook Imports
 import { useInterval } from 'src/hooks/useInterval'
 
-// ** Types
+// ** Type Imports
 import { RootState } from 'src/store'
 
 interface Props {
@@ -37,7 +37,7 @@ const SystemLogSnippetCard = (props: Props) => {
   // ** Props
   const { keepLines = 20, checkInterval = 5_000 } = props
 
-  // ** Hook
+  // ** Hooks
   const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
   const socket = useSelector((state: RootState) => state.dashboard.socket)
 

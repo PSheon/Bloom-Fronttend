@@ -4,14 +4,14 @@ import Button from '@mui/material/Button'
 import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
+// ** Third-Party Imports
+import toast from 'react-hot-toast'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Components
-import toast from 'react-hot-toast'
-
 const ToastThemed = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   const handleClick = () => {

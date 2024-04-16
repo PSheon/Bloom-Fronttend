@@ -17,7 +17,7 @@ interface Props {
   setSearchTerm: (value: string) => void
 }
 
-// Styled Card component
+// ** Styled Card Component
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
   border: 0,
   boxShadow: 'none',
@@ -25,7 +25,7 @@ const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
   backgroundImage: `url(/images/pages/pages-header-bg-${theme.palette.mode}.png)`
 }))
 
-// Styled TextField component
+// ** Styled TextField Component
 const TextField = styled(MuiTextField)<TextFieldProps>(({ theme }) => ({
   width: '100%',
   '& .MuiOutlinedInput-root': {

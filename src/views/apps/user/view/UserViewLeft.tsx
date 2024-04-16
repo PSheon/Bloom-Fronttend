@@ -29,18 +29,20 @@ import DialogContentText from '@mui/material/DialogContentText'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Custom Component Imports
 import UserSuspendDialog from 'src/views/apps/user/view/UserSuspendDialog'
 import UserSubscriptionDialog from 'src/views/apps/user/view/UserSubscriptionDialog'
 
-// ** Types
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
+
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 import { UsersType } from 'src/types/apps/userTypes'
-
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
 
 interface ColorsType {
   [key: string]: ThemeColor

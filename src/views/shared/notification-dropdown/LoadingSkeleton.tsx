@@ -7,7 +7,7 @@ import { styled } from '@mui/material/styles'
 import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem'
 import Skeleton from '@mui/material/Skeleton'
 
-// ** Styled MenuItem component
+// ** Styled MenuItem Component
 const MenuItem = styled(MuiMenuItem)<MenuItemProps>(({ theme }) => ({
   paddingTop: theme.spacing(3),
   paddingBottom: theme.spacing(3),

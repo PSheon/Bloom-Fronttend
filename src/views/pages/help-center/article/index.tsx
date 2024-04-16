@@ -19,13 +19,13 @@ import CardContent from '@mui/material/CardContent'
 import MuiTabList, { TabListProps } from '@mui/lab/TabList'
 import CircularProgress from '@mui/material/CircularProgress'
 
+// ** Core Component Import
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Import
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Types
+// ** Type Imports
 import { HelpCenterSubcategoriesType, HelpCenterSubcategoryArticlesType } from 'src/@fake-db/types'
 
 interface Props {
@@ -68,7 +68,7 @@ const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
 }))
 
 const HelpCenterArticle = ({ articles, activeArticle, activeSubcategory }: Props) => {
-  // ** State
+  // ** States
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [tabValue, setTabValue] = useState<string>(activeArticle.slug)
 

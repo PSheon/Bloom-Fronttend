@@ -9,19 +9,19 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import InputAdornment from '@mui/material/InputAdornment'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import format from 'date-fns/format'
 import { ApexOptions } from 'apexcharts'
 import DatePicker from 'react-datepicker'
 
+// ** Custom Component Imports
+import ReactApexcharts from 'src/@core/components/react-apexcharts'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
-
-// ** Component Import
-import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
 const areaColors = {
   series1: '#ab7efd',
@@ -54,7 +54,7 @@ const ApexAreaChart = () => {
   const [endDate, setEndDate] = useState<DateType>(null)
   const [startDate, setStartDate] = useState<DateType>(null)
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   const options: ApexOptions = {

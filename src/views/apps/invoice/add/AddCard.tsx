@@ -24,21 +24,21 @@ import MenuItem, { MenuItemProps } from '@mui/material/MenuItem'
 import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
 import CardContent, { CardContentProps } from '@mui/material/CardContent'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import DatePicker from 'react-datepicker'
-
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-import { InvoiceClientType } from 'src/types/apps/invoiceTypes'
 
 // ** Custom Component Imports
 import Repeater from 'src/@core/components/repeater'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
+import { InvoiceClientType } from 'src/types/apps/invoiceTypes'
 
 interface PickerProps {
   label?: string
@@ -133,7 +133,7 @@ const AddCard = (props: Props) => {
   const [issueDate, setIssueDate] = useState<DateType>(new Date())
   const [dueDate, setDueDate] = useState<DateType>(new Date(tomorrowDate))
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   // ** Deletes form

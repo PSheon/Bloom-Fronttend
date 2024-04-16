@@ -25,23 +25,21 @@ import DialogActions from '@mui/material/DialogActions'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import DialogContentText from '@mui/material/DialogContentText'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import Payment from 'payment'
 import Cards, { Focused } from 'react-credit-cards'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Styled Component Imports
 import CardWrapper from 'src/@core/styles/libs/react-credit-cards'
 
-// ** Util Import
+// ** Util Imports
 import { formatCVC, formatExpirationDate, formatCreditCardNumber } from 'src/@core/utils/format'
 
-// ** Types
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 
-// ** Styles Import
+// ** Style Imports
 import 'react-credit-cards/es/styles-compiled.css'
 
 interface DataType {

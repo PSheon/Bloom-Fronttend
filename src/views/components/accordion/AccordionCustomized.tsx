@@ -60,7 +60,7 @@ const AccordionDetails = styled(MuiAccordionDetails)<AccordionDetailsProps>(({ t
 }))
 
 const AccordionCustomized = () => {
-  // ** State
+  // ** States
   const [expanded, setExpanded] = useState<string | false>('panel1')
 
   const handleChange = (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {

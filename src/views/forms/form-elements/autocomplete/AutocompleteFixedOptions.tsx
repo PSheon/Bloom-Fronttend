@@ -6,10 +6,9 @@ import Chip from '@mui/material/Chip'
 import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 
-// ** Data
+// ** Constant Imports
 import { top100Films } from 'src/@fake-db/autocomplete'
 
-// ** Type
 interface DataType {
   year: number
   title: string
@@ -18,7 +17,7 @@ interface DataType {
 const fixedOptions = [top100Films[6]]
 
 const AutocompleteFixedOptions = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<DataType[]>([...fixedOptions, top100Films[13]])
 
   return (

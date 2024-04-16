@@ -4,10 +4,10 @@ import { useTheme } from '@mui/material/styles'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Component Import
+// ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
 const radarColors = {
@@ -27,7 +27,7 @@ const series = [
 ]
 
 const ApexRadarChart = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   const options: ApexOptions = {

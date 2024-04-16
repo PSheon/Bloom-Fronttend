@@ -65,7 +65,7 @@ const HorizontalNavLink = (props: Props) => {
   // ** Props
   const { item, settings, hasParent } = props
 
-  // ** Hook
+  // ** Hooks
   const router = useRouter()
 
   // ** Vars

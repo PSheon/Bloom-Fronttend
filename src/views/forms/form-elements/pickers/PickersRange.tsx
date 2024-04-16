@@ -5,12 +5,12 @@ import { useState, forwardRef } from 'react'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import format from 'date-fns/format'
 import addDays from 'date-fns/addDays'
 import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
 
-// ** Types
+// ** Type Imports
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 interface PickerProps {
@@ -26,12 +26,12 @@ const PickersRange = ({ popperPlacement }: { popperPlacement: ReactDatePickerPro
   const [startDateRange, setStartDateRange] = useState<DateType>(new Date())
   const [endDateRange, setEndDateRange] = useState<DateType>(addDays(new Date(), 45))
 
+  // ** Logics
   const handleOnChange = (dates: any) => {
     const [start, end] = dates
     setStartDate(start)
     setEndDate(end)
   }
-
   const handleOnChangeRange = (dates: any) => {
     const [start, end] = dates
     setStartDateRange(start)

@@ -21,23 +21,23 @@ import AccordionSummary from '@mui/material/AccordionSummary'
 import AccordionDetails from '@mui/material/AccordionDetails'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import Payment from 'payment'
 import Cards, { Focused } from 'react-credit-cards'
+
+// ** Core Component Imports
+import CardWrapper from 'src/@core/styles/libs/react-credit-cards'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Styled Component Imports
-import CardWrapper from 'src/@core/styles/libs/react-credit-cards'
-
-// ** Util Import
+// ** Util Imports
 import { formatCVC, formatExpirationDate, formatCreditCardNumber } from 'src/@core/utils/format'
 
-// ** Styles Import
+// ** Style Imports
 import 'react-credit-cards/es/styles-compiled.css'
 
-// Styled component for the Box wrappers in Delivery Options' accordion
+// ** Styled component for the Box wrappers in Delivery Options' accordion
 const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   borderWidth: 1,
   display: 'flex',
@@ -66,6 +66,7 @@ const FormLayoutsCollapsible = () => {
   const [paymentMethod, setPaymentMethod] = useState<string>('card')
   const [expanded, setExpanded] = useState<string | false>('panel1')
 
+  // ** Logics
   const handleChange = (panel: string) => (event: SyntheticEvent, isExpanded: boolean) => {
     setExpanded(isExpanded ? panel : false)
   }

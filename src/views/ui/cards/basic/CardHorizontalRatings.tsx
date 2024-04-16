@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import Grid, { GridProps } from '@mui/material/Grid'
 
-// Styled Grid component
+// ** Styled Grid component
 const StyledGrid1 = styled(Grid)<GridProps>(({ theme }) => ({
   display: 'flex',
   flexDirection: 'column',
@@ -25,7 +25,7 @@ const StyledGrid1 = styled(Grid)<GridProps>(({ theme }) => ({
   }
 }))
 
-// Styled Grid component
+// ** Styled Grid component
 const StyledGrid2 = styled(Grid)<GridProps>(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -38,7 +38,7 @@ const StyledGrid2 = styled(Grid)<GridProps>(({ theme }) => ({
   }
 }))
 
-// Styled component for the image
+// ** Styled component for the image
 const Img = styled('img')(({ theme }) => ({
   height: '11rem',
   borderRadius: theme.shape.borderRadius

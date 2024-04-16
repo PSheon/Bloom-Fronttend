@@ -21,7 +21,7 @@ const TableHeader = (props: TableHeaderProps) => {
   // ** Props
   const { value, handleFilter } = props
 
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
   const handleDialogToggle = () => setOpen(!open)

@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, ChangeEvent } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -14,22 +14,22 @@ import ListItemButton from '@mui/material/ListItemButton'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiAutocomplete, { AutocompleteRenderInputParams } from '@mui/material/Autocomplete'
 
-// ** Type Import
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
 import {
   HelpCenterCategoriesType,
   HelpCenterSubcategoriesType,
   HelpCenterSubcategoryArticlesType
 } from 'src/@fake-db/types'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
 interface Props {
   data: HelpCenterCategoriesType[]
   allArticles: HelpCenterSubcategoryArticlesType[]
 }
 
-// Styled Autocomplete component
+// ** Styled Autocomplete component
 const Autocomplete = styled(MuiAutocomplete)(({ theme }) => ({
   '& .MuiOutlinedInput-root': {
     paddingLeft: theme.spacing(3.5),
@@ -54,9 +54,10 @@ const HelpCenterLandingHeader = ({ data, allArticles }: Props) => {
   const [value, setValue] = useState<string>('')
   const [open, setOpen] = useState<boolean>(false)
 
-  // ** Hooks & Vars
+  // ** Hooks
   const router = useRouter()
 
+  // ** Logics
   const handleRedirection = (option: HelpCenterSubcategoryArticlesType) => {
     setOpen(false)
     setValue(option.title)

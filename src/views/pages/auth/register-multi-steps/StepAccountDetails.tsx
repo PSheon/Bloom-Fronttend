@@ -28,10 +28,10 @@ const StepAccountDetails = ({ handleNext }: { handleNext: () => void }) => {
     showConfirmPassword: false
   })
 
+  // ** Logics
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }
-
   const handleClickShowConfirmPassword = () => {
     setValues({ ...values, showConfirmPassword: !values.showConfirmPassword })
   }

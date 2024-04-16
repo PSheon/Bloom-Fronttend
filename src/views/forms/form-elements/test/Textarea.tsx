@@ -12,9 +12,10 @@ import CardContent from '@mui/material/CardContent'
 import TextareaAutosize from '@mui/material/TextareaAutosize'
 
 const TextareaBasic = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('Controlled')
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }

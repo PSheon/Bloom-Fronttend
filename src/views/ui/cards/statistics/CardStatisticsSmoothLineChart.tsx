@@ -5,22 +5,22 @@ import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-const series = [
-  {
-    data: [0, 30, 10, 70, 40, 110, 95]
-  }
-]
-
 const CardStatsSmoothLineChart = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
+  const series = [
+    {
+      data: [0, 30, 10, 70, 40, 110, 95]
+    }
+  ]
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -14,13 +14,13 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
+// ** Core Component Imports
+import OptionsMenu from 'src/@core/components/option-menu'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import OptionsMenu from 'src/@core/components/option-menu'
-
-// ** Hooks Imports
+// ** Hook Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
 
 const CardPlanUpgrade = () => {
@@ -28,7 +28,7 @@ const CardPlanUpgrade = () => {
   const [cvc1, setCvc1] = useState<number | string>('')
   const [cvc2, setCvc2] = useState<number | string>('')
 
-  // ** Hook
+  // ** Hooks
   const bgColors = useBgColor()
 
   return (

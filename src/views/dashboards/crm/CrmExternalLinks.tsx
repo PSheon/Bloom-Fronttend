@@ -1,4 +1,4 @@
-// ** React Import
+// ** React Imports
 import { ReactNode } from 'react'
 
 // ** MUI Imports
@@ -14,21 +14,21 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import TableContainer from '@mui/material/TableContainer'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Type Import
-import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-// ** Util Import
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import { ThemeColor } from 'src/@core/layouts/types'
 
 interface DataType {
   title: string
@@ -38,46 +38,45 @@ interface DataType {
   trendAmount: number
 }
 
-const data: DataType[] = [
-  {
-    amount: '$845k',
-    trendAmount: 82,
-    color: 'primary',
-    title: 'Google Analytics',
-    icon: (
-      <Box sx={{ color: 'success.main' }}>
-        <Icon icon='mdi:chevron-up' />
-      </Box>
-    )
-  },
-  {
-    trendAmount: 52,
-    amount: '$12.5k',
-    color: 'secondary',
-    title: 'Facebook Ads',
-    icon: (
-      <Box sx={{ color: 'error.main' }}>
-        <Icon icon='mdi:chevron-down' />
-      </Box>
-    )
-  }
-]
-
-const series = [
-  {
-    name: 'Google Analytics',
-    data: [155, 135, 320, 100, 150, 335, 160]
-  },
-  {
-    name: 'Facebook Ads',
-    data: [110, 235, 125, 230, 215, 115, 200]
-  }
-]
-
 const CrmExternalLinks = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
+  const data: DataType[] = [
+    {
+      amount: '$845k',
+      trendAmount: 82,
+      color: 'primary',
+      title: 'Google Analytics',
+      icon: (
+        <Box sx={{ color: 'success.main' }}>
+          <Icon icon='mdi:chevron-up' />
+        </Box>
+      )
+    },
+    {
+      trendAmount: 52,
+      amount: '$12.5k',
+      color: 'secondary',
+      title: 'Facebook Ads',
+      icon: (
+        <Box sx={{ color: 'error.main' }}>
+          <Icon icon='mdi:chevron-down' />
+        </Box>
+      )
+    }
+  ]
+  const series = [
+    {
+      name: 'Google Analytics',
+      data: [155, 135, 320, 100, 150, 335, 160]
+    },
+    {
+      name: 'Facebook Ads',
+      data: [110, 235, 125, 230, 215, 115, 200]
+    }
+  ]
   const options: ApexOptions = {
     chart: {
       stacked: true,

@@ -3,10 +3,10 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import CircularProgress, { CircularProgressProps } from '@mui/material/CircularProgress'
 
+// ** Styled components
 const CircularProgressDeterminate = styled(CircularProgress)<CircularProgressProps>(({ theme }) => ({
   color: theme.palette.customColors.trackBg
 }))
-
 const CircularProgressIndeterminate = styled(CircularProgress)<CircularProgressProps>(({ theme }) => ({
   left: 0,
   position: 'absolute',

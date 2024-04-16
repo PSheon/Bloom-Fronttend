@@ -7,16 +7,14 @@ import Stepper from '@mui/material/Stepper'
 import StepLabel from '@mui/material/StepLabel'
 import Typography from '@mui/material/Typography'
 
-// ** Step Components
+// ** Core Component Imports
+import StepperWrapper from 'src/@core/styles/mui/stepper'
+
+// ** Custom Component Imports
 import StepPersonalInfo from 'src/views/pages/auth/register-multi-steps/StepPersonalInfo'
 import StepAccountDetails from 'src/views/pages/auth/register-multi-steps/StepAccountDetails'
 import StepBillingDetails from 'src/views/pages/auth/register-multi-steps/StepBillingDetails'
-
-// ** Custom Component Import
 import StepperCustomDot from 'src/views/forms/form-wizard/StepperCustomDot'
-
-// ** Styled Components
-import StepperWrapper from 'src/@core/styles/mui/stepper'
 
 const steps = [
   {
@@ -37,7 +35,7 @@ const RegisterMultiSteps = () => {
   // ** States
   const [activeStep, setActiveStep] = useState<number>(0)
 
-  // Handle Stepper
+  // ** Logics
   const handleNext = () => {
     setActiveStep(activeStep + 1)
   }

@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import TableContainer from '@mui/material/TableContainer'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 
 interface DataType {
@@ -26,76 +26,77 @@ interface DataType {
   debitAmount: string
 }
 
-const data: DataType[] = [
-  {
-    imgWidth: 30,
-    imgHeight: 10,
-    title: '*4399',
-    subtitle: 'Credit Card',
-    imgAlt: 'visa',
-    date: '05/Jan',
-    debitAmount: '-$2,820',
-    balance: '$10,450',
-    imgSrc: '/images/cards/logo-visa.png'
-  },
-  {
-    imgWidth: 30,
-    imgHeight: 18,
-    title: '*5545',
-    subtitle: 'Debit Card',
-    imgAlt: 'mastercard',
-    date: '12/Feb',
-    debitAmount: '-$345',
-    balance: '$8,709',
-    imgSrc: '/images/cards/logo-mastercard.png'
-  },
-  {
-    imgWidth: 36,
-    imgHeight: 9,
-    title: '*9860',
-    subtitle: 'ATM Card',
-    date: '24/Feb',
-    debitAmount: '-$999',
-    balance: '$25,900',
-    imgAlt: 'american-express',
-    imgSrc: '/images/cards/logo-american-express.png'
-  },
-  {
-    imgWidth: 30,
-    imgHeight: 10,
-    title: '*4300',
-    subtitle: 'Credit Card',
-    date: '08/Mar',
-    debitAmount: '-$8,453',
-    balance: '$9,233',
-    imgAlt: 'visa',
-    imgSrc: '/images/cards/logo-visa.png'
-  },
-  {
-    imgWidth: 30,
-    imgHeight: 18,
-    title: '*5545',
-    subtitle: 'Debit Card',
-    date: '15/Apr',
-    debitAmount: '-$24',
-    balance: '$500',
-    imgAlt: 'mastercard',
-    imgSrc: '/images/cards/logo-mastercard.png'
-  },
-  {
-    imgWidth: 30,
-    imgHeight: 10,
-    title: '*4399',
-    subtitle: 'Credit Card',
-    date: '28/Apr',
-    debitAmount: '-$299',
-    balance: '$1,380',
-    imgAlt: 'visa',
-    imgSrc: '/images/cards/logo-visa.png'
-  }
-]
-
 const CrmPaymentHistory = () => {
+  // ** Vars
+  const data: DataType[] = [
+    {
+      imgWidth: 30,
+      imgHeight: 10,
+      title: '*4399',
+      subtitle: 'Credit Card',
+      imgAlt: 'visa',
+      date: '05/Jan',
+      debitAmount: '-$2,820',
+      balance: '$10,450',
+      imgSrc: '/images/cards/logo-visa.png'
+    },
+    {
+      imgWidth: 30,
+      imgHeight: 18,
+      title: '*5545',
+      subtitle: 'Debit Card',
+      imgAlt: 'mastercard',
+      date: '12/Feb',
+      debitAmount: '-$345',
+      balance: '$8,709',
+      imgSrc: '/images/cards/logo-mastercard.png'
+    },
+    {
+      imgWidth: 36,
+      imgHeight: 9,
+      title: '*9860',
+      subtitle: 'ATM Card',
+      date: '24/Feb',
+      debitAmount: '-$999',
+      balance: '$25,900',
+      imgAlt: 'american-express',
+      imgSrc: '/images/cards/logo-american-express.png'
+    },
+    {
+      imgWidth: 30,
+      imgHeight: 10,
+      title: '*4300',
+      subtitle: 'Credit Card',
+      date: '08/Mar',
+      debitAmount: '-$8,453',
+      balance: '$9,233',
+      imgAlt: 'visa',
+      imgSrc: '/images/cards/logo-visa.png'
+    },
+    {
+      imgWidth: 30,
+      imgHeight: 18,
+      title: '*5545',
+      subtitle: 'Debit Card',
+      date: '15/Apr',
+      debitAmount: '-$24',
+      balance: '$500',
+      imgAlt: 'mastercard',
+      imgSrc: '/images/cards/logo-mastercard.png'
+    },
+    {
+      imgWidth: 30,
+      imgHeight: 10,
+      title: '*4399',
+      subtitle: 'Credit Card',
+      date: '28/Apr',
+      debitAmount: '-$299',
+      balance: '$1,380',
+      imgAlt: 'visa',
+      imgSrc: '/images/cards/logo-visa.png'
+    }
+  ]
+
   return (
     <Card>
       <CardHeader

@@ -1,7 +1,10 @@
 // ** React Imports
 import { useState, useEffect, forwardRef } from 'react'
 
-// ** Next Import
+// ** Redux Imports
+import { useDispatch, useSelector } from 'react-redux'
+
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -22,28 +25,27 @@ import FormControl from '@mui/material/FormControl'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import format from 'date-fns/format'
 
-// ** Store & Actions Imports
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchData, deleteInvoice } from 'src/store/apps/invoice'
-
-// ** Types Imports
-import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
-import { InvoiceType } from 'src/types/apps/invoiceTypes'
-
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Action Imports
+import { fetchData, deleteInvoice } from 'src/store/apps/invoice'
+
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
+
+// ** Type Imports
+import { RootState, AppDispatch } from 'src/store'
+import { ThemeColor } from 'src/@core/layouts/types'
+import { InvoiceType } from 'src/types/apps/invoiceTypes'
 
 interface InvoiceStatusObj {
   [key: string]: {
@@ -211,7 +213,7 @@ const CustomInput = forwardRef((props: CustomInputProps, ref) => {
 /* eslint-enable */
 
 const BillingHistoryTable = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('')
   const [statusValue, setStatusValue] = useState<string>('')
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })

@@ -4,7 +4,7 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 
-// ** Data Import
+// ** Constant Imports
 import { rows } from 'src/@fake-db/table/static-data'
 
 const columns: GridColDef[] = [

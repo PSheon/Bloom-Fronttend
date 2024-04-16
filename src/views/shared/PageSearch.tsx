@@ -23,10 +23,10 @@ import MuiAutocomplete, { AutocompleteRenderInputParams } from '@mui/material/Au
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Configs Imports
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Types Imports
+// ** Type Imports
 import { AppBarSearchType } from 'src/@fake-db/types'
 import { Settings } from 'src/@core/context/settingsContext'
 

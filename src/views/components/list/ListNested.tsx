@@ -14,9 +14,10 @@ import ListItemButton from '@mui/material/ListItemButton'
 import Icon from 'src/@core/components/icon'
 
 const ListNested = () => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(true)
 
+  // ** Logics
   const handleClick = () => {
     setOpen(!open)
   }

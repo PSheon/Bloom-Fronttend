@@ -12,20 +12,18 @@ import Typography from '@mui/material/Typography'
 import MuiStep, { StepProps } from '@mui/material/Step'
 import CardContent, { CardContentProps } from '@mui/material/CardContent'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+// ** Core Component Imports
+import StepperWrapper from 'src/@core/styles/mui/stepper'
 
-// ** Custom Components Imports
+// ** Custom Component Imports
 import StepperCustomDot from 'src/views/forms/form-wizard/StepperCustomDot'
-
-// ** Step Components
 import StepDealType from 'src/views/pages/wizard-examples/create-deal/StepDealType'
 import StepReview from 'src/views/pages/wizard-examples/create-deal/StepReview'
 import StepDealUsage from 'src/views/pages/wizard-examples/create-deal/StepDealUsage'
 import StepDealDetails from 'src/views/pages/wizard-examples/create-deal/StepDealDetails'
 
-// ** Styled Components
-import StepperWrapper from 'src/@core/styles/mui/stepper'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 const steps = [
   {
@@ -73,7 +71,7 @@ const CreateDealWizard = () => {
   // ** States
   const [activeStep, setActiveStep] = useState<number>(0)
 
-  // Handle Stepper
+  // ** Logics
   const handleNext = () => {
     setActiveStep(activeStep + 1)
   }

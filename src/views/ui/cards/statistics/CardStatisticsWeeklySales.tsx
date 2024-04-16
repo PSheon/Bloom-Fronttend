@@ -12,15 +12,15 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import clsx from 'clsx'
 import { useKeenSlider } from 'keen-slider/react'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
 
 interface SwiperData {
   img: string
@@ -117,7 +117,7 @@ const CardStatisticsWeeklySales = () => {
   const [loaded, setLoaded] = useState<boolean>(false)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>({
     initial: 0,

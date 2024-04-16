@@ -15,7 +15,7 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import FormControlLabel from '@mui/material/FormControlLabel'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
 const furnishingArray = [
@@ -33,7 +33,7 @@ const furnishingArray = [
 ]
 
 const StepPropertyFeatures = () => {
-  // ** State
+  // ** States
   const [furnishingDetails, setFurnishingDetails] = useState<string[]>(['Fridge', 'AC', 'TV', 'Wifi'])
 
   const handleChange = (event: SelectChangeEvent<typeof furnishingDetails>) => {

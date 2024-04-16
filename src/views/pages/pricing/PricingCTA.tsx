@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 import Box, { BoxProps } from '@mui/material/Box'
 import Grid, { GridProps } from '@mui/material/Grid'
 
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 // ** Styled Components
@@ -23,7 +23,6 @@ const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
     padding: theme.spacing(10, 5)
   }
 }))
-
 const GridStyled = styled(Grid)<GridProps>(({ theme }) => ({
   display: 'flex',
   justifyContent: 'center',
@@ -31,7 +30,6 @@ const GridStyled = styled(Grid)<GridProps>(({ theme }) => ({
     order: -1
   }
 }))
-
 const Img = styled('img')(({ theme }) => ({
   bottom: 0,
   right: 144,

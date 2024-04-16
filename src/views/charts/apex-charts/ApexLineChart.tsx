@@ -6,15 +6,15 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 const series = [
   {
@@ -23,7 +23,7 @@ const series = [
 ]
 
 const ApexLineChart = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   const options: ApexOptions = {

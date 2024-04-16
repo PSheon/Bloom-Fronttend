@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent'
 import { alpha, styled } from '@mui/material/styles'
 import MuiInputBase, { InputBaseProps } from '@mui/material/InputBase'
 
-// Styled InputBase component
+// ** Styled InputBase component
 const InputBase = styled(MuiInputBase)<InputBaseProps>(({ theme }) => ({
   marginTop: theme.spacing(4),
   '& .MuiInputBase-input': {

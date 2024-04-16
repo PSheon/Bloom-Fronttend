@@ -31,9 +31,10 @@ const Progress = (props: CircularProgressProps) => {
 }
 
 const ProgressCircularWithLabel = () => {
-  // ** State
+  // ** States
   const [progress, setProgress] = useState<number>(10)
 
+  // ** Side Effects
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress(prevProgress => (prevProgress >= 100 ? 0 : prevProgress + 10))

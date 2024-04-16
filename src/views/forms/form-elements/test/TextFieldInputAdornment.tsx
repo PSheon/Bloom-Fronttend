@@ -25,17 +25,17 @@ interface State {
 }
 
 const TextFieldInputAdornment = () => {
-  // ** State
+  // ** States
   const [values, setValues] = useState<State>({
     weight: '',
     password: '',
     showPassword: false
   })
 
+  // ** Logics
   const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {
     setValues({ ...values, [prop]: event.target.value })
   }
-
   const handleClickShowPassword = () => {
     setValues({ ...values, showPassword: !values.showPassword })
   }

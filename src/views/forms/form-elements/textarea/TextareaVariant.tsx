@@ -6,9 +6,10 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 
 const TextareaVariant = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('Controlled')
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }

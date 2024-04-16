@@ -4,28 +4,28 @@ import { useTheme } from '@mui/material/styles'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-const series = [
-  {
-    name: 'Income',
-    data: [70, 90, 80, 95, 75, 90]
-  },
-  {
-    name: 'Net Worth',
-    data: [110, 72, 62, 65, 100, 75]
-  }
-]
-
 const CardWidgetsPerformance = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
+  const series = [
+    {
+      name: 'Income',
+      data: [70, 90, 80, 95, 75, 90]
+    },
+    {
+      name: 'Net Worth',
+      data: [110, 72, 62, 65, 100, 75]
+    }
+  ]
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

@@ -15,7 +15,7 @@ interface StateType {
 }
 
 const CheckboxesShowError = () => {
-  // ** State
+  // ** States
   const [state, setState] = useState<StateType>({
     gilad: true,
     jason: false,
@@ -26,6 +26,7 @@ const CheckboxesShowError = () => {
   const { gilad, jason, antoine } = state
   const error = [gilad, jason, antoine].filter(v => v).length !== 2
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setState({ ...state, [event.target.name]: event.target.checked })
   }

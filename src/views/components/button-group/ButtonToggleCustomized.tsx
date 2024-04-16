@@ -11,7 +11,7 @@ import MuiToggleButton, { ToggleButtonProps } from '@mui/material/ToggleButton'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// Styled ToggleButton component
+// ** Styled ToggleButton component
 const ToggleButton = styled(MuiToggleButton)<ToggleButtonProps>(({ theme }) => ({
   margin: theme.spacing(1),
   border: 'none !important',
@@ -29,10 +29,10 @@ const ButtonToggleCustomized = () => {
   const [alignment, setAlignment] = useState<string | null>('left')
   const [formats, setFormats] = useState<string[]>(() => ['italic'])
 
+  // ** Logics
   const handleAlignment = (event: MouseEvent<HTMLElement>, newAlignment: string | null) => {
     setAlignment(newAlignment)
   }
-
   const handleFormat = (event: MouseEvent<HTMLElement>, newFormats: string[]) => {
     setFormats(newFormats)
   }

@@ -6,7 +6,7 @@ import Slider from '@mui/material/Slider'
 import Typography from '@mui/material/Typography'
 
 const SliderControlledUncontrolled = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<number>(30)
 
   return (

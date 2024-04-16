@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, useEffect, ReactElement, SyntheticEvent } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Components
@@ -16,7 +16,17 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import MuiTabList, { TabListProps } from '@mui/lab/TabList'
 import CircularProgress from '@mui/material/CircularProgress'
 
-// ** Type Import
+// ** Custom Component Imports
+import Teams from 'src/views/pages/user-profile/teams'
+import Profile from 'src/views/pages/user-profile/profile'
+import Projects from 'src/views/pages/user-profile/projects'
+import Connections from 'src/views/pages/user-profile/connections'
+import UserProfileHeader from 'src/views/pages/user-profile/UserProfileHeader'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
 import {
   TeamsTabType,
   ProfileTabType,
@@ -24,16 +34,6 @@ import {
   ConnectionsTabType,
   UserProfileActiveTab
 } from 'src/@fake-db/types'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Demo Components
-import Teams from 'src/views/pages/user-profile/teams'
-import Profile from 'src/views/pages/user-profile/profile'
-import Projects from 'src/views/pages/user-profile/projects'
-import Connections from 'src/views/pages/user-profile/connections'
-import UserProfileHeader from 'src/views/pages/user-profile/UserProfileHeader'
 
 const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
   '& .MuiTabs-indicator': {
@@ -54,7 +54,7 @@ const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
 }))
 
 const UserProfile = ({ tab, data }: { tab: string; data: UserProfileActiveTab }) => {
-  // ** State
+  // ** States
   const [activeTab, setActiveTab] = useState<string>(tab)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 
@@ -62,6 +62,7 @@ const UserProfile = ({ tab, data }: { tab: string; data: UserProfileActiveTab })
   const router = useRouter()
   const hideText = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'))
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, value: string) => {
     setIsLoading(true)
     setActiveTab(value)
@@ -72,6 +73,7 @@ const UserProfile = ({ tab, data }: { tab: string; data: UserProfileActiveTab })
       .then(() => setIsLoading(false))
   }
 
+  // ** Side Effects
   useEffect(() => {
     if (data) {
       setIsLoading(false)

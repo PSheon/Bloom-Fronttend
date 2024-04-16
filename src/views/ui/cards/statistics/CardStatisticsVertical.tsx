@@ -1,14 +1,14 @@
 // ** MUI Import
 import Grid from '@mui/material/Grid'
 
+// ** Core Component Imports
+import CardStatisticsVertical from 'src/@core/components/card-statistics/card-stats-vertical'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types Imports
+// ** Type Imports
 import { CardStatsVerticalProps } from 'src/@core/components/card-statistics/types'
-
-// ** Demo Components Imports
-import CardStatisticsVertical from 'src/@core/components/card-statistics/card-stats-vertical'
 
 interface Props {
   data: CardStatsVerticalProps[]

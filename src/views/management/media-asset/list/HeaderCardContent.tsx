@@ -19,7 +19,7 @@ import FormControl from '@mui/material/FormControl'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Components Imports
+// ** Custom Component Imports
 import MediaAssetUploaderButton from 'src/views/shared/media-asset-uploader'
 
 interface Props {

@@ -21,7 +21,7 @@ const FooterIllustrationsV1 = (props: FooterIllustrationsProp) => {
   // ** Props
   const { image } = props
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   // ** Vars

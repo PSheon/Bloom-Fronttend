@@ -15,7 +15,7 @@ import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// Styled Timeline component
+// ** Styled Timeline component
 const Timeline = styled(MuiTimeline)<TimelineProps>({
   paddingLeft: 0,
   paddingRight: 0,
@@ -27,7 +27,7 @@ const Timeline = styled(MuiTimeline)<TimelineProps>({
   }
 })
 
-// Styled component for the image of a shoe
+// ** Styled component for the image of a shoe
 const ImgShoe = styled('img')(({ theme }) => ({
   borderRadius: theme.shape.borderRadius
 }))

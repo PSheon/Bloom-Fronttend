@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import { Direction } from '@mui/material'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import { useKeenSlider } from 'keen-slider/react'
 
 const images = [
@@ -17,9 +17,10 @@ const images = [
 ]
 
 const SwiperFader = ({ direction }: { direction: Direction }) => {
+  // ** States
   const [opacities, setOpacities] = useState<number[]>([])
 
-  // ** Hook
+  // ** Hooks
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     slides: images.length,
     rtl: direction === 'rtl',

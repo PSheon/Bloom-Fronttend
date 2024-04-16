@@ -37,14 +37,14 @@ const names = [
 ]
 
 const SelectMultiple = () => {
-  // ** State
+  // ** States
   const [personName, setPersonName] = useState<string[]>([])
   const [personNameNative, setPersonNameNative] = useState<string[]>([])
 
+  // ** Logics
   const handleChange = (event: SelectChangeEvent<string[]>) => {
     setPersonName(event.target.value as string[])
   }
-
   const handleChangeMultipleNative = (event: ChangeEvent<HTMLSelectElement>) => {
     const { options } = event.target
     const value: string[] = []

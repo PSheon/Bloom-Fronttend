@@ -4,11 +4,11 @@ import { useState } from 'react'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Type Import
-import { CustomCheckboxBasicData } from 'src/@core/components/custom-checkbox/types'
-
-// ** Demo Components Imports
+// ** Core Component Imports
 import CustomCheckboxBasic from 'src/@core/components/custom-checkbox/basic'
+
+// ** Type Imports
+import { CustomCheckboxBasicData } from 'src/@core/components/custom-checkbox/types'
 
 const data: CustomCheckboxBasicData[] = [
   {
@@ -29,9 +29,10 @@ const data: CustomCheckboxBasicData[] = [
 const BasicCustomCheckbox = () => {
   const initialSelected: string[] = data.filter(item => item.isSelected).map(item => item.value)
 
-  // ** State
+  // ** States
   const [selected, setSelected] = useState<string[]>(initialSelected)
 
+  // ** Logics
   const handleChange = (value: string) => {
     if (selected.includes(value)) {
       const updatedArr = selected.filter(item => item !== value)

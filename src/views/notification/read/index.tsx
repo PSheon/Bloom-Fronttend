@@ -8,31 +8,31 @@ import InputAdornment from '@mui/material/InputAdornment'
 import CardContent from '@mui/material/CardContent'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import { EditorState, convertFromRaw } from 'draft-js'
 
-// ** Utils Import
-import { getPublicMediaAssetUrl } from 'src/utils'
+// ** Core Component Imports
+import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
 
-// ** Types
-import { NotificationType } from 'src/types/api/notificationTypes'
-
-// ** Api Imports
-import { useUpdateMeOneMutation } from 'src/store/api/management/notification'
-
-// ** Styled Component
+// ** Custom Component Imports
 import NotificationReadBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
 import NotificationReadSeenStatusAlert from 'src/views/notification/read/alerts/SeenStatusAlert'
 import NotificationReadInformationCard from 'src/views/notification/read/cards/InformationCard'
 
-// ** Styled Component Imports
-import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// ** Styles
+// ** API Imports
+import { useUpdateMeOneMutation } from 'src/store/api/management/notification'
+
+// ** Util Imports
+import { getPublicMediaAssetUrl } from 'src/utils'
+
+// ** Type Imports
+import { NotificationType } from 'src/types/api/notificationTypes'
+
+// ** Style Imports
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 const ProfilePicture = styled('img')(({ theme }) => ({

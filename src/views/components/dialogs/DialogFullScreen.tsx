@@ -14,11 +14,11 @@ import DialogActions from '@mui/material/DialogActions'
 import Icon from 'src/@core/components/icon'
 
 const DialogFullScreen = () => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
+  // ** Logics
   const handleClickOpen = () => setOpen(true)
-
   const handleClose = () => setOpen(false)
 
   return (

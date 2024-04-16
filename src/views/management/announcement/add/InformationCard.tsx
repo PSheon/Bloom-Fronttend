@@ -7,7 +7,7 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
 
-// ** Hooks
+// ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
 
 const AnnouncementAddInformationCard = () => {

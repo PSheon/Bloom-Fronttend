@@ -11,7 +11,7 @@ import Box, { BoxProps } from '@mui/material/Box'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { SendMsgComponentType } from 'src/types/apps/chatTypes'
 
 // ** Styled Components
@@ -33,7 +33,7 @@ const SendMsgForm = (props: SendMsgComponentType) => {
   // ** Props
   const { store, dispatch, sendMsg } = props
 
-  // ** State
+  // ** States
   const [msg, setMsg] = useState<string>('')
 
   const handleSendMsg = (e: SyntheticEvent) => {

@@ -9,9 +9,11 @@ const ProcessLinearBuffer = () => {
   const [buffer, setBuffer] = useState<number>(10)
   const [progress, setProgress] = useState<number>(0)
 
+  // ** Refs
   // eslint-disable-next-line
   const progressRef = useRef(() => {})
 
+  // ** Side Effects
   useEffect(() => {
     progressRef.current = () => {
       if (progress > 100) {

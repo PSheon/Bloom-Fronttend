@@ -9,7 +9,7 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import InputAdornment from '@mui/material/InputAdornment'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import format from 'date-fns/format'
 import { ApexOptions } from 'apexcharts'
 import DatePicker from 'react-datepicker'
@@ -17,11 +17,11 @@ import DatePicker from 'react-datepicker'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-
-// ** Component Import
+// ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
+
+// ** Type Imports
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 const columnColors = {
   bg: '#f8d3ff',
@@ -46,13 +46,14 @@ const series = [
 ]
 
 const ApexColumnChart = () => {
-  // ** Hook
-  const theme = useTheme()
-
   // ** States
   const [endDate, setEndDate] = useState<DateType>(null)
   const [startDate, setStartDate] = useState<DateType>(null)
 
+  // ** Hooks
+  const theme = useTheme()
+
+  // ** Vars
   const options: ApexOptions = {
     chart: {
       offsetX: -10,

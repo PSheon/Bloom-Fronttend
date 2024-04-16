@@ -20,17 +20,17 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
-import StepperCustomDot from './StepperCustomDot'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import toast from 'react-hot-toast'
 
-// ** Styled Component
+// ** Core Component Imports
 import StepperWrapper from 'src/@core/styles/mui/stepper'
+
+// ** Custom Component Imports
+import StepperCustomDot from './StepperCustomDot'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 interface State {
   password: string
@@ -74,7 +74,7 @@ const StepperAlternativeLabel = () => {
     showPassword2: false
   })
 
-  // Handle Stepper
+  // ** Logics
   const handleBack = () => {
     setActiveStep(prevActiveStep => prevActiveStep - 1)
   }

@@ -7,11 +7,11 @@ import CardContent from '@mui/material/CardContent'
 import Skeleton from '@mui/material/Skeleton'
 import Divider from '@mui/material/Divider'
 
+// ** Custom Component Imports
+import NotificationReadBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Styled Component
-import NotificationReadBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 const NotificationReadLoadingSkeleton = () => {
   return (

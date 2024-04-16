@@ -14,29 +14,28 @@ import ClickAwayListener from '@mui/material/ClickAwayListener'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge']
-
 const ButtonGroupSplit = () => {
   // ** States
   const [open, setOpen] = useState<boolean>(false)
   const [selectedIndex, setSelectedIndex] = useState<number>(1)
 
-  // ** Ref
+  // ** Refs
   const anchorRef = useRef<HTMLDivElement | null>(null)
 
+  // ** Vars
+  const options = ['Create a merge commit', 'Squash and merge', 'Rebase and merge']
+
+  // ** Logics
   const handleClick = () => {
     console.info(`You clicked '${options[selectedIndex]}'`)
   }
-
   const handleMenuItemClick = (event: SyntheticEvent, index: number) => {
     setSelectedIndex(index)
     setOpen(false)
   }
-
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen)
   }
-
   const handleClose = () => {
     setOpen(false)
   }

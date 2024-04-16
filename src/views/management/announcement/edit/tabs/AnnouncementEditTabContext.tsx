@@ -10,15 +10,15 @@ import TabContext from '@mui/lab/TabContext'
 import { styled } from '@mui/material/styles'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Demo Components Imports
+// ** Custom Component Imports
 import AnnouncementEditActivityTimelineCard from 'src/views/management/announcement/edit/cards/AnnouncementEditActivityTimelineCard'
 import AnnouncementEditContentEditorCard from 'src/views/management/announcement/edit/cards/AnnouncementEditContentEditorCard'
 import AnnouncementEditDangerZoneCard from 'src/views/management/announcement/edit/cards/AnnouncementEditDangerZoneCard'
 
-// ** Types
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
 import { AnnouncementType } from 'src/types/api/announcementTypes'
 
 // ** Styled Tab component

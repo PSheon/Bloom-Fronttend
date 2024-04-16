@@ -10,31 +10,32 @@ import MenuList from '@mui/material/MenuList'
 import MenuItem from '@mui/material/MenuItem'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
 
-// ** Hook Import
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 const MenuComposition = () => {
   // ** States
   const [open, setOpen] = useState<boolean>(false)
 
-  // ** Hook & Var
-  const { settings } = useSettings()
-  const { skin } = settings
-
-  // ** Ref
+  // ** Refs
   const anchorRef = useRef<HTMLButtonElement | null>(null)
 
+  // ** Hooks
+  const { settings } = useSettings()
+
+  // ** Vars
+  const { skin } = settings
+
+  // ** Logics
   const handleToggle = () => {
     setOpen(prevOpen => !prevOpen)
   }
-
   const handleClose = (event: MouseEvent | TouchEvent): void => {
     if (anchorRef.current && anchorRef.current.contains(event.target as HTMLElement)) {
       return
     }
     setOpen(false)
   }
-
   const handleListKeyDown = (event: KeyboardEvent) => {
     if (event.key === 'Tab') {
       event.preventDefault()

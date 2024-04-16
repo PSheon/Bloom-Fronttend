@@ -22,7 +22,7 @@ import FormHelperText from '@mui/material/FormHelperText'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import toast from 'react-hot-toast'
 import DatePicker from 'react-datepicker'
 import { useForm, Controller } from 'react-hook-form'
@@ -30,7 +30,7 @@ import { useForm, Controller } from 'react-hook-form'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 interface State {
@@ -87,10 +87,10 @@ const FormValidationBasic = () => {
     formState: { errors }
   } = useForm<FormInputs>({ defaultValues })
 
+  // ** Logics
   const handleClickShowPassword = () => {
     setState({ ...state, showPassword: !state.showPassword })
   }
-
   const onSubmit = () => toast.success('Form Submitted')
 
   return (

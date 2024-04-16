@@ -1,7 +1,7 @@
 // ** React Imports
 import { MouseEvent, useState } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -17,16 +17,16 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+import OptionsMenu from 'src/@core/components/option-menu'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 import { InvoiceType } from 'src/types/apps/invoiceTypes'
-
-// ** Custom Component Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
-import OptionsMenu from 'src/@core/components/option-menu'
 
 interface Props {
   invoiceData: InvoiceType[]
@@ -160,11 +160,11 @@ const columns: GridColDef[] = [
 ]
 
 const InvoiceListTable = ({ invoiceData }: Props) => {
-  // ** State
+  // ** States
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 7 })
 
-  // ** Var
+  // ** Vars
   const open = Boolean(anchorEl)
 
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {

@@ -9,14 +9,14 @@ import IconButton from '@mui/material/IconButton'
 import FormControl from '@mui/material/FormControl'
 import InputAdornment from '@mui/material/InputAdornment'
 
-// ** Type Imports
-import { CustomRadioIconsData, CustomRadioIconsProps } from 'src/@core/components/custom-radio/types'
+// ** Core Component Imports
+import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
+// ** Type Imports
+import { CustomRadioIconsData, CustomRadioIconsProps } from 'src/@core/components/custom-radio/types'
 
 interface IconType {
   icon: CustomRadioIconsProps['icon']
@@ -51,7 +51,7 @@ const StepPersonalDetails = () => {
   const [showValues, setShowValues] = useState<boolean>(false)
   const [selectedRadio, setSelectedRadio] = useState<string>(initialIconSelected)
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   const icons: IconType[] = [

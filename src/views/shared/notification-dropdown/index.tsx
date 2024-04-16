@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, SyntheticEvent, Fragment, ReactNode } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -16,31 +16,31 @@ import MuiMenu, { MenuProps } from '@mui/material/Menu'
 import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import PerfectScrollbarComponent from 'react-perfect-scrollbar'
-
-// ** Third Party Imports
 import format from 'date-fns/format'
 import { convertFromRaw } from 'draft-js'
 
-// ** Api Imports
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Custom Component Imports
+import MenuLoadingSkeleton from 'src/views/shared/notification-dropdown/LoadingSkeleton'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
 import { useFindMeQuery } from 'src/store/api/management/notification'
 
-// ** Utils Imports
+// ** Util Imports
 import { getNotificationAttributes } from 'src/utils'
 
 // ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
 import { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
 import { NotificationType } from 'src/types/api/notificationTypes'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
-import MenuLoadingSkeleton from 'src/views/shared/notification-dropdown/LoadingSkeleton'
 
 interface Props {
   settings: Settings

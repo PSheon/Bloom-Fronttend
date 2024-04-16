@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { Scatter } from 'react-chartjs-2'
 import { ChartData, ChartOptions } from 'chart.js'
 
@@ -25,13 +25,10 @@ const ChartjsScatterChart = (props: ScatterProps) => {
   // ** Props
   const { green, warning, primary, labelColor, borderColor, legendColor } = props
 
-  // ** State
+  // ** States
   const [active, setActive] = useState<string | null>('daily')
 
-  const handleActive = (event: MouseEvent<HTMLElement>, newActive: string | null) => {
-    setActive(newActive)
-  }
-
+  // ** Vars
   const options: ChartOptions<'scatter'> = {
     responsive: true,
     maintainAspectRatio: false,
@@ -78,7 +75,6 @@ const ChartjsScatterChart = (props: ScatterProps) => {
       }
     }
   }
-
   const data: ChartData<'scatter'> = {
     datasets: [
       {
@@ -157,6 +153,11 @@ const ChartjsScatterChart = (props: ScatterProps) => {
         ]
       }
     ]
+  }
+
+  // ** Logics
+  const handleActive = (event: MouseEvent<HTMLElement>, newActive: string | null) => {
+    setActive(newActive)
   }
 
   return (

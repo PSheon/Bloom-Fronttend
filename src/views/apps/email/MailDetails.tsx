@@ -12,21 +12,21 @@ import Box, { BoxProps } from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import ListItemIcon from '@mui/material/ListItemIcon'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
-// ** Hooks
-import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import Sidebar from 'src/@core/components/sidebar'
 import CustomChip from 'src/@core/components/mui/chip'
 import OptionsMenu from 'src/@core/components/option-menu'
 
-// ** Types
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Hook Imports
+import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 import { OptionType } from 'src/@core/components/option-menu/types'
 import {
@@ -89,10 +89,10 @@ const MailDetails = (props: MailDetailsType) => {
     setMailDetailsOpen
   } = props
 
-  // ** State
+  // ** States
   const [showReplies, setShowReplies] = useState<boolean>(false)
 
-  // ** Hook
+  // ** Hooks
   const { settings } = useSettings()
 
   const handleMoveToTrash = () => {

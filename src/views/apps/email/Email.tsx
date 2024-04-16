@@ -9,19 +9,15 @@ import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-// ** Hooks
-import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Types
-import { RootState, AppDispatch } from 'src/store'
-import { MailLayoutType, MailLabelColors } from 'src/types/apps/emailTypes'
-
-// ** Email App Component Imports
+// ** Custom Component Imports
 import MailLog from 'src/views/apps/email/MailLog'
 import SidebarLeft from 'src/views/apps/email/SidebarLeft'
 import ComposePopup from 'src/views/apps/email/ComposePopup'
 
-// ** Actions
+// ** Hook Imports
+import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Action Imports
 import {
   fetchMails,
   updateMail,
@@ -31,6 +27,10 @@ import {
   handleSelectMail,
   handleSelectAllMail
 } from 'src/store/apps/email'
+
+// ** Type Imports
+import { RootState, AppDispatch } from 'src/store'
+import { MailLayoutType, MailLabelColors } from 'src/types/apps/emailTypes'
 
 // ** Variables
 const labelColors: MailLabelColors = {

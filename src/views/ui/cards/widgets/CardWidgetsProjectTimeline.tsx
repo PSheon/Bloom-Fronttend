@@ -7,21 +7,21 @@ import CardContent from '@mui/material/CardContent'
 import Grid, { GridProps } from '@mui/material/Grid'
 import { styled, useTheme } from '@mui/material/styles'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-// ** Util Import
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-// Styled Grid component
+// ** Styled Grid component
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     borderBottom: `1px solid ${theme.palette.divider}`
@@ -31,54 +31,53 @@ const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
   }
 }))
 
-const labels = ['Development Apps', 'UI Design', 'IOS Application', 'Web App Wireframing', 'Prototyping']
-
-const series = [
-  {
-    data: [
-      {
-        x: 'Catherine',
-        y: [
-          new Date(`${new Date().getFullYear()}-01-01`).getTime(),
-          new Date(`${new Date().getFullYear()}-04-02`).getTime()
-        ]
-      },
-      {
-        x: 'Janelle',
-        y: [
-          new Date(`${new Date().getFullYear()}-02-18`).getTime(),
-          new Date(`${new Date().getFullYear()}-05-30`).getTime()
-        ]
-      },
-      {
-        x: 'Wellington',
-        y: [
-          new Date(`${new Date().getFullYear()}-02-07`).getTime(),
-          new Date(`${new Date().getFullYear()}-04-31`).getTime()
-        ]
-      },
-      {
-        x: 'Blake',
-        y: [
-          new Date(`${new Date().getFullYear()}-01-14`).getTime(),
-          new Date(`${new Date().getFullYear()}-06-30`).getTime()
-        ]
-      },
-      {
-        x: 'Quinn',
-        y: [
-          new Date(`${new Date().getFullYear()}-04-01`).getTime(),
-          new Date(`${new Date().getFullYear()}-07-31`).getTime()
-        ]
-      }
-    ]
-  }
-]
-
 const CardWidgetsProjectTimeline = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
+  const labels = ['Development Apps', 'UI Design', 'IOS Application', 'Web App Wireframing', 'Prototyping']
+  const series = [
+    {
+      data: [
+        {
+          x: 'Catherine',
+          y: [
+            new Date(`${new Date().getFullYear()}-01-01`).getTime(),
+            new Date(`${new Date().getFullYear()}-04-02`).getTime()
+          ]
+        },
+        {
+          x: 'Janelle',
+          y: [
+            new Date(`${new Date().getFullYear()}-02-18`).getTime(),
+            new Date(`${new Date().getFullYear()}-05-30`).getTime()
+          ]
+        },
+        {
+          x: 'Wellington',
+          y: [
+            new Date(`${new Date().getFullYear()}-02-07`).getTime(),
+            new Date(`${new Date().getFullYear()}-04-31`).getTime()
+          ]
+        },
+        {
+          x: 'Blake',
+          y: [
+            new Date(`${new Date().getFullYear()}-01-14`).getTime(),
+            new Date(`${new Date().getFullYear()}-06-30`).getTime()
+          ]
+        },
+        {
+          x: 'Quinn',
+          y: [
+            new Date(`${new Date().getFullYear()}-04-01`).getTime(),
+            new Date(`${new Date().getFullYear()}-07-31`).getTime()
+          ]
+        }
+      ]
+    }
+  ]
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

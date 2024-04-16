@@ -22,6 +22,7 @@ const CardActionAll = () => {
   const [collapsed, setCollapsed] = useState<boolean>(true)
   const [visibility, setVisibility] = useState<boolean>(true)
 
+  // ** Logics
   const handleBackDrop = () => {
     setReload(true)
 

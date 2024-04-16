@@ -7,11 +7,11 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
 
-// ** Utils Import
-import { getPublicMediaAssetUrl } from 'src/utils'
-
-// ** Hooks
+// ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
+
+// ** Util Imports
+import { getPublicMediaAssetUrl } from 'src/utils'
 
 const RequestSheetAddInformationCard = () => {
   // ** Hooks

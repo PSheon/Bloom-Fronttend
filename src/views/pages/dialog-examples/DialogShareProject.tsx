@@ -28,11 +28,11 @@ import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Configs Imports
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Hooks Imports
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
 
 interface DataType {
   name: string
@@ -140,9 +140,10 @@ const DialogShareProject = () => {
   const { settings } = useSettings()
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'))
 
-  // ** Var
+  // ** Vars
   const { direction } = settings
 
+  // ** Logics
   const handleClick = (event: MouseEvent<HTMLButtonElement>) => {
     setAnchorEl(event.currentTarget)
   }

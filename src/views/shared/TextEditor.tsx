@@ -4,7 +4,7 @@ import { useCallback, useRef } from 'react'
 // ** MUI Imports
 import Box from '@mui/material/Box'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import axios from 'axios'
 import toast from 'react-hot-toast'
 import { OutputData, EditorConfig } from '@editorjs/editorjs'
@@ -46,14 +46,14 @@ import Header from '@editorjs/header'
 // @ts-ignore
 import DragDrop from 'editorjs-drag-drop'
 
-// ** Hooks
+// ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
-// ** Utils Imports
+// ** Util Imports
 import { getAvatarFileInfo, getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Config
+// ** Config Imports
 import authConfig from 'src/configs/auth'
 
 class EnhancedImage extends Image {

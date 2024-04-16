@@ -9,9 +9,10 @@ import RadioGroup from '@mui/material/RadioGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
 const RadioControlledUncontrolled = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('controlled-checked')
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value)
   }

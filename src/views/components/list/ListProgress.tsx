@@ -7,7 +7,7 @@ import ListItemText from '@mui/material/ListItemText'
 import ListItemAvatar from '@mui/material/ListItemAvatar'
 import LinearProgress from '@mui/material/LinearProgress'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Icon Imports

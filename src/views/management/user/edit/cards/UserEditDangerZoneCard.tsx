@@ -17,13 +17,13 @@ import LoadingButton from '@mui/lab/LoadingButton'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Hooks
+// ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
 
-// ** Api Imports
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/user'
 
-// ** Types Imports
+// ** Type Imports
 import { UserDataType } from 'src/context/types'
 
 interface Props {

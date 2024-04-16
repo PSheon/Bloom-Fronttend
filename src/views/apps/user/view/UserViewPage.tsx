@@ -1,12 +1,12 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Types
-import { InvoiceType } from 'src/types/apps/invoiceTypes'
-
-// ** Demo Components Imports
+// ** Custom Component Imports
 import UserViewLeft from 'src/views/apps/user/view/UserViewLeft'
 import UserViewRight from 'src/views/apps/user/view/UserViewRight'
+
+// ** Type Imports
+import { InvoiceType } from 'src/types/apps/invoiceTypes'
 
 type Props = {
   tab: string

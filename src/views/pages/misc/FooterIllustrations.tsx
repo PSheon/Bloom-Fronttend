@@ -6,7 +6,7 @@ interface FooterIllustrationsProp {
   image?: string
 }
 
-// Styled Components
+// ** Styled Components
 const MaskImg = styled('img')(() => ({
   bottom: 0,
   zIndex: -1,
@@ -28,7 +28,7 @@ const FooterIllustrations = (props: FooterIllustrationsProp) => {
   // ** Props
   const { image } = props
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   // ** Vars

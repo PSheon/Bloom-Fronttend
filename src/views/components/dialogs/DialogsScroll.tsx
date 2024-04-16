@@ -14,16 +14,17 @@ const DialogsScroll = () => {
   const [open, setOpen] = useState<boolean>(false)
   const [scroll, setScroll] = useState<DialogProps['scroll']>('paper')
 
-  // ** Ref
+  // ** Refs
   const descriptionElementRef = useRef<HTMLElement>(null)
 
+  // ** Logics
   const handleClickOpen = (scrollType: DialogProps['scroll']) => () => {
     setOpen(true)
     setScroll(scrollType)
   }
-
   const handleClose = () => setOpen(false)
 
+  // ** Side Effects
   useEffect(() => {
     if (open) {
       const { current: descriptionElement } = descriptionElementRef

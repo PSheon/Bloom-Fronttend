@@ -12,9 +12,10 @@ import ListItemAvatar from '@mui/material/ListItemAvatar'
 import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 
 const ListWithCheckbox = () => {
-  // ** State
+  // ** States
   const [checked, setChecked] = useState<number[]>([0])
 
+  // ** Logics
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value)
     const newChecked = [...checked]

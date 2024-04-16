@@ -15,6 +15,7 @@ const SliderMinimumDistance = () => {
   const [value1, setValue1] = useState<number[]>([20, 37])
   const [value2, setValue2] = useState<number[]>([20, 37])
 
+  // ** Logics
   const handleChange1 = (event: Event, newValue: number | number[], activeThumb: number) => {
     if (!Array.isArray(newValue)) {
       return
@@ -26,7 +27,6 @@ const SliderMinimumDistance = () => {
       setValue1([value1[0], Math.max(newValue[1], value1[0] + minDistance)])
     }
   }
-
   const handleChange2 = (event: Event, newValue: number | number[], activeThumb: number) => {
     if (!Array.isArray(newValue)) {
       return

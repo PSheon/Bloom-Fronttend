@@ -20,25 +20,25 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContentText from '@mui/material/DialogContentText'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Api Imports
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/mediaAsset'
 
-// ** Utils Import
+// ** Util Imports
 import { getMediaAssetFileAttributes } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 const schema = yup.object().shape({

@@ -5,7 +5,7 @@ import Typography from '@mui/material/Typography'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Type Import
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 
 interface Props {

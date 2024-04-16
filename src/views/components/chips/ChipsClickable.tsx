@@ -2,6 +2,7 @@
 import Chip from '@mui/material/Chip'
 
 const ChipsClickable = () => {
+  // ** Logics
   const handleClick = () => {
     console.info('You clicked the Chip.')
   }

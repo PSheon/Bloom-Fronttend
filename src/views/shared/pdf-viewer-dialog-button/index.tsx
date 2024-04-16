@@ -10,19 +10,20 @@ import Typography from '@mui/material/Typography'
 import Fade, { FadeProps } from '@mui/material/Fade'
 import DialogContent from '@mui/material/DialogContent'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Hook Import
-import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import { Worker, Viewer } from '@react-pdf-viewer/core'
 import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'
 
-// ** Utils Imports
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Hook Imports
+import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Util Imports
 import { getPublicMediaAssetUrl } from 'src/utils'
 
+// ** Style Imports
 import '@react-pdf-viewer/core/lib/styles/index.css'
 import '@react-pdf-viewer/default-layout/lib/styles/index.css'
 

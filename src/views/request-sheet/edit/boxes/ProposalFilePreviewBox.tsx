@@ -4,16 +4,16 @@ import Box, { BoxProps } from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
+// ** Custom Component Imports
+import MediaAssetEditPdfViewerDialogButton from 'src/views/shared/pdf-viewer-dialog-button'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Styled Component
-import MediaAssetEditPdfViewerDialogButton from 'src/views/shared/pdf-viewer-dialog-button'
-
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
-// ** Styled Preview Box
+// ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   position: 'relative',

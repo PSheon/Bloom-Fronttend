@@ -5,17 +5,17 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 
-// ** Hook Import
-import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Demo Components Imports
+// ** Custom Component Imports
 import ThemeConfigSelectBox from 'src/views/settings/select-box/ThemeConfigSelectBox'
 
-// ** Type Import
+// ** Hook Imports
+import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
 
 const SettingsMenuSettingCard = () => {
-  // ** Hook
+  // ** Hooks
   const { settings, saveSettings } = useSettings()
 
   // ** Vars

@@ -4,7 +4,7 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import MuiPaper, { PaperProps } from '@mui/material/Paper'
 
-// Styled Paper component
+// ** Styled Paper component
 const Paper = styled(MuiPaper)<PaperProps>(({ theme }) => ({
   width: 100,
   height: 100,

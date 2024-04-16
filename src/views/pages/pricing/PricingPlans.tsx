@@ -1,10 +1,10 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import PlanDetails from 'src/@core/components/plan-details'
 
-// ** Types
+// ** Type Imports
 import { PricingPlanType } from 'src/@core/components/plan-details/types'
 
 interface Props {

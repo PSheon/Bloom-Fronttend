@@ -11,22 +11,22 @@ import Typography from '@mui/material/Typography'
 import FormControl from '@mui/material/FormControl'
 import InputAdornment from '@mui/material/InputAdornment'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import Payment from 'payment'
 
-// ** Type Import
-import { CustomRadioIconsData } from 'src/@core/components/custom-radio/types'
+// ** Custom Component Imports
+import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
-
-// ** Util Import
+// ** Util Imports
 import { formatCVC, formatExpirationDate, formatCreditCardNumber } from 'src/@core/utils/format'
 
-// ** Styles Import
+// ** Type Imports
+import { CustomRadioIconsData } from 'src/@core/components/custom-radio/types'
+
+// ** Style Imports
 import 'react-credit-cards/es/styles-compiled.css'
 
 const data: CustomRadioIconsData[] = [
@@ -101,7 +101,7 @@ const StepBillingDetails = ({ handlePrev }: { handlePrev: () => void }) => {
   const initialSelected: string = data.filter(item => item.isSelected)[data.filter(item => item.isSelected).length - 1]
     .value
 
-  // ** State
+  // ** States
   const [cvc, setCvc] = useState<string>('')
   const [name, setName] = useState<string>('')
   const [expiry, setExpiry] = useState<string>('')

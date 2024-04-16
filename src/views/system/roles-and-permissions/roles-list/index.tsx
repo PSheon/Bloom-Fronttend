@@ -13,7 +13,7 @@ import Icon from 'src/@core/components/icon'
 // ** Util Imports
 import { getUserRoleAttributes } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { RoleType } from 'src/types/api/roleAndPermissionTypes'
 
 interface Props {

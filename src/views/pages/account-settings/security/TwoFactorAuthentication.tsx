@@ -17,11 +17,11 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormHelperText from '@mui/material/FormHelperText'
 
+// ** Third-Party Imports
+import { useForm, Controller } from 'react-hook-form'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
-import { useForm, Controller } from 'react-hook-form'
 
 const TwoFactorAuthenticationCard = () => {
   // ** States

@@ -21,13 +21,13 @@ import TimelineItem from '@mui/lab/TimelineItem'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Utils Import
+// ** Util Imports
 import { getRequestSheetProcessStatusAttributes, getProcessStatusList } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
-// ** Styled Alert component
+// ** Styled Alert Component
 const Alert = styled(MuiAlert)<AlertProps>(() => ({
   '&.MuiAlert-root': {
     alignItems: 'center',
@@ -38,7 +38,7 @@ const Alert = styled(MuiAlert)<AlertProps>(() => ({
   }
 }))
 
-// ** Styled Timeline component
+// ** Styled Timeline Component
 const Timeline = styled(MuiTimeline)<TimelineProps>(({ theme }) => ({
   margin: 0,
   padding: 0,
@@ -61,7 +61,7 @@ const ProcessStatusAlert = (props: Props) => {
   // ** Props
   const { initRequestSheetEntity } = props
 
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
   // ** Vars

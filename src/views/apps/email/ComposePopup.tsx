@@ -18,27 +18,25 @@ import InputLabel from '@mui/material/InputLabel'
 import ButtonGroup from '@mui/material/ButtonGroup'
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import { EditorState } from 'draft-js'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
-
-// ** Styled Component Imports
 import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
 
-// ** Types
-import { MailComposeType, FieldMenuItems } from 'src/types/apps/emailTypes'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// ** Utils Import
+// ** Util Imports
 import { getInitials } from 'src/@core/utils/get-initials'
 
-// ** Styles
+// ** Type Imports
+import { MailComposeType, FieldMenuItems } from 'src/types/apps/emailTypes'
+
+// ** Style Imports
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 interface MailFields {
@@ -97,7 +95,7 @@ const ComposePopup = (props: MailComposeType) => {
     bcc: false
   })
 
-  // ** Ref
+  // ** Refs
   const anchorRefSendBtn = useRef<HTMLDivElement>(null)
 
   const toggleVisibility = (value: 'cc' | 'bcc') => setVisibility({ ...visibility, [value]: !visibility[value] })

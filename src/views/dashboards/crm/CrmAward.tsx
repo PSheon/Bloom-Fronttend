@@ -6,7 +6,7 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// Styled component for the trophy image
+// ** Styled component for the trophy image
 const TrophyImg = styled('img')(({ theme }) => ({
   right: 22,
   bottom: 0,

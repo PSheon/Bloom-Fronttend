@@ -9,10 +9,10 @@ import CardContent from '@mui/material/CardContent'
 import ToggleButton from '@mui/material/ToggleButton'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Component Import
+// ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
 const scatterColors = {
@@ -76,16 +76,13 @@ const series = [
 ]
 
 const ApexScatterChart = () => {
-  // ** State
+  // ** States
   const [active, setActive] = useState<string | null>('daily')
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
-  const handleActive = (event: MouseEvent<HTMLElement>, newActive: string | null) => {
-    setActive(newActive)
-  }
-
+  // ** Vars
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,
@@ -129,6 +126,11 @@ const ApexScatterChart = () => {
         formatter: (val: string) => parseFloat(val).toFixed(1)
       }
     }
+  }
+
+  // ** Logics
+  const handleActive = (event: MouseEvent<HTMLElement>, newActive: string | null) => {
+    setActive(newActive)
   }
 
   return (

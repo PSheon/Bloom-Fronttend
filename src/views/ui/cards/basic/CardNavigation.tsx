@@ -12,9 +12,10 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
 const CardNavigation = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('1')
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }

@@ -8,11 +8,11 @@ import Typography from '@mui/material/Typography'
 import Box, { BoxProps } from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 
+// ** Custom Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
 
 interface Props {
   open: boolean

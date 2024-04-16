@@ -15,16 +15,16 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import TableContainer from '@mui/material/TableContainer'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
-// ** Demo Components
+// ** Custom Component Imports
 import CreateApiKey from 'src/views/pages/account-settings/security/CreateApiKey'
 import ChangePasswordCard from 'src/views/pages/account-settings/security/ChangePasswordCard'
 import TwoFactorAuthentication from 'src/views/pages/account-settings/security/TwoFactorAuthentication'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 interface ApiKeyListType {
   title: string

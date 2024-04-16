@@ -10,13 +10,13 @@ import Stack from '@mui/material/Stack'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Hooks Imports
+// ** Hook Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
 
-// ** Utils Import
+// ** Util Imports
 import { getRequestSheetTabListAttributes } from 'src/utils'
 
-// ** Types Imports
+// ** Type Imports
 import { TabIndex } from 'src/types/api/requestSheetTypes'
 
 const Tabs = styled(MuiTabs)<TabsProps>(({ theme }) => ({

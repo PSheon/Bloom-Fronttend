@@ -17,7 +17,7 @@ const SlideTransition = (props: SlideProps) => {
 }
 
 const SnackbarTransition = () => {
-  // ** State
+  // ** States
   const [state, setState] = useState<{
     open: boolean
     Transition: ComponentType<

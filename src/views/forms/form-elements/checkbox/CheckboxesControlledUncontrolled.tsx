@@ -7,9 +7,10 @@ import FormGroup from '@mui/material/FormGroup'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
 const CheckboxesControlledUncontrolled = () => {
-  // ** State
+  // ** States
   const [checked, setChecked] = useState<boolean>(true)
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setChecked(event.target.checked)
   }

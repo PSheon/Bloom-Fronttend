@@ -1,7 +1,7 @@
 // ** React Imports
 import { ChangeEvent, useState } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -14,17 +14,17 @@ import CardContent from '@mui/material/CardContent'
 import { Theme, useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-// ** Type Imports
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+import CustomRadioBasic from 'src/@core/components/custom-radio/basic'
+import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
+
+// ** Type Import
 import {
   CustomRadioBasicData,
   CustomRadioIconsData,
   CustomRadioIconsProps
 } from 'src/@core/components/custom-radio/types'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomRadioBasic from 'src/@core/components/custom-radio/basic'
-import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
 
 interface IconType {
   icon: CustomRadioIconsProps['icon']
@@ -183,7 +183,7 @@ const StepAddress = ({ handleNext }: { handleNext: () => void }) => {
   const [selectedIconRadio, setSelectedIconRadio] = useState<string>(initialIconSelected)
   const [selectedBasicRadio, setSelectedBasicRadio] = useState<string>(initialBasicSelected)
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
   const breakpointMD = useMediaQuery((theme: Theme) => theme.breakpoints.between('sm', 'lg'))
 

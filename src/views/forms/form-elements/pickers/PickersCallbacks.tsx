@@ -4,20 +4,21 @@ import { useState } from 'react'
 // ** MUI Imports
 import Box from '@mui/material/Box'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import toast from 'react-hot-toast'
 import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
 
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
+
+// ** Type Imports
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 const PickersCallbacks = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
   // ** States
   const [date, setDate] = useState<DateType>(new Date())
 
+  // ** Logics
   const handlePickerCallback = (msg: string) => {
     toast(msg, { duration: 2000 })
   }

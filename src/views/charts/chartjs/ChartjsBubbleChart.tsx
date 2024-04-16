@@ -5,14 +5,14 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import { Bubble } from 'react-chartjs-2'
 import { ChartData, ChartOptions } from 'chart.js'
 
-// ** Custom Components Imports
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
 interface BubbleProps {
@@ -26,6 +26,7 @@ const ChartjsBubbleChart = (props: BubbleProps) => {
   // ** Props
   const { yellow, primary, labelColor, borderColor } = props
 
+  // ** Vars
   const options: ChartOptions<'bubble'> = {
     responsive: true,
     maintainAspectRatio: false,

@@ -3,10 +3,10 @@ import MuiBox, { BoxProps } from '@mui/material/Box'
 import { StepIconProps } from '@mui/material/StepIcon'
 import { alpha, styled, useTheme } from '@mui/material/styles'
 
-// ** Custom Icon Import
+// ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// Styled Box component
+// ** Styled Box component
 const Box = styled(MuiBox)<BoxProps>(() => ({
   width: 20,
   height: 20,

@@ -7,27 +7,27 @@ import Typography from '@mui/material/Typography'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Custom Components Imports
+// ** Third-Party Imports
+import { format } from 'date-fns'
+
+// ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Hooks Import
+// ** Custom Component Imports
+import MediaAssetSelectorListTableHeader from 'src/views/shared/media-asset-selector/list/TableHeader'
+
+// ** Hook Imports
 import useDebounce from 'src/hooks/useDebounce'
 
-// ** Utils Import
-import { format } from 'date-fns'
-import { getInitials } from 'src/@core/utils/get-initials'
-
-// ** Api Imports
+// ** API Imports
 import { useFindQuery } from 'src/store/api/management/mediaAsset'
 
-// ** Utils Import
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Types Imports
+// ** Type Imports
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
-
-// ** Styled Components
-import MediaAssetSelectorListTableHeader from 'src/views/shared/media-asset-selector/list/TableHeader'
 
 interface CellType {
   row: MediaAssetType
@@ -40,7 +40,7 @@ const MediaAssetSelectorList = (props: Props) => {
   // ** Props
   const { handleSelect } = props
 
-  // ** State
+  // ** States
   const [filteredMediaAssetName, setFilteredMediaAssetName] = useState<string>('')
   const [filteredExtension, setFilteredExtension] = useState<string>('all')
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })

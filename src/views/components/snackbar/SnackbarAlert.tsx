@@ -10,17 +10,19 @@ import Snackbar from '@mui/material/Snackbar'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 const SnackbarAlert = () => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
-  // ** Hook & Var
+  // ** Hooks
   const { settings } = useSettings()
+
+  // ** Vars
   const { skin } = settings
 
+  // ** Logics
   const handleClick = () => {
     setOpen(true)
   }
-
   const handleClose = (event?: Event | SyntheticEvent, reason?: string) => {
     if (reason === 'clickaway') {
       return

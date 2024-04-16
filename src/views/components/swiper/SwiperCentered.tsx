@@ -2,11 +2,11 @@
 import Box from '@mui/material/Box'
 import { Direction } from '@mui/material'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import { useKeenSlider } from 'keen-slider/react'
 
 const SwiperCentered = ({ direction }: { direction: Direction }) => {
-  // ** Hook
+  // ** Hooks
   const [ref] = useKeenSlider<HTMLDivElement>({
     rtl: direction === 'rtl',
     slides: {

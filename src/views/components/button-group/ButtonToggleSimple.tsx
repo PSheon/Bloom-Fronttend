@@ -9,9 +9,10 @@ import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 import Icon from 'src/@core/components/icon'
 
 const ButtonToggleSimple = () => {
-  // ** State
+  // ** States
   const [alignment, setAlignment] = useState<string | null>('left')
 
+  // ** Logics
   const handleAlignment = (event: MouseEvent<HTMLElement>, newAlignment: string | null) => {
     setAlignment(newAlignment)
   }

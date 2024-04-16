@@ -8,19 +8,21 @@ import Typography from '@mui/material/Typography'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Custom Component Imports
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 
-// ** Utils Import
+// ** Util Imports
 import { format } from 'date-fns'
 import { getUserRoleAttributes } from 'src/utils'
 
 // ** Config Imports
 import { Permissions } from 'src/configs/acl'
 
-// ** Types Imports
+// ** Type Imports
 import { Role } from 'src/context/types'
 
 interface CellType {
@@ -33,7 +35,7 @@ interface CellType {
 }
 
 const PermissionsList = () => {
-  // ** State
+  // ** States
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
   // ** vars

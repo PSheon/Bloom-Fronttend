@@ -7,13 +7,13 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import { format } from 'date-fns'
 
-// ** Utils Import
+// ** Util Imports
 import { getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {

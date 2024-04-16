@@ -18,11 +18,11 @@ const Transition = forwardRef(function Transition(
 })
 
 const DialogTransition = () => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
+  // ** Logics
   const handleClickOpen = () => setOpen(true)
-
   const handleClose = () => setOpen(false)
 
   return (

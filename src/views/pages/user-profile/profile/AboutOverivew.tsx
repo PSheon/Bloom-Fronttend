@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { ProfileTeamsType, ProfileTabCommonType } from 'src/@fake-db/types'
 
 interface Props {

@@ -14,12 +14,12 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
 import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
 
-// ** Types
-import { InvoiceType } from 'src/types/apps/invoiceTypes'
-
-// ** Demo Component Imports
+// ** Custom Component Imports
 import UsersInvoiceListTable from 'src/views/apps/user/view/UsersInvoiceListTable'
 import UsersProjectListTable from 'src/views/apps/user/view/UsersProjectListTable'
+
+// ** Type Imports
+import { InvoiceType } from 'src/types/apps/invoiceTypes'
 
 interface Props {
   invoiceData: InvoiceType[]

@@ -6,15 +6,15 @@ import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+import OptionsMenu from 'src/@core/components/option-menu'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Custom Components
-import CustomChip from 'src/@core/components/mui/chip'
-import OptionsMenu from 'src/@core/components/option-menu'
 
 interface DataType {
   src: string
@@ -24,52 +24,53 @@ interface DataType {
   chipColor: ThemeColor
 }
 
-const data: DataType[] = [
-  {
-    chipText: 'Business',
-    chipColor: 'primary',
-    title: 'Call with Woods',
-    src: '/images/avatars/4.png',
-    subtitle: '21 Jul | 08:20-10:30'
-  },
-  {
-    chipText: 'Dinner',
-    chipColor: 'warning',
-    title: 'Conference call',
-    src: '/images/avatars/5.png',
-    subtitle: '28 Jul | 05:00-6:45'
-  },
-  {
-    chipText: 'Meetup',
-    chipColor: 'secondary',
-    title: 'Meeting with Mark',
-    src: '/images/avatars/3.png',
-    subtitle: '03 Aug | 07:00-8:30'
-  },
-  {
-    chipText: 'Dinner',
-    chipColor: 'error',
-    title: 'Meeting in Oakland',
-    src: '/images/avatars/2.png',
-    subtitle: '14 Feb | 04:15-05:30'
-  },
-  {
-    chipColor: 'success',
-    chipText: 'Meditation',
-    title: 'Call with Hilda',
-    src: '/images/avatars/8.png',
-    subtitle: '24 Jul | 11:30-12:00'
-  },
-  {
-    chipText: 'Business',
-    chipColor: 'primary',
-    title: 'Meeting with Carl',
-    src: '/images/avatars/7.png',
-    subtitle: '05 Oct | 10:00-12:45'
-  }
-]
-
 const CrmMeetingSchedule = () => {
+  // ** Vars
+  const data: DataType[] = [
+    {
+      chipText: 'Business',
+      chipColor: 'primary',
+      title: 'Call with Woods',
+      src: '/images/avatars/4.png',
+      subtitle: '21 Jul | 08:20-10:30'
+    },
+    {
+      chipText: 'Dinner',
+      chipColor: 'warning',
+      title: 'Conference call',
+      src: '/images/avatars/5.png',
+      subtitle: '28 Jul | 05:00-6:45'
+    },
+    {
+      chipText: 'Meetup',
+      chipColor: 'secondary',
+      title: 'Meeting with Mark',
+      src: '/images/avatars/3.png',
+      subtitle: '03 Aug | 07:00-8:30'
+    },
+    {
+      chipText: 'Dinner',
+      chipColor: 'error',
+      title: 'Meeting in Oakland',
+      src: '/images/avatars/2.png',
+      subtitle: '14 Feb | 04:15-05:30'
+    },
+    {
+      chipColor: 'success',
+      chipText: 'Meditation',
+      title: 'Call with Hilda',
+      src: '/images/avatars/8.png',
+      subtitle: '24 Jul | 11:30-12:00'
+    },
+    {
+      chipText: 'Business',
+      chipColor: 'primary',
+      title: 'Meeting with Carl',
+      src: '/images/avatars/7.png',
+      subtitle: '05 Oct | 10:00-12:45'
+    }
+  ]
+
   return (
     <Card>
       <CardHeader

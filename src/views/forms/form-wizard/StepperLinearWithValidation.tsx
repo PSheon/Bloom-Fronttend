@@ -22,20 +22,20 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import FormHelperText from '@mui/material/FormHelperText'
 import InputAdornment from '@mui/material/InputAdornment'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import * as yup from 'yup'
 import toast from 'react-hot-toast'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+// ** Core Component Imports
+import StepperWrapper from 'src/@core/styles/mui/stepper'
 
-// ** Custom Components Imports
+// ** Custom Component Imports
 import StepperCustomDot from './StepperCustomDot'
 
-// ** Styled Components
-import StepperWrapper from 'src/@core/styles/mui/stepper'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 interface State {
   password: string

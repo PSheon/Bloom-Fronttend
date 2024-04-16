@@ -1,16 +1,16 @@
-// ** React Import
+// ** React Imports
 import { useEffect } from 'react'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Import
+// ** Third-Party Imports
 import { useTranslation } from 'react-i18next'
 
-// ** Custom Components Imports
+// ** Custom Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 
-// ** Type Import
+// ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
@@ -19,7 +19,7 @@ interface Props {
 }
 
 const LanguageDropdown = ({ settings, saveSettings }: Props) => {
-  // ** Hook
+  // ** Hooks
   const { i18n } = useTranslation()
 
   // ** Vars

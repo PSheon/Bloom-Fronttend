@@ -2,7 +2,7 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-// ** Type Import
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 
 interface Props {

@@ -15,9 +15,10 @@ import CircularProgress from '@mui/material/CircularProgress'
 import Icon from 'src/@core/components/icon'
 
 const CardActionRefresh = () => {
-  // ** State
+  // ** States
   const [reload, setReload] = useState<boolean>(false)
 
+  // ** Logics
   const handleBackDrop = () => {
     setReload(true)
 

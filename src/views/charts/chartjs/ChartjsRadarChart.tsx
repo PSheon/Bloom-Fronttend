@@ -6,7 +6,7 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { Radar } from 'react-chartjs-2'
 import { ChartData, ChartOptions } from 'chart.js'
 
@@ -28,6 +28,7 @@ const ChartjsRadarChart = (props: RadarProps) => {
   // ** Hooks
   const chartRef = useRef<any>(null)
 
+  // ** Vars
   const options: ChartOptions<'radar'> = {
     responsive: true,
     maintainAspectRatio: false,

@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, Fragment } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -17,10 +17,10 @@ import LoadingButton from '@mui/lab/LoadingButton'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
+// ** API Imports
 import { useDeleteOneMutation } from 'src/store/api/management/mediaAsset'
 
-// ** Types
+// ** Type Imports
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 interface Props {
@@ -31,7 +31,7 @@ const MediaAssetDeleteButton = (props: Props) => {
   // ** Props
   const { initMediaAssetEntity } = props
 
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
   // ** Hooks

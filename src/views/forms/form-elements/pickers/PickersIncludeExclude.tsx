@@ -4,18 +4,18 @@ import { useState } from 'react'
 // ** MUI Imports
 import Box from '@mui/material/Box'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import addDays from 'date-fns/addDays'
 import subDays from 'date-fns/subDays'
 import setHours from 'date-fns/setHours'
 import DatePicker, { ReactDatePickerProps } from 'react-datepicker'
 import setMinutes from 'date-fns/setMinutes'
 
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
+
+// ** Type Imports
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 const PickersIncludeExclude = ({ popperPlacement }: { popperPlacement: ReactDatePickerProps['popperPlacement'] }) => {
   // ** States

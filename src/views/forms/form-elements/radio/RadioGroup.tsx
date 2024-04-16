@@ -8,9 +8,10 @@ import FormControl from '@mui/material/FormControl'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
 const RadioGroupComponent = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('checked')
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue((event.target as HTMLInputElement).value)
   }

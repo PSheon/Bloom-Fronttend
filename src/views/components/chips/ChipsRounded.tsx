@@ -1,4 +1,4 @@
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
 const ChipsRounded = () => {

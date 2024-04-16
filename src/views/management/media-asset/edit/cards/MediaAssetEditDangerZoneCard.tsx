@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -20,10 +20,10 @@ import LoadingButton from '@mui/lab/LoadingButton'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
+// ** API Imports
 import { useDeleteOneMutation } from 'src/store/api/management/mediaAsset'
 
-// ** Types Imports
+// ** Type Imports
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 interface Props {
@@ -34,7 +34,7 @@ const MediaAssetEditDangerZoneCard = (props: Props) => {
   // ** Props
   const { initMediaAssetEntity } = props
 
-  // ** State
+  // ** States
   const [deleteDialogOpen, setDeleteDialogOpen] = useState<boolean>(false)
 
   // ** Hooks

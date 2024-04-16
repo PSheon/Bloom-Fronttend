@@ -4,7 +4,7 @@ import Badge from '@mui/material/Badge'
 import Avatar from '@mui/material/Avatar'
 import { styled } from '@mui/material/styles'
 
-// Styled component for badge content area
+// ** Styled component for badge content area
 const BadgeContentSpan = styled('span')(({ theme }) => ({
   width: 8,
   height: 8,

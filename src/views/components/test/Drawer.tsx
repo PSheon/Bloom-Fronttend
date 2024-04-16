@@ -16,9 +16,10 @@ import ListItemButton from '@mui/material/ListItemButton'
 import Icon from 'src/@core/components/icon'
 
 const DrawerComponent = () => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
+  // ** Logics
   const toggleDrawer = (open: boolean) => (event: KeyboardEvent | MouseEvent) => {
     if (
       event.type === 'keydown' &&

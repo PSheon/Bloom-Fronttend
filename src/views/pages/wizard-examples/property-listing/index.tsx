@@ -12,21 +12,19 @@ import Typography from '@mui/material/Typography'
 import MuiStep, { StepProps } from '@mui/material/Step'
 import CardContent, { CardContentProps } from '@mui/material/CardContent'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+// ** Core Component Imports
+import StepperWrapper from 'src/@core/styles/mui/stepper'
 
-// ** Custom Components Imports
+// ** Custom Component Imports
 import StepperCustomDot from 'src/views/forms/form-wizard/StepperCustomDot'
-
-// ** Step Components
 import StepPropertyArea from 'src/views/pages/wizard-examples/property-listing/StepPropertyArea'
 import StepPriceDetails from 'src/views/pages/wizard-examples/property-listing/StepPriceDetails'
 import StepPropertyDetails from 'src/views/pages/wizard-examples/property-listing/StepPropertyDetails'
 import StepPersonalDetails from 'src/views/pages/wizard-examples/property-listing/StepPersonalDetails'
 import StepPropertyFeatures from 'src/views/pages/wizard-examples/property-listing/StepPropertyFeatures'
 
-// ** Styled Components
-import StepperWrapper from 'src/@core/styles/mui/stepper'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 const steps = [
   {
@@ -78,7 +76,7 @@ const PropertyListingWizard = () => {
   // ** States
   const [activeStep, setActiveStep] = useState<number>(0)
 
-  // Handle Stepper
+  // ** Logics
   const handleNext = () => {
     setActiveStep(activeStep + 1)
   }

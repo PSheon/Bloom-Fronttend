@@ -1,7 +1,7 @@
 // ** React Imports
 import { SyntheticEvent, useState } from 'react'
 
-// ** MUI Import
+// ** MUI Imports
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Card from '@mui/material/Card'
@@ -17,13 +17,13 @@ import TableHead from '@mui/material/TableHead'
 import CardHeader from '@mui/material/CardHeader'
 import TableContainer from '@mui/material/TableContainer'
 
+// ** Core Component Imports
+import OptionsMenu from 'src/@core/components/option-menu'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import OptionsMenu from 'src/@core/components/option-menu'
-
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 interface TabAvatarType {
@@ -254,9 +254,10 @@ const RenderTabContent = ({ data }: { data: TabContentType[] }) => {
 }
 
 const CardTopReferralSources = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('mobile')
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }

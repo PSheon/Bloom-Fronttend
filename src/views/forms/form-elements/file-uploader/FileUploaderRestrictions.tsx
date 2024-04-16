@@ -10,12 +10,12 @@ import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import toast from 'react-hot-toast'
 import { useDropzone } from 'react-dropzone'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 interface FileProp {
   name: string
@@ -45,7 +45,7 @@ const HeadingTypography = styled(Typography)<TypographyProps>(({ theme }) => ({
 }))
 
 const FileUploaderRestrictions = () => {
-  // ** State
+  // ** States
   const [files, setFiles] = useState<File[]>([])
 
   // ** Hooks

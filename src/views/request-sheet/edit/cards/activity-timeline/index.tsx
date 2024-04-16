@@ -14,18 +14,18 @@ import IconButton from '@mui/material/IconButton'
 import Fade, { FadeProps } from '@mui/material/Fade'
 import Pagination from '@mui/material/Pagination'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Api Imports
-import { useFindMeQuery } from 'src/store/api/management/activityLog'
-
-// ** Components Imports
+// ** Custom Component Imports
 import ActivityTimelineLoadingSkeleton from 'src/views/request-sheet/edit/cards/activity-timeline/LoadingSkeleton'
 import ActivityTimelineTimeline from 'src/views/request-sheet/edit/cards/activity-timeline/Timeline'
 import ActivityTimelineNoRecords from 'src/views/request-sheet/edit/cards/activity-timeline/NoRecords'
 
-// ** Types
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
+import { useFindMeQuery } from 'src/store/api/management/activityLog'
+
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 import { ActivityLogType } from 'src/types/api/activityLogTypes'
 
@@ -44,7 +44,7 @@ const ActivityTimelineCard = (props: Props) => {
   // ** Props
   const { initRequestSheetEntity } = props
 
-  // ** State
+  // ** States
   const [activityPayloadDialogOpen, setActivityPayloadDialogOpen] = useState<boolean>(false)
   const [activityPayload, setActivityPayload] = useState<string>('')
   const [currentPage, setCurrentPage] = useState<number>(1)

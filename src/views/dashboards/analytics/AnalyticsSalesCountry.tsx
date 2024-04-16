@@ -4,27 +4,27 @@ import { useTheme } from '@mui/material/styles'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-const series = [
-  {
-    name: 'Sales',
-    data: [17165, 13850, 12375, 9567, 7880]
-  }
-]
-
 const AnalyticsSalesCountry = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
+  const series = [
+    {
+      name: 'Sales',
+      data: [17165, 13850, 12375, 9567, 7880]
+    }
+  ]
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

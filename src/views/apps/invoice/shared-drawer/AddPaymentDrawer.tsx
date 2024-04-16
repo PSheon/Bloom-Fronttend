@@ -15,16 +15,16 @@ import Box, { BoxProps } from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import InputAdornment from '@mui/material/InputAdornment'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import DatePicker from 'react-datepicker'
+
+// ** Core Component Imports
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Styled Component
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
-
-// ** Types
+// ** Type Imports
 import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 interface Props {
@@ -45,7 +45,7 @@ const Header = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const EditInvoiceDrawer = ({ open, toggle }: Props) => {
-  // ** State
+  // ** States
   const [date, setDate] = useState<DateType>(new Date())
 
   return (

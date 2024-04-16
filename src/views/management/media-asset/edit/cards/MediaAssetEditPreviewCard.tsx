@@ -6,19 +6,19 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Stack from '@mui/material/Stack'
 
+// ** Custom Component Imports
+import MediaAssetEditPdfViewerDialogButton from 'src/views/shared/pdf-viewer-dialog-button'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Utils Import
+// ** Util Imports
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Styled Component
-import MediaAssetEditPdfViewerDialogButton from 'src/views/shared/pdf-viewer-dialog-button'
-
-// ** Types Imports
+// ** Type Imports
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
-// ** Styled Preview Box
+// ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
   position: 'relative',
   width: '100%',

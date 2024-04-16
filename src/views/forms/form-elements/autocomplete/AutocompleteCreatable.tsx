@@ -5,7 +5,7 @@ import { useState } from 'react'
 import TextField from '@mui/material/TextField'
 import Autocomplete, { createFilterOptions } from '@mui/material/Autocomplete'
 
-// ** Data
+// ** Constant Imports
 import { top100Films } from 'src/@fake-db/autocomplete'
 
 interface FilmOptionType {
@@ -17,7 +17,7 @@ interface FilmOptionType {
 const filter = createFilterOptions<FilmOptionType>()
 
 const AutocompleteCreatable = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<FilmOptionType | null>(null)
 
   return (

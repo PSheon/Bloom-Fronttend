@@ -3,7 +3,7 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { Bar } from 'react-chartjs-2'
 import { ChartData, ChartOptions } from 'chart.js'
 
@@ -19,6 +19,7 @@ const ChartjsHorizontalBarChart = (props: HorizontalBarProps) => {
   // ** Props
   const { info, warning, labelColor, borderColor, legendColor } = props
 
+  // ** Vars
   const options: ChartOptions<'bar'> = {
     indexAxis: 'y',
     responsive: true,

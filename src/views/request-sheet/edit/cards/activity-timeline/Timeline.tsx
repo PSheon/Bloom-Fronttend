@@ -11,14 +11,14 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
 import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
 
-// ** Utils Import
+// ** Util Imports
 import { format } from 'date-fns'
 import { getPublicMediaAssetUrl, getActivityLogActionAttributes } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { ActivityLogType } from 'src/types/api/activityLogTypes'
 
-// ** Styled Timeline component
+// ** Styled Timeline Component
 const Timeline = styled(MuiTimeline)<TimelineProps>({
   paddingLeft: 0,
   paddingRight: 0,

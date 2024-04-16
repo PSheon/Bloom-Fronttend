@@ -9,11 +9,11 @@ import Typography from '@mui/material/Typography'
 import InputLabel from '@mui/material/InputLabel'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-// ** Icon Import
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Component Import
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 interface Props {
   plan: string
@@ -24,7 +24,7 @@ const PricingHeader = (props: Props) => {
   // ** Props
   const { plan, handleChange } = props
 
-  // ** Hook
+  // ** Hooks
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('sm'))
 
   return (

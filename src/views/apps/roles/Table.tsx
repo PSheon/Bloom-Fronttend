@@ -1,7 +1,10 @@
 // ** React Imports
 import { useEffect, useCallback, useState } from 'react'
 
-// ** Next Import
+// ** Redux Imports
+import { useDispatch, useSelector } from 'react-redux'
+
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -13,30 +16,27 @@ import Typography from '@mui/material/Typography'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Store Imports
-import { useDispatch, useSelector } from 'react-redux'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Utils Import
+// ** Custom Component Imports
+import TableHeader from 'src/views/apps/roles/TableHeader'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Action Imports
+import { fetchData } from 'src/store/apps/user'
+
+// ** Util Imports
 import { getInitials } from 'src/@core/utils/get-initials'
 import { getUserRoleAttributes } from 'src/utils'
 
-// ** Actions Imports
-import { fetchData } from 'src/store/apps/user'
-
-// ** Types Imports
+// ** Type Imports
 import { RootState, AppDispatch } from 'src/store'
 import { UsersType } from 'src/types/apps/userTypes'
 import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Custom Components Imports
-import TableHeader from 'src/views/apps/roles/TableHeader'
 
 interface UserStatusType {
   [key: string]: ThemeColor
@@ -46,7 +46,7 @@ interface CellType {
 }
 
 const UserList = () => {
-  // ** State
+  // ** States
   const [plan, setPlan] = useState<string>('')
   const [value, setValue] = useState<string>('')
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })

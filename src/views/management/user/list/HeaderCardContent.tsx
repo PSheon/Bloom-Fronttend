@@ -19,7 +19,7 @@ import FormControl from '@mui/material/FormControl'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
+// ** API Imports
 import { useFindQuery as useFindRolesQuery } from 'src/store/api/roleAndPermission'
 
 interface Props {

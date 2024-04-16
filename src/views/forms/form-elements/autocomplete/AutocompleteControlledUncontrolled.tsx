@@ -6,7 +6,7 @@ import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 
-// ** Data
+// ** Constant Imports
 import { top100Films } from 'src/@fake-db/autocomplete'
 
 interface FilmOptionType {
@@ -15,9 +15,10 @@ interface FilmOptionType {
 }
 
 const AutocompleteControlledUncontrolled = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<FilmOptionType | null>(null)
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, newValue: FilmOptionType | null) => {
     setValue(newValue)
   }

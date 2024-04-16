@@ -5,7 +5,7 @@ import { useState } from 'react'
 import Box from '@mui/material/Box'
 import { Direction } from '@mui/material'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import { useKeenSlider, TrackDetails } from 'keen-slider/react'
 
 const images = [
@@ -17,10 +17,10 @@ const images = [
 ]
 
 const SwiperZoom = ({ direction }: { direction: Direction }) => {
-  // ** State
+  // ** States
   const [details, setDetails] = useState<TrackDetails | null>(null)
 
-  // ** Hook
+  // ** Hooks
   const [sliderRef] = useKeenSlider<HTMLDivElement>({
     initial: 2,
     rtl: direction === 'rtl',

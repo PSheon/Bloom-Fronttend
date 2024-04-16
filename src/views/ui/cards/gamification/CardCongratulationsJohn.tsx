@@ -7,7 +7,7 @@ import CardContent from '@mui/material/CardContent'
 import Grid, { GridProps } from '@mui/material/Grid'
 import { styled, useTheme } from '@mui/material/styles'
 
-// Styled Grid component
+// ** Styled Grid Component
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     order: -1,
@@ -16,7 +16,7 @@ const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
   }
 }))
 
-// Styled component for the image
+// ** Styled component for the image
 const Img = styled('img')(({ theme }) => ({
   right: 0,
   bottom: 0,
@@ -29,7 +29,7 @@ const Img = styled('img')(({ theme }) => ({
 }))
 
 const CardCongratulationsJohn = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   return (

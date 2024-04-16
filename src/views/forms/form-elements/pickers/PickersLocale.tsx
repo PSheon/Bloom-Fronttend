@@ -12,11 +12,11 @@ import en from 'date-fns/locale/en-US'
 import { useTranslation } from 'react-i18next'
 import DatePicker, { registerLocale, ReactDatePickerProps } from 'react-datepicker'
 
-// ** Types
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-
 // ** Custom Component Imports
 import CustomInput from './PickersCustomInput'
+
+// ** Type Imports
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 const langObj: { [key: string]: Locale } = { fr, ar, en }
 

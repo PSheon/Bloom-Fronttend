@@ -7,9 +7,10 @@ import Typography from '@mui/material/Typography'
 import LinearProgress from '@mui/material/LinearProgress'
 
 const ProgressLinearControlledUncontrolled = () => {
-  // ** State
+  // ** States
   const [progress, setProgress] = useState<number>(0)
 
+  // ** Side Effects
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress(oldProgress => {

@@ -28,14 +28,14 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Utils Import
+// ** API Imports
+import { useFindQuery } from 'src/store/api/management/activityLog'
+
+// ** Util Imports
 import { format, formatDistance } from 'date-fns'
 import { getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Api Imports
-import { useFindQuery } from 'src/store/api/management/activityLog'
-
-// ** Types
+// ** Type Imports
 import { AnnouncementType } from 'src/types/api/announcementTypes'
 import { ActivityLogType } from 'src/types/api/activityLogTypes'
 
@@ -69,7 +69,7 @@ const AnnouncementEditActivityTimelineCard = (props: Props) => {
   // ** Props
   const { initAnnouncementEntity } = props
 
-  // ** State
+  // ** States
   const [activityPayloadDialogOpen, setActivityPayloadDialogOpen] = useState<boolean>(false)
   const [activityPayload, setActivityPayload] = useState<string>('')
 

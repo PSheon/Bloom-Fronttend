@@ -25,25 +25,25 @@ import LoadingButton from '@mui/lab/LoadingButton'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Api Imports
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/user'
 
-// ** Utils Import
+// ** Util Imports
 import { getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { UserDataType } from 'src/context/types'
 
-// ** Styled Preview Box
+// ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   position: 'relative',
@@ -175,23 +175,23 @@ const UserEditProfileCard = (props: Props) => {
             <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
               <Icon icon='mdi:poll' />
             </CustomAvatar>
-            <div>
+            <Box>
               <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
                 1,000
               </Typography>
               <Typography variant='body2'>申請中</Typography>
-            </div>
+            </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <CustomAvatar skin='light' variant='rounded' color='info' sx={{ mr: 3 }}>
               <Icon icon='mdi:check' />
             </CustomAvatar>
-            <div>
+            <Box>
               <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
                 1,000
               </Typography>
               <Typography variant='body2'>已完成</Typography>
-            </div>
+            </Box>
           </Box>
         </Box>
       </CardContent>

@@ -16,7 +16,7 @@ import FormControlLabel from '@mui/material/FormControlLabel'
 import DialogContentText from '@mui/material/DialogContentText'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// Styled component for the form
+// ** Styled component for the form
 const Form = styled('form')({
   margin: 'auto',
   display: 'flex',
@@ -30,14 +30,12 @@ const DialogSizes = () => {
   const [fullWidth, setFullWidth] = useState<boolean>(true)
   const [maxWidth, setMaxWidth] = useState<Breakpoint>('sm')
 
+  // ** Logics
   const handleClickOpen = () => setOpen(true)
-
   const handleClose = () => setOpen(false)
-
   const handleMaxWidthChange = (event: SelectChangeEvent) => {
     setMaxWidth(event.target.value as Breakpoint)
   }
-
   const handleFullWidthChange = (event: ChangeEvent<HTMLInputElement>) => {
     setFullWidth(event.target.checked)
   }

@@ -14,9 +14,10 @@ import ListItemSecondaryAction from '@mui/material/ListItemSecondaryAction'
 import Icon from 'src/@core/components/icon'
 
 const ListWithSwitch = () => {
-  // ** State
+  // ** States
   const [checked, setChecked] = useState<string[]>(['wifi', 'location'])
 
+  // ** Logics
   const handleToggle = (value: string) => () => {
     const currentIndex = checked.indexOf(value)
     const newChecked = [...checked]

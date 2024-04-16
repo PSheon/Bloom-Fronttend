@@ -6,7 +6,7 @@ import TextField from '@mui/material/TextField'
 import Autocomplete from '@mui/material/Autocomplete'
 import CircularProgress from '@mui/material/CircularProgress'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
 interface FilmType {
@@ -25,6 +25,7 @@ const AutocompleteAsynchronousRequest = () => {
   const [open, setOpen] = useState<boolean>(false)
   const [options, setOptions] = useState<FilmType[]>([])
 
+  // ** Vars
   const loading = open && options.length === 0
 
   useEffect(() => {

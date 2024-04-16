@@ -13,9 +13,10 @@ import OutlinedInput from '@mui/material/OutlinedInput'
 import FormHelperText from '@mui/material/FormHelperText'
 
 const TextFieldComponents = () => {
-  // ** State
+  // ** States
   const [name, setName] = useState<string>('Composed TextField')
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setName(event.target.value)
   }

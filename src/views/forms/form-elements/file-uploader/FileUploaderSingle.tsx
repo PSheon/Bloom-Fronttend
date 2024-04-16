@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -9,7 +9,7 @@ import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { useDropzone } from 'react-dropzone'
 
 interface FileProp {
@@ -18,7 +18,7 @@ interface FileProp {
   size: number
 }
 
-// Styled component for the upload image inside the dropzone area
+// ** Styled component for the upload image inside the dropzone area
 const Img = styled('img')(({ theme }) => ({
   [theme.breakpoints.up('md')]: {
     marginRight: theme.spacing(10)
@@ -31,7 +31,7 @@ const Img = styled('img')(({ theme }) => ({
   }
 }))
 
-// Styled component for the heading inside the dropzone area
+// ** Styled component for the heading inside the dropzone area
 const HeadingTypography = styled(Typography)<TypographyProps>(({ theme }) => ({
   marginBottom: theme.spacing(5),
   [theme.breakpoints.down('sm')]: {
@@ -40,10 +40,10 @@ const HeadingTypography = styled(Typography)<TypographyProps>(({ theme }) => ({
 }))
 
 const FileUploaderSingle = () => {
-  // ** State
+  // ** States
   const [files, setFiles] = useState<File[]>([])
 
-  // ** Hook
+  // ** Hooks
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     accept: {

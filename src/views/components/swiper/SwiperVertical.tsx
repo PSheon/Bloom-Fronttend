@@ -1,11 +1,11 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import { useKeenSlider } from 'keen-slider/react'
 
 const SwiperVertical = () => {
-  // ** Hook
+  // ** Hooks
   const [ref] = useKeenSlider<HTMLDivElement>({
     vertical: true,
     slides: {

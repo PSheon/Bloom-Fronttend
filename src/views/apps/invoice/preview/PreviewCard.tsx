@@ -13,10 +13,10 @@ import { styled, useTheme } from '@mui/material/styles'
 import TableContainer from '@mui/material/TableContainer'
 import TableCell, { TableCellBaseProps } from '@mui/material/TableCell'
 
-// ** Configs
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Types
+// ** Type Imports
 import { SingleInvoiceType } from 'src/types/apps/invoiceTypes'
 
 interface Props {
@@ -38,7 +38,7 @@ const CalcWrapper = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const PreviewCard = ({ data }: Props) => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   if (data) {

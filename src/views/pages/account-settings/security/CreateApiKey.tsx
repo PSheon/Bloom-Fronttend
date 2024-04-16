@@ -11,7 +11,7 @@ import CardContent from '@mui/material/CardContent'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { useForm, Controller } from 'react-hook-form'
 
 const CreateApiKeyCard = () => {

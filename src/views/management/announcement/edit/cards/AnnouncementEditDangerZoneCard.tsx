@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, Fragment } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -20,10 +20,10 @@ import LoadingButton from '@mui/lab/LoadingButton'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
+// ** API Imports
 import { useDeleteOneMutation } from 'src/store/api/management/announcement'
 
-// ** Types
+// ** Type Imports
 import { AnnouncementType } from 'src/types/api/announcementTypes'
 
 interface Props {
@@ -34,7 +34,7 @@ const AnnouncementEditDangerZoneCard = (props: Props) => {
   // ** Props
   const { initAnnouncementEntity } = props
 
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
   // ** Hooks

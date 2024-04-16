@@ -1,7 +1,7 @@
 // ** React Imports
 import { Ref, useState, forwardRef, ReactElement, Fragment, MouseEvent } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -18,23 +18,23 @@ import DialogActions from '@mui/material/DialogActions'
 import Stack from '@mui/material/Stack'
 import LoadingButton from '@mui/lab/LoadingButton'
 
+// ** Third-Party Imports
+import { useDropzone } from 'react-dropzone'
+
+// ** Core Component Imports
+import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
-import { useUploadMutation } from 'src/store/api/management/mediaAsset'
-
-// ** Hooks
+// ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
 
-// ** Third Party Imports
-import { useDropzone } from 'react-dropzone'
+// ** API Imports
+import { useUploadMutation } from 'src/store/api/management/mediaAsset'
 
-// ** Utils Imports
+// ** Util Imports
 import { getProposalFileInfo } from 'src/utils'
-
-// ** Styled Component
-import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
 
 const Transition = forwardRef(function Transition(
   props: FadeProps & { children?: ReactElement<any, any> },

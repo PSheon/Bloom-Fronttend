@@ -1,15 +1,15 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Types
-import { UserDataType } from 'src/context/types'
-
-// ** Styled Component
+// ** Custom Component Imports
 import UserEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import UserEditProfileCard from 'src/views/management/user/edit/cards/UserEditProfileCard'
 import UserEditRoleCard from 'src/views/management/user/edit/cards/UserEditRoleCard'
 import UserEditMetadataCard from 'src/views/management/user/edit/cards/UserEditMetadataCard'
 import UserEditTabContext from 'src/views/management/user/edit/tabs/UserEditTabContext'
+
+// ** Type Imports
+import { UserDataType } from 'src/context/types'
 
 interface Props {
   initUserEntity: UserDataType

@@ -1,14 +1,14 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Types
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
-
-// ** Styled Component
+// ** Custom Component Imports
 import MediaAssetEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import MediaAssetEditProfileCard from 'src/views/management/media-asset/edit/cards/MediaAssetEditProfileCard'
 import MediaAssetEditMetadataCard from 'src/views/management/media-asset/edit/cards/MediaAssetEditMetadataCard'
 import MediaAssetEditTabContext from 'src/views/management/media-asset/edit/tabs/MediaAssetEditTabContext'
+
+// ** Type Imports
+import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 interface Props {
   initMediaAssetEntity: MediaAssetType

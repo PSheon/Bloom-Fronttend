@@ -4,10 +4,7 @@ import { useState, SyntheticEvent } from 'react'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Types
-import { TabIndex, RequestSheetType } from 'src/types/api/requestSheetTypes'
-
-// ** Styled Component
+// ** Custom Component Imports
 import RequestSheetEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import RequestSheetEditTabsList from 'src/views/management/request-sheet/edit/tab/list'
 import RequestSheetEditDetailsTabPanel from 'src/views/management/request-sheet/edit/tab/panel/details'
@@ -19,6 +16,9 @@ import RequestSheetEditControlCard from 'src/views/management/request-sheet/edit
 import RequestSheetEditInformationCard from 'src/views/management/request-sheet/edit/cards/InformationCard'
 import RequestSheetEditActivityTimelineCard from 'src/views/management/request-sheet/edit/cards/activity-timeline'
 import RequestSheetEditDeleteButton from 'src/views/management/request-sheet/edit/buttons/DeleteButton'
+
+// ** Type Imports
+import { TabIndex, RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {
   initRequestSheetEntity: RequestSheetType

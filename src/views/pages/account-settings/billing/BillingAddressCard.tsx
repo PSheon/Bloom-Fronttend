@@ -12,10 +12,10 @@ import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import InputAdornment from '@mui/material/InputAdornment'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { useForm, Controller } from 'react-hook-form'
 
-// ** Styles Import
+// ** Style Imports
 import 'react-credit-cards/es/styles-compiled.css'
 
 const defaultValues = {

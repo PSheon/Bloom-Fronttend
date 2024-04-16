@@ -13,35 +13,35 @@ import InputAdornment from '@mui/material/InputAdornment'
 import CardContent from '@mui/material/CardContent'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 
-// ** Utils Import
-import { getPublicMediaAssetUrl } from 'src/utils'
+// ** Core Component Imports
+import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
 
-// ** Types
-import { NotificationType } from 'src/types/api/notificationTypes'
-
-// ** Api Imports
-import { useUpdateOneMutation } from 'src/store/api/management/notification'
-
-// ** Styled Component
+// ** Custom Component Imports
 import NotificationEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
 import NotificationEditSeenStatusAlert from 'src/views/management/notification/edit/alerts/SeenStatusAlert'
 import NotificationEditInformationCard from 'src/views/management/notification/edit/cards/InformationCard'
 import NotificationEditDeleteButton from 'src/views/management/notification/edit/buttons/DeleteButton'
 
-// ** Styled Component Imports
-import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// ** Styles
+// ** API Imports
+import { useUpdateOneMutation } from 'src/store/api/management/notification'
+
+// ** Util Import
+import { getPublicMediaAssetUrl } from 'src/utils'
+
+// ** Type Imports
+import { NotificationType } from 'src/types/api/notificationTypes'
+
+// ** Style Imports
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 const schema = yup.object().shape({
@@ -70,7 +70,7 @@ const NotificationEditSection = (props: Props) => {
   // ** Props
   const { initNotificationEntity } = props
 
-  // ** State
+  // ** States
   const [content, setContent] = useState(EditorState.createWithContent(convertFromRaw(initNotificationEntity.content)))
   const [isContentDirty, setIsContentDirty] = useState<boolean>(false)
 

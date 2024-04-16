@@ -9,9 +9,10 @@ import TabContext from '@mui/lab/TabContext'
 import Typography from '@mui/material/Typography'
 
 const TabsSimple = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('1')
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }

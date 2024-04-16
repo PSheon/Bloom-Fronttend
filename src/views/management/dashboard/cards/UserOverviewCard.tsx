@@ -8,17 +8,17 @@ import CardContent from '@mui/material/CardContent'
 import Stack from '@mui/material/Stack'
 import Skeleton from '@mui/material/Skeleton'
 
+// ** Third-Party Imports
+import format from 'date-fns/format'
+
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
+// ** API Imports
 import { useFindOneQuery } from 'src/store/api/statistic'
-
-// ** Third Party Imports
-import format from 'date-fns/format'
-
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
 
 const UserOverviewCard = () => {
   // ** Hooks

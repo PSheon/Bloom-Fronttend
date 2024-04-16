@@ -17,7 +17,7 @@ import Button from '@mui/material/Button'
 import Icon from 'src/@core/components/icon'
 
 const MeAccountDangerZoneCard = () => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
   // ** Logics

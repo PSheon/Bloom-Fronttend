@@ -7,18 +7,20 @@ import Radio from '@mui/material/Radio'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Config Import
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Custom Avatar Component
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
 const TabDetails = () => {
+  // ** States
   const [value, setValue] = useState<string>('ecommerce')
 
+  // ** Logics
   const handleChange = (event: ChangeEvent<HTMLInputElement>) => {
     setValue(event.target.value)
   }

@@ -16,17 +16,17 @@ import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import DatePicker from 'react-datepicker'
 import { useForm, Controller } from 'react-hook-form'
+
+// ** Core Component Imports
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Styled Components
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
-
-// ** Types
+// ** Type Imports
 import { EventDateType, AddEventSidebarType } from 'src/types/apps/calendarTypes'
 
 interface PickerProps {

@@ -10,19 +10,19 @@ import TabContext from '@mui/lab/TabContext'
 import { styled } from '@mui/material/styles'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Demo Components Imports
+// ** Custom Component Imports
 import UserEditRequestSheetListCard from 'src/views/management/user/edit/cards/UserEditRequestSheetListCard'
 import UserEditActivityLogListCard from 'src/views/management/user/edit/cards/UserEditActivityLogListCard'
 import UserEditAccessLogListCard from 'src/views/management/user/edit/cards/UserEditAccessLogListCard'
 import UserEditDangerZoneCard from 'src/views/management/user/edit/cards/UserEditDangerZoneCard'
 
-// ** Types
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
 import { UserDataType } from 'src/context/types'
 
-// ** Styled Tab component
+// ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
   minHeight: 48,
   flexDirection: 'row',

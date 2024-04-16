@@ -7,17 +7,17 @@ import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 import InputAdornment from '@mui/material/InputAdornment'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import format from 'date-fns/format'
 
-// ** Utils Import
+// ** Util Imports
 import {
   getRequestSheetTypeAttributes,
   getRequestSheetOperationalMethodAttributes,
   getRequestSheetCooperationIndustriesAttributes
 } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {

@@ -14,13 +14,13 @@ import LoadingButton from '@mui/lab/LoadingButton'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Utils Import
-import { getRequestSheetProcessStatusAttributes } from 'src/utils'
-
-// ** Api Imports
+// ** API Imports
 import { useUpdateMeOneMutation } from 'src/store/api/management/requestSheet'
 
-// ** Types
+// ** Util Imports
+import { getRequestSheetProcessStatusAttributes } from 'src/utils'
+
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {
@@ -31,7 +31,7 @@ const AbandonButton = (props: Props) => {
   // ** Props
   const { initRequestSheetEntity } = props
 
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
   // ** Hooks

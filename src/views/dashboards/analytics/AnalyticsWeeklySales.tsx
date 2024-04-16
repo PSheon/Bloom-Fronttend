@@ -7,42 +7,42 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-// ** Util Import
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-const series = [
-  {
-    type: 'column',
-    name: 'Earning',
-    data: [90, 52, 67, 45, 75, 55, 48]
-  },
-  {
-    type: 'column',
-    name: 'Expense',
-    data: [-53, -29, -67, -84, -60, -40, -77]
-  },
-  {
-    type: 'line',
-    name: 'Expense',
-    data: [73, 20, 50, -20, 58, 15, 31]
-  }
-]
-
 const AnalyticsWeeklySales = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
+  // ** Vars
+  const series = [
+    {
+      type: 'column',
+      name: 'Earning',
+      data: [90, 52, 67, 45, 75, 55, 48]
+    },
+    {
+      type: 'column',
+      name: 'Expense',
+      data: [-53, -29, -67, -84, -60, -40, -77]
+    },
+    {
+      type: 'line',
+      name: 'Expense',
+      data: [73, 20, 50, -20, 58, 15, 31]
+    }
+  ]
   const options: ApexOptions = {
     chart: {
       stacked: true,

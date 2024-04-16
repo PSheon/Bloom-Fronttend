@@ -1,7 +1,7 @@
 // ** React Imports
 import { Fragment, useState } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -13,11 +13,11 @@ import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 
+// ** Third-Party Imports
+import { useDropzone } from 'react-dropzone'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
-import { useDropzone } from 'react-dropzone'
 
 interface FileProp {
   name: string
@@ -47,7 +47,7 @@ const HeadingTypography = styled(Typography)<TypographyProps>(({ theme }) => ({
 }))
 
 const FileUploaderMultiple = () => {
-  // ** State
+  // ** States
   const [files, setFiles] = useState<File[]>([])
 
   // ** Hooks

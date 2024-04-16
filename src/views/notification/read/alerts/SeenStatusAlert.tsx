@@ -1,7 +1,7 @@
 // ** MUI Imports
 import Alert from '@mui/material/Alert'
 
-// ** Types
+// ** Type Imports
 import { NotificationType } from 'src/types/api/notificationTypes'
 
 interface Props {

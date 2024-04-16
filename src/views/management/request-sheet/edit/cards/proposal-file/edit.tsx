@@ -4,10 +4,10 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
-// ** Styled Component
+// ** Custom Component Imports
 import ProposalFileEditBox from 'src/views/management/request-sheet/edit/boxes/ProposalFileEditBox'
 
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {

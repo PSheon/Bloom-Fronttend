@@ -4,11 +4,11 @@ import { ChangeEvent, useState } from 'react'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Type Import
-import { CustomRadioImgData } from 'src/@core/components/custom-radio/types'
-
-// ** Demo Components Imports
+// ** Core Component Imports
 import CustomRadioImg from 'src/@core/components/custom-radio/image'
+
+// ** Type Imports
+import { CustomRadioImgData } from 'src/@core/components/custom-radio/types'
 
 const data: CustomRadioImgData[] = [
   {
@@ -30,9 +30,10 @@ const CustomRadioWithImages = () => {
   const initialSelected: string = data.filter(item => item.isSelected)[data.filter(item => item.isSelected).length - 1]
     .value
 
-  // ** State
+  // ** States
   const [selected, setSelected] = useState<string>(initialSelected)
 
+  // ** Logics
   const handleChange = (prop: string | ChangeEvent<HTMLInputElement>) => {
     if (typeof prop === 'string') {
       setSelected(prop)

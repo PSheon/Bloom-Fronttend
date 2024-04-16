@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -6,13 +6,13 @@ import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Import
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Types
+// ** Type Imports
 import { HelpCenterCategoriesType } from 'src/@fake-db/types'
 
 const HelpCenterLandingKnowledgeBase = ({ categories }: { categories: HelpCenterCategoriesType[] }) => {

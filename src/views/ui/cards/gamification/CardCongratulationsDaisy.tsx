@@ -7,7 +7,7 @@ import Grid, { GridProps } from '@mui/material/Grid'
 import { styled, useTheme } from '@mui/material/styles'
 import MuiCardContent, { CardContentProps } from '@mui/material/CardContent'
 
-// Styled CardContent component
+// ** Styled CardContent component
 const CardContent = styled(MuiCardContent)<CardContentProps>(({ theme }) => ({
   padding: `${theme.spacing(7, 7.5)} !important`,
   [theme.breakpoints.down('sm')]: {
@@ -15,7 +15,7 @@ const CardContent = styled(MuiCardContent)<CardContentProps>(({ theme }) => ({
   }
 }))
 
-// Styled Grid component
+// ** Styled Grid component
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
   [theme.breakpoints.down('sm')]: {
     display: 'flex',
@@ -23,7 +23,7 @@ const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
   }
 }))
 
-// Styled component for the image
+// ** Styled component for the image
 const Img = styled('img')(({ theme }) => ({
   right: 0,
   bottom: 0,
@@ -36,7 +36,7 @@ const Img = styled('img')(({ theme }) => ({
 }))
 
 const CardCongratulationsDaisy = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   return (

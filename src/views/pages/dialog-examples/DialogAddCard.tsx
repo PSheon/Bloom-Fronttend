@@ -17,21 +17,21 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import Payment from 'payment'
 import Cards, { Focused } from 'react-credit-cards'
 
-// ** Util Import
-import { formatCVC, formatExpirationDate, formatCreditCardNumber } from 'src/@core/utils/format'
-
-// ** Styled Component Imports
-import CardWrapper from 'src/@core/styles/libs/react-credit-cards'
-
-// ** Styles Import
-import 'react-credit-cards/es/styles-compiled.css'
-
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
+import { formatCVC, formatExpirationDate, formatCreditCardNumber } from 'src/@core/utils/format'
+
+// ** Core Component Imports
+import CardWrapper from 'src/@core/styles/libs/react-credit-cards'
+
+// ** Style Imports
+import 'react-credit-cards/es/styles-compiled.css'
 
 const Transition = forwardRef(function Transition(
   props: FadeProps & { children?: ReactElement<any, any> },

@@ -14,7 +14,7 @@ import CardContent from '@mui/material/CardContent'
 import Icon from 'src/@core/components/icon'
 
 const CardActionClose = () => {
-  // ** State
+  // ** States
   const [visibility, setVisibility] = useState<boolean>(true)
 
   return (

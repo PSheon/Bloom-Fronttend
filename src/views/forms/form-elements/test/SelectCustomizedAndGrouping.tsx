@@ -14,7 +14,7 @@ import ListSubheader from '@mui/material/ListSubheader'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import FormControl, { FormControlProps } from '@mui/material/FormControl'
 
-// Styled FormControl component
+// ** Styled FormControl component
 const CustomFormControl = styled(FormControl)<FormControlProps>(({ theme }) => ({
   '& .MuiFormLabel-root.Mui-focused': {
     color: theme.palette.info.main
@@ -58,9 +58,10 @@ const CustomFormControl = styled(FormControl)<FormControlProps>(({ theme }) => (
 }))
 
 const SelectCustomizedAndGrouping = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('')
 
+  // ** Logics
   const handleChange = (event: SelectChangeEvent) => {
     setValue(event.target.value as string)
   }

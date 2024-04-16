@@ -8,9 +8,10 @@ import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 
 const ProgressCircularControlledUncontrolled = () => {
-  // ** State
+  // ** States
   const [progress, setProgress] = useState<number>(0)
 
+  // ** Side Effects
   useEffect(() => {
     const timer = setInterval(() => {
       setProgress(prevProgress => (prevProgress >= 100 ? 0 : prevProgress + 10))

@@ -12,9 +12,10 @@ import Typography from '@mui/material/Typography'
 import Icon from 'src/@core/components/icon'
 
 const TabsForcedScroll = () => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('1')
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }

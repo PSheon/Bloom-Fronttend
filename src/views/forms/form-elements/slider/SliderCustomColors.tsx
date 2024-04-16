@@ -3,10 +3,10 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import MuiSlider, { SliderProps } from '@mui/material/Slider'
 
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-// Styled component for a success Slider
+// ** Styled component for a success Slider
 const SliderSuccess = styled(MuiSlider)<SliderProps>(({ theme }) => ({
   color: theme.palette.success.main,
   '& .MuiSlider-thumb:hover, & .MuiSlider-thumb.Mui-focusVisible': {
@@ -22,7 +22,7 @@ const SliderSuccess = styled(MuiSlider)<SliderProps>(({ theme }) => ({
   }
 }))
 
-// Styled component for a error Slider
+// ** Styled component for a error Slider
 const SliderError = styled(MuiSlider)<SliderProps>(({ theme }) => ({
   color: theme.palette.error.main,
   '& .MuiSlider-thumb:hover, & .MuiSlider-thumb.Mui-focusVisible': {
@@ -38,7 +38,7 @@ const SliderError = styled(MuiSlider)<SliderProps>(({ theme }) => ({
   }
 }))
 
-// Styled component for a warning Slider
+// ** Styled component for a warning Slider
 const SliderWarning = styled(MuiSlider)<SliderProps>(({ theme }) => ({
   color: theme.palette.warning.main,
   '& .MuiSlider-thumb:hover, & .MuiSlider-thumb.Mui-focusVisible': {
@@ -54,7 +54,7 @@ const SliderWarning = styled(MuiSlider)<SliderProps>(({ theme }) => ({
   }
 }))
 
-// Styled component for a info Slider
+// ** Styled component for a info Slider
 const SliderInfo = styled(MuiSlider)<SliderProps>(({ theme }) => ({
   color: theme.palette.info.main,
   '& .MuiSlider-thumb:hover, & .MuiSlider-thumb.Mui-focusVisible': {

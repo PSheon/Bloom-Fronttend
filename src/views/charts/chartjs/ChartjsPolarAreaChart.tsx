@@ -3,11 +3,11 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { PolarArea } from 'react-chartjs-2'
 import { ChartData, ChartOptions } from 'chart.js'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 
 interface PolarAreaProps {
@@ -24,6 +24,7 @@ const ChartjsPolarAreaChart = (props: PolarAreaProps) => {
   // ** Props
   const { info, grey, green, yellow, primary, warning, legendColor } = props
 
+  // ** Vars
   const options: ChartOptions<'polarArea'> = {
     responsive: true,
     maintainAspectRatio: false,

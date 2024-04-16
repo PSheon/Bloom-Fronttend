@@ -6,16 +6,16 @@ import LinearProgress from '@mui/material/LinearProgress'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Utils Imports
+// ** Util Imports
 import { getProcessStatusList, getRequestSheetProcessStatusAttributes } from 'src/utils'
 
-// ** Custom Components
-import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {

@@ -17,10 +17,10 @@ const TreeViewControlled = ({ direction }: Props) => {
   const [expanded, setExpanded] = useState<string[]>([])
   const [selected, setSelected] = useState<string[]>([])
 
+  // ** Logics
   const handleToggle = (event: SyntheticEvent, nodeIds: string[]) => {
     setExpanded(nodeIds)
   }
-
   const handleSelect = (event: SyntheticEvent, nodeIds: string[]) => {
     setSelected(nodeIds)
   }

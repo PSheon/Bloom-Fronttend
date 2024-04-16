@@ -14,10 +14,10 @@ import MuiTab, { TabProps } from '@mui/material/Tab'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Styled Component
+// ** Custom Component Imports
 import MediaAssetEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
-// ** Styled Tab component
+// ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
   minHeight: 48,
   flexDirection: 'row',

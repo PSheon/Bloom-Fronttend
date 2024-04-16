@@ -13,7 +13,7 @@ interface ChipData {
 }
 
 const ChipsArray = () => {
-  // ** State
+  // ** States
   const [chipData, setChipData] = useState<ChipData[]>([
     { key: 0, avatar: '/images/avatars/1.png', avatarAlt: 'User Avatar', label: 'Norman Santiago' },
     { key: 1, avatar: '/images/avatars/2.png', avatarAlt: 'User Avatar', label: 'Cecelia Tucker' },
@@ -22,6 +22,7 @@ const ChipsArray = () => {
     { key: 4, avatar: '/images/avatars/5.png', avatarAlt: 'User Avatar', label: 'Edward Francis' }
   ])
 
+  // ** Logics
   const handleDelete = (chipToDelete: ChipData) => () => {
     setChipData(chips => chips.filter(chip => chip.key !== chipToDelete.key))
   }

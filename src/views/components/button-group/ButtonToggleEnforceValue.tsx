@@ -15,12 +15,12 @@ const ButtonToggleEnforceValue = () => {
   const [formats, setFormats] = useState<string[]>(() => ['phone'])
   const [alignment, setAlignment] = useState<string | null>('left')
 
+  // ** Logics
   const handleAlignment = (event: MouseEvent<HTMLElement>, newAlignment: string | null) => {
     if (newAlignment !== null) {
       setAlignment(newAlignment)
     }
   }
-
   const handleFormat = (event: MouseEvent<HTMLElement>, newFormats: string[]) => {
     if (newFormats.length) {
       setFormats(newFormats)

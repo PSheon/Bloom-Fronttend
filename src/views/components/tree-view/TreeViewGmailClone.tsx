@@ -18,7 +18,7 @@ type StyledTreeItemProps = TreeItemProps & {
   labelInfo?: string
 }
 
-// Styled TreeItem component
+// ** Styled TreeItem component
 const StyledTreeItemRoot = styled(TreeItem)<TreeItemProps>(({ theme }) => ({
   '&:hover > .MuiTreeItem-content:not(.Mui-selected)': {
     backgroundColor: theme.palette.action.hover

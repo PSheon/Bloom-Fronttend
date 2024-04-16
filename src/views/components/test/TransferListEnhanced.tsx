@@ -26,13 +26,16 @@ const union = (a: readonly number[], b: readonly number[]) => {
 }
 
 const TransferListEnhanced = () => {
+  // ** States
   const [checked, setChecked] = useState<readonly number[]>([])
   const [left, setLeft] = useState<readonly number[]>([0, 1, 2, 3])
   const [right, setRight] = useState<readonly number[]>([4, 5, 6, 7])
 
+  // ** Vars
   const leftChecked = intersection(checked, left)
   const rightChecked = intersection(checked, right)
 
+  // ** Logics
   const handleToggle = (value: number) => () => {
     const currentIndex = checked.indexOf(value)
     const newChecked = [...checked]

@@ -4,13 +4,13 @@ import { useTheme } from '@mui/material/styles'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ApexOptions } from 'apexcharts'
 
-// ** Component Import
+// ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 const radialBarColors = {
@@ -22,7 +22,7 @@ const radialBarColors = {
 }
 
 const ApexRadialBarChart = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   const options: ApexOptions = {

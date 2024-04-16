@@ -11,17 +11,17 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import MuiStepper, { StepperProps } from '@mui/material/Stepper'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+// ** Core Component Imports
+import StepperWrapper from 'src/@core/styles/mui/stepper'
 
-// ** Step Components
+// ** Custom Component Imports
 import StepCart from 'src/views/pages/wizard-examples/checkout/StepCart'
 import StepAddress from 'src/views/pages/wizard-examples/checkout/StepAddress'
 import StepPayment from 'src/views/pages/wizard-examples/checkout/StepPayment'
 import StepConfirmation from 'src/views/pages/wizard-examples/checkout/StepConfirmation'
 
-// ** Styled Components
-import StepperWrapper from 'src/@core/styles/mui/stepper'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 const steps = [
   {
@@ -127,7 +127,7 @@ const CheckoutWizard = () => {
   // ** States
   const [activeStep, setActiveStep] = useState<number>(0)
 
-  // Handle Stepper
+  // ** Logics
   const handleNext = () => {
     setActiveStep(activeStep + 1)
   }

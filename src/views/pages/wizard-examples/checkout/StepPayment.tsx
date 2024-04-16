@@ -1,7 +1,7 @@
 // ** React Imports
 import { SyntheticEvent, useState } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -24,7 +24,7 @@ import InputAdornment from '@mui/material/InputAdornment'
 import MuiTabList, { TabListProps } from '@mui/lab/TabList'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Icon Imports
@@ -46,9 +46,10 @@ const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
 }))
 
 const StepPayment = ({ handleNext }: { handleNext: () => void }) => {
-  // ** State
+  // ** States
   const [value, setValue] = useState<string>('cc')
 
+  // ** Logics
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }

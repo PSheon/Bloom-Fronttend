@@ -11,11 +11,11 @@ import InputLabel from '@mui/material/InputLabel'
 import Typography from '@mui/material/Typography'
 import FormControl from '@mui/material/FormControl'
 
+// ** Core Component Imports
+import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
+
 // ** Type Imports
 import { CustomRadioIconsData, CustomRadioIconsProps } from 'src/@core/components/custom-radio/types'
-
-// ** Custom Components Imports
-import CustomRadioIcons from 'src/@core/components/custom-radio/icons'
 
 interface IconType {
   icon: CustomRadioIconsProps['icon']
@@ -53,10 +53,10 @@ const StepPropertyDetails = () => {
     data.filter(item => item.isSelected).length - 1
   ].value
 
-  // ** State
+  // ** States
   const [selectedRadio, setSelectedRadio] = useState<string>(initialIconSelected)
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   const icons: IconType[] = [

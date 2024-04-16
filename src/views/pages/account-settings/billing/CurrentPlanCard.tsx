@@ -19,20 +19,20 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import LinearProgress from '@mui/material/LinearProgress'
 
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+
+// ** Custom Component Imports
+import PricingPlans from 'src/views/pages/pricing/PricingPlans'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
+// ** Type Imports
 import { PricingPlanType } from 'src/@core/components/plan-details/types'
 
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Component Import
-import PricingPlans from 'src/views/pages/pricing/PricingPlans'
-
 const CurrentPlanCard = ({ data }: { data: PricingPlanType[] }) => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
   const [userInput, setUserInput] = useState<string>('yes')
   const [plan, setPlan] = useState<'monthly' | 'annually'>('annually')

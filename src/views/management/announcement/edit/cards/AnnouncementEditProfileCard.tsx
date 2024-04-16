@@ -25,28 +25,28 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContentText from '@mui/material/DialogContentText'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Styled Component
-import AnnouncementEditBannerPreviewBox from 'src/views/management/announcement/edit/boxes/AnnouncementEditBannerPreviewBox'
-
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Api Imports
+// ** Custom Component Imports
+import AnnouncementEditBannerPreviewBox from 'src/views/management/announcement/edit/boxes/AnnouncementEditBannerPreviewBox'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/announcement'
 
-// ** Utils Import
+// ** Util Imports
 import { getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { AnnouncementType } from 'src/types/api/announcementTypes'
 
 // ** Styled Components

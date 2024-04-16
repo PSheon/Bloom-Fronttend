@@ -29,13 +29,13 @@ const options = [
 const ITEM_HEIGHT = 48
 
 const MenuMaxHeight = () => {
-  // ** State
+  // ** States
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
+  // ** Logics
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
-
   const handleClose = () => {
     setAnchorEl(null)
   }

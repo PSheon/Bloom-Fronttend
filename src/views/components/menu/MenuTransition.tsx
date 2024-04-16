@@ -8,13 +8,13 @@ import Button from '@mui/material/Button'
 import MenuItem from '@mui/material/MenuItem'
 
 const MenuTransition = () => {
-  // ** State
+  // ** States
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
+  // ** Logics
   const handleClick = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
-
   const handleClose = () => {
     setAnchorEl(null)
   }

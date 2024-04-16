@@ -6,14 +6,14 @@ import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import toast from 'react-hot-toast'
 import copyToClipboard from 'clipboard-copy'
 
-// ** Utils Import
+// ** Util Imports
 import { getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 interface Props {

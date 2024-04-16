@@ -8,25 +8,23 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import LoadingButton from '@mui/lab/LoadingButton'
 
+// ** Third-Party Imports
+import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
+
+// ** Core Component Imports
+import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
+import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Components
-import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
-
-// ** Types
-import { AnnouncementType } from 'src/types/api/announcementTypes'
-
-// ** Api Imports
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/announcement'
 
-// ** Styled Component
-import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
+// ** Type Imports
+import { AnnouncementType } from 'src/types/api/announcementTypes'
 
-// ** Styled Component Imports
-import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
-
-// ** Styles
+// ** Style Imports
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 interface Props {
@@ -37,7 +35,7 @@ const AnnouncementEditContentEditorCard = (props: Props) => {
   // ** Props
   const { initAnnouncementEntity } = props
 
-  // ** State
+  // ** States
   const [content, setContent] = useState(EditorState.createWithContent(convertFromRaw(initAnnouncementEntity.content)))
   const [isContentDirty, setIsContentDirty] = useState<boolean>(false)
 

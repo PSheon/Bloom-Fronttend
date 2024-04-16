@@ -10,15 +10,15 @@ import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third Party Components
+// ** Third-Party Imports
 import clsx from 'clsx'
 import { useKeenSlider } from 'keen-slider/react'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
 
 interface SwiperData {
   img: string
@@ -26,40 +26,41 @@ interface SwiperData {
   details: { [key: string]: string }
 }
 
-const data: SwiperData[] = [
-  {
-    title: 'Fashion',
-    img: '/images/cards/apple-watch-green-lg.png',
-    details: {
-      'T-shirts': '16',
-      Shoes: '43',
-      Watches: '29',
-      SunGlasses: '7'
-    }
-  },
-  {
-    title: 'Mobiles & Computers',
-    img: '/images/cards/apple-iphone-x-lg.png',
-    details: {
-      Mobiles: '24',
-      Accessories: '50',
-      Tablets: '12',
-      Computers: '38'
-    }
-  },
-  {
-    title: 'Appliances & Electronics',
-    img: '/images/cards/ps4-joystick-lg.png',
-    details: {
-      "TV's": '16',
-      Cameras: '9',
-      Speakers: '40',
-      Consoles: '18'
-    }
-  }
-]
-
 const Slides = () => {
+  // ** Vars
+  const data: SwiperData[] = [
+    {
+      title: 'Fashion',
+      img: '/images/cards/apple-watch-green-lg.png',
+      details: {
+        'T-shirts': '16',
+        Shoes: '43',
+        Watches: '29',
+        SunGlasses: '7'
+      }
+    },
+    {
+      title: 'Mobiles & Computers',
+      img: '/images/cards/apple-iphone-x-lg.png',
+      details: {
+        Mobiles: '24',
+        Accessories: '50',
+        Tablets: '12',
+        Computers: '38'
+      }
+    },
+    {
+      title: 'Appliances & Electronics',
+      img: '/images/cards/ps4-joystick-lg.png',
+      details: {
+        "TV's": '16',
+        Cameras: '9',
+        Speakers: '40',
+        Consoles: '18'
+      }
+    }
+  ]
+
   return (
     <>
       {data.map((slide: SwiperData, index: number) => {
@@ -140,7 +141,7 @@ const EcommerceWeeklySalesBg = () => {
   const [loaded, setLoaded] = useState<boolean>(false)
   const [currentSlide, setCurrentSlide] = useState<number>(0)
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
   const [sliderRef, instanceRef] = useKeenSlider<HTMLDivElement>(
     {

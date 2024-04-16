@@ -16,12 +16,12 @@ const RadioShowError = () => {
   const [error, setError] = useState<boolean>(false)
   const [helperText, setHelperText] = useState<string>('Choose wisely')
 
+  // ** Logics
   const handleRadioChange = (event: ChangeEvent<HTMLInputElement>) => {
     setError(false)
     setHelperText(' ')
     setValue((event.target as HTMLInputElement).value)
   }
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
     event.preventDefault()
 

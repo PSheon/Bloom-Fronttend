@@ -1,7 +1,7 @@
 // ** React Imports
 import { SyntheticEvent, useState, useEffect } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -17,14 +17,14 @@ import CircularProgress from '@mui/material/CircularProgress'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import UserViewBilling from 'src/views/apps/user/view/UserViewBilling'
 import UserViewOverview from 'src/views/apps/user/view/UserViewOverview'
 import UserViewSecurity from 'src/views/apps/user/view/UserViewSecurity'
 import UserViewConnection from 'src/views/apps/user/view/UserViewConnection'
 import UserViewNotification from 'src/views/apps/user/view/UserViewNotification'
 
-// ** Types
+// ** Type Imports
 import { InvoiceType } from 'src/types/apps/invoiceTypes'
 
 interface Props {
@@ -43,7 +43,7 @@ const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
 }))
 
 const UserViewRight = ({ tab, invoiceData }: Props) => {
-  // ** State
+  // ** States
   const [activeTab, setActiveTab] = useState<string>(tab)
   const [isLoading, setIsLoading] = useState<boolean>(true)
 

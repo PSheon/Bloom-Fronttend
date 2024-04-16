@@ -17,21 +17,20 @@ const options = [
 ]
 
 const MenuSelected = () => {
-  // ** State
+  // ** States
   const [selectedIndex, setSelectedIndex] = useState<number>(1)
 
-  // ** Ref
+  // ** Refs
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null)
 
+  // ** Logics
   const handleClickListItem = (event: MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget)
   }
-
   const handleMenuItemClick = (event: MouseEvent<HTMLElement>, index: number) => {
     setAnchorEl(null)
     setSelectedIndex(index)
   }
-
   const handleClose = () => {
     setAnchorEl(null)
   }
