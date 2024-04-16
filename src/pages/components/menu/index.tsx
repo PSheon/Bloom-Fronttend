@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import MenuBasic from 'src/views/components/menu/MenuBasic'
 import MenuContext from 'src/views/components/menu/MenuContext'
 import MenuSelected from 'src/views/components/menu/MenuSelected'
@@ -14,7 +14,7 @@ import MenuCustomized from 'src/views/components/menu/MenuCustomized'
 import MenuTransition from 'src/views/components/menu/MenuTransition'
 import MenuComposition from 'src/views/components/menu/MenuComposition'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/menu/MenuSourceCode'
 
 const Menus = () => {

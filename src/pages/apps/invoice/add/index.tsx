@@ -7,19 +7,19 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Third Party Components
+// ** Third-Party Components
 import axios from 'axios'
 
-// ** Types
-import { InvoiceType, InvoiceClientType } from 'src/types/apps/invoiceTypes'
+// ** Core Component Imports
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import AddCard from 'src/views/apps/invoice/add/AddCard'
 import AddActions from 'src/views/apps/invoice/add/AddActions'
 import AddNewCustomers from 'src/views/apps/invoice/add/AddNewCustomer'
 
-// ** Styled Component
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+// ** Type Imports
+import { InvoiceType, InvoiceClientType } from 'src/types/apps/invoiceTypes'
 
 const InvoiceAdd = ({ apiClientData, invoiceNumber }: InferGetStaticPropsType<typeof getStaticProps>) => {
   // ** State

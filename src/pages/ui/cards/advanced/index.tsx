@@ -1,7 +1,7 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import CardFinanceApp from 'src/views/ui/cards/advanced/CardFinanceApp'
 import CardPlanUpgrade from 'src/views/ui/cards/advanced/CardPlanUpgrade'
 import CardTransactions from 'src/views/ui/cards/advanced/CardTransactions'

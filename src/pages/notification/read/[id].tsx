@@ -1,10 +1,10 @@
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** Api Imports
+// ** API Imports
 import { useFindMeOneQuery } from 'src/store/api/management/notification'
 
-// ** Styled Component
+// ** Custom Component Imports
 import NotificationReadLoadingSkeleton from 'src/views/notification/read/LoadingSkeleton'
 import NotificationReadSection from 'src/views/notification/read'
 

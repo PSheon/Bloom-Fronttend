@@ -2,7 +2,7 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import Textarea from 'src/views/forms/form-elements/test/Textarea'
 import TextFieldIcons from 'src/views/forms/form-elements/test/TextFieldIcons'
 import SelectVariants from 'src/views/forms/form-elements/test/SelectVariants'

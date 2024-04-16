@@ -6,14 +6,12 @@ import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import PageHeader from 'src/@core/components/page-header'
-
-// ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import ApexBarChart from 'src/views/charts/apex-charts/ApexBarChart'
 import ApexAreaChart from 'src/views/charts/apex-charts/ApexAreaChart'
 import ApexLineChart from 'src/views/charts/apex-charts/ApexLineChart'

@@ -1,16 +1,16 @@
 // ** Next Imports
 import { useRouter } from 'next/router'
 
-const ReviewFundPage = () => {
+const ReviewFundPreviewPage = () => {
   // ** Hooks
   const router = useRouter()
 
   router.push('/review/dashboard')
 }
 
-ReviewFundPage.acl = {
+ReviewFundPreviewPage.acl = {
   action: 'read',
   subject: 'asset-manager-page'
 }
 
-export default ReviewFundPage
+export default ReviewFundPreviewPage

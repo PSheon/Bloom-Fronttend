@@ -1,12 +1,12 @@
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** Api Imports
-import { useFindOneQuery } from 'src/store/api/management/mediaAsset'
-
-// ** Styled Component
+// ** Custom Component Imports
 import MediaAssetEditLoadingSkeleton from 'src/views/management/media-asset/edit/LoadingSkeleton'
 import MediaAssetEditSection from 'src/views/management/media-asset/edit'
+
+// ** API Imports
+import { useFindOneQuery } from 'src/store/api/management/mediaAsset'
 
 const MediaAssetEditPage = () => {
   // ** Hooks

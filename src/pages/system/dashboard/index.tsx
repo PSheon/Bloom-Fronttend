@@ -1,7 +1,11 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Demo Components Imports
+// ** Core Component Imports
+import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
+import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
+
+// ** Custom Component Imports
 import DashboardSystemBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import CardOSInfoStatistics from 'src/views/system/dashboard/cards/OSInfoStatisticsCard'
 import CardDBInfoStatistics from 'src/views/system/dashboard/cards/DBInfoStatisticsCard'
@@ -10,11 +14,7 @@ import CardMemUsageStatisticsLineChart from 'src/views/system/dashboard/cards/Me
 import CardProcUsageStatisticsLineChart from 'src/views/system/dashboard/cards/ProcUsageStatisticsLineChartCard'
 import CardDriveUsageRadialBarChart from 'src/views/system/dashboard/cards/DriveUsageRadialBarChartCard'
 import CardSystemLogSnippet from 'src/views/system/dashboard/cards/SystemLogSnippetCard'
-
-// ** Styled Component Import
 import SocketProvider from 'src/views/system/dashboard/provider/SocketProvider'
-import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
-import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 const SystemDashboardPage = () => {
   return (

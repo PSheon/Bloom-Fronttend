@@ -3,10 +3,10 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import Grid, { GridProps } from '@mui/material/Grid'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import PaginationSizes from 'src/views/components/pagination/PaginationSizes'
 import PaginationSimple from 'src/views/components/pagination/PaginationSimple'
 import PaginationRanges from 'src/views/components/pagination/PaginationRanges'
@@ -16,10 +16,10 @@ import PaginationOutlined from 'src/views/components/pagination/PaginationOutlin
 import PaginationDisabled from 'src/views/components/pagination/PaginationDisabled'
 import PaginationControlled from 'src/views/components/pagination/PaginationControlled'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/pagination/PaginationSourceCode'
 
-// Styled component for Grid container
+// ** Styled component for Grid container
 const GridContainer = styled(Grid)<GridProps>(({ theme }) => ({
   '& .demo-space-y > *': {
     marginBottom: theme.spacing(5.2),

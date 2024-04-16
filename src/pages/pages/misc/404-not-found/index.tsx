@@ -1,10 +1,10 @@
 // ** React Imports
 import { ReactNode } from 'react'
 
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Component Import
+// ** Custom Component Imports
 import Error404 from 'src/pages/404'
 
 const Error = () => <Error404 />

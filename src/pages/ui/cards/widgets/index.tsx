@@ -1,10 +1,10 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Styled Component Import
+// ** Core Component Imports
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import CardWidgetsVisitsByDay from 'src/views/ui/cards/widgets/CardWidgetsVisitsByDay'
 import CardWidgetsWeeklySales from 'src/views/ui/cards/widgets/CardWidgetsWeeklySales'
 import CardWidgetsPerformance from 'src/views/ui/cards/widgets/CardWidgetsPerformance'

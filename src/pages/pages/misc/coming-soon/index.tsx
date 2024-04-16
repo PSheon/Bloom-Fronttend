@@ -8,10 +8,10 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import Box, { BoxProps } from '@mui/material/Box'
 
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Demo Imports
+// ** Custom Component Imports
 import FooterIllustrations from 'src/views/pages/misc/FooterIllustrations'
 
 // ** Styled Components
@@ -20,7 +20,6 @@ const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
     width: '90vw'
   }
 }))
-
 const Img = styled('img')(({ theme }) => ({
   marginTop: theme.spacing(15),
   [theme.breakpoints.down('lg')]: {

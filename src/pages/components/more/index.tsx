@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -15,7 +15,7 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import TableContainer from '@mui/material/TableContainer'
 
-// ** Data Imports
+// ** Constant Imports
 import componentData from 'src/@fake-db/components/data'
 
 const LinkStyled = styled(Link)(({ theme }) => ({

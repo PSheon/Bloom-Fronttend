@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import RadioGroup from 'src/views/forms/form-elements/radio/RadioGroup'
 import RadioColor from 'src/views/forms/form-elements/radio/RadioColor'
 import RadioSizes from 'src/views/forms/form-elements/radio/RadioSizes'
@@ -15,7 +15,7 @@ import RadioCustomized from 'src/views/forms/form-elements/radio/RadioCustomized
 import RadioLabelPlacement from 'src/views/forms/form-elements/radio/RadioLabelPlacement'
 import RadioControlledUncontrolled from 'src/views/forms/form-elements/radio/RadioControlledUncontrolled'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/forms/form-elements/radio/RadioSourceCode'
 
 const Radios = () => {

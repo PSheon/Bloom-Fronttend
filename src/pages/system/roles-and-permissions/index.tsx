@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Api Imports
+// ** API Imports
 import { useFindQuery } from 'src/store/api/roleAndPermission'
 
-// ** Styled Component Import
+// ** Custom Component Imports
 import RolesAndPermissionsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import RolesList from 'src/views/system/roles-and-permissions/roles-list'
 import PermissionsList from 'src/views/system/roles-and-permissions/permissions-list'

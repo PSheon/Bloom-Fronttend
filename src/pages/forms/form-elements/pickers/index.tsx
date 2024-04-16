@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -7,17 +7,15 @@ import { styled } from '@mui/material/styles'
 import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import { ReactDatePickerProps } from 'react-datepicker'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import PageHeader from 'src/@core/components/page-header'
 import CardSnippet from 'src/@core/components/card-snippet'
-
-// ** Styled Component
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import PickersTime from 'src/views/forms/form-elements/pickers/PickersTime'
 import PickersBasic from 'src/views/forms/form-elements/pickers/PickersBasic'
 import PickersRange from 'src/views/forms/form-elements/pickers/PickersRange'
@@ -31,7 +29,7 @@ import PickersIncludeExclude from 'src/views/forms/form-elements/pickers/Pickers
 import PickersMonthYearQuarter from 'src/views/forms/form-elements/pickers/PickersMonthYearQuarter'
 import PickersMonthYearDropdowns from 'src/views/forms/form-elements/pickers/PickersMonthYearDropdowns'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/forms/form-elements/pickers/PickersSourceCode'
 
 const LinkStyled = styled(Link)(({ theme }) => ({

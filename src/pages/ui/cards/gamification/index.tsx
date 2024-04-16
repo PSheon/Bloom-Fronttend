@@ -1,7 +1,7 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import CardAward from 'src/views/ui/cards/gamification/CardAward'
 import CardUpgradeAccount from 'src/views/ui/cards/gamification/CardUpgradeAccount'
 import CardCongratulationsJohn from 'src/views/ui/cards/gamification/CardCongratulationsJohn'

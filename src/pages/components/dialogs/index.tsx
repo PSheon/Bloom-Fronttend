@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import DialogForm from 'src/views/components/dialogs/DialogForm'
 import DialogAlert from 'src/views/components/dialogs/DialogAlert'
 import DialogSizes from 'src/views/components/dialogs/DialogSizes'
@@ -17,7 +17,7 @@ import DialogFullScreen from 'src/views/components/dialogs/DialogFullScreen'
 import DialogConfirmation from 'src/views/components/dialogs/DialogConfirmation'
 import DialogRespoFullScreen from 'src/views/components/dialogs/DialogRespoFullScreen'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/dialogs/DialogSourceCode'
 
 const Dialog = () => {

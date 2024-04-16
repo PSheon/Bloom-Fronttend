@@ -1,15 +1,15 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
-import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
+import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import PageHeader from 'src/@core/components/page-header'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import TableBasic from 'src/views/table/data-grid/TableBasic'
 import TableFilter from 'src/views/table/data-grid/TableFilter'
 import TableColumns from 'src/views/table/data-grid/TableColumns'

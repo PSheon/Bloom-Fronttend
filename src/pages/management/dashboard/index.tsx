@@ -1,9 +1,11 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Styled Component Import
+// ** Core Component Imports
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
+
+// ** Custom Component Imports
 import DashboardHomeBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ManagementDashboardUserOverviewCard from 'src/views/management/dashboard/cards/UserOverviewCard'
 import ManagementDashboardRequestSheetOverviewCard from 'src/views/management/dashboard/cards/RequestSheetOverviewCard'

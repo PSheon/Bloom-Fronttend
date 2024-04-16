@@ -1,14 +1,14 @@
-// ** Next Import
+// ** Next Imports
 import { GetStaticProps, GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
+
+// ** Custom Component Imports
+import HelpCenterArticle from 'src/views/pages/help-center/article'
 
 // ** Type Imports
 import { HelpCenterCategoriesType, HelpCenterSubcategoryArticlesType } from 'src/@fake-db/types'
-
-// ** Demo Components Imports
-import HelpCenterArticle from 'src/views/pages/help-center/article'
 
 const HelpCenterArticlePage = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return apiData ? (

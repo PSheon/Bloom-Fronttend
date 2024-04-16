@@ -4,14 +4,11 @@ import { useRouter } from 'next/router'
 // ** API Imports
 import { useFindOneQuery } from 'src/store/api/management/fund'
 
-// ** Util Imports
-import { getValidTabIndex } from 'src/utils'
-
 // ** Custom Component Imports
 // import RequestSheetEditLoadingSkeleton from 'src/views/review/request-sheet/edit/LoadingSkeleton'
-import ReviewFundEditSection from 'src/views/review/fund/edit'
+import ReviewFundPreviewSection from 'src/views/review/fund/preview'
 
-const ReviewFundEditPage = () => {
+const ReviewFundPreviewPage = () => {
   // ** Hooks
   const router = useRouter()
   const {
@@ -20,22 +17,19 @@ const ReviewFundEditPage = () => {
     isLoading: isFindOneFundEntityLoading
   } = useFindOneQuery(Number(router.query.id))
 
-  // ** Vars
-  const tab = getValidTabIndex(router.query.tab)
-
-  if (router.query.id === undefined || tab === undefined || isFindOneFundEntityError) {
+  if (router.query.id === undefined || isFindOneFundEntityError) {
     // router.push('/review/fund/list')
   } else if (isFindOneFundEntityLoading) {
     // return <FundEditLoadingSkeleton />
     return <>FundEditLoadingSkeleton</>
   } else {
-    return <ReviewFundEditSection initFundEntity={fundEntity!} tab={tab} />
+    return <ReviewFundPreviewSection initFundEntity={fundEntity!} />
   }
 }
 
-ReviewFundEditPage.acl = {
+ReviewFundPreviewPage.acl = {
   action: 'read',
   subject: 'asset-manager-page'
 }
 
-export default ReviewFundEditPage
+export default ReviewFundPreviewPage

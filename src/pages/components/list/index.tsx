@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import ListUsers from 'src/views/components/list/ListUsers'
 import ListDense from 'src/views/components/list/ListDense'
 import ListSimple from 'src/views/components/list/ListSimple'
@@ -17,7 +17,7 @@ import ListItemSelected from 'src/views/components/list/ListItemSelected'
 import ListWithCheckbox from 'src/views/components/list/ListWithCheckbox'
 import ListStickySubheader from 'src/views/components/list/ListStickySubheader'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/list/ListSourceCode'
 
 const Lists = () => {

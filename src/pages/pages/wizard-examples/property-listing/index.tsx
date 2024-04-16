@@ -1,8 +1,8 @@
-// ** Demo Components Imports
-import PropertyListing from 'src/views/pages/wizard-examples/property-listing'
-
-// ** Custom Component
+// ** Core Component Imports
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+
+// ** Custom Component Imports
+import PropertyListing from 'src/views/pages/wizard-examples/property-listing'
 
 const WizardExamples = () => {
   return (

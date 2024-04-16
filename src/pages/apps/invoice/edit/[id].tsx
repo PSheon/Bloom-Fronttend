@@ -1,17 +1,17 @@
-// ** Next Import
+// ** Next Imports
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Types
-import { InvoiceType } from 'src/types/apps/invoiceTypes'
+// ** Core Component Imports
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import Edit from 'src/views/apps/invoice/edit/Edit'
 
-// ** Styled Component
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+// ** Type Imports
+import { InvoiceType } from 'src/types/apps/invoiceTypes'
 
 const InvoiceEdit = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (

@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, useCallback, ChangeEvent } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -14,33 +14,33 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import format from 'date-fns/format'
 
-// ** Hooks Import
-import useDebounce from 'src/hooks/useDebounce'
-
-// ** Api Imports
-import { useFindQuery, useUpdateOneMutation } from 'src/store/api/management/notification'
-
-// ** Types Imports
-import { NotificationType } from 'src/types/api/notificationTypes'
-
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
-import { getPublicMediaAssetUrl } from 'src/utils'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Styled Components
+// ** Custom Component Imports
 import NotificationListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import NotificationListHeaderCardContent from 'src/views/management/notification/list/HeaderCardContent'
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Hook Imports
+import useDebounce from 'src/hooks/useDebounce'
+
+// ** API Imports
+import { useFindQuery, useUpdateOneMutation } from 'src/store/api/management/notification'
+
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
+import { getPublicMediaAssetUrl } from 'src/utils'
+
+// ** Type Imports
+import { NotificationType } from 'src/types/api/notificationTypes'
 
 interface CellType {
   row: NotificationType
@@ -59,7 +59,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 const NotificationListPage = () => {
-  // ** State
+  // ** States
   const [filteredNotificationTitle, setFilteredNotificationTitle] = useState<string>('')
   const [filteredIsSeen, setFilteredIsSeen] = useState<string>('all')
   const [filteredIsHighlighted, setFilteredIsHighlighted] = useState<string>('all')

@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, Fragment, ChangeEvent, ReactNode } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
@@ -21,17 +21,17 @@ import MuiCard, { CardProps } from '@mui/material/Card'
 import InputAdornment from '@mui/material/InputAdornment'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
+// ** Layout Imports
+import BlankLayout from 'src/@core/layouts/BlankLayout'
+
+// ** Custom Component Imports
+import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Configs
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
-
-// ** Layout Import
-import BlankLayout from 'src/@core/layouts/BlankLayout'
-
-// ** Demo Imports
-import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
 
 interface State {
   password: string
@@ -58,7 +58,7 @@ const RegisterV1 = () => {
     showPassword: false
   })
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   const handleChange = (prop: keyof State) => (event: ChangeEvent<HTMLInputElement>) => {

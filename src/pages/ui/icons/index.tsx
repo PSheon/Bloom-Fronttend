@@ -1,16 +1,16 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
 import Tooltip from '@mui/material/Tooltip'
-import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import Icon from 'src/@core/components/icon'
 import PageHeader from 'src/@core/components/page-header'
 

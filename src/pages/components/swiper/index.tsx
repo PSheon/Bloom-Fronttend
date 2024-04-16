@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -6,11 +6,12 @@ import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
+import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
 import PageHeader from 'src/@core/components/page-header'
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import SwiperLoop from 'src/views/components/swiper/SwiperLoop'
 import SwiperZoom from 'src/views/components/swiper/SwiperZoom'
 import SwiperFader from 'src/views/components/swiper/SwiperFader'
@@ -25,14 +26,11 @@ import SwiperAutoSwitch from 'src/views/components/swiper/SwiperAutoSwitch'
 import SwiperMultipleSlides from 'src/views/components/swiper/SwiperMultipleSlides'
 import SwiperMutationObserver from 'src/views/components/swiper/SwiperMutationObserver'
 
-// ** Styled Component Import
-import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
-
-// ** Source code imports
-import * as source from 'src/views/components/swiper/SwiperSourceCode'
-
-// ** Hook Import
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Constant Imports
+import * as source from 'src/views/components/swiper/SwiperSourceCode'
 
 const LinkStyled = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
@@ -40,7 +38,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 const Swiper = () => {
-  // ** Hook
+  // ** Hooks
   const {
     settings: { direction }
   } = useSettings()

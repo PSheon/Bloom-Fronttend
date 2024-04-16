@@ -27,38 +27,41 @@ import themeConfig from 'src/configs/themeConfig'
 // ** Fake-DB Import
 // import 'src/@fake-db'
 
-// ** Third Party Import
+// ** Third-Party Imports
 import { Toaster } from 'react-hot-toast'
 
 // ** Component Imports
-import UserLayout from 'src/layouts/UserLayout'
 import AclGuard from 'src/@core/components/auth/AclGuard'
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
 import AuthGuard from 'src/@core/components/auth/AuthGuard'
 import GuestGuard from 'src/@core/components/auth/GuestGuard'
 
-// ** Spinner Import
+// ** Layout Imports
+import UserLayout from 'src/layouts/UserLayout'
+
+// ** Spinner Imports
 import Spinner from 'src/layouts/components/fallback-spinner'
 
-// ** Contexts
+// ** Context Imports
 import { AuthProvider } from 'src/context/AuthContext'
 import { SettingsConsumer, SettingsProvider } from 'src/@core/context/settingsContext'
 
-// ** Styled Components
+// ** Core Component Imports
 import ReactHotToast from 'src/@core/styles/libs/react-hot-toast'
 
-// ** Utils Imports
+// ** Util Imports
 import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 
-// ** Prismjs Styles
+// ** Prismjs Style Imports
 import 'prismjs'
 import 'prismjs/themes/prism-tomorrow.css'
 import 'prismjs/components/prism-jsx'
 import 'prismjs/components/prism-tsx'
 
-// ** React Perfect Scrollbar Style
+// ** React Perfect Scrollbar Style Imports
 import 'react-perfect-scrollbar/dist/css/styles.css'
 
+// ** Iconify Style Imports
 import 'src/iconify-bundle/icons-bundle-react'
 
 // ** Global css styles

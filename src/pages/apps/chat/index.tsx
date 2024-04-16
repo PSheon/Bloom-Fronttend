@@ -1,29 +1,31 @@
 // ** React Imports
 import { useEffect, useState } from 'react'
 
+// ** Redux Imports
+import { useDispatch, useSelector } from 'react-redux'
+
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-// ** Store & Actions Imports
-import { useDispatch, useSelector } from 'react-redux'
-import { sendMsg, selectChat, fetchUserProfile, fetchChatsContacts, removeSelectedChat } from 'src/store/apps/chat'
+// ** Custom Components Imports
+import SidebarLeft from 'src/views/apps/chat/SidebarLeft'
+import ChatContent from 'src/views/apps/chat/ChatContent'
 
-// ** Types
-import { RootState, AppDispatch } from 'src/store'
-import { StatusObjType, StatusType } from 'src/types/apps/chatTypes'
-
-// ** Hooks
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
 
-// ** Utils Imports
+// ** Action Imports
+import { sendMsg, selectChat, fetchUserProfile, fetchChatsContacts, removeSelectedChat } from 'src/store/apps/chat'
+
+// ** Util Imports
 import { getInitials } from 'src/@core/utils/get-initials'
 import { formatDateToMonthShort } from 'src/@core/utils/format'
 
-// ** Chat App Components Imports
-import SidebarLeft from 'src/views/apps/chat/SidebarLeft'
-import ChatContent from 'src/views/apps/chat/ChatContent'
+// ** Type Imports
+import { RootState, AppDispatch } from 'src/store'
+import { StatusObjType, StatusType } from 'src/types/apps/chatTypes'
 
 const AppChat = () => {
   // ** States

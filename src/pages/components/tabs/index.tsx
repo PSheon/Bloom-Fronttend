@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import TabsNav from 'src/views/components/tabs/TabsNav'
 import TabsIcon from 'src/views/components/tabs/TabsIcon'
 import TabsColor from 'src/views/components/tabs/TabsColor'
@@ -17,7 +17,7 @@ import TabsCustomized from 'src/views/components/tabs/TabsCustomized'
 import TabsForcedScroll from 'src/views/components/tabs/TabsForcedScroll'
 import TabsCustomizedVertical from 'src/views/components/tabs/TabsCustomizedVertical'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/tabs/TabsSourceCode'
 
 const Tabs = () => {

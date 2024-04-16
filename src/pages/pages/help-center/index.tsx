@@ -7,17 +7,17 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent, { CardContentProps } from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Types
-import { HelpCenterCategoriesType, HelpCenterArticlesOverviewType } from 'src/@fake-db/types'
-
-// ** Demo Imports
+// ** Custom Component Imports
 import HelpCenterLandingHeader from 'src/views/pages/help-center/landing/HelpCenterLandingHeader'
 import HelpCenterLandingFooter from 'src/views/pages/help-center/landing/HelpCenterLandingFooter'
 import HelpCenterLandingKnowledgeBase from 'src/views/pages/help-center/landing/HelpCenterLandingKnowledgeBase'
 import HelpCenterLandingArticlesOverview from 'src/views/pages/help-center/landing/HelpCenterLandingArticlesOverview'
+
+// ** Type Imports
+import { HelpCenterCategoriesType, HelpCenterArticlesOverviewType } from 'src/@fake-db/types'
 
 type ApiDataType = {
   categories: HelpCenterCategoriesType[]

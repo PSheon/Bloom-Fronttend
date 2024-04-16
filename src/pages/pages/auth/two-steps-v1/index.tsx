@@ -1,7 +1,7 @@
 // ** React Imports
 import { ReactNode, ChangeEvent, useState, KeyboardEvent } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
@@ -13,26 +13,26 @@ import { styled, useTheme } from '@mui/material/styles'
 import MuiCard, { CardProps } from '@mui/material/Card'
 import FormHelperText from '@mui/material/FormHelperText'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import Cleave from 'cleave.js/react'
 import { useForm, Controller } from 'react-hook-form'
 
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Demo Imports
-import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
-
-// ** Custom Styled Component
+// ** Core Component Imports
 import CleaveWrapper from 'src/@core/styles/libs/react-cleave'
 
-// ** Util Import
+// ** Custom Component Imports
+import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
+
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-// ** Styles
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Style Imports
 import 'cleave.js/dist/addons/cleave-phone.us'
 
 // ** Styled Components
@@ -72,7 +72,7 @@ const defaultValues: { [key: string]: string } = {
 }
 
 const TwoStepsV1 = () => {
-  // ** State
+  // ** States
   const [isBackspace, setIsBackspace] = useState<boolean>(false)
 
   // ** Hooks

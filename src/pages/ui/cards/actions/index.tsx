@@ -10,14 +10,14 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import TableContainer from '@mui/material/TableContainer'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// Component Imports
+// ** Custom Component Imports
 import CardActionAll from 'src/views/ui/cards/actions/CardActionAll'
 import CardActionClose from 'src/views/ui/cards/actions/CardActionClose'
 import CardActionRefresh from 'src/views/ui/cards/actions/CardActionRefresh'
 import CardActionCollapse from 'src/views/ui/cards/actions/CardActionCollapse'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 const CardActions = () => {
   return (

@@ -1,8 +1,8 @@
-// ** Demo Components Imports
-import Edit from 'src/views/apps/invoice/edit/Edit'
-
-// ** Styled Component
+// ** Core Component Imports
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+
+// ** Custom Component Imports
+import Edit from 'src/views/apps/invoice/edit/Edit'
 
 const InvoiceEdit = () => {
   return (

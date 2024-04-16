@@ -1,6 +1,9 @@
 // ** React Imports
 import { useState, useEffect, useCallback, FormEvent } from 'react'
 
+// ** Redux Imports
+import { useDispatch, useSelector } from 'react-redux'
+
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
@@ -19,26 +22,23 @@ import DialogContent from '@mui/material/DialogContent'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import FormControlLabel from '@mui/material/FormControlLabel'
 
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+import PageHeader from 'src/@core/components/page-header'
+
+// ** Custom Component Imports
+import TableHeader from 'src/views/apps/permissions/TableHeader'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Store Imports
-import { useDispatch, useSelector } from 'react-redux'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import PageHeader from 'src/@core/components/page-header'
-import TableHeader from 'src/views/apps/permissions/TableHeader'
-
-// ** Types Imports
-import { RootState, AppDispatch } from 'src/store'
-import { PermissionRowType } from 'src/types/apps/permissionTypes'
-
-// ** Actions Imports
+// ** Action Imports
 import { fetchData } from 'src/store/apps/permissions'
 
-// ** Types
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
+import { RootState, AppDispatch } from 'src/store'
+import { PermissionRowType } from 'src/types/apps/permissionTypes'
 
 interface Colors {
   [key: string]: ThemeColor

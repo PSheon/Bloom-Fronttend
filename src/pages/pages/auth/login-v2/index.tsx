@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, ChangeEvent, ReactNode } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
@@ -20,20 +20,20 @@ import InputAdornment from '@mui/material/InputAdornment'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
+// ** Layout Imports
+import BlankLayout from 'src/@core/layouts/BlankLayout'
+
+// ** Custom Component Imports
+import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Configs
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Layout Import
-import BlankLayout from 'src/@core/layouts/BlankLayout'
-
-// ** Hooks
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 
 interface State {
   password: string
@@ -97,7 +97,7 @@ const LoginV2 = () => {
     showPassword: false
   })
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
   const { settings } = useSettings()
 

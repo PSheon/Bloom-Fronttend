@@ -9,18 +9,18 @@ import Card from '@mui/material/Card'
 import { styled } from '@mui/material/styles'
 import MuiCardContent, { CardContentProps } from '@mui/material/CardContent'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Types
-import { PricingDataType } from 'src/@core/components/plan-details/types'
-
-// ** Demo Imports
+// ** Custom Component Imports
 import PricingCTA from 'src/views/pages/pricing/PricingCTA'
 import PricingTable from 'src/views/pages/pricing/PricingTable'
 import PricingPlans from 'src/views/pages/pricing/PricingPlans'
 import PricingHeader from 'src/views/pages/pricing/PricingHeader'
 import PricingFooter from 'src/views/pages/pricing/PricingFooter'
+
+// ** Type Imports
+import { PricingDataType } from 'src/@core/components/plan-details/types'
 
 // ** Styled Components
 const CardContent = styled(MuiCardContent)<CardContentProps>(({ theme }) => ({

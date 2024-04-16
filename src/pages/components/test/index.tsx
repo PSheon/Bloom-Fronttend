@@ -2,7 +2,7 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Demo Imports
+// ** Custom Component Imports
 import Drawer from 'src/views/components/test/Drawer'
 import CardAppBar from 'src/views/components/test/CardAppBar'
 import PaperSimple from 'src/views/components/test/PaperSimple'

@@ -1,14 +1,14 @@
-// ** Next Import
+// ** Next Imports
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Types
-import { InvoiceType } from 'src/types/apps/invoiceTypes'
-
-// ** Demo Components Imports
+// ** Core Component Imports
 import Preview from 'src/views/apps/invoice/preview/Preview'
+
+// ** Type Imports
+import { InvoiceType } from 'src/types/apps/invoiceTypes'
 
 const InvoicePreview = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return <Preview id={id} />

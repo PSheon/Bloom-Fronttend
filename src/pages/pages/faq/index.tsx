@@ -8,19 +8,19 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
+// ** Third-Party Imports
+import axios from 'axios'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Imports
-import axios from 'axios'
-
-// ** Types
-import { FaqType } from 'src/@fake-db/types'
-
-// ** Demo Imports
+// ** Custom Component Imports
 import FAQS from 'src/views/pages/faq/Faqs'
 import FaqHeader from 'src/views/pages/faq/FaqHeader'
 import FaqFooter from 'src/views/pages/faq/FaqFooter'
+
+// ** Type Imports
+import { FaqType } from 'src/@fake-db/types'
 
 const FAQ = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
   // ** States

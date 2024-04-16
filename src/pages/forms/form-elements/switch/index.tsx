@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import SwitchesBasic from 'src/views/forms/form-elements/switch/SwitchesBasic'
 import SwitchesSizes from 'src/views/forms/form-elements/switch/SwitchesSizes'
 import SwitchesColors from 'src/views/forms/form-elements/switch/SwitchesColors'
@@ -14,7 +14,7 @@ import SwitchesStandalone from 'src/views/forms/form-elements/switch/SwitchesSta
 import SwitchesLabelPlacement from 'src/views/forms/form-elements/switch/SwitchesLabelPlacement'
 import SwitchesControlledUncontrolled from 'src/views/forms/form-elements/switch/SwitchesControlledUncontrolled'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/forms/form-elements/switch/SwitchesSourceCode'
 
 const Switches = () => {

@@ -1,7 +1,7 @@
 // ** React Imports
 import { ReactNode, ChangeEvent, useState, KeyboardEvent } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
@@ -12,29 +12,29 @@ import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
 import FormHelperText from '@mui/material/FormHelperText'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import Cleave from 'cleave.js/react'
 import { useForm, Controller } from 'react-hook-form'
 
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Hooks
-import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
-
-// ** Custom Styled Component
+// ** Core Component Imports
 import CleaveWrapper from 'src/@core/styles/libs/react-cleave'
 
-// ** Util Import
+// ** Custom Component Imports
+import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+
+// ** Hook Imports
+import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-// ** Styles
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Style Imports
 import 'cleave.js/dist/addons/cleave-phone.us'
 
 // ** Styled Components

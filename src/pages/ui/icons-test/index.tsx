@@ -5,14 +5,14 @@ import { useEffect, useState } from 'react'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-// ** Axios Import
+// ** Third-Party Imports
 import axios from 'axios'
-
-// ** Type Import
-import { IconsDataType } from 'src/@fake-db/iconify-icons'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
+import { IconsDataType } from 'src/@fake-db/iconify-icons'
 
 const AnalyticsDashboard = () => {
   // ** State

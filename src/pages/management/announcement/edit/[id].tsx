@@ -1,10 +1,10 @@
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** Api Imports
+// ** API Imports
 import { useFindOneQuery } from 'src/store/api/management/announcement'
 
-// ** Styled Component
+// ** Custom Component Imports
 import AnnouncementEditLoadingSkeleton from 'src/views/management/announcement/edit/LoadingSkeleton'
 import AnnouncementEditSection from 'src/views/management/announcement/edit'
 

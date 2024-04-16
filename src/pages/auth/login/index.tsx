@@ -22,30 +22,30 @@ import Typography, { TypographyProps } from '@mui/material/Typography'
 import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Hooks
+// ** Layout Imports
+import BlankLayout from 'src/@core/layouts/BlankLayout'
+
+// ** Custom Component Imports
+import LogoImage from 'src/views/shared/LogoImage'
+import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
 import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
-// ** Configs
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Layout Import
-import BlankLayout from 'src/@core/layouts/BlankLayout'
-
-// ** Demo Imports
-import LogoImage from 'src/views/shared/LogoImage'
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
-
-// ** Types
+// ** Type Imports
 import { AxiosError } from 'axios'
 
 // ** Styled Components

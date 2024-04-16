@@ -14,32 +14,34 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Hooks Import
-import useDebounce from 'src/hooks/useDebounce'
-
-// ** Utils Import
+// ** Third-Party Imports
 import toast from 'react-hot-toast'
 import copyToClipboard from 'clipboard-copy'
 import { format } from 'date-fns'
-import { getInitials } from 'src/@core/utils/get-initials'
-import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Api Imports
-import { useFindQuery } from 'src/store/api/management/mediaAsset'
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Types Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
-
-// ** Styled Components
+// ** Custom Component Imports
 import MediaAssetListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import MediaAssetListHeaderCardContent from 'src/views/management/media-asset/list/HeaderCardContent'
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Hook Imports
+import useDebounce from 'src/hooks/useDebounce'
+
+// ** API Imports
+import { useFindQuery } from 'src/store/api/management/mediaAsset'
+
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
+import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
+
+// ** Type Imports
+import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 interface CellType {
   row: MediaAssetType
@@ -58,7 +60,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 const MediaAssetListPage = () => {
-  // ** State
+  // ** States
   const [filteredMediaAssetName, setFilteredMediaAssetName] = useState<string>('')
   const [filteredExtension, setFilteredExtension] = useState<string>('all')
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })

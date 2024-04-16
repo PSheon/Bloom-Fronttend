@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import CheckboxesBasic from 'src/views/forms/form-elements/checkbox/CheckboxesBasic'
 import CheckboxesSizes from 'src/views/forms/form-elements/checkbox/CheckboxesSizes'
 import CheckboxesColors from 'src/views/forms/form-elements/checkbox/CheckboxesColors'
@@ -15,7 +15,7 @@ import CheckboxesCustomIcons from 'src/views/forms/form-elements/checkbox/Checkb
 import CheckboxesLabelPlacement from 'src/views/forms/form-elements/checkbox/CheckboxesLabelPlacement'
 import CheckboxesControlledUncontrolled from 'src/views/forms/form-elements/checkbox/CheckboxesControlledUncontrolled'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/forms/form-elements/checkbox/CheckboxesSourceCode'
 
 const Checkboxes = () => {

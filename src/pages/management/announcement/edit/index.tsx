@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 const AnnouncementEditPage = () => {

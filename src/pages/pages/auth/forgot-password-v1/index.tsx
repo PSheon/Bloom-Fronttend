@@ -1,37 +1,37 @@
 // ** React Imports
 import { ReactNode } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
+import { styled, useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-import { styled, useTheme } from '@mui/material/styles'
 import MuiCard, { CardProps } from '@mui/material/Card'
+
+// ** Layout Imports
+import BlankLayout from 'src/@core/layouts/BlankLayout'
+
+// ** Custom Component Imports
+import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Configs
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Layout Import
-import BlankLayout from 'src/@core/layouts/BlankLayout'
-
-// ** Demo Imports
-import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
-
-// ** Styled Components
+// ** Styled Card Component
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: 450 }
 }))
 
 const ForgotPasswordV1 = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   return (

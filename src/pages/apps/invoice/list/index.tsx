@@ -1,7 +1,10 @@
 // ** React Imports
 import { useState, useEffect, forwardRef } from 'react'
 
-// ** Next Import
+// ** Redux Imports
+import { useDispatch, useSelector } from 'react-redux'
+
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -21,34 +24,33 @@ import CardContent from '@mui/material/CardContent'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import { DataGrid, GridColDef, GridRowId } from '@mui/x-data-grid'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import format from 'date-fns/format'
 import DatePicker from 'react-datepicker'
 
-// ** Store & Actions Imports
-import { useDispatch, useSelector } from 'react-redux'
-import { fetchData, deleteInvoice } from 'src/store/apps/invoice'
+// ** Core Component Imports
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-// ** Types Imports
-import { RootState, AppDispatch } from 'src/store'
-import { ThemeColor } from 'src/@core/layouts/types'
-import { InvoiceType } from 'src/types/apps/invoiceTypes'
-import { DateType } from 'src/types/forms/reactDatepickerTypes'
-
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
-
-// ** Custom Components Imports
+// ** Custom Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
 import TableHeader from 'src/views/apps/invoice/list/TableHeader'
 
-// ** Styled Components
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Action Imports
+import { fetchData, deleteInvoice } from 'src/store/apps/invoice'
+
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
+
+// ** Type Imports
+import { RootState, AppDispatch } from 'src/store'
+import { ThemeColor } from 'src/@core/layouts/types'
+import { InvoiceType } from 'src/types/apps/invoiceTypes'
+import { DateType } from 'src/types/forms/reactDatepickerTypes'
 
 interface InvoiceStatusObj {
   [key: string]: {

@@ -1,16 +1,11 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Component Import
+// ** Core Component Imports
 import CardStatisticsVertical from 'src/@core/components/card-statistics/card-stats-vertical'
-
-// ** Styled Component Import
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import AnalyticsSessions from 'src/views/dashboards/analytics/AnalyticsSessions'
 import AnalyticsOverview from 'src/views/dashboards/analytics/AnalyticsOverview'
 import AnalyticsPerformance from 'src/views/dashboards/analytics/AnalyticsPerformance'
@@ -23,6 +18,9 @@ import AnalyticsActivityTimeline from 'src/views/dashboards/analytics/AnalyticsA
 import AnalyticsTotalTransactions from 'src/views/dashboards/analytics/AnalyticsTotalTransactions'
 import AnalyticsProjectStatistics from 'src/views/dashboards/analytics/AnalyticsProjectStatistics'
 import AnalyticsTopReferralSources from 'src/views/dashboards/analytics/AnalyticsTopReferralSources'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 const AnalyticsDashboard = () => {
   return (

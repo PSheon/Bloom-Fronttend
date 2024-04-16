@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import SelectProps from 'src/views/forms/form-elements/select/SelectProps'
 import SelectNative from 'src/views/forms/form-elements/select/SelectNative'
 import SelectVariants from 'src/views/forms/form-elements/select/SelectVariants'
@@ -15,7 +15,7 @@ import SelectCustomized from 'src/views/forms/form-elements/select/SelectCustomi
 import SelectWithDialog from 'src/views/forms/form-elements/select/SelectWithDialog'
 import SelectControlledUncontrolled from 'src/views/forms/form-elements/select/SelectControlledUncontrolled'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/forms/form-elements/select/SelectSourceCode'
 
 const Selects = () => {

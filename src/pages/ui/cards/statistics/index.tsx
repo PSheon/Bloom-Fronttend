@@ -4,13 +4,14 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Third Party Components
+// ** Third-Party Components
 import axios from 'axios'
 
-// ** Type Import
-import { CardStatsType } from 'src/@fake-db/types'
+// ** Core Component Imports
+import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
+import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import CardStatisticsSales from 'src/views/ui/cards/statistics/CardStatisticsSales'
 import CardStatisticsCharts from 'src/views/ui/cards/statistics/CardStatisticsCharts'
 import CardStatisticsCharts2 from 'src/views/ui/cards/statistics/CardStatisticsCharts2'
@@ -22,9 +23,8 @@ import CardStatisticsLiveVisitors from 'src/views/ui/cards/statistics/CardStatis
 import CardStatisticsWeeklySalesBg from 'src/views/ui/cards/statistics/CardStatisticsWeeklySalesBg'
 import CardStatisticsMarketingSales from 'src/views/ui/cards/statistics/CardStatisticsMarketingSales'
 
-// ** Styled Component Import
-import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
-import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
+// ** Type Imports
+import { CardStatsType } from 'src/@fake-db/types'
 
 const CardStatistics = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return (

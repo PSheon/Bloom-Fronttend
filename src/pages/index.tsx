@@ -1,5 +1,7 @@
-const Home = () => {
+const HomePage = () => {
   return <>Home Page</>
 }
 
-export default Home
+HomePage.AuthGuard = false
+
+export default HomePage

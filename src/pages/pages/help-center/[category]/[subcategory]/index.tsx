@@ -1,14 +1,14 @@
-// ** Next Import
+// ** Next Imports
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
+
+// ** Custom Component Imports
+import HelpCenterSubcategory from 'src/views/pages/help-center/subcategory'
 
 // ** Type Imports
 import { HelpCenterCategoriesType } from 'src/@fake-db/types'
-
-// ** Demo Components Imports
-import HelpCenterSubcategory from 'src/views/pages/help-center/subcategory'
 
 const HelpCenterSubcategoryPage = ({ apiData }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return apiData ? <HelpCenterSubcategory data={apiData.data} activeTab={apiData.activeTab} /> : null

@@ -2,13 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Hooks Imports
-import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Demo Components Imports
+// ** Custom Component Imports
 import TreeViewBasic from 'src/views/components/tree-view/TreeViewBasic'
 import TreeViewControlled from 'src/views/components/tree-view/TreeViewControlled'
 import TreeViewRichObject from 'src/views/components/tree-view/TreeViewRichObject'
@@ -16,7 +13,10 @@ import TreeViewCustomized from 'src/views/components/tree-view/TreeViewCustomize
 import TreeViewGmailClone from 'src/views/components/tree-view/TreeViewGmailClone'
 import TreeViewMultiSelection from 'src/views/components/tree-view/TreeViewMultiSelection'
 
-// ** Source code imports
+// ** Hook Imports
+import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Constant Imports
 import * as source from 'src/views/components/tree-view/TreeViewSourceCode'
 
 const TreeView = () => {

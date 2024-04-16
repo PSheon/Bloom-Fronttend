@@ -17,27 +17,27 @@ import { SelectChangeEvent } from '@mui/material/Select'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Hooks Import
-import useDebounce from 'src/hooks/useDebounce'
-
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
-import { getPublicMediaAssetUrl, getUserRoleAttributes } from 'src/utils'
-
-// ** Api Imports
-import { useFindQuery, useUpdateOneMutation } from 'src/store/api/management/user'
-
-// ** Types Imports
-import { UserDataType } from 'src/context/types'
-
-// ** Styled Components
+// ** Custom Component Imports
 import UserListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import UserListHeaderCardContent from 'src/views/management/user/list/HeaderCardContent'
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+
+// ** Hook Imports
+import useDebounce from 'src/hooks/useDebounce'
+
+// ** API Imports
+import { useFindQuery, useUpdateOneMutation } from 'src/store/api/management/user'
+
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
+import { getPublicMediaAssetUrl, getUserRoleAttributes } from 'src/utils'
+
+// ** Type Imports
+import { UserDataType } from 'src/context/types'
 
 interface CellType {
   row: UserDataType
@@ -65,7 +65,7 @@ const ConfirmedStatusStyledBox = styled(Box)(({ theme }) => ({
 }))
 
 const UserListPage = () => {
-  // ** State
+  // ** States
   const [filteredUsernameOrEmail, setFilteredUsernameOrEmail] = useState<string>('')
   const [filteredRole, setFilteredRole] = useState<string>('all')
   const [filteredBlockStatus, setFilteredBlockStatus] = useState<string>('all')

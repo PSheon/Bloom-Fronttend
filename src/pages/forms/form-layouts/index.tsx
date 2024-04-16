@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Styled Component
+// ** Core Component Imports
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import FormLayoutsTabs from 'src/views/forms/form-layouts/FormLayoutsTabs'
 import FormLayoutsBasic from 'src/views/forms/form-layouts/FormLayoutsBasic'
 import FormLayoutsIcons from 'src/views/forms/form-layouts/FormLayoutsIcons'

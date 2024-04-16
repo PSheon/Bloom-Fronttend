@@ -1,10 +1,10 @@
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** Api Imports
+// ** API Imports
 import { useFindOneQuery } from 'src/store/api/management/user'
 
-// ** Styled Component
+// ** Custom Component Imports
 import UserEditLoadingSkeleton from 'src/views/management/user/edit/LoadingSkeleton'
 import UserEditSection from 'src/views/management/user/edit'
 

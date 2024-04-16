@@ -7,13 +7,11 @@ import { styled } from '@mui/material/styles'
 import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import PageHeader from 'src/@core/components/page-header'
-
-// ** Styled Component
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import ChartjsBarChart from 'src/views/charts/chartjs/ChartjsBarChart'
 import ChartjsLineChart from 'src/views/charts/chartjs/ChartjsLineChart'
 import ChartjsAreaChart from 'src/views/charts/chartjs/ChartjsAreaChart'
@@ -23,7 +21,7 @@ import ChartjsScatterChart from 'src/views/charts/chartjs/ChartjsScatterChart'
 import ChartjsPolarAreaChart from 'src/views/charts/chartjs/ChartjsPolarAreaChart'
 import ChartjsHorizontalBarChart from 'src/views/charts/chartjs/ChartjsHorizontalBarChart'
 
-// ** Third Party Styles Import
+// ** Style Imports
 import 'chart.js/auto'
 
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -32,7 +30,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 const ChartJS = () => {
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   // Vars

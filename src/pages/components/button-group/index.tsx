@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import ButtonGroupBasic from 'src/views/components/button-group/ButtonGroupBasic'
 import ButtonGroupSizes from 'src/views/components/button-group/ButtonGroupSizes'
 import ButtonGroupSplit from 'src/views/components/button-group/ButtonGroupSplit'
@@ -19,7 +19,7 @@ import ButtonToggleVertical from 'src/views/components/button-group/ButtonToggle
 import ButtonToggleCustomized from 'src/views/components/button-group/ButtonToggleCustomized'
 import ButtonToggleEnforceValue from 'src/views/components/button-group/ButtonToggleEnforceValue'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/button-group/ButtonGroupSourceCode'
 
 const ButtonGroup = () => {

@@ -6,14 +6,14 @@ import Box, { BoxProps } from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
 
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Hooks
-import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Demo Components Imports
+// ** Custom Component Imports
 import RegisterMultiStepsWizard from 'src/views/pages/auth/register-multi-steps'
+
+// ** Hook Imports
+import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Styled Components
 const RegisterMultiStepsIllustration = styled('img')({

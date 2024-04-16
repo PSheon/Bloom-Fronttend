@@ -1,4 +1,4 @@
-// ** Demo Components Imports
+// ** Custom Component Imports
 import Checkout from 'src/views/pages/wizard-examples/checkout'
 
 const WizardExamples = () => {

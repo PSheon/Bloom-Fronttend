@@ -2,17 +2,17 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import RatingsHalf from 'src/views/components/ratings/RatingsHalf'
 import RatingsBasic from 'src/views/components/ratings/RatingsBasic'
 import RatingsSizes from 'src/views/components/ratings/RatingsSizes'
 import RatingsCustomized from 'src/views/components/ratings/RatingsCustomized'
 import RatingsHoverFeedback from 'src/views/components/ratings/RatingsHoverFeedback'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/ratings/RatingsSourceCode'
 
 const Ratings = () => {

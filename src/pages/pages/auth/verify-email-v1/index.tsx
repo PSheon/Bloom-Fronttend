@@ -1,7 +1,7 @@
 // ** React Imports
 import { ReactNode } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
@@ -12,14 +12,14 @@ import CardContent from '@mui/material/CardContent'
 import { styled, useTheme } from '@mui/material/styles'
 import MuiCard, { CardProps } from '@mui/material/Card'
 
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Demo Imports
+// ** Custom Component Imports
 import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
 
 // ** Styled Components
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({

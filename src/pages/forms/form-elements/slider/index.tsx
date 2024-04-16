@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import SliderBasic from 'src/views/forms/form-elements/slider/SliderBasic'
 import SliderRange from 'src/views/forms/form-elements/slider/SliderRange'
 import SliderSizes from 'src/views/forms/form-elements/slider/SliderSizes'
@@ -23,7 +23,7 @@ import SliderRestrictedValues from 'src/views/forms/form-elements/slider/SliderR
 import SliderLabelAlwaysVisible from 'src/views/forms/form-elements/slider/SliderLabelAlwaysVisible'
 import SliderControlledUncontrolled from 'src/views/forms/form-elements/slider/SliderControlledUncontrolled'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/forms/form-elements/slider/SliderSourceCode'
 
 const Sliders = () => {

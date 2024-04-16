@@ -1,7 +1,7 @@
 // ** React Imports
 import { ReactNode } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
@@ -10,10 +10,10 @@ import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import Box, { BoxProps } from '@mui/material/Box'
 
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Demo Imports
+// ** Custom Component Imports
 import FooterIllustrations from 'src/views/pages/misc/FooterIllustrations'
 
 // ** Styled Components
@@ -22,7 +22,6 @@ const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
     width: '90vw'
   }
 }))
-
 const Img = styled('img')(({ theme }) => ({
   marginTop: theme.spacing(15),
   marginBottom: theme.spacing(15),

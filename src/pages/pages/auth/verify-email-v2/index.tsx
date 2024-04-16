@@ -1,7 +1,7 @@
 // ** React Imports
 import { ReactNode } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
@@ -11,17 +11,17 @@ import Box, { BoxProps } from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
 
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Hooks
+// ** Custom Component Imports
+import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
 
-// ** Demo Imports
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
 
 // ** Styled Components
 const VerifyEmailIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
@@ -31,7 +31,6 @@ const VerifyEmailIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
     padding: theme.spacing(10)
   }
 }))
-
 const VerifyEmailIllustration = styled('img')(({ theme }) => ({
   maxWidth: '48rem',
   [theme.breakpoints.down('xl')]: {
@@ -41,7 +40,6 @@ const VerifyEmailIllustration = styled('img')(({ theme }) => ({
     maxWidth: '30rem'
   }
 }))
-
 const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.up('md')]: {
@@ -51,14 +49,12 @@ const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
     maxWidth: 450
   }
 }))
-
 const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   [theme.breakpoints.down('md')]: {
     maxWidth: 400
   }
 }))
-
 const LinkStyled = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   marginLeft: theme.spacing(1),

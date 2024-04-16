@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 import dynamic from 'next/dynamic'
 
@@ -7,23 +7,21 @@ import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import PageHeader from 'src/@core/components/page-header'
-
-// ** Hooks
-import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Styled Components
 import RechartsWrapper from 'src/@core/styles/libs/recharts'
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 const RechartsBarChart = dynamic(() => import('src/views/charts/recharts/RechartsBarChart'), { ssr: false })
 const RechartsPieChart = dynamic(() => import('src/views/charts/recharts/RechartsPieChart'), { ssr: false })
 const RechartsLineChart = dynamic(() => import('src/views/charts/recharts/RechartsLineChart'), { ssr: false })
 const RechartsAreaChart = dynamic(() => import('src/views/charts/recharts/RechartsAreaChart'), { ssr: false })
 const RechartsRadarChart = dynamic(() => import('src/views/charts/recharts/RechartsRadarChart'), { ssr: false })
 const RechartsScatterChart = dynamic(() => import('src/views/charts/recharts/RechartsScatterChart'), { ssr: false })
+
+// ** Hook Imports
+import { useSettings } from 'src/@core/hooks/useSettings'
 
 const LinkStyled = styled(Link)(({ theme }) => ({
   textDecoration: 'none',

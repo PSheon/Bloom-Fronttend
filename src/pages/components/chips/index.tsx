@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import ChipsIcon from 'src/views/components/chips/ChipsIcon'
 import ChipsSizes from 'src/views/components/chips/ChipsSizes'
 import ChipsArray from 'src/views/components/chips/ChipsArray'
@@ -18,7 +18,7 @@ import ChipsDisabled from 'src/views/components/chips/ChipsDisabled'
 import ChipsOnDelete from 'src/views/components/chips/ChipsOnDelete'
 import ChipsClickable from 'src/views/components/chips/ChipsClickable'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/chips/ChipsSourceCode'
 
 const Pagination = () => {

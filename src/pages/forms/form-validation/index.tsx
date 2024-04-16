@@ -1,21 +1,19 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
-import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
+import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import PageHeader from 'src/@core/components/page-header'
+import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import FormValidationBasic from 'src/views/forms/form-validation/FormValidationBasic'
 import FormValidationAsync from 'src/views/forms/form-validation/FormValidationAsync'
 import FormValidationSchema from 'src/views/forms/form-validation/FormValidationSchema'
-
-// ** Styled Component
-import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
 
 const LinkStyled = styled(Link)(({ theme }) => ({
   textDecoration: 'none',

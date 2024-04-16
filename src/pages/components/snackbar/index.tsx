@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import SnackbarAlert from 'src/views/components/snackbar/SnackbarAlert'
 import SnackbarSimple from 'src/views/components/snackbar/SnackbarSimple'
 import SnackbarPositioned from 'src/views/components/snackbar/SnackbarPositioned'
@@ -13,7 +13,7 @@ import SnackbarTransition from 'src/views/components/snackbar/SnackbarTransition
 import SnackbarConsecutive from 'src/views/components/snackbar/SnackbarConsecutive'
 import SnackbarControlSlideDirection from 'src/views/components/snackbar/SnackbarControlSlideDirection'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/snackbar/SnackbarSourceCode'
 
 const Snackbar = () => {

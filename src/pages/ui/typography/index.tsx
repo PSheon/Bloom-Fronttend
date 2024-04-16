@@ -1,7 +1,7 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import TypographyTexts from 'src/views/ui/typography/TypographyTexts'
 import TypographyHeadings from 'src/views/ui/typography/TypographyHeadings'
 

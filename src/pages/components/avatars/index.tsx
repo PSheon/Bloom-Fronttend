@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import AvatarsIcon from 'src/views/components/avatars/AvatarsIcon'
 import AvatarsImage from 'src/views/components/avatars/AvatarsImage'
 import AvatarsSizes from 'src/views/components/avatars/AvatarsSizes'
@@ -16,7 +16,7 @@ import AvatarsWithBadge from 'src/views/components/avatars/AvatarsWithBadge'
 import AvatarsGroupedPullUp from 'src/views/components/avatars/AvatarsGroupedPullUp'
 import AvatarsGroupedPullUpWithTooltip from 'src/views/components/avatars/AvatarsGroupedPullUpWithTooltip'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/avatars/AvatarsSourceCode'
 
 const Avatars = () => {

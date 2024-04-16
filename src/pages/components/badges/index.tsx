@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import BadgesDot from 'src/views/components/badges/BadgesDot'
 import BadgesBasic from 'src/views/components/badges/BadgesBasic'
 import BadgesLight from 'src/views/components/badges/BadgesLight'
@@ -14,7 +14,7 @@ import BadgesMaxValue from 'src/views/components/badges/BadgesMaxValue'
 import BadgesAlignment from 'src/views/components/badges/BadgesAlignment'
 import BadgesVisibility from 'src/views/components/badges/BadgesVisibility'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/badges/BadgesSourceCode'
 
 const Pagination = () => {

@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, useCallback, ChangeEvent } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -14,27 +14,27 @@ import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import format from 'date-fns/format'
 import { convertFromRaw } from 'draft-js'
 
-// ** Hooks Import
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Hook Imports
 import useDebounce from 'src/hooks/useDebounce'
 
-// ** Api Imports
+// ** API Imports
 import { useFindMeQuery } from 'src/store/api/management/notification'
 
-// ** Types Imports
+// ** Type Imports
 import { NotificationType } from 'src/types/api/notificationTypes'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 
-// ** Styled Components
+// ** Custom Component Imports
+import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 import NotificationListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import NotificationListHeaderCardContent from 'src/views/notification/list/HeaderCardContent'
 
@@ -42,7 +42,7 @@ interface CellType {
   row: NotificationType
 }
 
-// ** Styled component for the link in the dataTable
+// ** Styled components
 const LinkStyled = styled(Link)(({ theme }) => ({
   fontWeight: 600,
   fontSize: '1rem',
@@ -55,7 +55,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 const NotificationListPage = () => {
-  // ** State
+  // ** States
   const [filteredNotificationTitle, setFilteredNotificationTitle] = useState<string>('')
   const [filteredIsSeen, setFilteredIsSeen] = useState<string>('all')
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })

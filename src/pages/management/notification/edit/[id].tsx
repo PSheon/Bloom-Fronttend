@@ -1,12 +1,12 @@
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** Api Imports
-import { useFindOneQuery } from 'src/store/api/management/notification'
-
-// ** Styled Component
+// ** Custom Component Imports
 import NotificationEditLoadingSkeleton from 'src/views/management/notification/edit/LoadingSkeleton'
 import NotificationEditSection from 'src/views/management/notification/edit'
+
+// ** API Imports
+import { useFindOneQuery } from 'src/store/api/management/notification'
 
 const NotificationEditPage = () => {
   // ** Hooks

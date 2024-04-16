@@ -1,13 +1,13 @@
-// ** Next Import
+// ** Next Imports
 import { GetStaticProps, GetStaticPaths, GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import UserProfile from 'src/views/pages/user-profile/UserProfile'
 
-// ** Types
+// ** Type Imports
 import { UserProfileActiveTab } from 'src/@fake-db/types'
 
 const UserProfileTab = ({ tab, data }: InferGetStaticPropsType<typeof getStaticProps>) => {

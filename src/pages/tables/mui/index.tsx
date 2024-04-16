@@ -1,17 +1,17 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
-import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import PageHeader from 'src/@core/components/page-header'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import TableBasic from 'src/views/table/mui/TableBasic'
 import TableDense from 'src/views/table/mui/TableDense'
 import TableSpanning from 'src/views/table/mui/TableSpanning'

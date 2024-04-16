@@ -1,14 +1,14 @@
 // ** Next Import
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext } from 'next/types'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Types
-import { MailLayoutType, MailType } from 'src/types/apps/emailTypes'
-
-// ** Demo Components Imports
+// ** Custom Components Imports
 import Email from 'src/views/apps/email/Email'
+
+// ** Type Imports
+import { MailLayoutType, MailType } from 'src/types/apps/emailTypes'
 
 const EmailApp = ({ folder }: MailLayoutType) => {
   return <Email folder={folder} />

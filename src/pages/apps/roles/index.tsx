@@ -2,10 +2,10 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import PageHeader from 'src/@core/components/page-header'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import Table from 'src/views/apps/roles/Table'
 import RoleCards from 'src/views/apps/roles/RoleCards'
 

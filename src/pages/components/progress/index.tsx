@@ -1,11 +1,11 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
-
-// ** Custom Components Imports
 import Typography from '@mui/material/Typography'
+
+// ** Core Component Imports
 import CardSnippet from 'src/@core/components/card-snippet'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import ProgressLinearBuffer from 'src/views/components/progress/ProgressLinearBuffer'
 import ProgressLinearColors from 'src/views/components/progress/ProgressLinearColors'
 import ProgressCircularColors from 'src/views/components/progress/ProgressCircularColors'
@@ -18,7 +18,7 @@ import ProgressCircularIndeterminate from 'src/views/components/progress/Progres
 import ProgressLinearControlledUncontrolled from 'src/views/components/progress/ProgressLinearControlledUncontrolled'
 import ProgressCircularControlledUncontrolled from 'src/views/components/progress/ProgressCircularControlledUncontrolled'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/components/progress/ProgressSourceCode'
 
 const Progress = () => {

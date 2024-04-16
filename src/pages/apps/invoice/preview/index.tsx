@@ -1,4 +1,4 @@
-// ** Demo Components Imports
+// ** Custom Component Imports
 import Preview from 'src/views/apps/invoice/preview/Preview'
 
 const InvoicePreview = () => {

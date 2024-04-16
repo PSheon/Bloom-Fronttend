@@ -1,20 +1,20 @@
 // ** React Imports
 import { ReactNode } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { GetStaticPaths, GetStaticProps, GetStaticPropsContext, InferGetStaticPropsType } from 'next/types'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Types
-import { InvoiceType } from 'src/types/apps/invoiceTypes'
-
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import PrintPage from 'src/views/apps/invoice/print/PrintPage'
+
+// ** Type Imports
+import { InvoiceType } from 'src/types/apps/invoiceTypes'
 
 const InvoicePrint = ({ id }: InferGetStaticPropsType<typeof getStaticProps>) => {
   return <PrintPage id={id} />

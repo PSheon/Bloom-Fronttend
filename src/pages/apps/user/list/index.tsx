@@ -1,6 +1,9 @@
 // ** React Imports
 import { useState, useEffect, MouseEvent, useCallback } from 'react'
 
+// ** Redux Imports
+import { useDispatch, useSelector } from 'react-redux'
+
 // ** Next Imports
 import Link from 'next/link'
 import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
@@ -22,36 +25,33 @@ import CardContent from '@mui/material/CardContent'
 import { DataGrid, GridColDef } from '@mui/x-data-grid'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+// ** Third-Party Imports
+import axios from 'axios'
 
-// ** Store Imports
-import { useDispatch, useSelector } from 'react-redux'
-
-// ** Custom Components Imports
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import CardStatisticsHorizontal from 'src/@core/components/card-statistics/card-stats-horizontal'
 
-// ** Utils Import
-import { getInitials } from 'src/@core/utils/get-initials'
+// ** Custom Component Imports
+import TableHeader from 'src/views/apps/user/list/TableHeader'
+import AddUserDrawer from 'src/views/apps/user/list/AddUserDrawer'
 
-// ** Actions Imports
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Action Imports
 import { fetchData, deleteUser } from 'src/store/apps/user'
 
-// ** Third Party Components
-import axios from 'axios'
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
 
-// ** Types Imports
+// ** Type Imports
 import { RootState, AppDispatch } from 'src/store'
 import { CardStatsType } from 'src/@fake-db/types'
 import { ThemeColor } from 'src/@core/layouts/types'
 import { UsersType } from 'src/types/apps/userTypes'
 import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/types'
-
-// ** Custom Table Components Imports
-import TableHeader from 'src/views/apps/user/list/TableHeader'
-import AddUserDrawer from 'src/views/apps/user/list/AddUserDrawer'
 
 interface UserRoleType {
   [key: string]: { icon: string; color: string }

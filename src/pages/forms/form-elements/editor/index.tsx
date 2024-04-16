@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -6,21 +6,19 @@ import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 
-// ** Custom Components Imports
+// ** Core Component Imports
 import PageHeader from 'src/@core/components/page-header'
 import CardSnippet from 'src/@core/components/card-snippet'
-
-// ** Styled Component Import
 import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
 
-// ** Demo Components Imports
+// ** Custom Component Imports
 import EditorControlled from 'src/views/forms/form-elements/editor/EditorControlled'
 import EditorUncontrolled from 'src/views/forms/form-elements/editor/EditorUncontrolled'
 
-// ** Source code imports
+// ** Constant Imports
 import * as source from 'src/views/forms/form-elements/editor/EditorSourceCode'
 
-// ** Styles
+// ** Style Imports
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
 
 const LinkStyled = styled(Link)(({ theme }) => ({

@@ -4,13 +4,10 @@ import { GetStaticProps, InferGetStaticPropsType } from 'next/types'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Third Party Components
+// ** Third-Party Components
 import axios from 'axios'
 
-// ** Type Import
-import { PricingDataType } from 'src/@core/components/plan-details/types'
-
-// ** Demo Components Imports
+// ** Custom Component Imports
 import DialogAddCard from 'src/views/pages/dialog-examples/DialogAddCard'
 import DialogPricing from 'src/views/pages/dialog-examples/DialogPricing'
 import DialogReferEarn from 'src/views/pages/dialog-examples/DialogReferEarn'
@@ -19,6 +16,9 @@ import DialogAddAddress from 'src/views/pages/dialog-examples/DialogAddAddress'
 import DialogShareProject from 'src/views/pages/dialog-examples/DialogShareProject'
 import DialogEditUserInfo from 'src/views/pages/dialog-examples/DialogEditUserInfo'
 import DialogAuthentication from 'src/views/pages/dialog-examples/DialogAuthentication'
+
+// ** Type Imports
+import { PricingDataType } from 'src/@core/components/plan-details/types'
 
 const DialogExamples = ({ apiPricingPlanData }: InferGetStaticPropsType<typeof getStaticProps>) => (
   <Grid container spacing={6} className='match-height'>
