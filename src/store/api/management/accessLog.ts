@@ -95,3 +95,4 @@ export const accessLogApi = createApi({
 })
 
 export const { useFindMeQuery, useFindOneQuery, useFindQuery, useUpdateOneMutation } = accessLogApi
+export default accessLogApi

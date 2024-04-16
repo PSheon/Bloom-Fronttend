@@ -13,6 +13,7 @@ import dashboard from 'src/store/dashboard'
 // ** Api
 import { userApi } from 'src/store/api/management/user'
 import { fundApi } from 'src/store/api/management/fund'
+import { packageApi } from 'src/store/api/management/package'
 import { mediaAssetApi } from 'src/store/api/management/mediaAsset'
 import { announcementApi } from 'src/store/api/management/announcement'
 import { accessLogApi } from 'src/store/api/management/accessLog'
@@ -34,6 +35,7 @@ export const store = configureStore({
     dashboard,
     [userApi.reducerPath]: userApi.reducer,
     [fundApi.reducerPath]: fundApi.reducer,
+    [packageApi.reducerPath]: packageApi.reducer,
     [mediaAssetApi.reducerPath]: mediaAssetApi.reducer,
     [announcementApi.reducerPath]: announcementApi.reducer,
     [accessLogApi.reducerPath]: accessLogApi.reducer,
@@ -50,6 +52,7 @@ export const store = configureStore({
     }).concat([
       userApi.middleware,
       fundApi.middleware,
+      packageApi.middleware,
       mediaAssetApi.middleware,
       announcementApi.middleware,
       accessLogApi.middleware,

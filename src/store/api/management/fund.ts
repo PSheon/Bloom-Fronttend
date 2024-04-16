@@ -43,7 +43,7 @@ export const fundApi = createApi({
     findOne: builder.query<FindOneFundResponseType, FindOneFundParamsType>({
       query: fundId => ({
         url: `/api/funds/${fundId}?${qs.stringify({
-          populate: ['tokens']
+          populate: ['banner', 'defaultPackages', 'defaultPackages.slot', 'tokens']
         })}`,
         method: 'GET'
       }),
@@ -57,7 +57,7 @@ export const fundApi = createApi({
       query: params => ({
         url: `/api/funds?${qs.stringify({
           ...params,
-          populate: []
+          populate: ['banner']
         })}`,
         method: 'GET'
       }),
@@ -73,7 +73,7 @@ export const fundApi = createApi({
     create: builder.mutation<CreateFundResponseType, CreateFundParamsType>({
       query: params => ({
         url: `/api/funds?${qs.stringify({
-          populate: []
+          populate: ['banner']
         })}`,
         method: 'POST',
         body: params
@@ -86,7 +86,7 @@ export const fundApi = createApi({
     updateOne: builder.mutation<UpdateOneFundResponseType, UpdateOneFundParamsType>({
       query: params => ({
         url: `/api/funds/${params.id}?${qs.stringify({
-          populate: []
+          populate: ['banner', 'defaultPackages', 'defaultPackages.slot', 'tokens']
         })}`,
         method: 'PUT',
         body: params
@@ -112,3 +112,4 @@ export const fundApi = createApi({
 })
 
 export const { useFindOneQuery, useFindQuery, useCreateMutation, useUpdateOneMutation, useDeleteOneMutation } = fundApi
+export default fundApi

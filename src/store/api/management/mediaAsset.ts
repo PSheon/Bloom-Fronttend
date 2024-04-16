@@ -87,3 +87,4 @@ export const mediaAssetApi = createApi({
 
 export const { useFindOneQuery, useFindQuery, useUploadMutation, useUpdateOneMutation, useDeleteOneMutation } =
   mediaAssetApi
+export default mediaAssetApi

@@ -98,3 +98,4 @@ export const userApi = createApi({
 
 export const { useFindMeOneQuery, useFindOneQuery, useFindQuery, useUpdateOneMutation, useUpdateMeOneMutation } =
   userApi
+export default userApi

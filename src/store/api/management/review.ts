@@ -187,3 +187,4 @@ export const {
   useDeleteMeOneMutation,
   useDeleteOneMutation
 } = reviewApi
+export default reviewApi

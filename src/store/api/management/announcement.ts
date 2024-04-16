@@ -113,3 +113,4 @@ export const announcementApi = createApi({
 
 export const { useFindOneQuery, useFindQuery, useCreateMutation, useUpdateOneMutation, useDeleteOneMutation } =
   announcementApi
+export default announcementApi

@@ -83,3 +83,4 @@ export const activityLogApi = createApi({
 })
 
 export const { useFindMeQuery, useFindQuery, useUpdateOneMutation } = activityLogApi
+export default activityLogApi

@@ -155,3 +155,4 @@ export const {
   useUpdateOneMutation,
   useDeleteOneMutation
 } = notificationApi
+export default notificationApi
