@@ -23,19 +23,19 @@ export const getUserRoleAttributes = (role: Role) => {
       icon: 'mdi:chart-donut',
       color: 'info',
       displayName: '規劃者',
-      description: '規劃和管理所有專案'
+      description: '規劃和管理所有資金'
     },
     'Asset Manager': {
       icon: 'mdi:rate-review',
       color: 'warning',
       displayName: '資產管理員',
-      description: '管理特定專案'
+      description: '管理特定資金'
     },
     User: {
       icon: 'mdi:user-outline',
       color: 'success',
       displayName: '使用者',
-      description: '查看專案的進度和資訊以及進行質押'
+      description: '查看資金的進度和資訊以及進行質押'
     },
     Public: {
       icon: 'mdi:public',
