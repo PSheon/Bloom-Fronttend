@@ -1,4 +1,4 @@
-// ** Types Imports
+// ** Type Imports
 import { Role } from 'src/context/types'
 
 export type RoleType = {

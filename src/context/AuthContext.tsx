@@ -4,14 +4,14 @@ import { createContext, useEffect, useState, ReactNode } from 'react'
 // ** Next Import
 import { useRouter } from 'next/router'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios, { AxiosResponse, AxiosError } from 'axios'
 import toast from 'react-hot-toast'
 
-// ** Config
+// ** Config Imports
 import authConfig from 'src/configs/auth'
 
-// ** Types
+// ** Type Imports
 import {
   AuthValuesType,
   LoginParamsType,
@@ -55,6 +55,7 @@ const AuthProvider = ({ children }: Props) => {
   // ** Hooks
   const router = useRouter()
 
+  // ** Side Effects
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
       axios.defaults.baseURL = (process.env.NEXT_PUBLIC_BACKEND_URL as string) || 'http://localhost:1337'

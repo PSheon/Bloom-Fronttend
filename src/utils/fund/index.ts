@@ -1,4 +1,4 @@
-// ** Types
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 import { TabIndex, FundType, CategoryType } from 'src/types/api/fundTypes'
 

@@ -1,10 +1,10 @@
 // ** Redux Imports
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import qs from 'qs'
 
-// ** Types
+// ** Type Imports
 import {
   FindRolesParamsType,
   FindRolesTransformResponseType,
@@ -27,3 +27,4 @@ export const roleAndPermissionApi = createApi({
 })
 
 export const { useFindQuery } = roleAndPermissionApi
+export default roleAndPermissionApi

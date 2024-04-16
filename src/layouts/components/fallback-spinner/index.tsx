@@ -2,7 +2,7 @@
 import Box, { BoxProps } from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 
-// ** Component Imports
+// ** Custom Component Imports
 import LogoImage from 'src/views/shared/LogoImage'
 
 interface Props {

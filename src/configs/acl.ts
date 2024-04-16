@@ -1,7 +1,7 @@
-// ** Casl Imports
+// ** Third-Party Imports
 import { AbilityBuilder, Ability } from '@casl/ability'
 
-// ** Types Imports
+// ** Type Imports
 import { Role, Permission } from 'src/context/types'
 
 export type Subjects = string

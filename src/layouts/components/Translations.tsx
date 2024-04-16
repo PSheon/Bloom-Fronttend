@@ -1,4 +1,4 @@
-// ** Third Party Import
+// ** Third-Party Imports
 import { useTranslation } from 'react-i18next'
 
 interface Props {
@@ -6,7 +6,7 @@ interface Props {
 }
 
 const Translations = ({ text }: Props) => {
-  // ** Hook
+  // ** Hooks
   const { t } = useTranslation()
 
   return <>{`${t(text)}`}</>

@@ -1,5 +1,7 @@
+// ** Context Imports
 import { UserDataType } from 'src/context/types'
 
+// ** Type Imports
 import { BaseApiResponseType } from 'src/types/api/baseApiTypes'
 
 // ** Find Me One

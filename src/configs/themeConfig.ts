@@ -8,7 +8,7 @@
 // ** MUI Imports
 import { Direction } from '@mui/material'
 
-// ** Types
+// ** Type Imports
 import {
   Skin,
   Mode,

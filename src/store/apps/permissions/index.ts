@@ -1,7 +1,7 @@
 // ** Redux Imports
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 
-// ** Axios Imports
+// ** Third-Party Imports
 import axios from 'axios'
 
 interface DataParams {

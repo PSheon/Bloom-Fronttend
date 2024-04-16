@@ -1,7 +1,7 @@
 // ** Redux Imports
 import { createSlice } from '@reduxjs/toolkit'
 
-// ** Socket.io Imports
+// ** Third-Party Imports
 import { Socket } from 'socket.io-client'
 
 interface InitialState {

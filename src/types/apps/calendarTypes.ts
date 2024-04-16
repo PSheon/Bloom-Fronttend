@@ -1,7 +1,7 @@
-// ** Types
+// ** Redux Imports
 import { Dispatch } from 'redux'
 
-// ** Theme Type Import
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 
 export type CalendarFiltersType = 'Personal' | 'Business' | 'Family' | 'Holiday' | 'ETC'

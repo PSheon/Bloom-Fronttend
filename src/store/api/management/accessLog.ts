@@ -1,13 +1,13 @@
 // ** Redux Imports
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import qs from 'qs'
 
-// ** Config
+// ** Config Imports
 import authConfig from 'src/configs/auth'
 
-// ** Types
+// ** Type Imports
 import {
   FindMeAccessLogParamsType,
   FindMeAccessLogTransformResponseType,

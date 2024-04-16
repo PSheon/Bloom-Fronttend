@@ -1,4 +1,4 @@
-// ** Types Imports
+// ** Type Imports
 import { NotificationType } from 'src/types/api/notificationTypes'
 import { ThemeColor } from 'src/@core/layouts/types'
 

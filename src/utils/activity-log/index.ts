@@ -1,4 +1,4 @@
-// ** Types Imports
+// ** Type Imports
 import { ActivityLogType } from 'src/types/api/activityLogTypes'
 
 type BaseActionAttributes = Record<string, { icon: string; color: 'success' | 'primary' | 'error'; title: string }>

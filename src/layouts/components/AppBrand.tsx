@@ -5,14 +5,14 @@ import Link from 'next/link'
 import { styled } from '@mui/material/styles'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
+// ** Custom Component Imports
+import LogoImage from 'src/views/shared/LogoImage'
 
-// ** Configs
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Component Imports
-import LogoImage from 'src/views/shared/LogoImage'
+// ** Type Imports
+import { LayoutProps } from 'src/@core/layouts/types'
 
 const HeaderTitle = styled(Typography)<TypographyProps>({
   fontWeight: 700,
@@ -34,7 +34,7 @@ const AppBrand = (props: Props) => {
   // ** Props
   const { navHover, settings } = props
 
-  // ** Hooks & Vars
+  // ** Vars
   const { navCollapsed } = settings
   const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 }
 

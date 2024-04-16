@@ -1,3 +1,4 @@
+// ** Type Imports
 import { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
 
 export type ReviewType = {

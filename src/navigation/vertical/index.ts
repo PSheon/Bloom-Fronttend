@@ -1,4 +1,4 @@
-// ** Type import
+// ** Type imports
 import { VerticalNavItemsType } from 'src/@core/layouts/types'
 
 const navigation = (): VerticalNavItemsType => {

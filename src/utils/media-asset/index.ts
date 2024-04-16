@@ -1,4 +1,4 @@
-// ** Types
+// ** Type Imports
 import { UserDataType } from 'src/context/types'
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 import { ThemeColor } from 'src/@core/layouts/types'

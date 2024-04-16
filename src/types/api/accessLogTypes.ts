@@ -1,3 +1,4 @@
+// ** Type Imports
 import { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
 
 type AccessAction = 'Login' | 'ForgotPassword' | 'ResetPassword' | 'ChangePassword' | 'VerifyEmail'

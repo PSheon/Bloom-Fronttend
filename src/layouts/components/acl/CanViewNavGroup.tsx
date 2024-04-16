@@ -1,10 +1,10 @@
 // ** React Imports
 import { ReactNode, useContext } from 'react'
 
-// ** Component Imports
+// ** Custom Component Imports
 import { AbilityContext } from 'src/layouts/components/acl/Can'
 
-// ** Types
+// ** Type Imports
 import { NavGroup, NavLink } from 'src/@core/layouts/types'
 
 interface Props {
@@ -16,7 +16,7 @@ const CanViewNavGroup = (props: Props) => {
   // ** Props
   const { children, navGroup } = props
 
-  // ** Hook
+  // ** Hooks
   const ability = useContext(AbilityContext)
 
   const checkForVisibleChild = (arr: NavLink[] | NavGroup[]): boolean => {

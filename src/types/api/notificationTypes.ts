@@ -1,5 +1,7 @@
+// ** Third-Party Imports
 import { RawDraftContentState } from 'draft-js'
 
+// ** Type Imports
 import { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
 
 export type NotificationType = {

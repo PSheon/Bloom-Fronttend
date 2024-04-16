@@ -1,3 +1,4 @@
+// ** Type Imports
 import { BaseApiResponseType } from 'src/types/api/baseApiTypes'
 
 export type StatisticType = {

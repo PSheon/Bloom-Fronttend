@@ -5,19 +5,19 @@ import { Fragment } from 'react'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
-
-// ** Components
+// ** Custom Components
 import UserDropdown from 'src/views/shared/UserDropdown'
 import PageSearch from 'src/views/shared/PageSearch'
 import NotificationDropdown from 'src/views/shared/notification-dropdown'
 
 // ** Hook Import
 import { useAuth } from 'src/hooks/useAuth'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Type Import
+import { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   hidden: boolean
@@ -30,7 +30,7 @@ const AppBarContent = (props: Props) => {
   // ** Props
   const { hidden, settings, toggleNavVisibility } = props
 
-  // ** Hook
+  // ** Hooks
   const auth = useAuth()
 
   return (

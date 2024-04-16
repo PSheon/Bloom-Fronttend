@@ -1,11 +1,10 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
 
-// ** Type Import
+// ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
 
-// ** Components
-import Autocomplete from 'src/layouts/components/Autocomplete'
+// ** Core Component Imports
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
@@ -14,7 +13,10 @@ import NotificationDropdown, {
 } from 'src/@core/layouts/components/shared-components/NotificationDropdown'
 import ShortcutsDropdown, { ShortcutsType } from 'src/@core/layouts/components/shared-components/ShortcutsDropdown'
 
-// ** Hook Import
+// ** Custom Components Imports
+import Autocomplete from 'src/layouts/components/Autocomplete'
+
+// ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
 
 interface Props {
@@ -123,7 +125,7 @@ const AppBarContent = (props: Props) => {
   // ** Props
   const { hidden, settings, saveSettings } = props
 
-  // ** Hook
+  // ** Hooks
   const auth = useAuth()
 
   return (

@@ -1,7 +1,7 @@
 // ** MUI Imports
 import { AlertColor } from '@mui/material/Alert'
 
-// ** Types Imports
+// ** Type Imports
 import { TabIndex, RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 type BaseTypeAttributes = Record<string, { displayName: string }>

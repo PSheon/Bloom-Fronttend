@@ -1,17 +1,17 @@
 // ** Redux Imports
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import qs from 'qs'
 import toast from 'react-hot-toast'
 
-// ** Api Imports
+// ** API Imports
 import fundApi from 'src/store/api/management/fund'
 
-// ** Config
+// ** Config Imports
 import authConfig from 'src/configs/auth'
 
-// ** Types
+// ** Type Imports
 import {
   FindOnePackageParamsType,
   FindOnePackageTransformResponseType,

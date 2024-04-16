@@ -1,7 +1,7 @@
-// ** Toolkit imports
+// ** Third-Party Imports
 import { configureStore } from '@reduxjs/toolkit'
 
-// ** Reducers
+// ** Reducer Imports
 import chat from 'src/store/apps/chat'
 import user from 'src/store/apps/user'
 import email from 'src/store/apps/email'
@@ -10,7 +10,7 @@ import calendar from 'src/store/apps/calendar'
 import permissions from 'src/store/apps/permissions'
 import dashboard from 'src/store/dashboard'
 
-// ** Api
+// ** API Imports
 import { userApi } from 'src/store/api/management/user'
 import { fundApi } from 'src/store/api/management/fund'
 import { packageApi } from 'src/store/api/management/package'

@@ -1,5 +1,7 @@
+// ** Third-Party Components
 import { OutputData } from '@editorjs/editorjs'
 
+// ** Type Imports
 import { BaseApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
 import { PackageType } from 'src/types/api/packageTypes'
 
