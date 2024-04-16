@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -14,7 +14,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 const FooterContent = () => {
-  // ** Var
+  // ** Vars
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
 
   return (

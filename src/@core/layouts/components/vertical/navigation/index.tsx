@@ -1,4 +1,4 @@
-// ** React Import
+// ** React Imports
 import { useRef, useState } from 'react'
 
 // ** MUI Imports
@@ -6,25 +6,25 @@ import List from '@mui/material/List'
 import Box, { BoxProps } from '@mui/material/Box'
 import { createTheme, responsiveFontSizes, styled, ThemeProvider } from '@mui/material/styles'
 
-// ** Third Party Components
+// ** Third-Party Components
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
+// ** Core Component Imports
+import themeOptions from 'src/@core/theme/ThemeOptions'
 
-// ** Theme Config
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Component Imports
+// ** Custom Component Imports
 import Drawer from './Drawer'
 import VerticalNavItems from './VerticalNavItems'
 import VerticalNavHeader from './VerticalNavHeader'
 
-// ** Theme Options
-import themeOptions from 'src/@core/theme/ThemeOptions'
-
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   navWidth: number

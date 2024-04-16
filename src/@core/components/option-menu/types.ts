@@ -7,7 +7,7 @@ import { DividerProps } from '@mui/material/Divider'
 import { MenuItemProps } from '@mui/material/MenuItem'
 import { IconButtonProps } from '@mui/material/IconButton'
 
-// ** Types
+// ** Type Imports
 import { LinkProps } from 'next/link'
 import { IconProps } from '@iconify/react'
 

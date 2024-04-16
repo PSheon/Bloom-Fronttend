@@ -3,12 +3,14 @@ import { styled } from '@mui/material/styles'
 import Box, { BoxProps } from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
-// ** Hook Import
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 const ReactHotToast = styled(Box)<BoxProps>(({ theme }) => {
-  // ** Hook & Var
+  // ** Hooks
   const { settings } = useSettings()
+
+  // ** Vars
   const { layout, navHidden } = settings
 
   return {

@@ -12,23 +12,23 @@ import MuiMenu, { MenuProps } from '@mui/material/Menu'
 import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem'
 import Typography, { TypographyProps } from '@mui/material/Typography'
 
+// ** Third-Party Imports
+import PerfectScrollbarComponent from 'react-perfect-scrollbar'
+
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Components
-import PerfectScrollbarComponent from 'react-perfect-scrollbar'
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 import { Settings } from 'src/@core/context/settingsContext'
 import { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Util Import
-import { getInitials } from 'src/@core/utils/get-initials'
 
 export type NotificationsType = {
   meta: string
@@ -126,7 +126,7 @@ const NotificationDropdown = (props: Props) => {
   // ** States
   const [anchorEl, setAnchorEl] = useState<(EventTarget & Element) | null>(null)
 
-  // ** Hook
+  // ** Hooks
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'))
 
   // ** Vars

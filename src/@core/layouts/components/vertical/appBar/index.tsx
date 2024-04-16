@@ -4,11 +4,11 @@ import useScrollTrigger from '@mui/material/useScrollTrigger'
 import MuiAppBar, { AppBarProps } from '@mui/material/AppBar'
 import MuiToolbar, { ToolbarProps } from '@mui/material/Toolbar'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
-
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   hidden: LayoutProps['hidden']

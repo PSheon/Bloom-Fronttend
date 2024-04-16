@@ -10,6 +10,7 @@ const CustomRadioImg = (props: CustomRadioImgProps) => {
   // ** Props
   const { name, data, selected, gridProps, handleChange, color = 'primary' } = props
 
+  // ** Vars
   const { alt, img, value } = data
 
   const renderComponent = () => {

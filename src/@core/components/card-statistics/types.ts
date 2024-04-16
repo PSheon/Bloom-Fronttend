@@ -1,7 +1,7 @@
 // ** React Imports
 import { ReactNode } from 'react'
 
-// ** Types
+// ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
 
 export type CardStatsHorizontalProps = {

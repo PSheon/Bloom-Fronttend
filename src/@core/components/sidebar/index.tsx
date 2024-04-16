@@ -5,19 +5,21 @@ import { Fragment, useEffect } from 'react'
 import Backdrop from '@mui/material/Backdrop'
 import Box, { BoxProps } from '@mui/material/Box'
 
-// ** Types
+// ** Type Imports
 import { SidebarType } from './type'
 
 const Sidebar = (props: BoxProps & SidebarType) => {
   // ** Props
   const { sx, show, direction, children, hideBackdrop, onOpen, onClose, backDropClick } = props
 
+  // ** Logics
   const handleBackdropClick = () => {
     if (backDropClick) {
       backDropClick()
     }
   }
 
+  // ** Side Effects
   useEffect(() => {
     if (show && onOpen) {
       onOpen()

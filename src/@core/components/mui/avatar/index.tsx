@@ -5,18 +5,18 @@ import { forwardRef, Ref } from 'react'
 import MuiAvatar from '@mui/material/Avatar'
 import { lighten, useTheme } from '@mui/material/styles'
 
-// ** Types
+// ** Hook Imports
+import useBgColor, { UseBgColorType } from 'src/@core/hooks/useBgColor'
+
+// ** Type Imports
 import { CustomAvatarProps } from './types'
 import { ThemeColor } from 'src/@core/layouts/types'
-
-// ** Hooks Imports
-import useBgColor, { UseBgColorType } from 'src/@core/hooks/useBgColor'
 
 const Avatar = forwardRef((props: CustomAvatarProps, ref: Ref<any>) => {
   // ** Props
   const { sx, src, skin, color } = props
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
   const bgColors: UseBgColorType = useBgColor()
 

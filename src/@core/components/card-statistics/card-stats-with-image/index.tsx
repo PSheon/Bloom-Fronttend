@@ -5,10 +5,10 @@ import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Custom Components Imports
+// ** Custom Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
-// ** Types Imports
+// ** Type Imports
 import { CardStatsCharacterProps } from 'src/@core/components/card-statistics/types'
 
 interface Props {

@@ -2,7 +2,7 @@
 import { styled } from '@mui/material/styles'
 import MuiSwipeableDrawer, { SwipeableDrawerProps } from '@mui/material/SwipeableDrawer'
 
-// ** Type Import
+// ** Type Imports
 import { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {

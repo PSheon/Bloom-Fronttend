@@ -14,6 +14,7 @@ const CustomRadioIcons = (props: CustomRadioIconsProps) => {
   // ** Props
   const { data, icon, name, selected, gridProps, iconProps, handleChange, color = 'primary' } = props
 
+  // ** Vars
   const { title, value, content } = data
 
   const renderComponent = () => {

@@ -1,8 +1,8 @@
-// ** Type Import
-import { OwnerStateThemeType } from './'
-
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import { OwnerStateThemeType } from './'
 
 const Chip = () => {
   return {

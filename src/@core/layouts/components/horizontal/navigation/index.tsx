@@ -1,16 +1,15 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
+// ** Custom Component Imports
+import HorizontalNavItems from './HorizontalNavItems'
 
 // ** Config Import
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Menu Components
-import HorizontalNavItems from './HorizontalNavItems'
+// ** Type Imports
+import { LayoutProps } from 'src/@core/layouts/types'
 
-// ** Types
 interface Props {
   settings: LayoutProps['settings']
   horizontalNavItems: NonNullable<NonNullable<LayoutProps['horizontalLayoutProps']>['navMenu']>['navItems']

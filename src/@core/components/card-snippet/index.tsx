@@ -15,18 +15,18 @@ import ToggleButton from '@mui/material/ToggleButton'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Components
 import Prism from 'prismjs'
 import toast from 'react-hot-toast'
 
-// ** Types
-import { CardSnippetProps } from './types'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// ** Hooks
+// ** Hook Imports
 import useClipboard from 'src/@core/hooks/useClipboard'
+
+// ** Type Imports
+import { CardSnippetProps } from './types'
 
 const CardSnippet = (props: CardSnippetProps) => {
   // ** Props

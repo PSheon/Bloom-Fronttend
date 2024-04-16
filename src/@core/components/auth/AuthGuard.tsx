@@ -1,10 +1,10 @@
 // ** React Imports
 import { ReactNode, ReactElement, useEffect } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** Hooks Import
+// ** Hook Imports
 import { useAuth } from 'src/hooks/useAuth'
 
 interface AuthGuardProps {
@@ -13,7 +13,10 @@ interface AuthGuardProps {
 }
 
 const AuthGuard = (props: AuthGuardProps) => {
+  // ** Props
   const { children, fallback } = props
+
+  // ** Hooks
   const auth = useAuth()
   const router = useRouter()
 

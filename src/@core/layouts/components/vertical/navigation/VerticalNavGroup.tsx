@@ -1,7 +1,7 @@
 // ** React Imports
 import { useEffect, Fragment } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -14,26 +14,26 @@ import Box, { BoxProps } from '@mui/material/Box'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemButton from '@mui/material/ListItemButton'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import clsx from 'clsx'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Configs Import
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Utils
-import { hasActiveChild, removeChildren } from 'src/@core/layouts/utils'
-
-// ** Type Import
-import { NavGroup, LayoutProps } from 'src/@core/layouts/types'
-
-// ** Custom Components Imports
+// ** Custom Component Imports
 import VerticalNavItems from './VerticalNavItems'
 import UserIcon from 'src/layouts/components/UserIcon'
 import Translations from 'src/layouts/components/Translations'
 import CanViewNavGroup from 'src/layouts/components/acl/CanViewNavGroup'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
+import { hasActiveChild, removeChildren } from 'src/@core/layouts/utils'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import { NavGroup, LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   item: NavGroup
@@ -78,8 +78,10 @@ const VerticalNavGroup = (props: Props) => {
     navigationBorderWidth
   } = props
 
-  // ** Hooks & Vars
+  // ** Hooks
   const router = useRouter()
+
+  // ** Vars
   const currentURL = router.asPath
   const { direction, navCollapsed, verticalNavToggleType } = settings
 

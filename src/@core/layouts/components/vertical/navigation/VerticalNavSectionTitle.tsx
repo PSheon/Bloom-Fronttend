@@ -4,13 +4,13 @@ import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 import MuiListSubheader, { ListSubheaderProps } from '@mui/material/ListSubheader'
 
-// ** Types
-import { NavSectionTitle } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
-
-// ** Custom Components Imports
+// ** Custom Component Imports
 import Translations from 'src/layouts/components/Translations'
 import CanViewNavSectionTitle from 'src/layouts/components/acl/CanViewNavSectionTitle'
+
+// ** Type Imports
+import { NavSectionTitle } from 'src/@core/layouts/types'
+import { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   navHover: boolean
@@ -38,7 +38,7 @@ const VerticalNavSectionTitle = (props: Props) => {
   // ** Props
   const { item, navHover, settings, collapsedNavWidth, navigationBorderWidth } = props
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   // ** Vars

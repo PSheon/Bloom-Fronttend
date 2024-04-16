@@ -22,12 +22,13 @@ const ScrollToTop = (props: ScrollToTopProps) => {
   // ** Props
   const { children, className } = props
 
-  // ** init trigger
+  // ** Hooks
   const trigger = useScrollTrigger({
     threshold: 400,
     disableHysteresis: true
   })
 
+  // ** Logics
   const handleClick = () => {
     const anchor = document.querySelector('body')
     if (anchor) {

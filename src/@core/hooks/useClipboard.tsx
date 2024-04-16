@@ -1,7 +1,7 @@
 // ** React Imports
 import { RefObject, useCallback, useRef } from 'react'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import copy from 'clipboard-copy'
 
 interface UseClipboardOptions {

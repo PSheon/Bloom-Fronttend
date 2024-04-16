@@ -4,10 +4,10 @@ import { createContext, useState, ReactNode, useEffect } from 'react'
 // ** MUI Imports
 import { Direction } from '@mui/material'
 
-// ** ThemeConfig Import
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Types Import
+// ** Type Imports
 import { Skin, Mode, AppBar, Footer, ThemeColor, ContentWidth, VerticalNavToggle } from 'src/@core/layouts/types'
 
 export type Settings = {

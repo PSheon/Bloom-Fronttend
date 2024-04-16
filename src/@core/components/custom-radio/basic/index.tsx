@@ -11,6 +11,7 @@ const CustomRadioBasic = (props: CustomRadioBasicProps) => {
   // ** Props
   const { name, data, selected, gridProps, handleChange, color = 'primary' } = props
 
+  // ** Vars
   const { meta, title, value, content } = data
 
   const renderData = () => {

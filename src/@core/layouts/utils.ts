@@ -1,4 +1,4 @@
-// ** Types
+// ** Type Imports
 import { NavGroup, NavLink } from 'src/@core/layouts/types'
 import { NextRouter } from 'next/router'
 

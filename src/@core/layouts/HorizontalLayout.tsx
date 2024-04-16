@@ -5,24 +5,26 @@ import { styled } from '@mui/material/styles'
 import Box, { BoxProps } from '@mui/material/Box'
 import MuiToolbar, { ToolbarProps } from '@mui/material/Toolbar'
 
+// ** Core Component Imports
+import Customizer from 'src/@core/components/customizer'
+import ScrollToTop from 'src/@core/components/scroll-to-top'
+
+// ** Custom Component Imports
+import Footer from './components/shared-components/footer'
+import Navigation from './components/horizontal/navigation'
+import AppBarContent from './components/horizontal/app-bar-content'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Theme Config Import
+// ** Util Imports
+import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Type Import
+// ** Type Imports
 import { LayoutProps } from 'src/@core/layouts/types'
-
-// ** Components
-import Customizer from 'src/@core/components/customizer'
-import Footer from './components/shared-components/footer'
-import Navigation from './components/horizontal/navigation'
-import ScrollToTop from 'src/@core/components/scroll-to-top'
-import AppBarContent from './components/horizontal/app-bar-content'
-
-// ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 const HorizontalLayoutWrapper = styled('div')({
   height: '100%',

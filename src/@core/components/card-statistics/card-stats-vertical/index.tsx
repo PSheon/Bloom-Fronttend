@@ -4,14 +4,14 @@ import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Custom Components Imports
+// ** Custom Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types Imports
+// ** Type Imports
 import { CardStatsVerticalProps } from 'src/@core/components/card-statistics/types'
 
 const CardStatsVertical = (props: CardStatsVerticalProps) => {

@@ -11,6 +11,7 @@ const CustomCheckbox = (props: CustomCheckboxBasicProps) => {
   // ** Props
   const { data, name, selected, gridProps, handleChange, color = 'primary' } = props
 
+  // ** Vars
   const { meta, title, value, content } = data
 
   const renderData = () => {

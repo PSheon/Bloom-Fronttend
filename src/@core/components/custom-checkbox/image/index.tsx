@@ -10,6 +10,7 @@ const CustomCheckboxImg = (props: CustomCheckboxImgProps) => {
   // ** Props
   const { data, name, selected, gridProps, handleChange, color = 'primary' } = props
 
+  // ** Vars
   const { alt, img, value } = data
 
   const renderComponent = () => {

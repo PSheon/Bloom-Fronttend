@@ -2,11 +2,11 @@
 import Box from '@mui/material/Box'
 import { useTheme } from '@mui/material/styles'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
-
-// ** Footer Content Component
+// ** Custom Component Imports
 import FooterContent from './FooterContent'
+
+// ** Type Imports
+import { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   settings: LayoutProps['settings']
@@ -19,7 +19,7 @@ const Footer = (props: Props) => {
   // ** Props
   const { settings, footerStyles, footerContent: userFooterContent } = props
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   // ** Vars

@@ -1,12 +1,14 @@
-// ** Type Import
-import { OwnerStateThemeType } from './'
-
-// ** Hook Import
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
 
+// ** Type Imports
+import { OwnerStateThemeType } from './'
+
 const Accordion = () => {
-  // Hook & Var
+  // ** Hooks
   const { settings } = useSettings()
+
+  // ** Vars
   const { skin } = settings
 
   return {

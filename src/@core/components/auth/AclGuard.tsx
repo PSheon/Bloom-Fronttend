@@ -1,31 +1,33 @@
 // ** React Imports
 import { ReactNode, useEffect } from 'react'
 
-// ** Next Import
-import { useRouter } from 'next/router'
-
-// ** Types
-import type { ACLObj, AppAbility } from 'src/configs/acl'
-
 // ** Context Imports
 import { AbilityContext } from 'src/layouts/components/acl/Can'
 
-// ** Config Import
-import { buildAbilityFor } from 'src/configs/acl'
+// ** Next Imports
+import { useRouter } from 'next/router'
 
-// ** Component Import
+// ** Core Component Imports
+import BlankLayout from 'src/@core/layouts/BlankLayout'
+
+// ** Custom Component Imports
 import NotAuthorized from 'src/pages/401'
 import Spinner from 'src/layouts/components/fallback-spinner'
-import BlankLayout from 'src/@core/layouts/BlankLayout'
+
+// ** Hook Imports
+import { useAuth } from 'src/hooks/useAuth'
+
+// ** Util Imports
+import getHomeRoute from 'src/layouts/components/acl/getHomeRoute'
+
+// ** Config Imports
+import { buildAbilityFor } from 'src/configs/acl'
+
+// ** Type Imports
+import type { ACLObj, AppAbility } from 'src/configs/acl'
 
 /* NOTE: update Spinner component */
 // import Spinner from 'src/@core/components/spinner'
-
-// ** Hooks
-import { useAuth } from 'src/hooks/useAuth'
-
-// ** Util Import
-import getHomeRoute from 'src/layouts/components/acl/getHomeRoute'
 
 interface AclGuardProps {
   children: ReactNode

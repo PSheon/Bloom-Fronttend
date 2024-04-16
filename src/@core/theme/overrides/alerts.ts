@@ -1,14 +1,15 @@
 // ** MUI Imports
 import { lighten, darken } from '@mui/material/styles'
 
-// ** Type Import
+// ** Util Imports
+import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
 import { OwnerStateThemeType } from './'
 import { Mode } from 'src/@core/layouts/types'
 
-// ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
-
 const Alert = (mode: Mode) => {
+  // ** Logics
   const getColor = mode === 'dark' ? lighten : darken
 
   return {

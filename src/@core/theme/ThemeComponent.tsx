@@ -6,19 +6,17 @@ import CssBaseline from '@mui/material/CssBaseline'
 import GlobalStyles from '@mui/material/GlobalStyles'
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles'
 
+// ** Custom Component Imports
+import Direction from 'src/layouts/components/Direction'
+import themeOptions from './ThemeOptions'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
 // ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
 
-// ** Theme Config
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Direction component for LTR or RTL
-import Direction from 'src/layouts/components/Direction'
-
-// ** Theme
-import themeOptions from './ThemeOptions'
-
-// ** Global Styles
+// ** Style Imports
 import GlobalStyling from './globalStyles'
 
 interface Props {

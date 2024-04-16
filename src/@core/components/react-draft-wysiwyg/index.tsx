@@ -1,10 +1,10 @@
-// ** Next Import
+// ** Next Imports
 import dynamic from 'next/dynamic'
 
-// ** Third Party Components
+// ** Third-Party Components
 import { ContentBlock } from 'draft-js'
 
-// ** Types
+// ** Type Imports
 import { EditorProps } from 'react-draft-wysiwyg'
 
 export const initContentBlocks = {
