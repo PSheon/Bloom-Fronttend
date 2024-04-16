@@ -110,48 +110,48 @@ const SettingsThemingSettingCard = () => {
                 <ThemeColorSelectBox
                   selected={themeColor}
                   value='primary'
-                  backgroundColor='#666CFF'
                   handleClick={() => handleChange('themeColor', 'primary' as ThemeColor)}
+                  sx={{ backgroundColor: '#666CFF' }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
                 <ThemeColorSelectBox
                   selected={themeColor}
                   value='secondary'
-                  backgroundColor='secondary.main'
                   handleClick={() => handleChange('themeColor', 'secondary' as ThemeColor)}
+                  sx={{ backgroundColor: 'secondary.main' }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
                 <ThemeColorSelectBox
                   selected={themeColor}
                   value='success'
-                  backgroundColor='success.main'
                   handleClick={() => handleChange('themeColor', 'success' as ThemeColor)}
+                  sx={{ backgroundColor: 'success.main' }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
                 <ThemeColorSelectBox
                   selected={themeColor}
                   value='error'
-                  backgroundColor='error.main'
                   handleClick={() => handleChange('themeColor', 'error' as ThemeColor)}
+                  sx={{ backgroundColor: 'error.main' }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
                 <ThemeColorSelectBox
                   selected={themeColor}
                   value='warning'
-                  backgroundColor='warning.main'
                   handleClick={() => handleChange('themeColor', 'warning' as ThemeColor)}
+                  sx={{ backgroundColor: 'warning.main' }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
                 <ThemeColorSelectBox
                   selected={themeColor}
                   value='info'
-                  backgroundColor='info.main'
                   handleClick={() => handleChange('themeColor', 'info' as ThemeColor)}
+                  sx={{ backgroundColor: 'info.main' }}
                 />
               </Grid>
             </Grid>

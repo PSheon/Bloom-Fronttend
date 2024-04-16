@@ -1,5 +1,5 @@
 // ** MUI Imports
-import { styled } from '@mui/material/styles'
+import { styled, SxProps, Theme } from '@mui/material/styles'
 import Box, { BoxProps } from '@mui/material/Box'
 
 // ** Icon Imports
@@ -24,22 +24,22 @@ const RootBox = styled(Box)<BoxProps>(({ theme }) => ({
 
 interface Props {
   selected: ThemeColor
-  backgroundColor: string
   value: string
   handleClick: () => void
+  sx: SxProps<Theme>
 }
 
 const ThemeColorSelectBox = (props: Props) => {
   // ** Props
-  const { selected, value, backgroundColor, handleClick } = props
+  const { selected, value, sx, handleClick } = props
 
   return (
     <RootBox
       onClick={handleClick}
       sx={{
         ml: 0,
-        backgroundColor: backgroundColor,
-        ...(selected === value ? { boxShadow: 9 } : { '&:hover': { boxShadow: 4 } })
+        ...(selected === value ? { boxShadow: 9 } : { '&:hover': { boxShadow: 4 } }),
+        ...sx
       }}
     >
       {selected === value ? <Icon icon='mdi:check' fontSize='1.25rem' /> : null}
