@@ -1,7 +1,14 @@
-const HomePage = () => {
-  return <>Home Page</>
+// ** React Imports
+import { ReactNode } from 'react'
+
+// ** Layout Imports
+import BlankLayout from 'src/@core/layouts/BlankLayout'
+
+const LandingPage = () => {
+  return <>Landing Page</>
 }
 
-HomePage.AuthGuard = false
+LandingPage.authGuard = false
+LandingPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
-export default HomePage
+export default LandingPage
