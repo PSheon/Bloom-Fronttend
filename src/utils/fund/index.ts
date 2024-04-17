@@ -37,24 +37,28 @@ export const getFundCurrencyProperties = (currency: 'ETH' | 'USDT' | 'USDC' | 'D
       icon: 'mdi:ethereum',
       imageUrl: '/images/funds/currencies/eth.svg',
       displayName: 'Ethereum',
+      currency: 'ETH',
       symbol: 'Ξ'
     },
     USDT: {
       icon: 'mdi:currency-usd',
       imageUrl: '/images/funds/currencies/usdt.svg',
       displayName: 'Tether',
+      currency: 'USDT',
       symbol: '$'
     },
     USDC: {
       icon: 'mdi:currency-usd',
       imageUrl: '/images/funds/currencies/usdc.svg',
       displayName: 'USD Coin',
+      currency: 'USDC',
       symbol: '$'
     },
     DAI: {
       icon: 'mdi:currency-usd',
       imageUrl: '/images/funds/currencies/dai.svg',
       displayName: 'Dai',
+      currency: 'DAI',
       symbol: '$'
     }
   }
