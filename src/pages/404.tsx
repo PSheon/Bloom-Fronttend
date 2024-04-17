@@ -36,7 +36,7 @@ const Img = styled('img')(({ theme }) => ({
   }
 }))
 
-const Error404 = () => {
+const Error404Page = () => {
   return (
     <Box className='content-center'>
       <Box sx={{ p: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
@@ -59,6 +59,7 @@ const Error404 = () => {
   )
 }
 
-Error404.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
+Error404Page.authGuard = false
+Error404Page.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
-export default Error404
+export default Error404Page

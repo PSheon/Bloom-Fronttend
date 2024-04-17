@@ -36,7 +36,7 @@ const Img = styled('img')(({ theme }) => ({
   }
 }))
 
-const Error500 = () => {
+const Error500Page = () => {
   return (
     <Box className='content-center'>
       <Box sx={{ p: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
@@ -59,6 +59,7 @@ const Error500 = () => {
   )
 }
 
-Error500.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
+Error500Page.authGuard = false
+Error500Page.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
-export default Error500
+export default Error500Page

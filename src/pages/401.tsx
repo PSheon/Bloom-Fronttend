@@ -36,7 +36,7 @@ const Img = styled('img')(({ theme }) => ({
   }
 }))
 
-const Error401 = () => {
+const Error401Page = () => {
   return (
     <Box className='content-center'>
       <Box sx={{ p: 5, display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center' }}>
@@ -59,6 +59,7 @@ const Error401 = () => {
   )
 }
 
-Error401.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
+Error401Page.authGuard = false
+Error401Page.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
-export default Error401
+export default Error401Page
