@@ -4,10 +4,7 @@ import { useState, SyntheticEvent } from 'react'
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Types
-import { TabIndex, RequestSheetType } from 'src/types/api/requestSheetTypes'
-
-// ** Styled Component
+// ** Custom Component Imports
 import RequestSheetEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import RequestSheetTitleCard from 'src/views/review/request-sheet/edit/cards/TitleCard'
 import RequestSheetEditTabsList from 'src/views/review/request-sheet/edit/tab/list'
@@ -17,6 +14,9 @@ import RequestSheetEditSecondaryReviewTabPanel from 'src/views/review/request-sh
 import RequestSheetEditProcessStatusAlert from 'src/views/review/request-sheet/edit/alerts/ProcessStatusAlert'
 import RequestSheetEditSubmitCard from 'src/views/review/request-sheet/edit/cards/submit'
 import RequestSheetEditInformationCard from 'src/views/review/request-sheet/edit/cards/InformationCard'
+
+// ** Type Imports
+import { TabIndex, RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {
   initRequestSheetEntity: RequestSheetType

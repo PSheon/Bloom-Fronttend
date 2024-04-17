@@ -5,20 +5,20 @@ import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Api Imports
-import { useUpdateOneMutation } from 'src/store/api/management/requestSheet'
-
-// ** Component Imports
+// ** Custom Component Imports
 import ProposalFileUploader from 'src/views/shared/proposal-file-uploader'
 import MediaAssetEditPdfViewerDialogButton from 'src/views/shared/pdf-viewer-dialog-button'
 
-// ** Types
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
+import { useUpdateOneMutation } from 'src/store/api/management/requestSheet'
+
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
-// ** Styled Preview Box
+// ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   position: 'relative',

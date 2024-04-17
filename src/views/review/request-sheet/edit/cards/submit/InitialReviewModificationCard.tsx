@@ -9,13 +9,13 @@ import CardContent from '@mui/material/CardContent'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Utils Imports
+// ** Util Imports
 import { getProcessStatusList, getRequestSheetProcessStatusAttributes } from 'src/utils'
 
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {
@@ -28,9 +28,7 @@ const InitialReviewModificationCard = (props: Props) => {
 
   // ** Vars
   const PROCESS_STATUS_LIST = getProcessStatusList()
-  const { color, processPercentage } = getRequestSheetProcessStatusAttributes(
-    initRequestSheetEntity.processStatus
-  )
+  const { color, processPercentage } = getRequestSheetProcessStatusAttributes(initRequestSheetEntity.processStatus)
 
   return (
     <Card>

@@ -2,14 +2,14 @@
 import Grid from '@mui/material/Grid'
 import Fade from '@mui/material/Fade'
 
-// ** Styled Component
+// ** Custom Component Imports
 import RequestSheetEditSecondaryReviewCard from 'src/views/review/request-sheet/edit/cards/review/secondary'
 import RequestSheetEditSecondaryReviewEditCard from 'src/views/review/request-sheet/edit/cards/review/secondary/edit'
 
-// ** Utils Import
+// ** Util Imports
 import { getRequestSheetProcessStatusAttributes } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {

@@ -3,10 +3,10 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 
-// ** Utils Import
+// ** Util Imports
 import { getRequestSheetTypeAttributes } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {

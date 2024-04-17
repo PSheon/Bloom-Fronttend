@@ -5,8 +5,8 @@ import { useState } from 'react'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+// ** Third-Party Imports
+import { format } from 'date-fns'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -15,8 +15,10 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Custom Component Imports
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
 // ** Util Imports
-import { format } from 'date-fns'
 import { getUserRoleAttributes } from 'src/utils'
 
 // ** Config Imports

@@ -7,6 +7,9 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 
+// ** Third-Party Imports
+import { format } from 'date-fns'
+
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
@@ -18,9 +21,6 @@ import Icon from 'src/@core/components/icon'
 
 // ** API Imports
 import { useFindMeQuery } from 'src/store/api/management/accessLog'
-
-// ** Util Imports
-import { format } from 'date-fns'
 
 // ** Type Imports
 import { AccessLogType } from 'src/types/api/accessLogTypes'

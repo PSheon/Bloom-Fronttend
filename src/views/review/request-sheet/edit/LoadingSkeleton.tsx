@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography'
 import Skeleton from '@mui/material/Skeleton'
 import Divider from '@mui/material/Divider'
 
-// ** Styled Component
+// ** Custom Component Imports
 import NotificationEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 const NotificationEditLoadingSkeleton = () => {

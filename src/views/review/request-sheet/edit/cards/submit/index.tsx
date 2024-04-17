@@ -1,4 +1,4 @@
-// ** Styled Component
+// ** Custom Component Imports
 import AbandonedSubmitCard from 'src/views/review/request-sheet/edit/cards/submit/AbandonedSubmitCard'
 import FillingOutTheSheetSubmitCard from 'src/views/review/request-sheet/edit/cards/submit/FillingOutTheSheetSubmitCard'
 import InitialReviewSubmitCard from 'src/views/review/request-sheet/edit/cards/submit/InitialReviewSubmitCard'
@@ -7,7 +7,7 @@ import SecondaryReviewSubmitCard from 'src/views/review/request-sheet/edit/cards
 import SecondaryReviewModificationSubmitCard from 'src/views/review/request-sheet/edit/cards/submit/SecondaryReviewModificationSubmitCard'
 import CompletedSubmitCard from 'src/views/review/request-sheet/edit/cards/submit/CompletedSubmitCard'
 
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {

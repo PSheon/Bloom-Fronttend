@@ -15,19 +15,19 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import LoadingButton from '@mui/lab/LoadingButton'
 
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/requestSheet'
 
-// ** Utils Imports
+// ** Util Imports
 import { getProcessStatusList, getRequestSheetProcessStatusAttributes } from 'src/utils'
 
-// ** Custom Components
-import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Types
+// ** Type Imports
 import { RequestSheetType } from 'src/types/api/requestSheetTypes'
 
 interface Props {
@@ -38,7 +38,7 @@ const SecondaryReviewSubmitCard = (props: Props) => {
   // ** Props
   const { initRequestSheetEntity } = props
 
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
   // ** Vars

@@ -11,8 +11,10 @@ import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
 import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
 
-// ** Util Imports
+// ** Third-Party Imports
 import { format } from 'date-fns'
+
+// ** Util Imports
 import { getPublicMediaAssetUrl, getActivityLogActionAttributes } from 'src/utils'
 
 // ** Type Imports
