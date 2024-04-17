@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useFindOneQuery } from 'src/store/api/management/fund'
 
 // ** Custom Component Imports
-// import RequestSheetEditLoadingSkeleton from 'src/views/review/request-sheet/edit/LoadingSkeleton'
+import ReviewFundPreviewLoadingSkeleton from 'src/views/review/fund/preview/ReviewFundPreviewLoadingSkeleton'
 import ReviewFundPreviewSection from 'src/views/review/fund/preview'
 
 const ReviewFundPreviewPage = () => {
@@ -18,10 +18,9 @@ const ReviewFundPreviewPage = () => {
   } = useFindOneQuery(Number(router.query.id))
 
   if (router.query.id === undefined || isFindOneFundEntityError) {
-    // router.push('/review/fund/list')
+    router.push('/review/dashboard')
   } else if (isFindOneFundEntityLoading) {
-    // return <FundEditLoadingSkeleton />
-    return <>FundEditLoadingSkeleton</>
+    return <ReviewFundPreviewLoadingSkeleton />
   } else {
     return <ReviewFundPreviewSection initFundEntity={fundEntity!} />
   }
