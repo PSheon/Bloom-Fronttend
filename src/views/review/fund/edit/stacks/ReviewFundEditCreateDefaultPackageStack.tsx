@@ -17,25 +17,25 @@ import FormHelperText from '@mui/material/FormHelperText'
 import Fade, { FadeProps } from '@mui/material/Fade'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Api Imports
+// ** Custom Component Imports
+import ReviewFundEditPackageSkinSelectBox from 'src/views/review/fund/edit/boxes/ReviewFundEditPackageSkinSelectBox'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
 import { useCreateMutation } from 'src/store/api/management/package'
 import { useUpdateOneMutation } from 'src/store/api/management/fund'
 
-// ** Custom Component
-import ReviewFundEditPackageSkinSelectBox from 'src/views/review/fund/edit/boxes/ReviewFundEditPackageSkinSelectBox'
-
-// ** Utils
+// ** Util Imports
 import { getNextValidPackageId } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 import { SkinType } from 'src/types/api/packageTypes'
 

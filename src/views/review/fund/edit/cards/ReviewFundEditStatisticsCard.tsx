@@ -6,11 +6,11 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
 
 const ReviewFundEditStatisticsCard = () => {
   return (

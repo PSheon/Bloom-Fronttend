@@ -1,12 +1,12 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Styled Component
+// ** Custom Component Imports
 import ReviewFundEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ReviewFundEditProfileHeaderCard from 'src/views/review/fund/edit/cards/ReviewFundEditProfileHeaderCard'
 import ReviewFundEditTabContext from 'src/views/review/fund/edit/tabs/ReviewFundEditTabContext'
 
-// ** Types
+// ** Type Imports
 import { FundType, TabIndex } from 'src/types/api/fundTypes'
 
 interface Props {

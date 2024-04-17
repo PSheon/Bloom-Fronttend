@@ -5,7 +5,7 @@ import Box, { BoxProps } from '@mui/material/Box'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Type Import
+// ** Type Imports
 import { SkinType } from 'src/types/api/packageTypes'
 
 const RootBox = styled(Box)<BoxProps>(({ theme }) => ({

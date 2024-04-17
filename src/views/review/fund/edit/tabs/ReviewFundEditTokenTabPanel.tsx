@@ -2,7 +2,7 @@
 import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
 
-// ** Types
+// ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 
 interface Props {

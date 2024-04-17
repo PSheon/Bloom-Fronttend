@@ -1,4 +1,4 @@
-// ** Types
+// ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 
 interface Props {

@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState, useEffect, SyntheticEvent } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -14,17 +14,17 @@ import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Styled Component
+// ** Custom Component Imports
 import ReviewFundEditOverviewTabPanel from 'src/views/review/fund/edit/tabs/ReviewFundEditOverviewTabPanel'
 import ReviewFundEditDetailTabPanel from 'src/views/review/fund/edit/tabs/ReviewFundEditDetailTabPanel'
 import ReviewFundEditTokenTabPanel from 'src/views/review/fund/edit/tabs/ReviewFundEditTokenTabPanel'
 import ReviewFundEditVaultTabPanel from 'src/views/review/fund/edit/tabs/ReviewFundEditVaultTabPanel'
 import ReviewFundEditSecurityTabPanel from 'src/views/review/fund/edit/tabs/ReviewFundEditSecurityTabPanel'
 
-// ** Types
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
 import { TabIndex, FundType } from 'src/types/api/fundTypes'
 
 const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({

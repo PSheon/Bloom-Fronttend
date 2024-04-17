@@ -14,23 +14,21 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import { OutputData } from '@editorjs/editorjs'
 import { EditorCore } from 'src/views/shared/TextEditor'
 import EditorPreview from 'editorjs-react-renderer'
 
-// ** Api Imports
+// ** Custom Component Imports
+const TextEditor = dynamic(() => import('src/views/shared/TextEditor'), { ssr: false })
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/fund'
 
-// ** Text Editor Imports
-const TextEditor = dynamic(() => import('src/views/shared/TextEditor'), {
-  ssr: false
-})
-
-// ** Types
+// ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 
 interface Props {

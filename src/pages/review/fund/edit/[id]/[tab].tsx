@@ -8,7 +8,7 @@ import { useFindOneQuery } from 'src/store/api/management/fund'
 import { getValidTabIndex } from 'src/utils'
 
 // ** Custom Component Imports
-// import RequestSheetEditLoadingSkeleton from 'src/views/review/request-sheet/edit/LoadingSkeleton'
+import ReviewFundEditLoadingSkeleton from 'src/views/review/fund/edit/ReviewFundEditLoadingSkeleton'
 import ReviewFundEditSection from 'src/views/review/fund/edit'
 
 const ReviewFundEditPage = () => {
@@ -24,10 +24,9 @@ const ReviewFundEditPage = () => {
   const tab = getValidTabIndex(router.query.tab)
 
   if (router.query.id === undefined || tab === undefined || isFindOneFundEntityError) {
-    // router.push('/review/fund/list')
+    router.push('/review/dashboard')
   } else if (isFindOneFundEntityLoading) {
-    // return <FundEditLoadingSkeleton />
-    return <>FundEditLoadingSkeleton</>
+    return <ReviewFundEditLoadingSkeleton />
   } else {
     return <ReviewFundEditSection initFundEntity={fundEntity!} tab={tab} />
   }

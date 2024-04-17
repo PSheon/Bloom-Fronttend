@@ -20,29 +20,29 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContentText from '@mui/material/DialogContentText'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import format from 'date-fns/format'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Styled Component
-import ReviewFundEditBannerPreviewBox from 'src/views/review/fund/edit/boxes/ReviewFundEditBannerPreviewBox'
-
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Api Imports
+// ** Custom Component Imports
+import ReviewFundEditBannerPreviewBox from 'src/views/review/fund/edit/boxes/ReviewFundEditBannerPreviewBox'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/fund'
 
-// ** Utils
+// ** Util Imports
 import { getFundStatusProperties } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 
 const schema = yup.object().shape({

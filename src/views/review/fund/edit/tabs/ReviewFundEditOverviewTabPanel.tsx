@@ -2,14 +2,14 @@
 import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
 
-// ** Styled Component
+// ** Custom Component Imports
 import ReviewFundEditProfileCard from 'src/views/review/fund/edit/cards/ReviewFundEditProfileCard'
 import ReviewFundEditMetadataCard from 'src/views/review/fund/edit/cards/ReviewFundEditMetadataCard'
 import ReviewFundEditStatisticsCard from 'src/views/review/fund/edit/cards/ReviewFundEditStatisticsCard'
 import ReviewFundEditCreateDefaultPackageStack from 'src/views/review/fund/edit/stacks/ReviewFundEditCreateDefaultPackageStack'
 import ReviewFundEditDefaultPackagesGrid from 'src/views/review/fund/edit/grids/ReviewFundEditDefaultPackagesGrid'
 
-// ** Types
+// ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 
 interface Props {

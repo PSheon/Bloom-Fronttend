@@ -17,18 +17,18 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Api Imports
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/package'
 
-// ** Types
+// ** Type Imports
 import { PackageType } from 'src/types/api/packageTypes'
 
 const schema = yup.object().shape({

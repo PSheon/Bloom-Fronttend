@@ -28,31 +28,33 @@ import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 
-// ** Api Imports
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/package'
 
-// ** Custom Components Imports
-import ReviewFundEditPackageSkinSelectBox from 'src/views/review/fund/edit/boxes/ReviewFundEditPackageSkinSelectBox'
-import ReviewFundEditPackageSlotAddPropertyButton from 'src/views/review/fund/edit/buttons/ReviewFundEditPackageSlotAddPropertyButton'
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Utils Imports
+// ** Custom Component Imports
+import ReviewFundEditPackageSkinSelectBox from 'src/views/review/fund/edit/boxes/ReviewFundEditPackageSkinSelectBox'
+import ReviewFundEditPackageSlotAddPropertyButton from 'src/views/review/fund/edit/buttons/ReviewFundEditPackageSlotAddPropertyButton'
+
+// ** Util Imports
 import { getFundCurrencyProperties, getPackageStatusProperties } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 import { PackageType, SkinType } from 'src/types/api/packageTypes'
 
-// ** Styled Grid component
+// ** Styled Grid Component
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
   display: 'flex',
   alignItems: 'center',
@@ -65,7 +67,7 @@ const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
   }
 }))
 
-// ** Styled <sup> component
+// ** Styled <sup> Component
 const Sup = styled('sup')(({ theme }) => ({
   top: '0.2rem',
   left: '-0.6rem',
@@ -119,7 +121,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
 
   // ** Vars
   const { defaultPackages: defaultPackagesData } = initFundEntity
-  const defaultPackages = defaultPackagesData?.data
+  const defaultPackages = defaultPackagesData?.data?.map(pkg => ({ id: pkg.id, ...pkg.attributes }))
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   // ** Logics
@@ -145,7 +147,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
   }
   const handleRemoveProperty = async (packageId: number, propertyId: number): Promise<void> => {
     const currentPackage = defaultPackages!.find(defaultPackage => defaultPackage.id === packageId)
-    const currentSlot = currentPackage?.attributes.slot
+    const currentSlot = currentPackage?.slot
     const newSlot = currentSlot?.filter(property => property.id !== propertyId)
 
     await updateOnePackage({
@@ -188,7 +190,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
   return (
     <Grid container spacing={6}>
       {defaultPackages.map(defaultPackage => {
-        const packageStatusProperties = getPackageStatusProperties(defaultPackage.attributes.status)
+        const packageStatusProperties = getPackageStatusProperties(defaultPackage.status)
 
         return (
           <Grid key={`default-package-${defaultPackage.id}`} item xs={12}>
@@ -215,8 +217,8 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
                     <Image
                       width={180}
                       height={256}
-                      alt={defaultPackage.attributes.displayName}
-                      src={`/images/funds/packages/card-skin/${defaultPackage.attributes.skin}-${theme.palette.mode}.webp`}
+                      alt={defaultPackage.displayName}
+                      src={`/images/funds/packages/card-skin/${defaultPackage.skin}-${theme.palette.mode}.webp`}
                     />
                   </CardContent>
                 </StyledGrid>
@@ -238,9 +240,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
                           <CustomChip
                             skin='light'
                             size='medium'
-                            label={
-                              <Typography variant='subtitle1'>{`#${defaultPackage.attributes.packageId}`}</Typography>
-                            }
+                            label={<Typography variant='subtitle1'>{`#${defaultPackage.packageId}`}</Typography>}
                             color='secondary'
                             sx={{
                               height: 20,
@@ -251,7 +251,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
                             }}
                           />
                         </Box>
-                        <Typography variant='h6'>{defaultPackage.attributes.displayName}</Typography>
+                        <Typography variant='h6'>{defaultPackage.displayName}</Typography>
                       </Stack>
 
                       <Stack direction='row' sx={{ position: 'relative' }}>
@@ -265,12 +265,12 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
                             color: 'primary.main'
                           }}
                         >
-                          {defaultPackage.attributes.priceInUnit}
+                          {defaultPackage.priceInUnit}
                         </Typography>
                       </Stack>
                     </Box>
                     <Typography variant='body2' sx={{ mb: 2 }}>
-                      {defaultPackage.attributes.description || 'No description'}
+                      {defaultPackage.description || 'No description'}
                     </Typography>
                     <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
 
@@ -283,18 +283,13 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
                       >
                         <Typography variant='subtitle2'>赋能</Typography>
 
-                        <ReviewFundEditPackageSlotAddPropertyButton
-                          initPackageEntity={{
-                            id: defaultPackage.id,
-                            ...defaultPackage.attributes
-                          }}
-                        />
+                        <ReviewFundEditPackageSlotAddPropertyButton initPackageEntity={defaultPackage} />
                       </Stack>
 
-                      {defaultPackage.attributes.slot?.length === 0 ? (
+                      {defaultPackage.slot?.length === 0 ? (
                         <Typography sx={{ mb: 2 }}>尚未設定內容</Typography>
                       ) : (
-                        defaultPackage.attributes.slot.map(property => {
+                        defaultPackage.slot.map(property => {
                           return (
                             <Stack
                               key={`slot-${property.id}`}
@@ -326,10 +321,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
                     <Button
                       sx={{ '& svg': { mr: 2 } }}
                       onClick={() => {
-                        handleEditOpen({
-                          id: defaultPackage.id,
-                          ...defaultPackage.attributes
-                        })
+                        handleEditOpen(defaultPackage)
                       }}
                     >
                       <Icon icon='mdi:edit-outline' fontSize={20} />

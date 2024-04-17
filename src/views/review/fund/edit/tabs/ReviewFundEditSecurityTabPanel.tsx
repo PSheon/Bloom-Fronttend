@@ -2,11 +2,11 @@
 import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
 
-// ** Styled Component
+// ** Custom Component Imports
 import ReviewFundEditManagersCard from 'src/views/review/fund/edit/cards/ReviewFundEditManagersCard'
 import ReviewFundEditDangerZoneCard from 'src/views/review/fund/edit/cards/ReviewFundEditDangerZoneCard'
 
-// ** Types
+// ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 
 interface Props {

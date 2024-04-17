@@ -1,3 +1,6 @@
+// ** Next Imports
+import Link from 'next/link'
+
 // ** MUI Components
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
@@ -10,16 +13,16 @@ import CardContent from '@mui/material/CardContent'
 import Tooltip from '@mui/material/Tooltip'
 import AvatarGroup from '@mui/material/AvatarGroup'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Custom Components Imports
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Utils
+// ** Util Imports
 import { getFundCategoryProperties, getPublicMediaAssetUrl, getFundCurrencyProperties } from 'src/utils'
 
-// ** Types
+// ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
@@ -123,7 +126,12 @@ const ReviewFundEditProfileHeaderCard = (props: Props) => {
               </Box>
             </Stack>
           </Box>
-          <Button variant='contained' startIcon={<Icon icon='mdi:print-preview' fontSize={20} />}>
+          <Button
+            component={Link}
+            href={`/review/fund/preview/${initFundEntity.id}`}
+            variant='contained'
+            startIcon={<Icon icon='mdi:print-preview' fontSize={20} />}
+          >
             預覽資金
           </Button>
         </Box>
