@@ -18,7 +18,7 @@ interface Props {
   children: ReactNode
 }
 
-const SocketInitializer = (props: Props) => {
+const SystemDashboardSocketProvider = (props: Props) => {
   // ** Props
   const { children } = props
 
@@ -65,4 +65,4 @@ const SocketInitializer = (props: Props) => {
   return <Fragment>{children}</Fragment>
 }
 
-export default SocketInitializer
+export default SystemDashboardSocketProvider

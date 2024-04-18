@@ -39,7 +39,7 @@ interface DriveInfo {
   usedPercentage: string
 }
 
-const DriveUsageRadialBarChartCard = (props: Props) => {
+const SystemDashboardDriveUsageRadialBarChartCard = (props: Props) => {
   // ** Props
   const { keepElements = 5, checkInterval = 5_000 } = props
 
@@ -145,4 +145,4 @@ const DriveUsageRadialBarChartCard = (props: Props) => {
   )
 }
 
-export default DriveUsageRadialBarChartCard
+export default SystemDashboardDriveUsageRadialBarChartCard

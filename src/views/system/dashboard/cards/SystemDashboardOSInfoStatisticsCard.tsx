@@ -33,7 +33,7 @@ interface OSInfo {
   nodeVersion: string
 }
 
-const OSInfoStatisticsCard = () => {
+const SystemDashboardOSInfoStatisticsCard = () => {
   // ** Hooks
   const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
   const socket = useSelector((state: RootState) => state.dashboard.socket)
@@ -164,4 +164,4 @@ const OSInfoStatisticsCard = () => {
   )
 }
 
-export default OSInfoStatisticsCard
+export default SystemDashboardOSInfoStatisticsCard

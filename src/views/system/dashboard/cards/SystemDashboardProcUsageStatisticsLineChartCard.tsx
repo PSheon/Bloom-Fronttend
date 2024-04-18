@@ -31,8 +31,11 @@ interface Props {
   keepElements?: number
   checkInterval?: number
 }
+interface ProcInfo {
+  totalProcesses: number
+}
 
-const CpuUsageStatisticsLineChartCard = (props: Props) => {
+const SystemDashboardProcUsageStatisticsLineChartCard = (props: Props) => {
   // ** Props
   const { keepElements = 5, checkInterval = 5_000 } = props
 
@@ -43,50 +46,44 @@ const CpuUsageStatisticsLineChartCard = (props: Props) => {
 
   // ** States
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
-  const [cpuUsageData, setCpuUsageData] = useState<number[]>([0, 0, 0, 0, 0])
+  const [totalProcessesSeries, setTotalProcessesSeries] = useState<number[]>([0, 0, 0, 0, 0])
 
   // ** Vars
   const options: ApexOptions = {
     chart: {
+      stacked: true,
       parentHeightOffset: 0,
       toolbar: { show: false }
     },
-    tooltip: { enabled: false },
+    legend: { show: false },
+    dataLabels: { enabled: false },
+    colors: [hexToRGBA(theme.palette.secondary.main, 1), hexToRGBA(theme.palette.error.main, 1)],
+    plotOptions: {
+      bar: {
+        borderRadius: 4,
+        columnWidth: '21%',
+        endingShape: 'rounded',
+        startingShape: 'rounded'
+      }
+    },
     grid: {
-      strokeDashArray: 6,
-      borderColor: theme.palette.divider,
-      xaxis: {
-        lines: { show: true }
+      padding: {
+        top: -21,
+        right: 0,
+        left: -17,
+        bottom: -16
       },
       yaxis: {
         lines: { show: false }
-      },
-      padding: {
-        top: -15,
-        left: -7,
-        right: 7,
-        bottom: -15
       }
     },
-    stroke: { width: 3 },
-    colors: [hexToRGBA(theme.palette.info.main, 1)],
-    markers: {
-      size: 6,
-      offsetY: 2,
-      offsetX: -1,
-      strokeWidth: 3,
-      colors: ['transparent'],
-      strokeColors: 'transparent',
-      discrete: [
-        {
-          size: 6,
-          seriesIndex: 0,
-          strokeColor: theme.palette.info.main,
-          fillColor: theme.palette.background.paper,
-          dataPointIndex: cpuUsageData.length - 1
-        }
-      ],
-      hover: { size: 7 }
+    states: {
+      hover: {
+        filter: { type: 'none' }
+      },
+      active: {
+        filter: { type: 'none' }
+      }
     },
     xaxis: {
       labels: { show: false },
@@ -98,32 +95,24 @@ const CpuUsageStatisticsLineChartCard = (props: Props) => {
     }
   }
 
-  // ** Logics
-  const calcCpuUsageDiff = (): number => {
-    const last = cpuUsageData[cpuUsageData.length - 1]
-    const secondLast = cpuUsageData[cpuUsageData.length - 2]
-
-    return Math.round(last - secondLast)
-  }
-
   // ** Side Effects
   useInterval(() => {
     if (isSocketConnected) {
-      socket!.emit('dashboard:get-cpu-usage')
+      socket!.emit('dashboard:get-proc-usage')
     }
   }, checkInterval)
   useEffect(() => {
     if (isSocketConnected) {
-      socket?.on('dashboard:cpu-usage', (cpuUsage: number) => {
+      socket?.on('dashboard:proc-usage', (procInfo: ProcInfo) => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
-        setCpuUsageData(prev => [...prev, cpuUsage].slice(-keepElements))
+        setTotalProcessesSeries(prev => [...prev, procInfo.totalProcesses].slice(-keepElements))
       })
     }
 
     return () => {
-      socket?.off('dashboard:cpu-usage')
+      socket?.off('dashboard:proc-usage')
     }
   }, [socket, isSocketConnected, keepElements, isInitialized])
 
@@ -132,15 +121,25 @@ const CpuUsageStatisticsLineChartCard = (props: Props) => {
       <CardContent>
         <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
           <Typography variant='h6' sx={{ mr: 1.5 }}>
-            {`${cpuUsageData[cpuUsageData.length - 1]}%`}
+            {`${totalProcessesSeries[totalProcessesSeries.length - 1]}`}
           </Typography>
-          <Typography variant='subtitle2' sx={{ color: calcCpuUsageDiff() < 0 ? 'success.main' : 'error.main' }}>
-            {`${calcCpuUsageDiff()}%`}
+          <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
+            全部
           </Typography>
         </Box>
-        <Typography variant='body2'>CPU 使用率</Typography>
+        <Typography variant='body2'>進程數量</Typography>
         {isInitialized ? (
-          <ReactApexcharts type='line' height={108} options={options} series={[{ data: cpuUsageData }]} />
+          <ReactApexcharts
+            type='bar'
+            height={108}
+            options={options}
+            series={[
+              {
+                name: 'Total Processes',
+                data: totalProcessesSeries
+              }
+            ]}
+          />
         ) : (
           <Skeleton variant='rounded' height={100} sx={{ mt: 1 }} />
         )}
@@ -149,4 +148,4 @@ const CpuUsageStatisticsLineChartCard = (props: Props) => {
   )
 }
 
-export default CpuUsageStatisticsLineChartCard
+export default SystemDashboardProcUsageStatisticsLineChartCard

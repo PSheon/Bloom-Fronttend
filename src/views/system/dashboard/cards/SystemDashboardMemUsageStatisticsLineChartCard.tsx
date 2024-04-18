@@ -39,7 +39,7 @@ interface MemInfo {
   usedMemPercentage: number
 }
 
-const MemUsageStatisticsLineChartCard = (props: Props) => {
+const SystemDashboardMemUsageStatisticsLineChartCard = (props: Props) => {
   // ** Props
   const { keepElements = 5, checkInterval = 5_000 } = props
 
@@ -150,4 +150,4 @@ const MemUsageStatisticsLineChartCard = (props: Props) => {
   )
 }
 
-export default MemUsageStatisticsLineChartCard
+export default SystemDashboardMemUsageStatisticsLineChartCard

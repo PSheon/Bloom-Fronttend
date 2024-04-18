@@ -28,7 +28,7 @@ interface DBInfo {
   dbName: string
 }
 
-const DBInfoStatisticsCard = () => {
+const SystemDashboardDBInfoStatisticsCard = () => {
   // ** Hooks
   const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
   const socket = useSelector((state: RootState) => state.dashboard.socket)
@@ -94,4 +94,4 @@ const DBInfoStatisticsCard = () => {
   )
 }
 
-export default DBInfoStatisticsCard
+export default SystemDashboardDBInfoStatisticsCard

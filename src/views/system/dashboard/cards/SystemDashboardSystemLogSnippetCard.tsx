@@ -33,7 +33,7 @@ interface SystemLog {
   log: string
 }
 
-const SystemLogSnippetCard = (props: Props) => {
+const SystemDashboardSystemLogSnippetCard = (props: Props) => {
   // ** Props
   const { keepLines = 20, checkInterval = 5_000 } = props
 
@@ -117,4 +117,4 @@ const SystemLogSnippetCard = (props: Props) => {
   )
 }
 
-export default SystemLogSnippetCard
+export default SystemDashboardSystemLogSnippetCard

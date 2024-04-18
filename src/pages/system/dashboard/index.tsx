@@ -7,18 +7,18 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 // ** Custom Component Imports
 import SystemDashboardBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import CardOSInfoStatistics from 'src/views/system/dashboard/cards/OSInfoStatisticsCard'
-import CardDBInfoStatistics from 'src/views/system/dashboard/cards/DBInfoStatisticsCard'
-import CardCpuUsageStatisticsLineChart from 'src/views/system/dashboard/cards/CpuUsageStatisticsLineChartCard'
-import CardMemUsageStatisticsLineChart from 'src/views/system/dashboard/cards/MemUsageStatisticsLineChartCard'
-import CardProcUsageStatisticsLineChart from 'src/views/system/dashboard/cards/ProcUsageStatisticsLineChartCard'
-import CardDriveUsageRadialBarChart from 'src/views/system/dashboard/cards/DriveUsageRadialBarChartCard'
-import CardSystemLogSnippet from 'src/views/system/dashboard/cards/SystemLogSnippetCard'
-import SocketProvider from 'src/views/system/dashboard/provider/SocketProvider'
+import SystemDashboardCardOSInfoStatistics from 'src/views/system/dashboard/cards/SystemDashboardOSInfoStatisticsCard'
+import SystemDashboardCardDBInfoStatistics from 'src/views/system/dashboard/cards/SystemDashboardDBInfoStatisticsCard'
+import SystemDashboardCardCpuUsageStatisticsLineChart from 'src/views/system/dashboard/cards/SystemDashboardCpuUsageStatisticsLineChartCard'
+import SystemDashboardCardMemUsageStatisticsLineChart from 'src/views/system/dashboard/cards/SystemDashboardMemUsageStatisticsLineChartCard'
+import SystemDashboardCardProcUsageStatisticsLineChart from 'src/views/system/dashboard/cards/SystemDashboardProcUsageStatisticsLineChartCard'
+import SystemDashboardCardDriveUsageRadialBarChart from 'src/views/system/dashboard/cards/SystemDashboardDriveUsageRadialBarChartCard'
+import SystemDashboardCardSystemLogSnippet from 'src/views/system/dashboard/cards/SystemDashboardSystemLogSnippetCard'
+import SystemDashboardSocketProvider from 'src/views/system/dashboard/providers/SystemDashboardSocketProvider'
 
 const SystemDashboardPage = () => {
   return (
-    <SocketProvider>
+    <SystemDashboardSocketProvider>
       <ApexChartWrapper>
         <KeenSliderWrapper>
           <Grid container spacing={6} className='match-height'>
@@ -27,32 +27,32 @@ const SystemDashboardPage = () => {
             </Grid>
 
             <Grid item xs={12} md={9}>
-              <CardOSInfoStatistics />
+              <SystemDashboardCardOSInfoStatistics />
             </Grid>
             <Grid item xs={12} md={3}>
-              <CardDBInfoStatistics />
+              <SystemDashboardCardDBInfoStatistics />
             </Grid>
 
             <Grid item xs={12} md={3} sm={6}>
-              <CardCpuUsageStatisticsLineChart keepElements={15} />
+              <SystemDashboardCardCpuUsageStatisticsLineChart keepElements={15} />
             </Grid>
             <Grid item xs={12} md={3} sm={6}>
-              <CardMemUsageStatisticsLineChart keepElements={15} />
+              <SystemDashboardCardMemUsageStatisticsLineChart keepElements={15} />
             </Grid>
             <Grid item xs={12} md={3} sm={6}>
-              <CardProcUsageStatisticsLineChart keepElements={10} />
+              <SystemDashboardCardProcUsageStatisticsLineChart keepElements={10} />
             </Grid>
             <Grid item xs={12} md={3} sm={6}>
-              <CardDriveUsageRadialBarChart />
+              <SystemDashboardCardDriveUsageRadialBarChart />
             </Grid>
 
             <Grid item xs={12}>
-              <CardSystemLogSnippet />
+              <SystemDashboardCardSystemLogSnippet />
             </Grid>
           </Grid>
         </KeenSliderWrapper>
       </ApexChartWrapper>
-    </SocketProvider>
+    </SystemDashboardSocketProvider>
   )
 }
 
