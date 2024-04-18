@@ -16,7 +16,7 @@ interface Props {
   initUserEntity: UserDataType
 }
 
-const UserEditMetadataCard = (props: Props) => {
+const ManagementUserEditMetadataCard = (props: Props) => {
   // ** Props
   const { initUserEntity } = props
 
@@ -90,4 +90,4 @@ const UserEditMetadataCard = (props: Props) => {
   )
 }
 
-export default UserEditMetadataCard
+export default ManagementUserEditMetadataCard

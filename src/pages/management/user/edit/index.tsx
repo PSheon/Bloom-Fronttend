@@ -1,16 +1,16 @@
 // ** Next Imports
 import { useRouter } from 'next/router'
 
-const UserEditPage = () => {
+const ManagementUserEditPage = () => {
   // ** Hooks
   const router = useRouter()
 
   router.push('/management/user/list')
 }
 
-UserEditPage.acl = {
+ManagementUserEditPage.acl = {
   action: 'read',
   subject: 'planner-page'
 }
 
-export default UserEditPage
+export default ManagementUserEditPage

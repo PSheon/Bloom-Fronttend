@@ -12,7 +12,7 @@ import TabList from '@mui/lab/TabList'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
 // ** Custom Component Imports
-import UserEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementUserEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -27,11 +27,11 @@ const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
   }
 }))
 
-const UserEditLoadingSkeleton = () => {
+const ManagementUserEditLoadingSkeleton = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <UserEditBreadcrumbs
+        <ManagementUserEditBreadcrumbs
           pageLevels={[{ title: '使用者管理', href: '/management/user/list' }, { title: '編輯使用者' }]}
         />
       </Grid>
@@ -203,4 +203,4 @@ const UserEditLoadingSkeleton = () => {
   )
 }
 
-export default UserEditLoadingSkeleton
+export default ManagementUserEditLoadingSkeleton

@@ -11,10 +11,9 @@ import { styled } from '@mui/material/styles'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
 // ** Custom Component Imports
-import UserEditRequestSheetListCard from 'src/views/management/user/edit/cards/UserEditRequestSheetListCard'
-import UserEditActivityLogListCard from 'src/views/management/user/edit/cards/UserEditActivityLogListCard'
-import UserEditAccessLogListCard from 'src/views/management/user/edit/cards/UserEditAccessLogListCard'
-import UserEditDangerZoneCard from 'src/views/management/user/edit/cards/UserEditDangerZoneCard'
+import ManagementUserEditActivityLogListCard from 'src/views/management/user/edit/cards/ManagementUserEditActivityLogListCard'
+import ManagementUserEditAccessLogListCard from 'src/views/management/user/edit/cards/ManagementUserEditAccessLogListCard'
+import ManagementUserEditDangerZoneCard from 'src/views/management/user/edit/cards/ManagementUserEditDangerZoneCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -36,7 +35,7 @@ interface Props {
   initUserEntity: UserDataType
 }
 
-const UserEditTabContext = (props: Props) => {
+const ManagementUserEditTabContext = (props: Props) => {
   // ** Props
   const { initUserEntity } = props
 
@@ -64,20 +63,21 @@ const UserEditTabContext = (props: Props) => {
         <TabPanel sx={{ p: 0 }} value='overview'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <UserEditRequestSheetListCard initUserEntity={initUserEntity} />
+              {/* TODO */}
+              Positions Card
             </Grid>
             <Grid item xs={12}>
-              <UserEditActivityLogListCard initUserEntity={initUserEntity} />
+              <ManagementUserEditActivityLogListCard initUserEntity={initUserEntity} />
             </Grid>
           </Grid>
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='security'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <UserEditAccessLogListCard initUserEntity={initUserEntity} />
+              <ManagementUserEditAccessLogListCard initUserEntity={initUserEntity} />
             </Grid>
             <Grid item xs={12}>
-              <UserEditDangerZoneCard initUserEntity={initUserEntity} />
+              <ManagementUserEditDangerZoneCard initUserEntity={initUserEntity} />
             </Grid>
           </Grid>
         </TabPanel>
@@ -86,4 +86,4 @@ const UserEditTabContext = (props: Props) => {
   )
 }
 
-export default UserEditTabContext
+export default ManagementUserEditTabContext

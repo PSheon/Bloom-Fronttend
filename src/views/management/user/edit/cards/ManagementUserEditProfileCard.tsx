@@ -87,7 +87,7 @@ interface FormData {
   phone: string
 }
 
-const UserEditProfileCard = (props: Props) => {
+const ManagementUserEditProfileCard = (props: Props) => {
   // ** Props
   const { initUserEntity } = props
 
@@ -337,4 +337,4 @@ const UserEditProfileCard = (props: Props) => {
   )
 }
 
-export default UserEditProfileCard
+export default ManagementUserEditProfileCard

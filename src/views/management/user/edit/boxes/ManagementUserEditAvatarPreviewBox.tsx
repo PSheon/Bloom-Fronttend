@@ -43,7 +43,7 @@ interface Props {
   initUserEntity: UserDataType
 }
 
-const UserAvatarPreviewBox = (props: Props) => {
+const ManagementUserEditAvatarPreviewBox = (props: Props) => {
   // ** Props
   const { initUserEntity } = props
 
@@ -82,4 +82,4 @@ const UserAvatarPreviewBox = (props: Props) => {
   )
 }
 
-export default UserAvatarPreviewBox
+export default ManagementUserEditAvatarPreviewBox

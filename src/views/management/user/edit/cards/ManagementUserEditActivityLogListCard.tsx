@@ -29,7 +29,7 @@ interface Props {
   initUserEntity: UserDataType
 }
 
-const UserEditActivityLogListCard = (props: Props) => {
+const ManagementUserEditActivityLogListCard = (props: Props) => {
   // ** Props
   const { initUserEntity } = props
 
@@ -156,4 +156,4 @@ const UserEditActivityLogListCard = (props: Props) => {
   )
 }
 
-export default UserEditActivityLogListCard
+export default ManagementUserEditActivityLogListCard

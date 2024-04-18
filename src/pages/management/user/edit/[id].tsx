@@ -5,10 +5,10 @@ import { useRouter } from 'next/router'
 import { useFindOneQuery } from 'src/store/api/management/user'
 
 // ** Custom Component Imports
-import UserEditLoadingSkeleton from 'src/views/management/user/edit/LoadingSkeleton'
-import UserEditSection from 'src/views/management/user/edit'
+import ManagementUserEditLoadingSkeleton from 'src/views/management/user/edit/ManagementUserEditLoadingSkeleton'
+import ManagementUserEditSection from 'src/views/management/user/edit'
 
-const UserEditPage = () => {
+const ManagementUserEditPage = () => {
   // ** Hooks
   const router = useRouter()
   const {
@@ -20,15 +20,15 @@ const UserEditPage = () => {
   if (router.query.id === undefined || isFindOneUserEntityError) {
     router.push('/management/user/list')
   } else if (isFindOneUserEntityLoading) {
-    return <UserEditLoadingSkeleton />
+    return <ManagementUserEditLoadingSkeleton />
   } else {
-    return <UserEditSection initUserEntity={UserEntity!} />
+    return <ManagementUserEditSection initUserEntity={UserEntity!} />
   }
 }
 
-UserEditPage.acl = {
+ManagementUserEditPage.acl = {
   action: 'read',
   subject: 'planner-page'
 }
 
-export default UserEditPage
+export default ManagementUserEditPage

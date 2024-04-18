@@ -43,7 +43,7 @@ interface Props {
   initUserEntity: UserDataType
 }
 
-const UserEditRoleCard = (props: Props) => {
+const ManagementUserEditRoleCard = (props: Props) => {
   // ** Props
   const { initUserEntity } = props
 
@@ -226,4 +226,4 @@ const UserEditRoleCard = (props: Props) => {
   )
 }
 
-export default UserEditRoleCard
+export default ManagementUserEditRoleCard

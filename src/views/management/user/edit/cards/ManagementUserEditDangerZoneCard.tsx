@@ -30,7 +30,7 @@ interface Props {
   initUserEntity: UserDataType
 }
 
-const UserEditDangerZoneCard = (props: Props) => {
+const ManagementUserEditDangerZoneCard = (props: Props) => {
   // ** Props
   const { initUserEntity } = props
 
@@ -134,4 +134,4 @@ const UserEditDangerZoneCard = (props: Props) => {
   )
 }
 
-export default UserEditDangerZoneCard
+export default ManagementUserEditDangerZoneCard

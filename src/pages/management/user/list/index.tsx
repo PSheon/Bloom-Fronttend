@@ -22,8 +22,8 @@ import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
-import UserListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import UserListHeaderCardContent from 'src/views/management/user/list/HeaderCardContent'
+import ManagementUserListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementUserListHeaderCardContent from 'src/views/management/user/list/ManagementUserListHeaderCardContent'
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 
 // ** Hook Imports
@@ -64,7 +64,7 @@ const ConfirmedStatusStyledBox = styled(Box)(({ theme }) => ({
   cursor: 'pointer'
 }))
 
-const UserListPage = () => {
+const ManagementUserListPage = () => {
   // ** States
   const [filteredUsernameOrEmail, setFilteredUsernameOrEmail] = useState<string>('')
   const [filteredRole, setFilteredRole] = useState<string>('all')
@@ -272,11 +272,11 @@ const UserListPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <UserListBreadcrumbs pageLevels={[{ title: '使用者管理' }]} />
+        <ManagementUserListBreadcrumbs pageLevels={[{ title: '使用者管理' }]} />
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <UserListHeaderCardContent
+          <ManagementUserListHeaderCardContent
             filteredUsernameOrEmail={filteredUsernameOrEmail}
             handleFilterUsernameOrEmail={handleFilterUsernameOrEmail}
             filteredRole={filteredRole}
@@ -306,9 +306,9 @@ const UserListPage = () => {
   )
 }
 
-UserListPage.acl = {
+ManagementUserListPage.acl = {
   action: 'read',
   subject: 'planner-page'
 }
 
-export default UserListPage
+export default ManagementUserListPage

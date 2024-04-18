@@ -33,7 +33,7 @@ interface Props {
   handleIsHighlightedChange: (e: SelectChangeEvent) => void
 }
 
-const UserListHeaderCardContent = (props: Props) => {
+const ManagementUserListHeaderCardContent = (props: Props) => {
   // ** Props
   const {
     filteredUsernameOrEmail,
@@ -158,4 +158,4 @@ const UserListHeaderCardContent = (props: Props) => {
   )
 }
 
-export default UserListHeaderCardContent
+export default ManagementUserListHeaderCardContent
