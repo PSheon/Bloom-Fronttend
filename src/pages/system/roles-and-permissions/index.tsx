@@ -6,18 +6,18 @@ import Typography from '@mui/material/Typography'
 import { useFindQuery } from 'src/store/api/roleAndPermission'
 
 // ** Custom Component Imports
-import SystemRolesAndPermissionsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import RolesList from 'src/views/system/roles-and-permissions/roles-list'
-import PermissionsList from 'src/views/system/roles-and-permissions/permissions-list'
+import SystemDashboardRolesAndPermissionsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import SystemDashboardRolesList from 'src/views/system/roles-and-permissions/roles-list'
+import SystemDashboardPermissionsList from 'src/views/system/roles-and-permissions/permissions-list'
 
-const SystemRolesAndPermissionsPage = () => {
+const SystemDashboardRolesAndPermissionsPage = () => {
   // ** Hooks
   const { data: roles, isLoading: isRolesLoading } = useFindQuery(null)
 
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <SystemRolesAndPermissionsBreadcrumbs pageLevels={[{ title: '角色與權限' }]} />
+        <SystemDashboardRolesAndPermissionsBreadcrumbs pageLevels={[{ title: '角色與權限' }]} />
       </Grid>
 
       <Grid item xs={12}>
@@ -27,7 +27,7 @@ const SystemRolesAndPermissionsPage = () => {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <RolesList roles={roles!} isRolesLoading={isRolesLoading} />
+        <SystemDashboardRolesList roles={roles!} isRolesLoading={isRolesLoading} />
       </Grid>
 
       <Grid item xs={12}>
@@ -37,15 +37,15 @@ const SystemRolesAndPermissionsPage = () => {
         </Typography>
       </Grid>
       <Grid item xs={12}>
-        <PermissionsList />
+        <SystemDashboardPermissionsList />
       </Grid>
     </Grid>
   )
 }
 
-SystemRolesAndPermissionsPage.acl = {
+SystemDashboardRolesAndPermissionsPage.acl = {
   action: 'read',
   subject: 'user-page'
 }
 
-export default SystemRolesAndPermissionsPage
+export default SystemDashboardRolesAndPermissionsPage

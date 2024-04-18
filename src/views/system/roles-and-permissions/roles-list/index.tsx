@@ -21,7 +21,7 @@ interface Props {
   isRolesLoading: boolean
 }
 
-const RolesList = (props: Props) => {
+const SystemDashboardRolesList = (props: Props) => {
   // ** Props
   const { roles, isRolesLoading } = props
 
@@ -61,4 +61,4 @@ const RolesList = (props: Props) => {
   )
 }
 
-export default RolesList
+export default SystemDashboardRolesList
