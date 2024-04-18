@@ -10,7 +10,7 @@ const UserManagementPage = () => {
 
 UserManagementPage.acl = {
   action: 'read',
-  subject: 'manager-page'
+  subject: 'planner-page'
 }
 
 export default UserManagementPage

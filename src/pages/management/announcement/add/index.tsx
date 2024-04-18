@@ -204,7 +204,7 @@ const AnnouncementAddPage = () => {
 
 AnnouncementAddPage.acl = {
   action: 'read',
-  subject: 'manager-page'
+  subject: 'planner-page'
 }
 
 export default AnnouncementAddPage

@@ -10,7 +10,7 @@ const RequestSheetEditPage = () => {
 
 RequestSheetEditPage.acl = {
   action: 'read',
-  subject: 'manager-page'
+  subject: 'planner-page'
 }
 
 export default RequestSheetEditPage

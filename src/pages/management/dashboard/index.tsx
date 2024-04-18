@@ -7,8 +7,9 @@ import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
 
 // ** Custom Component Imports
 import ManagementDashboardBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import ManagementDashboardUserOverviewCard from 'src/views/management/dashboard/cards/UserOverviewCard'
-import ManagementDashboardRequestSheetOverviewCard from 'src/views/management/dashboard/cards/RequestSheetOverviewCard'
+
+// import ManagementDashboardUserOverviewCard from 'src/views/management/dashboard/cards/UserOverviewCard'
+// import ManagementDashboardRequestSheetOverviewCard from 'src/views/management/dashboard/cards/RequestSheetOverviewCard'
 
 const ManagementDashboardPage = () => {
   return (
@@ -20,10 +21,10 @@ const ManagementDashboardPage = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <ManagementDashboardUserOverviewCard />
+            {/* <ManagementDashboardUserOverviewCard /> */}
           </Grid>
           <Grid item xs={12}>
-            <ManagementDashboardRequestSheetOverviewCard />
+            {/* <ManagementDashboardRequestSheetOverviewCard /> */}
           </Grid>
         </Grid>
       </KeenSliderWrapper>
@@ -33,7 +34,7 @@ const ManagementDashboardPage = () => {
 
 ManagementDashboardPage.acl = {
   action: 'read',
-  subject: 'manager-page'
+  subject: 'planner-page'
 }
 
 export default ManagementDashboardPage

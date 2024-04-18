@@ -254,7 +254,7 @@ const MediaAssetListPage = () => {
 
 MediaAssetListPage.acl = {
   action: 'read',
-  subject: 'manager-page'
+  subject: 'planner-page'
 }
 
 export default MediaAssetListPage

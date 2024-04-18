@@ -10,7 +10,7 @@ const NotificationManagementPage = () => {
 
 NotificationManagementPage.acl = {
   action: 'read',
-  subject: 'manager-page'
+  subject: 'planner-page'
 }
 
 export default NotificationManagementPage
