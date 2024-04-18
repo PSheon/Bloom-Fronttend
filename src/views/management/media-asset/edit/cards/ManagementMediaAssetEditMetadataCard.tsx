@@ -16,7 +16,7 @@ interface Props {
   initMediaAssetEntity: MediaAssetType
 }
 
-const MediaAssetEditMetadataCard = (props: Props) => {
+const ManagementMediaAssetEditMetadataCard = (props: Props) => {
   // ** Props
   const { initMediaAssetEntity } = props
 
@@ -90,4 +90,4 @@ const MediaAssetEditMetadataCard = (props: Props) => {
   )
 }
 
-export default MediaAssetEditMetadataCard
+export default ManagementMediaAssetEditMetadataCard

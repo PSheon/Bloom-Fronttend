@@ -29,7 +29,7 @@ interface Props {
   handleFilterExtensionChange: (e: SelectChangeEvent) => void
 }
 
-const MediaAssetListHeaderCardContent = (props: Props) => {
+const ManagementMediaAssetListHeaderCardContent = (props: Props) => {
   // ** Props
   const { filteredMediaAssetName, handleFilterMediaAssetName, filteredExtension, handleFilterExtensionChange } = props
 
@@ -102,4 +102,4 @@ const MediaAssetListHeaderCardContent = (props: Props) => {
   )
 }
 
-export default MediaAssetListHeaderCardContent
+export default ManagementMediaAssetListHeaderCardContent

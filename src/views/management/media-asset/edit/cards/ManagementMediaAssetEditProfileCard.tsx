@@ -56,7 +56,7 @@ interface FormData {
   caption: string
 }
 
-const MediaAssetEditProfileCard = (props: Props) => {
+const ManagementMediaAssetEditProfileCard = (props: Props) => {
   // ** Props
   const { initMediaAssetEntity } = props
 
@@ -322,4 +322,4 @@ const MediaAssetEditProfileCard = (props: Props) => {
   )
 }
 
-export default MediaAssetEditProfileCard
+export default ManagementMediaAssetEditProfileCard

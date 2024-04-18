@@ -23,8 +23,8 @@ import { format } from 'date-fns'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
-import MediaAssetListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import MediaAssetListHeaderCardContent from 'src/views/management/media-asset/list/HeaderCardContent'
+import ManagementMediaAssetListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementMediaAssetListHeaderCardContent from 'src/views/management/media-asset/list/ManagementMediaAssetListHeaderCardContent'
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
@@ -59,7 +59,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   }
 }))
 
-const MediaAssetListPage = () => {
+const ManagementMediaAssetListPage = () => {
   // ** States
   const [filteredMediaAssetName, setFilteredMediaAssetName] = useState<string>('')
   const [filteredExtension, setFilteredExtension] = useState<string>('all')
@@ -222,11 +222,11 @@ const MediaAssetListPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <MediaAssetListBreadcrumbs pageLevels={[{ title: '檔案管理' }]} />
+        <ManagementMediaAssetListBreadcrumbs pageLevels={[{ title: '檔案管理' }]} />
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <MediaAssetListHeaderCardContent
+          <ManagementMediaAssetListHeaderCardContent
             filteredMediaAssetName={filteredMediaAssetName}
             handleFilterMediaAssetName={handleFilterMediaAssetName}
             filteredExtension={filteredExtension}
@@ -252,9 +252,9 @@ const MediaAssetListPage = () => {
   )
 }
 
-MediaAssetListPage.acl = {
+ManagementMediaAssetListPage.acl = {
   action: 'read',
   subject: 'planner-page'
 }
 
-export default MediaAssetListPage
+export default ManagementMediaAssetListPage

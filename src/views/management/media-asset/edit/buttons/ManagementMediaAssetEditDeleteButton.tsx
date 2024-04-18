@@ -27,7 +27,7 @@ interface Props {
   initMediaAssetEntity: MediaAssetType
 }
 
-const MediaAssetDeleteButton = (props: Props) => {
+const ManagementMediaAssetEditDeleteButton = (props: Props) => {
   // ** Props
   const { initMediaAssetEntity } = props
 
@@ -109,4 +109,4 @@ const MediaAssetDeleteButton = (props: Props) => {
   )
 }
 
-export default MediaAssetDeleteButton
+export default ManagementMediaAssetEditDeleteButton

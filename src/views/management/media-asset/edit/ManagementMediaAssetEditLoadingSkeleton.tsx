@@ -15,7 +15,7 @@ import MuiTab, { TabProps } from '@mui/material/Tab'
 import Icon from 'src/@core/components/icon'
 
 // ** Custom Component Imports
-import MediaAssetEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementMediaAssetEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 // ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
@@ -27,11 +27,11 @@ const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
   }
 }))
 
-const MediaAssetEditLoadingSkeleton = () => {
+const ManagementMediaAssetEditLoadingSkeleton = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <MediaAssetEditBreadcrumbs
+        <ManagementMediaAssetEditBreadcrumbs
           pageLevels={[{ title: '檔案管理', href: '/management/media-asset/list' }, { title: '編輯檔案' }]}
         />
       </Grid>
@@ -153,4 +153,4 @@ const MediaAssetEditLoadingSkeleton = () => {
   )
 }
 
-export default MediaAssetEditLoadingSkeleton
+export default ManagementMediaAssetEditLoadingSkeleton

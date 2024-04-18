@@ -30,7 +30,7 @@ interface Props {
   initMediaAssetEntity: MediaAssetType
 }
 
-const MediaAssetEditDangerZoneCard = (props: Props) => {
+const ManagementMediaAssetEditDangerZoneCard = (props: Props) => {
   // ** Props
   const { initMediaAssetEntity } = props
 
@@ -120,4 +120,4 @@ const MediaAssetEditDangerZoneCard = (props: Props) => {
   )
 }
 
-export default MediaAssetEditDangerZoneCard
+export default ManagementMediaAssetEditDangerZoneCard

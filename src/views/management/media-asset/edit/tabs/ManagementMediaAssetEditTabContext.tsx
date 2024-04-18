@@ -11,9 +11,9 @@ import { styled } from '@mui/material/styles'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
 // ** Custom Component Imports
-import MediaAssetEditPreviewCard from 'src/views/management/media-asset/edit/cards/MediaAssetEditPreviewCard'
-import MediaAssetEditShareCard from 'src/views/management/media-asset/edit/cards/MediaAssetEditShareCard'
-import MediaAssetEditDangerZoneCard from 'src/views/management/media-asset/edit/cards/MediaAssetEditDangerZoneCard'
+import ManagementMediaAssetEditPreviewCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditPreviewCard'
+import ManagementMediaAssetEditShareCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditShareCard'
+import ManagementMediaAssetEditDangerZoneCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditDangerZoneCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -35,7 +35,7 @@ interface Props {
   initMediaAssetEntity: MediaAssetType
 }
 
-const MediaAssetEditTabContext = (props: Props) => {
+const ManagementMediaAssetEditTabContext = (props: Props) => {
   // ** Props
   const { initMediaAssetEntity } = props
 
@@ -63,17 +63,17 @@ const MediaAssetEditTabContext = (props: Props) => {
         <TabPanel sx={{ p: 0 }} value='overview'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <MediaAssetEditPreviewCard initMediaAssetEntity={initMediaAssetEntity} />
+              <ManagementMediaAssetEditPreviewCard initMediaAssetEntity={initMediaAssetEntity} />
             </Grid>
             <Grid item xs={12}>
-              <MediaAssetEditShareCard initMediaAssetEntity={initMediaAssetEntity} />
+              <ManagementMediaAssetEditShareCard initMediaAssetEntity={initMediaAssetEntity} />
             </Grid>
           </Grid>
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='security'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <MediaAssetEditDangerZoneCard initMediaAssetEntity={initMediaAssetEntity} />
+              <ManagementMediaAssetEditDangerZoneCard initMediaAssetEntity={initMediaAssetEntity} />
             </Grid>
           </Grid>
         </TabPanel>
@@ -82,4 +82,4 @@ const MediaAssetEditTabContext = (props: Props) => {
   )
 }
 
-export default MediaAssetEditTabContext
+export default ManagementMediaAssetEditTabContext
