@@ -8,7 +8,8 @@ import PortfolioBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import PortfolioBannerCard from 'src/views/portfolio/cards/PortfolioBannerCard'
 import PortfolioStatisticsOverviewCard from 'src/views/portfolio/cards/PortfolioStatisticsOverviewCard'
 import PortfolioMeNotificationCard from 'src/views/portfolio/cards/me-notification'
-import PortfolioProjectsGrid from 'src/views/portfolio/grids/PortfolioProjectsGrid'
+import PortfolioMePositionsCard from 'src/views/portfolio/cards/me-positions'
+import PortfolioMeActivitiesCard from 'src/views/portfolio/cards/me-activities'
 
 const PortfolioPage = () => {
   return (
@@ -32,7 +33,14 @@ const PortfolioPage = () => {
             </Grid>
           </Grid>
           <Grid item xs={12} md={7} lg={8}>
-            <PortfolioProjectsGrid />
+            <Grid container spacing={6}>
+              <Grid item xs={12}>
+                <PortfolioMePositionsCard />
+              </Grid>
+              <Grid item xs={12}>
+                <PortfolioMeActivitiesCard />
+              </Grid>
+            </Grid>
           </Grid>
         </Grid>
       </KeenSliderWrapper>
