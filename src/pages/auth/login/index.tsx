@@ -104,8 +104,8 @@ const schema = yup.object().shape({
 })
 
 const defaultValues = {
-  email: 'pauljiang61020@gmail.com',
-  password: 'Admin123'
+  email: 'admin@bloom.media.app',
+  password: 'admin123'
 }
 
 interface FormData {
@@ -213,10 +213,16 @@ const AuthLoginPage = () => {
             </Box>
             <Alert icon={false} sx={{ py: 3, mb: 6, ...bgColors.primaryLight, '& .MuiAlert-message': { p: 0 } }}>
               <Typography variant='caption' sx={{ mb: 2, display: 'block', color: 'primary.main' }}>
-                Admin: <strong>admin@materialize.com</strong> / Pass: <strong>admin</strong>
+                Admin: <strong>admin@bloom.media.app</strong> / Pass: <strong>admin123</strong>
               </Typography>
               <Typography variant='caption' sx={{ display: 'block', color: 'primary.main' }}>
-                Client: <strong>client@materialize.com</strong> / Pass: <strong>client</strong>
+                Planner: <strong>planner@bloom.media.app</strong> / Pass: <strong>planner123</strong>
+              </Typography>
+              <Typography variant='caption' sx={{ display: 'block', color: 'primary.main' }}>
+                Asset Manager: <strong>asset-manager@bloom.media.app</strong> / Pass: <strong>asset-manager123</strong>
+              </Typography>
+              <Typography variant='caption' sx={{ display: 'block', color: 'primary.main' }}>
+                User: <strong>user@bloom.media.app</strong> / Pass: <strong>user123</strong>
               </Typography>
             </Alert>
             <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
