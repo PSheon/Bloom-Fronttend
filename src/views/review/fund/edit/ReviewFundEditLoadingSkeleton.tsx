@@ -6,13 +6,13 @@ import Card from '@mui/material/Card'
 import Skeleton from '@mui/material/Skeleton'
 
 // ** Custom Component Imports
-import NotificationEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ReviewFundEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 const ReviewFundEditLoadingSkeleton = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <NotificationEditBreadcrumbs
+        <ReviewFundEditBreadcrumbs
           pageLevels={[{ title: '資金審核', href: '/review/dashboard' }, { title: '編輯資金' }]}
         />
       </Grid>

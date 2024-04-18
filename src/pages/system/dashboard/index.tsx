@@ -6,7 +6,7 @@ import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 // ** Custom Component Imports
-import DashboardSystemBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import SystemDashboardBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import CardOSInfoStatistics from 'src/views/system/dashboard/cards/OSInfoStatisticsCard'
 import CardDBInfoStatistics from 'src/views/system/dashboard/cards/DBInfoStatisticsCard'
 import CardCpuUsageStatisticsLineChart from 'src/views/system/dashboard/cards/CpuUsageStatisticsLineChartCard'
@@ -23,7 +23,7 @@ const SystemDashboardPage = () => {
         <KeenSliderWrapper>
           <Grid container spacing={6} className='match-height'>
             <Grid item xs={12}>
-              <DashboardSystemBreadcrumbs pageLevels={[{ title: '系統監控' }]} />
+              <SystemDashboardBreadcrumbs pageLevels={[{ title: '系統監控' }]} />
             </Grid>
 
             <Grid item xs={12} md={9}>

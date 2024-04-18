@@ -21,10 +21,10 @@ import { EditorState, convertToRaw, convertFromRaw } from 'draft-js'
 
 // ** Core Component Imports
 import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
+import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
 
 // ** Custom Component Imports
 import NotificationEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
 import NotificationEditSeenStatusAlert from 'src/views/management/notification/edit/alerts/SeenStatusAlert'
 import NotificationEditInformationCard from 'src/views/management/notification/edit/cards/InformationCard'
 import NotificationEditDeleteButton from 'src/views/management/notification/edit/buttons/DeleteButton'

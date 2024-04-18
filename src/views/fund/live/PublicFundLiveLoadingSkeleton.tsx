@@ -6,13 +6,13 @@ import Card from '@mui/material/Card'
 import Skeleton from '@mui/material/Skeleton'
 
 // ** Custom Component Imports
-import ReviewFundPreviewBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import PublicFundLiveBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 const PublicFundLiveLoadingSkeleton = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <ReviewFundPreviewBreadcrumbs
+        <PublicFundLiveBreadcrumbs
           pageLevels={[{ title: '資金審核', href: '/review/dashboard' }, { title: '預覽資金' }]}
         />
       </Grid>

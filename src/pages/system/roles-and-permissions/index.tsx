@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import { useFindQuery } from 'src/store/api/roleAndPermission'
 
 // ** Custom Component Imports
-import RolesAndPermissionsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import SystemRolesAndPermissionsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import RolesList from 'src/views/system/roles-and-permissions/roles-list'
 import PermissionsList from 'src/views/system/roles-and-permissions/permissions-list'
 
@@ -17,7 +17,7 @@ const SystemRolesAndPermissionsPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <RolesAndPermissionsBreadcrumbs pageLevels={[{ title: '角色與權限' }]} />
+        <SystemRolesAndPermissionsBreadcrumbs pageLevels={[{ title: '角色與權限' }]} />
       </Grid>
 
       <Grid item xs={12}>

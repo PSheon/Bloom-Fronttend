@@ -9,10 +9,6 @@ import ReviewDashboardStatisticsOverviewCard from 'src/views/review/dashboard/ca
 import ReviewDashboardRatingsCard from 'src/views/review/dashboard/cards/ReviewDashboardRatingsCard'
 import ReviewDashboardSessionsCard from 'src/views/review/dashboard/cards/ReviewDashboardSessionsCard'
 import ReviewDashboardFundListCard from 'src/views/review/dashboard/cards/ReviewDashboardFundListCard'
-import ReviewDashboardCreateProjectCard from 'src/views/review/dashboard/cards/ReviewDashboardCreateProjectCard'
-import ReviewDashboardTotalVisitsCard from 'src/views/review/dashboard/cards/ReviewDashboardTotalVisitsCard'
-import ReviewDashboardSalesThisMonthCard from 'src/views/review/dashboard/cards/ReviewDashboardSalesThisMonthCard'
-import ReviewDashboardProjectsGrid from 'src/views/review/dashboard/grids/ReviewDashboardProjectsGrid'
 
 const ReviewDashboardPage = () => {
   return (
@@ -36,23 +32,6 @@ const ReviewDashboardPage = () => {
           <Grid item xs={12}>
             <ReviewDashboardFundListCard />
           </Grid>
-
-          {/* <Grid item xs={12} md={5} lg={4}>
-            <Grid container spacing={6}>
-              <Grid item xs={12}>
-                <ReviewDashboardCreateProjectCard />
-              </Grid>
-              <Grid item xs={12}>
-                <ReviewDashboardTotalVisitsCard />
-              </Grid>
-              <Grid item xs={12}>
-                <ReviewDashboardSalesThisMonthCard />
-              </Grid>
-            </Grid>
-          </Grid> */}
-          {/* <Grid item xs={12} md={7} lg={8}>
-            <ReviewDashboardProjectsGrid />
-          </Grid> */}
         </Grid>
       </KeenSliderWrapper>
     </ApexChartWrapper>
