@@ -25,7 +25,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       sectionTitle: 'Management',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
     },
     {
       title: 'Management.Dashboard',
@@ -34,42 +34,42 @@ const navigation = (): VerticalNavItemsType => {
       badgeContent: 'new',
       badgeColor: 'error',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
     },
     {
       title: 'Management.Funds',
       icon: 'ant-design:fund-projection-screen-outlined',
       path: '/management/fund/list',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
     },
     {
       title: 'Management.Users',
       icon: 'mdi:user-group-outline',
       path: '/management/user/list',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
     },
     {
       title: 'Management.Media Assets',
       icon: 'mdi:multimedia',
       path: '/management/media-asset/list',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
     },
     {
       title: 'Management.Announcements',
       icon: 'mdi:announcement-outline',
       path: '/management/announcement/list',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
     },
     {
       title: 'Management.Notifications',
       icon: 'mdi:bell-outline',
       path: '/management/notification/list',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
     },
     {
       sectionTitle: 'Review',
