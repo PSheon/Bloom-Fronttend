@@ -30,7 +30,7 @@ interface Props {
   initAnnouncementEntity: AnnouncementType
 }
 
-const AnnouncementEditDangerZoneCard = (props: Props) => {
+const ManagementAnnouncementEditDangerZoneCard = (props: Props) => {
   // ** Props
   const { initAnnouncementEntity } = props
 
@@ -120,4 +120,4 @@ const AnnouncementEditDangerZoneCard = (props: Props) => {
   )
 }
 
-export default AnnouncementEditDangerZoneCard
+export default ManagementAnnouncementEditDangerZoneCard

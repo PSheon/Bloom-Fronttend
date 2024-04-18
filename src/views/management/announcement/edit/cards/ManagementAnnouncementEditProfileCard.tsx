@@ -35,7 +35,7 @@ import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
-import AnnouncementEditBannerPreviewBox from 'src/views/management/announcement/edit/boxes/AnnouncementEditBannerPreviewBox'
+import AnnouncementEditBannerPreviewBox from 'src/views/management/announcement/edit/boxes/ManagementAnnouncementEditBannerPreviewBox'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -72,7 +72,7 @@ interface FormData {
   displayName: string
 }
 
-const AnnouncementEditProfileCard = (props: Props) => {
+const ManagementAnnouncementEditProfileCard = (props: Props) => {
   // ** Props
   const { initAnnouncementEntity } = props
 
@@ -327,4 +327,4 @@ const AnnouncementEditProfileCard = (props: Props) => {
   )
 }
 
-export default AnnouncementEditProfileCard
+export default ManagementAnnouncementEditProfileCard

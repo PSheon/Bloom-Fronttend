@@ -55,7 +55,7 @@ interface Props {
   initAnnouncementEntity: AnnouncementType
 }
 
-const AnnouncementEditBannerPreviewBox = (props: Props) => {
+const ManagementAnnouncementEditBannerPreviewBox = (props: Props) => {
   // ** Props
   const { initAnnouncementEntity } = props
 
@@ -142,4 +142,4 @@ const AnnouncementEditBannerPreviewBox = (props: Props) => {
   )
 }
 
-export default AnnouncementEditBannerPreviewBox
+export default ManagementAnnouncementEditBannerPreviewBox

@@ -22,8 +22,8 @@ import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
-import AnnouncementListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import AnnouncementListHeaderCardContent from 'src/views/management/announcement/list/HeaderCardContent'
+import ManagementAnnouncementListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementAnnouncementListHeaderCardContent from 'src/views/management/announcement/list/ManagementAnnouncementListHeaderCardContent'
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
@@ -58,7 +58,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   }
 }))
 
-const AnnouncementListPage = () => {
+const ManagementAnnouncementListPage = () => {
   // ** States
   const [filteredAnnouncementDisplayname, setFilteredAnnouncementDisplayname] = useState<string>('')
   const [filteredIsPublished, setFilteredIsPublished] = useState<string>('all')
@@ -236,11 +236,11 @@ const AnnouncementListPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <AnnouncementListBreadcrumbs pageLevels={[{ title: '公告管理' }]} />
+        <ManagementAnnouncementListBreadcrumbs pageLevels={[{ title: '公告管理' }]} />
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <AnnouncementListHeaderCardContent
+          <ManagementAnnouncementListHeaderCardContent
             filteredAnnouncementDisplayname={filteredAnnouncementDisplayname}
             handleFilterAnnouncementDisplayname={handleFilterAnnouncementDisplayname}
             filteredIsPublished={filteredIsPublished}
@@ -267,9 +267,9 @@ const AnnouncementListPage = () => {
   )
 }
 
-AnnouncementListPage.acl = {
+ManagementAnnouncementListPage.acl = {
   action: 'read',
   subject: 'planner-page'
 }
 
-export default AnnouncementListPage
+export default ManagementAnnouncementListPage

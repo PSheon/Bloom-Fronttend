@@ -31,7 +31,7 @@ interface Props {
   handleIsHighlightedChange: (e: SelectChangeEvent) => void
 }
 
-const AnnouncementListHeaderCardContent = (props: Props) => {
+const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
   // ** Props
   const {
     filteredAnnouncementDisplayname,
@@ -130,4 +130,4 @@ const AnnouncementListHeaderCardContent = (props: Props) => {
   )
 }
 
-export default AnnouncementListHeaderCardContent
+export default ManagementAnnouncementListHeaderCardContent

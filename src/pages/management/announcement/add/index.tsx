@@ -35,8 +35,8 @@ import ReactDraftWysiwyg, { initContentBlocks } from 'src/@core/components/react
 import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
 
 // ** Custom Component Imports
-import AnnouncementAddBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import AnnouncementAddInformationCard from 'src/views/management/announcement/add/InformationCard'
+import ManagementAnnouncementAddBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementAnnouncementAddInformationCard from 'src/views/management/announcement/add/ManagementAnnouncementAddInformationCard'
 
 // ** Style Imports
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -53,7 +53,7 @@ interface FormData {
   displayName: string
 }
 
-const AnnouncementAddPage = () => {
+const ManagementAnnouncementAddPage = () => {
   // ** States
   const [content, setContent] = useState(
     EditorState.createWithContent(
@@ -95,7 +95,7 @@ const AnnouncementAddPage = () => {
     <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <AnnouncementAddBreadcrumbs
+          <ManagementAnnouncementAddBreadcrumbs
             pageLevels={[{ title: '公告管理', href: '/management/announcement/list' }, { title: '建立公告' }]}
           />
         </Grid>
@@ -193,7 +193,7 @@ const AnnouncementAddPage = () => {
               </Card>
             </Grid>
             <Grid item xs={12}>
-              <AnnouncementAddInformationCard />
+              <ManagementAnnouncementAddInformationCard />
             </Grid>
           </Grid>
         </Grid>
@@ -202,9 +202,9 @@ const AnnouncementAddPage = () => {
   )
 }
 
-AnnouncementAddPage.acl = {
+ManagementAnnouncementAddPage.acl = {
   action: 'read',
   subject: 'planner-page'
 }
 
-export default AnnouncementAddPage
+export default ManagementAnnouncementAddPage

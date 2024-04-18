@@ -31,7 +31,7 @@ interface Props {
   initAnnouncementEntity: AnnouncementType
 }
 
-const AnnouncementEditContentEditorCard = (props: Props) => {
+const ManagementAnnouncementEditContentEditorCard = (props: Props) => {
   // ** Props
   const { initAnnouncementEntity } = props
 
@@ -130,4 +130,4 @@ const AnnouncementEditContentEditorCard = (props: Props) => {
   )
 }
 
-export default AnnouncementEditContentEditorCard
+export default ManagementAnnouncementEditContentEditorCard

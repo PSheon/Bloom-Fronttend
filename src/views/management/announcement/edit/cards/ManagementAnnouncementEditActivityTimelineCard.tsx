@@ -65,7 +65,7 @@ interface Props {
   initAnnouncementEntity: AnnouncementType
 }
 
-const AnnouncementEditActivityTimelineCard = (props: Props) => {
+const ManagementAnnouncementEditActivityTimelineCard = (props: Props) => {
   // ** Props
   const { initAnnouncementEntity } = props
 
@@ -230,4 +230,4 @@ const AnnouncementEditActivityTimelineCard = (props: Props) => {
   )
 }
 
-export default AnnouncementEditActivityTimelineCard
+export default ManagementAnnouncementEditActivityTimelineCard

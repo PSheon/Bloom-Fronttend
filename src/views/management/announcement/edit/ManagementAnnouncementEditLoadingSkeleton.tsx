@@ -14,7 +14,7 @@ import MuiTab, { TabProps } from '@mui/material/Tab'
 import Icon from 'src/@core/components/icon'
 
 // ** Custom Component Imports
-import AnnouncementEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementAnnouncementEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 // ** Styled Tab component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
@@ -26,11 +26,11 @@ const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
   }
 }))
 
-const AnnouncementEditLoadingSkeleton = () => {
+const ManagementAnnouncementEditLoadingSkeleton = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <AnnouncementEditBreadcrumbs
+        <ManagementAnnouncementEditBreadcrumbs
           pageLevels={[{ title: '公告管理', href: '/management/announcement/list' }, { title: '編輯公告' }]}
         />
       </Grid>
@@ -170,4 +170,4 @@ const AnnouncementEditLoadingSkeleton = () => {
   )
 }
 
-export default AnnouncementEditLoadingSkeleton
+export default ManagementAnnouncementEditLoadingSkeleton

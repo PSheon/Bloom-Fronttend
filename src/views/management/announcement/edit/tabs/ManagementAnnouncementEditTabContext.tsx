@@ -11,9 +11,9 @@ import { styled } from '@mui/material/styles'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
 // ** Custom Component Imports
-import AnnouncementEditActivityTimelineCard from 'src/views/management/announcement/edit/cards/AnnouncementEditActivityTimelineCard'
-import AnnouncementEditContentEditorCard from 'src/views/management/announcement/edit/cards/AnnouncementEditContentEditorCard'
-import AnnouncementEditDangerZoneCard from 'src/views/management/announcement/edit/cards/AnnouncementEditDangerZoneCard'
+import ManagementAnnouncementEditActivityTimelineCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditActivityTimelineCard'
+import ManagementAnnouncementEditContentEditorCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditContentEditorCard'
+import ManagementAnnouncementEditDangerZoneCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditDangerZoneCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -35,7 +35,7 @@ interface Props {
   initAnnouncementEntity: AnnouncementType
 }
 
-const AnnouncementEditTabContext = (props: Props) => {
+const ManagementAnnouncementEditTabContext = (props: Props) => {
   // ** Props
   const { initAnnouncementEntity } = props
 
@@ -63,17 +63,17 @@ const AnnouncementEditTabContext = (props: Props) => {
         <TabPanel sx={{ p: 0 }} value='overview'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <AnnouncementEditContentEditorCard initAnnouncementEntity={initAnnouncementEntity} />
+              <ManagementAnnouncementEditContentEditorCard initAnnouncementEntity={initAnnouncementEntity} />
             </Grid>
           </Grid>
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='security'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <AnnouncementEditActivityTimelineCard initAnnouncementEntity={initAnnouncementEntity} />
+              <ManagementAnnouncementEditActivityTimelineCard initAnnouncementEntity={initAnnouncementEntity} />
             </Grid>
             <Grid item xs={12}>
-              <AnnouncementEditDangerZoneCard initAnnouncementEntity={initAnnouncementEntity} />
+              <ManagementAnnouncementEditDangerZoneCard initAnnouncementEntity={initAnnouncementEntity} />
             </Grid>
           </Grid>
         </TabPanel>
@@ -82,4 +82,4 @@ const AnnouncementEditTabContext = (props: Props) => {
   )
 }
 
-export default AnnouncementEditTabContext
+export default ManagementAnnouncementEditTabContext

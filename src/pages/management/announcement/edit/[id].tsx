@@ -5,10 +5,10 @@ import { useRouter } from 'next/router'
 import { useFindOneQuery } from 'src/store/api/management/announcement'
 
 // ** Custom Component Imports
-import AnnouncementEditLoadingSkeleton from 'src/views/management/announcement/edit/LoadingSkeleton'
-import AnnouncementEditSection from 'src/views/management/announcement/edit'
+import ManagementAnnouncementEditLoadingSkeleton from 'src/views/management/announcement/edit/ManagementAnnouncementEditLoadingSkeleton'
+import ManagementAnnouncementEditSection from 'src/views/management/announcement/edit'
 
-const AnnouncementEditPage = () => {
+const ManagementAnnouncementEditPage = () => {
   // ** Hooks
   const router = useRouter()
   const {
@@ -20,15 +20,15 @@ const AnnouncementEditPage = () => {
   if (router.query.id === undefined || isFindOneAnnouncementEntityError) {
     router.push('/management/announcement/list')
   } else if (isFindOneAnnouncementEntityLoading) {
-    return <AnnouncementEditLoadingSkeleton />
+    return <ManagementAnnouncementEditLoadingSkeleton />
   } else {
-    return <AnnouncementEditSection initAnnouncementEntity={announcementEntity!} />
+    return <ManagementAnnouncementEditSection initAnnouncementEntity={announcementEntity!} />
   }
 }
 
-AnnouncementEditPage.acl = {
+ManagementAnnouncementEditPage.acl = {
   action: 'read',
   subject: 'planner-page'
 }
 
-export default AnnouncementEditPage
+export default ManagementAnnouncementEditPage

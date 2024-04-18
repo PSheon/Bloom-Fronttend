@@ -1,51 +1,53 @@
 // ** MUI Imports
-import Box from '@mui/material/Box'
+import Avatar from '@mui/material/Avatar'
 import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
 
-// ** Third-Party Imports
-import { format } from 'date-fns'
+// ** Hook Imports
+import { useAuth } from 'src/hooks/useAuth'
 
-// ** Type Imports
-import { AnnouncementType } from 'src/types/api/announcementTypes'
-
-interface Props {
-  initAnnouncementEntity: AnnouncementType
-}
-
-const AnnouncementEditMetadataCard = (props: Props) => {
-  // ** Props
-  const { initAnnouncementEntity } = props
+const ManagementAnnouncementAddInformationCard = () => {
+  // ** Hooks
+  const auth = useAuth()
 
   return (
     <Card>
       <CardContent>
-        <Grid container spacing={2.7}>
+        <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>屬性</Typography>
+            <Typography variant='subtitle2'>資訊</Typography>
           </Grid>
           <Grid item xs={12}>
             <Divider />
+          </Grid>
+          <Grid item xs={12}>
+            <Typography variant='body2' sx={{ fontWeight: 600 }}>
+              作者
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <Box
               sx={{
                 width: '100%',
                 display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between'
+                alignItems: 'center'
               }}
             >
-              <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                編號
-              </Typography>
-              <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {`#${initAnnouncementEntity.id}`}
-              </Typography>
+              <Avatar
+                src={auth.user!.avatar?.url || '/images/avatars/1.png'}
+                variant='rounded'
+                sx={{ mr: 3, width: 38, height: 38 }}
+              />
+              <Box sx={{ mr: 2, display: 'flex', mb: 0.4, flexDirection: 'column' }}>
+                <Typography variant='body2' sx={{ mb: 0.5, fontWeight: 600, color: 'text.primary' }}>
+                  {auth.user!.username}
+                </Typography>
+                <Typography variant='caption'>{auth.user!.email}</Typography>
+              </Box>
             </Box>
           </Grid>
           <Grid item xs={12}>
@@ -62,7 +64,7 @@ const AnnouncementEditMetadataCard = (props: Props) => {
                 更新日期
               </Typography>
               <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {format(new Date(initAnnouncementEntity.updatedAt), 'PPpp')}
+                -
               </Typography>
             </Box>
           </Grid>
@@ -80,7 +82,7 @@ const AnnouncementEditMetadataCard = (props: Props) => {
                 建立日期
               </Typography>
               <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {format(new Date(initAnnouncementEntity.createdAt), 'PPpp')}
+                -
               </Typography>
             </Box>
           </Grid>
@@ -90,4 +92,4 @@ const AnnouncementEditMetadataCard = (props: Props) => {
   )
 }
 
-export default AnnouncementEditMetadataCard
+export default ManagementAnnouncementAddInformationCard
