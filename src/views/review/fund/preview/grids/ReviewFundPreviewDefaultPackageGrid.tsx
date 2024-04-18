@@ -292,7 +292,7 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
               <Typography variant='body2'>請確認您選擇的方案內容及數量.</Typography>
             </Box>
           </DialogContent>
-          <DialogContent>
+          <DialogContent sx={{ px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`] }}>
             <Stack spacing={8}>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Image

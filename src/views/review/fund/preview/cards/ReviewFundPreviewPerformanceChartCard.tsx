@@ -13,9 +13,6 @@ import { format } from 'date-fns'
 // ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
-// ** Util Imports
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
-
 // ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 
@@ -33,86 +30,88 @@ const ReviewFundPreviewPerformanceChartCard = (props: Props) => {
   // ** Vars
   const series = [
     {
-      name: 'Sales',
-      type: 'column',
-      data: [83, 68, 56, 65, 65, 50, 39]
+      name: 'Visits',
+      data: [100, 120, 90, 170, 130, 160, 140, 240, 220, 180, 270, 280, 375]
     },
     {
-      type: 'line',
+      name: 'Clicks',
+      data: [60, 80, 70, 110, 80, 100, 90, 180, 160, 140, 200, 220, 275]
+    },
+    {
       name: 'Sales',
-      data: [63, 38, 31, 45, 46, 27, 18]
+      data: [20, 40, 30, 70, 40, 60, 50, 140, 120, 100, 140, 180, 220]
     }
   ]
+  const areaColors = {
+    series1: '#ab7efd',
+    series2: '#b992fe',
+    series3: '#e0cffe'
+  }
   const options: ApexOptions = {
     chart: {
-      offsetY: -9,
-      offsetX: -16,
       parentHeightOffset: 0,
       toolbar: { show: false }
     },
-    plotOptions: {
-      bar: {
-        borderRadius: 8,
-        columnWidth: '35%',
-        endingShape: 'rounded',
-        startingShape: 'rounded',
-        colors: {
-          ranges: [
-            {
-              to: 50,
-              from: 40,
-              color: hexToRGBA(theme.palette.primary.main, 1)
-            }
-          ]
-        }
+    tooltip: { shared: false },
+    dataLabels: { enabled: false },
+    stroke: {
+      show: false,
+      curve: 'straight'
+    },
+    legend: {
+      position: 'bottom',
+      horizontalAlign: 'left',
+      labels: { colors: theme.palette.text.secondary },
+      markers: {
+        offsetY: 1,
+        offsetX: -3
+      },
+      itemMargin: {
+        vertical: 3,
+        horizontal: 10
       }
     },
-    markers: {
-      size: 3.5,
-      strokeWidth: 2,
-      fillOpacity: 1,
-      strokeOpacity: 1,
-      colors: [theme.palette.background.paper],
-      strokeColors: hexToRGBA(theme.palette.primary.main, 1)
+    colors: [areaColors.series3, areaColors.series2, areaColors.series1],
+    fill: {
+      opacity: 1,
+      type: 'solid'
     },
-    stroke: {
-      width: [0, 2],
-      colors: [theme.palette.customColors.trackBg, theme.palette.primary.main]
-    },
-    legend: { show: false },
-    dataLabels: { enabled: false },
-    colors: [hexToRGBA(theme.palette.customColors.trackBg, 1)],
     grid: {
-      strokeDashArray: 7,
-      borderColor: theme.palette.divider
+      show: true,
+      borderColor: theme.palette.divider,
+      xaxis: {
+        lines: { show: true }
+      }
     },
-    states: {
-      hover: {
-        filter: { type: 'none' }
-      },
-      active: {
-        filter: { type: 'none' }
+    yaxis: {
+      labels: {
+        style: { colors: theme.palette.text.disabled }
       }
     },
     xaxis: {
-      categories: ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat'],
-      tickPlacement: 'on',
-      labels: { show: false },
-      axisTicks: { show: false },
-      axisBorder: { show: false }
-    },
-    yaxis: {
-      min: 0,
-      max: 90,
-      show: true,
-      tickAmount: 3,
+      axisBorder: { show: false },
+      axisTicks: { color: theme.palette.divider },
+      crosshairs: {
+        stroke: { color: theme.palette.divider }
+      },
       labels: {
-        formatter: value => `${value > 999 ? `${(value / 1000).toFixed(0)}` : value}k`,
-        style: {
-          fontSize: '0.75rem',
-          colors: theme.palette.text.disabled
-        }
-      }
+        style: { colors: theme.palette.text.disabled }
+      },
+      categories: [
+        '7/12',
+        '8/12',
+        '9/12',
+        '10/12',
+        '11/12',
+        '12/12',
+        '13/12',
+        '14/12',
+        '15/12',
+        '16/12',
+        '17/12',
+        '18/12',
+        '19/12'
+      ]
     }
   }
 
@@ -141,8 +140,8 @@ const ReviewFundPreviewPerformanceChartCard = (props: Props) => {
           </Stack>
         }
       />
-      <CardContent sx={{ mb: 4, '& .apexcharts-xcrosshairs.apexcharts-active': { opacity: 0 } }}>
-        <ReactApexcharts type='line' height={208} series={series} options={options} />
+      <CardContent>
+        <ReactApexcharts type='area' height={250} options={options} series={series} />
       </CardContent>
     </Card>
   )

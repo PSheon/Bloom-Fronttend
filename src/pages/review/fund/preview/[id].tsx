@@ -1,12 +1,12 @@
 // ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** API Imports
-import { useFindOneQuery } from 'src/store/api/management/fund'
-
 // ** Custom Component Imports
 import ReviewFundPreviewLoadingSkeleton from 'src/views/review/fund/preview/ReviewFundPreviewLoadingSkeleton'
 import ReviewFundPreviewSection from 'src/views/review/fund/preview'
+
+// ** API Imports
+import { useFindOneQuery } from 'src/store/api/management/fund'
 
 const ReviewFundPreviewPage = () => {
   // ** Hooks
