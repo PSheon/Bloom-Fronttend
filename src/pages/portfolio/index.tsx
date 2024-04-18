@@ -9,7 +9,7 @@ import PortfolioBannerCard from 'src/views/portfolio/cards/PortfolioBannerCard'
 import PortfolioStatisticsOverviewCard from 'src/views/portfolio/cards/PortfolioStatisticsOverviewCard'
 import PortfolioMeNotificationCard from 'src/views/portfolio/cards/me-notification'
 import PortfolioMePositionsCard from 'src/views/portfolio/cards/me-positions'
-import PortfolioMeActivitiesCard from 'src/views/portfolio/cards/me-activities'
+import PortfolioMeActivityLogCard from 'src/views/portfolio/cards/me-activity-log'
 
 const PortfolioPage = () => {
   return (
@@ -38,7 +38,7 @@ const PortfolioPage = () => {
                 <PortfolioMePositionsCard />
               </Grid>
               <Grid item xs={12}>
-                <PortfolioMeActivitiesCard />
+                <PortfolioMeActivityLogCard />
               </Grid>
             </Grid>
           </Grid>

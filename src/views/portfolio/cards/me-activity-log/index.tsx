@@ -3,7 +3,7 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-const PortfolioMeActivitiesCard = () => {
+const PortfolioMeActivityLogCard = () => {
   return (
     <Card>
       <CardHeader title='My Activities' />
@@ -16,4 +16,4 @@ const PortfolioMeActivitiesCard = () => {
   )
 }
 
-export default PortfolioMeActivitiesCard
+export default PortfolioMeActivityLogCard
