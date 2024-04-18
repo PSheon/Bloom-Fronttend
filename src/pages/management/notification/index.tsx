@@ -1,16 +1,16 @@
 // ** Next Imports
 import { useRouter } from 'next/router'
 
-const NotificationManagementPage = () => {
+const ManagementNotificationPage = () => {
   // ** Hooks
   const router = useRouter()
 
   router.push('/management/notification/list')
 }
 
-NotificationManagementPage.acl = {
+ManagementNotificationPage.acl = {
   action: 'read',
   subject: 'planner-page'
 }
 
-export default NotificationManagementPage
+export default ManagementNotificationPage

@@ -8,18 +8,18 @@ import Skeleton from '@mui/material/Skeleton'
 import Divider from '@mui/material/Divider'
 
 // ** Custom Component Imports
-import NotificationEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementNotificationEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-const NotificationEditLoadingSkeleton = () => {
+const ManagementNotificationEditLoadingSkeleton = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Card>
           <CardContent>
-            <NotificationEditBreadcrumbs
+            <ManagementNotificationEditBreadcrumbs
               pageLevels={[{ title: '通知管理', href: '/management/notification/list' }, { title: '編輯通知' }]}
             />
           </CardContent>
@@ -118,4 +118,4 @@ const NotificationEditLoadingSkeleton = () => {
   )
 }
 
-export default NotificationEditLoadingSkeleton
+export default ManagementNotificationEditLoadingSkeleton

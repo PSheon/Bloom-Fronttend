@@ -27,7 +27,7 @@ interface Props {
   initNotificationEntity: NotificationType
 }
 
-const DeleteButton = (props: Props) => {
+const ManagementNotificationEditDeleteButton = (props: Props) => {
   // ** Props
   const { initNotificationEntity } = props
 
@@ -108,4 +108,4 @@ const DeleteButton = (props: Props) => {
   )
 }
 
-export default DeleteButton
+export default ManagementNotificationEditDeleteButton

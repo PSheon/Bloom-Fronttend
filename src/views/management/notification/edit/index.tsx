@@ -24,10 +24,10 @@ import { EditorWrapper } from 'src/@core/styles/libs/react-draft-wysiwyg'
 import ReactDraftWysiwyg from 'src/@core/components/react-draft-wysiwyg'
 
 // ** Custom Component Imports
-import NotificationEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import NotificationEditSeenStatusAlert from 'src/views/management/notification/edit/alerts/SeenStatusAlert'
-import NotificationEditInformationCard from 'src/views/management/notification/edit/cards/InformationCard'
-import NotificationEditDeleteButton from 'src/views/management/notification/edit/buttons/DeleteButton'
+import ManagementNotificationEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementNotificationEditSeenStatusAlert from 'src/views/management/notification/edit/alerts/ManagementNotificationEditSeenStatusAlert'
+import ManagementNotificationEditInformationCard from 'src/views/management/notification/edit/cards/ManagementNotificationEditInformationCard'
+import ManagementNotificationEditDeleteButton from 'src/views/management/notification/edit/buttons/ManagementNotificationEditDeleteButton'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -66,7 +66,7 @@ interface FormData {
   title: string
 }
 
-const NotificationEditSection = (props: Props) => {
+const ManagementNotificationEditSection = (props: Props) => {
   // ** Props
   const { initNotificationEntity } = props
 
@@ -106,7 +106,7 @@ const NotificationEditSection = (props: Props) => {
     <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <NotificationEditBreadcrumbs
+          <ManagementNotificationEditBreadcrumbs
             pageLevels={[{ title: '通知管理', href: '/management/notification/list' }, { title: '編輯通知' }]}
           />
         </Grid>
@@ -217,7 +217,7 @@ const NotificationEditSection = (props: Props) => {
         <Grid item xl={3} md={4} xs={12}>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <NotificationEditSeenStatusAlert initNotificationEntity={updatedNotification} />
+              <ManagementNotificationEditSeenStatusAlert initNotificationEntity={updatedNotification} />
             </Grid>
             <Grid item xs={12}>
               <Card>
@@ -240,10 +240,10 @@ const NotificationEditSection = (props: Props) => {
               </Card>
             </Grid>
             <Grid item xs={12}>
-              <NotificationEditInformationCard initNotificationEntity={updatedNotification} />
+              <ManagementNotificationEditInformationCard initNotificationEntity={updatedNotification} />
             </Grid>
             <Grid item xs={12}>
-              <NotificationEditDeleteButton initNotificationEntity={updatedNotification} />
+              <ManagementNotificationEditDeleteButton initNotificationEntity={updatedNotification} />
             </Grid>
           </Grid>
         </Grid>
@@ -252,4 +252,4 @@ const NotificationEditSection = (props: Props) => {
   )
 }
 
-export default NotificationEditSection
+export default ManagementNotificationEditSection

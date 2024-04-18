@@ -28,7 +28,7 @@ interface Props {
   handleIsHighlightedChange: (e: SelectChangeEvent) => void
 }
 
-const NotificationListHeaderCardContent = (props: Props) => {
+const ManagementNotificationListHeaderCardContent = (props: Props) => {
   // ** Props
   const {
     filteredNotificationTitle,
@@ -130,4 +130,4 @@ const NotificationListHeaderCardContent = (props: Props) => {
   )
 }
 
-export default NotificationListHeaderCardContent
+export default ManagementNotificationListHeaderCardContent

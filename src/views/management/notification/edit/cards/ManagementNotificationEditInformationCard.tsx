@@ -16,7 +16,7 @@ interface Props {
   initNotificationEntity: NotificationType
 }
 
-const InformationCard = (props: Props) => {
+const ManagementNotificationEditInformationCard = (props: Props) => {
   // ** Props
   const { initNotificationEntity } = props
 
@@ -90,4 +90,4 @@ const InformationCard = (props: Props) => {
   )
 }
 
-export default InformationCard
+export default ManagementNotificationEditInformationCard

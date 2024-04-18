@@ -22,8 +22,8 @@ import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
-import NotificationListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import NotificationListHeaderCardContent from 'src/views/management/notification/list/HeaderCardContent'
+import ManagementNotificationListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementNotificationListHeaderCardContent from 'src/views/management/notification/list/ManagementNotificationListHeaderCardContent'
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
@@ -58,7 +58,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   }
 }))
 
-const NotificationListPage = () => {
+const ManagementNotificationListPage = () => {
   // ** States
   const [filteredNotificationTitle, setFilteredNotificationTitle] = useState<string>('')
   const [filteredIsSeen, setFilteredIsSeen] = useState<string>('all')
@@ -236,11 +236,11 @@ const NotificationListPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <NotificationListBreadcrumbs pageLevels={[{ title: '通知管理' }]} />
+        <ManagementNotificationListBreadcrumbs pageLevels={[{ title: '通知管理' }]} />
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <NotificationListHeaderCardContent
+          <ManagementNotificationListHeaderCardContent
             filteredNotificationTitle={filteredNotificationTitle}
             handleFilterNotificationTitle={handleFilterNotificationTitle}
             filteredIsSeen={filteredIsSeen}
@@ -267,9 +267,9 @@ const NotificationListPage = () => {
   )
 }
 
-NotificationListPage.acl = {
+ManagementNotificationListPage.acl = {
   action: 'read',
   subject: 'planner-page'
 }
 
-export default NotificationListPage
+export default ManagementNotificationListPage

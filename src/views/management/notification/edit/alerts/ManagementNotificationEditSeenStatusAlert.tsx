@@ -8,7 +8,7 @@ interface Props {
   initNotificationEntity: NotificationType
 }
 
-const SeenStatusAlert = (props: Props) => {
+const ManagementNotificationEditSeenStatusAlert = (props: Props) => {
   // ** Props
   const { initNotificationEntity } = props
 
@@ -23,4 +23,4 @@ const SeenStatusAlert = (props: Props) => {
   )
 }
 
-export default SeenStatusAlert
+export default ManagementNotificationEditSeenStatusAlert
