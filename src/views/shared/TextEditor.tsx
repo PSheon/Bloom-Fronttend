@@ -232,6 +232,7 @@ const TextEditor = (props: Props) => {
       <Box
         id='text-editor-box'
         sx={{
+          pt: theme => theme.spacing(12),
           ...(mode === 'dark' && {
             '& .cdx-block,& .ce-header,& .inlineToolButton,& .ce-inline-toolbar,& .ce-inline-tool,& .ce-conversion-toolbar,& .ce-toolbar__plus,& .ce-toolbar__settings-btn':
               {

@@ -4,8 +4,8 @@ import Card, { CardProps } from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third-Party Imports
-import EditorPreview from 'editorjs-react-renderer'
+// ** Custom Component Imports
+import TextEditorPreview from 'src/views/shared/TextEditorPreview'
 
 // ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
@@ -27,7 +27,7 @@ const ReviewFundPreviewDetailCard = (props: Props) => {
     <StyledRootCard>
       <CardHeader title='細節' />
       <CardContent>
-        <EditorPreview data={initFundEntity.detail} />
+        <TextEditorPreview blocks={initFundEntity.detail} />
       </CardContent>
     </StyledRootCard>
   )

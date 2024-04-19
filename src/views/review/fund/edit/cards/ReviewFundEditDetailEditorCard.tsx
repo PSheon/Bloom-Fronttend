@@ -6,7 +6,6 @@ import dynamic from 'next/dynamic'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Card, { CardProps } from '@mui/material/Card'
@@ -17,10 +16,10 @@ import LoadingButton from '@mui/lab/LoadingButton'
 // ** Third-Party Imports
 import { OutputData } from '@editorjs/editorjs'
 import { EditorCore } from 'src/views/shared/TextEditor'
-import EditorPreview from 'editorjs-react-renderer'
 
 // ** Custom Component Imports
 const TextEditor = dynamic(() => import('src/views/shared/TextEditor'), { ssr: false })
+import TextEditorPreview from 'src/views/shared/TextEditorPreview'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -100,13 +99,11 @@ const ReviewFundEditDetailEditorCard = (props: Props) => {
         }
       />
       <CardContent>
-        <Box sx={{ pt: 12 }}>
-          {isEditMode ? (
-            <TextEditor blocks={blocks} handleInitializeInstance={handleInitializeInstance} />
-          ) : (
-            <EditorPreview data={blocks} />
-          )}
-        </Box>
+        {isEditMode ? (
+          <TextEditor blocks={blocks} handleInitializeInstance={handleInitializeInstance} />
+        ) : (
+          <TextEditorPreview blocks={blocks} />
+        )}
       </CardContent>
     </StyledRootCard>
   )
