@@ -7,8 +7,14 @@ import mock from 'src/@fake-db/mock'
 // ** Default AuthConfig
 import defaultAuthConfig from 'src/configs/auth'
 
-// ** Types
-import { UserDataType } from 'src/context/types'
+export interface UserDataType {
+  id: number
+  role: string
+  password: string
+  fullName: string
+  username: string
+  email: string
+}
 
 const users: UserDataType[] = [
   {
