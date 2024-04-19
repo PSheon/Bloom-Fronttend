@@ -11,7 +11,9 @@ interface Props {
 
 const ReviewFundEditTokenTabPanel = (props: Props) => {
   // ** Props
-  const { initFundEntity } = props
+  const {
+    /* initFundEntity */
+  } = props
 
   return (
     <TabPanel sx={{ p: 0 }} value='token'>

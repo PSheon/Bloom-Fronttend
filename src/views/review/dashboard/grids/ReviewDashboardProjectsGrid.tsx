@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+// import { useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -26,7 +26,7 @@ import OptionsMenu from 'src/@core/components/option-menu'
 import Icon from 'src/@core/components/icon'
 
 // ** API Imports
-import { useFindQuery } from 'src/store/api/management/fund'
+// import { useFindQuery } from 'src/store/api/management/fund'
 
 // ** Util Imports
 import { getInitials } from 'src/@core/utils/get-initials'
@@ -192,26 +192,24 @@ const data: ProjectsTabType[] = [
 
 const ReviewDashboardProjectsGrid = () => {
   // ** States
-  const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
+  // const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
   // ** Hooks
-  const {
-    data: fundsData,
-    isError: isFindFundListError,
-    isLoading: isFindFundsListLoading
-  } = useFindQuery({
-    filters: {},
-    pagination: {
-      page: paginationModel.page + 1,
-      pageSize: paginationModel.pageSize
-    }
-  })
+  // const {
+  //   data: fundsData,
+  //   isError: isFindFundListError,
+  //   isLoading: isFindFundsListLoading
+  // } = useFindQuery({
+  //   filters: {},
+  //   pagination: {
+  //     page: paginationModel.page + 1,
+  //     pageSize: paginationModel.pageSize
+  //   }
+  // })
 
   // ** Vars
-  const funds = fundsData?.data || []
-  const totalRows = fundsData?.meta.pagination.total || 0
-
-  console.log('🚀 ~ src/views/review/dashboard/grids/ReviewDashboardProjectsGrid.tsx:214 > funds', funds)
+  // const funds = fundsData?.data || []
+  // const totalRows = fundsData?.meta.pagination.total || 0
 
   return (
     <Grid container spacing={6}>

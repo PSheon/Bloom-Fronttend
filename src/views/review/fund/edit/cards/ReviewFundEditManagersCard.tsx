@@ -7,7 +7,9 @@ interface Props {
 
 const ReviewFundEditManagersCard = (props: Props) => {
   // ** Props
-  const { initFundEntity } = props
+  const {
+    /* initFundEntity */
+  } = props
 
   return <>ReviewFundEditManagersCard</>
 }
