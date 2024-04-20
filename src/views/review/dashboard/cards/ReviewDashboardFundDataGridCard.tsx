@@ -56,7 +56,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   }
 }))
 
-const ReviewDashboardFundListCard = () => {
+const ReviewDashboardFundDataGridCard = () => {
   // ** States
   const [filteredFundDisplayname, setFilteredFundDisplayname] = useState<string>('')
   const [filteredStatus, setFilteredStatus] = useState<string>('all')
@@ -303,4 +303,4 @@ const ReviewDashboardFundListCard = () => {
   )
 }
 
-export default ReviewDashboardFundListCard
+export default ReviewDashboardFundDataGridCard

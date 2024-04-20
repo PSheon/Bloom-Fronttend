@@ -8,7 +8,7 @@ import ReviewDashboardBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ReviewDashboardStatisticsOverviewCard from 'src/views/review/dashboard/cards/ReviewDashboardStatisticsOverviewCard'
 import ReviewDashboardRatingsCard from 'src/views/review/dashboard/cards/ReviewDashboardRatingsCard'
 import ReviewDashboardSessionsCard from 'src/views/review/dashboard/cards/ReviewDashboardSessionsCard'
-import ReviewDashboardFundListCard from 'src/views/review/dashboard/cards/ReviewDashboardFundListCard'
+import ReviewDashboardFundDataGridCard from 'src/views/review/dashboard/cards/ReviewDashboardFundDataGridCard'
 
 const ReviewDashboardPage = () => {
   return (
@@ -30,7 +30,7 @@ const ReviewDashboardPage = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <ReviewDashboardFundListCard />
+            <ReviewDashboardFundDataGridCard />
           </Grid>
         </Grid>
       </KeenSliderWrapper>
