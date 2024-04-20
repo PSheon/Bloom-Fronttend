@@ -218,7 +218,9 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
                       width={180}
                       height={256}
                       alt={defaultPackage.displayName}
-                      src={`/images/funds/packages/card-skin/${defaultPackage.skin}-${theme.palette.mode}.webp`}
+                      src={`/images/funds/packages/card-skin/${defaultPackage.skin.toLowerCase()}-${
+                        theme.palette.mode
+                      }.webp`}
                     />
                   </CardContent>
                 </StyledGrid>
