@@ -48,7 +48,7 @@ import ManagementFundEditPackageSkinSelectBox from 'src/views/management/fund/ed
 import ManagementFundEditPackageSlotAddPropertyButton from 'src/views/management/fund/edit/buttons/ManagementFundEditPackageSlotAddPropertyButton'
 
 // ** Util Imports
-import { getFundCurrencyProperties, getPackageStatusProperties } from 'src/utils'
+import { getFundCurrencyProperties, getPackageStatusProperties, getFormattedPriceUnit } from 'src/utils'
 
 // ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
@@ -69,6 +69,7 @@ const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
 
 // ** Styled <sup> Component
 const Sup = styled('sup')(({ theme }) => ({
+  fontSize: '1.2rem',
   top: '0.2rem',
   left: '-0.6rem',
   position: 'absolute',
@@ -267,7 +268,7 @@ const ManagementFundEditDefaultPackagesGrid = (props: Props) => {
                             color: 'primary.main'
                           }}
                         >
-                          {defaultPackage.priceInUnit}
+                          {getFormattedPriceUnit(defaultPackage.priceInUnit)}
                         </Typography>
                       </Stack>
                     </Box>
