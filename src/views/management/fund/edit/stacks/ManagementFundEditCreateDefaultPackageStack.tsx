@@ -128,7 +128,7 @@ const ManagementFundEditCreateDefaultPackageStack = (props: Props) => {
     <Stack direction='row' spacing={4} alignItems='center'>
       <Stack flex='1'>
         <Typography variant='h5'>資金方案</Typography>
-        <Typography variant='body2'>提供方案，以便投資者了解資金的運作方式。</Typography>
+        <Typography variant='body2'>提供方案，以便投資者了解資金的運作方式</Typography>
       </Stack>
       <Stack>
         <Button variant='contained' onClick={handleOpen}>
