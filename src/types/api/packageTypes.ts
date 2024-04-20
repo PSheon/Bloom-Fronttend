@@ -73,6 +73,7 @@ export type UpdateOnePackageParamsType = {
       propertyType: 'DisplayName' | 'Period'
       value: string
     }[]
+    priceInUnit: number
     status: 'Draft' | 'Published' | 'Archived'
   }>
   meta?: {

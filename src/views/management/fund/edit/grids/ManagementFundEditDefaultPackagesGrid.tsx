@@ -26,6 +26,7 @@ import DialogActions from '@mui/material/DialogActions'
 import DialogContentText from '@mui/material/DialogContentText'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
+import InputAdornment from '@mui/material/InputAdornment'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
@@ -80,6 +81,7 @@ const schema = yup.object().shape({
   displayName: yup.string().nullable(),
   description: yup.string().nullable(),
   skin: yup.string().oneOf(['Green', 'Purple', 'Orange']).required(),
+  priceInUnit: yup.number().required(),
   status: yup.string().oneOf(['Draft', 'Published', 'Archived']).required()
 })
 
@@ -90,6 +92,7 @@ interface FormData {
   displayName: string
   description?: string
   skin: SkinType
+  priceInUnit: number
   status: 'Draft' | 'Published' | 'Archived'
 }
 
@@ -114,6 +117,7 @@ const ManagementFundEditDefaultPackagesGrid = (props: Props) => {
       displayName: '',
       description: '',
       skin: 'Green' as SkinType,
+      priceInUnit: 0,
       status: 'Draft' as 'Draft' | 'Published' | 'Archived'
     },
     mode: 'onBlur',
@@ -132,6 +136,7 @@ const ManagementFundEditDefaultPackagesGrid = (props: Props) => {
       displayName: packageEntity.displayName,
       description: packageEntity.description || '',
       skin: packageEntity.skin,
+      priceInUnit: packageEntity.priceInUnit,
       status: packageEntity.status
     })
     setOpenEdit(true)
@@ -142,6 +147,7 @@ const ManagementFundEditDefaultPackagesGrid = (props: Props) => {
       displayName: '',
       description: '',
       skin: 'Green',
+      priceInUnit: 0,
       status: 'Draft'
     })
     setOpenEdit(false)
@@ -157,11 +163,11 @@ const ManagementFundEditDefaultPackagesGrid = (props: Props) => {
     })
   }
   const onSubmit = async (data: FormData) => {
-    const { displayName, description, skin, status } = data
+    const { displayName, description, skin, priceInUnit, status } = data
 
     await updateOnePackage({
       id: selectedPackageEntity!.id,
-      data: { displayName, description, skin, status }
+      data: { displayName, description, skin, priceInUnit, status }
     })
     reset(undefined, { keepValues: true, keepDirty: false, keepDefaultValues: false })
     handleEditClose()
@@ -482,6 +488,40 @@ const ManagementFundEditDefaultPackagesGrid = (props: Props) => {
               </Grid>
 
               <Grid item xs={12}>
+                <Typography variant='subtitle1'>價格</Typography>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <Controller
+                    name='priceInUnit'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        placeholder='$3,500'
+                        value={value}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        error={Boolean(errors.description)}
+                        inputProps={{ type: 'number' }}
+                        InputProps={{
+                          startAdornment: (
+                            <InputAdornment position='start' sx={{ color: 'text.primary' }}>
+                              <Icon icon='mdi:dollar' />
+                            </InputAdornment>
+                          )
+                        }}
+                        sx={{ display: 'flex' }}
+                      />
+                    )}
+                  />
+                  {errors.priceInUnit && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.priceInUnit.message}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+
+              <Grid item xs={12}>
                 <Typography variant='subtitle1'>發布狀態</Typography>
               </Grid>
               <Grid item xs={12}>
@@ -504,8 +544,8 @@ const ManagementFundEditDefaultPackagesGrid = (props: Props) => {
                       </Select>
                     )}
                   />
-                  {errors.description && (
-                    <FormHelperText sx={{ color: 'error.main' }}>{errors.description.message}</FormHelperText>
+                  {errors.status && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.status.message}</FormHelperText>
                   )}
                 </FormControl>
               </Grid>
