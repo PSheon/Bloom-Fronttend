@@ -2,7 +2,6 @@
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
-import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
@@ -136,9 +135,6 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
             <Typography variant='h5' sx={{ mb: 4, fontSize: '1.375rem' }}>
               6,000,122
             </Typography>
-            <Button variant='outlined' startIcon={<Icon icon='mdi:public' fontSize={20} />}>
-              Share
-            </Button>
           </Stack>
         </Box>
       </CardContent>
