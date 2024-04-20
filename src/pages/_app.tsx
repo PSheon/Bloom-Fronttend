@@ -125,13 +125,51 @@ const App = (props: ExtendedAppProps) => {
     <Provider store={store}>
       <CacheProvider value={emotionCache}>
         <Head>
-          <title>{`${themeConfig.templateName} - Material Design React Admin Template`}</title>
+          <title>{`${themeConfig.templateName} - Decentralized RWA Trade Desk`}</title>
+
+          {/* Metadata */}
           <meta
             name='description'
-            content={`${themeConfig.templateName} – Material Design React Admin Dashboard Template – is the most developer friendly & highly customizable Admin Dashboard Template based on MUI v5.`}
+            content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
           />
-          <meta name='keywords' content='Material Design, MUI, Admin Template, React Admin Template' />
+          <meta
+            name='keywords'
+            content='Decentralized finance, RWA trading platform, Cryptocurrency trading, Decentralized lending, Blockchain financial platform, Cryptocurrency exchange, Blockchain collateral, Crypto collateral, Decentralized finance market, DeFi trading platform, Decentralized lending platform'
+          />
           <meta name='viewport' content='initial-scale=1, width=device-width' />
+          <meta name='publisher' content='Bloom' />
+          <meta name='apple-mobile-web-app-title' content='Bloom' />
+          <meta name='application-name' content='Bloom' />
+          <meta name='msapplication-TileColor' content='#da532c' />
+          <meta name='theme-color' content='#f7f7f9' />
+
+          {/* Link */}
+          <link rel='icon' type='image/x-icon' href='/seo/favicon.ico' />
+          <link rel='apple-touch-icon' sizes='180x180' href='/seo/apple-touch-icon.png' />
+          <link rel='icon' type='image/png' sizes='32x32' href='/seo/favicon-32x32.png' />
+          <link rel='icon' type='image/png' sizes='16x16' href='/seo/favicon-16x16.png' />
+          <link rel='mask-icon' href='/seo/safari-pinned-tab.svg' color='#5bbad5' />
+          <link rel='manifest' href='/seo/site.webmanifest' />
+
+          {/* OG */}
+          <meta property='og:title' content={`${themeConfig.templateName} - Decentralized RWA Trade Desk`} />
+          <meta
+            property='og:description'
+            content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
+          />
+          <meta property='og:image' content='https://bloom.media.app/seo/banner.jpeg' />
+          <meta property='og:url' content='https://bloom.media.app' />
+          <meta property='og:site_name' content={themeConfig.templateName} />
+          <meta property='og:type' content='website' />
+
+          {/* Twitter */}
+          <meta name='twitter:card' content='summary_large_image' />
+          <meta name='twitter:title' content={`${themeConfig.templateName} - Decentralized RWA Trade Desk`} />
+          <meta
+            name='twitter:description'
+            content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
+          />
+          <meta name='twitter:image' content='https://bloom.media.app/seo/banner.jpeg' />
         </Head>
 
         <AuthProvider>
