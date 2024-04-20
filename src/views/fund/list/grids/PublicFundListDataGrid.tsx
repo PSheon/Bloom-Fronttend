@@ -1,5 +1,6 @@
 // ** Next Imports
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
@@ -49,6 +50,14 @@ const PublicFundListDataGrid = (props: Props) => {
   // ** Props
   const { funds, totalRows, isFundListLoading } = props
 
+  // ** Hooks
+  const router = useRouter()
+
+  // ** Logics
+  const handleRedirectToFund = (fundId: number) => {
+    router.push(`/fund/live/${fundId}`)
+  }
+
   // ** Renders
   const renderTableDataGrid = () => {
     if (isFundListLoading) {
@@ -80,6 +89,7 @@ const PublicFundListDataGrid = (props: Props) => {
             return (
               <Grid key={`fund-${fund.id}`} item xs={12} md={6} xl={4}>
                 <Card
+                  onClick={() => handleRedirectToFund(fund.id)}
                   sx={{
                     border: '1px transparent solid',
                     cursor: 'pointer',
@@ -109,18 +119,8 @@ const PublicFundListDataGrid = (props: Props) => {
                       </AvatarGroup>
                     }
                     sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}
-                    action={
-                      <Button
-                        component={Link}
-                        href={`/fund/live/${fund.id}`}
-                        variant='contained'
-                        sx={{ alignSelf: 'center' }}
-                      >
-                        查看
-                      </Button>
-                    }
                     title={
-                      <Typography variant='h5' sx={{ fontSize: '1.375rem' }}>
+                      <Typography variant='h6' sx={{ fontSize: '1.375rem' }}>
                         {fund.displayName}
                       </Typography>
                     }
