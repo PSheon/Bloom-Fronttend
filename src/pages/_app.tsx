@@ -158,6 +158,9 @@ const App = (props: ExtendedAppProps) => {
             content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
           />
           <meta property='og:image' content='https://bloom.media.app/seo/banner.jpeg' />
+          <meta property='og:image:type' content='image/jpeg' />
+          <meta property='og:image:width' content='1200' />
+          <meta property='og:image:height' content='800' />
           <meta property='og:url' content='https://bloom.media.app' />
           <meta property='og:site_name' content={themeConfig.templateName} />
           <meta property='og:type' content='website' />
@@ -170,6 +173,9 @@ const App = (props: ExtendedAppProps) => {
             content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
           />
           <meta name='twitter:image' content='https://bloom.media.app/seo/banner.jpeg' />
+          <meta name='twitter:image:type' content='image/jpeg' />
+          <meta property='twitter:image:width' content='1200' />
+          <meta property='twitter:image:height' content='800' />
         </Head>
 
         <AuthProvider>
