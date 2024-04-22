@@ -67,7 +67,12 @@ const ManagementAnnouncementListPage = () => {
   const debouncedFilteredAnnouncementDisplayname = useDebounce(filteredAnnouncementDisplayname, 300)
 
   // ** Hooks
-  const { data: announcementsData, isLoading: isAnnouncementListLoading } = useFindQuery({
+  const {
+    data: announcementsData,
+    isLoading: isAnnouncementListLoading,
+    refetch: refetchAnnouncementList,
+    isFetching: isAnnouncementListFetching
+  } = useFindQuery({
     filters: {
       ...(debouncedFilteredAnnouncementDisplayname !== '' && {
         $or: [{ displayName: { $containsi: debouncedFilteredAnnouncementDisplayname } }]
@@ -232,6 +237,9 @@ const ManagementAnnouncementListPage = () => {
   const handleHighlightAnnouncement = async (id: number, isHighlighted: boolean) => {
     await updateAnnouncement({ id, data: { isHighlighted } })
   }
+  const handleRefetchAnnouncementList = () => {
+    refetchAnnouncementList()
+  }
 
   return (
     <Grid container spacing={6}>
@@ -247,11 +255,12 @@ const ManagementAnnouncementListPage = () => {
             handleFilterIsPublishedChange={handleFilterIsPublishedChange}
             filteredIsHighlighted={filteredIsHighlighted}
             handleIsHighlightedChange={handleIsHighlightedChange}
+            handleRefetchAnnouncementList={handleRefetchAnnouncementList}
           />
           <DataGrid
             autoHeight
             rows={announcements}
-            loading={isAnnouncementListLoading}
+            loading={isAnnouncementListLoading || isAnnouncementListFetching}
             columns={columns}
             checkboxSelection
             disableRowSelectionOnClick

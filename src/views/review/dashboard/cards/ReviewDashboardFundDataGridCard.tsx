@@ -65,7 +65,12 @@ const ReviewDashboardFundDataGridCard = () => {
   const debouncedFilteredFundDisplayname = useDebounce(filteredFundDisplayname, 300)
 
   // ** Hooks
-  const { data: fundsData, isLoading: isFundListLoading } = useFindQuery({
+  const {
+    data: fundsData,
+    isLoading: isFundListLoading,
+    refetch: refetchFundList,
+    isFetching: isFundListFetching
+  } = useFindQuery({
     filters: {
       ...(debouncedFilteredFundDisplayname !== '' && {
         $or: [{ displayName: { $containsi: debouncedFilteredFundDisplayname } }]
@@ -275,6 +280,9 @@ const ReviewDashboardFundDataGridCard = () => {
   const handleHighlightFund = async (id: number, isHighlighted: boolean) => {
     await updateFund({ id, data: { isHighlighted } })
   }
+  const handleRefetchFundList = () => {
+    refetchFundList()
+  }
 
   return (
     <Card>
@@ -285,11 +293,12 @@ const ReviewDashboardFundDataGridCard = () => {
         handleFilterStatusChange={handleFilterStatusChange}
         filteredIsHighlighted={filteredIsHighlighted}
         handleIsHighlightedChange={handleIsHighlightedChange}
+        handleRefetchFundList={handleRefetchFundList}
       />
       <DataGrid
         autoHeight
         rows={funds}
-        loading={isFundListLoading}
+        loading={isFundListLoading || isFundListFetching}
         columns={columns}
         checkboxSelection
         disableRowSelectionOnClick

@@ -8,6 +8,7 @@ import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
@@ -27,11 +28,18 @@ interface Props {
   handleFilterMediaAssetName: (e: ChangeEvent<HTMLInputElement>) => void
   filteredExtension: string
   handleFilterExtensionChange: (e: SelectChangeEvent) => void
+  handleRefetchMediaAssetList: () => void
 }
 
 const ManagementMediaAssetListHeaderCardContent = (props: Props) => {
   // ** Props
-  const { filteredMediaAssetName, handleFilterMediaAssetName, filteredExtension, handleFilterExtensionChange } = props
+  const {
+    filteredMediaAssetName,
+    handleFilterMediaAssetName,
+    filteredExtension,
+    handleFilterExtensionChange,
+    handleRefetchMediaAssetList
+  } = props
 
   // ** States
   const [isShowFilters, serIsShowFilters] = useState<boolean>(false)
@@ -56,7 +64,12 @@ const ManagementMediaAssetListHeaderCardContent = (props: Props) => {
               placeholder='尋找文件名稱'
               onChange={handleFilterMediaAssetName}
               InputProps={{
-                startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>
+                startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>,
+                endAdornment: (
+                  <IconButton onClick={handleRefetchMediaAssetList}>
+                    <Icon icon='mdi:reload' fontSize={20} />
+                  </IconButton>
+                )
               }}
             />
           </Stack>

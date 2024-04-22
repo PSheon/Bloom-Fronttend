@@ -8,6 +8,7 @@ import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
@@ -31,6 +32,7 @@ interface Props {
   handleBlockStatusChange: (e: SelectChangeEvent) => void
   filteredIsHighlighted: string
   handleIsHighlightedChange: (e: SelectChangeEvent) => void
+  handleRefetchUserList: () => void
 }
 
 const ManagementUserListHeaderCardContent = (props: Props) => {
@@ -43,7 +45,8 @@ const ManagementUserListHeaderCardContent = (props: Props) => {
     filteredBlockStatus,
     handleBlockStatusChange,
     filteredIsHighlighted,
-    handleIsHighlightedChange
+    handleIsHighlightedChange,
+    handleRefetchUserList
   } = props
 
   // ** States
@@ -70,7 +73,12 @@ const ManagementUserListHeaderCardContent = (props: Props) => {
               placeholder='尋找名稱或信箱'
               onChange={handleFilterUsernameOrEmail}
               InputProps={{
-                startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>
+                startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>,
+                endAdornment: (
+                  <IconButton onClick={handleRefetchUserList}>
+                    <Icon icon='mdi:reload' fontSize={20} />
+                  </IconButton>
+                )
               }}
             />
           </Stack>

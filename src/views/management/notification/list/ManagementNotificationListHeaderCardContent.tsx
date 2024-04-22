@@ -8,6 +8,7 @@ import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
@@ -26,6 +27,7 @@ interface Props {
   handleFilterIsSeenChange: (e: SelectChangeEvent) => void
   filteredIsHighlighted: string
   handleIsHighlightedChange: (e: SelectChangeEvent) => void
+  handleRefetchNotificationList: () => void
 }
 
 const ManagementNotificationListHeaderCardContent = (props: Props) => {
@@ -36,7 +38,8 @@ const ManagementNotificationListHeaderCardContent = (props: Props) => {
     filteredIsSeen,
     handleFilterIsSeenChange,
     filteredIsHighlighted,
-    handleIsHighlightedChange
+    handleIsHighlightedChange,
+    handleRefetchNotificationList
   } = props
 
   // ** States
@@ -62,7 +65,12 @@ const ManagementNotificationListHeaderCardContent = (props: Props) => {
               placeholder='尋找通知名稱'
               onChange={handleFilterNotificationTitle}
               InputProps={{
-                startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>
+                startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>,
+                endAdornment: (
+                  <IconButton onClick={handleRefetchNotificationList}>
+                    <Icon icon='mdi:reload' fontSize={20} />
+                  </IconButton>
+                )
               }}
             />
           </Stack>

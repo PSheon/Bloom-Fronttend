@@ -74,7 +74,12 @@ const ManagementUserListPage = () => {
   const debouncedFilteredUsernameOrEmail = useDebounce(filteredUsernameOrEmail, 300)
 
   // ** Hooks
-  const { data: usersData, isLoading: isUserListLoading } = useFindQuery({
+  const {
+    data: usersData,
+    isLoading: isUserListLoading,
+    refetch: refetchUserList,
+    isFetching: isUserListFetching
+  } = useFindQuery({
     filters: {
       ...(debouncedFilteredUsernameOrEmail !== '' && {
         $or: [
@@ -268,6 +273,9 @@ const ManagementUserListPage = () => {
   const handleHighlightUser = async (id: number, isHighlighted: boolean) => {
     await updateUser({ id, data: { isHighlighted } })
   }
+  const handleRefetchUserList = () => {
+    refetchUserList()
+  }
 
   return (
     <Grid container spacing={6}>
@@ -285,10 +293,11 @@ const ManagementUserListPage = () => {
             handleBlockStatusChange={handleBlockStatusChange}
             filteredIsHighlighted={filteredIsHighlighted}
             handleIsHighlightedChange={handleIsHighlightedChange}
+            handleRefetchUserList={handleRefetchUserList}
           />
           <DataGrid
             autoHeight
-            loading={isUserListLoading}
+            loading={isUserListLoading || isUserListFetching}
             rows={users}
             columns={columns}
             checkboxSelection
