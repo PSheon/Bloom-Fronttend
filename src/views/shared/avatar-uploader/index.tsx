@@ -19,15 +19,13 @@ import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
 import { useDropzone } from 'react-dropzone'
+import { useSession } from 'next-auth/react'
 
 // ** Core Component Imports
 import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 
 // ** API Imports
 import { useUploadMutation } from 'src/store/api/management/mediaAsset'
@@ -60,7 +58,7 @@ const AvatarUploader = (props: Props) => {
   const [files, setFiles] = useState<File[]>([])
 
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     maxSize: 20_000_000,
@@ -93,7 +91,7 @@ const AvatarUploader = (props: Props) => {
     const formData = new FormData()
 
     formData.append('files', files[0])
-    formData.append('fileInfo', JSON.stringify(getAvatarFileInfo(files[0], auth.user!)))
+    formData.append('fileInfo', JSON.stringify(getAvatarFileInfo(files[0], session.data!.user!)))
 
     uploadMediaAssets(formData)
   }

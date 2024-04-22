@@ -1,3 +1,7 @@
+/*
+ * Deprecated
+ */
+
 export default {
   meEndpoint: '/api/users/me',
   loginEndpoint: '/api/auth/local',

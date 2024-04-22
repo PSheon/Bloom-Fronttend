@@ -23,6 +23,7 @@ import { requestSheetApi } from 'src/store/api/management/requestSheet'
 import { reviewApi } from 'src/store/api/management/review'
 import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
 import { statisticApi } from 'src/store/api/statistic'
+import { authApi } from 'src/store/api/auth'
 
 export const store = configureStore({
   reducer: {
@@ -44,7 +45,8 @@ export const store = configureStore({
     [requestSheetApi.reducerPath]: requestSheetApi.reducer,
     [reviewApi.reducerPath]: reviewApi.reducer,
     [roleAndPermissionApi.reducerPath]: roleAndPermissionApi.reducer,
-    [statisticApi.reducerPath]: statisticApi.reducer
+    [statisticApi.reducerPath]: statisticApi.reducer,
+    [authApi.reducerPath]: authApi.reducer
   },
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
@@ -61,7 +63,8 @@ export const store = configureStore({
       requestSheetApi.middleware,
       reviewApi.middleware,
       roleAndPermissionApi.middleware,
-      statisticApi.middleware
+      statisticApi.middleware,
+      authApi.middleware
     ])
 })
 

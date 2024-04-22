@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, ReactNode } from 'react'
+import { ReactNode } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -18,6 +18,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import toast from 'react-hot-toast'
 
 // ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
@@ -30,16 +31,15 @@ import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 import Icon from 'src/@core/components/icon'
 
 // ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** API Imports
+import { useForgotPasswordMutation } from 'src/store/api/auth'
 
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Type Imports
-import { AxiosError } from 'axios'
-
-// Styled Components
+// ** Styled Components
 const ForgotPasswordIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
   padding: theme.spacing(20),
   paddingRight: '0 !important',
@@ -96,7 +96,7 @@ const schema = yup.object().shape({
 })
 
 const defaultValues = {
-  email: 'pauljiang61020@gmail.com'
+  email: ''
 }
 
 interface FormData {
@@ -105,12 +105,9 @@ interface FormData {
 
 const AuthForgotPasswordPage = () => {
   // ** Hooks
-  const auth = useAuth()
   const theme = useTheme()
   const { settings } = useSettings()
-
-  // ** States
-  const [isForgotPasswordLoading, setIsForgotPasswordLoading] = useState<boolean>(false)
+  const [forgotPassword, { isLoading: isForgotPasswordLoading }] = useForgotPasswordMutation()
 
   // ** Vars
   const { skin } = settings
@@ -129,30 +126,30 @@ const AuthForgotPasswordPage = () => {
 
   const onSubmit = async (data: FormData) => {
     const { email } = data
-    setIsForgotPasswordLoading(true)
 
-    try {
-      await auth.forgotPassword({ email })
-      setIsForgotPasswordLoading(false)
-    } catch (error) {
-      setIsForgotPasswordLoading(false)
-      let errorMessage = 'Internal Server Error'
+    forgotPassword({ email })
+      .unwrap()
+      .then(({ ok }) => {
+        if (ok) {
+          toast.success('We have sent you an email, please check your inbox.')
+        }
+      })
+      .catch(error => {
+        let errorMessage = 'Internal Server Error'
 
-      if (error instanceof AxiosError) {
-        if (error?.response?.status === 404) {
+        if (error?.status === 404) {
           errorMessage = 'Email not found'
-        } else if (error?.response?.status === 401) {
+        } else if (error?.status === 401) {
           errorMessage = 'You have been blocked by the administrator'
-        } else if (error?.response?.status === 429) {
+        } else if (error?.status === 429) {
           errorMessage = 'We have already sent you an email, please check your inbox or wait 3 minutes'
         }
-      }
 
-      setError('email', {
-        type: 'manual',
-        message: errorMessage
+        setError('email', {
+          type: 'manual',
+          message: errorMessage
+        })
       })
-    }
   }
 
   const imageSource =
@@ -218,7 +215,6 @@ const AuthForgotPasswordPage = () => {
                       onBlur={onBlur}
                       onChange={onChange}
                       error={Boolean(errors.email)}
-                      sx={{ display: 'flex', mb: 4 }}
                     />
                   )}
                 />

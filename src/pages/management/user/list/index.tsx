@@ -37,7 +37,7 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getPublicMediaAssetUrl, getUserRoleAttributes } from 'src/utils'
 
 // ** Type Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 interface CellType {
   row: UserDataType

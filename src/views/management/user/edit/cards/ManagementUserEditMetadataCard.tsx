@@ -10,7 +10,7 @@ import Divider from '@mui/material/Divider'
 import { format } from 'date-fns'
 
 // ** Type Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 interface Props {
   initUserEntity: UserDataType

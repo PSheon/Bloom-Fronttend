@@ -1,5 +1,5 @@
 // ** Context Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 // ** Type Imports
 import { BaseApiResponseType } from 'src/types/api/baseApiTypes'

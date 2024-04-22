@@ -3,6 +3,7 @@ import { useState, ReactNode, MouseEvent } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // ** MUI Components
 import Alert from '@mui/material/Alert'
@@ -26,6 +27,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { signIn } from 'next-auth/react'
 
 // ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
@@ -38,7 +40,6 @@ import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 import Icon from 'src/@core/components/icon'
 
 // ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 import useBgColor from 'src/@core/hooks/useBgColor'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
@@ -120,7 +121,7 @@ const AuthLoginPage = () => {
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   // ** Hooks
-  const auth = useAuth()
+  const router = useRouter()
   const theme = useTheme()
   const bgColors = useBgColor()
   const { settings } = useSettings()
@@ -145,7 +146,19 @@ const AuthLoginPage = () => {
     setIsLoginLoading(true)
 
     try {
-      await auth.login({ identifier: email, password, rememberMe })
+      await signIn('credentials', { identifier: email, password, rememberMe, redirect: false }).then(res => {
+        if (res && res.ok) {
+          const returnUrl = router.query.returnUrl
+          const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+
+          router.replace(redirectURL as string)
+        } else {
+          setError('email', {
+            type: 'manual',
+            message: 'Email or Password is invalid'
+          })
+        }
+      })
     } catch (error) {
       setIsLoginLoading(false)
       let errorMessage = 'Internal Server Error'

@@ -7,12 +7,10 @@ import { useDispatch } from 'react-redux'
 // ** Third-Party Imports
 import { io } from 'socket.io-client'
 import toast from 'react-hot-toast'
+import { useSession } from 'next-auth/react'
 
 // ** Action Imports
 import { setGlobalSocket, setSocketConnection } from 'src/store/dashboard'
-
-// ** Config Imports
-import authConfig from 'src/configs/auth'
 
 interface Props {
   children: ReactNode
@@ -24,15 +22,14 @@ const SystemDashboardSocketProvider = (props: Props) => {
 
   // ** Hooks
   const dispatch = useDispatch()
+  const session = useSession()
 
   // ** Side Effects
   useEffect(() => {
-    const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
-
     const socketInstance = io(process.env.NEXT_PUBLIC_BACKEND_URL as string, {
       auth: {
         stragey: 'apiToken',
-        token: storedToken
+        token: session.data!.accessToken
       }
     })
 
@@ -60,7 +57,7 @@ const SystemDashboardSocketProvider = (props: Props) => {
       socketInstance.off('connect_error', onConnectError)
       socketInstance.off('disconnect', onDisconnect)
     }
-  }, [dispatch])
+  }, [dispatch, session.data])
 
   return <Fragment>{children}</Fragment>
 }

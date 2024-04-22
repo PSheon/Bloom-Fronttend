@@ -9,7 +9,7 @@ import ManagementUserEditMetadataCard from 'src/views/management/user/edit/cards
 import ManagementUserEditTabContext from 'src/views/management/user/edit/tabs/ManagementUserEditTabContext'
 
 // ** Type Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 interface Props {
   initUserEntity: UserDataType

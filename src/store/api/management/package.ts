@@ -4,12 +4,10 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 // ** Third-Party Imports
 import qs from 'qs'
 import toast from 'react-hot-toast'
+import { getSession } from 'next-auth/react'
 
 // ** API Imports
 import fundApi from 'src/store/api/management/fund'
-
-// ** Config Imports
-import authConfig from 'src/configs/auth'
 
 // ** Type Imports
 import {
@@ -35,9 +33,9 @@ export const packageApi = createApi({
   reducerPath: PACKAGE_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
-    prepareHeaders: headers => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
-      headers.set('Authorization', `Bearer ${storedToken}`)
+    prepareHeaders: async headers => {
+      const session = await getSession()
+      headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers
     }

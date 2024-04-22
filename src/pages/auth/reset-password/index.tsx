@@ -35,14 +35,11 @@ import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
+// ** API Imports
+import { useResetPasswordMutation } from 'src/store/api/auth'
 
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
-
-// ** Type Imports
-import { AxiosError } from 'axios'
 
 // ** Styled Components
 const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
@@ -61,13 +58,12 @@ interface FormData {
 
 const AuthResetPasswordPage = () => {
   // ** States
-  const [isResetPasswordLoading, setIsResetPasswordLoading] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   // ** Hook
-  const auth = useAuth()
   const theme = useTheme()
   const router = useRouter()
+  const [resetPassword, { isLoading: isResetPasswordLoading }] = useResetPasswordMutation()
   const {
     control,
     setError,
@@ -96,31 +92,30 @@ const AuthResetPasswordPage = () => {
       return
     }
 
-    try {
-      await auth.resetPassword({ password, passwordConfirmation, resetPasswordToken })
-      setIsResetPasswordLoading(false)
-      toast.success('密碼重設成功，請重新登入')
-      router.push('/auth/login')
-    } catch (error) {
-      setIsResetPasswordLoading(false)
-      let errorMessage = 'Internal Server Error'
+    resetPassword({ password, passwordConfirmation, resetPasswordToken })
+      .unwrap()
+      .then(({ ok }) => {
+        if (ok) {
+          toast.success('Password reset successfully, please login again.')
+          router.push('/auth/login')
+        }
+      })
+      .catch(error => {
+        let errorMessage = 'Internal Server Error'
 
-      if (error instanceof AxiosError) {
-        if (error?.response?.status === 404) {
+        if (error?.status === 404) {
           errorMessage = 'Incorrect code provided'
-        } else if (error?.response?.status === 429) {
+        } else if (error?.status === 429) {
           errorMessage = 'We have already sent you an email, please check your inbox or wait 3 minutes'
         }
-      }
 
-      setError('passwordConfirmation', {
-        type: 'manual',
-        message: errorMessage
+        setError('passwordConfirmation', {
+          type: 'manual',
+          message: errorMessage
+        })
+
+        toast.error(errorMessage)
       })
-
-      toast.success(errorMessage)
-      router.push('/auth/login')
-    }
   }
 
   // ** Side Effects

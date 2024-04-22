@@ -20,12 +20,10 @@ import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
 import { EditorState, ContentState, convertToRaw } from 'draft-js'
+import { useSession } from 'next-auth/react'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 
 // ** API Imports
 import { useCreateMutation } from 'src/store/api/management/announcement'
@@ -62,7 +60,7 @@ const ManagementAnnouncementAddPage = () => {
   )
 
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
   const router = useRouter()
   const [createNewAnnounce, { data: createdAnnouncement, isLoading: isCreateNewAnnouncementLoading }] =
     useCreateMutation()
@@ -82,7 +80,7 @@ const ManagementAnnouncementAddPage = () => {
     const { displayName } = data
 
     await createNewAnnounce({
-      data: { displayName, content: convertToRaw(content.getCurrentContent()), author: auth.user!.id }
+      data: { displayName, content: convertToRaw(content.getCurrentContent()), author: session.data!.user!.id }
     })
   }
 

@@ -3,6 +3,7 @@ import { Fragment, ReactNode, useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // ** MUI Components
 import Divider from '@mui/material/Divider'
@@ -40,8 +41,10 @@ import Icon from 'src/@core/components/icon'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** API Imports
+import { useRegisterMutation } from 'src/store/api/auth'
 
 // ** Type Imports
 import { AxiosError } from 'axios'
@@ -109,9 +112,9 @@ const schema = yup.object().shape({
 })
 
 const defaultValues = {
-  username: 'PSheon',
-  email: 'pauljiang61020@gmail.com',
-  password: 'Admin123'
+  username: '',
+  email: '',
+  password: ''
 }
 
 interface FormData {
@@ -122,15 +125,15 @@ interface FormData {
 
 const AuthRegisterPage = () => {
   // ** States
-  const [isRegisterLoading, setIsRegisterLoading] = useState<boolean>(false)
   const [isAgreeTerms, setIsAgreeTerms] = useState<boolean>(false)
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
   // ** Hooks
-  const auth = useAuth()
+  const router = useRouter()
   const theme = useTheme()
   const { settings } = useSettings()
   const hidden = useMediaQuery(theme.breakpoints.down('md'))
+  const [register, { isLoading: isRegisterLoading }] = useRegisterMutation()
 
   // ** Vars
   const { skin } = settings
@@ -146,29 +149,29 @@ const AuthRegisterPage = () => {
     resolver: yupResolver(schema)
   })
 
+  /* TODO: Migrate here to next-auth flow */
   const onSubmit = async (data: FormData) => {
     const { username, email, password } = data
-    setIsRegisterLoading(true)
 
-    try {
-      await auth.register({ username, email, password })
-    } catch (error) {
-      setIsRegisterLoading(false)
-      let errorMessage = 'Internal Server Error'
-
-      if (error instanceof AxiosError) {
-        if (error?.response?.status === 400) {
-          errorMessage = 'Email or Username are already taken"'
-        } else if (error?.response?.status === 429) {
-          errorMessage = 'You have exceeded the number of login attempts'
-        }
-      }
-
-      setError('email', {
-        type: 'manual',
-        message: errorMessage
+    register({ username, email, password })
+      .unwrap()
+      .then(({ user }) => {
+        router.replace(`/auth/verify-email?email=${user.email}`)
       })
-    }
+      .catch(error => {
+        let errorMessage = 'Internal Server Error'
+        if (error instanceof AxiosError) {
+          if (error?.response?.status === 400) {
+            errorMessage = 'Email or Username are already taken"'
+          } else if (error?.response?.status === 429) {
+            errorMessage = 'You have exceeded the number of login attempts'
+          }
+        }
+        setError('email', {
+          type: 'manual',
+          message: errorMessage
+        })
+      })
   }
 
   const imageSource = skin === 'bordered' ? 'auth-v2-register-illustration-bordered' : 'auth-v2-register-illustration'
@@ -246,7 +249,6 @@ const AuthRegisterPage = () => {
                   rules={{ required: true }}
                   render={({ field: { value, onChange, onBlur } }) => (
                     <TextField
-                      autoFocus
                       label='Email'
                       type='email'
                       value={value}

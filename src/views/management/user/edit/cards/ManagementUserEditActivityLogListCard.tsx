@@ -20,7 +20,7 @@ import { useFindQuery } from 'src/store/api/management/activityLog'
 
 // ** Type Imports
 import { ActivityLogType } from 'src/types/api/activityLogTypes'
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 interface CellType {
   row: ActivityLogType

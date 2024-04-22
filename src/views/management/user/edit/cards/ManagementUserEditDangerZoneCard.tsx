@@ -14,17 +14,17 @@ import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import LoadingButton from '@mui/lab/LoadingButton'
 
+// ** Third-Party Components
+import { useSession } from 'next-auth/react'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 
 // ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/user'
 
 // ** Type Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 interface Props {
   initUserEntity: UserDataType
@@ -38,7 +38,7 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
   const [suspendDialogOpen, setSuspendDialogOpen] = useState<boolean>(false)
 
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
   const [updateUser, { data: updatedUser = initUserEntity, isLoading: isUpdateUserLoading }] = useUpdateOneMutation()
 
   // ** Logics
@@ -78,7 +78,7 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
           <Button
             color='error'
             variant='outlined'
-            disabled={auth.user!.id === initUserEntity.id}
+            disabled={session.data!.user.id === initUserEntity.id}
             onClick={() => setSuspendDialogOpen(true)}
           >
             封鎖帳號

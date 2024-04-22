@@ -25,7 +25,7 @@ import { useFindQuery } from 'src/store/api/management/accessLog'
 // ** Type Imports
 import { AccessLogType } from 'src/types/api/accessLogTypes'
 import { ThemeColor } from 'src/@core/layouts/types'
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 interface CellType {
   row: AccessLogType

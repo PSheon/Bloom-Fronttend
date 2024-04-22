@@ -20,11 +20,11 @@ import MenuItem from '@mui/material/MenuItem'
 import Skeleton from '@mui/material/Skeleton'
 import LoadingButton from '@mui/lab/LoadingButton'
 
+// ** Third-Party Components
+import { useSession } from 'next-auth/react'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 
 // ** API Imports
 import { useFindQuery } from 'src/store/api/roleAndPermission'
@@ -37,7 +37,7 @@ import { getUserRoleAttributes } from 'src/utils'
 import { Permissions } from 'src/configs/acl'
 
 // ** Type Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 interface Props {
   initUserEntity: UserDataType
@@ -52,7 +52,7 @@ const ManagementUserEditRoleCard = (props: Props) => {
   const [selectedRoleId, setSelectedRoleId] = useState<number>(initUserEntity.role!.id)
 
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
   const { data: roles = [], isLoading: isFindRolesLoading } = useFindQuery(null)
   const [updateUser, { data: updatedUser = initUserEntity, isLoading: isUpdateUserLoading }] = useUpdateOneMutation()
 
@@ -117,7 +117,7 @@ const ManagementUserEditRoleCard = (props: Props) => {
             <Button
               fullWidth
               variant='contained'
-              disabled={auth.user!.id === initUserEntity.id}
+              disabled={session.data!.user.id === initUserEntity.id}
               onClick={handleEditOpen}
             >
               變更權限
@@ -162,7 +162,7 @@ const ManagementUserEditRoleCard = (props: Props) => {
                 ) : (
                   <Select
                     fullWidth
-                    disabled={auth.user!.id === initUserEntity.id}
+                    disabled={session.data!.user.id === initUserEntity.id}
                     value={selectedRoleId.toString(10)}
                     onChange={handleRoleSelected}
                   >

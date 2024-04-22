@@ -9,6 +9,7 @@ import axios from 'axios'
 import toast from 'react-hot-toast'
 import { OutputData, EditorConfig } from '@editorjs/editorjs'
 import { createReactEditorJS } from 'react-editor-js'
+import { useSession, getSession } from 'next-auth/react'
 
 // @ts-ignore
 import Paragraph from '@editorjs/paragraph'
@@ -47,18 +48,14 @@ import Header from '@editorjs/header'
 import DragDrop from 'editorjs-drag-drop'
 
 // ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Util Imports
 import { getAvatarFileInfo, getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Config Imports
-import authConfig from 'src/configs/auth'
-
 class EnhancedImage extends Image {
   async removed() {
-    const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
+    const session = await getSession()
 
     // @ts-ignore
     const { file } = this._data
@@ -66,7 +63,7 @@ class EnhancedImage extends Image {
     try {
       await axios.delete(`/api/upload/files/${file.mediaAssetId}`, {
         headers: {
-          Authorization: `Bearer ${storedToken}`
+          Authorization: `Bearer ${session?.accessToken}`
         }
       })
       toast.success('Image removed!')
@@ -139,7 +136,7 @@ const TextEditor = (props: Props) => {
   const editorCore = useRef<EditorCore | null>(null)
 
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
   const { settings } = useSettings()
 
   // ** Vars
@@ -162,17 +159,15 @@ const TextEditor = (props: Props) => {
       config: {
         uploader: {
           async uploadByFile(file: File) {
-            const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
-
             const formData = new FormData()
             formData.append('files', file)
-            formData.append('fileInfo', JSON.stringify(getAvatarFileInfo(file, auth.user!)))
+            formData.append('fileInfo', JSON.stringify(getAvatarFileInfo(file, session.data!.user!)))
 
             try {
-              const res = await axios.post('/api/upload', formData, {
+              const res = await axios.post(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/upload`, formData, {
                 headers: {
                   'Content-Type': 'multipart/form-data',
-                  Authorization: `Bearer ${storedToken}`
+                  Authorization: `Bearer ${session.data!.accessToken}`
                 }
               })
               const mediaAssetId = res.data[0].id

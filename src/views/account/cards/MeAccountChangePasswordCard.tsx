@@ -18,15 +18,16 @@ import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
 import * as yup from 'yup'
-import { AxiosError } from 'axios'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useSession } from 'next-auth/react'
+import toast from 'react-hot-toast'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
+// ** API Imports
+import { useChangePasswordMutation } from 'src/store/api/auth'
 
 interface PasswordVisibilityState {
   showCurrentPassword: boolean
@@ -64,10 +65,10 @@ const MeAccountChangePasswordCard = () => {
     showNewPassword: false,
     showNewPasswordConfirmation: false
   })
-  const [isChangePasswordLoading, setIsChangePasswordLoading] = useState<boolean>(false)
 
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
+  const [changePassword, { isLoading: isChangePasswordLoading }] = useChangePasswordMutation()
   const {
     reset,
     control,
@@ -99,28 +100,26 @@ const MeAccountChangePasswordCard = () => {
   const onPasswordFormSubmit = async (data: FormData) => {
     const { currentPassword, newPassword, newPasswordConfirmation } = data
 
-    setIsChangePasswordLoading(true)
-    try {
-      await auth.changePassword({ currentPassword, newPassword, newPasswordConfirmation })
-      setIsChangePasswordLoading(false)
-      reset({}, { keepDirty: false })
-    } catch (error) {
-      setIsChangePasswordLoading(false)
-      let errorMessage = 'Internal Server Error'
+    changePassword({ currentPassword, newPassword, newPasswordConfirmation, accessToken: session.data!.accessToken })
+      .unwrap()
+      .then(() => {
+        toast.success('密碼已更改')
+        reset({}, { keepDirty: false })
+      })
+      .catch(error => {
+        let errorMessage = 'Internal Server Error'
 
-      if (error instanceof AxiosError) {
-        if (error?.response?.status === 400) {
-          errorMessage = error?.response?.data?.error?.message
-        } else if (error?.response?.status === 429) {
+        if (error?.status === 400) {
+          errorMessage = error?.data?.error?.message
+        } else if (error?.status === 429) {
           errorMessage = 'You have exceeded the number of login attempts'
         }
-      }
 
-      setError('currentPassword', {
-        type: 'manual',
-        message: errorMessage
+        setError('currentPassword', {
+          type: 'manual',
+          message: errorMessage
+        })
       })
-    }
   }
 
   return (

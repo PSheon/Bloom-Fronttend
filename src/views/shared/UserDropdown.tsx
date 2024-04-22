@@ -1,9 +1,6 @@
 // ** React Imports
 import { useState, SyntheticEvent, Fragment } from 'react'
 
-// ** Context Imports
-import { useAuth } from 'src/hooks/useAuth'
-
 // ** Next Imports
 import { useRouter } from 'next/router'
 
@@ -16,6 +13,9 @@ import Avatar from '@mui/material/Avatar'
 import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
+
+// ** Third-Party Components
+import { useSession, signOut } from 'next-auth/react'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -61,7 +61,7 @@ const UserDropdown = (props: Props) => {
 
   // ** Hooks
   const router = useRouter()
-  const { user, logout } = useAuth()
+  const session = useSession()
 
   // ** Vars
   const { direction } = settings
@@ -77,7 +77,9 @@ const UserDropdown = (props: Props) => {
     setAnchorEl(null)
   }
   const handleLogout = () => {
-    logout()
+    signOut({ callbackUrl: '/', redirect: false }).then(() => {
+      router.asPath = '/'
+    })
     handleDropdownClose()
   }
 
@@ -94,7 +96,7 @@ const UserDropdown = (props: Props) => {
         }}
       >
         <Avatar
-          alt={user?.username}
+          alt={session.data!.user?.username}
           onClick={handleDropdownOpen}
           sx={{
             width: 32,
@@ -102,7 +104,7 @@ const UserDropdown = (props: Props) => {
             boxShadow: theme => theme.shadows[9],
             border: theme => `4px solid ${lighten(theme.palette.background.paper, 0.1)}`
           }}
-          src={getPublicMediaAssetUrl(user?.avatar?.url)}
+          src={getPublicMediaAssetUrl(session.data!.user?.avatar?.url)}
         />
       </Badge>
       <Menu
@@ -124,15 +126,15 @@ const UserDropdown = (props: Props) => {
               }}
             >
               <Avatar
-                alt={user?.username}
-                src={getPublicMediaAssetUrl(user?.avatar?.url)}
+                alt={session.data!.user?.username}
+                src={getPublicMediaAssetUrl(session.data!.user?.avatar?.url)}
                 sx={{ width: '2.5rem', height: '2.5rem' }}
               />
             </Badge>
             <Box sx={{ display: 'flex', ml: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
-              <Typography sx={{ fontWeight: 600 }}>{user?.username}</Typography>
+              <Typography sx={{ fontWeight: 600 }}>{session.data!.user?.username}</Typography>
               <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
-                {user?.role!.name}
+                {session.data!.user?.role!.name}
               </Typography>
             </Box>
           </Box>
