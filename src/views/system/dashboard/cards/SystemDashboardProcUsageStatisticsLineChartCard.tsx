@@ -28,27 +28,29 @@ import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 import { RootState } from 'src/store'
 
 interface Props {
-  keepElements?: number
   checkInterval?: number
 }
 interface ProcInfo {
-  totalProcesses: number
+  totalCountHistory: number[]
 }
 
 const SystemDashboardProcUsageStatisticsLineChartCard = (props: Props) => {
   // ** Props
-  const { keepElements = 5, checkInterval = 5_000 } = props
+  const { checkInterval = 5_000 } = props
+
+  // ** States
+  const [isInitialized, setIsInitialized] = useState<boolean>(false)
+  const [procInfoData, setProcInfoData] = useState<ProcInfo>({
+    totalCountHistory: []
+  })
 
   // ** Hooks
   const theme = useTheme()
   const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
   const socket = useSelector((state: RootState) => state.dashboard.socket)
 
-  // ** States
-  const [isInitialized, setIsInitialized] = useState<boolean>(false)
-  const [totalProcessesSeries, setTotalProcessesSeries] = useState<number[]>([0, 0, 0, 0, 0])
-
   // ** Vars
+  const totalCountHistory = procInfoData.totalCountHistory
   const options: ApexOptions = {
     chart: {
       stacked: true,
@@ -98,35 +100,37 @@ const SystemDashboardProcUsageStatisticsLineChartCard = (props: Props) => {
   // ** Side Effects
   useInterval(() => {
     if (isSocketConnected) {
-      socket!.emit('dashboard:get-proc-usage')
+      socket!.emit('dashboard:get-proc-info')
     }
   }, checkInterval)
   useEffect(() => {
     if (isSocketConnected) {
-      socket?.on('dashboard:proc-usage', (procInfo: ProcInfo) => {
+      socket?.on('dashboard:proc-info', (procInfo: ProcInfo) => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
-        setTotalProcessesSeries(prev => [...prev, procInfo.totalProcesses].slice(-keepElements))
+        setProcInfoData(procInfo)
       })
     }
 
     return () => {
-      socket?.off('dashboard:proc-usage')
+      socket?.off('dashboard:proc-info')
     }
-  }, [socket, isSocketConnected, keepElements, isInitialized])
+  }, [socket, isSocketConnected, isInitialized])
 
   return (
     <Card>
       <CardContent>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-          <Typography variant='h6' sx={{ mr: 1.5 }}>
-            {`${totalProcessesSeries[totalProcessesSeries.length - 1]}`}
-          </Typography>
-          <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
-            全部
-          </Typography>
-        </Box>
+        {isInitialized ? (
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Typography variant='h6' color='success.main' sx={{ mr: 1.5 }}>
+              {totalCountHistory[totalCountHistory.length - 1]}
+            </Typography>
+            <Typography variant='subtitle2'>全部</Typography>
+          </Box>
+        ) : (
+          <Skeleton variant='rounded' width={160} height={24} sx={{ mb: 2 }} />
+        )}
         <Typography variant='body2'>進程數量</Typography>
         {isInitialized ? (
           <ReactApexcharts
@@ -136,7 +140,7 @@ const SystemDashboardProcUsageStatisticsLineChartCard = (props: Props) => {
             series={[
               {
                 name: 'Total Processes',
-                data: totalProcessesSeries
+                data: totalCountHistory
               }
             ]}
           />

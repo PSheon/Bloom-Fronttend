@@ -28,32 +28,31 @@ import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 import { RootState } from 'src/store'
 
 interface Props {
-  keepElements?: number
   checkInterval?: number
 }
 interface MemInfo {
-  totalMemMb: number
-  freeMemMb: number
-  usedMemMb: number
-  freeMemPercentage: number
-  usedMemPercentage: number
+  totalGb: number
+  usagePercentageHistory: number[]
 }
 
 const SystemDashboardMemUsageStatisticsLineChartCard = (props: Props) => {
   // ** Props
-  const { keepElements = 5, checkInterval = 5_000 } = props
+  const { checkInterval = 5_000 } = props
+
+  // ** States
+  const [isInitialized, setIsInitialized] = useState<boolean>(false)
+  const [memInfoData, setMemInfoData] = useState<MemInfo>({
+    totalGb: 0,
+    usagePercentageHistory: []
+  })
 
   // ** Hooks
   const theme = useTheme()
   const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
   const socket = useSelector((state: RootState) => state.dashboard.socket)
 
-  // ** States
-  const [isInitialized, setIsInitialized] = useState<boolean>(false)
-  const [seriesData, setSeriesData] = useState<number[]>([0, 0, 0, 0, 0])
-  const [totalMemMb, setTotalMemMb] = useState<number>(0)
-
   // ** Vars
+  const usagePercentageHistory = memInfoData.usagePercentageHistory
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,
@@ -91,7 +90,7 @@ const SystemDashboardMemUsageStatisticsLineChartCard = (props: Props) => {
           seriesIndex: 0,
           strokeColor: theme.palette.info.main,
           fillColor: theme.palette.background.paper,
-          dataPointIndex: seriesData.length - 1
+          dataPointIndex: usagePercentageHistory.length - 1
         }
       ],
       hover: { size: 7 }
@@ -109,39 +108,40 @@ const SystemDashboardMemUsageStatisticsLineChartCard = (props: Props) => {
   // ** Side Effects
   useInterval(() => {
     if (isSocketConnected) {
-      socket!.emit('dashboard:get-mem-usage')
+      socket!.emit('dashboard:get-mem-info')
     }
   }, checkInterval)
   useEffect(() => {
     if (isSocketConnected) {
-      socket?.on('dashboard:mem-usage', (memInfo: MemInfo) => {
+      socket?.on('dashboard:mem-info', (memInfo: MemInfo) => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
-        setSeriesData(prev => [...prev, memInfo.usedMemPercentage].slice(-keepElements))
-        setTotalMemMb(() => memInfo.totalMemMb)
+        setMemInfoData(() => memInfo)
       })
     }
 
     return () => {
-      socket?.off('dashboard:mem-usage')
+      socket?.off('dashboard:mem-info')
     }
-  }, [socket, isSocketConnected, keepElements, isInitialized])
+  }, [socket, isSocketConnected, isInitialized])
 
   return (
     <Card>
       <CardContent>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-          <Typography variant='h6' sx={{ mr: 1.5 }}>
-            {`${seriesData[seriesData.length - 1]}%`}
-          </Typography>
-          <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
-            {`/ ${totalMemMb}Mb`}
-          </Typography>
-        </Box>
+        {isInitialized ? (
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Typography variant='h6' color='success.main' sx={{ mr: 1.5 }}>
+              {`${usagePercentageHistory[usagePercentageHistory.length - 1]}%`}
+            </Typography>
+            <Typography variant='subtitle2'>{` / ${memInfoData.totalGb} Gb`}</Typography>
+          </Box>
+        ) : (
+          <Skeleton variant='rounded' width={160} height={24} sx={{ mb: 2 }} />
+        )}
         <Typography variant='body2'>記憶體使用率</Typography>
         {isInitialized ? (
-          <ReactApexcharts type='line' height={108} options={options} series={[{ data: seriesData }]} />
+          <ReactApexcharts type='line' height={108} options={options} series={[{ data: usagePercentageHistory }]} />
         ) : (
           <Skeleton variant='rounded' height={100} sx={{ mt: 1 }} />
         )}

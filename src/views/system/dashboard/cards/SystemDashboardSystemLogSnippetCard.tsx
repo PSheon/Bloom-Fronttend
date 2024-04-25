@@ -26,39 +26,38 @@ import { useInterval } from 'src/hooks/useInterval'
 import { RootState } from 'src/store'
 
 interface Props {
-  keepLines?: number
   checkInterval?: number
 }
 interface SystemLog {
-  log: string
+  system: string
 }
 
 const SystemDashboardSystemLogSnippetCard = (props: Props) => {
   // ** Props
-  const { keepLines = 20, checkInterval = 5_000 } = props
+  const { checkInterval = 5_000 } = props
+
+  // ** States
+  const [isInitialized, setIsInitialized] = useState<boolean>(false)
+  const [systemLogData, setSystemLogData] = useState<SystemLog>({
+    system: ''
+  })
 
   // ** Hooks
   const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
   const socket = useSelector((state: RootState) => state.dashboard.socket)
 
-  // ** States
-  const [isInitialized, setIsInitialized] = useState<boolean>(false)
-  const [systemLogData, setSystemLogData] = useState<SystemLog>({
-    log: ''
-  })
-
   // ** Logics
   const handleRefetchOSInfo = () => {
     if (isSocketConnected) {
       setIsInitialized(false)
-      socket!.emit('dashboard:get-system-log', { keepLines })
+      socket!.emit('dashboard:get-system-log')
     }
   }
 
   // ** Side Effects
   useInterval(() => {
     if (isSocketConnected) {
-      socket!.emit('dashboard:get-system-log', { keepLines })
+      socket!.emit('dashboard:get-system-log')
     }
   }, checkInterval)
   useEffect(() => {
@@ -97,17 +96,16 @@ const SystemDashboardSystemLogSnippetCard = (props: Props) => {
             <Typography variant='caption' sx={{ mr: 1.5 }}>
               日誌檔案
             </Typography>
-            <Typography variant='subtitle2' sx={{ '&, & + svg': { color: 'success.main' } }}>
+            <Typography variant='subtitle2' color='info.main'>
               {`${format(new Date(), 'yyyy-MM-dd-HH')}.log`}
             </Typography>
-            <Icon icon='mdi:chevron-up' fontSize='1.25rem' />
           </Box>
         }
       />
       <CardContent className='match-height'>
         {isInitialized ? (
           <pre className='language-tsx'>
-            <code className='language-tsx'>{systemLogData.log}</code>
+            <code className='language-tsx'>{systemLogData.system}</code>
           </pre>
         ) : (
           <Skeleton variant='rounded' height={360} />
