@@ -49,9 +49,6 @@ import useBgColor from 'src/@core/hooks/useBgColor'
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Type Imports
-import { AxiosError } from 'axios'
-
 // ** Styled Components
 const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
   position: 'relative',
@@ -130,36 +127,23 @@ const AuthLoginPage = () => {
     const { email, password } = data
     setIsLoginLoading(true)
 
-    try {
-      await signIn('credentials', { identifier: email, password, rememberMe, redirect: false }).then(res => {
-        if (res && res.ok) {
-          const returnUrl = router.query.returnUrl
-          const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
-
-          router.replace(redirectURL as string)
-        } else {
-          setError('email', {
-            type: 'manual',
-            message: 'Email or Password is invalid'
-          })
-        }
-      })
-    } catch (error) {
+    const signInResponse = await signIn('credentials', {
+      identifier: email,
+      password,
+      rememberMe,
+      redirect: false
+    })
+    if (signInResponse && !signInResponse?.ok) {
       setIsLoginLoading(false)
-      let errorMessage = 'Internal Server Error'
-
-      if (error instanceof AxiosError) {
-        if (error?.response?.status === 400) {
-          errorMessage = error?.response?.data?.error?.message
-        } else if (error?.response?.status === 429) {
-          errorMessage = 'You have exceeded the number of login attempts'
-        }
-      }
-
       setError('email', {
         type: 'manual',
-        message: errorMessage
+        message: 'Email or Password is invalid'
       })
+    } else {
+      const returnUrl = router.query.returnUrl
+      const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
+
+      router.replace(redirectURL as string)
     }
   }
 
