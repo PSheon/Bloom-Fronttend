@@ -1,23 +1,24 @@
 // ** Third Party Imports
 import NextAuth, { NextAuthOptions, User } from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
-import axios, { AxiosResponse } from 'axios'
+import GoogleProvider from 'next-auth/providers/google'
+import axios from 'axios'
 
 // ** Type Imports
-import { LoginParamsType, LoginResponseType } from 'src/types/api/authTypes'
+import { BaseApiResponseErrorType } from 'src/types/api/baseApiTypes'
+import { LoginResponseType } from 'src/types/api/authTypes'
 
 /*
  * As we do not have backend server, the refresh token feature has not been incorporated into the template.
  * Please refer https://next-auth.js.org/tutorials/refresh-token-rotation link for a reference.
  */
-
 export const authOptions: NextAuthOptions = {
   // ** Configure one or more authentication providers
   // ** Please refer to https://next-auth.js.org/configuration/options#providers for more `providers` options
   providers: [
     CredentialsProvider({
       // ** The name to display on the sign in form (e.g. 'Sign in with...')
-      name: 'Credentials',
+      name: 'Sign in with Email',
       type: 'credentials',
 
       /*
@@ -25,8 +26,8 @@ export const authOptions: NextAuthOptions = {
        * username or password attributes manually in following credentials object.
        */
       credentials: {
-        identifier: { label: 'Identifier', type: 'text' },
-        password: { label: 'Password', type: 'password' }
+        identifier: { label: 'Email or username *', type: 'text' },
+        password: { label: 'Password *', type: 'password' }
       },
       async authorize(credentials) {
         /*
@@ -35,33 +36,45 @@ export const authOptions: NextAuthOptions = {
          * For e.g. return { id: 1, name: 'J Smith', email: 'jsmith@example.com' }
          * You can also use the `req` object to obtain additional parameters (i.e., the request IP address)
          */
-
-        if (credentials == null) return null
-
-        const params = credentials as {
-          identifier: string
-          password: string
+        if (!credentials || !credentials.identifier || !credentials.password) {
+          return null
         }
 
-        // ** Login API Call to match the user credentials and receive user data in response along with his role
         try {
-          const {
-            data: { user, jwt }
-          } = await axios.post<LoginParamsType, AxiosResponse<LoginResponseType>>(
-            `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/local`,
-            params
-          )
+          const backendResponse = await fetch(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/local`, {
+            method: 'POST',
+            headers: {
+              'Content-type': 'application/json'
+            },
+            body: JSON.stringify({
+              identifier: credentials!.identifier,
+              password: credentials!.password
+            })
+          })
 
-          /*
-           * Please unset all the sensitive information of the user either from API response or before returning
-           * user data below. Below return statement will set the user object in the token and the same is set in
-           * the session which will be accessible all over the app.
-           */
+          if (!backendResponse.ok) {
+            const contentType = backendResponse.headers.get('content-type')
+            if (contentType === 'application/json; charset=utf-8') {
+              const data: BaseApiResponseErrorType<null> = await backendResponse.json()
+
+              throw new Error(data.error.message)
+            } else {
+              throw new Error(backendResponse.statusText)
+            }
+          }
+
+          const data: LoginResponseType = await backendResponse.json()
+          const { user, jwt } = data
+
           return { userData: user, accessToken: jwt } as User
-        } catch {
-          throw new Error('Email or Password is invalid')
+        } catch (error) {
+          throw error
         }
       }
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
     })
   ],
 
@@ -85,28 +98,25 @@ export const authOptions: NextAuthOptions = {
   pages: {
     signIn: '/login',
     signOut: '/login',
-    error: '/404'
+    error: '/auth/error'
   },
 
   // ** Please refer to https://next-auth.js.org/configuration/options#callbacks for more `callbacks` options
   callbacks: {
+    async signIn({ account, profile }) {
+      if (account && account.provider === 'google' && profile && 'email_verified' in profile) {
+        if (!profile.email_verified) return false
+      }
+
+      return true
+    },
+
     /*
      * While using `jwt` as a strategy, `jwt()` callback will be called before
      * the `session()` callback. So we have to add custom parameters in `token`
      * via `jwt()` callback to make them accessible in the `session()` callback
      */
-    async jwt({ token, user, trigger }) {
-      if (user) {
-        /*
-         * For adding custom parameters to user in session, we first need to add those parameters
-         * in token which then will be available in the `session()` callback
-         */
-        token.user = {
-          userData: user.userData,
-          accessToken: user.accessToken
-        }
-      }
-
+    async jwt({ token, trigger, account, user }) {
       if (trigger === 'update') {
         // ** Note, that `session` can be any arbitrary object, remember to validate it!
         const { data: updatedUserData } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/me`, {
@@ -121,6 +131,42 @@ export const authOptions: NextAuthOptions = {
         token.user.userData = {
           ...token.user.userData,
           ...updatedUserData
+        }
+      }
+
+      if (account) {
+        if (account.provider === 'credentials') {
+          /*
+           * For adding custom parameters to user in session, we first need to add those parameters
+           * in token which then will be available in the `session()` callback
+           */
+          token.user = {
+            userData: user.userData,
+            accessToken: user.accessToken
+          }
+        }
+        if (account.provider === 'google') {
+          // ** We are doing a sign in using GoogleProvider
+          try {
+            const backendResponse = await fetch(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/${account.provider}/callback?access_token=${account.access_token}`,
+              { cache: 'no-cache' }
+            )
+
+            if (!backendResponse.ok) {
+              const backendError: BaseApiResponseErrorType<null> = await backendResponse.json()
+
+              throw new Error(backendError.error.message)
+            }
+            const backendLoginResponse: LoginResponseType = await backendResponse.json()
+
+            token.user = {
+              userData: backendLoginResponse.user,
+              accessToken: backendLoginResponse.jwt
+            }
+          } catch (error) {
+            throw error
+          }
         }
       }
 
