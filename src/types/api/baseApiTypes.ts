@@ -13,6 +13,15 @@ export type BaseApiResponseType<T> = {
   }
 }
 
+export type BaseApiResponseErrorType<T> = {
+  data: T
+  error: {
+    status: number
+    name: string
+    message: string
+  }
+}
+
 export type MediaAssetApiResponseType = {
   data?: {
     id: number
