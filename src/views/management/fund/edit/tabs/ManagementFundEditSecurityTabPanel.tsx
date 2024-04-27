@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
 
 // ** Custom Component Imports
-import ManagementFundEditManagersCard from 'src/views/management/fund/edit/cards/ManagementFundEditManagersCard'
+import ManagementFundEditActivityLogListCard from 'src/views/management/fund/edit/cards/ManagementFundEditActivityLogListCard'
 import ManagementFundEditDangerZoneCard from 'src/views/management/fund/edit/cards/ManagementFundEditDangerZoneCard'
 
 // ** Type Imports
@@ -21,7 +21,7 @@ const ManagementFundEditSecurityTabPanel = (props: Props) => {
     <TabPanel sx={{ p: 0 }} value='security'>
       <Grid container spacing={6}>
         <Grid item xs={12}>
-          <ManagementFundEditManagersCard initFundEntity={initFundEntity} />
+          <ManagementFundEditActivityLogListCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12}>
           <ManagementFundEditDangerZoneCard initFundEntity={initFundEntity} />

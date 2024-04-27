@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
@@ -15,6 +16,7 @@ import { format } from 'date-fns'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
+import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
@@ -23,17 +25,19 @@ import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 import { useFindQuery } from 'src/store/api/management/activityLog'
 
 // ** Util Imports
-import { getActivityLogStatusProperties, getActivityLogActionProperties, getActivityLogRefContentLink } from 'src/utils'
+import { getInitials } from 'src/@core/utils/get-initials'
+import { getPublicMediaAssetUrl, getActivityLogStatusProperties, getActivityLogActionProperties } from 'src/utils'
 
 // ** Type Imports
+import { FundType } from 'src/types/api/fundTypes'
 import { ActivityLogType } from 'src/types/api/activityLogTypes'
-import { UserDataType } from 'src/types/api/authTypes'
+
+interface Props {
+  initFundEntity: FundType
+}
 
 interface CellType {
   row: ActivityLogType
-}
-interface Props {
-  initUserEntity: UserDataType
 }
 
 // ** Styled Components
@@ -48,9 +52,9 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   }
 }))
 
-const ManagementUserEditActivityLogListCard = (props: Props) => {
+const ManagementFundEditActivityLogListCard = (props: Props) => {
   // ** Props
-  const { initUserEntity } = props
+  const { initFundEntity } = props
 
   // ** States
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
@@ -58,7 +62,8 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
   // ** Hooks
   const { data: activitiesData, isLoading: isActivityLogsLoading } = useFindQuery({
     filters: {
-      user: initUserEntity.id
+      refContentType: 'Fund',
+      refId: initFundEntity.id
     },
     sort: ['date:desc'],
     pagination: {
@@ -93,7 +98,7 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
     },
     {
       flex: 2,
-      minWidth: 120,
+      minWidth: 80,
       field: 'action',
       headerName: '操作',
       renderCell: ({ row }: CellType) => {
@@ -109,12 +114,42 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
     {
       flex: 3,
       minWidth: 160,
-      field: 'refContentType',
-      headerName: '執行個體',
+      field: 'user',
+      headerName: '操作人員',
       renderCell: ({ row }: CellType) => {
-        const link = getActivityLogRefContentLink(row)
+        const user = {
+          id: row.user.data?.id,
+          ...row.user.data?.attributes
+        }
 
-        return <LinkStyled href={link}>{`${row.refContentType}#${row.id}`}</LinkStyled>
+        return (
+          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+            {user?.avatar ? (
+              <CustomAvatar
+                variant='rounded'
+                src={getPublicMediaAssetUrl(user.avatar?.data?.attributes.url)}
+                sx={{ mr: 3, width: 34, height: 34 }}
+              />
+            ) : (
+              <CustomAvatar
+                skin='light'
+                color='primary'
+                variant='rounded'
+                sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}
+              >
+                {getInitials(user.username ? user.username : 'John Doe')}
+              </CustomAvatar>
+            )}
+            <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+              <LinkStyled href={`/management/user/edit/${user.id}`} sx={{ fontWeight: 600, color: 'text.primary' }}>
+                {user.username}
+              </LinkStyled>
+              <Typography noWrap variant='caption'>
+                {`#${user.title || '未提供'}`}
+              </Typography>
+            </Box>
+          </Box>
+        )
       }
     },
     {
@@ -152,4 +187,4 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
   )
 }
 
-export default ManagementUserEditActivityLogListCard
+export default ManagementFundEditActivityLogListCard

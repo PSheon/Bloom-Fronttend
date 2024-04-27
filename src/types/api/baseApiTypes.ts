@@ -33,6 +33,8 @@ export type MediaAssetApiResponseType = {
 export type UserApiResponseType = {
   data?: {
     id: number
-    attributes: Omit<UserDataType, 'id'>
+    attributes: Omit<UserDataType, 'id' | 'avatar'> & {
+      avatar: MediaAssetApiResponseType
+    }
   }
 }
