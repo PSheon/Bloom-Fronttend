@@ -8,7 +8,7 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import PublicFundLiveBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import PublicFundLiveProfileHeaderCard from 'src/views/fund/live/cards/PublicFundLiveProfileHeaderCard'
 import PublicFundLivePerformanceChartCard from 'src/views/fund/live/cards/PublicFundLivePerformanceChartCard'
-import PublicFundLiveMyPositionCard from 'src/views/fund/live/cards/PublicFundLiveMyPositionCard'
+import PublicFundLiveRiskAnalyticsCard from 'src/views/fund/live/cards/PublicFundLiveRiskAnalyticsCard'
 import PublicFundLiveDetailCard from 'src/views/fund/live/cards/PublicFundLiveDetailCard'
 import PublicFundLiveSpecificationCard from 'src/views/fund/live/cards/PublicFundLiveSpecificationCard'
 import PublicFundLiveDefaultPackageGrid from 'src/views/fund/live/grids/PublicFundLiveDefaultPackageGrid'
@@ -26,7 +26,7 @@ const PublicFundLiveSection = (props: Props) => {
 
   return (
     <ApexChartWrapper>
-      <Grid container spacing={6}>
+      <Grid container spacing={6} className='match-height'>
         <Grid item xs={12}>
           <PublicFundLiveBreadcrumbs
             pageLevels={[{ title: '公開資金列表', href: '/fund/list' }, { title: `資金 #${initFundEntity.id}` }]}
@@ -39,7 +39,7 @@ const PublicFundLiveSection = (props: Props) => {
           <PublicFundLivePerformanceChartCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12} md={4}>
-          <PublicFundLiveMyPositionCard initFundEntity={initFundEntity} />
+          <PublicFundLiveRiskAnalyticsCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12}>
           <PublicFundLiveDetailCard initFundEntity={initFundEntity} />
