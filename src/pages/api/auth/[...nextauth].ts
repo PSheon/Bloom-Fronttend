@@ -96,8 +96,8 @@ export const authOptions: NextAuthOptions = {
 
   // ** Please refer to https://next-auth.js.org/configuration/options#pages for more `pages` options
   pages: {
-    signIn: '/login',
-    signOut: '/login',
+    signIn: '/auth/login',
+    signOut: '/auth/login',
     error: '/auth/error'
   },
 
