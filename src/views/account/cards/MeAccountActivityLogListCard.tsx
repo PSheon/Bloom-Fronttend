@@ -1,7 +1,11 @@
 // ** React Imports
 import { useState } from 'react'
 
+// ** Next Imports
+import Link from 'next/link'
+
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
@@ -16,12 +20,27 @@ import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 // ** API Imports
 import { useFindMeQuery } from 'src/store/api/management/activityLog'
 
+// ** Util Imports
+import { getActivityLogStatusProperties, getActivityLogActionProperties, getActivityLogRefContentLink } from 'src/utils'
+
 // ** Type Imports
 import { ActivityLogType } from 'src/types/api/activityLogTypes'
 
 interface CellType {
   row: ActivityLogType
 }
+
+// ** Styled Components
+const LinkStyled = styled(Link)(({ theme }) => ({
+  fontWeight: 600,
+  fontSize: '1rem',
+  cursor: 'pointer',
+  textDecoration: 'none',
+  color: theme.palette.text.secondary,
+  '&:hover': {
+    color: theme.palette.primary.main
+  }
+}))
 
 const MeAccountActivityLogListCard = () => {
   // ** States
@@ -46,51 +65,50 @@ const MeAccountActivityLogListCard = () => {
       field: 'status',
       minWidth: 110,
       headerName: '狀態',
-      renderCell: ({ row }: CellType) => (
-        <CustomChip
-          skin='light'
-          size='small'
-          rounded
-          label={row.status ? '成功' : '失敗'}
-          color={row.status ? 'success' : 'error'}
-          sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
-        />
-      ),
-      valueGetter: ({ row }: CellType) => (row.status ? '成功' : '失敗')
+      renderCell: ({ row }: CellType) => {
+        const { color, title } = getActivityLogStatusProperties(row.status)
+
+        return (
+          <CustomChip
+            skin='light'
+            size='small'
+            rounded
+            label={title}
+            color={color}
+            sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
+          />
+        )
+      }
     },
     {
       flex: 2,
-      minWidth: 120,
+      minWidth: 80,
       field: 'action',
       headerName: '操作',
-      renderCell: ({ row }: CellType) => renderActivityActionText(row.action),
-      valueGetter: ({ row }: CellType) => row.action
-    },
-    {
-      flex: 4,
-      minWidth: 280,
-      field: 'contentType',
-      headerName: 'Content Type',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          {row.contentType}
-        </Typography>
-      )
+      renderCell: ({ row }: CellType) => {
+        const { color, title } = getActivityLogActionProperties(row.action)
+
+        return (
+          <Typography noWrap sx={{ fontWeight: 600, color }}>
+            {`@${title}`}
+          </Typography>
+        )
+      }
     },
     {
       flex: 3,
-      minWidth: 140,
-      field: 'refId',
-      headerName: 'Ref Id',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          {row.refId}
-        </Typography>
-      )
+      minWidth: 160,
+      field: 'refContentType',
+      headerName: '執行個體',
+      renderCell: ({ row }: CellType) => {
+        const link = getActivityLogRefContentLink(row)
+
+        return <LinkStyled href={link}>{`${row.refContentType}#${row.id}`}</LinkStyled>
+      }
     },
     {
       flex: 3,
-      minWidth: 220,
+      minWidth: 250,
       field: 'date',
       headerName: '日期',
       renderCell: ({ row }: CellType) => (
@@ -101,28 +119,6 @@ const MeAccountActivityLogListCard = () => {
       valueGetter: ({ row }: CellType) => format(new Date(row.date), 'PPpp')
     }
   ]
-
-  // ** Renders
-  const renderActivityActionText = (action: ActivityLogType['action']) => {
-    let actionInfo = '@ 建立'
-    switch (action) {
-      case 'Update':
-        actionInfo = '@ 更新'
-        break
-      case 'Delete':
-        actionInfo = '@ 刪除'
-        break
-      default:
-        actionInfo = '@ 建立'
-        break
-    }
-
-    return (
-      <Typography noWrap sx={{ fontWeight: 600 }}>
-        {actionInfo}
-      </Typography>
-    )
-  }
 
   return (
     <Card>

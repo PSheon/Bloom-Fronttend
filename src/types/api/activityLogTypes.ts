@@ -1,17 +1,18 @@
 // ** Type Imports
 import { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
 
-type ActivityAction = 'Create' | 'Update' | 'Delete'
-
+type ActivityStatusType = 'Pending' | 'Fulfilled' | 'Rejected'
+type ActivityActionType = 'Create' | 'Update' | 'Delete'
+type ActivityRefContentType = 'Fund'
 export type ActivityLogType = {
   id: number
-  action: ActivityAction
-  contentType: string
+  status: ActivityStatusType
+  action: ActivityActionType
+  refContentType: ActivityRefContentType
   refId: number
+  message: string
   payload: Record<string, string | number>
-  responseMessage: string
-  status: boolean
-  date: string
+  date: Date
   user: UserApiResponseType
   isHighlighted: boolean
   updatedAt: string
