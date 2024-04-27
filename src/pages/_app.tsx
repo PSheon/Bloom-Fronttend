@@ -27,6 +27,7 @@ import themeConfig from 'src/configs/themeConfig'
 // ** Third-Party Imports
 import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from 'next-auth/react'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 
 // ** Component Imports
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
@@ -195,6 +196,8 @@ const App = (props: ExtendedAppProps) => {
             </SettingsConsumer>
           </SettingsProvider>
         </SessionProvider>
+
+        <SpeedInsights />
       </CacheProvider>
     </Provider>
   )
