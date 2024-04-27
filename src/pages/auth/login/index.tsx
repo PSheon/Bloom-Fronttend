@@ -96,7 +96,8 @@ interface FormData {
 
 const AuthLoginPage = () => {
   // ** States
-  const [isLoginLoading, setIsLoginLoading] = useState<boolean>(false)
+  const [isLoginCredentialsLoading, setIsLoginCredentialsLoading] = useState<boolean>(false)
+  const [isLoginGoogleLoading, setIsLoginGoogleLoading] = useState<boolean>(false)
   const [rememberMe, setRememberMe] = useState<boolean>(true)
   const [showPassword, setShowPassword] = useState<boolean>(false)
 
@@ -120,13 +121,13 @@ const AuthLoginPage = () => {
   // ** Logics
   const handleLoginGoogle = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
-    setIsLoginLoading(true)
+    setIsLoginGoogleLoading(true)
 
     await signIn('google', { callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/auth/callback/google` })
   }
   const onSubmit = async (data: FormData) => {
     const { email, password } = data
-    setIsLoginLoading(true)
+    setIsLoginCredentialsLoading(true)
 
     const signInResponse = await signIn('credentials', {
       identifier: email,
@@ -135,7 +136,7 @@ const AuthLoginPage = () => {
       redirect: false
     })
     if (signInResponse && !signInResponse?.ok) {
-      setIsLoginLoading(false)
+      setIsLoginCredentialsLoading(false)
       setError('email', {
         type: 'manual',
         message: 'Email or Password is invalid'
@@ -289,7 +290,7 @@ const AuthLoginPage = () => {
                     </Box>
                     <LoadingButton
                       fullWidth
-                      loading={isLoginLoading}
+                      loading={isLoginCredentialsLoading}
                       disabled={Boolean(errors.email)}
                       size='large'
                       type='submit'
@@ -311,7 +312,7 @@ const AuthLoginPage = () => {
                   <Box sx={{ mt: 6 }}>
                     <LoadingButton
                       fullWidth
-                      loading={isLoginLoading}
+                      loading={isLoginGoogleLoading}
                       size='large'
                       variant='outlined'
                       startIcon={<Image src='/images/socials/google.png' alt='google-icon' width={20} height={20} />}
