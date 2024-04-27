@@ -41,7 +41,7 @@ import { useUpdateOneMutation } from 'src/store/api/management/user'
 import { getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 // ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({

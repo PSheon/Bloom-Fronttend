@@ -25,6 +25,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useSession } from 'next-auth/react'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -39,7 +40,7 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateMeOneMutation } from 'src/store/api/management/user'
 
 // ** Type Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 const schema = yup.object().shape({
   title: yup.string().nullable(),
@@ -62,6 +63,7 @@ const MeAccountEditProfileCard = (props: Props) => {
   const [openEdit, setOpenEdit] = useState<boolean>(false)
 
   // ** Hooks
+  const session = useSession()
   const [updateMeUser, { data: updatedMeUser = initMeUserEntity, isLoading: isUpdateMeUserLoading }] =
     useUpdateMeOneMutation()
   const {
@@ -92,6 +94,7 @@ const MeAccountEditProfileCard = (props: Props) => {
         phone
       }
     })
+    await session.update()
     reset(undefined, { keepValues: true, keepDirty: false, keepDefaultValues: false })
     handleEditClose()
   }

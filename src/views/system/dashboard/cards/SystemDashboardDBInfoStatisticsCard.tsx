@@ -25,19 +25,19 @@ import { useTimeout } from 'src/hooks/useTimeout'
 import { RootState } from 'src/store'
 
 interface DBInfo {
-  dbName: string
+  name: string
 }
 
 const SystemDashboardDBInfoStatisticsCard = () => {
-  // ** Hooks
-  const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
-  const socket = useSelector((state: RootState) => state.dashboard.socket)
-
   // ** States
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
   const [osInfoData, setOsInfoData] = useState<DBInfo>({
-    dbName: ''
+    name: ''
   })
+
+  // ** Hooks
+  const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
+  const socket = useSelector((state: RootState) => state.dashboard.socket)
 
   // ** Side Effects
   useTimeout(() => {
@@ -68,12 +68,11 @@ const SystemDashboardDBInfoStatisticsCard = () => {
         subheader={
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Typography variant='caption' sx={{ mr: 1.5 }}>
-              版本
+              狀態
             </Typography>
-            <Typography variant='subtitle2' sx={{ '&, & + svg': { color: 'success.main' } }}>
-              已更新
+            <Typography variant='subtitle2' color='info.main'>
+              已連線
             </Typography>
-            <Icon icon='mdi:chevron-up' fontSize='1.25rem' />
           </Box>
         }
       />
@@ -84,7 +83,7 @@ const SystemDashboardDBInfoStatisticsCard = () => {
           </CustomAvatar>
           <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
             <Typography variant='h6' sx={{ fontWeight: 600 }}>
-              {isInitialized ? osInfoData.dbName : <Skeleton />}
+              {isInitialized ? osInfoData.name : <Skeleton />}
             </Typography>
             <Typography variant='caption'>資料庫</Typography>
           </Box>

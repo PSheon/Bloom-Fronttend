@@ -28,35 +28,28 @@ import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 import { RootState } from 'src/store'
 
 interface Props {
-  keepElements?: number
   checkInterval?: number
 }
 interface DriveInfo {
-  totalGb: string
-  freeGb: string
-  freePercentage: string
-  usedGb: string
-  usedPercentage: string
+  totalGb: number
+  usedGb: number
 }
 
 const SystemDashboardDriveUsageRadialBarChartCard = (props: Props) => {
   // ** Props
-  const { keepElements = 5, checkInterval = 5_000 } = props
+  const { checkInterval = 5_000 } = props
+
+  // ** States
+  const [isInitialized, setIsInitialized] = useState<boolean>(false)
+  const [driveInfoData, setDriveInfoData] = useState<DriveInfo>({
+    totalGb: 0,
+    usedGb: 0
+  })
 
   // ** Hooks
   const theme = useTheme()
   const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
   const socket = useSelector((state: RootState) => state.dashboard.socket)
-
-  // ** States
-  const [isInitialized, setIsInitialized] = useState<boolean>(false)
-  const [driveInfoData, setDriveInfoData] = useState<DriveInfo>({
-    totalGb: '0',
-    freeGb: '0',
-    freePercentage: '0',
-    usedGb: '0',
-    usedPercentage: '0'
-  })
 
   // ** Vars
   const options: ApexOptions = {
@@ -100,12 +93,12 @@ const SystemDashboardDriveUsageRadialBarChartCard = (props: Props) => {
   // ** Side Effects
   useInterval(() => {
     if (isSocketConnected) {
-      socket!.emit('dashboard:get-drive-usage')
+      socket!.emit('dashboard:get-drive-info')
     }
   }, checkInterval)
   useEffect(() => {
     if (isSocketConnected) {
-      socket?.on('dashboard:drive-usage', (driveInfo: DriveInfo) => {
+      socket?.on('dashboard:drive-info', (driveInfo: DriveInfo) => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
@@ -114,27 +107,29 @@ const SystemDashboardDriveUsageRadialBarChartCard = (props: Props) => {
     }
 
     return () => {
-      socket?.off('dashboard:drive-usage')
+      socket?.off('dashboard:drive-info')
     }
-  }, [socket, isSocketConnected, keepElements, isInitialized])
+  }, [socket, isSocketConnected, isInitialized])
 
   return (
     <Card>
       <CardContent>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-          <Typography variant='h6' sx={{ mr: 1.5 }}>
-            {`${driveInfoData.usedGb} Gb`}
-          </Typography>
-          <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
-            {`/ ${driveInfoData.totalGb} Gb`}
-          </Typography>
-        </Box>
+        {isInitialized ? (
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Typography variant='h6' color='success.main' sx={{ mr: 1.5 }}>
+              {`${driveInfoData.usedGb} Gb`}
+            </Typography>
+            <Typography variant='subtitle2'>{`/ ${driveInfoData.totalGb} Gb`}</Typography>
+          </Box>
+        ) : (
+          <Skeleton variant='rounded' width={160} height={24} sx={{ mb: 2 }} />
+        )}
         <Typography variant='body2'>硬碟空間</Typography>
         {isInitialized ? (
           <ReactApexcharts
             type='radialBar'
             height={119}
-            series={[Number(driveInfoData.usedPercentage)]}
+            series={[Math.round((driveInfoData.usedGb / driveInfoData.totalGb) * 1000) / 10]}
             options={options}
           />
         ) : (

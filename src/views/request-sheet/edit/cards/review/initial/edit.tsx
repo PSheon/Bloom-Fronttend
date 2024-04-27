@@ -7,12 +7,12 @@ import Stack from '@mui/material/Stack'
 import Collapse from '@mui/material/Collapse'
 import { TransitionGroup } from 'react-transition-group'
 
+// ** Third-Party Imports
+import { useSession } from 'next-auth/react'
+
 // ** Custom Component Imports
 import ReviewListLoadingSkeleton from 'src/views/request-sheet/edit/cards/review/shared/LoadingSkeleton'
 import ReviewListEditForm from 'src/views/request-sheet/edit/cards/review/shared/EditForm'
-
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 
 // ** API Imports
 import { useFindMeQuery } from 'src/store/api/management/review'
@@ -29,11 +29,11 @@ const InitialReviewEditCard = (props: Props) => {
   const { initRequestSheetEntity } = props
 
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
   const { data: reviewsData, isLoading: isReviewListLoading } = useFindMeQuery({
     filters: {
       requestSheet: initRequestSheetEntity.id,
-      applicant: auth.user?.id as number,
+      applicant: session.data!.user?.id as number,
       processStatus: 'Initial review'
     },
     pagination: {

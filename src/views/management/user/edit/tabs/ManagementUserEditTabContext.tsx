@@ -19,7 +19,7 @@ import ManagementUserEditDangerZoneCard from 'src/views/management/user/edit/car
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 // ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({

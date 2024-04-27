@@ -9,9 +9,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
+import { useSession } from 'next-auth/react'
 
 // ** API Imports
 import { useCreateMutation } from 'src/store/api/management/review'
@@ -37,7 +35,7 @@ const AddReviewForm = (props: Props) => {
   const { initRequestSheetEntity, currentProcessStatus } = props
 
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
   const [createNewReview, { isLoading: isCreateNewReviewLoading }] = useCreateMutation()
   const {
     reset,
@@ -59,7 +57,7 @@ const AddReviewForm = (props: Props) => {
     await createNewReview({
       data: {
         requestSheet: initRequestSheetEntity.id,
-        reviewer: auth.user?.id as number,
+        reviewer: session.data!.user.id as number,
         processStatus: currentProcessStatus,
         modificationSuggestions
       }

@@ -24,17 +24,15 @@ import 'src/configs/date-fn'
 import { defaultACLObj } from 'src/configs/acl'
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Fake-DB Import
-// import 'src/@fake-db'
-
 // ** Third-Party Imports
 import { Toaster } from 'react-hot-toast'
+import { SessionProvider } from 'next-auth/react'
 
 // ** Component Imports
-import AclGuard from 'src/@core/components/auth/AclGuard'
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
-import AuthGuard from 'src/@core/components/auth/AuthGuard'
-import GuestGuard from 'src/@core/components/auth/GuestGuard'
+import AclGuard from 'src/layouts/components/auth/UserAclGuard'
+import AuthGuard from 'src/layouts/components/auth/UserAuthGuard'
+import GuestGuard from 'src/layouts/components/auth/UserGuestGuard'
 
 // ** Layout Imports
 import UserLayout from 'src/layouts/UserLayout'
@@ -43,7 +41,6 @@ import UserLayout from 'src/layouts/UserLayout'
 import Spinner from 'src/layouts/components/fallback-spinner'
 
 // ** Context Imports
-import { AuthProvider } from 'src/context/AuthContext'
 import { SettingsConsumer, SettingsProvider } from 'src/@core/context/settingsContext'
 
 // ** Core Component Imports
@@ -178,7 +175,7 @@ const App = (props: ExtendedAppProps) => {
           <meta property='twitter:image:height' content='800' />
         </Head>
 
-        <AuthProvider>
+        <SessionProvider session={pageProps.session}>
           <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
             <SettingsConsumer>
               {({ settings }) => {
@@ -197,7 +194,7 @@ const App = (props: ExtendedAppProps) => {
               }}
             </SettingsConsumer>
           </SettingsProvider>
-        </AuthProvider>
+        </SessionProvider>
       </CacheProvider>
     </Provider>
   )

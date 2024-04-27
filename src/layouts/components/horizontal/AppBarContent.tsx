@@ -4,6 +4,9 @@ import Box from '@mui/material/Box'
 // ** Type Imports
 import { Settings } from 'src/@core/context/settingsContext'
 
+// ** Third-Party Components
+import { useSession } from 'next-auth/react'
+
 // ** Core Component Imports
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
@@ -15,9 +18,6 @@ import ShortcutsDropdown, { ShortcutsType } from 'src/@core/layouts/components/s
 
 // ** Custom Components Imports
 import Autocomplete from 'src/layouts/components/Autocomplete'
-
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 
 interface Props {
   hidden: boolean
@@ -126,14 +126,14 @@ const AppBarContent = (props: Props) => {
   const { hidden, settings, saveSettings } = props
 
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      {auth.user && <Autocomplete hidden={hidden} settings={settings} />}
+      {session.data?.user && <Autocomplete hidden={hidden} settings={settings} />}
       <LanguageDropdown settings={settings} saveSettings={saveSettings} />
       <ModeToggler settings={settings} saveSettings={saveSettings} />
-      {auth.user && (
+      {session.data?.user && (
         <>
           <ShortcutsDropdown settings={settings} shortcuts={shortcuts} />
           <NotificationDropdown settings={settings} notifications={notifications} />

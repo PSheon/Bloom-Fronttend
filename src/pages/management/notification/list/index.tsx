@@ -67,7 +67,12 @@ const ManagementNotificationListPage = () => {
   const debouncedFilteredNotificationTitle = useDebounce(filteredNotificationTitle, 300)
 
   // ** Hooks
-  const { data: notificationsData, isLoading: isNotificationListLoading } = useFindQuery({
+  const {
+    data: notificationsData,
+    isLoading: isNotificationListLoading,
+    refetch: refetchNotificationList,
+    isFetching: isNotificationListFetching
+  } = useFindQuery({
     filters: {
       ...(debouncedFilteredNotificationTitle !== '' && {
         $or: [{ title: { $containsi: debouncedFilteredNotificationTitle } }]
@@ -232,6 +237,9 @@ const ManagementNotificationListPage = () => {
   const handleHighlightNotification = async (id: number, isHighlighted: boolean) => {
     await updateNotification({ id, data: { isHighlighted } })
   }
+  const handleRefetchNotificationList = () => {
+    refetchNotificationList()
+  }
 
   return (
     <Grid container spacing={6}>
@@ -247,11 +255,12 @@ const ManagementNotificationListPage = () => {
             handleFilterIsSeenChange={handleFilterIsSeenChange}
             filteredIsHighlighted={filteredIsHighlighted}
             handleIsHighlightedChange={handleIsHighlightedChange}
+            handleRefetchNotificationList={handleRefetchNotificationList}
           />
           <DataGrid
             autoHeight
             rows={notifications}
-            loading={isNotificationListLoading}
+            loading={isNotificationListLoading || isNotificationListFetching}
             columns={columns}
             checkboxSelection
             disableRowSelectionOnClick

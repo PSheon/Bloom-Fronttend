@@ -10,11 +10,11 @@ import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
+// ** Third-Party Components
+import { useSession } from 'next-auth/react'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 
 // ** Util Imports
 import { formatDistance } from 'date-fns'
@@ -31,7 +31,7 @@ const ProfilePicture = styled('img')(({ theme }) => ({
 
 const PortfolioBannerCard = () => {
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
 
   return (
     <Card>
@@ -66,7 +66,7 @@ const PortfolioBannerCard = () => {
         >
           <Box sx={{ mb: [6, 0], display: 'flex', flexDirection: 'column', alignItems: ['center', 'flex-start'] }}>
             <Typography variant='h5' sx={{ mb: 4, fontSize: '1.375rem' }}>
-              {auth.user!.username}
+              {session.data!.user.username}
             </Typography>
             <Box
               sx={{
@@ -77,12 +77,12 @@ const PortfolioBannerCard = () => {
             >
               <Box sx={{ mr: 4, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'text.secondary' } }}>
                 <Icon icon='mdi:email' />
-                <Typography sx={{ color: 'text.secondary', fontWeight: 600 }}>{auth.user!.email}</Typography>
+                <Typography sx={{ color: 'text.secondary', fontWeight: 600 }}>{session.data!.user.email}</Typography>
               </Box>
               <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'text.secondary' } }}>
                 <Icon icon='mdi:calendar-blank-outline' />
                 <Typography sx={{ color: 'text.secondary', fontWeight: 600 }}>
-                  {`${formatDistance(new Date(auth.user!.createdAt), new Date(), { addSuffix: true })} 加入`}
+                  {`${formatDistance(new Date(session.data!.user.createdAt), new Date(), { addSuffix: true })} 加入`}
                 </Typography>
               </Box>
             </Box>

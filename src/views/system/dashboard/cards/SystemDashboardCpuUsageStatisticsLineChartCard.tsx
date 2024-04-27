@@ -28,28 +28,45 @@ import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 import { RootState } from 'src/store'
 
 interface Props {
-  keepElements?: number
   checkInterval?: number
+}
+
+interface CPUInfo {
+  model: string
+  count: string
+  usagePercentageHistory: number[]
 }
 
 const SystemDashboardCpuUsageStatisticsLineChartCard = (props: Props) => {
   // ** Props
-  const { keepElements = 5, checkInterval = 5_000 } = props
+  const { checkInterval = 5_000 } = props
+
+  // ** States
+  const [isInitialized, setIsInitialized] = useState<boolean>(false)
+  const [cpuInfoData, setCpuInfoData] = useState<CPUInfo>({
+    model: '',
+    count: '',
+    usagePercentageHistory: []
+  })
 
   // ** Hooks
   const theme = useTheme()
   const isSocketConnected = useSelector((state: RootState) => state.dashboard.isSocketConnected)
   const socket = useSelector((state: RootState) => state.dashboard.socket)
 
-  // ** States
-  const [isInitialized, setIsInitialized] = useState<boolean>(false)
-  const [cpuUsageData, setCpuUsageData] = useState<number[]>([0, 0, 0, 0, 0])
-
   // ** Vars
+  const usagePercentageHistory = cpuInfoData.usagePercentageHistory
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,
-      toolbar: { show: false }
+      toolbar: { show: false },
+      animations: {
+        enabled: true,
+        easing: 'linear',
+        dynamicAnimation: {
+          speed: 1000
+        }
+      }
     },
     tooltip: { enabled: false },
     grid: {
@@ -83,7 +100,7 @@ const SystemDashboardCpuUsageStatisticsLineChartCard = (props: Props) => {
           seriesIndex: 0,
           strokeColor: theme.palette.info.main,
           fillColor: theme.palette.background.paper,
-          dataPointIndex: cpuUsageData.length - 1
+          dataPointIndex: usagePercentageHistory.length - 1
         }
       ],
       hover: { size: 7 }
@@ -98,49 +115,43 @@ const SystemDashboardCpuUsageStatisticsLineChartCard = (props: Props) => {
     }
   }
 
-  // ** Logics
-  const calcCpuUsageDiff = (): number => {
-    const last = cpuUsageData[cpuUsageData.length - 1]
-    const secondLast = cpuUsageData[cpuUsageData.length - 2]
-
-    return Math.round(last - secondLast)
-  }
-
   // ** Side Effects
   useInterval(() => {
     if (isSocketConnected) {
-      socket!.emit('dashboard:get-cpu-usage')
+      socket!.emit('dashboard:get-cpu-info')
     }
   }, checkInterval)
   useEffect(() => {
     if (isSocketConnected) {
-      socket?.on('dashboard:cpu-usage', (cpuUsage: number) => {
+      socket?.on('dashboard:cpu-info', (cpuInfo: CPUInfo) => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
-        setCpuUsageData(prev => [...prev, cpuUsage].slice(-keepElements))
+        setCpuInfoData(() => cpuInfo)
       })
     }
 
     return () => {
-      socket?.off('dashboard:cpu-usage')
+      socket?.off('dashboard:cpu-info')
     }
-  }, [socket, isSocketConnected, keepElements, isInitialized])
+  }, [socket, isSocketConnected, isInitialized])
 
   return (
     <Card>
       <CardContent>
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
-          <Typography variant='h6' sx={{ mr: 1.5 }}>
-            {`${cpuUsageData[cpuUsageData.length - 1]}%`}
-          </Typography>
-          <Typography variant='subtitle2' sx={{ color: calcCpuUsageDiff() < 0 ? 'success.main' : 'error.main' }}>
-            {`${calcCpuUsageDiff()}%`}
-          </Typography>
-        </Box>
+        {isInitialized ? (
+          <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center' }}>
+            <Typography variant='h6' color='success.main' sx={{ mr: 1.5 }}>
+              {`${usagePercentageHistory[usagePercentageHistory.length - 1]}%`}
+            </Typography>
+            <Typography variant='subtitle2'>{`${cpuInfoData.model} ${cpuInfoData.count} Core`}</Typography>
+          </Box>
+        ) : (
+          <Skeleton variant='rounded' width={160} height={24} sx={{ mb: 2 }} />
+        )}
         <Typography variant='body2'>CPU 使用率</Typography>
         {isInitialized ? (
-          <ReactApexcharts type='line' height={108} options={options} series={[{ data: cpuUsageData }]} />
+          <ReactApexcharts type='line' height={108} options={options} series={[{ data: usagePercentageHistory }]} />
         ) : (
           <Skeleton variant='rounded' height={100} sx={{ mt: 1 }} />
         )}

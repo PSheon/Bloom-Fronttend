@@ -1,3 +1,7 @@
+/*
+ * Deprecated
+ */
+
 // ** React Imports
 import { createContext, useEffect, useState, ReactNode } from 'react'
 
@@ -154,7 +158,6 @@ const AuthProvider = ({ children }: Props) => {
           }
         })
         .then((response: AxiosResponse<ChangePasswordResponseType>) => {
-          console.log('🚀 ~ src/context/AuthContext.tsx:149 > response', response)
           console.log(response.data)
           toast.success('已更新密碼')
           resolve()

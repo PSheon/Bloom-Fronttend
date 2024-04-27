@@ -11,6 +11,7 @@ import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -29,6 +30,7 @@ interface Props {
   handleFilterIsPublishedChange: (e: SelectChangeEvent) => void
   filteredIsHighlighted: string
   handleIsHighlightedChange: (e: SelectChangeEvent) => void
+  handleRefetchAnnouncementList: () => void
 }
 
 const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
@@ -39,7 +41,8 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
     filteredIsPublished,
     handleFilterIsPublishedChange,
     filteredIsHighlighted,
-    handleIsHighlightedChange
+    handleIsHighlightedChange,
+    handleRefetchAnnouncementList
   } = props
 
   // ** States
@@ -65,12 +68,17 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
               placeholder='尋找標題'
               onChange={handleFilterAnnouncementDisplayname}
               InputProps={{
-                startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>
+                startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>,
+                endAdornment: (
+                  <IconButton onClick={handleRefetchAnnouncementList}>
+                    <Icon icon='mdi:reload' fontSize={20} />
+                  </IconButton>
+                )
               }}
             />
           </Stack>
           <Stack spacing={6} direction='row' sx={{ flex: '0' }}>
-            {isDesktopView && (
+            {isDesktopView ? (
               <Button
                 color={isShowFilters ? 'primary' : 'secondary'}
                 variant={isShowFilters ? 'contained' : 'outlined'}
@@ -80,6 +88,14 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
                 <Typography whiteSpace='nowrap' color='inherit'>
                   篩選
                 </Typography>
+              </Button>
+            ) : (
+              <Button
+                color={isShowFilters ? 'primary' : 'secondary'}
+                variant={isShowFilters ? 'contained' : 'outlined'}
+                onClick={handleFiltersClick}
+              >
+                <Icon icon='mdi:filter-outline' fontSize={20} />
               </Button>
             )}
             <Button component={Link} variant='contained' href='/management/announcement/add'>

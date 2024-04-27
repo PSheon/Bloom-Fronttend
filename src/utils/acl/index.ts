@@ -1,6 +1,6 @@
 // ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
-import { Role } from 'src/context/types'
+import { Role } from 'src/types/api/authTypes'
 
 interface UserRoleAttributeType {
   [key: string]: {

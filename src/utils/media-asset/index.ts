@@ -1,5 +1,5 @@
 // ** Type Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 import { ThemeColor } from 'src/@core/layouts/types'
 

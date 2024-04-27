@@ -29,6 +29,7 @@ import DatePicker from 'react-datepicker'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useSession } from 'next-auth/react'
 
 // ** Custom Component Imports
 import DatePickerWrapper from 'src/@core/styles/libs/react-datepicker'
@@ -37,9 +38,6 @@ import RequestSheetAddInformationCard from 'src/views/request-sheet/add/Informat
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Hook Imports
-import { useAuth } from 'src/hooks/useAuth'
 
 // ** API Imports
 import { useCreateMutation } from 'src/store/api/management/requestSheet'
@@ -99,7 +97,7 @@ interface CustomInputProps {
 
 const RequestSheetAddPage = () => {
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
   const router = useRouter()
 
   const [createNewRequestSheet, { data: createdRequestSheet, isLoading: isCreateNewRequestSheetLoading }] =
@@ -135,7 +133,7 @@ const RequestSheetAddPage = () => {
   const onSubmit = async (data: FormData) => {
     await createNewRequestSheet({
       data: {
-        applicant: auth.user!.id,
+        applicant: session.data!.user.id,
         title: data.title,
         type: data.type,
         ...(data.type !== 'Continuation' && {

@@ -37,7 +37,7 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getPublicMediaAssetUrl, getUserRoleAttributes } from 'src/utils'
 
 // ** Type Imports
-import { UserDataType } from 'src/context/types'
+import { UserDataType } from 'src/types/api/authTypes'
 
 interface CellType {
   row: UserDataType
@@ -74,7 +74,12 @@ const ManagementUserListPage = () => {
   const debouncedFilteredUsernameOrEmail = useDebounce(filteredUsernameOrEmail, 300)
 
   // ** Hooks
-  const { data: usersData, isLoading: isUserListLoading } = useFindQuery({
+  const {
+    data: usersData,
+    isLoading: isUserListLoading,
+    refetch: refetchUserList,
+    isFetching: isUserListFetching
+  } = useFindQuery({
     filters: {
       ...(debouncedFilteredUsernameOrEmail !== '' && {
         $or: [
@@ -268,6 +273,9 @@ const ManagementUserListPage = () => {
   const handleHighlightUser = async (id: number, isHighlighted: boolean) => {
     await updateUser({ id, data: { isHighlighted } })
   }
+  const handleRefetchUserList = () => {
+    refetchUserList()
+  }
 
   return (
     <Grid container spacing={6}>
@@ -285,10 +293,11 @@ const ManagementUserListPage = () => {
             handleBlockStatusChange={handleBlockStatusChange}
             filteredIsHighlighted={filteredIsHighlighted}
             handleIsHighlightedChange={handleIsHighlightedChange}
+            handleRefetchUserList={handleRefetchUserList}
           />
           <DataGrid
             autoHeight
-            loading={isUserListLoading}
+            loading={isUserListLoading || isUserListFetching}
             rows={users}
             columns={columns}
             checkboxSelection

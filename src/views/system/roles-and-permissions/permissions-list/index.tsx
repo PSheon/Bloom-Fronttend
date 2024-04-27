@@ -25,7 +25,7 @@ import { getUserRoleAttributes } from 'src/utils'
 import { Permissions } from 'src/configs/acl'
 
 // ** Type Imports
-import { Role } from 'src/context/types'
+import { Role } from 'src/types/api/authTypes'
 
 interface CellType {
   row: {

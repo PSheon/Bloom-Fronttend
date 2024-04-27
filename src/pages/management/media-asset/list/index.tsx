@@ -67,7 +67,12 @@ const ManagementMediaAssetListPage = () => {
   const debouncedFilteredMediaAssetName = useDebounce(filteredMediaAssetName, 300)
 
   // ** Hooks
-  const { data: mediaAssetsData, isLoading: isMediaAssetListLoading } = useFindQuery({
+  const {
+    data: mediaAssetsData,
+    isLoading: isMediaAssetListLoading,
+    refetch: refetchMediaAssetList,
+    isFetching: isMediaAssetListFetching
+  } = useFindQuery({
     filters: {
       ...(debouncedFilteredMediaAssetName !== '' && {
         $or: [{ name: { $containsi: debouncedFilteredMediaAssetName } }]
@@ -218,6 +223,9 @@ const ManagementMediaAssetListPage = () => {
     copyToClipboard(getPublicMediaAssetUrl(mediaAssetUrl))
     toast.success('已複製檔案連結')
   }
+  const handleRefetchMediaAssetList = () => {
+    refetchMediaAssetList()
+  }
 
   return (
     <Grid container spacing={6}>
@@ -231,10 +239,11 @@ const ManagementMediaAssetListPage = () => {
             handleFilterMediaAssetName={handleFilterMediaAssetName}
             filteredExtension={filteredExtension}
             handleFilterExtensionChange={handleFilterExtensionChange}
+            handleRefetchMediaAssetList={handleRefetchMediaAssetList}
           />
           <DataGrid
             autoHeight
-            loading={isMediaAssetListLoading}
+            loading={isMediaAssetListLoading || isMediaAssetListFetching}
             rows={mediaAssets}
             columns={columns}
             checkboxSelection

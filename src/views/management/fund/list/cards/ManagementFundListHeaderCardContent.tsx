@@ -8,6 +8,7 @@ import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -26,6 +27,7 @@ interface Props {
   handleFilterStatusChange: (e: SelectChangeEvent) => void
   filteredIsHighlighted: string
   handleIsHighlightedChange: (e: SelectChangeEvent) => void
+  handleRefetchFundList: () => void
 }
 
 const ManagementFundListHeaderCardContent = (props: Props) => {
@@ -36,7 +38,8 @@ const ManagementFundListHeaderCardContent = (props: Props) => {
     filteredStatus,
     handleFilterStatusChange,
     filteredIsHighlighted,
-    handleIsHighlightedChange
+    handleIsHighlightedChange,
+    handleRefetchFundList
   } = props
 
   // ** States
@@ -62,12 +65,17 @@ const ManagementFundListHeaderCardContent = (props: Props) => {
               placeholder='尋找資金名稱'
               onChange={handleFilterFundDisplayname}
               InputProps={{
-                startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>
+                startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>,
+                endAdornment: (
+                  <IconButton onClick={handleRefetchFundList}>
+                    <Icon icon='mdi:reload' fontSize={20} />
+                  </IconButton>
+                )
               }}
             />
           </Stack>
           <Stack spacing={6} direction='row' sx={{ flex: '0' }}>
-            {isDesktopView && (
+            {isDesktopView ? (
               <Button
                 color={isShowFilters ? 'primary' : 'secondary'}
                 variant={isShowFilters ? 'contained' : 'outlined'}
@@ -77,6 +85,14 @@ const ManagementFundListHeaderCardContent = (props: Props) => {
                 <Typography whiteSpace='nowrap' color='inherit'>
                   篩選
                 </Typography>
+              </Button>
+            ) : (
+              <Button
+                color={isShowFilters ? 'primary' : 'secondary'}
+                variant={isShowFilters ? 'contained' : 'outlined'}
+                onClick={handleFiltersClick}
+              >
+                <Icon icon='mdi:filter-outline' fontSize={20} />
               </Button>
             )}
           </Stack>
