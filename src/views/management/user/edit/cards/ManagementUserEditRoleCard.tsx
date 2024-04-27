@@ -58,9 +58,11 @@ const ManagementUserEditRoleCard = (props: Props) => {
 
   // ** Vars
   const userRoleAttributes = getUserRoleAttributes(updatedUser.role!.name)
-  const userPermissions = Permissions.filter(permission =>
-    permission.assignedTo.includes(roles.find(role => role.id === selectedRoleId)!.name)
-  )
+  const userPermissions = roles.length
+    ? Permissions.filter(permission =>
+        permission.assignedTo.includes(roles.find(role => role.id === selectedRoleId)!.name)
+      )
+    : []
 
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
