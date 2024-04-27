@@ -54,7 +54,7 @@ const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) 
   position: 'relative',
   padding: `${theme.spacing(8, 12, 10)} !important`,
   [theme.breakpoints.down('md')]: {
-    padding: `${theme.spacing(8, 4, 6.5)} !important`
+    padding: `${theme.spacing(2, 4, 6.5)} !important`
   }
 }))
 const TitleTypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
@@ -137,10 +137,17 @@ const AuthLoginPage = () => {
     })
     if (signInResponse && !signInResponse?.ok) {
       setIsLoginCredentialsLoading(false)
-      setError('email', {
-        type: 'manual',
-        message: 'Email or Password is invalid'
-      })
+      if (signInResponse.status === 401) {
+        if (signInResponse.error === 'Invalid identifier or password') {
+          setError('email', {
+            type: 'manual',
+            message: 'Email or Password is invalid'
+          })
+        }
+        if (signInResponse.error === 'Your account email is not confirmed') {
+          router.push(`/auth/verify-email?email=${email}`)
+        }
+      }
     } else {
       const returnUrl = router.query.returnUrl
       const redirectURL = returnUrl && returnUrl !== '/' ? returnUrl : '/'
@@ -165,7 +172,7 @@ const AuthLoginPage = () => {
                 justifyContent: 'center'
               }}
             >
-              <LoginIllustration height={500} alt='login-illustration' src={`/images/auth/login-illustration.svg`} />
+              <LoginIllustration height={500} alt='login-illustration' src='/images/auth/login-illustration.svg' />
             </Grid>
           )}
           <Grid item xs={12} md={5}>
@@ -329,14 +336,14 @@ const AuthLoginPage = () => {
                   alignItems='center'
                   justifyContent='center'
                   flexWrap='wrap'
-                  sx={{ width: '100%', mt: 12 }}
+                  sx={{ width: '100%', pt: 8 }}
                 >
                   <Typography noWrap sx={{ color: 'text.secondary' }}>
                     New on our platform?
                   </Typography>
                   <Typography
-                    href='/auth/register'
                     component={Link}
+                    href='/auth/register'
                     noWrap
                     sx={{ color: 'primary.main', textDecoration: 'none' }}
                   >
