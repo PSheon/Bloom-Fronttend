@@ -120,8 +120,9 @@ const AuthLoginPage = () => {
   // ** Logics
   const handleLoginGoogle = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
+    setIsLoginLoading(true)
 
-    await signIn('google', { callbackUrl: 'http://localhost:8080/api/auth/callback/google' })
+    await signIn('google', { callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/auth/callback/google` })
   }
   const onSubmit = async (data: FormData) => {
     const { email, password } = data
@@ -293,7 +294,7 @@ const AuthLoginPage = () => {
                       size='large'
                       type='submit'
                       variant='contained'
-                      sx={{ mb: 2 }}
+                      sx={{ textTransform: 'inherit' }}
                     >
                       Login
                     </LoadingButton>
@@ -301,6 +302,7 @@ const AuthLoginPage = () => {
                   <Divider
                     sx={{
                       width: '100%',
+                      mt: theme => `${theme.spacing(5)} !important`,
                       '& .MuiDivider-wrapper': { px: 4 }
                     }}
                   >
@@ -309,12 +311,14 @@ const AuthLoginPage = () => {
                   <Box sx={{ mt: 6 }}>
                     <LoadingButton
                       fullWidth
+                      loading={isLoginLoading}
                       size='large'
                       variant='outlined'
                       startIcon={<Image src='/images/socials/google.png' alt='google-icon' width={20} height={20} />}
                       onClick={handleLoginGoogle}
+                      sx={{ textTransform: 'inherit' }}
                     >
-                      Sign-up with Google
+                      Sign up with Google
                     </LoadingButton>
                   </Box>
                 </Box>
