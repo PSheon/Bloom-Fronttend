@@ -1,6 +1,7 @@
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
+import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
@@ -55,6 +56,11 @@ const ManagementAnnouncementEditLoadingSkeleton = () => {
                     <Skeleton variant='text' sx={{ fontSize: '1.25rem' }} />
                     <Skeleton variant='text' sx={{ fontSize: '1.25rem' }} />
                   </Grid>
+                  <Grid item xs={12}>
+                    <Button fullWidth disabled type='submit' variant='contained'>
+                      編輯
+                    </Button>
+                  </Grid>
                 </Grid>
               </CardContent>
             </Card>
@@ -94,29 +100,6 @@ const ManagementAnnouncementEditLoadingSkeleton = () => {
                 <Tab value='security' label='安全' icon={<Icon icon='mdi:lock-outline' />} />
               </TabList>
             </TabContext>
-          </Grid>
-          <Grid item xs={12}>
-            <Card>
-              <CardContent>
-                <Grid container spacing={4}>
-                  <Grid item xs={12}>
-                    <Typography variant='subtitle2'>
-                      <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} />
-                    </Typography>
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Divider />
-                  </Grid>
-                  <Grid item xs={12}>
-                    <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} />
-                    <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} />
-                    <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} />
-                    <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} />
-                    <Skeleton variant='text' sx={{ fontSize: '1.5rem' }} />
-                  </Grid>
-                </Grid>
-              </CardContent>
-            </Card>
           </Grid>
           <Grid item xs={12}>
             <Card>
