@@ -104,7 +104,7 @@ export type UpdateOneNotificationParamsType = {
   id: number
   data: Partial<{
     title: string
-    content: RawDraftContentState
+    content: OutputData
     isHighlighted: boolean
   }>
   meta?: {
