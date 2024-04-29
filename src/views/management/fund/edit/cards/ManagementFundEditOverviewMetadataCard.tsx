@@ -16,7 +16,7 @@ interface Props {
   initFundEntity: FundType
 }
 
-const ManagementFundEditMetadataCard = (props: Props) => {
+const ManagementFundEditOverviewMetadataCard = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
@@ -90,4 +90,4 @@ const ManagementFundEditMetadataCard = (props: Props) => {
   )
 }
 
-export default ManagementFundEditMetadataCard
+export default ManagementFundEditOverviewMetadataCard

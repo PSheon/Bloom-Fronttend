@@ -61,7 +61,7 @@ interface FormData {
   skin: SkinType
 }
 
-const ManagementFundEditCreateDefaultPackageStack = (props: Props) => {
+const ManagementFundEditOverviewCreateDefaultPackageStack = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
@@ -306,4 +306,4 @@ const ManagementFundEditCreateDefaultPackageStack = (props: Props) => {
   )
 }
 
-export default ManagementFundEditCreateDefaultPackageStack
+export default ManagementFundEditOverviewCreateDefaultPackageStack

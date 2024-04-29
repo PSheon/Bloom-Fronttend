@@ -96,7 +96,7 @@ interface FormData {
   status: 'Draft' | 'Published' | 'Archived'
 }
 
-const ManagementFundEditDefaultPackagesGrid = (props: Props) => {
+const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
@@ -307,12 +307,16 @@ const ManagementFundEditDefaultPackagesGrid = (props: Props) => {
                               alignContent='center'
                               sx={{ width: '100%' }}
                             >
-                              <Typography sx={{ mb: 2 }}>
-                                {`${property.propertyType}:`}
-                                <Box component='span' sx={{ fontWeight: 600 }}>
-                                  {property.value}
-                                </Box>
-                              </Typography>
+                              <Grid container spacing={2} sx={{ mb: 2 }}>
+                                <Grid item xs={6} sm={4}>
+                                  <Typography>{property.propertyType}</Typography>
+                                </Grid>
+                                <Grid item xs={6} sm={8}>
+                                  <Typography component='span' sx={{ fontWeight: 600 }}>
+                                    {property.value}
+                                  </Typography>
+                                </Grid>
+                              </Grid>
 
                               <IconButton
                                 size='small'
@@ -577,4 +581,4 @@ const ManagementFundEditDefaultPackagesGrid = (props: Props) => {
   )
 }
 
-export default ManagementFundEditDefaultPackagesGrid
+export default ManagementFundEditOverviewDefaultPackagesGrid

@@ -2,6 +2,12 @@
 import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
 
+// ** Custom Component Imports
+import ManagementFundEditTokenProtocolCard from 'src/views/management/fund/edit/cards/ManagementFundEditTokenProtocolCard'
+import ManagementFundEditTokenPermissionCard from 'src/views/management/fund/edit/cards/ManagementFundEditTokenPermissionCard'
+import ManagementFundEditTokenStatisticsCard from 'src/views/management/fund/edit/cards/ManagementFundEditTokenStatisticsCard'
+import ManagementFundEditTokenTransactionsCard from 'src/views/management/fund/edit/cards/ManagementFundEditTokenTransactionsCard'
+
 // ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 
@@ -11,9 +17,7 @@ interface Props {
 
 const ManagementFundEditTokenTabPanel = (props: Props) => {
   // ** Props
-  const {
-    /* initFundEntity */
-  } = props
+  const { initFundEntity } = props
 
   return (
     <TabPanel sx={{ p: 0 }} value='token'>
@@ -21,17 +25,20 @@ const ManagementFundEditTokenTabPanel = (props: Props) => {
         <Grid item xs={12} md={5} lg={4}>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              add
+              <ManagementFundEditTokenProtocolCard initFundEntity={initFundEntity} />
             </Grid>
             <Grid item xs={12}>
-              FundEditDefault
+              <ManagementFundEditTokenPermissionCard />
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} md={7} lg={8}>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              default package list
+              <ManagementFundEditTokenStatisticsCard />
+            </Grid>
+            <Grid item xs={12}>
+              <ManagementFundEditTokenTransactionsCard />
             </Grid>
           </Grid>
         </Grid>

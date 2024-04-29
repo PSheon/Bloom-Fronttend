@@ -23,7 +23,7 @@ interface Props {
   initFundEntity: FundType
 }
 
-const ManagementFundEditDangerZoneCard = (props: Props) => {
+const ManagementFundEditSecurityDangerZoneCard = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
@@ -95,4 +95,4 @@ const ManagementFundEditDangerZoneCard = (props: Props) => {
   )
 }
 
-export default ManagementFundEditDangerZoneCard
+export default ManagementFundEditSecurityDangerZoneCard

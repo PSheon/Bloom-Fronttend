@@ -58,7 +58,7 @@ interface FormData {
   description: string
 }
 
-const ManagementFundEditProfileCard = (props: Props) => {
+const ManagementFundEditOverviewProfileCard = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
@@ -127,25 +127,25 @@ const ManagementFundEditProfileCard = (props: Props) => {
       <CardContent sx={{ my: 1 }}>
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
           <Box sx={{ mr: 8, display: 'flex', alignItems: 'center' }}>
-            <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
-              <Icon icon='mdi:poll' />
+            <CustomAvatar skin='light' variant='rounded' color='info' sx={{ mr: 3 }}>
+              <Icon icon='mdi:twitter' />
             </CustomAvatar>
             <Box>
               <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
-                價值投資
+                @twitter
               </Typography>
-              <Typography variant='body2'>方案</Typography>
+              <Typography variant='body2'>Twitter</Typography>
             </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <CustomAvatar skin='light' variant='rounded' color='info' sx={{ mr: 3 }}>
-              <Icon icon='mdi:check' />
+            <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
+              <Icon icon='ic:outline-discord' />
             </CustomAvatar>
             <Box>
               <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
-                {initFundEntity.chain}
+                @discord
               </Typography>
-              <Typography variant='body2'>區塊鏈網路</Typography>
+              <Typography variant='body2'>Discord</Typography>
             </Box>
           </Box>
         </Box>
@@ -169,17 +169,35 @@ const ManagementFundEditProfileCard = (props: Props) => {
           </Box>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              兌換週期：
+              結束日期：
             </Typography>
-            <Typography variant='body2'>
-              {initFundEntity.redemptionFrequencyInDays ? `${initFundEntity.redemptionFrequencyInDays} 天` : '未設定'}
-            </Typography>
+            <Typography variant='body2'>{format(new Date(initFundEntity.maturityDate), 'PPpp')}</Typography>
           </Box>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
               績效手續費：
             </Typography>
-            <Typography variant='body2'>{`${updatedFund.performanceFeePercentage} %`}</Typography>
+            <Typography variant='body2'>{`${initFundEntity.performanceFeePercentage}%`}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', mb: 2.7 }}>
+            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+              協議手續費：
+            </Typography>
+            <Typography variant='body2'>{`${0}%`}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', mb: 2.7 }}>
+            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+              銷售開始日期：
+            </Typography>
+            <Typography variant='body2'>{format(new Date(initFundEntity.saleStartTime), 'PPpp')}</Typography>
+          </Box>
+          <Box sx={{ display: 'flex', mb: 2.7 }}>
+            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+              兌換週期：
+            </Typography>
+            <Typography variant='body2'>
+              {initFundEntity.redemptionFrequencyInDays ? `${initFundEntity.redemptionFrequencyInDays} 天` : '未設定'}
+            </Typography>
           </Box>
         </Box>
       </CardContent>
@@ -270,4 +288,4 @@ const ManagementFundEditProfileCard = (props: Props) => {
   )
 }
 
-export default ManagementFundEditProfileCard
+export default ManagementFundEditOverviewProfileCard

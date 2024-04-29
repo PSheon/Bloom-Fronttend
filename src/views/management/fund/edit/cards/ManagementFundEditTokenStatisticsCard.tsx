@@ -12,11 +12,11 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-const ManagementFundEditStatisticsCard = () => {
+const ManagementFundEditTokenStatisticsCard = () => {
   return (
     <Card>
       <CardHeader
-        title='資金統計'
+        title='Token Statics'
         titleTypographyProps={{ variant: 'h6' }}
         subheader={
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -39,9 +39,9 @@ const ManagementFundEditStatisticsCard = () => {
               </CustomAvatar>
               <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                  1.03 WBTC
+                  1
                 </Typography>
-                <Typography variant='caption'>資產淨值</Typography>
+                <Typography variant='caption'>Total Supply</Typography>
               </Box>
             </Box>
           </Grid>
@@ -52,9 +52,9 @@ const ManagementFundEditStatisticsCard = () => {
               </CustomAvatar>
               <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                  12.96%
+                  1
                 </Typography>
-                <Typography variant='caption'>平均年化率</Typography>
+                <Typography variant='caption'>Claimed Supply</Typography>
               </Box>
             </Box>
           </Grid>
@@ -65,9 +65,9 @@ const ManagementFundEditStatisticsCard = () => {
               </CustomAvatar>
               <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                  59.71 WBTC
+                  0
                 </Typography>
-                <Typography variant='caption'>總鎖倉價值</Typography>
+                <Typography variant='caption'>Unclaimed Supply</Typography>
               </Box>
             </Box>
           </Grid>
@@ -77,4 +77,4 @@ const ManagementFundEditStatisticsCard = () => {
   )
 }
 
-export default ManagementFundEditStatisticsCard
+export default ManagementFundEditTokenStatisticsCard

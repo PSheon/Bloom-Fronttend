@@ -6,7 +6,6 @@ import Link from 'next/link'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
@@ -14,27 +13,18 @@ import Typography from '@mui/material/Typography'
 // ** Third-Party Imports
 import { format } from 'date-fns'
 
-// ** Core Component Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
 // ** Custom Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
 import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
 
 // ** API Imports
-import { useFindQuery } from 'src/store/api/management/activityLog'
+import { useFindMeQuery } from 'src/store/api/management/activityLog'
 
 // ** Util Imports
-import { getInitials } from 'src/@core/utils/get-initials'
-import { getPublicMediaAssetUrl, getActivityLogStatusProperties, getActivityLogActionProperties } from 'src/utils'
+import { getActivityLogStatusProperties, getActivityLogActionProperties, getActivityLogRefContentLink } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
 import { ActivityLogType } from 'src/types/api/activityLogTypes'
-
-interface Props {
-  initFundEntity: FundType
-}
 
 interface CellType {
   row: ActivityLogType
@@ -52,19 +42,13 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   }
 }))
 
-const ManagementFundEditActivityLogListCard = (props: Props) => {
-  // ** Props
-  const { initFundEntity } = props
-
+const ManagementFundEditTokenTransactionsCard = () => {
   // ** States
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
   // ** Hooks
-  const { data: activitiesData, isLoading: isActivityLogsLoading } = useFindQuery({
-    filters: {
-      refContentType: 'Fund',
-      refId: initFundEntity.id
-    },
+  const { data: activitiesData, isLoading: isActivityLogsLoading } = useFindMeQuery({
+    filters: {},
     sort: ['date:desc'],
     pagination: {
       page: paginationModel.page + 1,
@@ -114,42 +98,12 @@ const ManagementFundEditActivityLogListCard = (props: Props) => {
     {
       flex: 3,
       minWidth: 160,
-      field: 'user',
-      headerName: '操作人員',
+      field: 'refContentType',
+      headerName: '執行個體',
       renderCell: ({ row }: CellType) => {
-        const user = {
-          id: row.user.data?.id,
-          ...row.user.data?.attributes
-        }
+        const link = getActivityLogRefContentLink(row)
 
-        return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            {user?.avatar ? (
-              <CustomAvatar
-                variant='rounded'
-                src={getPublicMediaAssetUrl(user.avatar?.data?.attributes.url)}
-                sx={{ mr: 3, width: 34, height: 34 }}
-              />
-            ) : (
-              <CustomAvatar
-                skin='light'
-                color='primary'
-                variant='rounded'
-                sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}
-              >
-                {getInitials(user.username ? user.username : 'John Doe')}
-              </CustomAvatar>
-            )}
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
-              <LinkStyled href={`/management/user/edit/${user.id}`} sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {user.username}
-              </LinkStyled>
-              <Typography noWrap variant='caption'>
-                {`#${user.title || '未提供'}`}
-              </Typography>
-            </Box>
-          </Box>
-        )
+        return <LinkStyled href={link}>{`${row.refContentType}#${row.id}`}</LinkStyled>
       }
     },
     {
@@ -168,7 +122,7 @@ const ManagementFundEditActivityLogListCard = (props: Props) => {
 
   return (
     <Card>
-      <CardHeader title='操作記錄' />
+      <CardHeader title='Last Transactions' />
       <DataGrid
         autoHeight
         loading={isActivityLogsLoading}
@@ -187,4 +141,4 @@ const ManagementFundEditActivityLogListCard = (props: Props) => {
   )
 }
 
-export default ManagementFundEditActivityLogListCard
+export default ManagementFundEditTokenTransactionsCard
