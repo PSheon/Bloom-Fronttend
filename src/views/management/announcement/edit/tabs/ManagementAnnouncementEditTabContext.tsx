@@ -11,9 +11,11 @@ import { styled } from '@mui/material/styles'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
 // ** Custom Component Imports
-import ManagementAnnouncementEditActivityTimelineCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditActivityTimelineCard'
-import ManagementAnnouncementEditContentEditorCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditContentEditorCard'
-import ManagementAnnouncementEditDangerZoneCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditDangerZoneCard'
+import ManagementAnnouncementEditOverviewStatisticsCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditOverviewStatisticsCard'
+import ManagementAnnouncementEditOverviewStatusCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditOverviewStatusCard'
+import ManagementAnnouncementEditOverviewContentEditorCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditOverviewContentEditorCard'
+import ManagementAnnouncementEditSecurityActivityTimelineCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditSecurityActivityTimelineCard'
+import ManagementAnnouncementEditSecurityDangerZoneCard from 'src/views/management/announcement/edit/cards/ManagementAnnouncementEditSecurityDangerZoneCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -61,19 +63,25 @@ const ManagementAnnouncementEditTabContext = (props: Props) => {
       </TabList>
       <Box sx={{ mt: 6 }}>
         <TabPanel sx={{ p: 0 }} value='overview'>
-          <Grid container spacing={6}>
+          <Grid container spacing={6} className='match-height'>
+            <Grid item xs={12} md={7}>
+              <ManagementAnnouncementEditOverviewStatisticsCard />
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <ManagementAnnouncementEditOverviewStatusCard />
+            </Grid>
             <Grid item xs={12}>
-              <ManagementAnnouncementEditContentEditorCard initAnnouncementEntity={initAnnouncementEntity} />
+              <ManagementAnnouncementEditOverviewContentEditorCard initAnnouncementEntity={initAnnouncementEntity} />
             </Grid>
           </Grid>
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='security'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <ManagementAnnouncementEditActivityTimelineCard initAnnouncementEntity={initAnnouncementEntity} />
+              <ManagementAnnouncementEditSecurityActivityTimelineCard initAnnouncementEntity={initAnnouncementEntity} />
             </Grid>
             <Grid item xs={12}>
-              <ManagementAnnouncementEditDangerZoneCard initAnnouncementEntity={initAnnouncementEntity} />
+              <ManagementAnnouncementEditSecurityDangerZoneCard initAnnouncementEntity={initAnnouncementEntity} />
             </Grid>
           </Grid>
         </TabPanel>

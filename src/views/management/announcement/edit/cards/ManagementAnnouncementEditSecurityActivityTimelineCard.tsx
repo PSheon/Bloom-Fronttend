@@ -65,7 +65,7 @@ interface Props {
   initAnnouncementEntity: AnnouncementType
 }
 
-const ManagementAnnouncementEditActivityTimelineCard = (props: Props) => {
+const ManagementAnnouncementEditSecurityActivityTimelineCard = (props: Props) => {
   // ** Props
   const { initAnnouncementEntity } = props
 
@@ -77,6 +77,7 @@ const ManagementAnnouncementEditActivityTimelineCard = (props: Props) => {
   const showDetailsButton = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'))
   const { data: activitiesData, isLoading: isActivityLogsLoading } = useFindQuery({
     filters: {
+      refContentType: 'Announcement',
       refId: initAnnouncementEntity.id
     },
     sort: ['date:desc'],
@@ -230,4 +231,4 @@ const ManagementAnnouncementEditActivityTimelineCard = (props: Props) => {
   )
 }
 
-export default ManagementAnnouncementEditActivityTimelineCard
+export default ManagementAnnouncementEditSecurityActivityTimelineCard

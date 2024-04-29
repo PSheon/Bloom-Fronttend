@@ -37,7 +37,7 @@ import { useFindQuery, useUpdateOneMutation } from 'src/store/api/management/ann
 
 // ** Util Imports
 import { getInitials } from 'src/@core/utils/get-initials'
-import { getPublicMediaAssetUrl } from 'src/utils'
+import { getPublicMediaAssetUrl, getAnnouncementStatusProperties } from 'src/utils'
 
 // ** Type Imports
 import { AnnouncementType } from 'src/types/api/announcementTypes'
@@ -116,6 +116,21 @@ const ManagementAnnouncementListPage = () => {
     },
     {
       flex: 2,
+      minWidth: 150,
+      field: 'catalog',
+      headerName: '分類',
+      renderCell: ({ row }: CellType) => (
+        <Typography
+          noWrap
+          variant='body2'
+          sx={{ fontWeight: 600, color: 'text.primary', lineHeight: '22px', letterSpacing: '.1px' }}
+        >
+          {row.catalog}
+        </Typography>
+      )
+    },
+    {
+      flex: 2,
       field: 'author',
       minWidth: 250,
       headerName: '作者',
@@ -172,23 +187,22 @@ const ManagementAnnouncementListPage = () => {
     {
       flex: 1,
       minWidth: 100,
-      field: 'isPublished',
+      field: 'status',
       headerName: '發布狀態',
       renderCell: ({ row }: CellType) => {
-        const { isPublished } = row
+        const announcementStatusProperties = getAnnouncementStatusProperties(row.status)
 
         return (
           <CustomChip
             skin='light'
             size='small'
             rounded
-            label={isPublished ? '已發布' : '未發布'}
-            color={isPublished ? 'success' : 'info'}
+            label={announcementStatusProperties.displayName}
+            color={announcementStatusProperties.color}
             sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
           />
         )
-      },
-      valueGetter: ({ row }: CellType) => (row.isPublished ? '已發布' : '未發布')
+      }
     },
     {
       flex: 1,

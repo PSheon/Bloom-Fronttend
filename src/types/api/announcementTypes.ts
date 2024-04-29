@@ -1,16 +1,18 @@
 // ** Third-Party Imports
-import { RawDraftContentState } from 'draft-js'
+import { OutputData } from '@editorjs/editorjs'
 
 // ** Type Imports
 import { BaseApiResponseType, UserApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
 
+type catalogType = 'Engineering' | 'Community' | 'Company News' | 'Customer Stories' | 'Changelog' | 'Press'
 export type AnnouncementType = {
   id: number
   cover?: MediaAssetApiResponseType
+  catalog: catalogType
   displayName: string
-  content: RawDraftContentState
+  content: OutputData
   author: UserApiResponseType
-  isPublished: boolean
+  status: 'Draft' | 'Published' | 'Archived'
   isHighlighted: boolean
   updatedAt: string
   createdAt: string
@@ -50,7 +52,7 @@ export type FindAnnouncementsResponseType = BaseApiResponseType<AnnouncementType
 export type CreateAnnouncementParamsType = {
   data: {
     displayName: string
-    content: RawDraftContentState
+    content: OutputData
     author: number
   }
 }
@@ -66,8 +68,8 @@ export type UpdateOneAnnouncementParamsType = {
   data: Partial<{
     cover: number | null
     displayName: string
-    content: RawDraftContentState
-    isPublished: boolean
+    content: OutputData
+    status: 'Draft' | 'Published' | 'Archived'
     isHighlighted: boolean
   }>
   meta?: {

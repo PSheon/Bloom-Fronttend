@@ -97,7 +97,7 @@ const ManagementAnnouncementEditBannerPreviewBox = (props: Props) => {
         {isImage ? (
           <Box
             sx={{
-              width: 128,
+              width: 320,
               height: 128,
               display: 'flex',
               alignItems: 'center',

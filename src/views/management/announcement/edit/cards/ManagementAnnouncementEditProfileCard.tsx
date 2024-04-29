@@ -35,7 +35,7 @@ import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
-import AnnouncementEditBannerPreviewBox from 'src/views/management/announcement/edit/boxes/ManagementAnnouncementEditBannerPreviewBox'
+import ManagementAnnouncementEditBannerPreviewBox from 'src/views/management/announcement/edit/boxes/ManagementAnnouncementEditBannerPreviewBox'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -44,7 +44,7 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateOneMutation } from 'src/store/api/management/announcement'
 
 // ** Util Imports
-import { getPublicMediaAssetUrl } from 'src/utils'
+import { getAnnouncementStatusProperties, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
 import { AnnouncementType } from 'src/types/api/announcementTypes'
@@ -97,6 +97,9 @@ const ManagementAnnouncementEditProfileCard = (props: Props) => {
     resolver: yupResolver(schema)
   })
 
+  // ** vars
+  const announcementStatusProperties = getAnnouncementStatusProperties(initAnnouncementEntity.status)
+
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
@@ -114,15 +117,15 @@ const ManagementAnnouncementEditProfileCard = (props: Props) => {
   return (
     <Card>
       <CardContent sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
-        <AnnouncementEditBannerPreviewBox initAnnouncementEntity={updatedAnnouncement} />
+        <ManagementAnnouncementEditBannerPreviewBox initAnnouncementEntity={updatedAnnouncement} />
         <Typography variant='h6' sx={{ mt: 4, mb: 2, wordBreak: 'break-word' }}>
           {updatedAnnouncement.displayName}
         </Typography>
         <CustomChip
           skin='light'
           size='small'
-          label={updatedAnnouncement.isPublished ? '已發布' : '草稿'}
-          color={updatedAnnouncement.isPublished ? 'success' : 'warning'}
+          label={announcementStatusProperties.displayName}
+          color={announcementStatusProperties.color}
           sx={{
             height: 20,
             fontWeight: 600,
@@ -140,23 +143,23 @@ const ManagementAnnouncementEditProfileCard = (props: Props) => {
             <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
               <Icon icon='mdi:poll' />
             </CustomAvatar>
-            <div>
+            <Box>
               <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
-                1,000
+                {updatedAnnouncement.catalog}
               </Typography>
-              <Typography variant='body2'>觀看次數</Typography>
-            </div>
+              <Typography variant='body2'>Catalog</Typography>
+            </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <CustomAvatar skin='light' variant='rounded' color='info' sx={{ mr: 3 }}>
               <Icon icon='mdi:like-outline' />
             </CustomAvatar>
-            <div>
+            <Box>
               <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
                 1,000
               </Typography>
               <Typography variant='body2'>已按讚</Typography>
-            </div>
+            </Box>
           </Box>
         </Box>
       </CardContent>
@@ -167,15 +170,9 @@ const ManagementAnnouncementEditProfileCard = (props: Props) => {
         <Box sx={{ pt: 2, pb: 1 }}>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              分類:
+              名稱:
             </Typography>
-            <Typography variant='body2'>abc</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              標籤:
-            </Typography>
-            <Typography variant='body2'>abc</Typography>
+            <Typography variant='body2'>{updatedAnnouncement.displayName}</Typography>
           </Box>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
@@ -275,30 +272,6 @@ const ManagementAnnouncementEditProfileCard = (props: Props) => {
                   )}
                 </FormControl>
               </Grid>
-              {/* <Grid item xs={12} sm={6}>
-                <FormControl fullWidth>
-                  <Controller
-                    name='phone'
-                    control={control}
-                    rules={{ required: true }}
-                    render={({ field: { value, onChange, onBlur } }) => (
-                      <TextField
-                        label='電話號碼'
-                        placeholder='0988888888'
-                        value={value}
-                        onBlur={onBlur}
-                        onChange={onChange}
-                        error={Boolean(errors.phone)}
-                        InputProps={{
-                          startAdornment: <InputAdornment position='start'>台灣 (+886)</InputAdornment>
-                        }}
-                        sx={{ display: 'flex' }}
-                      />
-                    )}
-                  />
-                  {errors.phone && <FormHelperText sx={{ color: 'error.main' }}>{errors.phone.message}</FormHelperText>}
-                </FormControl>
-              </Grid> */}
             </Grid>
           </DialogContent>
           <DialogActions
