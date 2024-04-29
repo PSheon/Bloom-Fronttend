@@ -51,6 +51,7 @@ export const notificationApi = createApi({
         })}`,
         method: 'GET'
       }),
+      providesTags: ['Notification'],
       transformResponse: (responseData: FindMeOneNotificationTransformResponseType) => ({
         id: responseData?.data?.id,
         ...responseData?.data?.attributes

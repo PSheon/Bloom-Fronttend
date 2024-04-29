@@ -105,6 +105,7 @@ export type UpdateOneNotificationParamsType = {
   data: Partial<{
     title: string
     content: OutputData
+    isSeen: boolean
     isHighlighted: boolean
   }>
   meta?: {

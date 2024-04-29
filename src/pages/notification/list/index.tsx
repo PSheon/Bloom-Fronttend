@@ -16,7 +16,6 @@ import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Third-Party Imports
 import format from 'date-fns/format'
-import { convertFromRaw } from 'draft-js'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -99,18 +98,6 @@ const NotificationListPage = () => {
           {row.title}
         </LinkStyled>
       )
-    },
-    {
-      flex: 2,
-      minWidth: 150,
-      field: 'content',
-      headerName: '內容',
-      renderCell: ({ row }: CellType) => (
-        <Typography variant='body2' noWrap sx={{ fontWeight: 600, color: 'text.primary', wordWrap: 'break-word' }}>
-          {convertFromRaw(row.content).getPlainText()}
-        </Typography>
-      ),
-      valueGetter: ({ row }: CellType) => convertFromRaw(row.content).getPlainText()
     },
     {
       flex: 1,

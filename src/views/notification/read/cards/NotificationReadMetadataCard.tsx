@@ -16,7 +16,7 @@ interface Props {
   initNotificationEntity: NotificationType
 }
 
-const InformationCard = (props: Props) => {
+const NotificationReadMetadataCard = (props: Props) => {
   // ** Props
   const { initNotificationEntity } = props
 
@@ -25,7 +25,7 @@ const InformationCard = (props: Props) => {
       <CardContent>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>資訊</Typography>
+            <Typography variant='subtitle2'>屬性</Typography>
           </Grid>
           <Grid item xs={12}>
             <Divider />
@@ -90,4 +90,4 @@ const InformationCard = (props: Props) => {
   )
 }
 
-export default InformationCard
+export default NotificationReadMetadataCard
