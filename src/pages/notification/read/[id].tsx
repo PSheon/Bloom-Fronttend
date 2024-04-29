@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useFindMeOneQuery } from 'src/store/api/management/notification'
 
 // ** Custom Component Imports
-import NotificationReadLoadingSkeleton from 'src/views/notification/read/LoadingSkeleton'
+import NotificationReadLoadingSkeleton from 'src/views/notification/read/NotificationReadLoadingSkeleton'
 import NotificationReadSection from 'src/views/notification/read'
 
 const NotificationReadPage = () => {
