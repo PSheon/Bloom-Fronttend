@@ -15,7 +15,6 @@ import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
 
 // ** Third-Party Imports
 import format from 'date-fns/format'
-import { convertFromRaw } from 'draft-js'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -97,7 +96,8 @@ const MeNotificationList = (props: Props) => {
                     <Icon icon={icon} fontSize={14} />
                   </Avatar>
                   <Typography variant='body2' noWrap>
-                    {convertFromRaw(notification.content).getPlainText()}
+                    {/* {convertFromRaw(notification.content).getPlainText()} */}
+                    TODO
                   </Typography>
                 </Box>
 
