@@ -2,7 +2,7 @@
 import { useState, ChangeEvent } from 'react'
 
 // ** Next Imports
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 
 // ** MUI Imports
 import { Theme } from '@mui/material/styles'
@@ -19,9 +19,17 @@ import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
 import Select, { SelectChangeEvent } from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
+import LoadingButton from '@mui/lab/LoadingButton'
+
+// ** Third-Party Components
+import { useSession } from 'next-auth/react'
+import toast from 'react-hot-toast'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** API Imports
+import { useCreateMutation } from 'src/store/api/management/announcement'
 
 interface Props {
   filteredAnnouncementDisplayname: string
@@ -50,10 +58,31 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
 
   // ** Hooks
   const isDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'))
+  const session = useSession()
+  const router = useRouter()
+  const [createNewAnnouncement, { isLoading: isCreateNewAnnouncementLoading }] = useCreateMutation()
 
   // ** Logics
   const handleFiltersClick = () => {
     serIsShowFilters(currentIsShowFilters => !currentIsShowFilters)
+  }
+  const handleCreateNewAnnouncement = async () => {
+    try {
+      const backendResponse = await createNewAnnouncement({
+        data: {
+          displayName: 'New Announcement',
+          author: session.data!.user.id
+        }
+      }).unwrap()
+
+      if (backendResponse?.id) {
+        router.push(`/management/announcement/edit/${backendResponse.id}`)
+      } else {
+        toast.error('Error occurred while creating new announcement.')
+      }
+    } catch (error) {
+      toast.error('Error occurred while creating new announcement.')
+    }
   }
 
   return (
@@ -98,11 +127,16 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
                 <Icon icon='mdi:filter-outline' fontSize={20} />
               </Button>
             )}
-            <Button component={Link} variant='contained' href='/management/announcement/add'>
+            <LoadingButton
+              loading={isCreateNewAnnouncementLoading}
+              onClick={handleCreateNewAnnouncement}
+              variant='contained'
+              endIcon={<Icon icon='mdi:send-outline' />}
+            >
               <Typography whiteSpace='nowrap' color='inherit'>
-                建立公告
+                建立
               </Typography>
-            </Button>
+            </LoadingButton>
           </Stack>
         </Stack>
         <Collapse in={isShowFilters} timeout='auto' unmountOnExit>

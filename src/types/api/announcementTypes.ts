@@ -52,7 +52,6 @@ export type FindAnnouncementsResponseType = BaseApiResponseType<AnnouncementType
 export type CreateAnnouncementParamsType = {
   data: {
     displayName: string
-    content: OutputData
     author: number
   }
 }
