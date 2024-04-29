@@ -19,7 +19,6 @@ import Typography, { TypographyProps } from '@mui/material/Typography'
 // ** Third-Party Imports
 import PerfectScrollbarComponent from 'react-perfect-scrollbar'
 import format from 'date-fns/format'
-import { convertFromRaw } from 'draft-js'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -92,14 +91,6 @@ const MenuItemTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
   textOverflow: 'ellipsis',
   marginBottom: theme.spacing(0.75)
 }))
-
-// ** Styled component for the subtitle in MenuItems
-const MenuItemSubtitle = styled(Typography)<TypographyProps>({
-  flex: '1 1 100%',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis'
-})
 
 const ScrollWrapper = ({ children, hidden }: { children: ReactNode; hidden: boolean }) => {
   if (hidden) {
@@ -200,9 +191,6 @@ const NotificationDropdown = (props: Props) => {
                     </Avatar>
                     <Box sx={{ mx: 4, flex: '1 1', display: 'flex', overflow: 'hidden', flexDirection: 'column' }}>
                       <MenuItemTitle>{notification.title}</MenuItemTitle>
-                      <MenuItemSubtitle variant='body2'>
-                        {convertFromRaw(notification.content).getPlainText()}
-                      </MenuItemSubtitle>
                     </Box>
                     <Typography variant='caption' sx={{ color: 'text.disabled' }}>
                       {format(new Date(notification.updatedAt), 'MM/dd')}
