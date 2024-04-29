@@ -15,7 +15,7 @@ import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
 import { format } from 'date-fns'
 
 // ** Util Imports
-import { getPublicMediaAssetUrl, getActivityLogActionAttributes } from 'src/utils'
+import { getPublicMediaAssetUrl, getActivityLogActionProperties } from 'src/utils'
 
 // ** Type Imports
 import { ActivityLogType } from 'src/types/api/activityLogTypes'
@@ -44,7 +44,7 @@ const ActivityTimeLine = (props: Props) => {
   return (
     <Timeline sx={{ my: 0, py: 0 }}>
       {activityLogs.map(activityLog => {
-        const { title, color } = getActivityLogActionAttributes(activityLog.action)
+        const { title, color } = getActivityLogActionProperties(activityLog.action)
 
         return (
           <TimelineItem key={`request-sheet-edit-activity-${activityLog.id}`}>
