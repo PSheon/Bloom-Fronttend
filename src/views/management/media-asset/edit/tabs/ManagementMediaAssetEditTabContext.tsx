@@ -11,9 +11,9 @@ import { styled } from '@mui/material/styles'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
 // ** Custom Component Imports
-import ManagementMediaAssetEditPreviewCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditPreviewCard'
-import ManagementMediaAssetEditShareCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditShareCard'
-import ManagementMediaAssetEditDangerZoneCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditDangerZoneCard'
+import ManagementMediaAssetEditOverviewPreviewCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditOverviewPreviewCard'
+import ManagementMediaAssetEditOverviewShareCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditOverviewShareCard'
+import ManagementMediaAssetEditSecurityDangerZoneCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditSecurityDangerZoneCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -63,17 +63,17 @@ const ManagementMediaAssetEditTabContext = (props: Props) => {
         <TabPanel sx={{ p: 0 }} value='overview'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <ManagementMediaAssetEditPreviewCard initMediaAssetEntity={initMediaAssetEntity} />
+              <ManagementMediaAssetEditOverviewPreviewCard initMediaAssetEntity={initMediaAssetEntity} />
             </Grid>
             <Grid item xs={12}>
-              <ManagementMediaAssetEditShareCard initMediaAssetEntity={initMediaAssetEntity} />
+              <ManagementMediaAssetEditOverviewShareCard initMediaAssetEntity={initMediaAssetEntity} />
             </Grid>
           </Grid>
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='security'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <ManagementMediaAssetEditDangerZoneCard initMediaAssetEntity={initMediaAssetEntity} />
+              <ManagementMediaAssetEditSecurityDangerZoneCard initMediaAssetEntity={initMediaAssetEntity} />
             </Grid>
           </Grid>
         </TabPanel>

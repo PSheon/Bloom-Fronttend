@@ -11,11 +11,11 @@ import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
 // ** Custom Component Imports
 import ManagementMediaAssetEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 // ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
