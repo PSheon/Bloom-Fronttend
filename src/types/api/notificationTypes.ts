@@ -1,5 +1,5 @@
 // ** Third-Party Imports
-import { RawDraftContentState } from 'draft-js'
+import { OutputData } from '@editorjs/editorjs'
 
 // ** Type Imports
 import { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
@@ -9,7 +9,7 @@ export type NotificationType = {
   notifier: UserApiResponseType
   catalog: 'System' | 'Request Sheet'
   title: string
-  content: RawDraftContentState
+  content: OutputData
   date: boolean
   isSeen: boolean
   isHighlighted: boolean
