@@ -19,7 +19,6 @@ import { announcementApi } from 'src/store/api/management/announcement'
 import { accessLogApi } from 'src/store/api/management/accessLog'
 import { activityLogApi } from 'src/store/api/management/activityLog'
 import { notificationApi } from 'src/store/api/management/notification'
-import { requestSheetApi } from 'src/store/api/management/requestSheet'
 import { reviewApi } from 'src/store/api/management/review'
 import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
 import { statisticApi } from 'src/store/api/statistic'
@@ -42,7 +41,6 @@ export const store = configureStore({
     [accessLogApi.reducerPath]: accessLogApi.reducer,
     [activityLogApi.reducerPath]: activityLogApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
-    [requestSheetApi.reducerPath]: requestSheetApi.reducer,
     [reviewApi.reducerPath]: reviewApi.reducer,
     [roleAndPermissionApi.reducerPath]: roleAndPermissionApi.reducer,
     [statisticApi.reducerPath]: statisticApi.reducer,
@@ -60,7 +58,6 @@ export const store = configureStore({
       accessLogApi.middleware,
       activityLogApi.middleware,
       notificationApi.middleware,
-      requestSheetApi.middleware,
       reviewApi.middleware,
       roleAndPermissionApi.middleware,
       statisticApi.middleware,
