@@ -20,6 +20,7 @@ import { accessLogApi } from 'src/store/api/management/accessLog'
 import { activityLogApi } from 'src/store/api/management/activityLog'
 import { notificationApi } from 'src/store/api/management/notification'
 import { reviewApi } from 'src/store/api/management/review'
+import { walletApi } from 'src/store/api/management/wallet'
 import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
 import { statisticApi } from 'src/store/api/statistic'
 import { authApi } from 'src/store/api/auth'
@@ -42,6 +43,7 @@ export const store = configureStore({
     [activityLogApi.reducerPath]: activityLogApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
     [reviewApi.reducerPath]: reviewApi.reducer,
+    [walletApi.reducerPath]: walletApi.reducer,
     [roleAndPermissionApi.reducerPath]: roleAndPermissionApi.reducer,
     [statisticApi.reducerPath]: statisticApi.reducer,
     [authApi.reducerPath]: authApi.reducer
@@ -59,6 +61,7 @@ export const store = configureStore({
       activityLogApi.middleware,
       notificationApi.middleware,
       reviewApi.middleware,
+      walletApi.middleware,
       roleAndPermissionApi.middleware,
       statisticApi.middleware,
       authApi.middleware
