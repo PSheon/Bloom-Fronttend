@@ -28,6 +28,11 @@ import themeConfig from 'src/configs/themeConfig'
 import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from 'next-auth/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
+import { Analytics } from '@vercel/analytics/react'
+import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { WagmiProvider, http } from 'wagmi'
+import { mainnet, sepolia } from 'wagmi/chains'
+import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
 
 // ** Component Imports
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
@@ -62,6 +67,9 @@ import 'react-perfect-scrollbar/dist/css/styles.css'
 // ** Iconify Style Imports
 import 'src/iconify-bundle/icons-bundle-react'
 
+// ** RainbowKit Style Imports
+import '@rainbow-me/rainbowkit/styles.css'
+
 // ** Global css styles
 import '../../styles/globals.css'
 
@@ -78,6 +86,17 @@ type GuardProps = {
 }
 
 const clientSideEmotionCache = createEmotionCache()
+const wagmiConfig = getDefaultConfig({
+  appName: themeConfig.templateName,
+  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string,
+  chains: [mainnet, sepolia],
+  transports: {
+    [mainnet.id]: http(`https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_RTHEREUM_MAINNET_KEY}`),
+    [sepolia.id]: http(`https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_RTHEREUM_SEPOLIA_KEY}`)
+  },
+  ssr: true
+})
+const queryClient = new QueryClient()
 
 // ** Pace Loader
 if (themeConfig.routingLoader) {
@@ -177,27 +196,32 @@ const App = (props: ExtendedAppProps) => {
         </Head>
 
         <SessionProvider session={pageProps.session}>
-          <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
-            <SettingsConsumer>
-              {({ settings }) => {
-                return (
-                  <ThemeComponent settings={settings}>
-                    <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                      <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard} authGuard={authGuard}>
-                        {getLayout(<Component {...pageProps} />)}
-                      </AclGuard>
-                    </Guard>
-                    <ReactHotToast>
-                      <Toaster position={settings.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />
-                    </ReactHotToast>
-                  </ThemeComponent>
-                )
-              }}
-            </SettingsConsumer>
-          </SettingsProvider>
+          <WagmiProvider config={wagmiConfig}>
+            <QueryClientProvider client={queryClient}>
+              <RainbowKitProvider>
+                <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
+                  <SettingsConsumer>
+                    {({ settings }) => (
+                      <ThemeComponent settings={settings}>
+                        <Guard authGuard={authGuard} guestGuard={guestGuard}>
+                          <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard} authGuard={authGuard}>
+                            {getLayout(<Component {...pageProps} />)}
+                          </AclGuard>
+                        </Guard>
+                        <ReactHotToast>
+                          <Toaster position={settings.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />
+                        </ReactHotToast>
+                      </ThemeComponent>
+                    )}
+                  </SettingsConsumer>
+                </SettingsProvider>
+              </RainbowKitProvider>
+            </QueryClientProvider>
+          </WagmiProvider>
         </SessionProvider>
 
         <SpeedInsights />
+        <Analytics />
       </CacheProvider>
     </Provider>
   )
