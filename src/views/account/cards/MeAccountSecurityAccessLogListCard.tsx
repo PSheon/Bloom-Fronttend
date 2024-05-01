@@ -30,7 +30,7 @@ interface CellType {
   row: AccessLogType
 }
 
-const MeAccountAccessLogListCard = () => {
+const MeAccountSecurityAccessLogListCard = () => {
   // ** States
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
@@ -190,4 +190,4 @@ const MeAccountAccessLogListCard = () => {
   )
 }
 
-export default MeAccountAccessLogListCard
+export default MeAccountSecurityAccessLogListCard

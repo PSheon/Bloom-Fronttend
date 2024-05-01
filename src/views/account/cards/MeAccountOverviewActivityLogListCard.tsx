@@ -42,7 +42,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   }
 }))
 
-const MeAccountActivityLogListCard = () => {
+const MeAccountOverviewActivityLogListCard = () => {
   // ** States
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
@@ -141,4 +141,4 @@ const MeAccountActivityLogListCard = () => {
   )
 }
 
-export default MeAccountActivityLogListCard
+export default MeAccountOverviewActivityLogListCard

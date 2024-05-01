@@ -16,7 +16,7 @@ import Button from '@mui/material/Button'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-const MeAccountDangerZoneCard = () => {
+const MeAccountSecurityDangerZoneCard = () => {
   // ** States
   const [open, setOpen] = useState<boolean>(false)
 
@@ -85,4 +85,4 @@ const MeAccountDangerZoneCard = () => {
   )
 }
 
-export default MeAccountDangerZoneCard
+export default MeAccountSecurityDangerZoneCard

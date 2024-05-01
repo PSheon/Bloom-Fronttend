@@ -58,7 +58,7 @@ const schema = yup.object().shape({
     .oneOf([yup.ref('newPassword')], 'Passwords must match')
 })
 
-const MeAccountChangePasswordCard = () => {
+const MeAccountSecurityChangePasswordCard = () => {
   // ** States
   const [passwordVisibility, setPasswordVisibility] = useState<PasswordVisibilityState>({
     showCurrentPassword: false,
@@ -268,4 +268,4 @@ const MeAccountChangePasswordCard = () => {
   )
 }
 
-export default MeAccountChangePasswordCard
+export default MeAccountSecurityChangePasswordCard

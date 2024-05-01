@@ -11,10 +11,11 @@ import TabContext from '@mui/lab/TabContext'
 import MuiTab, { TabProps } from '@mui/material/Tab'
 
 // ** Custom Component Imports
-import MeAccountActivityLogListCard from 'src/views/account/cards/MeAccountActivityLogListCard'
-import MeAccountChangePasswordCard from 'src/views/account/cards/MeAccountChangePasswordCard'
-import MeAccountAccessLogListCard from 'src/views/account/cards/MeAccountAccessLogListCard'
-import MeAccountDangerZoneCard from 'src/views/account/cards/MeAccountDangerZoneCard'
+import MeAccountOverviewWalletListCard from 'src/views/account/cards/MeAccountOverviewWalletListCard'
+import MeAccountOverviewActivityLogListCard from 'src/views/account/cards/MeAccountOverviewActivityLogListCard'
+import MeAccountSecurityChangePasswordCard from 'src/views/account/cards/MeAccountSecurityChangePasswordCard'
+import MeAccountSecurityAccessLogListCard from 'src/views/account/cards/MeAccountSecurityAccessLogListCard'
+import MeAccountSecurityDangerZoneCard from 'src/views/account/cards/MeAccountSecurityDangerZoneCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -54,20 +55,23 @@ const MeAccountEditTabContext = () => {
         <TabPanel sx={{ p: 0 }} value='overview'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <MeAccountActivityLogListCard />
+              <MeAccountOverviewWalletListCard />
+            </Grid>
+            <Grid item xs={12}>
+              <MeAccountOverviewActivityLogListCard />
             </Grid>
           </Grid>
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='security'>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <MeAccountChangePasswordCard />
+              <MeAccountSecurityChangePasswordCard />
             </Grid>
             <Grid item xs={12}>
-              <MeAccountAccessLogListCard />
+              <MeAccountSecurityAccessLogListCard />
             </Grid>
             <Grid item xs={12}>
-              <MeAccountDangerZoneCard />
+              <MeAccountSecurityDangerZoneCard />
             </Grid>
           </Grid>
         </TabPanel>
