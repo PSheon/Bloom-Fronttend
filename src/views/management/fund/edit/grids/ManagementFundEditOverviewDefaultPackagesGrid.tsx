@@ -266,7 +266,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                       <Stack direction='row' sx={{ position: 'relative' }}>
                         <Sup>{fundBaseCurrencyProperties.symbol}</Sup>
                         <Typography
-                          variant='h3'
+                          variant='h4'
                           sx={{
                             mb: -1.2,
                             ml: 2,

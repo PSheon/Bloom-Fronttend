@@ -218,7 +218,7 @@ const PublicFundLiveDefaultPackageGrid = (props: Props) => {
                       <Stack direction='row' sx={{ position: 'relative' }}>
                         <Sup>{fundBaseCurrencyProperties.symbol}</Sup>
                         <Typography
-                          variant='h3'
+                          variant='h4'
                           sx={{
                             mb: -1.2,
                             ml: 2,
@@ -243,12 +243,16 @@ const PublicFundLiveDefaultPackageGrid = (props: Props) => {
                       ) : (
                         defaultPackage.slot.map(property => {
                           return (
-                            <Typography key={`slot-${property.id}`} sx={{ mb: 2 }}>
-                              {`${property.propertyType}:`}
-                              <Box component='span' sx={{ fontWeight: 600 }}>
-                                {property.value}
-                              </Box>
-                            </Typography>
+                            <Grid key={`slot-${property.id}`} container spacing={2} sx={{ mb: 2 }}>
+                              <Grid item xs={6} sm={3}>
+                                <Typography>{property.propertyType}</Typography>
+                              </Grid>
+                              <Grid item xs={6} sm={9}>
+                                <Typography component='span' sx={{ fontWeight: 600 }}>
+                                  {property.value}
+                                </Typography>
+                              </Grid>
+                            </Grid>
                           )
                         })
                       )}
