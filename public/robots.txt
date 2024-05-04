@@ -1,0 +1,7 @@
+User-agent: *
+
+Disallow: /auth/*
+Disallow: /management/*
+Disallow: /system/*
+
+Allow: *
