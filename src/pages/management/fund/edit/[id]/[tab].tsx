@@ -1,15 +1,15 @@
 // ** Next Imports
 import { useRouter } from 'next/router'
 
+// ** Custom Component Imports
+import ManagementFundEditLoadingSkeleton from 'src/views/management/fund/edit/ManagementFundEditLoadingSkeleton'
+import ManagementFundEditSection from 'src/views/management/fund/edit'
+
 // ** API Imports
 import { useFindOneQuery } from 'src/store/api/management/fund'
 
 // ** Util Imports
-import { getValidTabIndex } from 'src/utils'
-
-// ** Custom Component Imports
-import ManagementFundEditLoadingSkeleton from 'src/views/management/fund/edit/ManagementFundEditLoadingSkeleton'
-import ManagementFundEditSection from 'src/views/management/fund/edit'
+import { getValidEditTabIndex } from 'src/utils'
 
 const ManagementFundEditPage = () => {
   // ** Hooks
@@ -21,7 +21,7 @@ const ManagementFundEditPage = () => {
   } = useFindOneQuery(Number(router.query.id))
 
   // ** Vars
-  const tab = getValidTabIndex(router.query.tab)
+  const tab = getValidEditTabIndex(router.query.tab)
 
   if (router.query.id === undefined || tab === undefined || isFindOneFundEntityError) {
     router.push('/management/fund/list')

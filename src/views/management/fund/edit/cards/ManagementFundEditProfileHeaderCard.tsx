@@ -128,11 +128,11 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
           </Box>
           <Button
             component={Link}
-            href={`/management/fund/preview/${initFundEntity.id}`}
+            href={`/management/fund/preview/${initFundEntity.id}/overview`}
             variant='contained'
-            startIcon={<Icon icon='mdi:print-preview' fontSize={20} />}
+            endIcon={<Icon icon='mdi:print-preview' fontSize={20} />}
           >
-            預覽資金
+            Preview
           </Button>
         </Box>
       </CardContent>

@@ -33,6 +33,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import Atropos from 'atropos/react'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -54,6 +55,9 @@ import { getFundCurrencyProperties, getPackageStatusProperties, getFormattedPric
 // ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
 import { PackageType, SkinType } from 'src/types/api/packageTypes'
+
+// ** Style Imports
+import 'atropos/css'
 
 // ** Styled Grid Component
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
@@ -220,15 +224,28 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                       }}
                     />
                   </Box>
-                  <CardContent sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                    <Image
-                      width={180}
-                      height={256}
-                      alt={defaultPackage.displayName}
-                      src={`/images/funds/packages/card-skin/${defaultPackage.skin.toLowerCase()}-${
-                        theme.palette.mode
-                      }.webp`}
-                    />
+                  <CardContent
+                    sx={{
+                      minHeight: theme => theme.spacing(90),
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      '& img:hover': {
+                        cursor: 'pointer'
+                      }
+                    }}
+                  >
+                    <Atropos>
+                      <Image
+                        width={180}
+                        height={256}
+                        draggable={false}
+                        alt={defaultPackage.displayName}
+                        src={`/images/funds/packages/card-skin/${defaultPackage.skin.toLowerCase()}-${
+                          theme.palette.mode
+                        }.webp`}
+                      />
+                    </Atropos>
                   </CardContent>
                 </StyledGrid>
                 <Grid
@@ -278,7 +295,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                         </Typography>
                       </Stack>
                     </Box>
-                    <Typography variant='body2' sx={{ mb: 2 }}>
+                    <Typography variant='body2' sx={{ mt: 4, mb: 2 }}>
                       {defaultPackage.description || 'No description'}
                     </Typography>
                     <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />

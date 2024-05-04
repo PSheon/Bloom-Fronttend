@@ -19,7 +19,9 @@ export type CategoryType =
   | 'Fashion and Beauty'
   | 'Social and Communication'
   | 'Web3.0 and Blockchain'
-export type TabIndex = 'overview' | 'detail' | 'token' | 'vault' | 'security'
+export type EditTabIndex = 'overview' | 'detail' | 'token' | 'vault' | 'security'
+export type PreviewTabIndex = 'overview' | 'mint' | 'vault'
+export type LiveTabIndex = 'overview' | 'mint' | 'vault'
 export type FundType = {
   id: number
   banner: MediaAssetApiResponseType

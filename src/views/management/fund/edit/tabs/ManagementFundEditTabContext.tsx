@@ -25,7 +25,7 @@ import ManagementFundEditSecurityTabPanel from 'src/views/management/fund/edit/t
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { TabIndex, FundType } from 'src/types/api/fundTypes'
+import { EditTabIndex, FundType } from 'src/types/api/fundTypes'
 
 const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
   '& .MuiTabs-indicator': {
@@ -47,7 +47,7 @@ const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
 
 interface Props {
   initFundEntity: FundType
-  tab: TabIndex
+  tab: EditTabIndex
 }
 
 const ManagementFundEditTabContext = (props: Props) => {
@@ -55,7 +55,7 @@ const ManagementFundEditTabContext = (props: Props) => {
   const { initFundEntity, tab } = props
 
   // ** States
-  const [activeTab, setActiveTab] = useState<TabIndex>(tab)
+  const [activeTab, setActiveTab] = useState<EditTabIndex>(tab)
   const [isTabLoading, setIsTabLoading] = useState<boolean>(false)
 
   // ** Hooks
@@ -85,7 +85,7 @@ const ManagementFundEditTabContext = (props: Props) => {
             variant='scrollable'
             scrollButtons='auto'
             onChange={handleChangeTab}
-            aria-label='customized tabs example'
+            aria-label='management fund edit tabs'
           >
             <Tab
               value='overview'
@@ -138,7 +138,7 @@ const ManagementFundEditTabContext = (props: Props) => {
           <Grid item xs={12}>
             <Box sx={{ py: 40, display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
               <CircularProgress sx={{ mb: 4 }} />
-              <Typography>載入中...</Typography>
+              <Typography>Loading...</Typography>
             </Box>
           </Grid>
         ) : (
