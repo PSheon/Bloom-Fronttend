@@ -1,28 +1,32 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
+
+// import Stack from '@mui/material/Stack'
+// import Typography from '@mui/material/Typography'
 
 // ** Custom Component Imports
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import PublicFundLiveBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import PublicFundLiveProfileHeaderCard from 'src/views/fund/live/cards/PublicFundLiveProfileHeaderCard'
-import PublicFundLivePerformanceChartCard from 'src/views/fund/live/cards/PublicFundLivePerformanceChartCard'
-import PublicFundLiveRiskAnalyticsCard from 'src/views/fund/live/cards/PublicFundLiveRiskAnalyticsCard'
-import PublicFundLiveDetailCard from 'src/views/fund/live/cards/PublicFundLiveDetailCard'
-import PublicFundLiveSpecificationCard from 'src/views/fund/live/cards/PublicFundLiveSpecificationCard'
-import PublicFundLiveDefaultPackageGrid from 'src/views/fund/live/grids/PublicFundLiveDefaultPackageGrid'
+import PublicFundLiveTabContext from 'src/views/fund/live/tabs/PublicFundLiveTabContext'
+
+// import PublicFundLivePerformanceChartCard from 'src/views/fund/live/cards/PublicFundLivePerformanceChartCard'
+// import PublicFundLiveRiskAnalyticsCard from 'src/views/fund/live/cards/PublicFundLiveRiskAnalyticsCard'
+// import PublicFundLiveDetailCard from 'src/views/fund/live/cards/PublicFundLiveDetailCard'
+// import PublicFundLiveSpecificationCard from 'src/views/fund/live/cards/PublicFundLiveSpecificationCard'
+// import PublicFundLiveDefaultPackageGrid from 'src/views/fund/live/grids/PublicFundLiveDefaultPackageGrid'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import { FundType, LiveTabIndex } from 'src/types/api/fundTypes'
 
 interface Props {
   initFundEntity: FundType
+  tab: LiveTabIndex
 }
 
 const PublicFundLiveSection = (props: Props) => {
   // ** Props
-  const { initFundEntity } = props
+  const { initFundEntity, tab } = props
 
   return (
     <ApexChartWrapper>
@@ -35,7 +39,11 @@ const PublicFundLiveSection = (props: Props) => {
         <Grid item xs={12}>
           <PublicFundLiveProfileHeaderCard initFundEntity={initFundEntity} />
         </Grid>
-        <Grid item xs={12} md={8}>
+        <Grid item xs={12}>
+          <PublicFundLiveTabContext initFundEntity={initFundEntity} tab={tab} />
+        </Grid>
+
+        {/* <Grid item xs={12} md={8}>
           <PublicFundLivePerformanceChartCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12} md={4}>
@@ -55,7 +63,7 @@ const PublicFundLiveSection = (props: Props) => {
         </Grid>
         <Grid item xs={12}>
           <PublicFundLiveDefaultPackageGrid initFundEntity={initFundEntity} />
-        </Grid>
+        </Grid> */}
       </Grid>
     </ApexChartWrapper>
   )

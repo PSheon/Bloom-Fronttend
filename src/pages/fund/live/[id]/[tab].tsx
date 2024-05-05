@@ -8,6 +8,9 @@ import PublicFundLiveSection from 'src/views/fund/live'
 // ** API Imports
 import { useFindOneQuery } from 'src/store/api/management/fund'
 
+// ** Util Imports
+import { getValidLiveTabIndex } from 'src/utils'
+
 const PublicFundLivePage = () => {
   // ** Hooks
   const router = useRouter()
@@ -17,12 +20,15 @@ const PublicFundLivePage = () => {
     isLoading: isFindOneFundEntityLoading
   } = useFindOneQuery(Number(router.query.id))
 
-  if (router.query.id === undefined || isFindOneFundEntityError) {
+  // ** Vars
+  const tab = getValidLiveTabIndex(router.query.tab)
+
+  if (router.query.id === undefined || tab === undefined || isFindOneFundEntityError) {
     router.push('/fund/list')
   } else if (isFindOneFundEntityLoading) {
     return <PublicFundLiveLoadingSkeleton />
   } else {
-    return <PublicFundLiveSection initFundEntity={fundEntity!} />
+    return <PublicFundLiveSection initFundEntity={fundEntity!} tab={tab} />
   }
 }
 
