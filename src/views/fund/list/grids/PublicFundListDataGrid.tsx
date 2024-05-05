@@ -54,7 +54,7 @@ const PublicFundListDataGrid = (props: Props) => {
 
   // ** Logics
   const handleRedirectToFund = (fundId: number) => {
-    router.push(`/fund/live/${fundId}`)
+    router.push(`/fund/live/${fundId}/overview`)
   }
 
   // ** Renders
