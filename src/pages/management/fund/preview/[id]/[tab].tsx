@@ -8,6 +8,9 @@ import ManagementFundPreviewSection from 'src/views/management/fund/preview'
 // ** API Imports
 import { useFindOneQuery } from 'src/store/api/management/fund'
 
+// ** Util Imports
+import { getValidPreviewTabIndex } from 'src/utils'
+
 const ManagementFundPreviewPage = () => {
   // ** Hooks
   const router = useRouter()
@@ -17,12 +20,15 @@ const ManagementFundPreviewPage = () => {
     isLoading: isFindOneFundEntityLoading
   } = useFindOneQuery(Number(router.query.id))
 
-  if (router.query.id === undefined || isFindOneFundEntityError) {
+  // ** Vars
+  const tab = getValidPreviewTabIndex(router.query.tab)
+
+  if (router.query.id === undefined || tab === undefined || isFindOneFundEntityError) {
     router.push('/management/fund/list')
   } else if (isFindOneFundEntityLoading) {
     return <ManagementFundPreviewLoadingSkeleton />
   } else {
-    return <ManagementFundPreviewSection initFundEntity={fundEntity!} />
+    return <ManagementFundPreviewSection initFundEntity={fundEntity!} tab={tab} />
   }
 }
 
