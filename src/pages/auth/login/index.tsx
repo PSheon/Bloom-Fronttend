@@ -302,7 +302,6 @@ const AuthLoginPage = () => {
                       size='large'
                       type='submit'
                       variant='contained'
-                      sx={{ textTransform: 'inherit' }}
                     >
                       Login
                     </LoadingButton>
@@ -324,7 +323,6 @@ const AuthLoginPage = () => {
                       variant='outlined'
                       startIcon={<Image src='/images/socials/google.png' alt='google-icon' width={20} height={20} />}
                       onClick={handleLoginGoogle}
-                      sx={{ textTransform: 'inherit' }}
                     >
                       Sign up with Google
                     </LoadingButton>

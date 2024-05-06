@@ -284,7 +284,6 @@ const AuthRegisterPage = () => {
                       size='large'
                       type='submit'
                       variant='contained'
-                      sx={{ textTransform: 'inherit' }}
                     >
                       Sign up
                     </LoadingButton>

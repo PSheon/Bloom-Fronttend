@@ -79,7 +79,7 @@ const AuthVerifyEmailPage = () => {
             </Box>
             <Box sx={{ width: '100%' }}>
               <LinkStyled href='/auth/login'>
-                <Button fullWidth variant='contained' sx={{ textTransform: 'inherit' }}>
+                <Button fullWidth variant='contained'>
                   Sign in
                 </Button>
               </LinkStyled>

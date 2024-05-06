@@ -191,7 +191,7 @@ const AuthForgotPasswordPage = () => {
                       size='large'
                       type='submit'
                       variant='contained'
-                      sx={{ my: 5.25, textTransform: 'inherit' }}
+                      sx={{ my: 5.25 }}
                     >
                       Send reset link
                     </LoadingButton>

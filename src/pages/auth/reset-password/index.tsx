@@ -276,7 +276,7 @@ const AuthResetPasswordPage = () => {
                       size='large'
                       type='submit'
                       variant='contained'
-                      sx={{ my: 5.25, textTransform: 'inherit' }}
+                      sx={{ my: 5.25 }}
                     >
                       Set New Password
                     </LoadingButton>
