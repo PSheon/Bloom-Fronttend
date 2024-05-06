@@ -309,10 +309,10 @@ const PublicFundLivePackageCard = (props: Props) => {
             <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
 
             <Stack spacing={2} justifyContent='center' sx={{ mb: 2 }}>
-              <Typography variant='subtitle2'>赋能</Typography>
+              <Typography variant='subtitle2'>Utility</Typography>
 
               {initPackageEntity.slot?.length === 0 ? (
-                <Typography sx={{ mb: 2 }}>尚未設定內容</Typography>
+                <Typography sx={{ mb: 2 }}>No utilities</Typography>
               ) : (
                 initPackageEntity.slot.map(property => {
                   return (

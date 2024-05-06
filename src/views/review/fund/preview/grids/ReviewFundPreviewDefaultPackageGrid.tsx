@@ -237,7 +237,7 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
                     <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
 
                     <Stack spacing={2} justifyContent='center' sx={{ mb: 2 }}>
-                      <Typography variant='subtitle2'>赋能</Typography>
+                      <Typography variant='subtitle2'>Utility</Typography>
 
                       {defaultPackage.slot?.length === 0 ? (
                         <Typography sx={{ mb: 2 }}>尚未設定內容</Typography>

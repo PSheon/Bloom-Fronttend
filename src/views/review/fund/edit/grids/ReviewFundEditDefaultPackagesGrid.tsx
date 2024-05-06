@@ -290,7 +290,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
                         alignContent='center'
                         sx={{ width: '100%' }}
                       >
-                        <Typography variant='subtitle2'>赋能</Typography>
+                        <Typography variant='subtitle2'>Utility</Typography>
 
                         <ReviewFundEditPackageSlotAddPropertyButton initPackageEntity={defaultPackage} />
                       </Stack>
