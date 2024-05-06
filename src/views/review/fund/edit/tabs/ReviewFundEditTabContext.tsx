@@ -25,7 +25,7 @@ import ReviewFundEditSecurityTabPanel from 'src/views/review/fund/edit/tabs/Revi
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { TabIndex, FundType } from 'src/types/api/fundTypes'
+import { EditTabIndex, FundType } from 'src/types/api/fundTypes'
 
 const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
   '& .MuiTabs-indicator': {
@@ -47,7 +47,7 @@ const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
 
 interface Props {
   initFundEntity: FundType
-  tab: TabIndex
+  tab: EditTabIndex
 }
 
 const ReviewFundEditTabContext = (props: Props) => {
@@ -55,7 +55,7 @@ const ReviewFundEditTabContext = (props: Props) => {
   const { initFundEntity, tab } = props
 
   // ** States
-  const [activeTab, setActiveTab] = useState<TabIndex>(tab)
+  const [activeTab, setActiveTab] = useState<EditTabIndex>(tab)
   const [isTabLoading, setIsTabLoading] = useState<boolean>(false)
 
   // ** Hooks

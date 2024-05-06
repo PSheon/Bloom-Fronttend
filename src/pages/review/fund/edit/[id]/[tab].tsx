@@ -5,7 +5,7 @@ import { useRouter } from 'next/router'
 import { useFindOneQuery } from 'src/store/api/management/fund'
 
 // ** Util Imports
-import { getValidTabIndex } from 'src/utils'
+import { getValidEditTabIndex } from 'src/utils'
 
 // ** Custom Component Imports
 import ReviewFundEditLoadingSkeleton from 'src/views/review/fund/edit/ReviewFundEditLoadingSkeleton'
@@ -21,7 +21,7 @@ const ReviewFundEditPage = () => {
   } = useFindOneQuery(Number(router.query.id))
 
   // ** Vars
-  const tab = getValidTabIndex(router.query.tab)
+  const tab = getValidEditTabIndex(router.query.tab)
 
   if (router.query.id === undefined || tab === undefined || isFindOneFundEntityError) {
     router.push('/review/dashboard')

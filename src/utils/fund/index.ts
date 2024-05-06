@@ -1,6 +1,6 @@
 // ** Type Imports
 import { ThemeColor } from 'src/@core/layouts/types'
-import { TabIndex, FundType, CategoryType } from 'src/types/api/fundTypes'
+import { EditTabIndex, PreviewTabIndex, LiveTabIndex, FundType, CategoryType } from 'src/types/api/fundTypes'
 
 interface FundStatusAttributeType {
   [key: string]: {
@@ -10,31 +10,31 @@ interface FundStatusAttributeType {
   }
 }
 
-export const getValidEditTabIndex = (tab: string | string[] | undefined): TabIndex | undefined => {
+export const getValidEditTabIndex = (tab: string | string[] | undefined): EditTabIndex | undefined => {
   const validTabList = ['overview', 'detail', 'token', 'vault', 'security']
 
   if (typeof tab === 'string' && validTabList.includes(tab)) {
-    return tab as TabIndex
+    return tab as EditTabIndex
   } else {
     return undefined
   }
 }
 
-export const getValidPreviewTabIndex = (tab: string | string[] | undefined): TabIndex | undefined => {
+export const getValidPreviewTabIndex = (tab: string | string[] | undefined): PreviewTabIndex | undefined => {
   const validTabList = ['overview', 'mint', 'vault']
 
   if (typeof tab === 'string' && validTabList.includes(tab)) {
-    return tab as TabIndex
+    return tab as PreviewTabIndex
   } else {
     return undefined
   }
 }
 
-export const getValidLiveTabIndex = (tab: string | string[] | undefined): TabIndex | undefined => {
+export const getValidLiveTabIndex = (tab: string | string[] | undefined): LiveTabIndex | undefined => {
   const validTabList = ['overview', 'mint', 'vault']
 
   if (typeof tab === 'string' && validTabList.includes(tab)) {
-    return tab as TabIndex
+    return tab as LiveTabIndex
   } else {
     return undefined
   }

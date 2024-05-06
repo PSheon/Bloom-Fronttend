@@ -7,11 +7,11 @@ import ReviewFundEditProfileHeaderCard from 'src/views/review/fund/edit/cards/Re
 import ReviewFundEditTabContext from 'src/views/review/fund/edit/tabs/ReviewFundEditTabContext'
 
 // ** Type Imports
-import { FundType, TabIndex } from 'src/types/api/fundTypes'
+import { FundType, EditTabIndex } from 'src/types/api/fundTypes'
 
 interface Props {
   initFundEntity: FundType
-  tab: TabIndex
+  tab: EditTabIndex
 }
 
 const ReviewFundEditSection = (props: Props) => {
