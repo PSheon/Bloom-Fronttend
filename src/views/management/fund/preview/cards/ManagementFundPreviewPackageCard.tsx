@@ -669,7 +669,6 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
             <CardActions>
               <Stack direction='row' flexGrow='1' alignItems='center' justifyContent='space-between'>
                 <Button
-                  variant='outlined'
                   disabled={activeMintStep === 0}
                   onClick={() => {
                     setActiveMintStep(prev => Math.max(prev - 1, 0))

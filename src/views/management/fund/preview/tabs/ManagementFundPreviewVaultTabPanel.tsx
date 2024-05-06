@@ -3,6 +3,17 @@ import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+
+// ** Core Component Imports
+import CardStatisticsVertical from 'src/@core/components/card-statistics/card-stats-vertical'
+
+// ** Custom Component Imports
+import CrmAward from 'src/views/dashboards/crm/CrmAward'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
 import { FundType } from 'src/types/api/fundTypes'
@@ -13,27 +24,35 @@ interface Props {
 
 const ManagementFundPreviewVaultTabPanel = (props: Props) => {
   // ** Props
-  const { initFundEntity } = props
-
-  console.log(
-    '🚀 ~ src/views/management/fund/preview/tabs/ManagementFundPreviewMintTabPanel.tsx:16 > initFundEntity',
-    initFundEntity
-  )
+  const {
+    /* initFundEntity */
+  } = props
 
   return (
     <TabPanel sx={{ p: 0 }} value='vault'>
       <Grid container spacing={6}>
-        <Grid item xs={12}>
-          <Stack>
-            <Typography variant='h5'>Staking Information</Typography>
-            <Typography variant='body2'>
-              You can learn about the operation of funds from the following plans, and you will have the corresponding
-              fund rights after minting
-            </Typography>
-          </Stack>
+        <Grid item xs={12} md={8}>
+          <CrmAward />
         </Grid>
-        <Grid item xs={12}>
-          Vault
+        <Grid item xs={6} md={2}>
+          <CardStatisticsVertical
+            stats='155k'
+            color='primary'
+            trendNumber='+22%'
+            title='Total Orders'
+            chipText='Last 4 Month'
+            icon={<Icon icon='mdi:cart-plus' />}
+          />
+        </Grid>
+        <Grid item xs={6} md={2}>
+          <CardStatisticsVertical
+            stats='$13.4k'
+            color='success'
+            trendNumber='+38%'
+            title='Total Sales'
+            chipText='Last Six Month'
+            icon={<Icon icon='mdi:currency-usd' />}
+          />
         </Grid>
         <Grid item xs={12}>
           <Stack>
@@ -44,7 +63,36 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          My SFT List
+          <Grid container spacing={6}>
+            <Grid item xs={12} sm={6} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant='h6'>My SFT</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant='h6'>My SFT</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant='h6'>My SFT</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={12} sm={6} md={4}>
+              <Card>
+                <CardContent>
+                  <Typography variant='h6'>My SFT</Typography>
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
         </Grid>
       </Grid>
     </TabPanel>
