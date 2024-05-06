@@ -62,6 +62,61 @@ const ManagementFundEditTokenTransactionsCard = () => {
   const columns: GridColDef[] = [
     {
       flex: 1,
+      minWidth: 80,
+      field: 'tokenId',
+      headerName: '編號',
+      renderCell: ({ row }: CellType) => (
+        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+          # {row.id}
+        </Typography>
+      )
+    },
+    {
+      flex: 1,
+      minWidth: 80,
+      field: 'cover',
+      headerName: '卡面',
+      renderCell: ({ row }: CellType) => (
+        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+          # {row.id}
+        </Typography>
+      )
+    },
+    {
+      flex: 1,
+      minWidth: 80,
+      field: 'package',
+      headerName: '方案',
+      renderCell: ({ row }: CellType) => (
+        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+          # {row.id}
+        </Typography>
+      )
+    },
+    {
+      flex: 1,
+      minWidth: 80,
+      field: 'value',
+      headerName: '額度',
+      renderCell: ({ row }: CellType) => (
+        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+          # {row.id}
+        </Typography>
+      )
+    },
+    {
+      flex: 1,
+      minWidth: 80,
+      field: 'ownedAddress',
+      headerName: '持有位址',
+      renderCell: ({ row }: CellType) => (
+        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+          # {row.id}
+        </Typography>
+      )
+    },
+    {
+      flex: 1,
       field: 'status',
       minWidth: 110,
       headerName: '狀態',

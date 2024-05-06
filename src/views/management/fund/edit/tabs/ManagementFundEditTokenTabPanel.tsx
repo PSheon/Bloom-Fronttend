@@ -4,7 +4,7 @@ import TabPanel from '@mui/lab/TabPanel'
 
 // ** Custom Component Imports
 import ManagementFundEditTokenProtocolCard from 'src/views/management/fund/edit/cards/ManagementFundEditTokenProtocolCard'
-import ManagementFundEditTokenPermissionCard from 'src/views/management/fund/edit/cards/ManagementFundEditTokenPermissionCard'
+import ManagementFundEditTokenStatementCard from 'src/views/management/fund/edit/cards/ManagementFundEditTokenStatementCard'
 import ManagementFundEditTokenStatisticsCard from 'src/views/management/fund/edit/cards/ManagementFundEditTokenStatisticsCard'
 import ManagementFundEditTokenTransactionsCard from 'src/views/management/fund/edit/cards/ManagementFundEditTokenTransactionsCard'
 
@@ -28,7 +28,7 @@ const ManagementFundEditTokenTabPanel = (props: Props) => {
               <ManagementFundEditTokenProtocolCard initFundEntity={initFundEntity} />
             </Grid>
             <Grid item xs={12}>
-              <ManagementFundEditTokenPermissionCard />
+              <ManagementFundEditTokenStatementCard />
             </Grid>
           </Grid>
         </Grid>

@@ -39,9 +39,9 @@ const ManagementFundEditTokenStatisticsCard = () => {
               </CustomAvatar>
               <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                  1
+                  3,225
                 </Typography>
-                <Typography variant='caption'>Total Supply</Typography>
+                <Typography variant='caption'>Claimed Supply</Typography>
               </Box>
             </Box>
           </Grid>
@@ -52,9 +52,9 @@ const ManagementFundEditTokenStatisticsCard = () => {
               </CustomAvatar>
               <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                  1
+                  25,332,552
                 </Typography>
-                <Typography variant='caption'>Claimed Supply</Typography>
+                <Typography variant='caption'>Total Net Value</Typography>
               </Box>
             </Box>
           </Grid>
@@ -65,9 +65,9 @@ const ManagementFundEditTokenStatisticsCard = () => {
               </CustomAvatar>
               <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
                 <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                  0
+                  16.24%
                 </Typography>
-                <Typography variant='caption'>Unclaimed Supply</Typography>
+                <Typography variant='caption'>Average APY</Typography>
               </Box>
             </Box>
           </Grid>
