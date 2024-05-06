@@ -51,8 +51,7 @@ const ManagementFundPreviewLoadingSkeleton = () => {
               <Skeleton variant='text' width={200} sx={{ fontSize: '1.6rem' }} />
               <Skeleton variant='text' />
               <Skeleton variant='text' />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
+              <Skeleton variant='rounded' height={240} />
             </Stack>
           </CardContent>
         </Card>
