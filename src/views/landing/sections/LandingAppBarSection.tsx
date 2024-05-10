@@ -4,11 +4,14 @@ import Link from 'next/link'
 // ** MUI Imports
 import { styled, useTheme } from '@mui/material/styles'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
-import MuiAppBar, { AppBarProps } from '@mui/material/AppBar'
-import MuiToolbar, { ToolbarProps } from '@mui/material/Toolbar'
+import AppBar, { AppBarProps } from '@mui/material/AppBar'
+import Toolbar, { ToolbarProps } from '@mui/material/Toolbar'
 import Stack from '@mui/material/Stack'
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import Typography from '@mui/material/Typography'
+
+// ** Custom Component Imports
+import LogoImage from 'src/views/shared/LogoImage'
 
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
@@ -16,7 +19,7 @@ import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-const AppBar = styled(MuiAppBar)<AppBarProps>(({ theme }) => ({
+const StyledAppBar = styled(AppBar)<AppBarProps>(({ theme }) => ({
   transition: 'padding .25s ease-in-out',
   alignItems: 'center',
   justifyContent: 'center',
@@ -30,12 +33,12 @@ const AppBar = styled(MuiAppBar)<AppBarProps>(({ theme }) => ({
   }
 }))
 
-const Toolbar = styled(MuiToolbar)<ToolbarProps>(({ theme }) => ({
+const StyledToolbar = styled(Toolbar)<ToolbarProps>(({ theme }) => ({
   width: '100%',
   padding: '0 !important',
   borderRadius: theme.shape.borderRadius,
   minHeight: `${theme.mixins.toolbar.minHeight}px !important`,
-  transition: 'padding .25s ease-in-out, box-shadow .25s ease-in-out, background-color .25s ease-in-out'
+  transition: 'padding .25s ease-in-out, box-shadow .25s ease-in-out'
 }))
 
 const LandingAppBarSection = () => {
@@ -44,7 +47,7 @@ const LandingAppBarSection = () => {
   const scrollTrigger = useScrollTrigger({ threshold: 0, disableHysteresis: true })
 
   return (
-    <AppBar
+    <StyledAppBar
       elevation={0}
       color='default'
       className='layout-navbar'
@@ -65,7 +68,7 @@ const LandingAppBarSection = () => {
       }}
       position='sticky'
     >
-      <Toolbar
+      <StyledToolbar
         className='navbar-content-container'
         sx={{
           px: `${theme.spacing(6)} !important`,
@@ -77,23 +80,21 @@ const LandingAppBarSection = () => {
           }
         }}
       >
-        <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Box className='actions-left' sx={{ mr: 2, display: 'flex', alignItems: 'center' }}>
-            {themeConfig.templateName}
-          </Box>
-          <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
-            <Stack direction='row' spacing={2}>
-              <Button component={Link} href='/auth/register' variant='outlined' size='small'>
-                Register
-              </Button>
-              <Button component={Link} href='/auth/login' variant='contained' size='small'>
-                Sign In
-              </Button>
-            </Stack>
-          </Box>
-        </Box>
-      </Toolbar>
-    </AppBar>
+        <Stack direction='row' alignItems='center' justifyContent='space-between' sx={{ width: '100%' }}>
+          <Stack direction='row' spacing={2} alignItems='center' className='actions-left'>
+            <LogoImage width={40} height={40} />
+            <Typography variant='subtitle1' component='span' sx={{ fontWeight: 600 }}>
+              {themeConfig.templateName}
+            </Typography>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center' className='actions-right'>
+            <Button component={Link} href='/auth/login' variant='contained' size='small'>
+              Sign In
+            </Button>
+          </Stack>
+        </Stack>
+      </StyledToolbar>
+    </StyledAppBar>
   )
 }
 
