@@ -7,7 +7,7 @@ import { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiT
 export type NotificationType = {
   id: number
   notifier: UserApiResponseType
-  catalog: 'System' | 'Request Sheet'
+  category: 'System' | 'Fund'
   title: string
   content: OutputData
   date: boolean

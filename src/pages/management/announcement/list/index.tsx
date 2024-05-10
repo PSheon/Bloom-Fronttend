@@ -117,7 +117,7 @@ const ManagementAnnouncementListPage = () => {
     {
       flex: 2,
       minWidth: 150,
-      field: 'catalog',
+      field: 'category',
       headerName: '分類',
       renderCell: ({ row }: CellType) => (
         <Typography
@@ -125,7 +125,7 @@ const ManagementAnnouncementListPage = () => {
           variant='body2'
           sx={{ fontWeight: 600, color: 'text.primary', lineHeight: '22px', letterSpacing: '.1px' }}
         >
-          {row.catalog}
+          {row.category}
         </Typography>
       )
     },

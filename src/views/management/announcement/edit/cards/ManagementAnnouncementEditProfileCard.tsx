@@ -145,9 +145,9 @@ const ManagementAnnouncementEditProfileCard = (props: Props) => {
             </CustomAvatar>
             <Box>
               <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
-                {updatedAnnouncement.catalog}
+                {updatedAnnouncement.category}
               </Typography>
-              <Typography variant='body2'>Catalog</Typography>
+              <Typography variant='body2'>Category</Typography>
             </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>

@@ -67,7 +67,7 @@ const MeNotificationList = (props: Props) => {
   return (
     <Timeline sx={{ my: 0, py: 0 }}>
       {notifications.map(notification => {
-        const { icon, color } = getNotificationAttributes(notification.catalog)
+        const { icon, color } = getNotificationAttributes(notification.category)
 
         return (
           <TimelineItem key={`me-notification-list-${notification.id}`}>

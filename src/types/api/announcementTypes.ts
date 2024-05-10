@@ -4,11 +4,11 @@ import { OutputData } from '@editorjs/editorjs'
 // ** Type Imports
 import { BaseApiResponseType, UserApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
 
-type catalogType = 'Engineering' | 'Community' | 'Company News' | 'Customer Stories' | 'Changelog' | 'Press'
+type categoryType = 'Engineering' | 'Community' | 'Company News' | 'Customer Stories' | 'Changelog' | 'Press'
 export type AnnouncementType = {
   id: number
   cover?: MediaAssetApiResponseType
-  catalog: catalogType
+  category: categoryType
   displayName: string
   content: OutputData
   author: UserApiResponseType

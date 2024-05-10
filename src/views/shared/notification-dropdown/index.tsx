@@ -181,7 +181,7 @@ const NotificationDropdown = (props: Props) => {
         ) : (
           <ScrollWrapper hidden={hidden}>
             {meNotifications.map((notification: NotificationType, index: number) => {
-              const { icon, color } = getNotificationAttributes(notification.catalog)
+              const { icon, color } = getNotificationAttributes(notification.category)
 
               return (
                 <MenuItem key={`me-notification-${index}`} onClick={() => handleClickNotification(notification.id)}>

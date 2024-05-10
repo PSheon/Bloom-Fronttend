@@ -124,7 +124,7 @@ const ManagementNotificationEditProfileCard = (props: Props) => {
             </CustomAvatar>
             <Box>
               <Typography variant='subtitle1' sx={{ lineHeight: 1.3 }}>
-                {initNotificationEntity.catalog}
+                {initNotificationEntity.category}
               </Typography>
               <Typography variant='body2'>Trigger</Typography>
             </Box>
