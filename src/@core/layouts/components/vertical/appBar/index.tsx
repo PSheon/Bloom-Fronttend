@@ -1,8 +1,9 @@
 // ** MUI Imports
 import { styled, useTheme } from '@mui/material/styles'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
-import MuiAppBar, { AppBarProps } from '@mui/material/AppBar'
-import MuiToolbar, { ToolbarProps } from '@mui/material/Toolbar'
+import Box, { BoxProps } from '@mui/material/Box'
+import AppBar, { AppBarProps } from '@mui/material/AppBar'
+import Toolbar, { ToolbarProps } from '@mui/material/Toolbar'
 
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
@@ -19,7 +20,7 @@ interface Props {
   appBarProps: NonNullable<LayoutProps['verticalLayoutProps']['appBar']>['componentProps']
 }
 
-const AppBar = styled(MuiAppBar)<AppBarProps>(({ theme }) => ({
+const StyledAppBar = styled(AppBar)<AppBarProps>(({ theme }) => ({
   transition: 'padding .25s ease-in-out',
   alignItems: 'center',
   justifyContent: 'center',
@@ -33,12 +34,22 @@ const AppBar = styled(MuiAppBar)<AppBarProps>(({ theme }) => ({
   }
 }))
 
-const Toolbar = styled(MuiToolbar)<ToolbarProps>(({ theme }) => ({
+const StyledToolbar = styled(Toolbar)<ToolbarProps>(({ theme }) => ({
   width: '100%',
   padding: '0 !important',
   borderRadius: theme.shape.borderRadius,
   minHeight: `${theme.mixins.toolbar.minHeight}px !important`,
-  transition: 'padding .25s ease-in-out, box-shadow .25s ease-in-out, background-color .25s ease-in-out'
+  transition: 'padding .25s ease-in-out, box-shadow .25s ease-in-out'
+}))
+
+const StyledToolbarOverlay = styled(Box)<BoxProps>(({ theme }) => ({
+  position: 'absolute',
+  left: 0,
+  top: 0,
+  width: '100%',
+  height: '100%',
+  background: theme.palette.background.default,
+  transition: 'opacity .25s ease-in-out'
 }))
 
 const LayoutAppBar = (props: Props) => {
@@ -74,7 +85,7 @@ const LayoutAppBar = (props: Props) => {
   delete userAppBarProps.sx
 
   return (
-    <AppBar
+    <StyledAppBar
       elevation={0}
       color='default'
       className='layout-navbar'
@@ -98,7 +109,8 @@ const LayoutAppBar = (props: Props) => {
       position={appBar === 'fixed' ? 'sticky' : 'static'}
       {...userAppBarProps}
     >
-      <Toolbar
+      <StyledToolbarOverlay sx={{ opacity: scrollTrigger ? 0 : 1 }} />
+      <StyledToolbar
         className='navbar-content-container'
         sx={{
           ...(appBar === 'fixed' && { ...appBarFixedStyles() }),
@@ -108,8 +120,8 @@ const LayoutAppBar = (props: Props) => {
         }}
       >
         {(userAppBarContent && userAppBarContent(props)) || null}
-      </Toolbar>
-    </AppBar>
+      </StyledToolbar>
+    </StyledAppBar>
   )
 }
 
