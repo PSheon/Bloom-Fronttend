@@ -1,7 +1,7 @@
 // ** Type Imports
 import type { OutputData } from '@editorjs/editorjs'
 import type { BaseApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
-import type { PackageType } from 'src/types/api/packageTypes'
+import type { PackageType } from 'src/types/packageTypes'
 
 export type CategoryType =
   | 'Health and Medical'

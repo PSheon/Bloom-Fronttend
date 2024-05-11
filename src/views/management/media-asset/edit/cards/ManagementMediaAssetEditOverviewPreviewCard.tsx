@@ -17,7 +17,7 @@ import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
 import type { BoxProps } from '@mui/material/Box'
-import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 // ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({

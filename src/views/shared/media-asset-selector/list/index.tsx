@@ -29,7 +29,7 @@ import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 import type { ChangeEvent } from 'react'
 import type { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import type { SelectChangeEvent } from '@mui/material/Select'
-import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 interface Props {
   handleSelect: (newSelectedMediaAssetId: number) => void

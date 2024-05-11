@@ -16,7 +16,7 @@ import PublicFundLiveAwardCard from 'src/views/fund/live/cards/PublicFundLiveAwa
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

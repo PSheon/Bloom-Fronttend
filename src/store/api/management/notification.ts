@@ -28,7 +28,7 @@ import type {
   DeleteOneNotificationParamsType,
   DeleteOneNotificationTransformResponseType,
   DeleteOneNotificationResponseType
-} from 'src/types/api/notificationTypes'
+} from 'src/types/notificationTypes'
 
 const NOTIFICATION_API_REDUCER_KEY = 'notificationApi'
 

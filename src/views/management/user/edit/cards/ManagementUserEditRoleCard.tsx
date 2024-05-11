@@ -38,7 +38,7 @@ import { Permissions } from 'src/configs/acl'
 
 // ** Type Imports
 import type { SelectChangeEvent } from '@mui/material/Select'
-import type { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 interface Props {
   initUserEntity: UserDataType

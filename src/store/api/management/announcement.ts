@@ -22,7 +22,7 @@ import type {
   DeleteOneAnnouncementParamsType,
   DeleteOneAnnouncementTransformResponseType,
   DeleteOneAnnouncementResponseType
-} from 'src/types/api/announcementTypes'
+} from 'src/types/announcementTypes'
 
 const ANNOUNCEMENT_API_REDUCER_KEY = 'announcementApi'
 

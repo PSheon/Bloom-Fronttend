@@ -24,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 import { useDeleteOneMutation } from 'src/store/api/management/blog'
 
 // ** Type Imports
-import type { BlogType } from 'src/types/api/blogTypes'
+import type { BlogType } from 'src/types/blogTypes'
 
 interface Props {
   initBlogEntity: BlogType

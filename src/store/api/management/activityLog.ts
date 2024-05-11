@@ -16,7 +16,7 @@ import type {
   UpdateOneActivityLogParamsType,
   UpdateOneActivityLogTransformResponseType,
   UpdateOneActivityLogResponseType
-} from 'src/types/api/activityLogTypes'
+} from 'src/types/activityLogTypes'
 
 const ACTIVITY_LOG_API_REDUCER_KEY = 'activityLogApi'
 

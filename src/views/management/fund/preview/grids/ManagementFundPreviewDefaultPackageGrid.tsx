@@ -17,7 +17,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import ManagementFundPreviewPackageCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewPackageCard'
 
 // ** Type Imports
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

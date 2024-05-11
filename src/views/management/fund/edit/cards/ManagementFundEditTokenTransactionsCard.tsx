@@ -25,7 +25,7 @@ import { getActivityLogStatusProperties, getActivityLogActionProperties, getActi
 
 // ** Type Imports
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { ActivityLogType } from 'src/types/api/activityLogTypes'
+import type { ActivityLogType } from 'src/types/activityLogTypes'
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({

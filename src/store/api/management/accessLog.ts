@@ -19,7 +19,7 @@ import type {
   UpdateOneAccessLogParamsType,
   UpdateOneAccessLogTransformResponseType,
   UpdateOneAccessLogResponseType
-} from 'src/types/api/accessLogTypes'
+} from 'src/types/accessLogTypes'
 
 const ACCESS_LOG_API_REDUCER_KEY = 'accessLogApi'
 

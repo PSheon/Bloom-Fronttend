@@ -28,7 +28,7 @@ import { getNotificationAttributes } from 'src/utils'
 // ** Type Imports
 import type { TimelineProps } from '@mui/lab/Timeline'
 import type { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
-import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 // ** Styled Timeline Component
 const Timeline = styled(MuiTimeline)<TimelineProps>({

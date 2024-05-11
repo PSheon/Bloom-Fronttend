@@ -18,8 +18,8 @@ import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
 import type { BoxProps } from '@mui/material/Box'
-import type { FundType } from 'src/types/api/fundTypes'
-import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { FundType } from 'src/types/fundTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 // ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({

@@ -22,7 +22,7 @@ import type {
   DeleteOneFundParamsType,
   DeleteOneFundTransformResponseType,
   DeleteOneFundResponseType
-} from 'src/types/api/fundTypes'
+} from 'src/types/fundTypes'
 
 const FUND_API_REDUCER_KEY = 'fundApi'
 

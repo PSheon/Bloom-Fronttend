@@ -36,7 +36,7 @@ import { useFindMeQuery } from 'src/store/api/management/notification'
 // ** Type Imports
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
-import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 
 // ** Styled components

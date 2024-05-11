@@ -38,8 +38,8 @@ import { getNextValidPackageId } from 'src/utils'
 // ** Type Imports
 import type { Ref, ReactElement } from 'react'
 import type { FadeProps } from '@mui/material/Fade'
-import type { FundType } from 'src/types/api/fundTypes'
-import type { SkinType } from 'src/types/api/packageTypes'
+import type { FundType } from 'src/types/fundTypes'
+import type { SkinType } from 'src/types/packageTypes'
 
 const Transition = forwardRef(function Transition(
   props: FadeProps & { children?: ReactElement<any, any> },

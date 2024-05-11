@@ -22,7 +22,7 @@ import type {
   UpdateMeOneUserParamsType,
   UpdateMeOneUserTransformResponseType,
   UpdateMeOneUserResponseType
-} from 'src/types/api/userTypes'
+} from 'src/types/userTypes'
 
 const USER_API_REDUCER_KEY = 'userApi'
 

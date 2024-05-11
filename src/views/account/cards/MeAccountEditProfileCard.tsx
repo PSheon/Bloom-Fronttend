@@ -40,7 +40,7 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateMeOneMutation } from 'src/store/api/management/user'
 
 // ** Type Imports
-import type { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 const schema = yup.object().shape({
   title: yup.string().optional(),

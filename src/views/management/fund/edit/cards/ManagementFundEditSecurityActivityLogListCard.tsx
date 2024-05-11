@@ -30,8 +30,8 @@ import { getPublicMediaAssetUrl, getActivityLogStatusProperties, getActivityLogA
 
 // ** Type Imports
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { FundType } from 'src/types/api/fundTypes'
-import type { ActivityLogType } from 'src/types/api/activityLogTypes'
+import type { FundType } from 'src/types/fundTypes'
+import type { ActivityLogType } from 'src/types/activityLogTypes'
 
 interface Props {
   initFundEntity: FundType

@@ -39,7 +39,7 @@ import { useUpdateOneMutation } from 'src/store/api/management/mediaAsset'
 import { getMediaAssetFileAttributes } from 'src/utils'
 
 // ** Type Imports
-import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 const schema = yup.object().shape({
   name: yup.string().required(),

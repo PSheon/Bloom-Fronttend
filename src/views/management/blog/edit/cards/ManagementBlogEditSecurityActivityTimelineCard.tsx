@@ -40,8 +40,8 @@ import type { Ref, ReactElement } from 'react'
 import type { Theme } from '@mui/material/styles'
 import type { FadeProps } from '@mui/material/Fade'
 import type { TimelineProps } from '@mui/lab/Timeline'
-import type { BlogType } from 'src/types/api/blogTypes'
-import type { ActivityLogType } from 'src/types/api/activityLogTypes'
+import type { BlogType } from 'src/types/blogTypes'
+import type { ActivityLogType } from 'src/types/activityLogTypes'
 
 // ** Styled Timeline component
 const Timeline = styled(MuiTimeline)<TimelineProps>({

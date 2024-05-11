@@ -4,7 +4,7 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
 // ** Type Imports
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

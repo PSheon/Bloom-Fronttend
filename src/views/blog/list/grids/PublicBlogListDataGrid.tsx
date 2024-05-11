@@ -17,7 +17,7 @@ import PublicBlogListLoadingSkeletonCard from 'src/views/blog/list/cards/PublicB
 import { getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import type { BlogType } from 'src/types/api/blogTypes'
+import type { BlogType } from 'src/types/blogTypes'
 
 interface Props {
   blogs: BlogType[]

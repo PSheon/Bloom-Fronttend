@@ -29,7 +29,7 @@ import type { MouseEvent } from 'react'
 import type { CardProps } from '@mui/material/Card'
 import type { OutputData } from '@editorjs/editorjs'
 import type { EditorCore } from 'src/views/shared/TextEditor'
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

@@ -7,7 +7,7 @@ import ManagementFundEditProfileHeaderCard from 'src/views/management/fund/edit/
 import ManagementFundEditTabContext from 'src/views/management/fund/edit/tabs/ManagementFundEditTabContext'
 
 // ** Type Imports
-import type { FundType, EditTabIndex } from 'src/types/api/fundTypes'
+import type { FundType, EditTabIndex } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

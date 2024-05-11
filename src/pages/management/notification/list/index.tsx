@@ -42,7 +42,7 @@ import { getPublicMediaAssetUrl } from 'src/utils'
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 // ** Styled component for the link in the dataTable
 const LinkStyled = styled(Link)(({ theme }) => ({

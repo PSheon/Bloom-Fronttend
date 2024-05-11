@@ -24,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 // ** Type Imports
 import type { SyntheticEvent } from 'react'
 import type { TabListProps } from '@mui/lab/TabList'
-import type { PreviewTabIndex, FundType } from 'src/types/api/fundTypes'
+import type { PreviewTabIndex, FundType } from 'src/types/fundTypes'
 
 const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
   '& .MuiTabs-indicator': {

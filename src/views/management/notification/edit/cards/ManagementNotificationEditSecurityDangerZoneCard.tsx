@@ -24,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 import { useDeleteOneMutation } from 'src/store/api/management/notification'
 
 // ** Type Imports
-import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 interface Props {
   initNotificationEntity: NotificationType

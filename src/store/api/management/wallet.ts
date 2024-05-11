@@ -25,7 +25,7 @@ import type {
   DeleteOneWalletParamsType,
   DeleteOneWalletTransformResponseType,
   DeleteOneWalletResponseType
-} from 'src/types/api/walletTypes'
+} from 'src/types/walletTypes'
 
 const WALLET_API_REDUCER_KEY = 'walletApi'
 

@@ -10,7 +10,7 @@ import Divider from '@mui/material/Divider'
 import { format } from 'date-fns'
 
 // ** Type Imports
-import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 interface Props {
   initMediaAssetEntity: MediaAssetType

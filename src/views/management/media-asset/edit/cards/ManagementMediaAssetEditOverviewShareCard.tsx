@@ -14,7 +14,7 @@ import copyToClipboard from 'clipboard-copy'
 import { getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 interface Props {
   initMediaAssetEntity: MediaAssetType

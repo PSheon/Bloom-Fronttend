@@ -9,7 +9,7 @@ import TextEditorPreview from 'src/views/shared/TextEditorPreview'
 
 // ** Type Imports
 import type { CardProps } from '@mui/material/Card'
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

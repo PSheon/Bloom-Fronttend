@@ -42,7 +42,7 @@ import { getFundCurrencyProperties, getFundStatusProperties, getFundCategoryProp
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 // ** Styled components
 const LinkStyled = styled(Link)(({ theme }) => ({

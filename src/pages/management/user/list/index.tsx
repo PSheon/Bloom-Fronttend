@@ -40,7 +40,7 @@ import { getPublicMediaAssetUrl, getUserRoleAttributes } from 'src/utils'
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({

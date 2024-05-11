@@ -7,7 +7,7 @@ import { getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
 import type { BoxProps } from '@mui/material/Box'
-import type { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 // ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({

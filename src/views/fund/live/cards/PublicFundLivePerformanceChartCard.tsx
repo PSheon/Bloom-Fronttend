@@ -14,7 +14,7 @@ import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
 // ** Type Imports
 import type { ApexOptions } from 'apexcharts'
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

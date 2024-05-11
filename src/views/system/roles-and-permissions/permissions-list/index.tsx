@@ -26,7 +26,7 @@ import { Permissions } from 'src/configs/acl'
 
 // ** Type Imports
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { Role } from 'src/types/api/authTypes'
+import type { Role } from 'src/types/authTypes'
 
 type RowType = {
   id: string

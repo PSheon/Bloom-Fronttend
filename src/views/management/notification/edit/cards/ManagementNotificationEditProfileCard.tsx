@@ -39,7 +39,7 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateOneMutation } from 'src/store/api/management/notification'
 
 // ** Type Imports
-import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 const schema = yup.object().shape({
   title: yup.string().required()

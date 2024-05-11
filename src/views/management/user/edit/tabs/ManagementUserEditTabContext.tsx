@@ -21,7 +21,7 @@ import Icon from 'src/@core/components/icon'
 // ** Type Imports
 import type { SyntheticEvent } from 'react'
 import type { TabProps } from '@mui/material/Tab'
-import type { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 // ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({

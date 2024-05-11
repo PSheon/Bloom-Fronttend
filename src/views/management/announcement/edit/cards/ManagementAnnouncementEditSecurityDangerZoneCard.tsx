@@ -24,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 import { useDeleteOneMutation } from 'src/store/api/management/announcement'
 
 // ** Type Imports
-import type { AnnouncementType } from 'src/types/api/announcementTypes'
+import type { AnnouncementType } from 'src/types/announcementTypes'
 
 interface Props {
   initAnnouncementEntity: AnnouncementType

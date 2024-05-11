@@ -14,7 +14,7 @@ import ReviewFundPreviewSpecificationCard from 'src/views/review/fund/preview/ca
 import ReviewFundPreviewDefaultPackageGrid from 'src/views/review/fund/preview/grids/ReviewFundPreviewDefaultPackageGrid'
 
 // ** Type Imports
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

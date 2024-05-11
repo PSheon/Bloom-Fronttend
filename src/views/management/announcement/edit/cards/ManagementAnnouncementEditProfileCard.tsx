@@ -47,7 +47,7 @@ import { useUpdateOneMutation } from 'src/store/api/management/announcement'
 import { getAnnouncementStatusProperties, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import type { AnnouncementType } from 'src/types/api/announcementTypes'
+import type { AnnouncementType } from 'src/types/announcementTypes'
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({

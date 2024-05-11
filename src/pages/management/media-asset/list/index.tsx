@@ -43,7 +43,7 @@ import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({

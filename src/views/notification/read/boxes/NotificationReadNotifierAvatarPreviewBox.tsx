@@ -10,8 +10,8 @@ import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
 import type { BoxProps } from '@mui/material/Box'
-import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
-import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 // ** Styled Preview Box
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({

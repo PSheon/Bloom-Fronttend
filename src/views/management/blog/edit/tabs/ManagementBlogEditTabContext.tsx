@@ -23,7 +23,7 @@ import Icon from 'src/@core/components/icon'
 // ** Type Imports
 import type { SyntheticEvent } from 'react'
 import type { TabProps } from '@mui/material/Tab'
-import type { BlogType } from 'src/types/api/blogTypes'
+import type { BlogType } from 'src/types/blogTypes'
 
 // ** Styled Tab component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({

@@ -9,7 +9,7 @@ import type {
   FindRolesParamsType,
   FindRolesTransformResponseType,
   FindRolesResponseType
-} from 'src/types/api/roleAndPermissionTypes'
+} from 'src/types/roleAndPermissionTypes'
 
 const ROLE_AND_PERMISSION_API_REDUCER_KEY = 'roleAndPermissionApi'
 

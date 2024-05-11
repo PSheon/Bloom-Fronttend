@@ -42,7 +42,7 @@ import { getPublicMediaAssetUrl, getAnnouncementStatusProperties } from 'src/uti
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { AnnouncementType } from 'src/types/api/announcementTypes'
+import type { AnnouncementType } from 'src/types/announcementTypes'
 
 // ** Styled components
 const LinkStyled = styled(Link)(({ theme }) => ({

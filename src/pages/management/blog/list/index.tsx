@@ -42,7 +42,7 @@ import { getPublicMediaAssetUrl, getBlogStatusProperties } from 'src/utils'
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { BlogType } from 'src/types/api/blogTypes'
+import type { BlogType } from 'src/types/blogTypes'
 
 // ** Styled components
 const LinkStyled = styled(Link)(({ theme }) => ({

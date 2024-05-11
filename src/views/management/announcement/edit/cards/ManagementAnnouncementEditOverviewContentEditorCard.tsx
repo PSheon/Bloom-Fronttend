@@ -29,7 +29,7 @@ import type { MouseEvent } from 'react'
 import type { CardProps } from '@mui/material/Card'
 import type { OutputData } from '@editorjs/editorjs'
 import type { EditorCore } from 'src/views/shared/TextEditor'
-import type { AnnouncementType } from 'src/types/api/announcementTypes'
+import type { AnnouncementType } from 'src/types/announcementTypes'
 
 // ** Style Imports
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'

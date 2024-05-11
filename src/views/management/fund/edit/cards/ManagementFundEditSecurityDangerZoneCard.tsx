@@ -17,7 +17,7 @@ import Button from '@mui/material/Button'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

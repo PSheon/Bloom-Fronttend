@@ -44,7 +44,7 @@ import type { MenuItemProps } from '@mui/material/MenuItem'
 import type { TypographyProps } from '@mui/material/Typography'
 import type { Settings } from 'src/@core/context/settingsContext'
 import type { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
-import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 interface Props {
   settings: Settings

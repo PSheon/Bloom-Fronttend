@@ -7,7 +7,7 @@ import axios from 'axios'
 // ** Type Imports
 import type { NextAuthOptions, User } from 'next-auth'
 import type { BaseApiResponseErrorType } from 'src/types/api/baseApiTypes'
-import type { LoginResponseType } from 'src/types/api/authTypes'
+import type { LoginResponseType } from 'src/types/authTypes'
 
 /*
  * As we do not have backend server, the refresh token feature has not been incorporated into the template.

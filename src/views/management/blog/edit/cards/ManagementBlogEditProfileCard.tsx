@@ -47,7 +47,7 @@ import { useUpdateOneMutation } from 'src/store/api/management/blog'
 import { getBlogStatusProperties, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import type { BlogType } from 'src/types/api/blogTypes'
+import type { BlogType } from 'src/types/blogTypes'
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({

@@ -22,7 +22,7 @@ import type {
   DeleteOneBlogParamsType,
   DeleteOneBlogTransformResponseType,
   DeleteOneBlogResponseType
-} from 'src/types/api/blogTypes'
+} from 'src/types/blogTypes'
 
 const BLOG_API_REDUCER_KEY = 'blogApi'
 

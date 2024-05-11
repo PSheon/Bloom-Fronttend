@@ -24,9 +24,9 @@ import { useFindQuery } from 'src/store/api/management/accessLog'
 
 // ** Type Imports
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { AccessLogType } from 'src/types/api/accessLogTypes'
+import type { AccessLogType } from 'src/types/accessLogTypes'
 import type { ThemeColor } from 'src/@core/layouts/types'
-import type { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 interface Props {
   initUserEntity: UserDataType

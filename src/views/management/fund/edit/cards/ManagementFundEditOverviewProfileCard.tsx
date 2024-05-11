@@ -43,7 +43,7 @@ import { useUpdateOneMutation } from 'src/store/api/management/fund'
 import { getFundStatusProperties } from 'src/utils'
 
 // ** Type Imports
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 const schema = yup.object().shape({
   displayName: yup.string().required(),

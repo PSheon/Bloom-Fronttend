@@ -17,7 +17,7 @@ import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 // ** Type Imports
 import type { ApexOptions } from 'apexcharts'
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

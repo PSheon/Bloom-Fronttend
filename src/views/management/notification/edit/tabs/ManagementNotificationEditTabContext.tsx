@@ -20,7 +20,7 @@ import Icon from 'src/@core/components/icon'
 // ** Type Imports
 import type { SyntheticEvent } from 'react'
 import type { TabProps } from '@mui/material/Tab'
-import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 // ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({

@@ -17,7 +17,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import PublicFundLivePackageCard from 'src/views/fund/live/cards/PublicFundLivePackageCard'
 
 // ** Type Imports
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

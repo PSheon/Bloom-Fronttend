@@ -8,7 +8,7 @@ import ManagementNotificationEditMetadataCard from 'src/views/management/notific
 import ManagementNotificationEditTabContext from 'src/views/management/notification/edit/tabs/ManagementNotificationEditTabContext'
 
 // ** Type Imports
-import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 interface Props {
   initNotificationEntity: NotificationType

@@ -14,7 +14,7 @@ import { useUpdateOneMutation } from 'src/store/api/management/notification'
 
 // ** Type Imports
 import type { CardProps } from '@mui/material/Card'
-import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 interface Props {
   initNotificationEntity: NotificationType

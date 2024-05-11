@@ -26,7 +26,7 @@ import type {
   DeleteOnePackageParamsType,
   DeleteOnePackageTransformResponseType,
   DeleteOnePackageResponseType
-} from 'src/types/api/packageTypes'
+} from 'src/types/packageTypes'
 
 const PACKAGE_API_REDUCER_KEY = 'packageApi'
 

@@ -8,7 +8,7 @@ import ManagementFundPreviewProfileHeaderCard from 'src/views/management/fund/pr
 import ManagementFunPreviewTabContext from 'src/views/management/fund/preview/tabs/ManagementFundPreviewTabContext'
 
 // ** Type Imports
-import type { FundType, PreviewTabIndex } from 'src/types/api/fundTypes'
+import type { FundType, PreviewTabIndex } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

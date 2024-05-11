@@ -24,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateOneMutation } from 'src/store/api/management/user'
 
 // ** Type Imports
-import type { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 interface Props {
   initUserEntity: UserDataType

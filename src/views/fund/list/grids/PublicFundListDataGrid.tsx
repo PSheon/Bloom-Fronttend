@@ -30,7 +30,7 @@ import Icon from 'src/@core/components/icon'
 import { getFundCurrencyProperties } from 'src/utils'
 
 // ** Type Imports
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 // ** Styled <sub> component
 const Sub = styled('sub')({

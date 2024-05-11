@@ -8,7 +8,7 @@ import ManagementAnnouncementEditMetadataCard from 'src/views/management/announc
 import ManagementAnnouncementEditTabContext from 'src/views/management/announcement/edit/tabs/ManagementAnnouncementEditTabContext'
 
 // ** Type Imports
-import type { AnnouncementType } from 'src/types/api/announcementTypes'
+import type { AnnouncementType } from 'src/types/announcementTypes'
 
 interface Props {
   initAnnouncementEntity: AnnouncementType

@@ -22,7 +22,7 @@ import type {
   DeleteOneMediaAssetsParamsType,
   DeleteOneMediaAssetsTransformResponseType,
   DeleteOneMediaAssetsResponseType
-} from 'src/types/api/mediaAssetTypes'
+} from 'src/types/mediaAssetTypes'
 
 const MEDIA_ASSET_API_REDUCER_KEY = 'mediaAssetApi'
 

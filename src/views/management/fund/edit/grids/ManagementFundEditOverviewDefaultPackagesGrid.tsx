@@ -54,8 +54,8 @@ import { getFundCurrencyProperties, getPackageStatusProperties, getFormattedPric
 
 // ** Type Imports
 import type { GridProps } from '@mui/material/Grid'
-import type { FundType } from 'src/types/api/fundTypes'
-import type { PackageType, SkinType } from 'src/types/api/packageTypes'
+import type { FundType } from 'src/types/fundTypes'
+import type { PackageType, SkinType } from 'src/types/packageTypes'
 
 // ** Style Imports
 import 'atropos/css'

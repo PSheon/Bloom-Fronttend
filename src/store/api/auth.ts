@@ -18,7 +18,7 @@ import type {
   ResetPasswordParamsType,
   ResetPasswordTransformResponseType,
   ResetPasswordResponseType
-} from 'src/types/api/authTypes'
+} from 'src/types/authTypes'
 
 const AUTH_API_REDUCER_KEY = 'authApi'
 

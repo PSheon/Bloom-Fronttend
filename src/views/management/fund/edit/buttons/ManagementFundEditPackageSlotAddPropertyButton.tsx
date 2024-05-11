@@ -29,7 +29,7 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateOneMutation } from 'src/store/api/management/package'
 
 // ** Type Imports
-import type { PackageType } from 'src/types/api/packageTypes'
+import type { PackageType } from 'src/types/packageTypes'
 
 const schema = yup.object().shape({
   propertyType: yup.string().oneOf(['DisplayName', 'Period']).required(),

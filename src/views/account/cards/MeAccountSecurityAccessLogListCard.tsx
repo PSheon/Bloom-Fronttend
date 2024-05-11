@@ -24,7 +24,7 @@ import { useFindMeQuery } from 'src/store/api/management/accessLog'
 
 // ** Type Imports
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
-import type { AccessLogType } from 'src/types/api/accessLogTypes'
+import type { AccessLogType } from 'src/types/accessLogTypes'
 import type { ThemeColor } from 'src/@core/layouts/types'
 
 const MeAccountSecurityAccessLogListCard = () => {

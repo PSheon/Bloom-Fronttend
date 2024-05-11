@@ -19,8 +19,8 @@ import Icon from 'src/@core/components/icon'
 import { getFundCategoryProperties, getPublicMediaAssetUrl, getFundCurrencyProperties } from 'src/utils'
 
 // ** Type Imports
-import type { FundType } from 'src/types/api/fundTypes'
-import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { FundType } from 'src/types/fundTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 const FundAvatarGroup = styled(AvatarGroup)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {

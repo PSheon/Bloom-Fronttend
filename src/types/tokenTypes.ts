@@ -1,6 +1,6 @@
 // ** Type Imports
 import type { BaseApiResponseType } from 'src/types/api/baseApiTypes'
-import type { PackageType } from 'src/types/api/packageTypes'
+import type { PackageType } from 'src/types/packageTypes'
 
 type AttributeType = {
   traitType: string

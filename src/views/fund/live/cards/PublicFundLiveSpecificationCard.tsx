@@ -25,7 +25,7 @@ import Icon from 'src/@core/components/icon'
 import { getFormattedEthereumAddress } from 'src/utils'
 
 // ** Type Imports
-import type { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 // ** Styled components
 const LinkStyled = styled(Link)(({ theme }) => ({
