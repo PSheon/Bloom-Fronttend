@@ -313,7 +313,7 @@ const ManagementMediaAssetEditProfileCard = (props: Props) => {
               disabled={!isDirty || Boolean(errors.name || errors.alternativeText || errors.caption)}
               type='submit'
               variant='contained'
-              endIcon={<Icon icon='mdi:content-save-outline' />}
+              startIcon={<Icon icon='mdi:content-save-outline' />}
             >
               儲存
             </LoadingButton>

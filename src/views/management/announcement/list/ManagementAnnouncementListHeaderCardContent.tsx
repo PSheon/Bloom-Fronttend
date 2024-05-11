@@ -116,7 +116,7 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
               <Button
                 color={isShowFilters ? 'primary' : 'secondary'}
                 variant={isShowFilters ? 'contained' : 'outlined'}
-                endIcon={<Icon icon='mdi:filter-outline' fontSize={20} />}
+                startIcon={<Icon icon='mdi:filter-outline' fontSize={20} />}
                 onClick={handleFiltersClick}
               >
                 <Typography whiteSpace='nowrap' color='inherit'>
@@ -137,7 +137,7 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
                 loading={isCreateNewAnnouncementLoading}
                 onClick={handleCreateNewAnnouncement}
                 variant='contained'
-                endIcon={<Icon icon='mdi:add-circle-outline' />}
+                startIcon={<Icon icon='mdi:add-circle-outline' />}
               >
                 <Typography whiteSpace='nowrap' color='inherit'>
                   建立

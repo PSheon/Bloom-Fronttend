@@ -330,7 +330,7 @@ const ManagementUserEditProfileCard = (props: Props) => {
               disabled={!isDirty || Boolean(errors.title || errors.phone)}
               type='submit'
               variant='contained'
-              endIcon={<Icon icon='mdi:content-save-outline' />}
+              startIcon={<Icon icon='mdi:content-save-outline' />}
             >
               儲存
             </LoadingButton>

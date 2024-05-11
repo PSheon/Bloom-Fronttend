@@ -261,7 +261,7 @@ const ReviewFundEditProfileCard = (props: Props) => {
               disabled={!isDirty || Boolean(errors.displayName || errors.description)}
               type='submit'
               variant='contained'
-              endIcon={<Icon icon='mdi:content-save-outline' />}
+              startIcon={<Icon icon='mdi:content-save-outline' />}
             >
               更新
             </LoadingButton>

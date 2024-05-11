@@ -82,7 +82,7 @@ const ManagementMediaAssetListHeaderCardContent = (props: Props) => {
               <Button
                 color={isShowFilters ? 'primary' : 'secondary'}
                 variant={isShowFilters ? 'contained' : 'outlined'}
-                endIcon={<Icon icon='mdi:filter-outline' fontSize={20} />}
+                startIcon={<Icon icon='mdi:filter-outline' fontSize={20} />}
                 onClick={handleFiltersClick}
               >
                 <Typography whiteSpace='nowrap' color='inherit'>

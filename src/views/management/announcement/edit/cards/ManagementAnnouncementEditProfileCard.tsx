@@ -291,7 +291,7 @@ const ManagementAnnouncementEditProfileCard = (props: Props) => {
               disabled={!isDirty || Boolean(errors.displayName)}
               type='submit'
               variant='contained'
-              endIcon={<Icon icon='mdi:content-save-outline' />}
+              startIcon={<Icon icon='mdi:content-save-outline' />}
             >
               儲存
             </LoadingButton>

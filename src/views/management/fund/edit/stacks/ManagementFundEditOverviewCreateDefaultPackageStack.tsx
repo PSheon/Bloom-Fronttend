@@ -302,7 +302,7 @@ const ManagementFundEditOverviewCreateDefaultPackageStack = (props: Props) => {
               disabled={!isDirty || Boolean(errors.displayName || errors.description)}
               type='submit'
               variant='contained'
-              endIcon={<Icon icon='mdi:add-circle-outline' />}
+              startIcon={<Icon icon='mdi:add-circle-outline' />}
             >
               建立
             </LoadingButton>

@@ -207,7 +207,7 @@ const NotificationReadLoadingSkeleton = () => {
                       disabled
                       type='submit'
                       variant='contained'
-                      endIcon={<Icon icon='mdi:content-save-outline' />}
+                      startIcon={<Icon icon='mdi:content-save-outline' />}
                     >
                       儲存通知
                     </Button>

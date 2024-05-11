@@ -222,7 +222,7 @@ const ManagementUserEditRoleCard = (props: Props) => {
             disabled={updatedUser.role!.id === selectedRoleId}
             variant='contained'
             onClick={handleRoleChange}
-            endIcon={<Icon icon='mdi:content-save-outline' />}
+            startIcon={<Icon icon='mdi:content-save-outline' />}
           >
             儲存
           </LoadingButton>

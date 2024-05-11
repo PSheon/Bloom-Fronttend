@@ -116,7 +116,7 @@ const ManagementBlogListHeaderCardContent = (props: Props) => {
               <Button
                 color={isShowFilters ? 'primary' : 'secondary'}
                 variant={isShowFilters ? 'contained' : 'outlined'}
-                endIcon={<Icon icon='mdi:filter-outline' fontSize={20} />}
+                startIcon={<Icon icon='mdi:filter-outline' fontSize={20} />}
                 onClick={handleFiltersClick}
               >
                 <Typography whiteSpace='nowrap' color='inherit'>
@@ -137,19 +137,14 @@ const ManagementBlogListHeaderCardContent = (props: Props) => {
                 loading={isCreateNewBlogLoading}
                 onClick={handleCreateNewBlog}
                 variant='contained'
-                endIcon={<Icon icon='mdi:add-circle-outline' />}
+                startIcon={<Icon icon='mdi:add-circle-outline' />}
               >
                 <Typography whiteSpace='nowrap' color='inherit'>
                   建立
                 </Typography>
               </LoadingButton>
             ) : (
-              <LoadingButton
-                loading={isCreateNewBlogLoading}
-                onClick={handleCreateNewBlog}
-                variant='contained'
-                endIcon={<Icon icon='mdi:add-circle-outline' />}
-              >
+              <LoadingButton loading={isCreateNewBlogLoading} onClick={handleCreateNewBlog} variant='contained'>
                 <Icon icon='mdi:add-circle-outline' fontSize={20} />
               </LoadingButton>
             )}

@@ -237,7 +237,7 @@ const ManagementNotificationEditProfileCard = (props: Props) => {
               disabled={!isDirty || Boolean(errors.title)}
               type='submit'
               variant='contained'
-              endIcon={<Icon icon='mdi:content-save-outline' />}
+              startIcon={<Icon icon='mdi:content-save-outline' />}
             >
               儲存
             </LoadingButton>
