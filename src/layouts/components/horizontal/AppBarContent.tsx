@@ -1,9 +1,6 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
 
-// ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
-
 // ** Third-Party Components
 import { useSession } from 'next-auth/react'
 
@@ -11,13 +8,16 @@ import { useSession } from 'next-auth/react'
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
-import NotificationDropdown, {
-  NotificationsType
-} from 'src/@core/layouts/components/shared-components/NotificationDropdown'
-import ShortcutsDropdown, { ShortcutsType } from 'src/@core/layouts/components/shared-components/ShortcutsDropdown'
+import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
+import ShortcutsDropdown from 'src/@core/layouts/components/shared-components/ShortcutsDropdown'
 
 // ** Custom Components Imports
 import Autocomplete from 'src/layouts/components/Autocomplete'
+
+// ** Type Imports
+import type { NotificationsType } from 'src/@core/layouts/components/shared-components/NotificationDropdown'
+import type { ShortcutsType } from 'src/@core/layouts/components/shared-components/ShortcutsDropdown'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   hidden: boolean

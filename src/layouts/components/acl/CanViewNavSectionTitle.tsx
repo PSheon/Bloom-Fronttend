@@ -1,11 +1,12 @@
 // ** React Imports
-import { ReactNode, useContext } from 'react'
+import { useContext } from 'react'
 
 // ** Custom Component Imports
 import { AbilityContext } from 'src/layouts/components/acl/Can'
 
 // ** Type Imports
-import { NavSectionTitle } from 'src/@core/layouts/types'
+import type { ReactNode } from 'react'
+import type { NavSectionTitle } from 'src/@core/layouts/types'
 
 interface Props {
   children: ReactNode

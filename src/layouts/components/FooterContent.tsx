@@ -2,10 +2,13 @@
 import Link from 'next/link'
 
 // ** MUI Imports
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
+
+// ** Type Imports
+import type { Theme } from '@mui/material/styles'
 
 // ** Styled Link Component
 const LinkStyled = styled(Link)(({ theme }) => ({

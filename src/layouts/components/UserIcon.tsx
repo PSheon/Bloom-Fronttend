@@ -2,7 +2,7 @@
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { IconProps } from '@iconify/react'
+import type { IconProps } from '@iconify/react'
 
 const UserIcon = ({ icon, ...rest }: IconProps) => {
   return <Icon icon={icon} {...rest} />

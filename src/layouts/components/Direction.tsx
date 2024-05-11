@@ -1,13 +1,14 @@
 // ** React Imports
-import { useEffect, ReactNode } from 'react'
-
-// ** MUI Imports
-import { Direction as DirectionType } from '@mui/material'
+import { useEffect } from 'react'
 
 // ** Third-Party Imports
 import createCache from '@emotion/cache'
 import { CacheProvider } from '@emotion/react'
 import stylisRTLPlugin from 'stylis-plugin-rtl'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { Direction as DirectionType } from '@mui/material'
 
 interface DirectionProps {
   children: ReactNode

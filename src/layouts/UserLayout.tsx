@@ -1,8 +1,4 @@
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** MUI Imports
-import { Theme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 // ** Layout Imports
@@ -24,6 +20,10 @@ import FooterContent from 'src/layouts/components/FooterContent'
 
 // ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { Theme } from '@mui/material/styles'
 
 interface Props {
   children: ReactNode
