@@ -57,8 +57,8 @@ const NotificationReadTabContext = (props: Props) => {
         aria-label='forced scroll tabs example'
         sx={{ borderBottom: theme => `1px solid ${theme.palette.divider}` }}
       >
-        <Tab value='overview' label='概覽' icon={<Icon icon='mdi:account-outline' />} />
-        <Tab value='security' label='安全' icon={<Icon icon='mdi:lock-outline' />} />
+        <Tab value='overview' label='Overview' icon={<Icon icon='mdi:view-dashboard-outline' />} />
+        <Tab value='security' label='Security' icon={<Icon icon='mdi:lock-outline' />} />
       </TabList>
       <Box sx={{ mt: 6 }}>
         <TabPanel sx={{ p: 0 }} value='overview'>

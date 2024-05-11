@@ -90,7 +90,7 @@ const ManagementFundPreviewTabContext = (props: Props) => {
               value='overview'
               label={
                 <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
-                  <Icon icon='mdi:chart-arc' />
+                  <Icon icon='mdi:view-dashboard-outline' />
                   總攬
                 </Box>
               }

@@ -99,8 +99,8 @@ const NotificationReadLoadingSkeleton = () => {
                 aria-label='forced scroll tabs'
                 sx={{ borderBottom: theme => `1px solid ${theme.palette.divider}` }}
               >
-                <Tab value='overview' label='概覽' icon={<Icon icon='mdi:account-outline' />} />
-                <Tab value='security' label='安全' icon={<Icon icon='mdi:lock-outline' />} />
+                <Tab value='overview' label='Overview' icon={<Icon icon='mdi:view-dashboard-outline' />} />
+                <Tab value='security' label='Security' icon={<Icon icon='mdi:lock-outline' />} />
               </TabList>
             </TabContext>
           </Grid>
