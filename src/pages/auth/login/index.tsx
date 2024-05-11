@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, ReactNode, MouseEvent } from 'react'
+import { useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -7,10 +7,11 @@ import Image from 'next/image'
 import { useRouter } from 'next/router'
 
 // ** MUI Components
+import { styled, useTheme } from '@mui/material/styles'
 import Alert from '@mui/material/Alert'
 import Divider from '@mui/material/Divider'
 import Card from '@mui/material/Card'
-import CardContent, { CardContentProps } from '@mui/material/CardContent'
+import CardContent from '@mui/material/CardContent'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Checkbox from '@mui/material/Checkbox'
@@ -21,11 +22,10 @@ import Box from '@mui/material/Box'
 import FormControl from '@mui/material/FormControl'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import OutlinedInput from '@mui/material/OutlinedInput'
-import { styled, useTheme } from '@mui/material/styles'
 import FormHelperText from '@mui/material/FormHelperText'
 import InputAdornment from '@mui/material/InputAdornment'
-import Typography, { TypographyProps } from '@mui/material/Typography'
-import MuiFormControlLabel, { FormControlLabelProps } from '@mui/material/FormControlLabel'
+import Typography from '@mui/material/Typography'
+import MuiFormControlLabel from '@mui/material/FormControlLabel'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
@@ -49,6 +49,12 @@ import useBgColor from 'src/@core/hooks/useBgColor'
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
+// ** Type Imports
+import type { ReactNode, MouseEvent } from 'react'
+import type { CardContentProps } from '@mui/material/CardContent'
+import type { TypographyProps } from '@mui/material/Typography'
+import type { FormControlLabelProps } from '@mui/material/FormControlLabel'
+
 // ** Styled Components
 const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
   position: 'relative',
@@ -57,18 +63,21 @@ const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) 
     padding: `${theme.spacing(2, 4, 6.5)} !important`
   }
 }))
+
 const TitleTypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontWeight: 600,
   letterSpacing: '0.18px',
   marginBottom: theme.spacing(1.5),
   [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
 }))
+
 const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ theme }) => ({
   '& .MuiFormControlLabel-label': {
     fontSize: '0.875rem',
     color: theme.palette.text.secondary
   }
 }))
+
 const LoginIllustration = styled('img')(({ theme }) => ({
   maxWidth: '48rem',
   [theme.breakpoints.down('xl')]: {
@@ -125,8 +134,10 @@ const AuthLoginPage = () => {
 
     await signIn('google', { callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/auth/callback/google` })
   }
+
   const onSubmit = async (data: FormData) => {
     const { email, password } = data
+
     setIsLoginCredentialsLoading(true)
 
     const signInResponse = await signIn('credentials', {
@@ -135,8 +146,10 @@ const AuthLoginPage = () => {
       rememberMe,
       redirect: false
     })
+
     if (signInResponse && !signInResponse?.ok) {
       setIsLoginCredentialsLoading(false)
+
       if (signInResponse.status === 401) {
         if (signInResponse.error === 'Invalid identifier or password') {
           setError('email', {
@@ -144,6 +157,7 @@ const AuthLoginPage = () => {
             message: 'Email or Password is invalid'
           })
         }
+
         if (signInResponse.error === 'Your account email is not confirmed') {
           router.push(`/auth/verify-email?email=${email}`)
         }

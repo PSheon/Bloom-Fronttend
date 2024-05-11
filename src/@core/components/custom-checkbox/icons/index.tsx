@@ -8,7 +8,7 @@ import Typography from '@mui/material/Typography'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { CustomCheckboxIconsProps } from 'src/@core/components/custom-checkbox/types'
+import type { CustomCheckboxIconsProps } from 'src/@core/components/custom-checkbox/types'
 
 const CustomCheckboxIcons = (props: CustomCheckboxIconsProps) => {
   // ** Props

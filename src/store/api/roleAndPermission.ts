@@ -5,13 +5,14 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 import qs from 'qs'
 
 // ** Type Imports
-import {
+import type {
   FindRolesParamsType,
   FindRolesTransformResponseType,
   FindRolesResponseType
-} from 'src/types/api/roleAndPermissionTypes'
+} from 'src/types/roleAndPermissionTypes'
 
 const ROLE_AND_PERMISSION_API_REDUCER_KEY = 'roleAndPermissionApi'
+
 export const roleAndPermissionApi = createApi({
   reducerPath: ROLE_AND_PERMISSION_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string }),

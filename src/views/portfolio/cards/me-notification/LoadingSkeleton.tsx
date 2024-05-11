@@ -7,7 +7,10 @@ import Skeleton from '@mui/material/Skeleton'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
-import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
+import MuiTimeline from '@mui/lab/Timeline'
+
+// ** Type Imports
+import type { TimelineProps } from '@mui/lab/Timeline'
 
 // ** Styled Timeline Component
 const Timeline = styled(MuiTimeline)<TimelineProps>({

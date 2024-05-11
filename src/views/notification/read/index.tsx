@@ -8,7 +8,7 @@ import NotificationReadMetadataCard from 'src/views/notification/read/cards/Noti
 import NotificationReadTabContext from 'src/views/notification/read/tabs/NotificationReadTabContext'
 
 // ** Type Imports
-import { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 interface Props {
   initNotificationEntity: NotificationType

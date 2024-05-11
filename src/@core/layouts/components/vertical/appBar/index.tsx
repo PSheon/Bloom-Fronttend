@@ -1,15 +1,18 @@
 // ** MUI Imports
 import { styled, useTheme } from '@mui/material/styles'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
-import Box, { BoxProps } from '@mui/material/Box'
-import AppBar, { AppBarProps } from '@mui/material/AppBar'
-import Toolbar, { ToolbarProps } from '@mui/material/Toolbar'
+import Box from '@mui/material/Box'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
 
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 // ** Type Imports
-import { LayoutProps } from 'src/@core/layouts/types'
+import type { BoxProps } from '@mui/material/Box'
+import type { AppBarProps } from '@mui/material/AppBar'
+import type { ToolbarProps } from '@mui/material/Toolbar'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   hidden: LayoutProps['hidden']
@@ -78,10 +81,13 @@ const LayoutAppBar = (props: Props) => {
   }
 
   let userAppBarStyle = {}
+
   if (appBarProps && appBarProps.sx) {
     userAppBarStyle = appBarProps.sx
   }
+
   const userAppBarProps = Object.assign({}, appBarProps)
+
   delete userAppBarProps.sx
 
   return (

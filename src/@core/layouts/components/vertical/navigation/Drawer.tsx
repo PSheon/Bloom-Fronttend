@@ -1,9 +1,10 @@
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import MuiSwipeableDrawer, { SwipeableDrawerProps } from '@mui/material/SwipeableDrawer'
+import MuiSwipeableDrawer from '@mui/material/SwipeableDrawer'
 
 // ** Type Imports
-import { LayoutProps } from 'src/@core/layouts/types'
+import type { SwipeableDrawerProps } from '@mui/material/SwipeableDrawer'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   navWidth: number
@@ -89,13 +90,17 @@ const Drawer = (props: Props) => {
 
   let userNavMenuStyle = {}
   let userNavMenuPaperStyle = {}
+
   if (navMenuProps && navMenuProps.sx) {
     userNavMenuStyle = navMenuProps.sx
   }
+
   if (navMenuProps && navMenuProps.PaperProps && navMenuProps.PaperProps.sx) {
     userNavMenuPaperStyle = navMenuProps.PaperProps.sx
   }
+
   const userNavMenuProps = Object.assign({}, navMenuProps)
+
   delete userNavMenuProps.sx
   delete userNavMenuProps.PaperProps
 

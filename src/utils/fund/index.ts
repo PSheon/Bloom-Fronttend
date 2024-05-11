@@ -1,6 +1,6 @@
 // ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
-import { EditTabIndex, PreviewTabIndex, LiveTabIndex, FundType, CategoryType } from 'src/types/api/fundTypes'
+import type { ThemeColor } from 'src/@core/layouts/types'
+import type { EditTabIndex, PreviewTabIndex, LiveTabIndex, FundType, CategoryType } from 'src/types/fundTypes'
 
 interface FundStatusAttributeType {
   [key: string]: {

@@ -6,7 +6,6 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
 import Divider from '@mui/material/Divider'
-import { Theme } from '@mui/material/styles'
 import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
 import CardHeader from '@mui/material/CardHeader'
@@ -26,7 +25,8 @@ import Icon from 'src/@core/components/icon'
 import useClipboard from 'src/@core/hooks/useClipboard'
 
 // ** Type Imports
-import { CardSnippetProps } from './types'
+import type { Theme } from '@mui/material/styles'
+import type { CardSnippetProps } from './types'
 
 const CardSnippet = (props: CardSnippetProps) => {
   // ** Props

@@ -1,11 +1,10 @@
 // ** React Imports
-import { useState, ChangeEvent } from 'react'
+import { useState } from 'react'
 
 // ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
-import { Theme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
@@ -17,7 +16,7 @@ import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import LoadingButton from '@mui/lab/LoadingButton'
 
@@ -30,6 +29,11 @@ import Icon from 'src/@core/components/icon'
 
 // ** API Imports
 import { useCreateMutation } from 'src/store/api/management/announcement'
+
+// ** Type Imports
+import type { ChangeEvent } from 'react'
+import type { Theme } from '@mui/material/styles'
+import type { SelectChangeEvent } from '@mui/material/Select'
 
 interface Props {
   filteredAnnouncementDisplayname: string
@@ -66,6 +70,7 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
   const handleFiltersClick = () => {
     serIsShowFilters(currentIsShowFilters => !currentIsShowFilters)
   }
+
   const handleCreateNewAnnouncement = async () => {
     try {
       const backendResponse = await createNewAnnouncement({
@@ -88,8 +93,8 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
   return (
     <CardContent>
       <Stack spacing={6}>
-        <Stack spacing={6} direction='row'>
-          <Stack spacing={6} sx={{ flex: '1' }}>
+        <Stack spacing={4} direction='row'>
+          <Stack spacing={4} sx={{ flex: '1' }}>
             <TextField
               size='small'
               fullWidth
@@ -106,7 +111,7 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
               }}
             />
           </Stack>
-          <Stack spacing={6} direction='row' sx={{ flex: '0' }}>
+          <Stack spacing={4} direction='row' sx={{ flex: '0' }}>
             {isDesktopView ? (
               <Button
                 color={isShowFilters ? 'primary' : 'secondary'}
@@ -127,20 +132,30 @@ const ManagementAnnouncementListHeaderCardContent = (props: Props) => {
                 <Icon icon='mdi:filter-outline' fontSize={20} />
               </Button>
             )}
-            <LoadingButton
-              loading={isCreateNewAnnouncementLoading}
-              onClick={handleCreateNewAnnouncement}
-              variant='contained'
-              endIcon={<Icon icon='mdi:send-outline' />}
-            >
-              <Typography whiteSpace='nowrap' color='inherit'>
-                建立
-              </Typography>
-            </LoadingButton>
+            {isDesktopView ? (
+              <LoadingButton
+                loading={isCreateNewAnnouncementLoading}
+                onClick={handleCreateNewAnnouncement}
+                variant='contained'
+                startIcon={<Icon icon='mdi:add-circle-outline' />}
+              >
+                <Typography whiteSpace='nowrap' color='inherit'>
+                  建立
+                </Typography>
+              </LoadingButton>
+            ) : (
+              <LoadingButton
+                loading={isCreateNewAnnouncementLoading}
+                onClick={handleCreateNewAnnouncement}
+                variant='contained'
+              >
+                <Icon icon='mdi:add-circle-outline' fontSize={20} />
+              </LoadingButton>
+            )}
           </Stack>
         </Stack>
         <Collapse in={isShowFilters} timeout='auto' unmountOnExit>
-          <Stack spacing={6} direction='row'>
+          <Stack spacing={4} direction='row'>
             <FormControl fullWidth size='small'>
               <InputLabel id='select-is-published-label'>篩選類型</InputLabel>
               <Select

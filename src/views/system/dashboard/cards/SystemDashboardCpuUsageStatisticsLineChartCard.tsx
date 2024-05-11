@@ -12,9 +12,6 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Skeleton from '@mui/material/Skeleton'
 
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
-
 // ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
@@ -25,7 +22,8 @@ import { useInterval } from 'src/hooks/useInterval'
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 // ** Type Imports
-import { RootState } from 'src/store'
+import type { ApexOptions } from 'apexcharts'
+import type { RootState } from 'src/store'
 
 interface Props {
   checkInterval?: number
@@ -43,6 +41,7 @@ const SystemDashboardCpuUsageStatisticsLineChartCard = (props: Props) => {
 
   // ** States
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
+
   const [cpuInfoData, setCpuInfoData] = useState<CPUInfo>({
     model: '',
     count: '',
@@ -56,6 +55,7 @@ const SystemDashboardCpuUsageStatisticsLineChartCard = (props: Props) => {
 
   // ** Vars
   const usagePercentageHistory = cpuInfoData.usagePercentageHistory
+
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,
@@ -127,6 +127,7 @@ const SystemDashboardCpuUsageStatisticsLineChartCard = (props: Props) => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
+
         setCpuInfoData(() => cpuInfo)
       })
     }

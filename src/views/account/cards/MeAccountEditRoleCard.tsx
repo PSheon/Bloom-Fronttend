@@ -13,7 +13,7 @@ import Icon from 'src/@core/components/icon'
 import { getUserRoleAttributes } from 'src/utils'
 
 // ** Type Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 interface Props {
   initMeUserEntity: UserDataType

@@ -17,7 +17,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import ManagementFundPreviewPackageCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewPackageCard'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType
@@ -32,6 +32,7 @@ const ManagementFundPreviewDefaultPackageGrid = (props: Props) => {
 
   // ** Vars
   const { defaultPackages: defaultPackagesData } = initFundEntity
+
   const publishedDefaultPackages = defaultPackagesData?.data
     ?.map(pkg => ({ id: pkg.id, ...pkg.attributes }))
     ?.filter(pkg => pkg.status === 'Published')

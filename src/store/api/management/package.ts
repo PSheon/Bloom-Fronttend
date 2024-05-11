@@ -7,10 +7,10 @@ import toast from 'react-hot-toast'
 import { getSession } from 'next-auth/react'
 
 // ** API Imports
-import fundApi from 'src/store/api/management/fund'
+import { fundApi } from 'src/store/api/management/fund'
 
 // ** Type Imports
-import {
+import type {
   FindOnePackageParamsType,
   FindOnePackageTransformResponseType,
   FindOnePackageResponseType,
@@ -26,15 +26,17 @@ import {
   DeleteOnePackageParamsType,
   DeleteOnePackageTransformResponseType,
   DeleteOnePackageResponseType
-} from 'src/types/api/packageTypes'
+} from 'src/types/packageTypes'
 
 const PACKAGE_API_REDUCER_KEY = 'packageApi'
+
 export const packageApi = createApi({
   reducerPath: PACKAGE_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
     prepareHeaders: async headers => {
       const session = await getSession()
+
       headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers

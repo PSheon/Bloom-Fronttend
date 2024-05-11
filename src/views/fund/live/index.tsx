@@ -17,7 +17,7 @@ import PublicFundLiveTabContext from 'src/views/fund/live/tabs/PublicFundLiveTab
 // import PublicFundLiveDefaultPackageGrid from 'src/views/fund/live/grids/PublicFundLiveDefaultPackageGrid'
 
 // ** Type Imports
-import { FundType, LiveTabIndex } from 'src/types/api/fundTypes'
+import type { FundType, LiveTabIndex } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

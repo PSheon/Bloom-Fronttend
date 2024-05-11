@@ -1,15 +1,15 @@
 // ** MUI Imports
-import Card from '@mui/material/Card'
 import { useTheme } from '@mui/material/styles'
+import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
 
 // ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
+
+// ** Type Imports
+import type { ApexOptions } from 'apexcharts'
 
 const ManagementDashboardPerformanceCard = () => {
   // ** Hooks
@@ -26,6 +26,7 @@ const ManagementDashboardPerformanceCard = () => {
       data: [110, 72, 62, 65, 100, 75]
     }
   ]
+
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

@@ -14,6 +14,7 @@ import { getValidEditTabIndex } from 'src/utils'
 const ManagementFundEditPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: fundEntity,
     isError: isFindOneFundEntityError,

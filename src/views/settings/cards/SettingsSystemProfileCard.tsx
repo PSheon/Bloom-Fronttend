@@ -1,6 +1,6 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
@@ -18,6 +18,9 @@ import Icon from 'src/@core/components/icon'
 
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
 
 // ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({

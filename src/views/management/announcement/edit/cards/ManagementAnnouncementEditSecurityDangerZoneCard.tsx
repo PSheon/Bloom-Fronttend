@@ -24,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 import { useDeleteOneMutation } from 'src/store/api/management/announcement'
 
 // ** Type Imports
-import { AnnouncementType } from 'src/types/api/announcementTypes'
+import type { AnnouncementType } from 'src/types/announcementTypes'
 
 interface Props {
   initAnnouncementEntity: AnnouncementType
@@ -39,12 +39,14 @@ const ManagementAnnouncementEditSecurityDangerZoneCard = (props: Props) => {
 
   // ** Hooks
   const router = useRouter()
+
   const [deleteOneAnnouncement, { data: deletedOneAnnouncement, isLoading: isDeleteOneAnnouncementLoading }] =
     useDeleteOneMutation()
 
   // ** Logics
   const handleOpenDeleteAnnouncementDialog = () => setOpen(true)
   const handleCloseDeleteAnnouncementDialog = () => setOpen(false)
+
   const handleDeleteOneAnnouncementClick = async () => {
     await deleteOneAnnouncement(initAnnouncementEntity.id)
   }

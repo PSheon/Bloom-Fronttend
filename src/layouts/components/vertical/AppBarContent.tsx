@@ -17,7 +17,7 @@ import NotificationDropdown from 'src/views/shared/notification-dropdown'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   hidden: boolean

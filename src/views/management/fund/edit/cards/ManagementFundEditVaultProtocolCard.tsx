@@ -14,7 +14,7 @@ import CustomChip from 'src/@core/components/mui/chip'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

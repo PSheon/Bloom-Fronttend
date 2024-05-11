@@ -1,5 +1,5 @@
 // ** React Imports
-import { Ref, useState, forwardRef, ReactElement, Fragment, MouseEvent } from 'react'
+import { useState, forwardRef, Fragment } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -12,7 +12,7 @@ import Dialog from '@mui/material/Dialog'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import Fade, { FadeProps } from '@mui/material/Fade'
+import Fade from '@mui/material/Fade'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -32,6 +32,10 @@ import { useUploadMutation } from 'src/store/api/management/mediaAsset'
 
 // ** Util Imports
 import { getAvatarFileInfo } from 'src/utils'
+
+// ** Type Imports
+import type { Ref, ReactElement, MouseEvent } from 'react'
+import type { FadeProps } from '@mui/material/Fade'
 
 const Transition = forwardRef(function Transition(
   props: FadeProps & { children?: ReactElement<any, any> },
@@ -59,6 +63,7 @@ const AvatarUploader = (props: Props) => {
 
   // ** Hooks
   const session = useSession()
+
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     maxSize: 20_000_000,
@@ -69,6 +74,7 @@ const AvatarUploader = (props: Props) => {
       setFiles(acceptedFiles.map((file: File) => Object.assign(file)))
     }
   })
+
   const [
     uploadMediaAssets,
     { data: uploadedMediaAssets, isLoading: isUploadMediaAssetsLoading, reset: resetMediaAssetsState }
@@ -78,15 +84,18 @@ const AvatarUploader = (props: Props) => {
   const handleOpen = () => {
     setShow(true)
   }
+
   const handleClose = () => {
     setFiles([])
     resetMediaAssetsState()
     setShow(false)
   }
+
   const handleRemoveFiles = (e: MouseEvent) => {
     e.stopPropagation()
     setFiles([])
   }
+
   const handleUploadClick = async () => {
     const formData = new FormData()
 

@@ -4,7 +4,7 @@ import VerticalNavGroup from './VerticalNavGroup'
 import VerticalNavSectionTitle from './VerticalNavSectionTitle'
 
 // ** Type Imports
-import { NavLink, NavGroup, LayoutProps, NavSectionTitle } from 'src/@core/layouts/types'
+import type { NavLink, NavGroup, LayoutProps, NavSectionTitle } from 'src/@core/layouts/types'
 
 interface Props {
   parent?: NavGroup

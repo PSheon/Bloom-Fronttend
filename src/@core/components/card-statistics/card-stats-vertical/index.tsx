@@ -12,7 +12,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { CardStatsVerticalProps } from 'src/@core/components/card-statistics/types'
+import type { CardStatsVerticalProps } from 'src/@core/components/card-statistics/types'
 
 const CardStatsVertical = (props: CardStatsVerticalProps) => {
   // ** Props

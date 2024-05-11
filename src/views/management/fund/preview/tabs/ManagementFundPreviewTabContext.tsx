@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, SyntheticEvent } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Next Imports
 import { useRouter } from 'next/router'
@@ -9,7 +9,7 @@ import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import TabContext from '@mui/lab/TabContext'
-import MuiTabList, { TabListProps } from '@mui/lab/TabList'
+import MuiTabList from '@mui/lab/TabList'
 import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 import CircularProgress from '@mui/material/CircularProgress'
@@ -22,7 +22,9 @@ import ManagementFundPreviewVaultTabPanel from 'src/views/management/fund/previe
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { PreviewTabIndex, FundType } from 'src/types/api/fundTypes'
+import type { SyntheticEvent } from 'react'
+import type { TabListProps } from '@mui/lab/TabList'
+import type { PreviewTabIndex, FundType } from 'src/types/fundTypes'
 
 const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
   '& .MuiTabs-indicator': {
@@ -88,7 +90,7 @@ const ManagementFundPreviewTabContext = (props: Props) => {
               value='overview'
               label={
                 <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
-                  <Icon icon='mdi:chart-arc' />
+                  <Icon icon='mdi:view-dashboard-outline' />
                   總攬
                 </Box>
               }

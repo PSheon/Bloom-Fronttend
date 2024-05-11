@@ -1,6 +1,6 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
 
@@ -17,8 +17,9 @@ import { useUpdateOneMutation } from 'src/store/api/management/announcement'
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { AnnouncementType } from 'src/types/api/announcementTypes'
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { BoxProps } from '@mui/material/Box'
+import type { AnnouncementType } from 'src/types/announcementTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 // ** Styled Previews
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
@@ -40,6 +41,7 @@ const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
     borderRadius: 10
   }
 }))
+
 const ProfilePicture = styled('img')(({ theme }) => ({
   margin: theme.spacing(4),
   width: 96,

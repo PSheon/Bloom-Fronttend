@@ -1,19 +1,16 @@
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
+import { styled, useTheme } from '@mui/material/styles'
 import TextField from '@mui/material/TextField'
 import Card from '@mui/material/Card'
-import CardContent, { CardContentProps } from '@mui/material/CardContent'
+import CardContent from '@mui/material/CardContent'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { styled, useTheme } from '@mui/material/styles'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import Typography from '@mui/material/Typography'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -36,6 +33,11 @@ import Icon from 'src/@core/components/icon'
 // ** API Imports
 import { useForgotPasswordMutation } from 'src/store/api/auth'
 
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { CardContentProps } from '@mui/material/CardContent'
+import type { TypographyProps } from '@mui/material/Typography'
+
 // ** Styled Components
 const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
   position: 'relative',
@@ -44,12 +46,14 @@ const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) 
     padding: `${theme.spacing(2, 4, 6.5)} !important`
   }
 }))
+
 const TitleTypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontWeight: 600,
   letterSpacing: '0.18px',
   marginBottom: theme.spacing(1.5),
   [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
 }))
+
 const ForgotPasswordIllustration = styled('img')(({ theme }) => ({
   maxWidth: '48rem',
   [theme.breakpoints.down('xl')]: {
@@ -102,6 +106,7 @@ const AuthForgotPasswordPage = () => {
       })
       .catch(error => {
         let errorMessage = 'Internal Server Error'
+
         if (error?.status === 404) {
           errorMessage = 'Email not found'
         } else if (error?.status === 401) {

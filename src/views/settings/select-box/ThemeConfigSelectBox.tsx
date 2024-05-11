@@ -3,7 +3,7 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
 // ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 interface Props {
   selected: string

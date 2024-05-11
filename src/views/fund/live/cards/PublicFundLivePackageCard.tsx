@@ -10,7 +10,7 @@ import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
-import Grid, { GridProps } from '@mui/material/Grid'
+import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
@@ -30,7 +30,7 @@ import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
 import { useAccount, useSignMessage } from 'wagmi'
 import safePrice from 'currency.js'
-import Atropos from 'atropos/react'
+import { Atropos } from 'atropos/react'
 import toast from 'react-hot-toast'
 
 // ** Icon Imports
@@ -56,8 +56,9 @@ import {
 } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
-import { PackageType } from 'src/types/api/packageTypes'
+import type { GridProps } from '@mui/material/Grid'
+import type { FundType } from 'src/types/fundTypes'
+import type { PackageType } from 'src/types/packageTypes'
 
 // ** Style Imports
 import 'atropos/css'
@@ -105,6 +106,7 @@ const PublicFundLivePackageCard = (props: Props) => {
   const theme = useTheme()
   const walletAccount = useAccount()
   const { signMessageAsync } = useSignMessage()
+
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
     pagination: {
@@ -112,17 +114,21 @@ const PublicFundLivePackageCard = (props: Props) => {
       pageSize: 5
     }
   })
+
   const { data: nonceData } = useGetNonceQuery(null)
   const [verifyWallet, { isLoading: isVerifyWalletLoading }] = useVerifyMutation()
 
   // ** Vars
   const wallets = walletsData?.data || []
+
   const isCurrentWalletVerified =
     walletAccount.status === 'connected' &&
     wallets.find(wallet => wallet.address.toLowerCase() === walletAccount.address.toLowerCase())
+
   const nonce = nonceData?.nonce
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
   const packageStatusProperties = getPackageStatusProperties(initPackageEntity.status)
+
   const STEPS = [
     {
       title: 'Connect Wallet',
@@ -170,6 +176,7 @@ const PublicFundLivePackageCard = (props: Props) => {
   const handleVerifyWallet = async () => {
     try {
       setIsVerifyWalletProcessLoading(() => true)
+
       const message = new SiweMessage({
         domain: window?.location.host,
         address: walletAccount.address!,
@@ -452,6 +459,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 mounted
                               }) => {
                                 const ready = mounted && authenticationStatus !== 'loading'
+
                                 const connected =
                                   ready &&
                                   account &&
@@ -594,6 +602,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 value={approvedPayToken}
                                 onChange={e => {
                                   const newApprovedPayToken = parseInt(e.target.value, 10) || 0
+
                                   setApprovedPayToken(() => newApprovedPayToken)
                                 }}
                                 size='small'

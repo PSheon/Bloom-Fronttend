@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { styled, useTheme } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import Grid, { GridProps } from '@mui/material/Grid'
+import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import TextField from '@mui/material/TextField'
 import IconButton from '@mui/material/IconButton'
@@ -52,8 +52,9 @@ import ReviewFundEditPackageSlotAddPropertyButton from 'src/views/review/fund/ed
 import { getFundCurrencyProperties, getPackageStatusProperties, getFormattedPriceUnit } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
-import { PackageType, SkinType } from 'src/types/api/packageTypes'
+import type { GridProps } from '@mui/material/Grid'
+import type { FundType } from 'src/types/fundTypes'
+import type { PackageType, SkinType } from 'src/types/packageTypes'
 
 // ** Styled Grid Component
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
@@ -78,8 +79,8 @@ const Sup = styled('sup')(({ theme }) => ({
 }))
 
 const schema = yup.object().shape({
-  displayName: yup.string().nullable(),
-  description: yup.string().nullable(),
+  displayName: yup.string().required(),
+  description: yup.string().optional(),
   skin: yup.string().oneOf(['Green', 'Purple', 'Orange']).required(),
   priceInUnit: yup.number().required(),
   status: yup.string().oneOf(['Draft', 'Published', 'Archived']).required()
@@ -107,6 +108,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
   // ** Hooks
   const theme = useTheme()
   const [updateOnePackage, { isLoading: isUpdateOnePackageLoading }] = useUpdateOneMutation()
+
   const {
     reset,
     control,
@@ -141,6 +143,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
     })
     setOpenEdit(true)
   }
+
   const handleEditClose = () => {
     setSelectedPackageEntity(() => null)
     reset({
@@ -152,6 +155,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
     })
     setOpenEdit(false)
   }
+
   const handleRemoveProperty = async (packageId: number, propertyId: number): Promise<void> => {
     const currentPackage = defaultPackages!.find(defaultPackage => defaultPackage.id === packageId)
     const currentSlot = currentPackage?.slot
@@ -162,6 +166,7 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
       data: { slot: newSlot }
     })
   }
+
   const onSubmit = async (data: FormData) => {
     const { displayName, description, skin, priceInUnit, status } = data
 

@@ -11,7 +11,7 @@ import { useTranslation } from 'react-i18next'
 import OptionsMenu from 'src/@core/components/option-menu'
 
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   settings: Settings

@@ -2,9 +2,9 @@
 import { useRef, useState } from 'react'
 
 // ** MUI Imports
-import List from '@mui/material/List'
-import Box, { BoxProps } from '@mui/material/Box'
 import { createTheme, responsiveFontSizes, styled, ThemeProvider } from '@mui/material/styles'
+import List from '@mui/material/List'
+import Box from '@mui/material/Box'
 
 // ** Third-Party Components
 import PerfectScrollbar from 'react-perfect-scrollbar'
@@ -24,7 +24,8 @@ import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Type Imports
-import { LayoutProps } from 'src/@core/layouts/types'
+import type { BoxProps } from '@mui/material/Box'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   navWidth: number
@@ -119,6 +120,7 @@ const Navigation = (props: Props) => {
   const scrollMenu = (container: any) => {
     if (beforeVerticalNavMenuContentPosition === 'static' || !beforeNavMenuContent) {
       container = hidden ? container.target : container
+
       if (shadowRef && container.scrollTop > 0) {
         // @ts-ignore
         if (!shadowRef.current.classList.contains('scrolled')) {

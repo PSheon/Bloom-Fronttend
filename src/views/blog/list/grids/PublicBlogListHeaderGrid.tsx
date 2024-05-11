@@ -1,16 +1,20 @@
 // ** React Imports
-import { SyntheticEvent, useState } from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
-import Tab, { TabProps } from '@mui/material/Tab'
+import Tab from '@mui/material/Tab'
 import Typography from '@mui/material/Typography'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
+import type { SyntheticEvent } from 'react'
+import type { TabProps } from '@mui/material/Tab'
 
 // ** Styled Tab component
 const StyledTab = styled(Tab)<TabProps>(({ theme }) => ({

@@ -1,5 +1,5 @@
-// ** React Imports
-import { ReactNode } from 'react'
+// ** Type Imports
+import type { ReactNode } from 'react'
 
 export type PageHeaderProps = {
   title: ReactNode

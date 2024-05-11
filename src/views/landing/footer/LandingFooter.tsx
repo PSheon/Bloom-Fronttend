@@ -4,17 +4,21 @@ import Link from 'next/link'
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+
 // ** Styled Components
 const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
   backgroundColor: theme.palette.background.paper
 }))
+
 const FooterWrapper = styled('footer')(({ theme }) => ({
   width: '100%',
   minHeight: theme.spacing(64),
@@ -32,6 +36,7 @@ const FooterWrapper = styled('footer')(({ theme }) => ({
     paddingRight: theme.spacing(4)
   }
 }))
+
 const StyledLink = styled(Link)(({ theme }) => ({
   fontWeight: 500,
   fontSize: '.8rem',

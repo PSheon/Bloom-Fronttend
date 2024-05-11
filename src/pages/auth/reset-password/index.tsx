@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useEffect, ReactNode } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -9,11 +9,11 @@ import { useRouter } from 'next/router'
 import { styled, useTheme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Card from '@mui/material/Card'
-import CardContent, { CardContentProps } from '@mui/material/CardContent'
+import CardContent from '@mui/material/CardContent'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import Typography from '@mui/material/Typography'
 import InputLabel from '@mui/material/InputLabel'
 import IconButton from '@mui/material/IconButton'
 import FormControl from '@mui/material/FormControl'
@@ -40,6 +40,11 @@ import Icon from 'src/@core/components/icon'
 // ** API Imports
 import { useResetPasswordMutation } from 'src/store/api/auth'
 
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { CardContentProps } from '@mui/material/CardContent'
+import type { TypographyProps } from '@mui/material/Typography'
+
 // ** Styled Components
 const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
   position: 'relative',
@@ -48,12 +53,14 @@ const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) 
     padding: `${theme.spacing(2, 4, 6.5)} !important`
   }
 }))
+
 const TitleTypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
   fontWeight: 600,
   letterSpacing: '0.18px',
   marginBottom: theme.spacing(1.5),
   [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
 }))
+
 const ResetPasswordIllustration = styled('img')(({ theme }) => ({
   maxWidth: '48rem',
   [theme.breakpoints.down('xl')]: {
@@ -83,6 +90,7 @@ const AuthResetPasswordPage = () => {
   const router = useRouter()
   const isDesktopView = useMediaQuery(theme.breakpoints.up('md'))
   const [resetPassword, { isLoading: isResetPasswordLoading }] = useResetPasswordMutation()
+
   const {
     control,
     setError,

@@ -1,9 +1,9 @@
 declare module '@mui/material/styles' {
   interface Palette {
     customColors: {
-      dark: string
+      darkColor: string // ** NOTE: It should be `dark`, fix here later
       main: string
-      light: string
+      lightColor: string // ** NOTE: It should be `light`, fix here later
       bodyBg: string
       darkBg: string
       lightBg: string
@@ -15,9 +15,9 @@ declare module '@mui/material/styles' {
   }
   interface PaletteOptions {
     customColors?: {
-      dark?: string
+      darkColor?: string // ** NOTE: It should be `dark`, fix here later
       main?: string
-      light?: string
+      lightColor?: string // ** NOTE: It should be `light`, fix here later
       bodyBg?: string
       darkBg?: string
       lightBg?: string

@@ -1,19 +1,21 @@
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Custom Component Imports
 import LandingAppBar from 'src/views/landing/app-bar/LandingAppBar'
 import LandingFooter from 'src/views/landing/footer/LandingFooter'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { BoxProps } from '@mui/material/Box'
 
 // ** Styled Components
 const LandingLayoutWrapper = styled('div')({
   height: '100%',
   display: 'flex'
 })
+
 const MainContentWrapper = styled(Box)<BoxProps>({
   flexGrow: 1,
   minWidth: 0,
@@ -21,6 +23,7 @@ const MainContentWrapper = styled(Box)<BoxProps>({
   minHeight: '100vh',
   flexDirection: 'column'
 })
+
 const ContentWrapper = styled('main')(({ theme }) => ({
   flexGrow: 1,
   width: '100%',

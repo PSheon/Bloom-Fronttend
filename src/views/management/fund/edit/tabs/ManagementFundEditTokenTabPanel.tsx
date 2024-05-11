@@ -9,7 +9,7 @@ import ManagementFundEditTokenStatisticsCard from 'src/views/management/fund/edi
 import ManagementFundEditTokenTransactionsCard from 'src/views/management/fund/edit/cards/ManagementFundEditTokenTransactionsCard'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

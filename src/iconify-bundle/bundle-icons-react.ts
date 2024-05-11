@@ -114,6 +114,7 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
 
   // Create directory for output if missing
   const dir = dirname(target)
+
   try {
     await fs.mkdir(dir, {
       recursive: true
@@ -130,8 +131,10 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
 
     // Sort icons by prefix
     const organizedList = organizeIconsList(sources.icons)
+
     for (const prefix in organizedList) {
       const filename = require.resolve(`@iconify/json/json/${prefix}.json`)
+
       sourcesJSON.push({
         filename,
         icons: organizedList[prefix]
@@ -153,9 +156,11 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
       // Filter icons
       if (typeof item !== 'string' && item.icons?.length) {
         const filteredContent = getIcons(content, item.icons)
+
         if (!filteredContent) {
           throw new Error(`Cannot find required icons in ${filename}`)
         }
+
         content = filteredContent
       }
 
@@ -187,6 +192,7 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
 
         // Get SVG instance for parsing
         const svg = iconSet.toSVG(name)
+
         if (!svg) {
           // Invalid icon
           iconSet.remove(name)
@@ -227,6 +233,7 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
 
       // Export to JSON
       const content = iconSet.export()
+
       bundle += 'addCollection(' + JSON.stringify(content) + ');\n'
     }
   }
@@ -244,6 +251,7 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
  */
 function removeMetaData(iconSet: IconifyJSON) {
   const props: (keyof IconifyMetaData)[] = ['info', 'chars', 'categories', 'themes', 'prefixes', 'suffixes']
+
   props.forEach(prop => {
     delete iconSet[prop]
   })
@@ -254,8 +262,10 @@ function removeMetaData(iconSet: IconifyJSON) {
  */
 function organizeIconsList(icons: string[]): Record<string, string[]> {
   const sorted: Record<string, string[]> = Object.create(null)
+
   icons.forEach(icon => {
     const item = stringToIcon(icon)
+
     if (!item) {
       return
     }
@@ -264,6 +274,7 @@ function organizeIconsList(icons: string[]): Record<string, string[]> {
     const prefixList = sorted[prefix] ? sorted[prefix] : (sorted[prefix] = [])
 
     const name = item.name
+
     if (prefixList.indexOf(name) === -1) {
       prefixList.push(name)
     }

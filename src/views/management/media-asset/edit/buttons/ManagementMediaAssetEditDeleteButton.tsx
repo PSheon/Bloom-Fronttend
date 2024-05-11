@@ -21,7 +21,7 @@ import Icon from 'src/@core/components/icon'
 import { useDeleteOneMutation } from 'src/store/api/management/mediaAsset'
 
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 interface Props {
   initMediaAssetEntity: MediaAssetType
@@ -36,12 +36,14 @@ const ManagementMediaAssetEditDeleteButton = (props: Props) => {
 
   // ** Hooks
   const router = useRouter()
+
   const [deleteOneMediaAssets, { data: deletedOneMediaAssets, isLoading: isDeleteOneMediaAssetsLoading }] =
     useDeleteOneMutation()
 
   // ** Logics
   const handleOpenDeleteDialog = () => setOpen(true)
   const handleCloseDeleteDialog = () => setOpen(false)
+
   const handleDeleteOneMediaAssetClick = async () => {
     await deleteOneMediaAssets(initMediaAssetEntity.id)
   }

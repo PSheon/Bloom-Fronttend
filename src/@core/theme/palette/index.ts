@@ -1,6 +1,6 @@
 // ** Type Imports
-import { Palette } from '@mui/material'
-import { Skin } from 'src/@core/layouts/types'
+import type { Palette } from '@mui/material'
+import type { Skin } from 'src/@core/layouts/types'
 
 const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
   // ** Vars
@@ -21,9 +21,9 @@ const DefaultPalette = (mode: Palette['mode'], skin: Skin): Palette => {
 
   return {
     customColors: {
-      dark: darkColor,
+      darkColor: darkColor, // ** NOTE: It should be `dark`, fix here later
       main: mainColor,
-      light: lightColor,
+      lightColor: lightColor, // ** NOTE: It should be `light`, fix here later
       darkBg: '#282A42',
       lightBg: '#F7F7F9',
       bodyBg: mode === 'light' ? '#F7F7F9' : '#282A42', // Same as palette.background.default but doesn't consider bordered skin

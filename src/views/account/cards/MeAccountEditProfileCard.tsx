@@ -40,19 +40,19 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateMeOneMutation } from 'src/store/api/management/user'
 
 // ** Type Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 const schema = yup.object().shape({
-  title: yup.string().nullable(),
-  phone: yup.string().nullable()
+  title: yup.string().optional(),
+  phone: yup.string().optional()
 })
 
 interface Props {
   initMeUserEntity: UserDataType
 }
 interface FormData {
-  title: string
-  phone: string
+  title?: string
+  phone?: string
 }
 
 const MeAccountEditProfileCard = (props: Props) => {
@@ -64,8 +64,10 @@ const MeAccountEditProfileCard = (props: Props) => {
 
   // ** Hooks
   const session = useSession()
+
   const [updateMeUser, { data: updatedMeUser = initMeUserEntity, isLoading: isUpdateMeUserLoading }] =
     useUpdateMeOneMutation()
+
   const {
     reset,
     control,
@@ -73,8 +75,6 @@ const MeAccountEditProfileCard = (props: Props) => {
     formState: { isDirty, errors }
   } = useForm({
     defaultValues: {
-      username: initMeUserEntity.username,
-      email: initMeUserEntity.email,
       title: initMeUserEntity.title || '',
       phone: initMeUserEntity.phone || ''
     },
@@ -85,6 +85,7 @@ const MeAccountEditProfileCard = (props: Props) => {
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
+
   const onSubmit = async (data: FormData) => {
     const { title, phone } = data
 
@@ -256,7 +257,7 @@ const MeAccountEditProfileCard = (props: Props) => {
               disabled={!isDirty || Boolean(errors.title || errors.phone)}
               type='submit'
               variant='contained'
-              endIcon={<Icon icon='mdi:content-save-outline' />}
+              startIcon={<Icon icon='mdi:content-save-outline' />}
             >
               更新
             </LoadingButton>

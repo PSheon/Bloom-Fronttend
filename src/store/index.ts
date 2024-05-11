@@ -2,12 +2,6 @@
 import { configureStore } from '@reduxjs/toolkit'
 
 // ** Reducer Imports
-import chat from 'src/store/apps/chat'
-import user from 'src/store/apps/user'
-import email from 'src/store/apps/email'
-import invoice from 'src/store/apps/invoice'
-import calendar from 'src/store/apps/calendar'
-import permissions from 'src/store/apps/permissions'
 import dashboard from 'src/store/dashboard'
 
 // ** API Imports
@@ -20,20 +14,12 @@ import { blogApi } from 'src/store/api/management/blog'
 import { accessLogApi } from 'src/store/api/management/accessLog'
 import { activityLogApi } from 'src/store/api/management/activityLog'
 import { notificationApi } from 'src/store/api/management/notification'
-import { reviewApi } from 'src/store/api/management/review'
 import { walletApi } from 'src/store/api/management/wallet'
 import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
-import { statisticApi } from 'src/store/api/statistic'
 import { authApi } from 'src/store/api/auth'
 
 export const store = configureStore({
   reducer: {
-    user,
-    chat,
-    email,
-    invoice,
-    calendar,
-    permissions,
     dashboard,
     [userApi.reducerPath]: userApi.reducer,
     [fundApi.reducerPath]: fundApi.reducer,
@@ -44,12 +30,13 @@ export const store = configureStore({
     [accessLogApi.reducerPath]: accessLogApi.reducer,
     [activityLogApi.reducerPath]: activityLogApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
-    [reviewApi.reducerPath]: reviewApi.reducer,
     [walletApi.reducerPath]: walletApi.reducer,
     [roleAndPermissionApi.reducerPath]: roleAndPermissionApi.reducer,
-    [statisticApi.reducerPath]: statisticApi.reducer,
     [authApi.reducerPath]: authApi.reducer
   },
+
+  // ** NOTE: Fix here later
+  // @ts-ignore
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false
@@ -63,10 +50,8 @@ export const store = configureStore({
       accessLogApi.middleware,
       activityLogApi.middleware,
       notificationApi.middleware,
-      reviewApi.middleware,
       walletApi.middleware,
       roleAndPermissionApi.middleware,
-      statisticApi.middleware,
       authApi.middleware
     ])
 })

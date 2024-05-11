@@ -11,6 +11,7 @@ import ManagementAnnouncementEditSection from 'src/views/management/announcement
 const ManagementAnnouncementEditPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: announcementEntity,
     isError: isFindOneAnnouncementEntityError,

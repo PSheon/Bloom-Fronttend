@@ -7,7 +7,6 @@ import Box from '@mui/material/Box'
 // ** Third-Party Imports
 import axios from 'axios'
 import toast from 'react-hot-toast'
-import { OutputData, EditorConfig } from '@editorjs/editorjs'
 import { createReactEditorJS } from 'react-editor-js'
 import { useSession, getSession } from 'next-auth/react'
 
@@ -53,6 +52,9 @@ import { useSettings } from 'src/@core/hooks/useSettings'
 // ** Util Imports
 import { getAvatarFileInfo, getPublicMediaAssetUrl } from 'src/utils'
 
+// ** Type Imports
+import type { OutputData, EditorConfig } from '@editorjs/editorjs'
+
 class EnhancedImage extends Image {
   async removed() {
     const session = await getSession()
@@ -89,6 +91,7 @@ class EnhancedEmbed extends Embed {
       // @ts-ignore
       this.element = container
       const input = document.createElement('input')
+
       input.classList.add('cdx-input')
       input.placeholder = 'https://www.youtube.com/watch?v=???'
       input.type = 'url'
@@ -96,6 +99,7 @@ class EnhancedEmbed extends Embed {
         // @ts-ignore
         const url = event.clipboardData.getData('text')
         const service = Object.keys(Embed.services).find(key => Embed.services[key].regex.test(url))
+
         if (service) {
           // @ts-ignore
           this.onPaste({ detail: { key: service, data: url } })
@@ -142,6 +146,7 @@ const TextEditor = (props: Props) => {
   // ** Vars
   const { mode } = settings
   const EditorJs = createReactEditorJS()
+
   const EDITOR_JS_TOOLS = {
     paragraph: {
       class: Paragraph,
@@ -160,6 +165,7 @@ const TextEditor = (props: Props) => {
         uploader: {
           async uploadByFile(file: File) {
             const formData = new FormData()
+
             formData.append('files', file)
             formData.append('fileInfo', JSON.stringify(getAvatarFileInfo(file, session.data!.user!)))
 
@@ -170,6 +176,7 @@ const TextEditor = (props: Props) => {
                   Authorization: `Bearer ${session.data!.accessToken}`
                 }
               })
+
               const mediaAssetId = res.data[0].id
               const url = res.data[0].url
               const imageUrl = getPublicMediaAssetUrl(url)
@@ -207,9 +214,11 @@ const TextEditor = (props: Props) => {
     },
     [handleInitializeInstance]
   )
+
   const handleReady = () => {
     // @ts-ignore
     const editorInstance = editorCore.current!._editorJS
+
     if (editorInstance) {
       new DragDrop(editorInstance)
     }

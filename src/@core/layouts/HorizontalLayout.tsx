@@ -1,9 +1,9 @@
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Fab from '@mui/material/Fab'
 import AppBar from '@mui/material/AppBar'
-import { styled } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
-import MuiToolbar, { ToolbarProps } from '@mui/material/Toolbar'
+import Box from '@mui/material/Box'
+import MuiToolbar from '@mui/material/Toolbar'
 
 // ** Core Component Imports
 import Customizer from 'src/@core/components/customizer'
@@ -24,7 +24,9 @@ import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Type Imports
-import { LayoutProps } from 'src/@core/layouts/types'
+import type { BoxProps } from '@mui/material/Box'
+import type { ToolbarProps } from '@mui/material/Toolbar'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 const HorizontalLayoutWrapper = styled('div')({
   height: '100%',
@@ -83,10 +85,13 @@ const HorizontalLayout = (props: LayoutProps) => {
   const userNavMenuContent = horizontalLayoutProps?.navMenu?.content
 
   let userAppBarStyle = {}
+
   if (appBarProps && appBarProps.sx) {
     userAppBarStyle = appBarProps.sx
   }
+
   const userAppBarProps = Object.assign({}, appBarProps)
+
   delete userAppBarProps.sx
 
   return (

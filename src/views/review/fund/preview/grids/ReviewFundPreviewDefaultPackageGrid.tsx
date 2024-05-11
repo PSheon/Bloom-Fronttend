@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { styled, useTheme } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import Grid, { GridProps } from '@mui/material/Grid'
+import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
@@ -38,8 +38,9 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import { getFundCurrencyProperties, getPackageStatusProperties, getFormattedPriceUnit } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
-import { PackageType } from 'src/types/api/packageTypes'
+import type { GridProps } from '@mui/material/Grid'
+import type { FundType } from 'src/types/fundTypes'
+import type { PackageType } from 'src/types/packageTypes'
 
 // ** Styled Grid Component
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
@@ -85,6 +86,7 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
 
   // ** Hooks
   const theme = useTheme()
+
   const { reset, control, handleSubmit } = useForm({
     defaultValues: {
       quantity: 0
@@ -95,9 +97,11 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
 
   // ** Vars
   const { defaultPackages: defaultPackagesData } = initFundEntity
+
   const publishedDefaultPackages = defaultPackagesData?.data
     ?.map(pkg => ({ id: pkg.id, ...pkg.attributes }))
     ?.filter(pkg => pkg.status === 'Published')
+
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   // ** Logics
@@ -108,6 +112,7 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
     })
     setOpenMint(true)
   }
+
   const handleMintClose = () => {
     setSelectedPackageEntity(() => null)
     reset({
@@ -115,6 +120,7 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
     })
     setOpenMint(false)
   }
+
   const onSubmit = async (data: FormData) => {
     const { quantity } = data
 

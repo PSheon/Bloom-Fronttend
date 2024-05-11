@@ -1,5 +1,5 @@
 // ** React Imports
-import { SyntheticEvent, useState } from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -8,7 +8,7 @@ import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
 import { styled } from '@mui/material/styles'
-import MuiTab, { TabProps } from '@mui/material/Tab'
+import MuiTab from '@mui/material/Tab'
 
 // ** Custom Component Imports
 import ManagementMediaAssetEditOverviewPreviewCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditOverviewPreviewCard'
@@ -19,7 +19,9 @@ import ManagementMediaAssetEditSecurityDangerZoneCard from 'src/views/management
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { SyntheticEvent } from 'react'
+import type { TabProps } from '@mui/material/Tab'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 // ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
@@ -56,8 +58,8 @@ const ManagementMediaAssetEditTabContext = (props: Props) => {
         aria-label='forced scroll tabs example'
         sx={{ borderBottom: theme => `1px solid ${theme.palette.divider}` }}
       >
-        <Tab value='overview' label='概覽' icon={<Icon icon='mdi:account-outline' />} />
-        <Tab value='security' label='安全' icon={<Icon icon='mdi:lock-outline' />} />
+        <Tab value='overview' label='Overview' icon={<Icon icon='mdi:view-dashboard-outline' />} />
+        <Tab value='security' label='Security' icon={<Icon icon='mdi:lock-outline' />} />
       </TabList>
       <Box sx={{ mt: 6 }}>
         <TabPanel sx={{ p: 0 }} value='overview'>

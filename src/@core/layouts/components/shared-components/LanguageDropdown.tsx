@@ -11,7 +11,7 @@ import OptionsMenu from 'src/@core/components/option-menu'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   settings: Settings

@@ -1,6 +1,6 @@
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Card, { CardProps } from '@mui/material/Card'
+import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
@@ -8,7 +8,8 @@ import CardContent from '@mui/material/CardContent'
 import TextEditorPreview from 'src/views/shared/TextEditorPreview'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { CardProps } from '@mui/material/Card'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

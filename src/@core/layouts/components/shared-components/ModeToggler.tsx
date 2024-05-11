@@ -5,8 +5,8 @@ import IconButton from '@mui/material/IconButton'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { Mode } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
+import type { Mode } from 'src/@core/layouts/types'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   settings: Settings

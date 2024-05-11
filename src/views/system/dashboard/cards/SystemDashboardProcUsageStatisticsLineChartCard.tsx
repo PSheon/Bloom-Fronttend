@@ -12,9 +12,6 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Skeleton from '@mui/material/Skeleton'
 
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
-
 // ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
@@ -25,7 +22,8 @@ import { useInterval } from 'src/hooks/useInterval'
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 // ** Type Imports
-import { RootState } from 'src/store'
+import type { ApexOptions } from 'apexcharts'
+import type { RootState } from 'src/store'
 
 interface Props {
   checkInterval?: number
@@ -40,6 +38,7 @@ const SystemDashboardProcUsageStatisticsLineChartCard = (props: Props) => {
 
   // ** States
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
+
   const [procInfoData, setProcInfoData] = useState<ProcInfo>({
     totalCountHistory: []
   })
@@ -51,6 +50,7 @@ const SystemDashboardProcUsageStatisticsLineChartCard = (props: Props) => {
 
   // ** Vars
   const totalCountHistory = procInfoData.totalCountHistory
+
   const options: ApexOptions = {
     chart: {
       stacked: true,
@@ -109,6 +109,7 @@ const SystemDashboardProcUsageStatisticsLineChartCard = (props: Props) => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
+
         setProcInfoData(procInfo)
       })
     }

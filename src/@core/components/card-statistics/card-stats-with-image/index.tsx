@@ -9,7 +9,7 @@ import CardContent from '@mui/material/CardContent'
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Type Imports
-import { CardStatsCharacterProps } from 'src/@core/components/card-statistics/types'
+import type { CardStatsCharacterProps } from 'src/@core/components/card-statistics/types'
 
 interface Props {
   data: CardStatsCharacterProps

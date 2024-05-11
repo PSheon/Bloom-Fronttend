@@ -1,9 +1,10 @@
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Type Imports
-import { BlankLayoutProps } from './types'
+import type { BoxProps } from '@mui/material/Box'
+import type { BlankLayoutProps } from './types'
 
 // Styled component for Blank Layout component
 const BlankLayoutWrapper = styled(Box)<BoxProps>(({ theme }) => ({

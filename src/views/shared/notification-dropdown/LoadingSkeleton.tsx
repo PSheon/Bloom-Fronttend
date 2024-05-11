@@ -4,8 +4,11 @@ import { Fragment } from 'react'
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import { styled } from '@mui/material/styles'
-import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem'
+import MuiMenuItem from '@mui/material/MenuItem'
 import Skeleton from '@mui/material/Skeleton'
+
+// ** Type Imports
+import type { MenuItemProps } from '@mui/material/MenuItem'
 
 // ** Styled MenuItem Component
 const MenuItem = styled(MuiMenuItem)<MenuItemProps>(({ theme }) => ({

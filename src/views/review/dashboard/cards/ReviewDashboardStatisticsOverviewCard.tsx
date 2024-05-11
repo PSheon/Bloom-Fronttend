@@ -1,6 +1,3 @@
-// ** React Imports
-import { ReactElement } from 'react'
-
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -17,7 +14,8 @@ import OptionsMenu from 'src/@core/components/option-menu'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
+import type { ReactElement } from 'react'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 interface SaleDataType {
   stats: string

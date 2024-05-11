@@ -1,6 +1,6 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -9,8 +9,9 @@ import Icon from 'src/@core/components/icon'
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
-import { NotificationType } from 'src/types/api/notificationTypes'
+import type { BoxProps } from '@mui/material/Box'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 // ** Styled Preview Box
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
@@ -32,6 +33,7 @@ const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
     borderRadius: 10
   }
 }))
+
 const ProfilePicture = styled('img')(({ theme }) => ({
   margin: theme.spacing(4),
   width: 96,

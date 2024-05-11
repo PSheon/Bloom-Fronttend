@@ -14,7 +14,7 @@ import Icon from 'src/@core/components/icon'
 import { getUserRoleAttributes } from 'src/utils'
 
 // ** Type Imports
-import { RoleType } from 'src/types/api/roleAndPermissionTypes'
+import type { RoleType } from 'src/types/roleAndPermissionTypes'
 
 interface Props {
   roles: RoleType[]

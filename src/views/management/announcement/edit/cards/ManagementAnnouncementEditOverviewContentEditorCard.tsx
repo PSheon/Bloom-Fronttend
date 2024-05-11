@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, MouseEvent } from 'react'
+import { useState } from 'react'
 
 // ** Next Imports
 import dynamic from 'next/dynamic'
@@ -8,17 +8,14 @@ import dynamic from 'next/dynamic'
 import { styled } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
-import Card, { CardProps } from '@mui/material/Card'
+import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Third-Party Imports
-import { OutputData } from '@editorjs/editorjs'
-import { EditorCore } from 'src/views/shared/TextEditor'
-
 // ** Custom Component Imports
 const TextEditor = dynamic(() => import('src/views/shared/TextEditor'), { ssr: false })
+
 import TextEditorPreview from 'src/views/shared/TextEditorPreview'
 
 // ** Icon Imports
@@ -28,7 +25,11 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateOneMutation } from 'src/store/api/management/announcement'
 
 // ** Type Imports
-import { AnnouncementType } from 'src/types/api/announcementTypes'
+import type { MouseEvent } from 'react'
+import type { CardProps } from '@mui/material/Card'
+import type { OutputData } from '@editorjs/editorjs'
+import type { EditorCore } from 'src/views/shared/TextEditor'
+import type { AnnouncementType } from 'src/types/announcementTypes'
 
 // ** Style Imports
 import 'react-draft-wysiwyg/dist/react-draft-wysiwyg.css'
@@ -58,21 +59,25 @@ const ManagementAnnouncementEditOverviewContentEditorCard = (props: Props) => {
   const handleInitializeInstance = (instance: EditorCore) => {
     setEditorInstance(instance)
   }
+
   const handleToggleEditorMode = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
     if (isEditMode) {
       const savedBlocks = await editorInstance!.save()
+
       setBlocks(() => savedBlocks)
       setIsEditMode(() => false)
     } else {
       setIsEditMode(() => true)
     }
   }
+
   const handleSaveClick = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
     const outputDetail = await editorInstance!.save()
+
     setBlocks(() => outputDetail)
     await updateAnnouncement({
       id: initAnnouncementEntity.id,

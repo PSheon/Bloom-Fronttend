@@ -6,7 +6,7 @@ import qs from 'qs'
 import { getSession } from 'next-auth/react'
 
 // ** Type Imports
-import {
+import type {
   FindMeActivityLogParamsType,
   FindMeActivityLogTransformResponseType,
   FindMeActivityLogResponseType,
@@ -16,15 +16,17 @@ import {
   UpdateOneActivityLogParamsType,
   UpdateOneActivityLogTransformResponseType,
   UpdateOneActivityLogResponseType
-} from 'src/types/api/activityLogTypes'
+} from 'src/types/activityLogTypes'
 
 const ACTIVITY_LOG_API_REDUCER_KEY = 'activityLogApi'
+
 export const activityLogApi = createApi({
   reducerPath: ACTIVITY_LOG_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
     prepareHeaders: async headers => {
       const session = await getSession()
+
       headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers

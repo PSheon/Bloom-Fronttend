@@ -6,7 +6,7 @@ import qs from 'qs'
 import { getSession } from 'next-auth/react'
 
 // ** Type Imports
-import {
+import type {
   FindOneBlogParamsType,
   FindOneBlogTransformResponseType,
   FindOneBlogResponseType,
@@ -22,15 +22,17 @@ import {
   DeleteOneBlogParamsType,
   DeleteOneBlogTransformResponseType,
   DeleteOneBlogResponseType
-} from 'src/types/api/blogTypes'
+} from 'src/types/blogTypes'
 
 const BLOG_API_REDUCER_KEY = 'blogApi'
+
 export const blogApi = createApi({
   reducerPath: BLOG_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
     prepareHeaders: async headers => {
       const session = await getSession()
+
       if (session?.accessToken) {
         headers.set('Authorization', `Bearer ${session?.accessToken}`)
       }

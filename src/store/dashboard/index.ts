@@ -1,8 +1,8 @@
 // ** Redux Imports
 import { createSlice } from '@reduxjs/toolkit'
 
-// ** Third-Party Imports
-import { Socket } from 'socket.io-client'
+// ** Type Imports
+import type { Socket } from 'socket.io-client'
 
 interface InitialState {
   socket: Socket | null

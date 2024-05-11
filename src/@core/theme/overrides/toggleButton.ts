@@ -1,4 +1,4 @@
-export default {
+const toggleButton = {
   MuiToggleButtonGroup: {
     styleOverrides: {
       root: {
@@ -14,3 +14,5 @@ export default {
     }
   }
 }
+
+export default toggleButton

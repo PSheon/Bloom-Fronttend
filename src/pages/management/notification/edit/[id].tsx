@@ -11,6 +11,7 @@ import { useFindOneQuery } from 'src/store/api/management/notification'
 const ManagementNotificationEditPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: notificationEntity,
     isError: isFindOneNotificationEntityError,

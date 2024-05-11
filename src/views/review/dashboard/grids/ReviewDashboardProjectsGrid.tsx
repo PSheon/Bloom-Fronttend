@@ -32,7 +32,32 @@ import Icon from 'src/@core/components/icon'
 import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Type Imports
-import { ProjectsTabType } from 'src/@fake-db/types'
+import type { ThemeColor } from 'src/@core/layouts/types'
+
+export type ProfileAvatarGroupType = {
+  name: string
+  avatar: string
+}
+export type ProjectsTabType = {
+  hours: string
+  tasks: string
+  title: string
+  budget: string
+  client: string
+  avatar: string
+  members: string
+  daysLeft: number
+  comments: number
+  deadline: string
+  startDate: string
+  totalTask: number
+  budgetSpent: string
+  description: string
+  chipColor: ThemeColor
+  completedTask: number
+  avatarColor?: ThemeColor
+  avatarGroup: ProfileAvatarGroupType[]
+}
 
 const ProjectAvatar = ({ project }: { project: ProjectsTabType }) => {
   const { title, avatar, avatarColor = 'primary' } = project

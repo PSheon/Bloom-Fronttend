@@ -2,8 +2,10 @@
 import { createContext } from 'react'
 
 // ** Third-Party Imports
-import { AnyAbility } from '@casl/ability'
 import { createContextualCan } from '@casl/react'
+
+// ** Type Imports
+import type { AnyAbility } from '@casl/ability'
 
 export const AbilityContext = createContext<AnyAbility>(undefined!)
 

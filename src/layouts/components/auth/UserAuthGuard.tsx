@@ -1,11 +1,14 @@
 // ** React Imports
-import { ReactNode, ReactElement, useEffect } from 'react'
+import { useEffect } from 'react'
 
 // ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** Third-Party Components
 import { useSession } from 'next-auth/react'
+
+// ** Type Imports
+import type { ReactNode, ReactElement } from 'react'
 
 interface AuthGuardProps {
   children: ReactNode

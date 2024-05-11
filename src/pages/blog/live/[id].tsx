@@ -1,8 +1,3 @@
-'use client'
-
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** Next Imports
 import { useRouter } from 'next/router'
 
@@ -16,9 +11,13 @@ import PublicBlogLiveSection from 'src/views/blog/live'
 // ** API Imports
 import { useFindOneQuery } from 'src/store/api/management/blog'
 
+// ** Type Imports
+import type { ReactNode } from 'react'
+
 const BlogLivePage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: blogEntity,
     isError: isFindOneBlogEntityError,

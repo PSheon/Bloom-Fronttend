@@ -10,7 +10,7 @@ import ManagementFundEditOverviewCreateDefaultPackageStack from 'src/views/manag
 import ManagementFundEditOverviewDefaultPackagesGrid from 'src/views/management/fund/edit/grids/ManagementFundEditOverviewDefaultPackagesGrid'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

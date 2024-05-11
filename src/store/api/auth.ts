@@ -2,7 +2,7 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 // ** Type Imports
-import {
+import type {
   LoginParamsType,
   LoginTransformResponseType,
   LoginResponseType,
@@ -18,9 +18,10 @@ import {
   ResetPasswordParamsType,
   ResetPasswordTransformResponseType,
   ResetPasswordResponseType
-} from 'src/types/api/authTypes'
+} from 'src/types/authTypes'
 
 const AUTH_API_REDUCER_KEY = 'authApi'
+
 export const authApi = createApi({
   reducerPath: AUTH_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({ baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string }),

@@ -7,7 +7,7 @@ import ManagementFundEditSecurityActivityLogListCard from 'src/views/management/
 import ManagementFundEditSecurityDangerZoneCard from 'src/views/management/fund/edit/cards/ManagementFundEditSecurityDangerZoneCard'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

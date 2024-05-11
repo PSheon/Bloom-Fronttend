@@ -1,18 +1,17 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Third-Party Imports
 import format from 'date-fns/format'
@@ -24,7 +23,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Custom Component Imports
 import ManagementBlogListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ManagementBlogListHeaderCardContent from 'src/views/management/blog/list/ManagementBlogListHeaderCardContent'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -40,11 +39,10 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getPublicMediaAssetUrl, getBlogStatusProperties } from 'src/utils'
 
 // ** Type Imports
-import { BlogType } from 'src/types/api/blogTypes'
-
-interface CellType {
-  row: BlogType
-}
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
+import type { BlogType } from 'src/types/blogTypes'
 
 // ** Styled components
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -85,27 +83,27 @@ const ManagementBlogListPage = () => {
       pageSize: paginationModel.pageSize
     }
   })
+
   const [updateBlog] = useUpdateOneMutation()
 
   // ** Vars
   const blogs = blogsData?.data || []
   const totalRows = blogsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
-      flex: 1,
-      minWidth: 60,
       field: 'id',
-      headerName: '編號',
-      renderCell: ({ row }: CellType) => (
+      minWidth: 60,
+      headerName: '# ID',
+      renderCell: ({ row }: GridRenderCellParams<BlogType>) => (
         <LinkStyled href={`/management/blog/edit/${row.id}`}>{`#${row.id}`}</LinkStyled>
       )
     },
     {
-      flex: 5,
-      minWidth: 150,
       field: 'displayName',
+      minWidth: 450,
       headerName: '標題',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<BlogType>) => (
         <LinkStyled
           href={`/management/blog/edit/${row.id}`}
           sx={{ fontWeight: 600, color: 'text.primary', overflow: 'hidden', textOverflow: 'ellipsis' }}
@@ -115,11 +113,11 @@ const ManagementBlogListPage = () => {
       )
     },
     {
-      flex: 2,
-      minWidth: 150,
       field: 'category',
+      display: 'flex',
+      minWidth: 150,
       headerName: '分類',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<BlogType>) => (
         <Typography
           noWrap
           variant='body2'
@@ -130,32 +128,32 @@ const ManagementBlogListPage = () => {
       )
     },
     {
-      flex: 2,
       field: 'author',
+      display: 'flex',
       minWidth: 250,
       headerName: '作者',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<BlogType>) => {
         const { username, email } = row.author?.data?.attributes || {}
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
             {row.author.data?.attributes?.avatar ? (
               <CustomAvatar
                 variant='rounded'
                 src={getPublicMediaAssetUrl(row.author.data.attributes.avatar.data?.attributes.url)}
-                sx={{ mr: 3, width: 34, height: 34 }}
+                sx={{ width: 34, height: 34 }}
               />
             ) : (
               <CustomAvatar
                 skin='light'
                 color='primary'
                 variant='rounded'
-                sx={{ mr: 3, fontSize: '1rem', width: 34, height: 34 }}
+                sx={{ fontSize: '1rem', width: 34, height: 34 }}
               >
                 {getInitials(row.author.data?.attributes.username || 'John Doe')}
               </CustomAvatar>
             )}
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Stack alignItems='flex-start' justifyContent='center'>
               <Typography
                 noWrap
                 variant='body2'
@@ -166,30 +164,18 @@ const ManagementBlogListPage = () => {
               <Typography noWrap variant='caption'>
                 {email}
               </Typography>
-            </Box>
-          </Box>
+            </Stack>
+          </Stack>
         )
       },
-      valueGetter: ({ row }: CellType) => row.author?.data?.attributes.username
+      valueGetter: (data: BlogType) => data.author?.data?.attributes.username
     },
     {
-      flex: 1,
-      minWidth: 100,
-      field: 'createdAt',
-      headerName: '建立日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          {format(new Date(row.createdAt), 'MM/dd/yyyy')}
-        </Typography>
-      ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.createdAt), 'MM/dd/yyyy')
-    },
-    {
-      flex: 1,
-      minWidth: 100,
       field: 'status',
+      display: 'flex',
+      minWidth: 100,
       headerName: '發布狀態',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<BlogType>) => {
         const blogStatusProperties = getBlogStatusProperties(row.status)
 
         return (
@@ -205,34 +191,45 @@ const ManagementBlogListPage = () => {
       }
     },
     {
-      flex: 1,
+      field: 'createdAt',
+      display: 'flex',
+      minWidth: 100,
+      headerName: '建立日期',
+      renderCell: ({ row }: GridRenderCellParams<BlogType>) => (
+        <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
+          {format(new Date(row.createdAt), 'MM/dd/yyyy')}
+        </Typography>
+      ),
+      valueGetter: (data: BlogType['createdAt']) => format(new Date(data), 'MM/dd/yyyy')
+    },
+    {
+      field: 'actions',
+      display: 'flex',
       minWidth: 100,
       sortable: false,
-      field: 'actions',
       headerName: '操作',
       disableColumnMenu: true,
       disableExport: true,
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<BlogType>) => {
         const { id, isHighlighted } = row
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip title='查看'>
-              <IconButton size='small' component={Link} sx={{ mr: 0.5 }} href={`/management/blog/edit/${id}`}>
+          <Stack direction='row' spacing={0.5} alignItems='center'>
+            <Tooltip title='Edit'>
+              <IconButton size='small' component={Link} href={`/management/blog/edit/${id}`}>
                 <Icon icon='mdi:eye-outline' />
               </IconButton>
             </Tooltip>
-            <Tooltip title={isHighlighted ? '已加星號' : '未加星號'}>
+            <Tooltip title={isHighlighted ? 'Starred' : 'Star'}>
               <IconButton
                 size='small'
-                sx={{ mr: 0.5 }}
                 color={isHighlighted ? 'primary' : 'inherit'}
                 onClick={() => handleHighlightBlog(id, !isHighlighted)}
               >
                 <Icon icon={isHighlighted ? 'mdi:star' : 'mdi:star-outline'} />
               </IconButton>
             </Tooltip>
-          </Box>
+          </Stack>
         )
       }
     }
@@ -242,15 +239,19 @@ const ManagementBlogListPage = () => {
   const handleFilterBlogDisplayname = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredBlogDisplayname(e.target.value)
   }, [])
+
   const handleFilterIsPublishedChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsPublished(e.target.value)
   }, [])
+
   const handleIsHighlightedChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsHighlighted(e.target.value)
   }, [])
+
   const handleHighlightBlog = async (id: number, isHighlighted: boolean) => {
     await updateBlog({ id, data: { isHighlighted } })
   }
+
   const handleRefetchBlogList = () => {
     refetchBlogList()
   }

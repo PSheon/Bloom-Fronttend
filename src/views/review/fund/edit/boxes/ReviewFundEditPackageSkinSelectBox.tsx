@@ -1,12 +1,14 @@
 // ** MUI Imports
-import { styled, SxProps, Theme } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
+import Box from '@mui/material/Box'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { SkinType } from 'src/types/api/packageTypes'
+import type { SxProps, Theme } from '@mui/material/styles'
+import type { BoxProps } from '@mui/material/Box'
+import type { SkinType } from 'src/types/packageTypes'
 
 const RootBox = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',

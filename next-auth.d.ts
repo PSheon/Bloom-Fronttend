@@ -1,5 +1,5 @@
 // ** Type Imports
-import { UserDataType } from './src/types/api/authTypes'
+import type { UserDataType } from './src/types/authTypes'
 
 declare module 'next-auth' {
   interface Session {

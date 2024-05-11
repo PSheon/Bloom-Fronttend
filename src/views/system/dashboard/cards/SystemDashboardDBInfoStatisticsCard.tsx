@@ -22,7 +22,7 @@ import Icon from 'src/@core/components/icon'
 import { useTimeout } from 'src/hooks/useTimeout'
 
 // ** Type Imports
-import { RootState } from 'src/store'
+import type { RootState } from 'src/store'
 
 interface DBInfo {
   name: string
@@ -31,6 +31,7 @@ interface DBInfo {
 const SystemDashboardDBInfoStatisticsCard = () => {
   // ** States
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
+
   const [osInfoData, setOsInfoData] = useState<DBInfo>({
     name: ''
   })
@@ -51,6 +52,7 @@ const SystemDashboardDBInfoStatisticsCard = () => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
+
         setOsInfoData(() => osInfo)
       })
     }

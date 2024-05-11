@@ -1,5 +1,5 @@
 // ** React Imports
-import { ReactNode, useEffect, Fragment } from 'react'
+import { useEffect, Fragment } from 'react'
 
 // ** Redux Imports
 import { useDispatch } from 'react-redux'
@@ -11,6 +11,9 @@ import { useSession } from 'next-auth/react'
 
 // ** Action Imports
 import { setGlobalSocket, setSocketConnection } from 'src/store/dashboard'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
 
 interface Props {
   children: ReactNode
@@ -38,12 +41,14 @@ const SystemDashboardSocketProvider = (props: Props) => {
     const onConnect = () => {
       dispatch(setSocketConnection(true))
     }
+
     const onConnectError = (error: Error) => {
       toast.error(error.message)
 
       dispatch(setSocketConnection(false))
       socketInstance.disconnect()
     }
+
     const onDisconnect = () => {
       dispatch(setSocketConnection(false))
     }

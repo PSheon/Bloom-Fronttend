@@ -8,7 +8,7 @@ import ManagementMediaAssetEditMetadataCard from 'src/views/management/media-ass
 import ManagementMediaAssetEditTabContext from 'src/views/management/media-asset/edit/tabs/ManagementMediaAssetEditTabContext'
 
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 interface Props {
   initMediaAssetEntity: MediaAssetType

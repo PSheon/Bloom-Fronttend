@@ -1,6 +1,3 @@
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** Next Imports
 import Head from 'next/head'
 import { Router } from 'next/router'
@@ -55,6 +52,9 @@ import ReactHotToast from 'src/@core/styles/libs/react-hot-toast'
 // ** Util Imports
 import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 
+// ** Type Imports
+import type { ReactNode } from 'react'
+
 // ** Prismjs Style Imports
 import 'prismjs'
 import 'prismjs/themes/prism-tomorrow.css'
@@ -86,6 +86,7 @@ type GuardProps = {
 }
 
 const clientSideEmotionCache = createEmotionCache()
+
 const wagmiConfig = getDefaultConfig({
   appName: themeConfig.templateName,
   projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string,
@@ -96,6 +97,7 @@ const wagmiConfig = getDefaultConfig({
   },
   ssr: true
 })
+
 const queryClient = new QueryClient()
 
 // ** Pace Loader
@@ -127,6 +129,7 @@ const App = (props: ExtendedAppProps) => {
 
   // ** Variables
   const contentHeightFixed = Component.contentHeightFixed ?? false
+
   const getLayout =
     Component.getLayout ?? (page => <UserLayout contentHeightFixed={contentHeightFixed}>{page}</UserLayout>)
 

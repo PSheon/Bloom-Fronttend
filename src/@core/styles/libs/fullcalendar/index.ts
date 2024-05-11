@@ -1,12 +1,16 @@
 // ** MUI imports
 import { styled } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Hook Imports
-import useBgColor, { UseBgColorType } from 'src/@core/hooks/useBgColor'
+import useBgColor from 'src/@core/hooks/useBgColor'
 
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+import type { UseBgColorType } from 'src/@core/hooks/useBgColor'
 
 const CalendarWrapper = styled(Box)<BoxProps>(({ theme }) => {
   // ** Hooks

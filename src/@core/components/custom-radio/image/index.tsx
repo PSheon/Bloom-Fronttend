@@ -4,7 +4,7 @@ import Grid from '@mui/material/Grid'
 import Radio from '@mui/material/Radio'
 
 // ** Type Imports
-import { CustomRadioImgProps } from 'src/@core/components/custom-radio/types'
+import type { CustomRadioImgProps } from 'src/@core/components/custom-radio/types'
 
 const CustomRadioImg = (props: CustomRadioImgProps) => {
   // ** Props

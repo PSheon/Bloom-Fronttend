@@ -1,6 +1,6 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
 
@@ -17,7 +17,8 @@ import { useUpdateMeOneMutation } from 'src/store/api/management/user'
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { BoxProps } from '@mui/material/Box'
+import type { UserDataType } from 'src/types/authTypes'
 
 // ** Styled Preview Box
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
@@ -39,6 +40,7 @@ const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
     borderRadius: 10
   }
 }))
+
 const ProfilePicture = styled('img')(({ theme }) => ({
   margin: theme.spacing(4),
   width: 96,

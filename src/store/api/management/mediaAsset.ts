@@ -6,7 +6,7 @@ import qs from 'qs'
 import { getSession } from 'next-auth/react'
 
 // ** Type Imports
-import {
+import type {
   FindOneMediaAssetParamsType,
   FindOneMediaAssetTransformResponseType,
   FindOneMediaAssetResponseType,
@@ -22,15 +22,17 @@ import {
   DeleteOneMediaAssetsParamsType,
   DeleteOneMediaAssetsTransformResponseType,
   DeleteOneMediaAssetsResponseType
-} from 'src/types/api/mediaAssetTypes'
+} from 'src/types/mediaAssetTypes'
 
 const MEDIA_ASSET_API_REDUCER_KEY = 'mediaAssetApi'
+
 export const mediaAssetApi = createApi({
   reducerPath: MEDIA_ASSET_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
     prepareHeaders: async headers => {
       const session = await getSession()
+
       headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers

@@ -1,8 +1,7 @@
 // ** React Imports
-import { useState, ChangeEvent } from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
-import { Theme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
@@ -10,7 +9,7 @@ import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import Button from '@mui/material/Button'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -22,6 +21,11 @@ import Icon from 'src/@core/components/icon'
 
 // ** Custom Component Imports
 import MediaAssetUploaderButton from 'src/views/shared/media-asset-uploader'
+
+// ** Type Imports
+import type { ChangeEvent } from 'react'
+import type { Theme } from '@mui/material/styles'
+import type { SelectChangeEvent } from '@mui/material/Select'
 
 interface Props {
   filteredMediaAssetName: string
@@ -55,8 +59,8 @@ const ManagementMediaAssetListHeaderCardContent = (props: Props) => {
   return (
     <CardContent>
       <Stack spacing={6}>
-        <Stack spacing={6} direction='row'>
-          <Stack spacing={6} sx={{ flex: '1' }}>
+        <Stack spacing={4} direction='row'>
+          <Stack spacing={4} sx={{ flex: '1' }}>
             <TextField
               size='small'
               fullWidth
@@ -73,7 +77,7 @@ const ManagementMediaAssetListHeaderCardContent = (props: Props) => {
               }}
             />
           </Stack>
-          <Stack spacing={6} direction='row' sx={{ flex: '0' }}>
+          <Stack spacing={4} direction='row' sx={{ flex: '0' }}>
             {isDesktopView && (
               <Button
                 color={isShowFilters ? 'primary' : 'secondary'}
@@ -90,7 +94,7 @@ const ManagementMediaAssetListHeaderCardContent = (props: Props) => {
           </Stack>
         </Stack>
         <Collapse in={isShowFilters} timeout='auto' unmountOnExit>
-          <Stack spacing={6} direction='row'>
+          <Stack spacing={4} direction='row'>
             <FormControl fullWidth size='small'>
               <InputLabel id='select-extension-label'>篩選類型</InputLabel>
               <Select

@@ -13,7 +13,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 interface SaleDataType {
   icon: string

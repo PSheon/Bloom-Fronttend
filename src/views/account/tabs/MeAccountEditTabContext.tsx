@@ -1,5 +1,5 @@
 // ** React Imports
-import { SyntheticEvent, useState } from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
@@ -8,7 +8,7 @@ import Grid from '@mui/material/Grid'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
-import MuiTab, { TabProps } from '@mui/material/Tab'
+import MuiTab from '@mui/material/Tab'
 
 // ** Custom Component Imports
 import MeAccountOverviewWalletListCard from 'src/views/account/cards/MeAccountOverviewWalletListCard'
@@ -19,6 +19,10 @@ import MeAccountSecurityDangerZoneCard from 'src/views/account/cards/MeAccountSe
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
+import type { SyntheticEvent } from 'react'
+import type { TabProps } from '@mui/material/Tab'
 
 // ** Styled Tab component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
@@ -48,8 +52,8 @@ const MeAccountEditTabContext = () => {
         aria-label='forced scroll tabs example'
         sx={{ borderBottom: theme => `1px solid ${theme.palette.divider}` }}
       >
-        <Tab value='overview' label='概覽' icon={<Icon icon='mdi:account-outline' />} />
-        <Tab value='security' label='安全' icon={<Icon icon='mdi:lock-outline' />} />
+        <Tab value='overview' label='Overview' icon={<Icon icon='mdi:view-dashboard-outline' />} />
+        <Tab value='security' label='Security' icon={<Icon icon='mdi:lock-outline' />} />
       </TabList>
       <Box sx={{ mt: 6 }}>
         <TabPanel sx={{ p: 0 }} value='overview'>

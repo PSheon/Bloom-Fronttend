@@ -11,6 +11,7 @@ import { useFindOneQuery } from 'src/store/api/management/mediaAsset'
 const ManagementMediaAssetEditPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: mediaAssetEntity,
     isError: isFindOneMediaAssetEntityError,

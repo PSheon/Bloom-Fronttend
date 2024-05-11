@@ -6,9 +6,6 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
-
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
@@ -19,7 +16,8 @@ import ReactApexcharts from 'src/@core/components/react-apexcharts'
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { ApexOptions } from 'apexcharts'
+import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
   initFundEntity: FundType

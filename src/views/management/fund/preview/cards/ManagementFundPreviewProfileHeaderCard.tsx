@@ -2,11 +2,11 @@
 import Link from 'next/link'
 
 // ** MUI Components
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
-import { styled } from '@mui/material/styles'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
@@ -23,8 +23,8 @@ import Icon from 'src/@core/components/icon'
 import { getFundCategoryProperties, getPublicMediaAssetUrl, getFundCurrencyProperties } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { FundType } from 'src/types/fundTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 const FundAvatarGroup = styled(AvatarGroup)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -42,6 +42,7 @@ const ManagementFundPreviewProfileHeaderCard = (props: Props) => {
 
   // ** Vars
   const fundCategoryProperties = getFundCategoryProperties(initFundEntity.category)
+
   const data = {
     fullName: 'John Doe',
     location: 'Vatican City',
@@ -51,12 +52,14 @@ const ManagementFundPreviewProfileHeaderCard = (props: Props) => {
     designationIcon: 'mdi:fountain-pen-tip',
     coverImg: '/images/pages/profile-banner.png'
   }
+
   const currentBannerMediaAsset = initFundEntity.banner?.data?.id
     ? ({
         id: initFundEntity.banner.data.id,
         ...initFundEntity.banner.data.attributes
       } as MediaAssetType)
     : null
+
   const baseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   return data !== null ? (

@@ -1,11 +1,8 @@
 // ** MUI Imports
-import Card from '@mui/material/Card'
 import { useTheme } from '@mui/material/styles'
+import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
 
 // ** Core Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
@@ -13,6 +10,9 @@ import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import type { ApexOptions } from 'apexcharts'
 
 const ManagementDashboardSalesCountryCard = () => {
   // ** Hooks
@@ -25,6 +25,7 @@ const ManagementDashboardSalesCountryCard = () => {
       data: [17165, 13850, 12375, 9567, 7880]
     }
   ]
+
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

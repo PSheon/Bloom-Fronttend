@@ -1,18 +1,17 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
+import { styled, lighten } from '@mui/material/styles'
+import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
 import Grid from '@mui/material/Grid'
-import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Third-Party Imports
 import toast from 'react-hot-toast'
@@ -25,7 +24,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Custom Component Imports
 import ManagementMediaAssetListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ManagementMediaAssetListHeaderCardContent from 'src/views/management/media-asset/list/ManagementMediaAssetListHeaderCardContent'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -41,11 +40,10 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
-
-interface CellType {
-  row: MediaAssetType
-}
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -89,32 +87,32 @@ const ManagementMediaAssetListPage = () => {
   // ** Vars
   const mediaAssets = mediaAssetsData?.data || []
   const totalRows = mediaAssetsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
-      flex: 1,
-      minWidth: 60,
       field: 'id',
-      headerName: '編號',
-      renderCell: ({ row }: CellType) => (
+      minWidth: 60,
+      headerName: '# ID',
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
         <LinkStyled href={`/management/media-asset/edit/${row.id}`}>{`#${row.id}`}</LinkStyled>
       )
     },
 
     {
-      flex: 1,
-      minWidth: 80,
       field: 'preview',
+      display: 'flex',
+      minWidth: 80,
       headerName: '預覽',
       disableColumnMenu: true,
       disableExport: true,
-      renderCell: ({ row }: CellType) => renderPreview(row)
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => renderPreview(row)
     },
     {
-      flex: 6,
-      minWidth: 280,
       field: 'name',
+      display: 'flex',
+      minWidth: 350,
       headerName: '檔案名稱',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
         <LinkStyled
           href={`/management/media-asset/edit/${row.id}`}
           sx={{ fontWeight: 600, color: 'text.primary', overflow: 'hidden', textOverflow: 'ellipsis' }}
@@ -124,64 +122,63 @@ const ManagementMediaAssetListPage = () => {
       )
     },
     {
-      flex: 1,
       field: 'ext',
+      display: 'flex',
       minWidth: 80,
       headerName: '類型',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {row.ext}
         </Typography>
       )
     },
     {
-      flex: 1,
-      minWidth: 120,
       field: 'size',
+      display: 'flex',
+      minWidth: 120,
       headerName: '大小',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {getMediaAssetFileAttributes(row).formattedSize}
         </Typography>
-      ),
-      valueGetter: ({ row }: CellType) => getMediaAssetFileAttributes(row).formattedSize
+      )
     },
     {
-      flex: 1,
-      minWidth: 200,
       field: 'createdAt',
+      display: 'flex',
+      minWidth: 280,
       headerName: '建立日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {format(new Date(row.createdAt), 'PPpp')}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.createdAt), 'PPpp')
+      valueGetter: (data: MediaAssetType['createdAt']) => format(new Date(data), 'PPpp')
     },
     {
-      flex: 1,
-      minWidth: 130,
-      sortable: false,
       field: 'actions',
+      display: 'flex',
+      minWidth: 130,
       headerName: '操作',
+      sortable: false,
       disableColumnMenu: true,
       disableExport: true,
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => {
         const { id, url } = row
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip title='查看'>
-              <IconButton size='small' component={Link} sx={{ mr: 0.5 }} href={`/management/media-asset/edit/${id}`}>
+          <Stack direction='row' spacing={0.5} alignItems='center'>
+            <Tooltip title='Edit'>
+              <IconButton size='small' component={Link} href={`/management/media-asset/edit/${id}`}>
                 <Icon icon='mdi:eye-outline' />
               </IconButton>
             </Tooltip>
             <Tooltip title='複製連結'>
-              <IconButton size='small' sx={{ mr: 0.5 }} onClick={() => handleCopyUrlClick(url)}>
+              <IconButton size='small' onClick={() => handleCopyUrlClick(url)}>
                 <Icon icon='mdi:content-copy' />
               </IconButton>
             </Tooltip>
-          </Box>
+          </Stack>
         )
       }
     }
@@ -189,23 +186,42 @@ const ManagementMediaAssetListPage = () => {
 
   // ** renders preview column
   const renderPreview = (row: MediaAssetType) => {
-    const isImage = getMediaAssetFileAttributes(row).isImage
-    if (isImage) {
+    const { width, height } = row
+    const { isImage } = getMediaAssetFileAttributes(row)
+
+    if (isImage && width && height) {
+      const formattedWidth = 280
+      const formattedHeight = (formattedWidth * height) / width
+
       return (
-        <CustomAvatar
-          variant='rounded'
-          src={getPublicMediaAssetUrl(row.formats?.thumbnail?.url)}
-          sx={{ mr: 3, width: 34, height: 34 }}
-        />
+        <Tooltip
+          disableFocusListener
+          title={
+            <img
+              src={getPublicMediaAssetUrl(row.formats?.thumbnail?.url)}
+              alt={getInitials(row.name)}
+              width={formattedWidth}
+              height={formattedHeight}
+            />
+          }
+        >
+          <CustomAvatar
+            variant='rounded'
+            src={getPublicMediaAssetUrl(row.formats?.thumbnail?.url)}
+            sx={{
+              width: 34,
+              height: 34,
+              border: theme => `2px solid ${lighten(theme.palette.background.paper, 0.1)}`,
+              '&:hover': {
+                cursor: 'pointer'
+              }
+            }}
+          />
+        </Tooltip>
       )
     } else {
       return (
-        <CustomAvatar
-          variant='rounded'
-          skin='light'
-          color='primary'
-          sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}
-        >
+        <CustomAvatar variant='rounded' skin='light' color='primary' sx={{ width: 34, height: 34, fontSize: '1rem' }}>
           {getInitials(row.ext)}
         </CustomAvatar>
       )
@@ -216,13 +232,16 @@ const ManagementMediaAssetListPage = () => {
   const handleFilterMediaAssetName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredMediaAssetName(e.target.value)
   }, [])
+
   const handleFilterExtensionChange = useCallback((e: SelectChangeEvent) => {
     setFilteredExtension(e.target.value)
   }, [])
+
   const handleCopyUrlClick = (mediaAssetUrl: string) => {
     copyToClipboard(getPublicMediaAssetUrl(mediaAssetUrl))
     toast.success('已複製檔案連結')
   }
+
   const handleRefetchMediaAssetList = () => {
     refetchMediaAssetList()
   }
@@ -253,7 +272,6 @@ const ManagementMediaAssetListPage = () => {
             paginationModel={paginationModel}
             onPaginationModelChange={setPaginationModel}
             rowCount={totalRows}
-            sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
           />
         </Card>
       </Grid>

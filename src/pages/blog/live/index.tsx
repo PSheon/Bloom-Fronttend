@@ -1,11 +1,14 @@
 // ** React Imports
-import { ReactNode, useEffect } from 'react'
+import { useEffect } from 'react'
 
 // ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** Layout Imports
 import LandingLayout from 'src/layouts/LandingLayout'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
 
 const BlogLivePage = () => {
   // ** Hooks

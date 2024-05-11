@@ -3,7 +3,6 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import { AvatarProps } from '@mui/material/Avatar'
 import CardContent from '@mui/material/CardContent'
 
 // ** Core Component Imports
@@ -13,7 +12,8 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/types'
+import type { AvatarProps } from '@mui/material/Avatar'
+import type { CardStatsHorizontalProps } from 'src/@core/components/card-statistics/types'
 
 // ** Styled components
 const Avatar = styled(CustomAvatar)<AvatarProps>(({ theme }) => ({

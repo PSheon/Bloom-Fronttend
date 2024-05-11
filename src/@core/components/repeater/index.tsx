@@ -1,5 +1,5 @@
 // ** Type Imports
-import { RepeaterProps } from './types'
+import type { RepeaterProps } from './types'
 
 const Repeater = (props: RepeaterProps) => {
   // ** Props

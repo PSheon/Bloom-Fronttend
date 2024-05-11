@@ -1,16 +1,16 @@
 // ** React Imports
-import { useState, SyntheticEvent, Fragment, ReactNode } from 'react'
+import { useState, Fragment } from 'react'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Badge from '@mui/material/Badge'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import { styled, Theme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import MuiMenu, { MenuProps } from '@mui/material/Menu'
-import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import MuiMenu from '@mui/material/Menu'
+import MuiMenuItem from '@mui/material/MenuItem'
+import Typography from '@mui/material/Typography'
 
 // ** Third-Party Imports
 import PerfectScrollbarComponent from 'react-perfect-scrollbar'
@@ -26,9 +26,14 @@ import Icon from 'src/@core/components/icon'
 import { getInitials } from 'src/@core/utils/get-initials'
 
 // ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
-import { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
+import type { SyntheticEvent, ReactNode } from 'react'
+import type { Theme } from '@mui/material/styles'
+import type { MenuProps } from '@mui/material/Menu'
+import type { MenuItemProps } from '@mui/material/MenuItem'
+import type { TypographyProps } from '@mui/material/Typography'
+import type { ThemeColor } from 'src/@core/layouts/types'
+import type { Settings } from 'src/@core/context/settingsContext'
+import type { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
 
 export type NotificationsType = {
   meta: string

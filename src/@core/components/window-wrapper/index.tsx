@@ -1,8 +1,11 @@
 // ** React Imports
-import { useState, useEffect, ReactNode } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Next Imports
 import { useRouter } from 'next/router'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
 
 interface Props {
   children: ReactNode

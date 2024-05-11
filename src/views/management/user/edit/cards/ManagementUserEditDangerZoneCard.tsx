@@ -24,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateOneMutation } from 'src/store/api/management/user'
 
 // ** Type Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 interface Props {
   initUserEntity: UserDataType
@@ -43,6 +43,7 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
 
   // ** Logics
   const handleClose = () => setSuspendDialogOpen(false)
+
   const handleBlockClick = async () => {
     await updateUser({
       id: initUserEntity.id,
@@ -52,6 +53,7 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
     })
     handleClose()
   }
+
   const handleUnblockClick = async () => {
     await updateUser({
       id: initUserEntity.id,

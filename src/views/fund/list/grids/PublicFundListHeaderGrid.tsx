@@ -1,10 +1,10 @@
-// ** React Imports
-import { ChangeEvent } from 'react'
-
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
+
+// ** Type Imports
+import type { ChangeEvent } from 'react'
 
 interface Props {
   filteredFundDisplayname: string

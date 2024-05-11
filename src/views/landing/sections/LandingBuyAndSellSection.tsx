@@ -2,11 +2,15 @@
 import Image from 'next/image'
 
 // ** MUI Imports
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
+
+// ** Type Imports
+import type { Theme } from '@mui/material/styles'
+import type { BoxProps } from '@mui/material/Box'
 
 const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: theme.spacing(120),

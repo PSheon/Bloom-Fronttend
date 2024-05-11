@@ -19,8 +19,8 @@ import Icon from 'src/@core/components/icon'
 import { getFundCategoryProperties, getPublicMediaAssetUrl, getFundCurrencyProperties } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { FundType } from 'src/types/fundTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 const FundAvatarGroup = styled(AvatarGroup)(({ theme }) => ({
   [theme.breakpoints.down('md')]: {
@@ -38,6 +38,7 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
 
   // ** Vars
   const fundCategoryProperties = getFundCategoryProperties(initFundEntity.category)
+
   const data = {
     fullName: 'John Doe',
     location: 'Vatican City',
@@ -47,12 +48,14 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
     designationIcon: 'mdi:fountain-pen-tip',
     coverImg: '/images/pages/profile-banner.png'
   }
+
   const currentBannerMediaAsset = initFundEntity.banner?.data?.id
     ? ({
         id: initFundEntity.banner.data.id,
         ...initFundEntity.banner.data.attributes
       } as MediaAssetType)
     : null
+
   const baseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   return data !== null ? (

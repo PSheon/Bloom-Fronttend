@@ -1,14 +1,11 @@
 // ** MUI Imports
+import { useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Grid from '@mui/material/Grid'
-import { useTheme } from '@mui/material/styles'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -20,6 +17,9 @@ import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import type { ApexOptions } from 'apexcharts'
 
 const ManagementDashboardWeeklySalesCard = () => {
   // ** Hooks
@@ -43,6 +43,7 @@ const ManagementDashboardWeeklySalesCard = () => {
       data: [73, 20, 50, -20, 58, 15, 31]
     }
   ]
+
   const options: ApexOptions = {
     chart: {
       stacked: true,

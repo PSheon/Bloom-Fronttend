@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 interface Props {
   selected: string

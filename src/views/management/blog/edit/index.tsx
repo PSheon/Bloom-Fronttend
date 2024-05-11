@@ -8,7 +8,7 @@ import ManagementBlogEditMetadataCard from 'src/views/management/blog/edit/cards
 import ManagementBlogEditTabContext from 'src/views/management/blog/edit/tabs/ManagementBlogEditTabContext'
 
 // ** Type Imports
-import { BlogType } from 'src/types/api/blogTypes'
+import type { BlogType } from 'src/types/blogTypes'
 
 interface Props {
   initBlogEntity: BlogType

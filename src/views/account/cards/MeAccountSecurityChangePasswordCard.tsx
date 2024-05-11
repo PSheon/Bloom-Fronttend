@@ -69,6 +69,7 @@ const MeAccountSecurityChangePasswordCard = () => {
   // ** Hooks
   const session = useSession()
   const [changePassword, { isLoading: isChangePasswordLoading }] = useChangePasswordMutation()
+
   const {
     reset,
     control,
@@ -88,15 +89,18 @@ const MeAccountSecurityChangePasswordCard = () => {
   const handleClickShowCurrentPassword = () => {
     setPasswordVisibility({ ...passwordVisibility, showCurrentPassword: !passwordVisibility.showCurrentPassword })
   }
+
   const handleClickShowNewPassword = () => {
     setPasswordVisibility({ ...passwordVisibility, showNewPassword: !passwordVisibility.showNewPassword })
   }
+
   const handleClickShowNewPasswordConfirmation = () => {
     setPasswordVisibility({
       ...passwordVisibility,
       showNewPasswordConfirmation: !passwordVisibility.showNewPasswordConfirmation
     })
   }
+
   const onPasswordFormSubmit = async (data: FormData) => {
     const { currentPassword, newPassword, newPasswordConfirmation } = data
 

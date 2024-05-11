@@ -1,10 +1,13 @@
 // ** MUI Imports
-import MuiBox, { BoxProps } from '@mui/material/Box'
-import { StepIconProps } from '@mui/material/StepIcon'
+import MuiBox from '@mui/material/Box'
 import { alpha, styled, useTheme } from '@mui/material/styles'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+import type { StepIconProps } from '@mui/material/StepIcon'
 
 // ** Styled Box component
 const Box = styled(MuiBox)<BoxProps>(() => ({

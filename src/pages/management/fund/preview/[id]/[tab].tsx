@@ -14,6 +14,7 @@ import { getValidPreviewTabIndex } from 'src/utils'
 const ManagementFundPreviewPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: fundEntity,
     isError: isFindOneFundEntityError,

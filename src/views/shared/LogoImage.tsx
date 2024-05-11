@@ -2,7 +2,7 @@
 import { useTheme, alpha } from '@mui/material/styles'
 
 // ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 interface Props {
   width?: number

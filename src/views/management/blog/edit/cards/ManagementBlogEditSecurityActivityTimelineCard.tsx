@@ -1,8 +1,8 @@
 // ** React Imports
-import { Ref, useState, forwardRef, ReactElement } from 'react'
+import { useState, forwardRef } from 'react'
 
 // ** MUI Imports
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Avatar from '@mui/material/Avatar'
@@ -18,11 +18,11 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Skeleton from '@mui/material/Skeleton'
 import IconButton from '@mui/material/IconButton'
-import Fade, { FadeProps } from '@mui/material/Fade'
+import Fade from '@mui/material/Fade'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
-import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
+import MuiTimeline from '@mui/lab/Timeline'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
 // ** Icon Imports
@@ -36,8 +36,12 @@ import { format, formatDistance } from 'date-fns'
 import { getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { BlogType } from 'src/types/api/blogTypes'
-import { ActivityLogType } from 'src/types/api/activityLogTypes'
+import type { Ref, ReactElement } from 'react'
+import type { Theme } from '@mui/material/styles'
+import type { FadeProps } from '@mui/material/Fade'
+import type { TimelineProps } from '@mui/lab/Timeline'
+import type { BlogType } from 'src/types/blogTypes'
+import type { ActivityLogType } from 'src/types/activityLogTypes'
 
 // ** Styled Timeline component
 const Timeline = styled(MuiTimeline)<TimelineProps>({
@@ -75,6 +79,7 @@ const ManagementBlogEditSecurityActivityTimelineCard = (props: Props) => {
 
   // ** Hooks
   const showDetailsButton = useMediaQuery((theme: Theme) => theme.breakpoints.up('sm'))
+
   const { data: activitiesData, isLoading: isActivityLogsLoading } = useFindQuery({
     filters: {
       refContentType: 'Blog',
@@ -89,6 +94,7 @@ const ManagementBlogEditSecurityActivityTimelineCard = (props: Props) => {
 
   // ** Vars
   const activityLogs = activitiesData?.data || []
+
   const activityActionObj: ActivityActionType = {
     Create: { icon: 'mdi:laptop', color: 'success', title: '建立' },
     Update: { icon: 'mdi:cog-outline', color: 'primary', title: '更新' },
@@ -98,9 +104,11 @@ const ManagementBlogEditSecurityActivityTimelineCard = (props: Props) => {
   // ** Logics
   const handleOpenDialog = (activityLog: ActivityLogType) => {
     const payload = JSON.stringify(activityLog.payload, null, 2)
+
     setActivityPayload(payload)
     setActivityPayloadDialogOpen(true)
   }
+
   const handleCloseDialog = () => setActivityPayloadDialogOpen(false)
 
   // ** Renders
@@ -122,6 +130,7 @@ const ManagementBlogEditSecurityActivityTimelineCard = (props: Props) => {
       </Grid>
     )
   }
+
   const renderTimeline = () => {
     return (
       <Timeline sx={{ my: 0, py: 0 }}>

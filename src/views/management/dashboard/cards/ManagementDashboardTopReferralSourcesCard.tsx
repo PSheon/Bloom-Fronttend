@@ -1,5 +1,5 @@
 // ** React Imports
-import { SyntheticEvent, useState } from 'react'
+import { useState } from 'react'
 
 // ** MUI Import
 import Box from '@mui/material/Box'
@@ -29,7 +29,8 @@ import OptionsMenu from 'src/@core/components/option-menu'
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 // ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
+import type { SyntheticEvent } from 'react'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 interface StatusObj {
   [ke: string]: {

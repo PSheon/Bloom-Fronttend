@@ -9,13 +9,16 @@ import Skeleton from '@mui/material/Skeleton'
 import Divider from '@mui/material/Divider'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
-import MuiTab, { TabProps } from '@mui/material/Tab'
+import MuiTab from '@mui/material/Tab'
 
 // ** Custom Component Imports
 import ManagementMediaAssetEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
+import type { TabProps } from '@mui/material/Tab'
 
 // ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
@@ -96,8 +99,8 @@ const ManagementMediaAssetEditLoadingSkeleton = () => {
                 aria-label='forced scroll tabs'
                 sx={{ borderBottom: theme => `1px solid ${theme.palette.divider}` }}
               >
-                <Tab value='overview' label='概覽' icon={<Icon icon='mdi:account-outline' />} />
-                <Tab value='security' label='安全' icon={<Icon icon='mdi:lock-outline' />} />
+                <Tab value='overview' label='Overview' icon={<Icon icon='mdi:view-dashboard-outline' />} />
+                <Tab value='security' label='Security' icon={<Icon icon='mdi:lock-outline' />} />
               </TabList>
             </TabContext>
           </Grid>

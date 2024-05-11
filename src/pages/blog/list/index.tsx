@@ -1,6 +1,3 @@
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
@@ -13,6 +10,9 @@ import PublicBlogListDataGrid from 'src/views/blog/list/grids/PublicBlogListData
 
 // ** API Imports
 import { useFindQuery } from 'src/store/api/management/blog'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
 
 const BlogListPage = () => {
   // ** Hooks

@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
@@ -14,7 +14,7 @@ import { format } from 'date-fns'
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Custom Component Imports
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -23,12 +23,9 @@ import Icon from 'src/@core/components/icon'
 import { useFindMeQuery } from 'src/store/api/management/accessLog'
 
 // ** Type Imports
-import { AccessLogType } from 'src/types/api/accessLogTypes'
-import { ThemeColor } from 'src/@core/layouts/types'
-
-interface CellType {
-  row: AccessLogType
-}
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
+import type { AccessLogType } from 'src/types/accessLogTypes'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 const MeAccountSecurityAccessLogListCard = () => {
   // ** States
@@ -46,13 +43,14 @@ const MeAccountSecurityAccessLogListCard = () => {
   // ** Vars
   const accessLogs = accessesData?.data || []
   const totalRows = accessesData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
-      flex: 0.2,
       field: 'status',
+      display: 'flex',
       minWidth: 110,
       headerName: '狀態',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => (
         <CustomChip
           skin='light'
           size='small'
@@ -62,60 +60,60 @@ const MeAccountSecurityAccessLogListCard = () => {
           sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
         />
       ),
-      valueGetter: ({ row }: CellType) => (row.status ? '成功' : '失敗')
+      valueGetter: (data: AccessLogType['status']) => (data ? '成功' : '失敗')
     },
     {
-      flex: 0.2,
-      minWidth: 120,
       field: 'action',
+      display: 'flex',
+      minWidth: 120,
       headerName: '操作',
-      renderCell: ({ row }: CellType) => renderAccessActionText(row.action),
-      valueGetter: ({ row }: CellType) => row.action
+      renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => renderAccessActionText(row.action)
     },
     {
-      flex: 0.2,
-      minWidth: 140,
       field: 'ip',
+      display: 'flex',
+      minWidth: 140,
       headerName: '來源IP',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {row.ip}
         </Typography>
       )
     },
     {
-      flex: 0.2,
-      minWidth: 280,
       field: 'os',
+      display: 'flex',
+      minWidth: 280,
       headerName: '來源設備',
-      renderCell: ({ row }: CellType) => (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => (
+        <Stack direction='row' spacing={2} alignItems='center'>
           {renderOSIcon(row.os)}
           <Typography
             noWrap
-            sx={{ fontWeight: 600, color: 'text.secondary' }}
+            color='text.secondary'
+            sx={{ fontWeight: 600 }}
           >{`${row.browser} on ${row.os}`}</Typography>
-        </Box>
-      ),
-      valueGetter: ({ row }: CellType) => `${row.browser} on ${row.os}`
+        </Stack>
+      )
     },
     {
-      flex: 0.2,
-      minWidth: 220,
       field: 'date',
+      display: 'flex',
+      minWidth: 280,
       headerName: '日期',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => (
         <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
           {format(new Date(row.date), 'PPpp')}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.date), 'PPpp')
+      valueGetter: (data: AccessLogType['date']) => format(new Date(data), 'PPpp')
     }
   ]
 
   // ** Renders
   const renderAccessActionText = (action: AccessLogType['action']) => {
     let actionInfo = '@ 登入'
+
     switch (action) {
       case 'ForgotPassword':
         actionInfo = '@ 忘記密碼'
@@ -140,6 +138,7 @@ const MeAccountSecurityAccessLogListCard = () => {
       </Typography>
     )
   }
+
   const renderOSIcon = (os: string) => {
     const osName = os.toLowerCase()
     let icon = 'mdi:crosshairs-unknown'
@@ -149,23 +148,32 @@ const MeAccountSecurityAccessLogListCard = () => {
       icon = 'mdi:microsoft-windows'
       color = 'primary'
     }
+
     if (osName.includes('mac')) {
       icon = 'mdi:apple-keyboard-command'
       color = 'warning'
     }
+
     if (osName.includes('android')) {
       icon = 'mdi:microsoft-windows'
       color = 'success'
     }
+
     if (osName.includes('ios')) {
       icon = 'mdi:apple-ios'
       color = 'info'
     }
 
     return (
-      <Box component='span' sx={{ mr: 4, display: 'flex', '& svg': { color: `${color}.main` } }}>
+      <Stack
+        direction='row'
+        alignItems='center'
+        justifyContent='center'
+        component='span'
+        sx={{ '& svg': { color: `${color}.main` } }}
+      >
         <Icon icon={icon} fontSize={20} />
-      </Box>
+      </Stack>
     )
   }
 
@@ -184,7 +192,6 @@ const MeAccountSecurityAccessLogListCard = () => {
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         rowCount={totalRows}
-        sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
       />
     </Card>
   )

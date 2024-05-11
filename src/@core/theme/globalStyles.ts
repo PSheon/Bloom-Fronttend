@@ -1,8 +1,8 @@
-// ** MUI Imports
-import { Theme } from '@mui/material/styles'
-
 // ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Type Imports
+import type { Theme } from '@mui/material/styles'
 
 const GlobalStyles = (theme: Theme) => {
   // ** Hooks

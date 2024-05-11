@@ -2,7 +2,7 @@
 import { AbilityBuilder, Ability } from '@casl/ability'
 
 // ** Type Imports
-import { Role, Permission } from 'src/types/api/authTypes'
+import type { Role, Permission } from 'src/types/authTypes'
 
 export type Subjects = string
 export type Actions = 'manage' | 'create' | 'read' | 'update' | 'delete'

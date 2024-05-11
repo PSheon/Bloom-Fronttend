@@ -12,9 +12,6 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Skeleton from '@mui/material/Skeleton'
 
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
-
 // ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
@@ -25,7 +22,8 @@ import { useInterval } from 'src/hooks/useInterval'
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 // ** Type Imports
-import { RootState } from 'src/store'
+import type { ApexOptions } from 'apexcharts'
+import type { RootState } from 'src/store'
 
 interface Props {
   checkInterval?: number
@@ -41,6 +39,7 @@ const SystemDashboardMemUsageStatisticsLineChartCard = (props: Props) => {
 
   // ** States
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
+
   const [memInfoData, setMemInfoData] = useState<MemInfo>({
     totalGb: 0,
     usagePercentageHistory: []
@@ -53,6 +52,7 @@ const SystemDashboardMemUsageStatisticsLineChartCard = (props: Props) => {
 
   // ** Vars
   const usagePercentageHistory = memInfoData.usagePercentageHistory
+
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,
@@ -117,6 +117,7 @@ const SystemDashboardMemUsageStatisticsLineChartCard = (props: Props) => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
+
         setMemInfoData(() => memInfo)
       })
     }
