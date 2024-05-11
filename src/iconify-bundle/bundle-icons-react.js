@@ -19,6 +19,7 @@ const path_1 = require('path')
 // Installation: npm install --save-dev @iconify/tools @iconify/utils @iconify/json @iconify/iconify
 const tools_1 = require('@iconify/tools')
 const utils_1 = require('@iconify/utils')
+
 /* eslint-enable */
 const sources = {
   json: [
@@ -66,6 +67,7 @@ const commonJS = false
 
 // File to save bundle to
 const target = 'src/iconify-bundle/icons-bundle-react.js'
+
 ;(async function () {
   let bundle = commonJS
     ? "const { addCollection } = require('" + component + "');\n\n"
@@ -73,6 +75,7 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
 
   // Create directory for output if missing
   const dir = (0, path_1.dirname)(target)
+
   try {
     await fs_1.promises.mkdir(dir, {
       recursive: true
@@ -89,8 +92,10 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
 
     // Sort icons by prefix
     const organizedList = organizeIconsList(sources.icons)
+
     for (const prefix in organizedList) {
       const filename = require.resolve(`@iconify/json/json/${prefix}.json`)
+
       sourcesJSON.push({
         filename,
         icons: organizedList[prefix]
@@ -112,9 +117,11 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
       // Filter icons
       if (typeof item !== 'string' && item.icons?.length) {
         const filteredContent = (0, utils_1.getIcons)(content, item.icons)
+
         if (!filteredContent) {
           throw new Error(`Cannot find required icons in ${filename}`)
         }
+
         content = filteredContent
       }
 
@@ -146,6 +153,7 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
 
         // Get SVG instance for parsing
         const svg = iconSet.toSVG(name)
+
         if (!svg) {
           // Invalid icon
           iconSet.remove(name)
@@ -157,6 +165,7 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
         try {
           // Clean up icon code
           await (0, tools_1.cleanupSVG)(svg)
+
           if (source.monotone) {
             // Replace color with currentColor, add if missing
             // If icon is not monotone, remove this code
@@ -185,6 +194,7 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
 
       // Export to JSON
       const content = iconSet.export()
+
       bundle += 'addCollection(' + JSON.stringify(content) + ');\n'
     }
   }
@@ -201,6 +211,7 @@ const target = 'src/iconify-bundle/icons-bundle-react.js'
  */
 function removeMetaData(iconSet) {
   const props = ['info', 'chars', 'categories', 'themes', 'prefixes', 'suffixes']
+
   props.forEach(prop => {
     delete iconSet[prop]
   })
@@ -211,14 +222,18 @@ function removeMetaData(iconSet) {
  */
 function organizeIconsList(icons) {
   const sorted = Object.create(null)
+
   icons.forEach(icon => {
     const item = (0, utils_1.stringToIcon)(icon)
+
     if (!item) {
       return
     }
+
     const prefix = item.prefix
     const prefixList = sorted[prefix] ? sorted[prefix] : (sorted[prefix] = [])
     const name = item.name
+
     if (prefixList.indexOf(name) === -1) {
       prefixList.push(name)
     }
