@@ -18,7 +18,7 @@ const ToolbarOverlay = () => {
         alignItems='center'
         sx={{ p: theme => theme.spacing(2, 5) }}
       >
-        <Typography variant='subtitle2'>{`${selectedRows.length} selected`}</Typography>
+        <Typography variant='subtitle2'>{`${selectedRows.length} row${selectedRows.length > 1 ? 's' : ''} selected`}</Typography>
         <GridToolbarExport printOptions={{ disableToolbarButton: true }} />
       </Stack>
     </Collapse>
