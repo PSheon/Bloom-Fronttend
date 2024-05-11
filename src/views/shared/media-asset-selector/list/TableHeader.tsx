@@ -30,9 +30,9 @@ const MediaAssetSSelectorListTableHeader = (props: TableHeaderProps) => {
   const { filteredMediaAssetName, handleFilterMediaAssetName, filteredExtension, handleFilterExtensionChange } = props
 
   return (
-    <Grid container spacing={6}>
+    <Grid container spacing={4}>
       <Grid item flexGrow='1'>
-        <Grid container spacing={6}>
+        <Grid container spacing={4}>
           <Grid item xs={12} sm={4}>
             <TextField
               size='small'

@@ -68,8 +68,8 @@ const ManagementUserListHeaderCardContent = (props: Props) => {
   return (
     <CardContent>
       <Stack spacing={6}>
-        <Stack spacing={6} direction='row'>
-          <Stack spacing={6} direction='row' sx={{ flex: '1' }}>
+        <Stack spacing={4} direction='row'>
+          <Stack spacing={4} direction='row' sx={{ flex: '1' }}>
             <TextField
               size='small'
               fullWidth
@@ -86,7 +86,7 @@ const ManagementUserListHeaderCardContent = (props: Props) => {
               }}
             />
           </Stack>
-          <Stack spacing={6} direction='row' sx={{ flex: '0' }}>
+          <Stack spacing={4} direction='row' sx={{ flex: '0' }}>
             {isDesktopView ? (
               <Button
                 color={isShowFilters ? 'primary' : 'secondary'}
@@ -110,7 +110,7 @@ const ManagementUserListHeaderCardContent = (props: Props) => {
           </Stack>
         </Stack>
         <Collapse in={isShowFilters} timeout='auto' unmountOnExit>
-          <Stack spacing={6} direction='row'>
+          <Stack spacing={4} direction='row'>
             <FormControl fullWidth size='small'>
               <InputLabel id='select-role-label'>篩選角色</InputLabel>
               <Select

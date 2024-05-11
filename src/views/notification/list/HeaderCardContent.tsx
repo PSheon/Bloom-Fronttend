@@ -5,7 +5,6 @@ import { useState } from 'react'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
-import Grid from '@mui/material/Grid'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Button from '@mui/material/Button'
@@ -49,8 +48,8 @@ const NotificationListHeaderCardContent = (props: Props) => {
   return (
     <CardContent>
       <Stack spacing={6}>
-        <Stack spacing={6} direction='row'>
-          <Stack spacing={6} sx={{ flex: '1' }}>
+        <Stack spacing={4} direction='row'>
+          <Stack spacing={4} sx={{ flex: '1' }}>
             <TextField
               size='small'
               fullWidth
@@ -62,7 +61,7 @@ const NotificationListHeaderCardContent = (props: Props) => {
               }}
             />
           </Stack>
-          <Stack spacing={6} direction='row' sx={{ flex: '0' }}>
+          <Stack spacing={4} direction='row' sx={{ flex: '0' }}>
             {isDesktopView ? (
               <Button
                 color={isShowFilters ? 'primary' : 'secondary'}
@@ -86,25 +85,23 @@ const NotificationListHeaderCardContent = (props: Props) => {
           </Stack>
         </Stack>
         <Collapse in={isShowFilters} timeout='auto' unmountOnExit>
-          <Stack spacing={6} direction='row'>
-            <Grid item xs={6} md={3}>
-              <FormControl fullWidth size='small'>
-                <InputLabel id='select-is-seen-label'>篩選狀態</InputLabel>
-                <Select
-                  fullWidth
-                  value={filteredIsSeen}
-                  id='select-is-seen'
-                  label='篩選狀態'
-                  labelId='select-is-seen-label'
-                  onChange={handleFilterIsSeenChange}
-                  inputProps={{ placeholder: '篩選狀態' }}
-                >
-                  <MenuItem value='all'>所有狀態</MenuItem>
-                  <MenuItem value='isSeen'>已閱讀</MenuItem>
-                  <MenuItem value='isNotSeen'>未閱讀</MenuItem>
-                </Select>
-              </FormControl>
-            </Grid>
+          <Stack spacing={4} direction='row'>
+            <FormControl fullWidth size='small'>
+              <InputLabel id='select-is-seen-label'>篩選狀態</InputLabel>
+              <Select
+                fullWidth
+                value={filteredIsSeen}
+                id='select-is-seen'
+                label='篩選狀態'
+                labelId='select-is-seen-label'
+                onChange={handleFilterIsSeenChange}
+                inputProps={{ placeholder: '篩選狀態' }}
+              >
+                <MenuItem value='all'>所有狀態</MenuItem>
+                <MenuItem value='isSeen'>已閱讀</MenuItem>
+                <MenuItem value='isNotSeen'>未閱讀</MenuItem>
+              </Select>
+            </FormControl>
           </Stack>
         </Collapse>
       </Stack>

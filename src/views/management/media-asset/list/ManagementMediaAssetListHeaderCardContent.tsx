@@ -59,8 +59,8 @@ const ManagementMediaAssetListHeaderCardContent = (props: Props) => {
   return (
     <CardContent>
       <Stack spacing={6}>
-        <Stack spacing={6} direction='row'>
-          <Stack spacing={6} sx={{ flex: '1' }}>
+        <Stack spacing={4} direction='row'>
+          <Stack spacing={4} sx={{ flex: '1' }}>
             <TextField
               size='small'
               fullWidth
@@ -77,12 +77,12 @@ const ManagementMediaAssetListHeaderCardContent = (props: Props) => {
               }}
             />
           </Stack>
-          <Stack spacing={6} direction='row' sx={{ flex: '0' }}>
+          <Stack spacing={4} direction='row' sx={{ flex: '0' }}>
             {isDesktopView && (
               <Button
                 color={isShowFilters ? 'primary' : 'secondary'}
                 variant={isShowFilters ? 'contained' : 'outlined'}
-                startIcon={<Icon icon='mdi:filter-outline' fontSize={20} />}
+                endIcon={<Icon icon='mdi:filter-outline' fontSize={20} />}
                 onClick={handleFiltersClick}
               >
                 <Typography whiteSpace='nowrap' color='inherit'>
@@ -94,7 +94,7 @@ const ManagementMediaAssetListHeaderCardContent = (props: Props) => {
           </Stack>
         </Stack>
         <Collapse in={isShowFilters} timeout='auto' unmountOnExit>
-          <Stack spacing={6} direction='row'>
+          <Stack spacing={4} direction='row'>
             <FormControl fullWidth size='small'>
               <InputLabel id='select-extension-label'>篩選類型</InputLabel>
               <Select
