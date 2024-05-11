@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -12,7 +12,6 @@ import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Third-Party Imports
 import format from 'date-fns/format'
@@ -24,7 +23,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Custom Component Imports
 import ManagementAnnouncementListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ManagementAnnouncementListHeaderCardContent from 'src/views/management/announcement/list/ManagementAnnouncementListHeaderCardContent'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -40,7 +39,10 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getPublicMediaAssetUrl, getAnnouncementStatusProperties } from 'src/utils'
 
 // ** Type Imports
-import { AnnouncementType } from 'src/types/api/announcementTypes'
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { AnnouncementType } from 'src/types/api/announcementTypes'
 
 interface CellType {
   row: AnnouncementType
@@ -85,11 +87,13 @@ const ManagementAnnouncementListPage = () => {
       pageSize: paginationModel.pageSize
     }
   })
+
   const [updateAnnouncement] = useUpdateOneMutation()
 
   // ** Vars
   const announcements = announcementsData?.data || []
   const totalRows = announcementsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 1,
@@ -242,15 +246,19 @@ const ManagementAnnouncementListPage = () => {
   const handleFilterAnnouncementDisplayname = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredAnnouncementDisplayname(e.target.value)
   }, [])
+
   const handleFilterIsPublishedChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsPublished(e.target.value)
   }, [])
+
   const handleIsHighlightedChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsHighlighted(e.target.value)
   }, [])
+
   const handleHighlightAnnouncement = async (id: number, isHighlighted: boolean) => {
     await updateAnnouncement({ id, data: { isHighlighted } })
   }
+
   const handleRefetchAnnouncementList = () => {
     refetchAnnouncementList()
   }

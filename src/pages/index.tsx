@@ -1,6 +1,3 @@
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
@@ -14,6 +11,9 @@ import LandingPlatformSection from 'src/views/landing/sections/LandingPlatformSe
 import LandingCustomerSupportSection from 'src/views/landing/sections/LandingCustomerSupportSection'
 import LandingBuyAndSellSection from 'src/views/landing/sections/LandingBuyAndSellSection'
 import LandingSafeAndSecuritySection from 'src/views/landing/sections/LandingSafeAndSecuritySection'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
 
 const LandingPage = () => {
   return (

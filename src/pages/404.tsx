@@ -1,6 +1,3 @@
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** Next Imports
 import Link from 'next/link'
 
@@ -8,13 +5,17 @@ import Link from 'next/link'
 import { styled } from '@mui/material/styles'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
 // ** Custom Component Imports
-import FooterIllustrations from 'src/views/pages/misc/FooterIllustrations'
+import FooterIllustrations from 'src/views/shared/misc/FooterIllustrations'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { BoxProps } from '@mui/material/Box'
 
 // ** Styled Components
 const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({

@@ -1,18 +1,17 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
 import Grid from '@mui/material/Grid'
-import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Third-Party Imports
 import toast from 'react-hot-toast'
@@ -25,7 +24,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Custom Component Imports
 import ManagementMediaAssetListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ManagementMediaAssetListHeaderCardContent from 'src/views/management/media-asset/list/ManagementMediaAssetListHeaderCardContent'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -41,7 +40,10 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 interface CellType {
   row: MediaAssetType
@@ -89,6 +91,7 @@ const ManagementMediaAssetListPage = () => {
   // ** Vars
   const mediaAssets = mediaAssetsData?.data || []
   const totalRows = mediaAssetsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 1,
@@ -190,6 +193,7 @@ const ManagementMediaAssetListPage = () => {
   // ** renders preview column
   const renderPreview = (row: MediaAssetType) => {
     const isImage = getMediaAssetFileAttributes(row).isImage
+
     if (isImage) {
       return (
         <CustomAvatar
@@ -216,13 +220,16 @@ const ManagementMediaAssetListPage = () => {
   const handleFilterMediaAssetName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredMediaAssetName(e.target.value)
   }, [])
+
   const handleFilterExtensionChange = useCallback((e: SelectChangeEvent) => {
     setFilteredExtension(e.target.value)
   }, [])
+
   const handleCopyUrlClick = (mediaAssetUrl: string) => {
     copyToClipboard(getPublicMediaAssetUrl(mediaAssetUrl))
     toast.success('已複製檔案連結')
   }
+
   const handleRefetchMediaAssetList = () => {
     refetchMediaAssetList()
   }

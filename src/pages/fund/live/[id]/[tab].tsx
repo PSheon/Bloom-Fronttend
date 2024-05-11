@@ -14,6 +14,7 @@ import { getValidLiveTabIndex } from 'src/utils'
 const PublicFundLivePage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: fundEntity,
     isError: isFindOneFundEntityError,

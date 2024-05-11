@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -12,10 +12,17 @@ import Tooltip from '@mui/material/Tooltip'
 import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Third-Party Imports
 import format from 'date-fns/format'
+
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+
+// ** Custom Component Imports
+import DataGrid from 'src/views/shared/wrapped-data-grid'
+import NotificationListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import NotificationListHeaderCardContent from 'src/views/notification/list/HeaderCardContent'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -27,15 +34,10 @@ import useDebounce from 'src/hooks/useDebounce'
 import { useFindMeQuery } from 'src/store/api/management/notification'
 
 // ** Type Imports
-import { NotificationType } from 'src/types/api/notificationTypes'
-
-// ** Core Component Imports
-import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Custom Component Imports
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
-import NotificationListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import NotificationListHeaderCardContent from 'src/views/notification/list/HeaderCardContent'
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { NotificationType } from 'src/types/api/notificationTypes'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
 
 interface CellType {
   row: NotificationType
@@ -77,6 +79,7 @@ const NotificationListPage = () => {
   // ** Vars
   const notifications = notificationsData?.data || []
   const totalRows = notificationsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 1,
@@ -152,6 +155,7 @@ const NotificationListPage = () => {
   const handleFilterNotificationTitle = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredNotificationTitle(e.target.value)
   }, [])
+
   const handleFilterIsSeenChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsSeen(e.target.value)
   }, [])

@@ -11,6 +11,7 @@ import ManagementUserEditSection from 'src/views/management/user/edit'
 const ManagementUserEditPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: UserEntity,
     isError: isFindOneUserEntityError,

@@ -1,12 +1,13 @@
 // ** Third Party Imports
-import NextAuth, { NextAuthOptions, User } from 'next-auth'
+import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
 import axios from 'axios'
 
 // ** Type Imports
-import { BaseApiResponseErrorType } from 'src/types/api/baseApiTypes'
-import { LoginResponseType } from 'src/types/api/authTypes'
+import type { NextAuthOptions, User } from 'next-auth'
+import type { BaseApiResponseErrorType } from 'src/types/api/baseApiTypes'
+import type { LoginResponseType } from 'src/types/api/authTypes'
 
 /*
  * As we do not have backend server, the refresh token feature has not been incorporated into the template.
@@ -54,6 +55,7 @@ export const authOptions: NextAuthOptions = {
 
           if (!backendResponse.ok) {
             const contentType = backendResponse.headers.get('content-type')
+
             if (contentType === 'application/json; charset=utf-8') {
               const data: BaseApiResponseErrorType<null> = await backendResponse.json()
 
@@ -145,6 +147,7 @@ export const authOptions: NextAuthOptions = {
             accessToken: user.accessToken
           }
         }
+
         if (account.provider === 'google') {
           // ** We are doing a sign in using GoogleProvider
           try {
@@ -158,6 +161,7 @@ export const authOptions: NextAuthOptions = {
 
               throw new Error(backendError.error.message)
             }
+
             const backendLoginResponse: LoginResponseType = await backendResponse.json()
 
             token.user = {

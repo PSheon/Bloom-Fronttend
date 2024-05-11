@@ -11,6 +11,7 @@ import ManagementBlogEditSection from 'src/views/management/blog/edit'
 const ManagementBlogEditPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: blogEntity,
     isError: isFindOneBlogEntityError,

@@ -11,6 +11,7 @@ import NotificationReadSection from 'src/views/notification/read'
 const NotificationReadPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: notificationEntity,
     isError: isFindOneNotificationEntityError,

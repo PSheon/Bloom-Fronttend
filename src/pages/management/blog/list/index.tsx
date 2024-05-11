@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -12,7 +12,6 @@ import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Third-Party Imports
 import format from 'date-fns/format'
@@ -24,7 +23,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Custom Component Imports
 import ManagementBlogListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ManagementBlogListHeaderCardContent from 'src/views/management/blog/list/ManagementBlogListHeaderCardContent'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -40,7 +39,10 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getPublicMediaAssetUrl, getBlogStatusProperties } from 'src/utils'
 
 // ** Type Imports
-import { BlogType } from 'src/types/api/blogTypes'
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { BlogType } from 'src/types/api/blogTypes'
 
 interface CellType {
   row: BlogType
@@ -85,11 +87,13 @@ const ManagementBlogListPage = () => {
       pageSize: paginationModel.pageSize
     }
   })
+
   const [updateBlog] = useUpdateOneMutation()
 
   // ** Vars
   const blogs = blogsData?.data || []
   const totalRows = blogsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 1,
@@ -242,15 +246,19 @@ const ManagementBlogListPage = () => {
   const handleFilterBlogDisplayname = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredBlogDisplayname(e.target.value)
   }, [])
+
   const handleFilterIsPublishedChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsPublished(e.target.value)
   }, [])
+
   const handleIsHighlightedChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsHighlighted(e.target.value)
   }, [])
+
   const handleHighlightBlog = async (id: number, isHighlighted: boolean) => {
     await updateBlog({ id, data: { isHighlighted } })
   }
+
   const handleRefetchBlogList = () => {
     refetchBlogList()
   }

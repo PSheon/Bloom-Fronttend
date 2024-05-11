@@ -14,6 +14,7 @@ import ReviewFundEditSection from 'src/views/review/fund/edit'
 const ReviewFundEditPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: fundEntity,
     isError: isFindOneFundEntityError,

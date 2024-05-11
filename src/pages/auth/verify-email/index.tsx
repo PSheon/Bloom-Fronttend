@@ -1,5 +1,5 @@
 // ** React Imports
-import { ReactNode, useEffect } from 'react'
+import { useEffect } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -12,8 +12,8 @@ import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
-import CardContent, { CardContentProps } from '@mui/material/CardContent'
-import Card, { CardProps } from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Card from '@mui/material/Card'
 
 // ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
@@ -21,10 +21,16 @@ import BlankLayout from 'src/@core/layouts/BlankLayout'
 // ** Custom Component Imports
 import LogoImage from 'src/views/shared/LogoImage'
 
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { CardContentProps } from '@mui/material/CardContent'
+import type { CardProps } from '@mui/material/Card'
+
 // ** Styled Components
 const StyledRootCard = styled(Card)<CardProps>(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: 450 }
 }))
+
 const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
   position: 'relative',
   padding: `${theme.spacing(8, 12, 10)} !important`,
@@ -32,6 +38,7 @@ const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) 
     padding: `${theme.spacing(2, 4, 6.5)} !important`
   }
 }))
+
 const LinkStyled = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   marginLeft: theme.spacing(1),

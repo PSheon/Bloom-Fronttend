@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -12,10 +12,6 @@ import Grid from '@mui/material/Grid'
 import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { SelectChangeEvent } from '@mui/material/Select'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -24,7 +20,10 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Custom Component Imports
 import ManagementUserListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ManagementUserListHeaderCardContent from 'src/views/management/user/list/ManagementUserListHeaderCardContent'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 // ** Hook Imports
 import useDebounce from 'src/hooks/useDebounce'
@@ -37,7 +36,10 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getPublicMediaAssetUrl, getUserRoleAttributes } from 'src/utils'
 
 // ** Type Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { UserDataType } from 'src/types/api/authTypes'
 
 interface CellType {
   row: UserDataType
@@ -54,6 +56,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
     color: theme.palette.primary.main
   }
 }))
+
 const ConfirmedStatusStyledBox = styled(Box)(({ theme }) => ({
   width: 8,
   height: 8,
@@ -98,11 +101,13 @@ const ManagementUserListPage = () => {
       pageSize: paginationModel.pageSize
     }
   })
+
   const [updateUser] = useUpdateOneMutation()
 
   // ** Vars
   const users = usersData?.data || []
   const totalRows = usersData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 1,
@@ -261,18 +266,23 @@ const ManagementUserListPage = () => {
   const handleFilterUsernameOrEmail = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredUsernameOrEmail(e.target.value)
   }, [])
+
   const handleFilterRoleChange = useCallback((e: SelectChangeEvent) => {
     setFilteredRole(e.target.value)
   }, [])
+
   const handleBlockStatusChange = useCallback((e: SelectChangeEvent) => {
     setFilteredBlockStatus(e.target.value)
   }, [])
+
   const handleIsHighlightedChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsHighlighted(e.target.value)
   }, [])
+
   const handleHighlightUser = async (id: number, isHighlighted: boolean) => {
     await updateUser({ id, data: { isHighlighted } })
   }
+
   const handleRefetchUserList = () => {
     refetchUserList()
   }

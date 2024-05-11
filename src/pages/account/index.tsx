@@ -11,6 +11,7 @@ import AccountSection from 'src/views/account'
 const AccountPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: MeUserEntity,
     isError: isFindMeUserEntityError,

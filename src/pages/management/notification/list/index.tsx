@@ -1,18 +1,17 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
-import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Third-Party Imports
 import format from 'date-fns/format'
@@ -24,7 +23,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Custom Component Imports
 import ManagementNotificationListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import ManagementNotificationListHeaderCardContent from 'src/views/management/notification/list/ManagementNotificationListHeaderCardContent'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -40,7 +39,10 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { NotificationType } from 'src/types/api/notificationTypes'
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { NotificationType } from 'src/types/api/notificationTypes'
 
 interface CellType {
   row: NotificationType
@@ -85,11 +87,13 @@ const ManagementNotificationListPage = () => {
       pageSize: paginationModel.pageSize
     }
   })
+
   const [updateNotification] = useUpdateOneMutation()
 
   // ** Vars
   const notifications = notificationsData?.data || []
   const totalRows = notificationsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 1,
@@ -228,15 +232,19 @@ const ManagementNotificationListPage = () => {
   const handleFilterNotificationTitle = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredNotificationTitle(e.target.value)
   }, [])
+
   const handleFilterIsSeenChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsSeen(e.target.value)
   }, [])
+
   const handleIsHighlightedChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsHighlighted(e.target.value)
   }, [])
+
   const handleHighlightNotification = async (id: number, isHighlighted: boolean) => {
     await updateNotification({ id, data: { isHighlighted } })
   }
+
   const handleRefetchNotificationList = () => {
     refetchNotificationList()
   }

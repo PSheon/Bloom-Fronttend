@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
@@ -17,6 +17,9 @@ import useDebounce from 'src/hooks/useDebounce'
 
 // ** API Imports
 import { useFindQuery } from 'src/store/api/management/fund'
+
+// ** Type Imports
+import type { ChangeEvent } from 'react'
 
 const PublicFundListPage = () => {
   // ** States

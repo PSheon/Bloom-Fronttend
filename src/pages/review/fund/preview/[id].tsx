@@ -11,6 +11,7 @@ import { useFindOneQuery } from 'src/store/api/management/fund'
 const ReviewFundPreviewPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: fundEntity,
     isError: isFindOneFundEntityError,
