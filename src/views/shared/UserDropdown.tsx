@@ -297,13 +297,13 @@ const UserDropdown = (props: Props) => {
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/account')}>
           <MenuItemStack direction='row' spacing={2} alignItems='center'>
             <Icon icon='mdi:account-outline' />
-            <Typography sx={{ flex: 1 }}>帳號</Typography>
+            <Typography sx={{ flex: 1 }}>My Account</Typography>
           </MenuItemStack>
         </MenuItem>
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/settings')}>
           <MenuItemStack direction='row' spacing={2} alignItems='center'>
             <Icon icon='mdi:cog-outline' />
-            <Typography sx={{ flex: 1 }}>設定</Typography>
+            <Typography sx={{ flex: 1 }}>Settings</Typography>
           </MenuItemStack>
         </MenuItem>
         <Divider />
