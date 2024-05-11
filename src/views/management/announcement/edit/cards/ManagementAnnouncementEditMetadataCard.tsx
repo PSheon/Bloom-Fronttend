@@ -10,7 +10,7 @@ import Divider from '@mui/material/Divider'
 import { format } from 'date-fns'
 
 // ** Type Imports
-import { AnnouncementType } from 'src/types/api/announcementTypes'
+import type { AnnouncementType } from 'src/types/api/announcementTypes'
 
 interface Props {
   initAnnouncementEntity: AnnouncementType

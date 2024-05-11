@@ -19,7 +19,7 @@ import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** API Imports
 import { useFindQuery } from 'src/store/api/management/activityLog'
@@ -29,8 +29,9 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getPublicMediaAssetUrl, getActivityLogStatusProperties, getActivityLogActionProperties } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
-import { ActivityLogType } from 'src/types/api/activityLogTypes'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { FundType } from 'src/types/api/fundTypes'
+import type { ActivityLogType } from 'src/types/api/activityLogTypes'
 
 interface Props {
   initFundEntity: FundType
@@ -75,6 +76,7 @@ const ManagementFundEditSecurityActivityLogListCard = (props: Props) => {
   // ** Vars
   const activityLogs = activitiesData?.data || []
   const totalRows = activitiesData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 1,

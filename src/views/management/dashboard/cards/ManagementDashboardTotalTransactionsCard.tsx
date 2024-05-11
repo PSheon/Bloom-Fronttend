@@ -1,15 +1,12 @@
 // ** MUI Imports
+import { styled, useTheme } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
 import Divider from '@mui/material/Divider'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-import Grid, { GridProps } from '@mui/material/Grid'
-import { styled, useTheme } from '@mui/material/styles'
-
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
+import Grid from '@mui/material/Grid'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -21,6 +18,10 @@ import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import type { GridProps } from '@mui/material/Grid'
+import type { ApexOptions } from 'apexcharts'
 
 // ** Styled Grid component
 const StyledGrid = styled(Grid)<GridProps>(({ theme }) => ({
@@ -47,6 +48,7 @@ const ManagementDashboardTotalTransactionsCard = () => {
       data: [-84, -156, -216, -282, -216, -156, -84]
     }
   ]
+
   const options: ApexOptions = {
     chart: {
       stacked: true,

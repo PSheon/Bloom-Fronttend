@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, SyntheticEvent, Fragment, ReactNode } from 'react'
+import { useState, Fragment } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -10,11 +10,11 @@ import Box from '@mui/material/Box'
 import Badge from '@mui/material/Badge'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import MuiMenu, { MenuProps } from '@mui/material/Menu'
-import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import MuiMenu from '@mui/material/Menu'
+import MuiMenuItem from '@mui/material/MenuItem'
+import Typography from '@mui/material/Typography'
 
 // ** Third-Party Imports
 import PerfectScrollbarComponent from 'react-perfect-scrollbar'
@@ -37,9 +37,14 @@ import { useFindMeQuery } from 'src/store/api/management/notification'
 import { getNotificationAttributes } from 'src/utils'
 
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
-import { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
-import { NotificationType } from 'src/types/api/notificationTypes'
+import type { SyntheticEvent, ReactNode } from 'react'
+import type { Theme } from '@mui/material/styles'
+import type { MenuProps } from '@mui/material/Menu'
+import type { MenuItemProps } from '@mui/material/MenuItem'
+import type { TypographyProps } from '@mui/material/Typography'
+import type { Settings } from 'src/@core/context/settingsContext'
+import type { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
+import type { NotificationType } from 'src/types/api/notificationTypes'
 
 interface Props {
   settings: Settings
@@ -110,6 +115,7 @@ const NotificationDropdown = (props: Props) => {
   // ** Hooks
   const router = useRouter()
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'))
+
   const { data: meNotificationsData, isLoading: isMeNotificationListLoading } = useFindMeQuery({
     filters: {
       isSeen: false
@@ -130,9 +136,11 @@ const NotificationDropdown = (props: Props) => {
   const handleDropdownOpen = (event: SyntheticEvent) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleDropdownClose = () => {
     setAnchorEl(null)
   }
+
   const handleClickNotification = (notificationId: number) => {
     handleDropdownClose()
     router.push(`/notification/read/${notificationId}`)

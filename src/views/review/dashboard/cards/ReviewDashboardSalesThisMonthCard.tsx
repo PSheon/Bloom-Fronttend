@@ -1,11 +1,8 @@
 // ** MUI Imports
-import Card from '@mui/material/Card'
 import { useTheme } from '@mui/material/styles'
+import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
 
 // ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
@@ -13,12 +10,16 @@ import ReactApexcharts from 'src/@core/components/react-apexcharts'
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
+// ** Type Imports
+import type { ApexOptions } from 'apexcharts'
+
 const ReviewDashboardSalesThisMonthCard = () => {
   // ** Hooks
   const theme = useTheme()
 
   // ** Vars
   const series = [{ data: [12, 12, 18, 18, 13, 13, 5, 5, 17, 17, 25, 25] }]
+
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

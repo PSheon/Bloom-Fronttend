@@ -24,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 import { useDeleteOneMutation } from 'src/store/api/management/notification'
 
 // ** Type Imports
-import { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/api/notificationTypes'
 
 interface Props {
   initNotificationEntity: NotificationType
@@ -39,12 +39,14 @@ const ManagementNotificationEditSecurityDangerZoneCard = (props: Props) => {
 
   // ** Hooks
   const router = useRouter()
+
   const [deleteOneNotification, { data: deletedOneNotification, isLoading: isDeleteOneNotificationLoading }] =
     useDeleteOneMutation()
 
   // ** Logics
   const handleOpenDeleteDialog = () => setDeleteDialogOpen(true)
   const handleCloseDeleteDialog = () => setDeleteDialogOpen(false)
+
   const handleDeleteOneMediaAssetClick = async () => {
     await deleteOneNotification(initNotificationEntity.id)
   }

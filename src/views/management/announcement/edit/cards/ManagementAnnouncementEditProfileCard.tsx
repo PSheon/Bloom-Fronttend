@@ -47,7 +47,7 @@ import { useUpdateOneMutation } from 'src/store/api/management/announcement'
 import { getAnnouncementStatusProperties, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { AnnouncementType } from 'src/types/api/announcementTypes'
+import type { AnnouncementType } from 'src/types/api/announcementTypes'
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -84,6 +84,7 @@ const ManagementAnnouncementEditProfileCard = (props: Props) => {
     updateAnnouncement,
     { data: updatedAnnouncement = initAnnouncementEntity, isLoading: isUpdateAnnouncementLoading }
   ] = useUpdateOneMutation()
+
   const {
     reset,
     control,
@@ -103,6 +104,7 @@ const ManagementAnnouncementEditProfileCard = (props: Props) => {
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
+
   const onSubmit = async (data: FormData) => {
     const { displayName } = data
 

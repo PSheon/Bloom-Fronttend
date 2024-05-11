@@ -39,12 +39,12 @@ import { useUpdateOneMutation } from 'src/store/api/management/mediaAsset'
 import { getMediaAssetFileAttributes } from 'src/utils'
 
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 const schema = yup.object().shape({
   name: yup.string().required(),
-  alternativeText: yup.string().nullable(),
-  caption: yup.string().nullable()
+  alternativeText: yup.string().optional(),
+  caption: yup.string().optional()
 })
 
 interface Props {
@@ -52,8 +52,8 @@ interface Props {
 }
 interface FormData {
   name: string
-  alternativeText: string
-  caption: string
+  alternativeText?: string
+  caption?: string
 }
 
 const ManagementMediaAssetEditProfileCard = (props: Props) => {
@@ -66,6 +66,7 @@ const ManagementMediaAssetEditProfileCard = (props: Props) => {
   // ** Hooks
   const [updateMediaAsset, { data: updatedMediaAsset = initMediaAssetEntity, isLoading: isUpdateMediaAssetLoading }] =
     useUpdateOneMutation()
+
   const {
     reset,
     control,
@@ -87,6 +88,7 @@ const ManagementMediaAssetEditProfileCard = (props: Props) => {
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
+
   const onSubmit = async (data: FormData) => {
     const { name, alternativeText, caption } = data
 

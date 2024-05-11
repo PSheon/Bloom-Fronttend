@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, forwardRef, Ref, ReactElement } from 'react'
+import { useState, forwardRef } from 'react'
 
 // ** MUI Imports
 import Stack from '@mui/material/Stack'
@@ -14,7 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
-import Fade, { FadeProps } from '@mui/material/Fade'
+import Fade from '@mui/material/Fade'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
@@ -36,8 +36,10 @@ import { useUpdateOneMutation } from 'src/store/api/management/fund'
 import { getNextValidPackageId } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
-import { SkinType } from 'src/types/api/packageTypes'
+import type { Ref, ReactElement } from 'react'
+import type { FadeProps } from '@mui/material/Fade'
+import type { FundType } from 'src/types/api/fundTypes'
+import type { SkinType } from 'src/types/api/packageTypes'
 
 const Transition = forwardRef(function Transition(
   props: FadeProps & { children?: ReactElement<any, any> },
@@ -48,7 +50,7 @@ const Transition = forwardRef(function Transition(
 
 const schema = yup.object().shape({
   displayName: yup.string().required(),
-  description: yup.string().nullable(),
+  description: yup.string().optional(),
   skin: yup.string().oneOf(['Green', 'Purple', 'Orange']).required()
 })
 
@@ -71,6 +73,7 @@ const ReviewFundEditCreateDefaultPackageStack = (props: Props) => {
   // ** Hooks
   const [createNewPackage, { isLoading: isCreateNewPackageLoading }] = useCreateMutation()
   const [updateFund, { isLoading: isUpdateOneFundLoading }] = useUpdateOneMutation()
+
   const {
     reset,
     control,
@@ -90,9 +93,11 @@ const ReviewFundEditCreateDefaultPackageStack = (props: Props) => {
   const handleOpen = () => {
     setShow(true)
   }
+
   const handleClose = () => {
     setShow(false)
   }
+
   const onSubmit = async (data: FormData) => {
     const { displayName, description, skin } = data
 
@@ -104,11 +109,13 @@ const ReviewFundEditCreateDefaultPackageStack = (props: Props) => {
         skin: skin
       }
     }).unwrap()
+
     let newDefaultPackages: number[] = []
 
     if (initFundEntity?.defaultPackages?.data?.length) {
       newDefaultPackages = [...initFundEntity.defaultPackages.data.map(pkg => pkg.id)]
     }
+
     if (createdPackageData?.id) {
       newDefaultPackages.push(createdPackageData.id)
     }

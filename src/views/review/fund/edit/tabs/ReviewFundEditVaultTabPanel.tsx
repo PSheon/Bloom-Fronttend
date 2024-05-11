@@ -3,7 +3,7 @@ import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/api/fundTypes'
 
 interface Props {
   initFundEntity: FundType

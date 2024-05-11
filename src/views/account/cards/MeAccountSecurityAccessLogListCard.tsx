@@ -14,7 +14,7 @@ import { format } from 'date-fns'
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Custom Component Imports
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -23,8 +23,9 @@ import Icon from 'src/@core/components/icon'
 import { useFindMeQuery } from 'src/store/api/management/accessLog'
 
 // ** Type Imports
-import { AccessLogType } from 'src/types/api/accessLogTypes'
-import { ThemeColor } from 'src/@core/layouts/types'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { AccessLogType } from 'src/types/api/accessLogTypes'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 interface CellType {
   row: AccessLogType
@@ -46,6 +47,7 @@ const MeAccountSecurityAccessLogListCard = () => {
   // ** Vars
   const accessLogs = accessesData?.data || []
   const totalRows = accessesData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 0.2,
@@ -116,6 +118,7 @@ const MeAccountSecurityAccessLogListCard = () => {
   // ** Renders
   const renderAccessActionText = (action: AccessLogType['action']) => {
     let actionInfo = '@ 登入'
+
     switch (action) {
       case 'ForgotPassword':
         actionInfo = '@ 忘記密碼'
@@ -140,6 +143,7 @@ const MeAccountSecurityAccessLogListCard = () => {
       </Typography>
     )
   }
+
   const renderOSIcon = (os: string) => {
     const osName = os.toLowerCase()
     let icon = 'mdi:crosshairs-unknown'
@@ -149,14 +153,17 @@ const MeAccountSecurityAccessLogListCard = () => {
       icon = 'mdi:microsoft-windows'
       color = 'primary'
     }
+
     if (osName.includes('mac')) {
       icon = 'mdi:apple-keyboard-command'
       color = 'warning'
     }
+
     if (osName.includes('android')) {
       icon = 'mdi:microsoft-windows'
       color = 'success'
     }
+
     if (osName.includes('ios')) {
       icon = 'mdi:apple-ios'
       color = 'info'

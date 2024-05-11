@@ -10,7 +10,7 @@ import ReviewFundEditCreateDefaultPackageStack from 'src/views/review/fund/edit/
 import ReviewFundEditDefaultPackagesGrid from 'src/views/review/fund/edit/grids/ReviewFundEditDefaultPackagesGrid'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/api/fundTypes'
 
 interface Props {
   initFundEntity: FundType

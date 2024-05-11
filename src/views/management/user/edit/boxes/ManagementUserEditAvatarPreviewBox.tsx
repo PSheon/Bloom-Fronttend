@@ -1,12 +1,13 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Util Imports
 import { getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { BoxProps } from '@mui/material/Box'
+import type { UserDataType } from 'src/types/api/authTypes'
 
 // ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
@@ -28,6 +29,7 @@ const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
     borderRadius: 10
   }
 }))
+
 const ProfilePicture = styled('img')(({ theme }) => ({
   margin: theme.spacing(4),
   width: 96,

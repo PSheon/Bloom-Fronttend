@@ -1,18 +1,17 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
-import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import AvatarGroup from '@mui/material/AvatarGroup'
-import { SelectChangeEvent } from '@mui/material/Select'
 
 // ** Third-Party Imports
 import format from 'date-fns/format'
@@ -23,7 +22,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
 import ReviewDashboardFundListHeaderCardContent from 'src/views/review/dashboard/cards/ReviewDashboardFundListHeaderCardContent'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -38,7 +37,10 @@ import { useFindQuery, useUpdateOneMutation } from 'src/store/api/management/fun
 import { getFundCurrencyProperties, getFundStatusProperties, getFundCategoryProperties } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { FundType } from 'src/types/api/fundTypes'
 
 interface CellType {
   row: FundType
@@ -83,11 +85,13 @@ const ReviewDashboardFundDataGridCard = () => {
       pageSize: paginationModel.pageSize
     }
   })
+
   const [updateFund] = useUpdateOneMutation()
 
   // ** Vars
   const funds = fundsData?.data || []
   const totalRows = fundsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       minWidth: 60,
@@ -271,15 +275,19 @@ const ReviewDashboardFundDataGridCard = () => {
   const handleFilterFundDisplayname = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredFundDisplayname(e.target.value)
   }, [])
+
   const handleFilterStatusChange = useCallback((e: SelectChangeEvent) => {
     setFilteredStatus(e.target.value)
   }, [])
+
   const handleIsHighlightedChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsHighlighted(e.target.value)
   }, [])
+
   const handleHighlightFund = async (id: number, isHighlighted: boolean) => {
     await updateFund({ id, data: { isHighlighted } })
   }
+
   const handleRefetchFundList = () => {
     refetchFundList()
   }

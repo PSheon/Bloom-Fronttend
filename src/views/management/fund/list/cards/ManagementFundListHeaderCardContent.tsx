@@ -1,8 +1,7 @@
 // ** React Imports
-import { useState, ChangeEvent } from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
-import { Theme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import Collapse from '@mui/material/Collapse'
 import Stack from '@mui/material/Stack'
@@ -14,11 +13,16 @@ import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
 import FormControl from '@mui/material/FormControl'
 import InputLabel from '@mui/material/InputLabel'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
+import type { ChangeEvent } from 'react'
+import type { Theme } from '@mui/material/styles'
+import type { SelectChangeEvent } from '@mui/material/Select'
 
 interface Props {
   filteredFundDisplayname: string

@@ -1,20 +1,20 @@
 // ** MUI Imports
+import { useTheme } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
-import { useTheme } from '@mui/material/styles'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
 // ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
 import { format } from 'date-fns'
 
 // ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { ApexOptions } from 'apexcharts'
+import type { FundType } from 'src/types/api/fundTypes'
 
 interface Props {
   initFundEntity: FundType
@@ -42,11 +42,13 @@ const ManagementFundPreviewPerformanceChartCard = (props: Props) => {
       data: [20, 40, 30, 70, 40, 60, 50, 140, 120, 100, 140, 180, 220]
     }
   ]
+
   const areaColors = {
     series1: '#ab7efd',
     series2: '#b992fe',
     series3: '#e0cffe'
   }
+
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

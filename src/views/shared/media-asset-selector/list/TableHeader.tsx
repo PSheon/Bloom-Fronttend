@@ -1,13 +1,10 @@
-// ** React Imports
-import { ChangeEvent } from 'react'
-
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import Button from '@mui/material/Button'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import TextField from '@mui/material/TextField'
 import InputAdornment from '@mui/material/InputAdornment'
@@ -16,6 +13,10 @@ import FormControl from '@mui/material/FormControl'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
 
 interface TableHeaderProps {
   filteredMediaAssetName: string

@@ -1,14 +1,14 @@
 // ** React Imports
-import { SyntheticEvent, useState } from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
-import { styled } from '@mui/material/styles'
-import MuiTab, { TabProps } from '@mui/material/Tab'
+import MuiTab from '@mui/material/Tab'
 
 // ** Custom Component Imports
 import ManagementUserEditActivityLogListCard from 'src/views/management/user/edit/cards/ManagementUserEditActivityLogListCard'
@@ -19,7 +19,9 @@ import ManagementUserEditDangerZoneCard from 'src/views/management/user/edit/car
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { SyntheticEvent } from 'react'
+import type { TabProps } from '@mui/material/Tab'
+import type { UserDataType } from 'src/types/api/authTypes'
 
 // ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({

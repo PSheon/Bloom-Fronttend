@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState, SyntheticEvent, Fragment } from 'react'
+import { useState, Fragment } from 'react'
 
 // ** Next Imports
 import Image from 'next/image'
@@ -15,7 +15,7 @@ import Divider from '@mui/material/Divider'
 import MenuItem from '@mui/material/MenuItem'
 import Typography from '@mui/material/Typography'
 import Skeleton from '@mui/material/Skeleton'
-import Stack, { StackProps } from '@mui/material/Stack'
+import Stack from '@mui/material/Stack'
 
 // ** Third-Party Components
 import { useSession, signOut } from 'next-auth/react'
@@ -32,7 +32,9 @@ import { useFindMeQuery } from 'src/store/api/management/wallet'
 import { getPublicMediaAssetUrl, getFormattedEthereumAddress } from 'src/utils'
 
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
+import type { SyntheticEvent } from 'react'
+import type { StackProps } from '@mui/material/Stack'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   settings: Settings
@@ -46,6 +48,7 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
   backgroundColor: theme.palette.success.main,
   boxShadow: `0 0 0 2px ${theme.palette.background.paper}`
 }))
+
 const MenuItemStack = styled(Stack)<StackProps>(({ theme }) => ({
   padding: theme.spacing(2, 4),
   width: '100%',
@@ -70,6 +73,7 @@ const UserDropdown = (props: Props) => {
   const { openConnectModal } = useConnectModal()
   const { openAccountModal } = useAccountModal()
   const walletAccount = useAccount()
+
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
     pagination: {
@@ -86,12 +90,15 @@ const UserDropdown = (props: Props) => {
   const handleDropdownOpen = (event: SyntheticEvent) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleDropdownClose = (url?: string) => {
     if (url) {
       router.push(url)
     }
+
     setAnchorEl(null)
   }
+
   const handleLogout = () => {
     signOut({ callbackUrl: '/', redirect: false }).then(() => {
       router.asPath = '/'
@@ -105,6 +112,7 @@ const UserDropdown = (props: Props) => {
       <ConnectButton.Custom>
         {({ account, chain, openChainModal, authenticationStatus, mounted }) => {
           const ready = mounted && authenticationStatus !== 'loading'
+
           const connected =
             ready && account && chain && (!authenticationStatus || authenticationStatus === 'authenticated')
 
@@ -148,6 +156,7 @@ const UserDropdown = (props: Props) => {
       </ConnectButton.Custom>
     )
   }
+
   const renderSavedWalletListMenuItems = () => {
     if (isWalletListLoading) {
       return (
@@ -159,6 +168,7 @@ const UserDropdown = (props: Props) => {
         </MenuItem>
       )
     }
+
     if (walletAccount.status === 'connected') {
       return wallets.map(wallet => {
         const isVerified = wallet.address.toLowerCase() === walletAccount.address.toLowerCase()
@@ -182,6 +192,7 @@ const UserDropdown = (props: Props) => {
         )
       })
     }
+
     if (walletAccount.status === 'disconnected') {
       return null
     }
@@ -195,10 +206,12 @@ const UserDropdown = (props: Props) => {
       </MenuItem>
     )
   }
+
   const renderManageWalletMenuItem = () => {
     if (walletAccount.status === 'connected') {
       return null
     }
+
     if (walletAccount.status === 'disconnected') {
       return (
         <MenuItem sx={{ p: 0 }} onClick={openConnectModal}>

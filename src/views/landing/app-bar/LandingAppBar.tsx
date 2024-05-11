@@ -5,8 +5,8 @@ import { useRouter } from 'next/router'
 // ** MUI Imports
 import { styled, useTheme, lighten } from '@mui/material/styles'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
-import AppBar, { AppBarProps } from '@mui/material/AppBar'
-import Toolbar, { ToolbarProps } from '@mui/material/Toolbar'
+import AppBar from '@mui/material/AppBar'
+import Toolbar from '@mui/material/Toolbar'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
@@ -25,6 +25,10 @@ import { getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import type { AppBarProps } from '@mui/material/AppBar'
+import type { ToolbarProps } from '@mui/material/Toolbar'
 
 const StyledAppBar = styled(AppBar)<AppBarProps>(({ theme }) => ({
   transition: 'padding .25s ease-in-out',

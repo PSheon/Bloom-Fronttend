@@ -43,11 +43,11 @@ import { useUpdateOneMutation } from 'src/store/api/management/fund'
 import { getFundStatusProperties } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/api/fundTypes'
 
 const schema = yup.object().shape({
   displayName: yup.string().required(),
-  description: yup.string().nullable()
+  description: yup.string().optional()
 })
 
 interface Props {
@@ -55,7 +55,7 @@ interface Props {
 }
 interface FormData {
   displayName: string
-  description: string
+  description?: string
 }
 
 const ManagementFundEditOverviewProfileCard = (props: Props) => {
@@ -67,6 +67,7 @@ const ManagementFundEditOverviewProfileCard = (props: Props) => {
 
   // ** Hooks
   const [updateFund, { data: updatedFund = initFundEntity, isLoading: isUpdateFundLoading }] = useUpdateOneMutation()
+
   const {
     reset,
     control,
@@ -87,6 +88,7 @@ const ManagementFundEditOverviewProfileCard = (props: Props) => {
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
+
   const onSubmit = async (data: FormData) => {
     const { displayName, description } = data
 

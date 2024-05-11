@@ -1,11 +1,10 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import { SelectChangeEvent } from '@mui/material/Select'
+import { DataGrid } from '@mui/x-data-grid'
 
 // ** Third-Party Imports
 import { format } from 'date-fns'
@@ -27,7 +26,10 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { ChangeEvent } from 'react'
+import type { GridColDef } from '@mui/x-data-grid'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 interface CellType {
   row: MediaAssetType
@@ -64,6 +66,7 @@ const MediaAssetSelectorList = (props: Props) => {
   // ** Vars
   const mediaAssets = mediaAssetsData?.data || []
   const totalRows = mediaAssetsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 1,
@@ -128,6 +131,7 @@ const MediaAssetSelectorList = (props: Props) => {
   // ** renders preview column
   const renderPreview = (row: MediaAssetType) => {
     const isImage = getMediaAssetFileAttributes(row).isImage
+
     if (isImage) {
       return (
         <CustomAvatar src={getPublicMediaAssetUrl(row.formats?.thumbnail?.url)} sx={{ mr: 3, width: 34, height: 34 }} />
@@ -145,6 +149,7 @@ const MediaAssetSelectorList = (props: Props) => {
   const handleFilterMediaAssetName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredMediaAssetName(e.target.value)
   }, [])
+
   const handleFilterExtensionChange = useCallback((e: SelectChangeEvent) => {
     setFilteredExtension(e.target.value)
   }, [])
@@ -171,6 +176,7 @@ const MediaAssetSelectorList = (props: Props) => {
             if (params.length > 1) {
               params.shift()
             }
+
             handleSelect(params[0] as number)
           }}
           pageSizeOptions={[10]}

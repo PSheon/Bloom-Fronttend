@@ -24,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 import { useDeleteOneMutation } from 'src/store/api/management/blog'
 
 // ** Type Imports
-import { BlogType } from 'src/types/api/blogTypes'
+import type { BlogType } from 'src/types/api/blogTypes'
 
 interface Props {
   initBlogEntity: BlogType
@@ -44,6 +44,7 @@ const ManagementBlogEditSecurityDangerZoneCard = (props: Props) => {
   // ** Logics
   const handleOpenDeleteBlogDialog = () => setOpen(true)
   const handleCloseDeleteBlogDialog = () => setOpen(false)
+
   const handleDeleteOneBlogClick = async () => {
     await deleteOneBlog(initBlogEntity.id)
   }

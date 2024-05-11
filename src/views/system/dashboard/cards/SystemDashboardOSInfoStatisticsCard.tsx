@@ -23,7 +23,7 @@ import Icon from 'src/@core/components/icon'
 import { useTimeout } from 'src/hooks/useTimeout'
 
 // ** Type Imports
-import { RootState } from 'src/store'
+import type { RootState } from 'src/store'
 
 interface OSInfo {
   name: string
@@ -35,6 +35,7 @@ interface OSInfo {
 const SystemDashboardOSInfoStatisticsCard = () => {
   // ** States
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
+
   const [osInfoData, setOsInfoData] = useState<OSInfo>({
     name: '',
     type: '',
@@ -58,6 +59,7 @@ const SystemDashboardOSInfoStatisticsCard = () => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
+
         setOsInfoData(() => osInfo)
       })
     }

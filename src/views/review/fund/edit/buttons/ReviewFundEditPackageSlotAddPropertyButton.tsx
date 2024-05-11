@@ -29,11 +29,11 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateOneMutation } from 'src/store/api/management/package'
 
 // ** Type Imports
-import { PackageType } from 'src/types/api/packageTypes'
+import type { PackageType } from 'src/types/api/packageTypes'
 
 const schema = yup.object().shape({
   propertyType: yup.string().oneOf(['DisplayName', 'Period']).required(),
-  value: yup.string().nullable()
+  value: yup.string().required()
 })
 
 interface Props {
@@ -53,6 +53,7 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
 
   // ** Hooks
   const [updateOnePackage, { isLoading: isUpdateOnePackageLoading }] = useUpdateOneMutation()
+
   const {
     reset,
     control,
@@ -71,9 +72,11 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
   const handleEditOpen = () => {
     setOpenEdit(true)
   }
+
   const handleEditClose = () => {
     setOpenEdit(false)
   }
+
   const onSubmit = async (data: FormData) => {
     const { propertyType, value } = data
 

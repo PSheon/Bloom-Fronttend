@@ -16,7 +16,7 @@ import NotificationReadNotifierAvatarPreviewBox from 'src/views/notification/rea
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/api/notificationTypes'
 
 interface Props {
   initNotificationEntity: NotificationType

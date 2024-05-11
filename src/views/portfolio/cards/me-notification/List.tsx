@@ -11,7 +11,7 @@ import Typography from '@mui/material/Typography'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
-import MuiTimeline, { TimelineProps } from '@mui/lab/Timeline'
+import MuiTimeline from '@mui/lab/Timeline'
 
 // ** Third-Party Imports
 import format from 'date-fns/format'
@@ -26,8 +26,9 @@ import Icon from 'src/@core/components/icon'
 import { getNotificationAttributes } from 'src/utils'
 
 // ** Type Imports
-import { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
-import { NotificationType } from 'src/types/api/notificationTypes'
+import type { TimelineProps } from '@mui/lab/Timeline'
+import type { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
+import type { NotificationType } from 'src/types/api/notificationTypes'
 
 // ** Styled Timeline Component
 const Timeline = styled(MuiTimeline)<TimelineProps>({

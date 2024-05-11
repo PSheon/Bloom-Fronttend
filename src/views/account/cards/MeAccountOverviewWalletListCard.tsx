@@ -33,6 +33,7 @@ const MeAccountOverviewWalletListCard = () => {
   // ** Hooks
   const walletAccount = useAccount()
   const { signMessageAsync } = useSignMessage()
+
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
     pagination: {
@@ -40,20 +41,24 @@ const MeAccountOverviewWalletListCard = () => {
       pageSize: 5
     }
   })
+
   const { data: nonceData } = useGetNonceQuery(null)
   const [verifyWallet, { isLoading: isVerifyWalletLoading }] = useVerifyMutation()
 
   // ** Vars
   const wallets = walletsData?.data || []
+
   const isCurrentWalletVerified =
     walletAccount.status === 'connected' &&
     wallets.find(wallet => wallet.address.toLowerCase() === walletAccount.address.toLowerCase())
+
   const nonce = nonceData?.nonce
 
   // ** Logics
   const handleVerifyWallet = async () => {
     try {
       setIsVerifyWalletProcessLoading(() => true)
+
       const message = new SiweMessage({
         domain: window?.location.host,
         address: walletAccount.address!,
@@ -105,6 +110,7 @@ const MeAccountOverviewWalletListCard = () => {
                 mounted
               }) => {
                 const ready = mounted && authenticationStatus !== 'loading'
+
                 const connected =
                   ready && account && chain && (!authenticationStatus || authenticationStatus === 'authenticated')
 

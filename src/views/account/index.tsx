@@ -9,7 +9,7 @@ import MeAccountEditMetadataCard from 'src/views/account/cards/MeAccountEditMeta
 import MeAccountEditTabContext from 'src/views/account/tabs/MeAccountEditTabContext'
 
 // ** Type Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/api/authTypes'
 
 interface Props {
   initMeUserEntity: UserDataType

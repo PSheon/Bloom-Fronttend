@@ -6,7 +6,7 @@ import TabPanel from '@mui/lab/TabPanel'
 import ManagementFundEditDetailEditorCard from 'src/views/management/fund/edit/cards/ManagementFundEditDetailEditorCard'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/api/fundTypes'
 
 interface Props {
   initFundEntity: FundType

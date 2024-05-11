@@ -1,5 +1,5 @@
 // ** React Imports
-import { Ref, useState, forwardRef, ReactElement, Fragment } from 'react'
+import { useState, forwardRef, Fragment } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -8,7 +8,7 @@ import Dialog from '@mui/material/Dialog'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import Fade, { FadeProps } from '@mui/material/Fade'
+import Fade from '@mui/material/Fade'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 
@@ -17,6 +17,10 @@ import MediaAssetSelectorList from 'src/views/shared/media-asset-selector/list'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
+import type { Ref, ReactElement } from 'react'
+import type { FadeProps } from '@mui/material/Fade'
 
 const Transition = forwardRef(function Transition(
   props: FadeProps & { children?: ReactElement<any, any> },
@@ -41,9 +45,11 @@ const MediaAssetSelector = (props: Props) => {
   const handleOpen = () => {
     setShow(true)
   }
+
   const handleClose = () => {
     setShow(false)
   }
+
   const handleSelectMediaAsset = (newSelectedMediaAssetId: number) => {
     setSelectedMediaAssetId(newSelectedMediaAssetId)
   }

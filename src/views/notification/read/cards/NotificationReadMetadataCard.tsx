@@ -10,7 +10,7 @@ import Divider from '@mui/material/Divider'
 import { format } from 'date-fns'
 
 // ** Type Imports
-import { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/api/notificationTypes'
 
 interface Props {
   initNotificationEntity: NotificationType

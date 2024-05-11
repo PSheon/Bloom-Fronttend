@@ -1,14 +1,14 @@
 // ** React Imports
-import { SyntheticEvent, useState } from 'react'
+import { useState } from 'react'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import TabList from '@mui/lab/TabList'
 import TabPanel from '@mui/lab/TabPanel'
 import TabContext from '@mui/lab/TabContext'
-import { styled } from '@mui/material/styles'
-import MuiTab, { TabProps } from '@mui/material/Tab'
+import MuiTab from '@mui/material/Tab'
 
 // ** Custom Component Imports
 import ManagementBlogEditOverviewStatisticsCard from 'src/views/management/blog/edit/cards/ManagementBlogEditOverviewStatisticsCard'
@@ -21,7 +21,9 @@ import ManagementBlogEditSecurityDangerZoneCard from 'src/views/management/blog/
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { BlogType } from 'src/types/api/blogTypes'
+import type { SyntheticEvent } from 'react'
+import type { TabProps } from '@mui/material/Tab'
+import type { BlogType } from 'src/types/api/blogTypes'
 
 // ** Styled Tab component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({

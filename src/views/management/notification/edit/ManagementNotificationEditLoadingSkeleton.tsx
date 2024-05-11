@@ -9,13 +9,16 @@ import Skeleton from '@mui/material/Skeleton'
 import Divider from '@mui/material/Divider'
 import TabContext from '@mui/lab/TabContext'
 import TabList from '@mui/lab/TabList'
-import MuiTab, { TabProps } from '@mui/material/Tab'
+import MuiTab from '@mui/material/Tab'
 
 // ** Custom Component Imports
 import ManagementNotificationEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Type Imports
+import type { TabProps } from '@mui/material/Tab'
 
 // ** Styled Tab Component
 const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({

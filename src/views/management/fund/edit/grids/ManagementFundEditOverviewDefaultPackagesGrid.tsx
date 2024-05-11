@@ -8,7 +8,7 @@ import Image from 'next/image'
 import { styled, useTheme } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import Grid, { GridProps } from '@mui/material/Grid'
+import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import TextField from '@mui/material/TextField'
 import IconButton from '@mui/material/IconButton'
@@ -33,7 +33,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import Atropos from 'atropos/react'
+import { Atropos } from 'atropos/react'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -53,8 +53,9 @@ import ManagementFundEditPackageSlotAddPropertyButton from 'src/views/management
 import { getFundCurrencyProperties, getPackageStatusProperties, getFormattedPriceUnit } from 'src/utils'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
-import { PackageType, SkinType } from 'src/types/api/packageTypes'
+import type { GridProps } from '@mui/material/Grid'
+import type { FundType } from 'src/types/api/fundTypes'
+import type { PackageType, SkinType } from 'src/types/api/packageTypes'
 
 // ** Style Imports
 import 'atropos/css'
@@ -82,8 +83,8 @@ const Sup = styled('sup')(({ theme }) => ({
 }))
 
 const schema = yup.object().shape({
-  displayName: yup.string().nullable(),
-  description: yup.string().nullable(),
+  displayName: yup.string().required(),
+  description: yup.string().optional(),
   skin: yup.string().oneOf(['Green', 'Purple', 'Orange']).required(),
   priceInUnit: yup.number().required(),
   status: yup.string().oneOf(['Draft', 'Published', 'Archived']).required()
@@ -111,6 +112,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
   // ** Hooks
   const theme = useTheme()
   const [updateOnePackage, { isLoading: isUpdateOnePackageLoading }] = useUpdateOneMutation()
+
   const {
     reset,
     control,
@@ -145,6 +147,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
     })
     setOpenEdit(true)
   }
+
   const handleEditClose = () => {
     setSelectedPackageEntity(() => null)
     reset({
@@ -156,6 +159,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
     })
     setOpenEdit(false)
   }
+
   const handleRemoveProperty = async (packageId: number, propertyId: number): Promise<void> => {
     const currentPackage = defaultPackages!.find(defaultPackage => defaultPackage.id === packageId)
     const currentSlot = currentPackage?.slot
@@ -166,6 +170,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
       data: { slot: newSlot }
     })
   }
+
   const onSubmit = async (data: FormData) => {
     const { displayName, description, skin, priceInUnit, status } = data
 

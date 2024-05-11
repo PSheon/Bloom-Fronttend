@@ -1,8 +1,11 @@
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
 
 const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: theme.spacing(120),

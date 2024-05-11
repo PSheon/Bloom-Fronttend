@@ -12,8 +12,8 @@ import ThemeConfigSelectBox from 'src/views/settings/select-box/ThemeConfigSelec
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
-import { ContentWidth, AppBar } from 'src/@core/layouts/types'
+import type { Settings } from 'src/@core/context/settingsContext'
+import type { ContentWidth, AppBar } from 'src/@core/layouts/types'
 
 const SettingsLayoutSettingCard = () => {
   // ** Hooks

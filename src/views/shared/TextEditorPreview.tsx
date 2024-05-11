@@ -1,10 +1,13 @@
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Third-Party Imports
-import { OutputData } from '@editorjs/editorjs'
 import EditorPreview from 'editorjs-react-renderer'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+import type { OutputData } from '@editorjs/editorjs'
 
 // ** Styled Root Box component
 const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({

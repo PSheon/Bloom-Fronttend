@@ -15,7 +15,7 @@ import { format } from 'date-fns'
 
 // ** Custom Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** API Imports
 import { useFindMeQuery } from 'src/store/api/management/activityLog'
@@ -24,7 +24,8 @@ import { useFindMeQuery } from 'src/store/api/management/activityLog'
 import { getActivityLogStatusProperties, getActivityLogActionProperties, getActivityLogRefContentLink } from 'src/utils'
 
 // ** Type Imports
-import { ActivityLogType } from 'src/types/api/activityLogTypes'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { ActivityLogType } from 'src/types/api/activityLogTypes'
 
 interface CellType {
   row: ActivityLogType
@@ -59,6 +60,7 @@ const MeAccountOverviewActivityLogListCard = () => {
   // ** Vars
   const activityLogs = activitiesData?.data || []
   const totalRows = activitiesData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 1,

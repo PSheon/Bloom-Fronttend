@@ -47,7 +47,7 @@ import { useUpdateOneMutation } from 'src/store/api/management/blog'
 import { getBlogStatusProperties, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { BlogType } from 'src/types/api/blogTypes'
+import type { BlogType } from 'src/types/api/blogTypes'
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -81,6 +81,7 @@ const ManagementBlogEditProfileCard = (props: Props) => {
 
   // ** Hooks
   const [updateBlog, { data: updatedBlog = initBlogEntity, isLoading: isUpdateBlogLoading }] = useUpdateOneMutation()
+
   const {
     reset,
     control,
@@ -100,6 +101,7 @@ const ManagementBlogEditProfileCard = (props: Props) => {
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
+
   const onSubmit = async (data: FormData) => {
     const { displayName } = data
 

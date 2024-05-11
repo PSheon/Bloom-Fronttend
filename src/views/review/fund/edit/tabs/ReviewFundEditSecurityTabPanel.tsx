@@ -7,7 +7,7 @@ import ReviewFundEditManagersCard from 'src/views/review/fund/edit/cards/ReviewF
 import ReviewFundEditDangerZoneCard from 'src/views/review/fund/edit/cards/ReviewFundEditDangerZoneCard'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/api/fundTypes'
 
 interface Props {
   initFundEntity: FundType

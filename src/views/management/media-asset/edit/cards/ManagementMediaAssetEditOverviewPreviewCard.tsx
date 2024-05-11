@@ -1,6 +1,6 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
@@ -16,7 +16,8 @@ import Icon from 'src/@core/components/icon'
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { BoxProps } from '@mui/material/Box'
+import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 // ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({

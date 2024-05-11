@@ -24,7 +24,7 @@ import Icon from 'src/@core/components/icon'
 import { useDeleteOneMutation } from 'src/store/api/management/mediaAsset'
 
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 interface Props {
   initMediaAssetEntity: MediaAssetType
@@ -39,12 +39,14 @@ const ManagementMediaAssetEditSecurityDangerZoneCard = (props: Props) => {
 
   // ** Hooks
   const router = useRouter()
+
   const [deleteOneMediaAssets, { data: deletedOneMediaAssets, isLoading: isDeleteOneMediaAssetsLoading }] =
     useDeleteOneMutation()
 
   // ** Logics
   const handleOpenDeleteDialog = () => setDeleteDialogOpen(true)
   const handleCloseDeleteDialog = () => setDeleteDialogOpen(false)
+
   const handleDeleteOneMediaAssetClick = async () => {
     await deleteOneMediaAssets(initMediaAssetEntity.id)
   }

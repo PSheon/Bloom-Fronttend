@@ -13,7 +13,7 @@ import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -25,7 +25,8 @@ import { getUserRoleAttributes } from 'src/utils'
 import { Permissions } from 'src/configs/acl'
 
 // ** Type Imports
-import { Role } from 'src/types/api/authTypes'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { Role } from 'src/types/api/authTypes'
 
 interface CellType {
   row: {

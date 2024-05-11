@@ -23,7 +23,7 @@ import Icon from 'src/@core/components/icon'
 import { useInterval } from 'src/hooks/useInterval'
 
 // ** Type Imports
-import { RootState } from 'src/store'
+import type { RootState } from 'src/store'
 
 interface Props {
   checkInterval?: number
@@ -38,6 +38,7 @@ const SystemDashboardSystemLogSnippetCard = (props: Props) => {
 
   // ** States
   const [isInitialized, setIsInitialized] = useState<boolean>(false)
+
   const [systemLogData, setSystemLogData] = useState<SystemLog>({
     system: ''
   })
@@ -66,6 +67,7 @@ const SystemDashboardSystemLogSnippetCard = (props: Props) => {
         if (!isInitialized) {
           setIsInitialized(true)
         }
+
         setSystemLogData(() => systemLog)
       })
     }

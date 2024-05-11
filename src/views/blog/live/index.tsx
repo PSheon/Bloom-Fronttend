@@ -23,7 +23,7 @@ import Icon from 'src/@core/components/icon'
 import { getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { BlogType } from 'src/types/api/blogTypes'
+import type { BlogType } from 'src/types/api/blogTypes'
 
 const StyledLink = styled(Link)(({ theme }) => ({
   fontWeight: 500,

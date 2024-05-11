@@ -1,12 +1,9 @@
 // ** MUI Imports
+import { useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import { useTheme } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
 
 // ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
@@ -14,12 +11,16 @@ import ReactApexcharts from 'src/@core/components/react-apexcharts'
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
+// ** Type Imports
+import type { ApexOptions } from 'apexcharts'
+
 const ManagementDashboardSessionsCard = () => {
   // ** Hooks
   const theme = useTheme()
 
   // ** Vars
   const series = [{ data: [0, 20, 5, 30, 15, 45] }]
+
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

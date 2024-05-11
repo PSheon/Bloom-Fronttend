@@ -14,7 +14,7 @@ import { format } from 'date-fns'
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Custom Component Imports
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -23,9 +23,10 @@ import Icon from 'src/@core/components/icon'
 import { useFindQuery } from 'src/store/api/management/accessLog'
 
 // ** Type Imports
-import { AccessLogType } from 'src/types/api/accessLogTypes'
-import { ThemeColor } from 'src/@core/layouts/types'
-import { UserDataType } from 'src/types/api/authTypes'
+import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { AccessLogType } from 'src/types/api/accessLogTypes'
+import type { ThemeColor } from 'src/@core/layouts/types'
+import type { UserDataType } from 'src/types/api/authTypes'
 
 interface CellType {
   row: AccessLogType
@@ -54,6 +55,7 @@ const ManagementUserEditAccessLogListCard = (props: Props) => {
   // ** Vars
   const accessLogs = accessesData?.data || []
   const totalRows = accessesData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
       flex: 0.2,
@@ -123,6 +125,7 @@ const ManagementUserEditAccessLogListCard = (props: Props) => {
   // ** Renders
   const renderAccessActionText = (action: AccessLogType['action']) => {
     let actionInfo = '@ 登入'
+
     switch (action) {
       case 'ForgotPassword':
         actionInfo = '@ 忘記密碼'
@@ -147,6 +150,7 @@ const ManagementUserEditAccessLogListCard = (props: Props) => {
       </Typography>
     )
   }
+
   const renderOSIcon = (os: string) => {
     const osName = os.toLowerCase()
     let icon = 'mdi:crosshairs-unknown'
@@ -156,14 +160,17 @@ const ManagementUserEditAccessLogListCard = (props: Props) => {
       icon = 'mdi:microsoft-windows'
       color = 'primary'
     }
+
     if (osName.includes('mac')) {
       icon = 'mdi:apple-keyboard-command'
       color = 'warning'
     }
+
     if (osName.includes('android')) {
       icon = 'mdi:microsoft-windows'
       color = 'success'
     }
+
     if (osName.includes('ios')) {
       icon = 'mdi:apple-ios'
       color = 'info'

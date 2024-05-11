@@ -10,13 +10,13 @@ import CardContent from '@mui/material/CardContent'
 import CardStatisticsVertical from 'src/@core/components/card-statistics/card-stats-vertical'
 
 // ** Custom Component Imports
-import CrmAward from 'src/views/dashboards/crm/CrmAward'
+import ManagementFundPreviewAwardCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewAwardCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/api/fundTypes'
 
 interface Props {
   initFundEntity: FundType
@@ -32,7 +32,7 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
     <TabPanel sx={{ p: 0 }} value='vault'>
       <Grid container spacing={6}>
         <Grid item xs={12} md={8}>
-          <CrmAward />
+          <ManagementFundPreviewAwardCard />
         </Grid>
         <Grid item xs={6} md={2}>
           <CardStatisticsVertical

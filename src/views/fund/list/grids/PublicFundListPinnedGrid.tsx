@@ -9,7 +9,7 @@ const PublicFundListPinnedGrid = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <Typography variant='subtitle1' sx={{ fontWeight: 600 }}>
-          Discover what's newSee
+          {`Discover what's newSee`}
         </Typography>
       </Grid>
       <Grid item xs={12} md={6}>

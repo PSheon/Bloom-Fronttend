@@ -1,20 +1,20 @@
 // ** React Imports
-import { useState, SyntheticEvent, Fragment, ReactNode } from 'react'
+import { useState, Fragment } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Divider from '@mui/material/Divider'
 import Tooltip from '@mui/material/Tooltip'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { styled, Theme } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import MuiMenu, { MenuProps } from '@mui/material/Menu'
-import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem'
+import MuiMenu from '@mui/material/Menu'
+import MuiMenuItem from '@mui/material/MenuItem'
 
 // ** Third-Party Imports
 import PerfectScrollbarComponent from 'react-perfect-scrollbar'
@@ -26,7 +26,11 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
+import type { SyntheticEvent, ReactNode } from 'react'
+import type { Theme } from '@mui/material/styles'
+import type { MenuProps } from '@mui/material/Menu'
+import type { MenuItemProps } from '@mui/material/MenuItem'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 export type ShortcutsType = {
   url: string

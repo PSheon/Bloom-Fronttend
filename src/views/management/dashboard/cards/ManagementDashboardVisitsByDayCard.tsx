@@ -6,9 +6,6 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
-
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import OptionsMenu from 'src/@core/components/option-menu'
@@ -19,6 +16,9 @@ import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import type { ApexOptions } from 'apexcharts'
 
 const ManagementDashboardVisitsByDayCard = () => {
   // ** Hooks

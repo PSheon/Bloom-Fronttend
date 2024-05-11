@@ -15,7 +15,7 @@ import Typography from '@mui/material/Typography'
 import FormControl from '@mui/material/FormControl'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
-import Select, { SelectChangeEvent } from '@mui/material/Select'
+import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Skeleton from '@mui/material/Skeleton'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -37,7 +37,8 @@ import { getUserRoleAttributes } from 'src/utils'
 import { Permissions } from 'src/configs/acl'
 
 // ** Type Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { UserDataType } from 'src/types/api/authTypes'
 
 interface Props {
   initUserEntity: UserDataType
@@ -58,6 +59,7 @@ const ManagementUserEditRoleCard = (props: Props) => {
 
   // ** Vars
   const userRoleAttributes = getUserRoleAttributes(updatedUser.role!.name)
+
   const userPermissions = roles.length
     ? Permissions.filter(permission =>
         permission.assignedTo.includes(roles.find(role => role.id === selectedRoleId)!.name)
@@ -67,9 +69,11 @@ const ManagementUserEditRoleCard = (props: Props) => {
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
+
   const handleRoleSelected = async (event: SelectChangeEvent) => {
     setSelectedRoleId(() => Number(event.target.value))
   }
+
   const handleRoleChange = async () => {
     await updateUser({
       id: initUserEntity.id,

@@ -12,7 +12,7 @@ import ManagementFundPreviewSpecificationCard from 'src/views/management/fund/pr
 import ManagementFundPreviewDefaultPackageGrid from 'src/views/management/fund/preview/grids/ManagementFundPreviewDefaultPackageGrid'
 
 // ** Type Imports
-import { FundType } from 'src/types/api/fundTypes'
+import type { FundType } from 'src/types/api/fundTypes'
 
 interface Props {
   initFundEntity: FundType

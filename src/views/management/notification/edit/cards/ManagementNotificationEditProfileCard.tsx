@@ -39,7 +39,7 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateOneMutation } from 'src/store/api/management/notification'
 
 // ** Type Imports
-import { NotificationType } from 'src/types/api/notificationTypes'
+import type { NotificationType } from 'src/types/api/notificationTypes'
 
 const schema = yup.object().shape({
   title: yup.string().required()
@@ -64,6 +64,7 @@ const ManagementNotificationEditProfileCard = (props: Props) => {
     updateNotification,
     { data: updatedNotification = initNotificationEntity, isLoading: isUpdateNotificationLoading }
   ] = useUpdateOneMutation()
+
   const {
     reset,
     control,
@@ -80,6 +81,7 @@ const ManagementNotificationEditProfileCard = (props: Props) => {
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
+
   const onSubmit = async (data: FormData) => {
     const { title } = data
 

@@ -1,6 +1,6 @@
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Card, { CardProps } from '@mui/material/Card'
+import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Stack from '@mui/material/Stack'
@@ -13,7 +13,8 @@ import TextEditorPreview from 'src/views/shared/TextEditorPreview'
 import { useUpdateOneMutation } from 'src/store/api/management/notification'
 
 // ** Type Imports
-import { NotificationType } from 'src/types/api/notificationTypes'
+import type { CardProps } from '@mui/material/Card'
+import type { NotificationType } from 'src/types/api/notificationTypes'
 
 interface Props {
   initNotificationEntity: NotificationType

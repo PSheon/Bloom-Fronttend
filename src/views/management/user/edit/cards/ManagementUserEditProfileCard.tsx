@@ -3,7 +3,7 @@ import { useState } from 'react'
 
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
@@ -41,7 +41,8 @@ import { useUpdateOneMutation } from 'src/store/api/management/user'
 import { getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { BoxProps } from '@mui/material/Box'
+import type { UserDataType } from 'src/types/api/authTypes'
 
 // ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
@@ -63,6 +64,7 @@ const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
     borderRadius: 10
   }
 }))
+
 const ProfilePicture = styled('img')(({ theme }) => ({
   margin: theme.spacing(4),
   width: '100%',
@@ -75,16 +77,16 @@ const ProfilePicture = styled('img')(({ theme }) => ({
 }))
 
 const schema = yup.object().shape({
-  title: yup.string().nullable(),
-  phone: yup.string().nullable()
+  title: yup.string().optional(),
+  phone: yup.string().optional()
 })
 
 interface Props {
   initUserEntity: UserDataType
 }
 interface FormData {
-  title: string
-  phone: string
+  title?: string
+  phone?: string
 }
 
 const ManagementUserEditProfileCard = (props: Props) => {
@@ -96,6 +98,7 @@ const ManagementUserEditProfileCard = (props: Props) => {
 
   // ** Hooks
   const [updateUser, { data: updatedUser = initUserEntity, isLoading: isUpdateUserLoading }] = useUpdateOneMutation()
+
   const {
     reset,
     control,
@@ -113,6 +116,7 @@ const ManagementUserEditProfileCard = (props: Props) => {
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
+
   const onSubmit = async (data: FormData) => {
     const { title, phone } = data
 
