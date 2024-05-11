@@ -7,7 +7,7 @@ import toast from 'react-hot-toast'
 import { getSession } from 'next-auth/react'
 
 // ** API Imports
-import fundApi from 'src/store/api/management/fund'
+import { fundApi } from 'src/store/api/management/fund'
 
 // ** Type Imports
 import type {
