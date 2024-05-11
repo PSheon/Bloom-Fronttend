@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
@@ -41,12 +41,8 @@ import { getPublicMediaAssetUrl } from 'src/utils'
 // ** Type Imports
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
-import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 import type { NotificationType } from 'src/types/api/notificationTypes'
-
-interface CellType {
-  row: NotificationType
-}
 
 // ** Styled component for the link in the dataTable
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -96,20 +92,18 @@ const ManagementNotificationListPage = () => {
 
   const columns: GridColDef[] = [
     {
-      flex: 1,
-      minWidth: 60,
       field: 'id',
-      headerName: '編號',
-      renderCell: ({ row }: CellType) => (
+      minWidth: 60,
+      headerName: '# ID',
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
         <LinkStyled href={`/management/notification/edit/${row.id}`}>{`#${row.id}`}</LinkStyled>
       )
     },
     {
-      flex: 5,
-      minWidth: 150,
       field: 'title',
+      minWidth: 350,
       headerName: '標題',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
         <LinkStyled
           href={`/management/notification/edit/${row.id}`}
           sx={{ fontWeight: 600, color: 'text.primary', overflow: 'hidden', textOverflow: 'ellipsis' }}
@@ -119,32 +113,32 @@ const ManagementNotificationListPage = () => {
       )
     },
     {
-      flex: 2,
       field: 'notifier',
+      display: 'flex',
       minWidth: 250,
       headerName: '通知者',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => {
         const { username, email } = row.notifier?.data?.attributes || {}
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
             {row.notifier.data?.attributes?.avatar ? (
               <CustomAvatar
                 variant='rounded'
                 src={getPublicMediaAssetUrl(row.notifier.data.attributes.avatar.data?.attributes.url)}
-                sx={{ mr: 3, width: 34, height: 34 }}
+                sx={{ width: 34, height: 34 }}
               />
             ) : (
               <CustomAvatar
                 skin='light'
                 color='primary'
                 variant='rounded'
-                sx={{ mr: 3, fontSize: '1rem', width: 34, height: 34 }}
+                sx={{ fontSize: '1rem', width: 34, height: 34 }}
               >
                 {getInitials(row.notifier.data?.attributes.username || 'John Doe')}
               </CustomAvatar>
             )}
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Stack alignItems='flex-start' justifyContent='center'>
               <Typography
                 noWrap
                 variant='body2'
@@ -155,30 +149,30 @@ const ManagementNotificationListPage = () => {
               <Typography noWrap variant='caption'>
                 {email}
               </Typography>
-            </Box>
-          </Box>
+            </Stack>
+          </Stack>
         )
       },
-      valueGetter: ({ row }: CellType) => row.notifier?.data?.attributes.username
+      valueGetter: (data: NotificationType['notifier']) => data?.data?.attributes.username
     },
     {
-      flex: 1,
-      minWidth: 125,
       field: 'createdAt',
+      display: 'flex',
+      minWidth: 125,
       headerName: '通知日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
+        <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
           {format(new Date(row.createdAt), 'MM/dd/yyyy')}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.createdAt), 'MM/dd/yyyy')
+      valueGetter: (data: NotificationType['createdAt']) => format(new Date(data), 'MM/dd/yyyy')
     },
     {
-      flex: 1,
-      minWidth: 100,
       field: 'isSeen',
+      display: 'flex',
+      minWidth: 100,
       headerName: '閱讀狀態',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => {
         const { isSeen } = row
 
         return (
@@ -192,37 +186,36 @@ const ManagementNotificationListPage = () => {
           />
         )
       },
-      valueGetter: ({ row }: CellType) => (row.isSeen ? '已閱讀' : '未閱讀')
+      valueGetter: (data: NotificationType['isSeen']) => (data ? '已閱讀' : '未閱讀')
     },
     {
-      flex: 1,
-      minWidth: 130,
-      sortable: false,
       field: 'actions',
-      headerName: '操作',
+      display: 'flex',
+      minWidth: 130,
+      headerName: 'Actions',
+      sortable: false,
       disableColumnMenu: true,
       disableExport: true,
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => {
         const { id, isHighlighted } = row
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip title='查看'>
-              <IconButton size='small' component={Link} sx={{ mr: 0.5 }} href={`/management/notification/edit/${id}`}>
+          <Stack direction='row' spacing={0.5} alignItems='center'>
+            <Tooltip title='Edit'>
+              <IconButton size='small' component={Link} href={`/management/notification/edit/${id}`}>
                 <Icon icon='mdi:eye-outline' />
               </IconButton>
             </Tooltip>
-            <Tooltip title={isHighlighted ? '已加星號' : '未加星號'}>
+            <Tooltip title={isHighlighted ? 'Starred' : 'Star'}>
               <IconButton
                 size='small'
-                sx={{ mr: 0.5 }}
                 color={isHighlighted ? 'primary' : 'inherit'}
                 onClick={() => handleHighlightNotification(id, !isHighlighted)}
               >
                 <Icon icon={isHighlighted ? 'mdi:star' : 'mdi:star-outline'} />
               </IconButton>
             </Tooltip>
-          </Box>
+          </Stack>
         )
       }
     }

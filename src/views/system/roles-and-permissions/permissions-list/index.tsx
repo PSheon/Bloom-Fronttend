@@ -25,16 +25,14 @@ import { getUserRoleAttributes } from 'src/utils'
 import { Permissions } from 'src/configs/acl'
 
 // ** Type Imports
-import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 import type { Role } from 'src/types/api/authTypes'
 
-interface CellType {
-  row: {
-    id: string
-    displayName: string
-    assignedTo: Role[]
-    createdAt: string
-  }
+type RowType = {
+  id: string
+  displayName: string
+  assignedTo: Role[]
+  createdAt: string
 }
 
 const SystemDashboardPermissionsList = () => {
@@ -44,22 +42,22 @@ const SystemDashboardPermissionsList = () => {
   // ** vars
   const columns: GridColDef[] = [
     {
-      flex: 2,
       field: 'displayName',
-      minWidth: 240,
+      display: 'flex',
+      minWidth: 280,
       headerName: '權限名稱',
-      renderCell: ({ row }: CellType) => (
-        <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
+      renderCell: ({ row }: GridRenderCellParams<RowType>) => (
+        <Typography variant='body2' color='text.primary' sx={{ fontWeight: 600 }}>
           {row.displayName}
         </Typography>
       )
     },
     {
-      flex: 4,
-      minWidth: 280,
       field: 'assignedTo',
+      display: 'flex',
+      minWidth: 550,
       headerName: '賦予角色',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<RowType>) => {
         return row.assignedTo.map((assignee: Role, index: number) => {
           const userRoleAttributes = getUserRoleAttributes(assignee)
 
@@ -85,11 +83,11 @@ const SystemDashboardPermissionsList = () => {
       }
     },
     {
-      flex: 2,
-      minWidth: 215,
       field: 'createdAt',
+      display: 'flex',
+      minWidth: 280,
       headerName: '建立日期',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<RowType>) => (
         <Typography variant='body2'>{format(new Date(row.createdAt), 'PPpp')}</Typography>
       )
     }
@@ -105,7 +103,6 @@ const SystemDashboardPermissionsList = () => {
         pageSizeOptions={[10, 25, 50]}
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
-        sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
       />
     </Card>
   )

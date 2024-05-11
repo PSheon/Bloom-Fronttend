@@ -26,13 +26,10 @@ import { useFindQuery } from 'src/store/api/management/activityLog'
 import { getActivityLogStatusProperties, getActivityLogActionProperties, getActivityLogRefContentLink } from 'src/utils'
 
 // ** Type Imports
-import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 import type { ActivityLogType } from 'src/types/api/activityLogTypes'
 import type { UserDataType } from 'src/types/api/authTypes'
 
-interface CellType {
-  row: ActivityLogType
-}
 interface Props {
   initUserEntity: UserDataType
 }
@@ -74,11 +71,11 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
 
   const columns: GridColDef[] = [
     {
-      flex: 1,
       field: 'status',
+      display: 'flex',
       minWidth: 110,
       headerName: '狀態',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const { color, title } = getActivityLogStatusProperties(row.status)
 
         return (
@@ -94,11 +91,11 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
       }
     },
     {
-      flex: 2,
-      minWidth: 120,
       field: 'action',
+      display: 'flex',
+      minWidth: 80,
       headerName: '操作',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const { color, title } = getActivityLogActionProperties(row.action)
 
         return (
@@ -109,27 +106,26 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
       }
     },
     {
-      flex: 3,
-      minWidth: 160,
       field: 'refContentType',
+      minWidth: 200,
       headerName: '執行個體',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const link = getActivityLogRefContentLink(row)
 
         return <LinkStyled href={link}>{`${row.refContentType}#${row.id}`}</LinkStyled>
       }
     },
     {
-      flex: 3,
-      minWidth: 250,
       field: 'date',
+      display: 'flex',
+      minWidth: 250,
       headerName: '日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {format(new Date(row.date), 'PPpp')}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.date), 'PPpp')
+      valueGetter: (data: ActivityLogType['date']) => format(new Date(data), 'PPpp')
     }
   ]
 
@@ -148,7 +144,6 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         rowCount={totalRows}
-        sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
       />
     </Card>
   )

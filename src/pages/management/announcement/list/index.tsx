@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
@@ -41,12 +41,8 @@ import { getPublicMediaAssetUrl, getAnnouncementStatusProperties } from 'src/uti
 // ** Type Imports
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
-import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 import type { AnnouncementType } from 'src/types/api/announcementTypes'
-
-interface CellType {
-  row: AnnouncementType
-}
 
 // ** Styled components
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -96,20 +92,18 @@ const ManagementAnnouncementListPage = () => {
 
   const columns: GridColDef[] = [
     {
-      flex: 1,
-      minWidth: 60,
       field: 'id',
-      headerName: '編號',
-      renderCell: ({ row }: CellType) => (
+      minWidth: 60,
+      headerName: '# ID',
+      renderCell: ({ row }: GridRenderCellParams<AnnouncementType>) => (
         <LinkStyled href={`/management/announcement/edit/${row.id}`}>{`#${row.id}`}</LinkStyled>
       )
     },
     {
-      flex: 5,
-      minWidth: 150,
       field: 'displayName',
+      minWidth: 450,
       headerName: '標題',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<AnnouncementType>) => (
         <LinkStyled
           href={`/management/announcement/edit/${row.id}`}
           sx={{ fontWeight: 600, color: 'text.primary', overflow: 'hidden', textOverflow: 'ellipsis' }}
@@ -119,81 +113,71 @@ const ManagementAnnouncementListPage = () => {
       )
     },
     {
-      flex: 2,
-      minWidth: 150,
       field: 'category',
+      display: 'flex',
+      minWidth: 150,
       headerName: '分類',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<AnnouncementType>) => (
         <Typography
           noWrap
           variant='body2'
-          sx={{ fontWeight: 600, color: 'text.primary', lineHeight: '22px', letterSpacing: '.1px' }}
+          color='text.primary'
+          sx={{ fontWeight: 600, lineHeight: '22px', letterSpacing: '.1px' }}
         >
           {row.category}
         </Typography>
       )
     },
     {
-      flex: 2,
       field: 'author',
+      display: 'flex',
       minWidth: 250,
       headerName: '作者',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<AnnouncementType>) => {
         const { username, email } = row.author?.data?.attributes || {}
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
             {row.author.data?.attributes?.avatar ? (
               <CustomAvatar
                 variant='rounded'
                 src={getPublicMediaAssetUrl(row.author.data.attributes.avatar.data?.attributes.url)}
-                sx={{ mr: 3, width: 34, height: 34 }}
+                sx={{ width: 34, height: 34 }}
               />
             ) : (
               <CustomAvatar
                 skin='light'
                 color='primary'
                 variant='rounded'
-                sx={{ mr: 3, fontSize: '1rem', width: 34, height: 34 }}
+                sx={{ fontSize: '1rem', width: 34, height: 34 }}
               >
                 {getInitials(row.author.data?.attributes.username || 'John Doe')}
               </CustomAvatar>
             )}
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Stack alignItems='flex-start' justifyContent='center'>
               <Typography
                 noWrap
                 variant='body2'
-                sx={{ fontWeight: 600, color: 'text.primary', lineHeight: '22px', letterSpacing: '.1px' }}
+                color='text.secondary'
+                sx={{ fontWeight: 600, lineHeight: '22px', letterSpacing: '.1px' }}
               >
                 {username}
               </Typography>
               <Typography noWrap variant='caption'>
                 {email}
               </Typography>
-            </Box>
-          </Box>
+            </Stack>
+          </Stack>
         )
       },
-      valueGetter: ({ row }: CellType) => row.author?.data?.attributes.username
+      valueGetter: (data: AnnouncementType) => data.author?.data?.attributes.username
     },
     {
-      flex: 1,
-      minWidth: 100,
-      field: 'createdAt',
-      headerName: '公告日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          {format(new Date(row.createdAt), 'MM/dd/yyyy')}
-        </Typography>
-      ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.createdAt), 'MM/dd/yyyy')
-    },
-    {
-      flex: 1,
-      minWidth: 100,
       field: 'status',
+      display: 'flex',
+      minWidth: 100,
       headerName: '發布狀態',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<AnnouncementType>) => {
         const announcementStatusProperties = getAnnouncementStatusProperties(row.status)
 
         return (
@@ -209,34 +193,45 @@ const ManagementAnnouncementListPage = () => {
       }
     },
     {
-      flex: 1,
+      field: 'createdAt',
+      display: 'flex',
+      minWidth: 100,
+      headerName: '公告日期',
+      renderCell: ({ row }: GridRenderCellParams<AnnouncementType>) => (
+        <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
+          {format(new Date(row.createdAt), 'MM/dd/yyyy')}
+        </Typography>
+      ),
+      valueGetter: (data: AnnouncementType['createdAt']) => format(new Date(data), 'MM/dd/yyyy')
+    },
+    {
+      field: 'actions',
+      display: 'flex',
       minWidth: 100,
       sortable: false,
-      field: 'actions',
       headerName: '操作',
       disableColumnMenu: true,
       disableExport: true,
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<AnnouncementType>) => {
         const { id, isHighlighted } = row
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip title='查看'>
-              <IconButton size='small' component={Link} sx={{ mr: 0.5 }} href={`/management/announcement/edit/${id}`}>
+          <Stack direction='row' spacing={0.5} alignItems='center'>
+            <Tooltip title='Edit'>
+              <IconButton size='small' component={Link} href={`/management/announcement/edit/${id}`}>
                 <Icon icon='mdi:eye-outline' />
               </IconButton>
             </Tooltip>
-            <Tooltip title={isHighlighted ? '已加星號' : '未加星號'}>
+            <Tooltip title={isHighlighted ? 'Starred' : 'Star'}>
               <IconButton
                 size='small'
-                sx={{ mr: 0.5 }}
                 color={isHighlighted ? 'primary' : 'inherit'}
                 onClick={() => handleHighlightAnnouncement(id, !isHighlighted)}
               >
                 <Icon icon={isHighlighted ? 'mdi:star' : 'mdi:star-outline'} />
               </IconButton>
             </Tooltip>
-          </Box>
+          </Stack>
         )
       }
     }

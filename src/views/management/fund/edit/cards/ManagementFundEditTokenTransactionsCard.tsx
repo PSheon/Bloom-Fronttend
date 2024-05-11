@@ -24,12 +24,8 @@ import { useFindMeQuery } from 'src/store/api/management/activityLog'
 import { getActivityLogStatusProperties, getActivityLogActionProperties, getActivityLogRefContentLink } from 'src/utils'
 
 // ** Type Imports
-import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 import type { ActivityLogType } from 'src/types/api/activityLogTypes'
-
-interface CellType {
-  row: ActivityLogType
-}
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -63,66 +59,66 @@ const ManagementFundEditTokenTransactionsCard = () => {
 
   const columns: GridColDef[] = [
     {
-      flex: 1,
-      minWidth: 80,
       field: 'tokenId',
+      display: 'flex',
+      minWidth: 80,
       headerName: '編號',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          # {row.id}
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
+          {`# ${row.id}`}
         </Typography>
       )
     },
     {
-      flex: 1,
-      minWidth: 80,
       field: 'cover',
+      display: 'flex',
+      minWidth: 80,
       headerName: '卡面',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          # {row.id}
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
+          {`# ${row.id}`}
         </Typography>
       )
     },
     {
-      flex: 1,
-      minWidth: 80,
       field: 'package',
+      display: 'flex',
+      minWidth: 80,
       headerName: '方案',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          # {row.id}
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
+          {`# ${row.id}`}
         </Typography>
       )
     },
     {
-      flex: 1,
-      minWidth: 80,
       field: 'value',
-      headerName: '額度',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          # {row.id}
-        </Typography>
-      )
-    },
-    {
-      flex: 1,
+      display: 'flex',
       minWidth: 80,
-      field: 'ownedAddress',
-      headerName: '持有位址',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          # {row.id}
+      headerName: '額度',
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
+          {`# ${row.id}`}
         </Typography>
       )
     },
     {
-      flex: 1,
+      field: 'ownedAddress',
+      display: 'flex',
+      minWidth: 80,
+      headerName: '持有位址',
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
+          {`# ${row.id}`}
+        </Typography>
+      )
+    },
+    {
       field: 'status',
+      display: 'flex',
       minWidth: 110,
       headerName: '狀態',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const { color, title } = getActivityLogStatusProperties(row.status)
 
         return (
@@ -138,11 +134,11 @@ const ManagementFundEditTokenTransactionsCard = () => {
       }
     },
     {
-      flex: 2,
-      minWidth: 80,
       field: 'action',
+      display: 'flex',
+      minWidth: 80,
       headerName: '操作',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const { color, title } = getActivityLogActionProperties(row.action)
 
         return (
@@ -153,27 +149,26 @@ const ManagementFundEditTokenTransactionsCard = () => {
       }
     },
     {
-      flex: 3,
-      minWidth: 160,
       field: 'refContentType',
+      minWidth: 200,
       headerName: '執行個體',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const link = getActivityLogRefContentLink(row)
 
         return <LinkStyled href={link}>{`${row.refContentType}#${row.id}`}</LinkStyled>
       }
     },
     {
-      flex: 3,
-      minWidth: 250,
       field: 'date',
+      display: 'flex',
+      minWidth: 280,
       headerName: '日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {format(new Date(row.date), 'PPpp')}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.date), 'PPpp')
+      valueGetter: (data: ActivityLogType['date']) => format(new Date(data), 'PPpp')
     }
   ]
 
@@ -192,7 +187,6 @@ const ManagementFundEditTokenTransactionsCard = () => {
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         rowCount={totalRows}
-        sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
       />
     </Card>
   )

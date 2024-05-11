@@ -6,7 +6,7 @@ import Link from 'next/link'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
@@ -29,16 +29,12 @@ import { getInitials } from 'src/@core/utils/get-initials'
 import { getPublicMediaAssetUrl, getActivityLogStatusProperties, getActivityLogActionProperties } from 'src/utils'
 
 // ** Type Imports
-import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 import type { FundType } from 'src/types/api/fundTypes'
 import type { ActivityLogType } from 'src/types/api/activityLogTypes'
 
 interface Props {
   initFundEntity: FundType
-}
-
-interface CellType {
-  row: ActivityLogType
 }
 
 // ** Styled Components
@@ -79,11 +75,11 @@ const ManagementFundEditSecurityActivityLogListCard = (props: Props) => {
 
   const columns: GridColDef[] = [
     {
-      flex: 1,
       field: 'status',
+      display: 'flex',
       minWidth: 110,
       headerName: '狀態',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const { color, title } = getActivityLogStatusProperties(row.status)
 
         return (
@@ -99,11 +95,11 @@ const ManagementFundEditSecurityActivityLogListCard = (props: Props) => {
       }
     },
     {
-      flex: 2,
-      minWidth: 80,
       field: 'action',
+      display: 'flex',
+      minWidth: 120,
       headerName: '操作',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const { color, title } = getActivityLogActionProperties(row.action)
 
         return (
@@ -114,57 +110,57 @@ const ManagementFundEditSecurityActivityLogListCard = (props: Props) => {
       }
     },
     {
-      flex: 3,
-      minWidth: 160,
       field: 'user',
+      display: 'flex',
+      minWidth: 160,
       headerName: '操作人員',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const user = {
           id: row.user.data?.id,
           ...row.user.data?.attributes
         }
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
             {user?.avatar ? (
               <CustomAvatar
                 variant='rounded'
                 src={getPublicMediaAssetUrl(user.avatar?.data?.attributes.url)}
-                sx={{ mr: 3, width: 34, height: 34 }}
+                sx={{ width: 34, height: 34 }}
               />
             ) : (
               <CustomAvatar
                 skin='light'
                 color='primary'
                 variant='rounded'
-                sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}
+                sx={{ width: 34, height: 34, fontSize: '1rem' }}
               >
                 {getInitials(user.username ? user.username : 'John Doe')}
               </CustomAvatar>
             )}
-            <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+            <Stack alignItems='flex-start'>
               <LinkStyled href={`/management/user/edit/${user.id}`} sx={{ fontWeight: 600, color: 'text.primary' }}>
                 {user.username}
               </LinkStyled>
               <Typography noWrap variant='caption'>
-                {`#${user.title || '未提供'}`}
+                {`#${user.title || 'unfilled'}`}
               </Typography>
-            </Box>
-          </Box>
+            </Stack>
+          </Stack>
         )
       }
     },
     {
-      flex: 3,
-      minWidth: 250,
       field: 'date',
+      display: 'flex',
+      minWidth: 280,
       headerName: '日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {format(new Date(row.date), 'PPpp')}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.date), 'PPpp')
+      valueGetter: (data: ActivityLogType['date']) => format(new Date(data), 'PPpp')
     }
   ]
 
@@ -183,7 +179,6 @@ const ManagementFundEditSecurityActivityLogListCard = (props: Props) => {
         paginationModel={paginationModel}
         onPaginationModelChange={setPaginationModel}
         rowCount={totalRows}
-        sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
       />
     </Card>
   )

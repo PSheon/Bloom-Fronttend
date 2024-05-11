@@ -27,13 +27,10 @@ import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
 import type { ChangeEvent } from 'react'
-import type { GridColDef } from '@mui/x-data-grid'
+import type { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
 import type { SelectChangeEvent } from '@mui/material/Select'
 import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
-interface CellType {
-  row: MediaAssetType
-}
 interface Props {
   handleSelect: (newSelectedMediaAssetId: number) => void
 }
@@ -69,59 +66,62 @@ const MediaAssetSelectorList = (props: Props) => {
 
   const columns: GridColDef[] = [
     {
-      flex: 1,
       field: 'id',
-      headerName: '編號',
-      renderCell: ({ row }: CellType) => <Typography noWrap>{`#${row.id}`}</Typography>
+      display: 'flex',
+      minWidth: 60,
+      headerName: '# ID',
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => <Typography noWrap>{`#${row.id}`}</Typography>
     },
 
     {
-      flex: 1,
-      minWidth: 80,
       field: 'preview',
+      display: 'flex',
+      minWidth: 80,
       headerName: '預覽',
-      renderCell: ({ row }: CellType) => renderPreview(row)
+      disableColumnMenu: true,
+      disableExport: true,
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => renderPreview(row)
     },
     {
-      flex: 6,
-      minWidth: 280,
       field: 'name',
+      display: 'flex',
+      minWidth: 350,
       headerName: '檔案名稱',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap variant='body2' color='text.primary' sx={{ fontWeight: 600 }}>
           {row.name}
         </Typography>
       )
     },
     {
-      flex: 1,
       field: 'ext',
+      display: 'flex',
       minWidth: 80,
       headerName: '類型',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {row.ext}
         </Typography>
       )
     },
     {
-      flex: 1,
-      minWidth: 120,
       field: 'size',
+      display: 'flex',
+      minWidth: 120,
       headerName: '大小',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {getMediaAssetFileAttributes(row).formattedSize}
         </Typography>
       )
     },
     {
-      flex: 1,
-      minWidth: 200,
       field: 'createdAt',
+      display: 'flex',
+      minWidth: 280,
       headerName: '建立日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {format(new Date(row.createdAt), 'PPpp')}
         </Typography>
       )
@@ -134,11 +134,15 @@ const MediaAssetSelectorList = (props: Props) => {
 
     if (isImage) {
       return (
-        <CustomAvatar src={getPublicMediaAssetUrl(row.formats?.thumbnail?.url)} sx={{ mr: 3, width: 34, height: 34 }} />
+        <CustomAvatar
+          variant='rounded'
+          src={getPublicMediaAssetUrl(row.formats?.thumbnail?.url)}
+          sx={{ width: 34, height: 34 }}
+        />
       )
     } else {
       return (
-        <CustomAvatar skin='light' color='primary' sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}>
+        <CustomAvatar variant='rounded' skin='light' color='primary' sx={{ width: 34, height: 34, fontSize: '1rem' }}>
           {getInitials(row.ext)}
         </CustomAvatar>
       )
@@ -183,7 +187,6 @@ const MediaAssetSelectorList = (props: Props) => {
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           rowCount={totalRows}
-          sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
         />
       </Grid>
     </Grid>

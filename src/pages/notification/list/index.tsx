@@ -5,7 +5,7 @@ import { useState, useCallback } from 'react'
 import Link from 'next/link'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
@@ -37,11 +37,7 @@ import { useFindMeQuery } from 'src/store/api/management/notification'
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
 import type { NotificationType } from 'src/types/api/notificationTypes'
-import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
-
-interface CellType {
-  row: NotificationType
-}
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 
 // ** Styled components
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -82,18 +78,18 @@ const NotificationListPage = () => {
 
   const columns: GridColDef[] = [
     {
-      flex: 1,
-      maxWidth: 90,
       field: 'id',
-      headerName: '編號',
-      renderCell: ({ row }: CellType) => <LinkStyled href={`/notification/read/${row.id}`}>{`#${row.id}`}</LinkStyled>
+      maxWidth: 60,
+      headerName: '# ID',
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
+        <LinkStyled href={`/notification/read/${row.id}`}>{`#${row.id}`}</LinkStyled>
+      )
     },
     {
-      flex: 2,
-      minWidth: 150,
       field: 'title',
+      minWidth: 350,
       headerName: '標題',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
         <LinkStyled
           href={`/notification/read/${row.id}`}
           sx={{ fontWeight: 600, color: 'text.primary', overflow: 'hidden', textOverflow: 'ellipsis' }}
@@ -103,23 +99,23 @@ const NotificationListPage = () => {
       )
     },
     {
-      flex: 1,
-      minWidth: 125,
       field: 'createdAt',
+      display: 'flex',
+      minWidth: 125,
       headerName: '通知日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
+        <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
           {format(new Date(row.createdAt), 'MM/dd/yyyy')}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.createdAt), 'MM/dd/yyyy')
+      valueGetter: (data: NotificationType['createdAt']) => format(new Date(data), 'MM/dd/yyyy')
     },
     {
-      flex: 1,
-      minWidth: 120,
       field: 'isSeen',
+      display: 'flex',
+      minWidth: 120,
       headerName: '閱讀狀態',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
         <CustomChip
           skin='light'
           size='small'
@@ -129,24 +125,24 @@ const NotificationListPage = () => {
           sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
         />
       ),
-      valueGetter: ({ row }: CellType) => (row.isSeen ? '已閱讀' : '未閱讀')
+      valueGetter: (data: NotificationType['isSeen']) => (data ? '已閱讀' : '未閱讀')
     },
     {
-      flex: 1,
-      minWidth: 130,
-      sortable: false,
       field: 'actions',
+      display: 'flex',
+      minWidth: 130,
       headerName: '操作',
+      sortable: false,
       disableColumnMenu: true,
       disableExport: true,
-      renderCell: ({ row }: CellType) => (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
-          <Tooltip title='查看'>
-            <IconButton size='small' component={Link} sx={{ mr: 0.5 }} href={`/notification/read/${row.id}`}>
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
+        <Stack direction='row' spacing={0.5} alignItems='center'>
+          <Tooltip title='Edit'>
+            <IconButton size='small' component={Link} href={`/notification/read/${row.id}`}>
               <Icon icon='mdi:eye-outline' />
             </IconButton>
           </Tooltip>
-        </Box>
+        </Stack>
       )
     }
   ]

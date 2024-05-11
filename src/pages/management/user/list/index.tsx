@@ -5,11 +5,12 @@ import { useState, useCallback } from 'react'
 import Link from 'next/link'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
+import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
 import Grid from '@mui/material/Grid'
-import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 
@@ -38,12 +39,8 @@ import { getPublicMediaAssetUrl, getUserRoleAttributes } from 'src/utils'
 // ** Type Imports
 import type { ChangeEvent } from 'react'
 import type { SelectChangeEvent } from '@mui/material/Select'
-import type { GridColDef } from 'src/views/shared/wrapped-data-grid'
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 import type { UserDataType } from 'src/types/api/authTypes'
-
-interface CellType {
-  row: UserDataType
-}
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -110,57 +107,55 @@ const ManagementUserListPage = () => {
 
   const columns: GridColDef[] = [
     {
-      flex: 1,
-      minWidth: 60,
       field: 'id',
-      headerName: '編號',
-      renderCell: ({ row }: CellType) => (
+      minWidth: 60,
+      headerName: '# ID',
+      renderCell: ({ row }: GridRenderCellParams<UserDataType>) => (
         <LinkStyled href={`/management/user/edit/${row.id}`}>{`#${row.id}`}</LinkStyled>
       )
     },
     {
-      flex: 2,
-      minWidth: 150,
       field: 'username',
-      headerName: '使用者',
-      renderCell: ({ row }: CellType) => (
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+      display: 'flex',
+      minWidth: 200,
+      headerName: 'User',
+      renderCell: ({ row }: GridRenderCellParams<UserDataType>) => (
+        <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
           {row?.avatar ? (
             <CustomAvatar
               variant='rounded'
               src={getPublicMediaAssetUrl(row.avatar.url)}
-              sx={{ mr: 3, width: 34, height: 34 }}
+              sx={{ width: 34, height: 34 }}
             />
           ) : (
             <CustomAvatar
               skin='light'
               color='primary'
               variant='rounded'
-              sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}
+              sx={{ width: 34, height: 34, fontSize: '1rem' }}
             >
               {getInitials(row.username ? row.username : 'John Doe')}
             </CustomAvatar>
           )}
-          <Box sx={{ display: 'flex', alignItems: 'flex-start', flexDirection: 'column' }}>
+          <Stack alignItems='flex-start' justifyContent='center'>
             <LinkStyled href={`/management/user/edit/${row.id}`} sx={{ fontWeight: 600, color: 'text.primary' }}>
               {row.username}
             </LinkStyled>
             <Typography noWrap variant='caption'>
-              {`#${row.title || '未提供'}`}
+              {`#${row.title || 'unfilled'}`}
             </Typography>
-          </Box>
-        </Box>
-      ),
-      valueGetter: ({ row }: CellType) => row.username
+          </Stack>
+        </Stack>
+      )
     },
     {
-      flex: 2,
-      minWidth: 280,
       field: 'email',
-      headerName: '信箱',
-      renderCell: ({ row }: CellType) => (
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Tooltip title={row.confirmed ? '已驗證' : '未驗證'}>
+      display: 'flex',
+      minWidth: 280,
+      headerName: 'Email',
+      renderCell: ({ row }: GridRenderCellParams<UserDataType>) => (
+        <Stack direction='row' spacing={2} alignItems='center'>
+          <Tooltip title={row.confirmed ? 'verified' : 'unverified'}>
             <ConfirmedStatusStyledBox
               sx={{
                 backgroundColor: theme => (row.confirmed ? theme.palette.success.main : theme.palette.warning.main),
@@ -171,92 +166,92 @@ const ManagementUserListPage = () => {
           <Typography noWrap variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }}>
             {row.email}
           </Typography>
-        </Box>
+        </Stack>
       )
     },
     {
-      flex: 2,
-      minWidth: 140,
       field: 'phone',
-      headerName: '電話',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          {row.phone || '未提供'}
+      display: 'flex',
+      minWidth: 140,
+      headerName: 'Phone',
+      renderCell: ({ row }: GridRenderCellParams<UserDataType>) => (
+        <Typography noWrap variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
+          {row?.phone || 'Unfilled'}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => row.phone || '未提供'
+      valueGetter: (data: UserDataType) => data?.phone || 'Unfilled'
     },
     {
-      flex: 2,
       field: 'role',
-      minWidth: 120,
-      headerName: '角色權限',
-      renderCell: ({ row }: CellType) => {
+      display: 'flex',
+      minWidth: 180,
+      headerName: 'Role',
+      renderCell: ({ row }: GridRenderCellParams<UserDataType>) => {
         const userRoleAttributes = getUserRoleAttributes(row.role!.name)
 
         return (
-          <Box
+          <Stack
+            direction='row'
+            spacing={3}
+            alignItems='center'
             sx={{
-              display: 'flex',
-              alignItems: 'center',
-              '& svg': { mr: 3, color: `${userRoleAttributes.color}.main` }
+              '& svg': { color: `${userRoleAttributes.color}.main` }
             }}
           >
             <Icon icon={userRoleAttributes.icon} fontSize={20} />
             <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
               {userRoleAttributes.displayName}
             </Typography>
-          </Box>
+          </Stack>
         )
       },
-      valueGetter: ({ row }: CellType) => row.role!.name
+      valueGetter: (data: UserDataType['role']) => data?.name || 'Unknown Role'
     },
     {
-      flex: 1,
-      minWidth: 110,
       field: 'blocked',
-      headerName: '狀態',
-      renderCell: ({ row }: CellType) => (
+      display: 'flex',
+      minWidth: 110,
+      headerName: 'Status',
+      renderCell: ({ row }: GridRenderCellParams<UserDataType>) => (
         <CustomChip
           skin='light'
           size='small'
           rounded
-          label={row.blocked ? '已封鎖' : '已開通'}
+          label={row.blocked ? 'Blocked' : 'Enabled'}
           color={row.blocked ? 'error' : 'success'}
           sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
         />
       ),
-      valueGetter: ({ row }: CellType) => (row.blocked ? '已封鎖' : '已開通')
+      valueGetter: (data: UserDataType) => (data.blocked ? 'Blocked' : 'Enabled')
     },
     {
-      flex: 1,
-      minWidth: 130,
-      sortable: false,
       field: 'actions',
-      headerName: '操作',
+      display: 'flex',
+      minWidth: 130,
+      headerName: 'Actions',
+      sortable: false,
       disableColumnMenu: true,
       disableExport: true,
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<UserDataType>) => {
         const { id, isHighlighted } = row
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip title='查看'>
-              <IconButton size='small' component={Link} sx={{ mr: 0.5 }} href={`/management/user/edit/${id}`}>
+          <Stack direction='row' spacing={0.5} alignItems='center'>
+            <Tooltip title='Edit'>
+              <IconButton size='small' component={Link} href={`/management/user/edit/${id}`}>
                 <Icon icon='mdi:eye-outline' />
               </IconButton>
             </Tooltip>
-            <Tooltip title={isHighlighted ? '已加星號' : '未加星號'}>
+            <Tooltip title={isHighlighted ? 'Starred' : 'Star'}>
               <IconButton
                 size='small'
-                sx={{ mr: 0.5 }}
                 color={isHighlighted ? 'primary' : 'inherit'}
                 onClick={() => handleHighlightUser(id, !isHighlighted)}
               >
                 <Icon icon={isHighlighted ? 'mdi:star' : 'mdi:star-outline'} />
               </IconButton>
             </Tooltip>
-          </Box>
+          </Stack>
         )
       }
     }
@@ -317,7 +312,6 @@ const ManagementUserListPage = () => {
             paginationModel={paginationModel}
             onPaginationModelChange={setPaginationModel}
             rowCount={totalRows}
-            sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
           />
         </Card>
       </Grid>
