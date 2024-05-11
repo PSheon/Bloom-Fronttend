@@ -38,6 +38,9 @@ export const store = configureStore({
     [statisticApi.reducerPath]: statisticApi.reducer,
     [authApi.reducerPath]: authApi.reducer
   },
+
+  // ** NOTE: Fix here later
+  // @ts-ignore
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false
