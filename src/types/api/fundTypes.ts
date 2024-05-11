@@ -1,9 +1,7 @@
-// ** Third-Party Components
-import { OutputData } from '@editorjs/editorjs'
-
 // ** Type Imports
-import { BaseApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
-import { PackageType } from 'src/types/api/packageTypes'
+import type { OutputData } from '@editorjs/editorjs'
+import type { BaseApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
+import type { PackageType } from 'src/types/api/packageTypes'
 
 export type CategoryType =
   | 'Health and Medical'

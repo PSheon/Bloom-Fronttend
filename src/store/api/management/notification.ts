@@ -6,7 +6,7 @@ import qs from 'qs'
 import { getSession } from 'next-auth/react'
 
 // ** Type Imports
-import {
+import type {
   FindMeOneNotificationParamsType,
   FindMeOneNotificationTransformResponseType,
   FindMeOneNotificationResponseType,
@@ -31,12 +31,14 @@ import {
 } from 'src/types/api/notificationTypes'
 
 const NOTIFICATION_API_REDUCER_KEY = 'notificationApi'
+
 export const notificationApi = createApi({
   reducerPath: NOTIFICATION_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
     prepareHeaders: async headers => {
       const session = await getSession()
+
       headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers

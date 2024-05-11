@@ -1,6 +1,6 @@
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
-import { UserDataType } from 'src/types/api/authTypes'
+import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { UserDataType } from 'src/types/api/authTypes'
 
 export type BaseApiResponseType<T> = {
   data: T

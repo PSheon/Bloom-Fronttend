@@ -10,7 +10,7 @@ import { getSession } from 'next-auth/react'
 import fundApi from 'src/store/api/management/fund'
 
 // ** Type Imports
-import {
+import type {
   FindOnePackageParamsType,
   FindOnePackageTransformResponseType,
   FindOnePackageResponseType,
@@ -29,12 +29,14 @@ import {
 } from 'src/types/api/packageTypes'
 
 const PACKAGE_API_REDUCER_KEY = 'packageApi'
+
 export const packageApi = createApi({
   reducerPath: PACKAGE_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
     prepareHeaders: async headers => {
       const session = await getSession()
+
       headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers

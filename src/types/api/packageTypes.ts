@@ -1,5 +1,5 @@
 // ** Type Imports
-import { BaseApiResponseType } from 'src/types/api/baseApiTypes'
+import type { BaseApiResponseType } from 'src/types/api/baseApiTypes'
 
 export type SkinType = 'Green' | 'Purple' | 'Orange'
 export type PackageType = {

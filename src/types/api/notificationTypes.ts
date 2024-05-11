@@ -1,8 +1,6 @@
-// ** Third-Party Imports
-import { OutputData } from '@editorjs/editorjs'
-
 // ** Type Imports
-import { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
+import type { OutputData } from '@editorjs/editorjs'
+import type { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
 
 export type NotificationType = {
   id: number

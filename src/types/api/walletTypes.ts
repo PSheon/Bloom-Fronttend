@@ -1,5 +1,5 @@
 // ** Type Imports
-import { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
+import type { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
 
 export type WalletType = {
   id: number

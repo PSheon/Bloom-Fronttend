@@ -1,8 +1,6 @@
-// ** Third-Party Imports
-import { OutputData } from '@editorjs/editorjs'
-
 // ** Type Imports
-import { BaseApiResponseType, UserApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
+import type { OutputData } from '@editorjs/editorjs'
+import type { BaseApiResponseType, UserApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
 
 type categoryType = 'Engineering' | 'Community' | 'Company News' | 'Customer Stories' | 'Changelog' | 'Press'
 export type AnnouncementType = {

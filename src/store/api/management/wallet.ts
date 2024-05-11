@@ -6,7 +6,7 @@ import qs from 'qs'
 import { getSession } from 'next-auth/react'
 
 // ** Type Imports
-import {
+import type {
   FindMeWalletsParamsType,
   FindMeWalletsTransformResponseType,
   FindMeWalletsResponseType,
@@ -28,12 +28,14 @@ import {
 } from 'src/types/api/walletTypes'
 
 const WALLET_API_REDUCER_KEY = 'walletApi'
+
 export const walletApi = createApi({
   reducerPath: WALLET_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
     prepareHeaders: async headers => {
       const session = await getSession()
+
       headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers

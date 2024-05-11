@@ -1,8 +1,8 @@
 // ** Context Imports
-import { UserDataType } from 'src/types/api/authTypes'
+import type { UserDataType } from 'src/types/api/authTypes'
 
 // ** Type Imports
-import { BaseApiResponseType } from 'src/types/api/baseApiTypes'
+import type { BaseApiResponseType } from 'src/types/api/baseApiTypes'
 
 // ** Find Me One
 export type FindMeOneUserParamsType = null

@@ -1,5 +1,5 @@
 // ** Type Imports
-import { Role } from 'src/types/api/authTypes'
+import type { Role } from 'src/types/api/authTypes'
 
 export type RoleType = {
   id: number

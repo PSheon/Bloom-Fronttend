@@ -6,7 +6,7 @@ import qs from 'qs'
 import { getSession } from 'next-auth/react'
 
 // ** Type Imports
-import {
+import type {
   FindMeOneReviewParamsType,
   FindMeOneReviewTransformResponseType,
   FindMeOneReviewResponseType,
@@ -37,12 +37,14 @@ import {
 } from 'src/types/api/reviewTypes'
 
 const REVIEW_API_REDUCER_KEY = 'reviewApi'
+
 export const reviewApi = createApi({
   reducerPath: REVIEW_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
     prepareHeaders: async headers => {
       const session = await getSession()
+
       headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers

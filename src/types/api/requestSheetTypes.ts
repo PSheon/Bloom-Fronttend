@@ -1,6 +1,6 @@
 // ** Type Imports
-import { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
+import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 export type TabIndex = 'details' | 'initialReview' | 'secondaryReview'
 export type RequestSheetType = {
