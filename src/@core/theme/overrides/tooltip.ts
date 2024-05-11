@@ -2,7 +2,7 @@
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 // ** Type Imports
-import { OwnerStateThemeType } from './'
+import type { OwnerStateThemeType } from './'
 
 const Tooltip = () => {
   return {

@@ -3,10 +3,11 @@ import { Fragment, useEffect } from 'react'
 
 // ** MUI Imports
 import Backdrop from '@mui/material/Backdrop'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Type Imports
-import { SidebarType } from './type'
+import type { BoxProps } from '@mui/material/Box'
+import type { SidebarType } from './type'
 
 const Sidebar = (props: BoxProps & SidebarType) => {
   // ** Props
@@ -24,6 +25,7 @@ const Sidebar = (props: BoxProps & SidebarType) => {
     if (show && onOpen) {
       onOpen()
     }
+
     if (show === false && onClose) {
       onClose()
     }

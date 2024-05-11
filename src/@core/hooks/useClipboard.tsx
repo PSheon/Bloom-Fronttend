@@ -1,8 +1,11 @@
 // ** React Imports
-import { RefObject, useCallback, useRef } from 'react'
+import { useCallback, useRef } from 'react'
 
 // ** Third-Party Imports
 import copy from 'clipboard-copy'
+
+// ** Type Imports
+import type { RefObject } from 'react'
 
 interface UseClipboardOptions {
   copiedTimeout?: number
@@ -28,6 +31,7 @@ const useClipboard = (options: UseClipboardOptions = {}): ClipboardAPI => {
     if (options.onSuccess) {
       options.onSuccess()
     }
+
     if (options.selectOnCopy && isInputLike(targetRef.current)) {
       targetRef.current.select()
     }
@@ -37,7 +41,9 @@ const useClipboard = (options: UseClipboardOptions = {}): ClipboardAPI => {
     if (options.onError) {
       options.onError()
     }
+
     const selectOnError = options.selectOnError !== false
+
     if (selectOnError && isInputLike(targetRef.current)) {
       targetRef.current.select()
     }

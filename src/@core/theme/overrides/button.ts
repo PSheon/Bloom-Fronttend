@@ -5,7 +5,7 @@ import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Type Imports
-import { OwnerStateThemeType } from './'
+import type { OwnerStateThemeType } from './'
 
 const Button = () => {
   return {

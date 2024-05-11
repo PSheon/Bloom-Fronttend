@@ -1,6 +1,3 @@
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** MUI Imports
 import CssBaseline from '@mui/material/CssBaseline'
 import GlobalStyles from '@mui/material/GlobalStyles'
@@ -14,7 +11,8 @@ import themeOptions from './ThemeOptions'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
+import type { ReactNode } from 'react'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 // ** Style Imports
 import GlobalStyling from './globalStyles'

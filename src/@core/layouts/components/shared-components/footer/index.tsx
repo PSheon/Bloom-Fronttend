@@ -6,7 +6,7 @@ import { useTheme } from '@mui/material/styles'
 import FooterContent from './FooterContent'
 
 // ** Type Imports
-import { LayoutProps } from 'src/@core/layouts/types'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   settings: LayoutProps['settings']

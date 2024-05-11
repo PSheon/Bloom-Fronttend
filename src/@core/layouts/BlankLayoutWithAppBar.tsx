@@ -1,12 +1,13 @@
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Custom Component Imports
 import AppBar from 'src/@core/layouts/components/blank-layout-with-appBar'
 
 // ** Type Imports
-import { BlankLayoutWithAppBarProps } from './types'
+import type { BoxProps } from '@mui/material/Box'
+import type { BlankLayoutWithAppBarProps } from './types'
 
 // ** Styled component for Blank Layout with AppBar component
 const BlankLayoutWithAppBarWrapper = styled(Box)<BoxProps>(({ theme }) => ({

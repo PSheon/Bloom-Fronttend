@@ -1,5 +1,5 @@
 // ** Type Imports
-import { PaymentTypes } from './types'
+import type { PaymentTypes } from './types'
 
 /**
  ** Format and return date in Humanize format

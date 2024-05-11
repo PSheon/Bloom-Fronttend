@@ -1,5 +1,5 @@
 // ** React Imports
-import { ElementType, Fragment } from 'react'
+import { Fragment } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -12,7 +12,7 @@ import List from '@mui/material/List'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import MuiListItem, { ListItemProps } from '@mui/material/ListItem'
+import MuiListItem from '@mui/material/ListItem'
 
 // ** Third-Party Imports
 import clsx from 'clsx'
@@ -30,8 +30,10 @@ import { handleURLQueries } from 'src/@core/layouts/utils'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Type Imports
-import { NavLink } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
+import type { ElementType } from 'react'
+import type { ListItemProps } from '@mui/material/ListItem'
+import type { NavLink } from 'src/@core/layouts/types'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   item: NavLink

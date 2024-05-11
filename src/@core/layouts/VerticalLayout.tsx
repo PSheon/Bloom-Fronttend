@@ -4,7 +4,7 @@ import { useState } from 'react'
 // ** MUI Imports
 import Fab from '@mui/material/Fab'
 import { styled } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Core Component Imports
 import Customizer from 'src/@core/components/customizer'
@@ -22,7 +22,8 @@ import Icon from 'src/@core/components/icon'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Type Imports
-import { LayoutProps } from 'src/@core/layouts/types'
+import type { BoxProps } from '@mui/material/Box'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 const VerticalLayoutWrapper = styled('div')({
   height: '100%',

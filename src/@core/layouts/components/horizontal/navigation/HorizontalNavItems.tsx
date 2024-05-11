@@ -3,12 +3,13 @@ import HorizontalNavLink from './HorizontalNavLink'
 import HorizontalNavGroup from './HorizontalNavGroup'
 
 // ** Type Imports
-import { NavLink, NavGroup, HorizontalNavItemsType } from 'src/@core/layouts/types'
+import type { NavLink, NavGroup, HorizontalNavItemsType } from 'src/@core/layouts/types'
 
 interface Props {
   hasParent?: boolean
   horizontalNavItems?: HorizontalNavItemsType
 }
+
 const resolveComponent = (item: NavGroup | NavLink) => {
   if ((item as NavGroup).children) return HorizontalNavGroup
 

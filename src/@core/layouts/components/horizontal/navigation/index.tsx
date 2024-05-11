@@ -8,7 +8,7 @@ import HorizontalNavItems from './HorizontalNavItems'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Type Imports
-import { LayoutProps } from 'src/@core/layouts/types'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   settings: LayoutProps['settings']

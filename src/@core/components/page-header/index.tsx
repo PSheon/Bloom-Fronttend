@@ -2,7 +2,7 @@
 import Grid from '@mui/material/Grid'
 
 // ** Type Imports
-import { PageHeaderProps } from './types'
+import type { PageHeaderProps } from './types'
 
 const PageHeader = (props: PageHeaderProps) => {
   // ** Props

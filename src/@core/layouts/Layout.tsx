@@ -6,7 +6,7 @@ import VerticalLayout from './VerticalLayout'
 import HorizontalLayout from './HorizontalLayout'
 
 // ** Type Imports
-import { LayoutProps } from 'src/@core/layouts/types'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 const Layout = (props: LayoutProps) => {
   // ** Props

@@ -1,5 +1,5 @@
 // ** React Imports
-import { MouseEvent, useState, ReactNode } from 'react'
+import { useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -18,7 +18,8 @@ import Icon from 'src/@core/components/icon'
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Type Imports
-import { OptionType, OptionsMenuType, OptionMenuItemType } from './types'
+import type { MouseEvent, ReactNode } from 'react'
+import type { OptionType, OptionsMenuType, OptionMenuItemType } from './types'
 
 const MenuItemWrapper = ({ children, option }: { children: ReactNode; option: OptionMenuItemType }) => {
   if (option.href) {

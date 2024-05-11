@@ -1,5 +1,5 @@
 // ** React Imports
-import { SyntheticEvent, useState, useEffect, Fragment } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 
 // ** Next Imports
 import { useRouter } from 'next/router'
@@ -14,7 +14,7 @@ import Typography from '@mui/material/Typography'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import { styled, useTheme } from '@mui/material/styles'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
-import MuiListItem, { ListItemProps } from '@mui/material/ListItem'
+import MuiListItem from '@mui/material/ListItem'
 
 // ** Third-Party Imports
 import clsx from 'clsx'
@@ -37,8 +37,10 @@ import { hasActiveChild } from 'src/@core/layouts/utils'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Type Imports
-import { NavGroup } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
+import type { ListItemProps } from '@mui/material/ListItem'
+import type { SyntheticEvent } from 'react'
+import type { NavGroup } from 'src/@core/layouts/types'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   item: NavGroup
@@ -160,6 +162,7 @@ const HorizontalNavGroup = (props: Props) => {
         if (attributes.popper['data-popper-placement'] === 'right-start') {
           return 'left'
         }
+
         if (attributes.popper['data-popper-placement'] === 'left-start') {
           return 'right'
         }
@@ -167,6 +170,7 @@ const HorizontalNavGroup = (props: Props) => {
         if (attributes.popper['data-popper-placement'] === 'right-start') {
           return 'right'
         }
+
         if (attributes.popper['data-popper-placement'] === 'left-start') {
           return 'left'
         }

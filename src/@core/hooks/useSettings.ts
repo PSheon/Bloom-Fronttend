@@ -2,6 +2,9 @@
 import { useContext } from 'react'
 
 // ** Context Imports
-import { SettingsContext, SettingsContextValue } from 'src/@core/context/settingsContext'
+import { SettingsContext } from 'src/@core/context/settingsContext'
+
+// ** Type Imports
+import type { SettingsContextValue } from 'src/@core/context/settingsContext'
 
 export const useSettings = (): SettingsContextValue => useContext(SettingsContext)

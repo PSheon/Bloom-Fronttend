@@ -1,5 +1,5 @@
 // ** React Imports
-import { ReactNode, useEffect } from 'react'
+import { useEffect } from 'react'
 
 // ** Context Imports
 import { AbilityContext } from 'src/layouts/components/acl/Can'
@@ -24,6 +24,7 @@ import getHomeRoute from 'src/layouts/components/acl/getHomeRoute'
 import { buildAbilityFor } from 'src/configs/acl'
 
 // ** Type Imports
+import type { ReactNode } from 'react'
 import type { ACLObj, AppAbility } from 'src/configs/acl'
 
 /* NOTE: update Spinner component */
@@ -50,6 +51,7 @@ const AclGuard = (props: AclGuardProps) => {
   useEffect(() => {
     if (auth.user && auth.user.role && !guestGuard && router.route === '/') {
       const homeRoute = getHomeRoute(auth.user.role.name)
+
       router.replace(homeRoute)
     }
   }, [auth.user, guestGuard, router])
@@ -57,6 +59,7 @@ const AclGuard = (props: AclGuardProps) => {
   // User is logged in, build ability for the user based on his role
   if (auth.user && !ability) {
     ability = buildAbilityFor(auth.user.role!.name, aclAbilities.subject)
+
     if (router.route === '/') {
       return <Spinner />
     }

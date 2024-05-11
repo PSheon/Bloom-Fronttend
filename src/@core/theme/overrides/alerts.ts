@@ -5,8 +5,8 @@ import { lighten, darken } from '@mui/material/styles'
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
 // ** Type Imports
-import { OwnerStateThemeType } from './'
-import { Mode } from 'src/@core/layouts/types'
+import type { OwnerStateThemeType } from './'
+import type { Mode } from 'src/@core/layouts/types'
 
 const Alert = (mode: Mode) => {
   // ** Logics

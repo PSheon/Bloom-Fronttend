@@ -2,7 +2,7 @@
 import { useSettings } from 'src/@core/hooks/useSettings'
 
 // ** Type Imports
-import { OwnerStateThemeType } from './'
+import type { OwnerStateThemeType } from './'
 
 const Accordion = () => {
   // ** Hooks

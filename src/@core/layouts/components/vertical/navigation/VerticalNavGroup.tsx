@@ -5,12 +5,12 @@ import { useEffect, Fragment } from 'react'
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Chip from '@mui/material/Chip'
 import Collapse from '@mui/material/Collapse'
 import ListItem from '@mui/material/ListItem'
-import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemButton from '@mui/material/ListItemButton'
 
@@ -33,7 +33,8 @@ import { hasActiveChild, removeChildren } from 'src/@core/layouts/utils'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Type Imports
-import { NavGroup, LayoutProps } from 'src/@core/layouts/types'
+import type { BoxProps } from '@mui/material/Box'
+import type { NavGroup, LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   item: NavGroup
@@ -123,18 +124,21 @@ const VerticalNavGroup = (props: Props) => {
         openGroup.push(item.title)
       }
     }
+
     setGroupActive([...openGroup])
   }
 
   // ** Menu Group Click
   const handleGroupClick = () => {
     const openGroup = groupActive
+
     if (verticalNavToggleType === 'collapse') {
       if (openGroup.includes(item.title)) {
         openGroup.splice(openGroup.indexOf(item.title), 1)
       } else {
         openGroup.push(item.title)
       }
+
       setGroupActive([...openGroup])
     } else {
       toggleActiveGroup(item, parent)
@@ -146,8 +150,10 @@ const VerticalNavGroup = (props: Props) => {
       if (!groupActive.includes(item.title)) groupActive.push(item.title)
     } else {
       const index = groupActive.indexOf(item.title)
+
       if (index > -1) groupActive.splice(index, 1)
     }
+
     setGroupActive([...groupActive])
     setCurrentActiveGroup([...groupActive])
 

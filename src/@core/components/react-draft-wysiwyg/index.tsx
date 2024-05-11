@@ -5,7 +5,7 @@ import dynamic from 'next/dynamic'
 import { ContentBlock } from 'draft-js'
 
 // ** Type Imports
-import { EditorProps } from 'react-draft-wysiwyg'
+import type { EditorProps } from 'react-draft-wysiwyg'
 
 export const initContentBlocks = {
   blocks: [

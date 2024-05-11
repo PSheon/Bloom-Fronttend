@@ -1,9 +1,7 @@
-// ** MUI Imports
-import { Theme } from '@mui/material/styles'
-import { ComponentsPropsList } from '@mui/material'
-
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
+import type { Theme } from '@mui/material/styles'
+import type { ComponentsPropsList } from '@mui/material'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 export type OwnerStateThemeType = {
   theme: Theme
