@@ -112,7 +112,7 @@
     "@iconify/utils": "^2.1.5",
     "@types/cleave.js": "^1.4.7",
     "@types/draft-js": "^0.11.10",
-    "@types/node": "^18.15.3",
+    "@types/node": "^20.12.8",
     "@types/nprogress": "^0.2.0",
     "@types/payment": "^2.1.4",
     "@types/prismjs": "^1.26.0",
