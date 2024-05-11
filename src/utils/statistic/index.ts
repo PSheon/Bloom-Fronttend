@@ -1,6 +1,6 @@
 // ** Type Imports
-import { RequestSheetType } from 'src/types/api/requestSheetTypes'
-import { StatisticType } from 'src/types/api/statisticTypes'
+import type { RequestSheetType } from 'src/types/api/requestSheetTypes'
+import type { StatisticType } from 'src/types/api/statisticTypes'
 
 export const getStatisticProcessStatusValue = (
   statisticEntity: StatisticType,

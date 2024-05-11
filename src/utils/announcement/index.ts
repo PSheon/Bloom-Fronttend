@@ -1,5 +1,5 @@
 // ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 interface AnnouncementStatusAttributeType {
   [key: string]: {

@@ -1,6 +1,6 @@
 // ** Type Imports
-import { ThemeColor } from 'src/@core/layouts/types'
-import { ActivityLogType } from 'src/types/api/activityLogTypes'
+import type { ThemeColor } from 'src/@core/layouts/types'
+import type { ActivityLogType } from 'src/types/api/activityLogTypes'
 
 interface ActivityLogStatusAttributes {
   [key: string]: {
