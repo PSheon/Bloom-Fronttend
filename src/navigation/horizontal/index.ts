@@ -1,5 +1,5 @@
 // ** Type imports
-import { HorizontalNavItemsType } from 'src/@core/layouts/types'
+import type { HorizontalNavItemsType } from 'src/@core/layouts/types'
 
 const navigation = (): HorizontalNavItemsType => {
   return [
