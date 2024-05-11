@@ -3,20 +3,22 @@
  */
 
 // ** React Imports
-import { createContext, useEffect, useState, ReactNode } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 // ** Next Import
 import { useRouter } from 'next/router'
 
 // ** Third-Party Imports
-import axios, { AxiosResponse, AxiosError } from 'axios'
+import axios from 'axios'
 import toast from 'react-hot-toast'
 
 // ** Config Imports
 import authConfig from 'src/configs/auth'
 
 // ** Type Imports
-import {
+import type { ReactNode } from 'react'
+import type { AxiosResponse, AxiosError } from 'axios'
+import type {
   AuthValuesType,
   LoginParamsType,
   LoginResponseType,
@@ -87,6 +89,7 @@ const AuthProvider = ({ children }: Props) => {
             localStorage.removeItem('accessToken')
             setUser(null)
             setLoading(false)
+
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
               router.replace('/auth/login')
             }

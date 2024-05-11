@@ -1,5 +1,5 @@
 // ** Type Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+import type { MediaAssetType } from 'src/types/api/mediaAssetTypes'
 
 // ** Login
 export type LoginParamsType = {
