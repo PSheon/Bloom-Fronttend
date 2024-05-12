@@ -65,13 +65,6 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'planner-page'
     },
     {
-      title: 'Management.Announcements',
-      icon: 'mdi:announcement-outline',
-      path: '/management/announcement/list',
-      action: 'read',
-      subject: 'planner-page'
-    },
-    {
       title: 'Management.Notifications',
       icon: 'mdi:bell-outline',
       path: '/management/notification/list',

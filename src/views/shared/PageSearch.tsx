@@ -104,9 +104,9 @@ const searchData: AppBarSearchType[] = [
   },
   {
     id: 7,
-    url: '/management/announcement/list',
+    url: '/management/article/list',
     icon: 'mdi:format-list-numbered',
-    title: 'Announcements',
+    title: 'Articles',
     category: 'appsPages'
   },
   {

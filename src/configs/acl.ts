@@ -53,8 +53,8 @@ export const Permissions: Permission[] = [
     createdAt: '2023-03-25T14:00:00+08:00'
   },
   {
-    id: 'announcements-management',
-    displayName: '查看公告管理列表',
+    id: 'article-management',
+    displayName: '查看文章管理列表',
     assignedTo: ['Admin', 'Planner'],
     createdAt: '2023-03-25T14:00:00+08:00'
   },

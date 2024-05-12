@@ -10,7 +10,6 @@ import { fundApi } from 'src/store/api/management/fund'
 import { packageApi } from 'src/store/api/management/package'
 import { mediaAssetApi } from 'src/store/api/management/mediaAsset'
 import { articleApi } from 'src/store/api/management/article'
-import { announcementApi } from 'src/store/api/management/announcement'
 import { accessLogApi } from 'src/store/api/management/accessLog'
 import { activityLogApi } from 'src/store/api/management/activityLog'
 import { notificationApi } from 'src/store/api/management/notification'
@@ -26,7 +25,6 @@ export const store = configureStore({
     [packageApi.reducerPath]: packageApi.reducer,
     [mediaAssetApi.reducerPath]: mediaAssetApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
-    [announcementApi.reducerPath]: announcementApi.reducer,
     [accessLogApi.reducerPath]: accessLogApi.reducer,
     [activityLogApi.reducerPath]: activityLogApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
@@ -46,7 +44,6 @@ export const store = configureStore({
       packageApi.middleware,
       mediaAssetApi.middleware,
       articleApi.middleware,
-      announcementApi.middleware,
       accessLogApi.middleware,
       activityLogApi.middleware,
       notificationApi.middleware,

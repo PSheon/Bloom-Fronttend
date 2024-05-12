@@ -70,9 +70,9 @@ export const notificationApi = createApi({
       providesTags: ['Notification'],
       transformResponse: (responseData: FindMeNotificationTransformResponseType) => ({
         ...responseData,
-        data: responseData.data.map(announcement => ({
-          id: announcement.id,
-          ...announcement.attributes
+        data: responseData.data.map(notification => ({
+          id: notification.id,
+          ...notification.attributes
         }))
       })
     }),

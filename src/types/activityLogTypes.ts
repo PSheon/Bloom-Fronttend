@@ -3,7 +3,7 @@ import type { BaseApiResponseType, UserApiResponseType } from 'src/types/api/bas
 
 type ActivityStatusType = 'Pending' | 'Fulfilled' | 'Rejected'
 type ActivityActionType = 'Create' | 'Update' | 'Delete'
-type ActivityRefContentType = 'Fund' | 'Announcement' | 'Wallet'
+type ActivityRefContentType = 'Fund' | 'Article' | 'Wallet'
 export type ActivityLogType = {
   id: number
   status: ActivityStatusType
