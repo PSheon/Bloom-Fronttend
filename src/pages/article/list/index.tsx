@@ -1,3 +1,6 @@
+// ** React Imports
+import { useState, useCallback } from 'react'
+
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
@@ -15,11 +18,13 @@ import { useFindQuery } from 'src/store/api/management/article'
 import type { ReactNode } from 'react'
 
 const ArticleListPage = () => {
+  // ** States
+  const [filteredCategory, setFilteredCategory] = useState<string>('all')
+
   // ** Hooks
   const { data: articlesData, isLoading: isArticleListLoading } = useFindQuery({
     filters: {
-      // ...(filteredStatus !== 'all' && { status: filteredStatus })
-      // ...(filteredIsHighlighted !== 'all' && { isHighlighted: filteredIsHighlighted === 'isHighlighted' })
+      ...(filteredCategory !== 'all' && { category: filteredCategory })
     },
     pagination: {
       page: 1,
@@ -31,10 +36,18 @@ const ArticleListPage = () => {
   const articles = articlesData?.data || []
   const totalRows = articlesData?.meta.pagination.total || 0
 
+  // ** Logics
+  const handleFilterCategoryChange = useCallback((newCategory: string) => {
+    setFilteredCategory(newCategory)
+  }, [])
+
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <PublicArticleListHeaderGrid />
+        <PublicArticleListHeaderGrid
+          filteredCategory={filteredCategory}
+          handleFilterCategoryChange={handleFilterCategoryChange}
+        />
       </Grid>
       <Grid item xs={12}>
         <PublicArticleListDataGrid

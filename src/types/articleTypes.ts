@@ -31,6 +31,7 @@ export type FindArticlesParamsType = {
     $or: Partial<{
       displayName: Record<string, string>
     }>[]
+    category: string
   }>
   sort?: string[]
   pagination: {

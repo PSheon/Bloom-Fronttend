@@ -10,6 +10,9 @@ import CardMedia from '@mui/material/CardMedia'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 
+// ** Third-Party Imports
+import format from 'date-fns/format'
+
 // ** Custom Component Imports
 import PublicArticleListLoadingSkeletonCard from 'src/views/article/list/cards/PublicArticleListLoadingSkeletonCard'
 
@@ -78,7 +81,7 @@ const PublicArticleListDataGrid = (props: Props) => {
                 >
                   <CardMedia sx={{ height: 201 }} image={getPublicMediaAssetUrl(article.cover?.data?.attributes.url)} />
                   <CardContent sx={{ pt: 4 }}>
-                    <Typography variant='h6' sx={{ mb: 2 }}>
+                    <Typography variant='h6' component='h2'>
                       {article.displayName}
                     </Typography>
                     <Typography variant='body2'>{article.description}</Typography>
@@ -96,7 +99,7 @@ const PublicArticleListDataGrid = (props: Props) => {
                       </Stack>
 
                       <Typography variant='caption' sx={{ whiteSpace: 'nowrap' }}>
-                        18 mutual friends
+                        {format(new Date(article.updatedAt), 'E, LLLL do yyyy')}
                       </Typography>
                     </Stack>
                   </CardContent>
