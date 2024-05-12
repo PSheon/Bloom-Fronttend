@@ -42,9 +42,7 @@ const FooterContent = () => {
         </Typography>
       )}
       <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', '& :not(:last-child)': { mr: 4 } }}>
-        <LinkStyled target='_blank' href='https://demos.pixinvent.com/materialize-nextjs-admin-template/documentation'>
-          Documentation
-        </LinkStyled>
+        <LinkStyled href='/article/list'>Documentation</LinkStyled>
       </Box>
     </Box>
   )

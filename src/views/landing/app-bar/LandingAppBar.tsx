@@ -130,7 +130,7 @@ const LandingAppBar = () => {
               </Typography>
             </Stack>
             <Stack direction='row' spacing={2} alignItems='center' className='actions-left'>
-              <StyledLink href='/blog'>Blog</StyledLink>
+              <StyledLink href='/article'>Article</StyledLink>
             </Stack>
           </Stack>
           <Stack direction='row' spacing={2} alignItems='center' className='actions-right'>
