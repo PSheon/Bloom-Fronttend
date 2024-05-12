@@ -1,7 +1,7 @@
 // ** React Imports
-import { Ref, useState, forwardRef, ReactElement, Fragment, MouseEvent } from 'react'
+import { useState, forwardRef, Fragment } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -12,29 +12,31 @@ import Dialog from '@mui/material/Dialog'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import Fade, { FadeProps } from '@mui/material/Fade'
+import Fade from '@mui/material/Fade'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import Stack from '@mui/material/Stack'
 import LoadingButton from '@mui/lab/LoadingButton'
 
+// ** Third-Party Imports
+import { useDropzone } from 'react-dropzone'
+import { useSession } from 'next-auth/react'
+
+// ** Core Component Imports
+import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
+// ** API Imports
 import { useUploadMutation } from 'src/store/api/management/mediaAsset'
 
-// ** Hooks
-import { useAuth } from 'src/hooks/useAuth'
-
-// ** Third Party Imports
-import { useDropzone } from 'react-dropzone'
-
-// ** Util Import
+// ** Util Imports
 import { getMediaAssetFileInfo } from 'src/utils'
 
-// ** Styled Component
-import DropzoneWrapper from 'src/@core/styles/libs/react-dropzone'
+// ** Type Imports
+import type { Ref, ReactElement, MouseEvent } from 'react'
+import type { FadeProps } from '@mui/material/Fade'
 
 const Transition = forwardRef(function Transition(
   props: FadeProps & { children?: ReactElement<any, any> },
@@ -55,7 +57,8 @@ const MediaAssetUploader = () => {
   const [files, setFiles] = useState<File[]>([])
 
   // ** Hooks
-  const auth = useAuth()
+  const session = useSession()
+
   const { getRootProps, getInputProps } = useDropzone({
     multiple: false,
     maxSize: 20_000_000,
@@ -68,6 +71,7 @@ const MediaAssetUploader = () => {
       setFiles(acceptedFiles.map((file: File) => Object.assign(file)))
     }
   })
+
   const [
     uploadMediaAssets,
     { data: uploadedMediaAssets, isLoading: isUploadMediaAssetsLoading, reset: resetMediaAssetsState }
@@ -77,20 +81,23 @@ const MediaAssetUploader = () => {
   const handleOpen = () => {
     setShow(true)
   }
+
   const handleClose = () => {
     setFiles([])
     resetMediaAssetsState()
     setShow(false)
   }
+
   const handleRemoveFiles = (e: MouseEvent) => {
     e.stopPropagation()
     setFiles([])
   }
+
   const handleUploadClick = async () => {
     const formData = new FormData()
 
     formData.append('files', files[0])
-    formData.append('fileInfo', JSON.stringify(getMediaAssetFileInfo(files[0], auth.user!)))
+    formData.append('fileInfo', JSON.stringify(getMediaAssetFileInfo(files[0], session.data!.user!)))
 
     uploadMediaAssets(formData)
   }

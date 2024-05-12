@@ -1,45 +1,45 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Types
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+// ** Custom Component Imports
+import ManagementMediaAssetEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementMediaAssetEditProfileCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditProfileCard'
+import ManagementMediaAssetEditMetadataCard from 'src/views/management/media-asset/edit/cards/ManagementMediaAssetEditMetadataCard'
+import ManagementMediaAssetEditTabContext from 'src/views/management/media-asset/edit/tabs/ManagementMediaAssetEditTabContext'
 
-// ** Styled Component
-import MediaAssetEditBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import MediaAssetEditProfileCard from 'src/views/management/media-asset/edit/cards/MediaAssetEditProfileCard'
-import MediaAssetEditMetadataCard from 'src/views/management/media-asset/edit/cards/MediaAssetEditMetadataCard'
-import MediaAssetEditTabContext from 'src/views/management/media-asset/edit/tabs/MediaAssetEditTabContext'
+// ** Type Imports
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 interface Props {
   initMediaAssetEntity: MediaAssetType
 }
 
-const MediaAssetEditSection = (props: Props) => {
+const ManagementMediaAssetEditSection = (props: Props) => {
   // ** Props
   const { initMediaAssetEntity } = props
 
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <MediaAssetEditBreadcrumbs
+        <ManagementMediaAssetEditBreadcrumbs
           pageLevels={[{ title: '檔案管理', href: '/management/media-asset/list' }, { title: '編輯檔案' }]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
-            <MediaAssetEditProfileCard initMediaAssetEntity={initMediaAssetEntity} />
+            <ManagementMediaAssetEditProfileCard initMediaAssetEntity={initMediaAssetEntity} />
           </Grid>
           <Grid item xs={12}>
-            <MediaAssetEditMetadataCard initMediaAssetEntity={initMediaAssetEntity} />
+            <ManagementMediaAssetEditMetadataCard initMediaAssetEntity={initMediaAssetEntity} />
           </Grid>
         </Grid>
       </Grid>
       <Grid item xs={12} md={7} lg={8}>
-        <MediaAssetEditTabContext initMediaAssetEntity={initMediaAssetEntity} />
+        <ManagementMediaAssetEditTabContext initMediaAssetEntity={initMediaAssetEntity} />
       </Grid>
     </Grid>
   )
 }
 
-export default MediaAssetEditSection
+export default ManagementMediaAssetEditSection

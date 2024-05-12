@@ -1,14 +1,12 @@
 // ** Redux Imports
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import qs from 'qs'
+import { getSession } from 'next-auth/react'
 
-// ** Config
-import authConfig from 'src/configs/auth'
-
-// ** Types
-import {
+// ** Type Imports
+import type {
   FindOneMediaAssetParamsType,
   FindOneMediaAssetTransformResponseType,
   FindOneMediaAssetResponseType,
@@ -24,16 +22,18 @@ import {
   DeleteOneMediaAssetsParamsType,
   DeleteOneMediaAssetsTransformResponseType,
   DeleteOneMediaAssetsResponseType
-} from 'src/types/api/mediaAssetTypes'
+} from 'src/types/mediaAssetTypes'
 
 const MEDIA_ASSET_API_REDUCER_KEY = 'mediaAssetApi'
+
 export const mediaAssetApi = createApi({
   reducerPath: MEDIA_ASSET_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
-    prepareHeaders: headers => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
-      headers.set('Authorization', `Bearer ${storedToken}`)
+    prepareHeaders: async headers => {
+      const session = await getSession()
+
+      headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers
     }
@@ -87,3 +87,4 @@ export const mediaAssetApi = createApi({
 
 export const { useFindOneQuery, useFindQuery, useUploadMutation, useUpdateOneMutation, useDeleteOneMutation } =
   mediaAssetApi
+export default mediaAssetApi

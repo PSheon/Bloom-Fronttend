@@ -1,14 +1,13 @@
 // ** React Imports
-import { createContext, useState, ReactNode, useEffect } from 'react'
+import { createContext, useState, useEffect } from 'react'
 
-// ** MUI Imports
-import { Direction } from '@mui/material'
-
-// ** ThemeConfig Import
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Types Import
-import { Skin, Mode, AppBar, Footer, ThemeColor, ContentWidth, VerticalNavToggle } from 'src/@core/layouts/types'
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { Direction } from '@mui/material'
+import type { Skin, Mode, AppBar, Footer, ThemeColor, ContentWidth, VerticalNavToggle } from 'src/@core/layouts/types'
 
 export type Settings = {
   skin: Skin
@@ -117,7 +116,7 @@ export const SettingsContext = createContext<SettingsContextValue>({
 })
 
 export const SettingsProvider = ({ children, pageSettings }: SettingsProviderProps) => {
-  // ** State
+  // ** States
   const [settings, setSettings] = useState<Settings>({ ...initialSettings })
 
   useEffect(() => {
@@ -126,6 +125,7 @@ export const SettingsProvider = ({ children, pageSettings }: SettingsProviderPro
     if (restoredSettings) {
       setSettings({ ...restoredSettings })
     }
+
     if (pageSettings) {
       setSettings({ ...settings, ...pageSettings })
     }
@@ -137,6 +137,7 @@ export const SettingsProvider = ({ children, pageSettings }: SettingsProviderPro
     if (settings.layout === 'horizontal' && settings.mode === 'semi-dark') {
       saveSettings({ ...settings, mode: 'light' })
     }
+
     if (settings.layout === 'horizontal' && settings.appBar === 'hidden') {
       saveSettings({ ...settings, appBar: 'fixed' })
     }

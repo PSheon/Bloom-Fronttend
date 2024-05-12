@@ -1,10 +1,10 @@
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** MUI Imports
 import Zoom from '@mui/material/Zoom'
 import { styled } from '@mui/material/styles'
 import useScrollTrigger from '@mui/material/useScrollTrigger'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
 
 interface ScrollToTopProps {
   className?: string
@@ -22,14 +22,16 @@ const ScrollToTop = (props: ScrollToTopProps) => {
   // ** Props
   const { children, className } = props
 
-  // ** init trigger
+  // ** Hooks
   const trigger = useScrollTrigger({
     threshold: 400,
     disableHysteresis: true
   })
 
+  // ** Logics
   const handleClick = () => {
     const anchor = document.querySelector('body')
+
     if (anchor) {
       anchor.scrollIntoView({ behavior: 'smooth' })
     }

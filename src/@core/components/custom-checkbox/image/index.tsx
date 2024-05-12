@@ -4,12 +4,13 @@ import Grid from '@mui/material/Grid'
 import Checkbox from '@mui/material/Checkbox'
 
 // ** Type Imports
-import { CustomCheckboxImgProps } from 'src/@core/components/custom-checkbox/types'
+import type { CustomCheckboxImgProps } from 'src/@core/components/custom-checkbox/types'
 
 const CustomCheckboxImg = (props: CustomCheckboxImgProps) => {
   // ** Props
   const { data, name, selected, gridProps, handleChange, color = 'primary' } = props
 
+  // ** Vars
   const { alt, img, value } = data
 
   const renderComponent = () => {

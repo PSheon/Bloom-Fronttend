@@ -6,7 +6,6 @@ import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
 import Divider from '@mui/material/Divider'
-import { Theme } from '@mui/material/styles'
 import Collapse from '@mui/material/Collapse'
 import IconButton from '@mui/material/IconButton'
 import CardHeader from '@mui/material/CardHeader'
@@ -15,18 +14,19 @@ import ToggleButton from '@mui/material/ToggleButton'
 import useMediaQuery from '@mui/material/useMediaQuery'
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Components
 import Prism from 'prismjs'
 import toast from 'react-hot-toast'
 
-// ** Types
-import { CardSnippetProps } from './types'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// ** Hooks
+// ** Hook Imports
 import useClipboard from 'src/@core/hooks/useClipboard'
+
+// ** Type Imports
+import type { Theme } from '@mui/material/styles'
+import type { CardSnippetProps } from './types'
 
 const CardSnippet = (props: CardSnippetProps) => {
   // ** Props

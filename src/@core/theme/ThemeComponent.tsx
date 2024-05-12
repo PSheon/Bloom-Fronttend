@@ -1,24 +1,20 @@
-// ** React Imports
-import { ReactNode } from 'react'
-
 // ** MUI Imports
 import CssBaseline from '@mui/material/CssBaseline'
 import GlobalStyles from '@mui/material/GlobalStyles'
 import { ThemeProvider, createTheme, responsiveFontSizes } from '@mui/material/styles'
 
-// ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
-
-// ** Theme Config
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Direction component for LTR or RTL
+// ** Custom Component Imports
 import Direction from 'src/layouts/components/Direction'
-
-// ** Theme
 import themeOptions from './ThemeOptions'
 
-// ** Global Styles
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { Settings } from 'src/@core/context/settingsContext'
+
+// ** Style Imports
 import GlobalStyling from './globalStyles'
 
 interface Props {

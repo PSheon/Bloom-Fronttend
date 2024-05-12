@@ -1,13 +1,13 @@
-// ** React Import
+// ** React Imports
 import { Children } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Document, { Html, Head, Main, NextScript } from 'next/document'
 
-// ** Emotion Imports
+// ** Third-Party Imports
 import createEmotionServer from '@emotion/server/create-instance'
 
-// ** Utils Imports
+// ** Util Imports
 import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 
 class CustomDocument extends Document {
@@ -21,8 +21,6 @@ class CustomDocument extends Document {
             rel='stylesheet'
             href='https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap'
           />
-          <link rel='apple-touch-icon' sizes='180x180' href='/images/apple-touch-icon.png' />
-          <link rel='shortcut icon' href='/images/favicon.png' />
         </Head>
         <body>
           <Main />
@@ -40,17 +38,17 @@ CustomDocument.getInitialProps = async ctx => {
 
   ctx.renderPage = () =>
     originalRenderPage({
-      enhanceApp: App => props =>
-        (
-          <App
-            {...props} // @ts-ignore
-            emotionCache={cache}
-          />
-        )
+      enhanceApp: App => props => (
+        <App
+          {...props} // @ts-ignore
+          emotionCache={cache}
+        />
+      )
     })
 
   const initialProps = await Document.getInitialProps(ctx)
   const emotionStyles = extractCriticalToChunks(initialProps.html)
+
   const emotionStyleTags = emotionStyles.styles.map(style => {
     return (
       <style

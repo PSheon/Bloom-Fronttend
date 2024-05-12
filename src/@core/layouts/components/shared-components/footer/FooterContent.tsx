@@ -1,12 +1,14 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
-import { Theme } from '@mui/material/styles'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
+
+// ** Type Imports
+import type { Theme } from '@mui/material/styles'
 
 const LinkStyled = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
@@ -14,7 +16,7 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 const FooterContent = () => {
-  // ** Var
+  // ** Vars
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('md'))
 
   return (

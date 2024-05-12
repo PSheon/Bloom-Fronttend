@@ -1,5 +1,5 @@
 // ** React Imports
-import { Ref, useState, forwardRef, ReactElement } from 'react'
+import { useState, forwardRef } from 'react'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
@@ -7,22 +7,27 @@ import Dialog from '@mui/material/Dialog'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import Fade, { FadeProps } from '@mui/material/Fade'
+import Fade from '@mui/material/Fade'
 import DialogContent from '@mui/material/DialogContent'
+
+// ** Third-Party Imports
+import { Worker, Viewer } from '@react-pdf-viewer/core'
+import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Hook Import
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
 
-// ** Third Party Components
-import { Worker, Viewer } from '@react-pdf-viewer/core'
-import { defaultLayoutPlugin } from '@react-pdf-viewer/default-layout'
-
-// ** Utils Imports
+// ** Util Imports
 import { getPublicMediaAssetUrl } from 'src/utils'
 
+// ** Type Imports
+import type { Ref, ReactElement } from 'react'
+import type { FadeProps } from '@mui/material/Fade'
+
+// ** Style Imports
 import '@react-pdf-viewer/core/lib/styles/index.css'
 import '@react-pdf-viewer/default-layout/lib/styles/index.css'
 
@@ -36,6 +41,7 @@ const Transition = forwardRef(function Transition(
 interface Props {
   mediaAssetUrl: string
 }
+
 const PDFViewerDialogButton = (props: Props) => {
   // ** Props
   const { mediaAssetUrl } = props
@@ -54,6 +60,7 @@ const PDFViewerDialogButton = (props: Props) => {
   const handleOpen = () => {
     setShow(true)
   }
+
   const handleClose = () => {
     setShow(false)
   }

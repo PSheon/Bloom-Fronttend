@@ -1,8 +1,8 @@
-// ** Type Import
-import { OwnerStateThemeType } from './'
-
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Type Imports
+import type { OwnerStateThemeType } from './'
 
 const Backdrop = () => {
   return {

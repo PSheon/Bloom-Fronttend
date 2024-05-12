@@ -1,18 +1,18 @@
-// ** React Import
+// ** React Imports
 import { useEffect, useRef } from 'react'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
-
-// ** Layout Components
+// ** Custom Component Imports
 import VerticalLayout from './VerticalLayout'
 import HorizontalLayout from './HorizontalLayout'
+
+// ** Type Imports
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 const Layout = (props: LayoutProps) => {
   // ** Props
   const { hidden, children, settings, saveSettings } = props
 
-  // ** Ref
+  // ** Refs
   const isCollapsed = useRef(settings.navCollapsed)
 
   useEffect(() => {

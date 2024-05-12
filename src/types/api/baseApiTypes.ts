@@ -1,4 +1,6 @@
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+// ** Type Imports
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
+import type { UserDataType } from 'src/types/authTypes'
 
 export type BaseApiResponseType<T> = {
   data: T
@@ -12,6 +14,15 @@ export type BaseApiResponseType<T> = {
   }
 }
 
+export type BaseApiResponseErrorType<T> = {
+  data: T
+  error: {
+    status: number
+    name: string
+    message: string
+  }
+}
+
 export type MediaAssetApiResponseType = {
   data?: {
     id: number
@@ -22,23 +33,8 @@ export type MediaAssetApiResponseType = {
 export type UserApiResponseType = {
   data?: {
     id: number
-    attributes: {
-      avatar?: MediaAssetApiResponseType
-      role?: {
-        id: number
-        name: string
-        description: string
-        type: string
-        createdAt: string
-        updatedAt: string
-      }
-      provider: string
-      username: string
-      email: string
-      blocked: boolean
-      confirmed: boolean
-      createdAt: string
-      updatedAt: string
+    attributes: Omit<UserDataType, 'id' | 'avatar'> & {
+      avatar: MediaAssetApiResponseType
     }
   }
 }

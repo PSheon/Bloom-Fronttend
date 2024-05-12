@@ -1,11 +1,12 @@
 // ** React Imports
-import { useEffect, useCallback, useRef, useState, ChangeEvent } from 'react'
+import { useEffect, useCallback, useRef, useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
+import { styled, useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
@@ -15,20 +16,28 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { styled, useTheme } from '@mui/material/styles'
 import ListItemButton from '@mui/material/ListItemButton'
 import InputAdornment from '@mui/material/InputAdornment'
-import MuiAutocomplete, { AutocompleteRenderInputParams } from '@mui/material/Autocomplete'
+import MuiAutocomplete from '@mui/material/Autocomplete'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Configs Imports
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Types Imports
-import { AppBarSearchType } from 'src/@fake-db/types'
-import { Settings } from 'src/@core/context/settingsContext'
+// ** Type Imports
+import type { ChangeEvent } from 'react'
+import type { AutocompleteRenderInputParams } from '@mui/material/Autocomplete'
+import type { Settings } from 'src/@core/context/settingsContext'
+
+type AppBarSearchType = {
+  id: number
+  url: string
+  icon: string
+  title: string
+  category: string
+}
 
 interface Props {
   hidden: boolean
@@ -95,9 +104,9 @@ const searchData: AppBarSearchType[] = [
   },
   {
     id: 7,
-    url: '/management/announcement/list',
+    url: '/management/article/list',
     icon: 'mdi:format-list-numbered',
-    title: 'Announcements',
+    title: 'Articles',
     category: 'appsPages'
   },
   {
@@ -144,6 +153,7 @@ const getSuggestion = (q: string) => {
 
   searchData.forEach(obj => {
     const isMatched = obj.title.toLowerCase().startsWith(queryLowered)
+
     if (isMatched && exactData[obj.category].length < 5) {
       exactData[obj.category].push(obj)
     }
@@ -152,6 +162,7 @@ const getSuggestion = (q: string) => {
   searchData.forEach(obj => {
     const isMatched =
       !obj.title.toLowerCase().startsWith(queryLowered) && obj.title.toLowerCase().includes(queryLowered)
+
     if (isMatched && includeData[obj.category].length < 5) {
       includeData[obj.category].push(obj)
     }
@@ -164,6 +175,7 @@ const getSuggestion = (q: string) => {
       categoriesCheck.push(category)
     }
   })
+
   if (categoriesCheck.length === 0) {
     Object.keys(includeData).forEach(category => {
       if (includeData[category].length > 0) {
@@ -490,6 +502,7 @@ const PageSearch = ({ hidden, settings }: Props) => {
   const handleOptionClick = (obj: AppBarSearchType) => {
     setSearchValue('')
     setOpenDialog(false)
+
     if (obj.url) {
       router.push(obj.url)
     }
@@ -520,6 +533,7 @@ const PageSearch = ({ hidden, settings }: Props) => {
   // Get all data using API
   useEffect(() => {
     const suggestionOptions = getSuggestion(searchValue)
+
     setOptions(suggestionOptions)
   }, [searchValue])
 

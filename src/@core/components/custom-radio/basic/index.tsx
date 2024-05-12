@@ -5,12 +5,13 @@ import Radio from '@mui/material/Radio'
 import Typography from '@mui/material/Typography'
 
 // ** Type Imports
-import { CustomRadioBasicProps } from 'src/@core/components/custom-radio/types'
+import type { CustomRadioBasicProps } from 'src/@core/components/custom-radio/types'
 
 const CustomRadioBasic = (props: CustomRadioBasicProps) => {
   // ** Props
   const { name, data, selected, gridProps, handleChange, color = 'primary' } = props
 
+  // ** Vars
   const { meta, title, value, content } = data
 
   const renderData = () => {

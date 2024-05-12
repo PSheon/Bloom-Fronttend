@@ -1,5 +1,5 @@
 // ** React Imports
-import { ElementType, Fragment } from 'react'
+import { Fragment } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
@@ -12,19 +12,12 @@ import List from '@mui/material/List'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
 import ListItemIcon from '@mui/material/ListItemIcon'
-import MuiListItem, { ListItemProps } from '@mui/material/ListItem'
+import MuiListItem from '@mui/material/ListItem'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import clsx from 'clsx'
 
-// ** Theme Config Import
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Types
-import { NavLink } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
-
-// ** Custom Components Imports
+// ** Custom Component Imports
 import UserIcon from 'src/layouts/components/UserIcon'
 import Translations from 'src/layouts/components/Translations'
 import CanViewNavLink from 'src/layouts/components/acl/CanViewNavLink'
@@ -32,6 +25,15 @@ import CanViewNavLink from 'src/layouts/components/acl/CanViewNavLink'
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 import { handleURLQueries } from 'src/@core/layouts/utils'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import type { ElementType } from 'react'
+import type { ListItemProps } from '@mui/material/ListItem'
+import type { NavLink } from 'src/@core/layouts/types'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   item: NavLink
@@ -65,12 +67,12 @@ const HorizontalNavLink = (props: Props) => {
   // ** Props
   const { item, settings, hasParent } = props
 
-  // ** Hook & Vars
+  // ** Hooks
   const router = useRouter()
+
+  // ** Vars
   const { navSubItemIcon, menuTextTruncate } = themeConfig
-
   const icon = item.icon ? item.icon : navSubItemIcon
-
   const Wrapper = !hasParent ? List : Fragment
 
   const isNavLinkActive = () => {

@@ -21,37 +21,38 @@ import InputAdornment from '@mui/material/InputAdornment'
 import DialogContentText from '@mui/material/DialogContentText'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Components
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import { useSession } from 'next-auth/react'
 
-// ** Styled Component
-import MeAccountAvatarPreviewBox from 'src/views/account/boxes/MeAccountAvatarPreviewBox'
-
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
-// ** Api Imports
+// ** Custom Component Imports
+import MeAccountAvatarPreviewBox from 'src/views/account/boxes/MeAccountAvatarPreviewBox'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** API Imports
 import { useUpdateMeOneMutation } from 'src/store/api/management/user'
 
-// ** Types
-import { UserDataType } from 'src/context/types'
+// ** Type Imports
+import type { UserDataType } from 'src/types/authTypes'
 
 const schema = yup.object().shape({
-  title: yup.string().nullable(),
-  phone: yup.string().nullable()
+  title: yup.string().optional(),
+  phone: yup.string().optional()
 })
 
 interface Props {
   initMeUserEntity: UserDataType
 }
 interface FormData {
-  title: string
-  phone: string
+  title?: string
+  phone?: string
 }
 
 const MeAccountEditProfileCard = (props: Props) => {
@@ -62,8 +63,11 @@ const MeAccountEditProfileCard = (props: Props) => {
   const [openEdit, setOpenEdit] = useState<boolean>(false)
 
   // ** Hooks
+  const session = useSession()
+
   const [updateMeUser, { data: updatedMeUser = initMeUserEntity, isLoading: isUpdateMeUserLoading }] =
     useUpdateMeOneMutation()
+
   const {
     reset,
     control,
@@ -71,8 +75,6 @@ const MeAccountEditProfileCard = (props: Props) => {
     formState: { isDirty, errors }
   } = useForm({
     defaultValues: {
-      username: initMeUserEntity.username,
-      email: initMeUserEntity.email,
       title: initMeUserEntity.title || '',
       phone: initMeUserEntity.phone || ''
     },
@@ -83,6 +85,7 @@ const MeAccountEditProfileCard = (props: Props) => {
   // ** Logics
   const handleEditOpen = () => setOpenEdit(true)
   const handleEditClose = () => setOpenEdit(false)
+
   const onSubmit = async (data: FormData) => {
     const { title, phone } = data
 
@@ -92,6 +95,7 @@ const MeAccountEditProfileCard = (props: Props) => {
         phone
       }
     })
+    await session.update()
     reset(undefined, { keepValues: true, keepDirty: false, keepDefaultValues: false })
     handleEditClose()
   }
@@ -253,7 +257,7 @@ const MeAccountEditProfileCard = (props: Props) => {
               disabled={!isDirty || Boolean(errors.title || errors.phone)}
               type='submit'
               variant='contained'
-              endIcon={<Icon icon='mdi:content-save-outline' />}
+              startIcon={<Icon icon='mdi:content-save-outline' />}
             >
               更新
             </LoadingButton>

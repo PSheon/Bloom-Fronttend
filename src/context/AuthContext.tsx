@@ -1,18 +1,24 @@
+/*
+ * Deprecated
+ */
+
 // ** React Imports
-import { createContext, useEffect, useState, ReactNode } from 'react'
+import { createContext, useEffect, useState } from 'react'
 
 // ** Next Import
 import { useRouter } from 'next/router'
 
-// ** Third Party Imports
-import axios, { AxiosResponse, AxiosError } from 'axios'
+// ** Third-Party Imports
+import axios from 'axios'
 import toast from 'react-hot-toast'
 
-// ** Config
+// ** Config Imports
 import authConfig from 'src/configs/auth'
 
-// ** Types
-import {
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { AxiosResponse, AxiosError } from 'axios'
+import type {
   AuthValuesType,
   LoginParamsType,
   LoginResponseType,
@@ -55,6 +61,7 @@ const AuthProvider = ({ children }: Props) => {
   // ** Hooks
   const router = useRouter()
 
+  // ** Side Effects
   useEffect(() => {
     const initAuth = async (): Promise<void> => {
       axios.defaults.baseURL = (process.env.NEXT_PUBLIC_BACKEND_URL as string) || 'http://localhost:1337'
@@ -82,6 +89,7 @@ const AuthProvider = ({ children }: Props) => {
             localStorage.removeItem('accessToken')
             setUser(null)
             setLoading(false)
+
             if (authConfig.onTokenExpiration === 'logout' && !router.pathname.includes('login')) {
               router.replace('/auth/login')
             }
@@ -153,7 +161,6 @@ const AuthProvider = ({ children }: Props) => {
           }
         })
         .then((response: AxiosResponse<ChangePasswordResponseType>) => {
-          console.log('🚀 ~ src/context/AuthContext.tsx:149 > response', response)
           console.log(response.data)
           toast.success('已更新密碼')
           resolve()

@@ -1,7 +1,7 @@
 // ** React Imports
-import { useState, SyntheticEvent, Fragment, ReactNode } from 'react'
+import { useState, Fragment } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
@@ -10,37 +10,41 @@ import Box from '@mui/material/Box'
 import Badge from '@mui/material/Badge'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import { styled, Theme } from '@mui/material/styles'
+import { styled } from '@mui/material/styles'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import MuiMenu, { MenuProps } from '@mui/material/Menu'
-import MuiMenuItem, { MenuItemProps } from '@mui/material/MenuItem'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import MuiMenu from '@mui/material/Menu'
+import MuiMenuItem from '@mui/material/MenuItem'
+import Typography from '@mui/material/Typography'
+
+// ** Third-Party Imports
+import PerfectScrollbarComponent from 'react-perfect-scrollbar'
+import format from 'date-fns/format'
+
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Custom Component Imports
+import MenuLoadingSkeleton from 'src/views/shared/notification-dropdown/LoadingSkeleton'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Components
-import PerfectScrollbarComponent from 'react-perfect-scrollbar'
-
-// ** Third Party Imports
-import format from 'date-fns/format'
-import { convertFromRaw } from 'draft-js'
-
-// ** Api Imports
+// ** API Imports
 import { useFindMeQuery } from 'src/store/api/management/notification'
 
-// ** Utils Imports
+// ** Util Imports
 import { getNotificationAttributes } from 'src/utils'
 
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
-import { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
-import { NotificationType } from 'src/types/api/notificationTypes'
-
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
-import MenuLoadingSkeleton from 'src/views/shared/notification-dropdown/LoadingSkeleton'
+import type { SyntheticEvent, ReactNode } from 'react'
+import type { Theme } from '@mui/material/styles'
+import type { MenuProps } from '@mui/material/Menu'
+import type { MenuItemProps } from '@mui/material/MenuItem'
+import type { TypographyProps } from '@mui/material/Typography'
+import type { Settings } from 'src/@core/context/settingsContext'
+import type { CustomAvatarProps } from 'src/@core/components/mui/avatar/types'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 interface Props {
   settings: Settings
@@ -93,14 +97,6 @@ const MenuItemTitle = styled(Typography)<TypographyProps>(({ theme }) => ({
   marginBottom: theme.spacing(0.75)
 }))
 
-// ** Styled component for the subtitle in MenuItems
-const MenuItemSubtitle = styled(Typography)<TypographyProps>({
-  flex: '1 1 100%',
-  overflow: 'hidden',
-  whiteSpace: 'nowrap',
-  textOverflow: 'ellipsis'
-})
-
 const ScrollWrapper = ({ children, hidden }: { children: ReactNode; hidden: boolean }) => {
   if (hidden) {
     return <Box sx={{ maxHeight: 349, overflowY: 'auto', overflowX: 'hidden' }}>{children}</Box>
@@ -119,6 +115,7 @@ const NotificationDropdown = (props: Props) => {
   // ** Hooks
   const router = useRouter()
   const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('lg'))
+
   const { data: meNotificationsData, isLoading: isMeNotificationListLoading } = useFindMeQuery({
     filters: {
       isSeen: false
@@ -139,9 +136,11 @@ const NotificationDropdown = (props: Props) => {
   const handleDropdownOpen = (event: SyntheticEvent) => {
     setAnchorEl(event.currentTarget)
   }
+
   const handleDropdownClose = () => {
     setAnchorEl(null)
   }
+
   const handleClickNotification = (notificationId: number) => {
     handleDropdownClose()
     router.push(`/notification/read/${notificationId}`)
@@ -190,7 +189,7 @@ const NotificationDropdown = (props: Props) => {
         ) : (
           <ScrollWrapper hidden={hidden}>
             {meNotifications.map((notification: NotificationType, index: number) => {
-              const { icon, color } = getNotificationAttributes(notification.catalog)
+              const { icon, color } = getNotificationAttributes(notification.category)
 
               return (
                 <MenuItem key={`me-notification-${index}`} onClick={() => handleClickNotification(notification.id)}>
@@ -200,9 +199,6 @@ const NotificationDropdown = (props: Props) => {
                     </Avatar>
                     <Box sx={{ mx: 4, flex: '1 1', display: 'flex', overflow: 'hidden', flexDirection: 'column' }}>
                       <MenuItemTitle>{notification.title}</MenuItemTitle>
-                      <MenuItemSubtitle variant='body2'>
-                        {convertFromRaw(notification.content).getPlainText()}
-                      </MenuItemSubtitle>
                     </Box>
                     <Typography variant='caption' sx={{ color: 'text.disabled' }}>
                       {format(new Date(notification.updatedAt), 'MM/dd')}

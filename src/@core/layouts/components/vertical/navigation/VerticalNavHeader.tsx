@@ -1,20 +1,22 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
-import IconButton from '@mui/material/IconButton'
-import Box, { BoxProps } from '@mui/material/Box'
 import { styled, useTheme } from '@mui/material/styles'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import IconButton from '@mui/material/IconButton'
+import Box from '@mui/material/Box'
+import Typography from '@mui/material/Typography'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
-
-// ** Custom Icon Import
+// ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Configs
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+import type { TypographyProps } from '@mui/material/Typography'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   navHover: boolean
@@ -66,21 +68,24 @@ const VerticalNavHeader = (props: Props) => {
     menuUnlockedIcon: userMenuUnlockedIcon
   } = props
 
-  // ** Hooks & Vars
+  // ** Hooks
   const theme = useTheme()
+
+  // ** Vars
   const { mode, direction, navCollapsed } = settings
   const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 }
 
   const svgFillSecondary = () => {
     if (mode === 'semi-dark') {
-      return `rgba(${theme.palette.customColors.dark}, 0.6)`
+      return `rgba(${theme.palette.customColors.darkColor}, 0.6)` // ** NOTE: It should be `dark`, fix here later
     } else {
       return theme.palette.text.secondary
     }
   }
+
   const svgFillDisabled = () => {
     if (mode === 'semi-dark') {
-      return `rgba(${theme.palette.customColors.dark}, 0.38)`
+      return `rgba(${theme.palette.customColors.darkColor}, 0.38)` // ** NOTE: It should be `dark`, fix here later
     } else {
       return theme.palette.text.disabled
     }

@@ -1,4 +1,4 @@
-// ** MUI Imports
-import { BadgeProps } from '@mui/material/Badge'
+// ** Type Imports
+import type { BadgeProps } from '@mui/material/Badge'
 
 export type CustomBadgeProps = BadgeProps & { skin?: 'light' }

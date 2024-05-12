@@ -1,16 +1,17 @@
 // ** React Imports
 import { useEffect, useState } from 'react'
 
-// ** Axios Import
+// ** Third-Party Imports
 import axios from 'axios'
 
-// ** Type Import
-import { HorizontalNavItemsType } from 'src/@core/layouts/types'
+// ** Type Imports
+import type { HorizontalNavItemsType } from 'src/@core/layouts/types'
 
 const ServerSideNavItems = () => {
-  // ** State
+  // ** States
   const [menuItems, setMenuItems] = useState<HorizontalNavItemsType>([])
 
+  // ** Side Effects
   useEffect(() => {
     axios.get('/api/horizontal-nav/data').then(response => {
       const menuArray = response.data

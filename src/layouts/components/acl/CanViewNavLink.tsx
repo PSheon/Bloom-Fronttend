@@ -1,11 +1,12 @@
 // ** React Imports
-import { ReactNode, useContext } from 'react'
+import { useContext } from 'react'
 
-// ** Component Imports
+// ** Custom Component Imports
 import { AbilityContext } from 'src/layouts/components/acl/Can'
 
 // ** Types
-import { NavLink } from 'src/@core/layouts/types'
+import type { ReactNode } from 'react'
+import type { NavLink } from 'src/@core/layouts/types'
 
 interface Props {
   navLink?: NavLink
@@ -16,7 +17,7 @@ const CanViewNavLink = (props: Props) => {
   // ** Props
   const { children, navLink } = props
 
-  // ** Hook
+  // ** Hooks
   const ability = useContext(AbilityContext)
 
   if (navLink && navLink.auth === false) {

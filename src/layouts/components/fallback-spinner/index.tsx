@@ -1,9 +1,12 @@
 // ** MUI Imports
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import CircularProgress from '@mui/material/CircularProgress'
 
-// ** Component Imports
+// ** Custom Component Imports
 import LogoImage from 'src/views/shared/LogoImage'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
 
 interface Props {
   sx?: BoxProps['sx']

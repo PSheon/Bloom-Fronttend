@@ -1,25 +1,29 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Custom Components
+// ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Component Imports
+// ** Custom Component Imports
 import LogoImage from 'src/views/shared/LogoImage'
 
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// ** Styled Preview Box
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+import packageConfig from 'package.json'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+
+// ** Styled Preview Box Component
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
   position: 'relative',
@@ -112,19 +116,19 @@ const SettingsSystemProfileCard = () => {
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
               版本:
             </Typography>
-            <Typography variant='body2'>v0.1.0</Typography>
+            <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
           </Box>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
               API 版本:
             </Typography>
-            <Typography variant='body2'>v0.1.0</Typography>
+            <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
           </Box>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
               Socket 版本:
             </Typography>
-            <Typography variant='body2'>v0.1.0</Typography>
+            <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
           </Box>
         </Box>
       </CardContent>

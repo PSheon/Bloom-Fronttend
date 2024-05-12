@@ -1,30 +1,31 @@
-// ** React Import
+// ** React Imports
 import { useRef, useState } from 'react'
 
 // ** MUI Imports
-import List from '@mui/material/List'
-import Box, { BoxProps } from '@mui/material/Box'
 import { createTheme, responsiveFontSizes, styled, ThemeProvider } from '@mui/material/styles'
+import List from '@mui/material/List'
+import Box from '@mui/material/Box'
 
-// ** Third Party Components
+// ** Third-Party Components
 import PerfectScrollbar from 'react-perfect-scrollbar'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
+// ** Core Component Imports
+import themeOptions from 'src/@core/theme/ThemeOptions'
 
-// ** Theme Config
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Component Imports
+// ** Custom Component Imports
 import Drawer from './Drawer'
 import VerticalNavItems from './VerticalNavItems'
 import VerticalNavHeader from './VerticalNavHeader'
 
-// ** Theme Options
-import themeOptions from 'src/@core/theme/ThemeOptions'
-
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   navWidth: number
@@ -119,6 +120,7 @@ const Navigation = (props: Props) => {
   const scrollMenu = (container: any) => {
     if (beforeVerticalNavMenuContentPosition === 'static' || !beforeNavMenuContent) {
       container = hidden ? container.target : container
+
       if (shadowRef && container.scrollTop > 0) {
         // @ts-ignore
         if (!shadowRef.current.classList.contains('scrolled')) {

@@ -1,37 +1,36 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
-import { DataGrid, GridColDef } from '@mui/x-data-grid'
-import { SelectChangeEvent } from '@mui/material/Select'
+import { DataGrid } from '@mui/x-data-grid'
 
-// ** Custom Components Imports
+// ** Third-Party Imports
+import { format } from 'date-fns'
+
+// ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
-// ** Hooks Import
-import useDebounce from 'src/hooks/useDebounce'
-
-// ** Utils Import
-import { format } from 'date-fns'
-import { getInitials } from 'src/@core/utils/get-initials'
-
-// ** Api Imports
-import { useFindQuery } from 'src/store/api/management/mediaAsset'
-
-// ** Utils Import
-import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
-
-// ** Types Imports
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
-
-// ** Styled Components
+// ** Custom Component Imports
 import MediaAssetSelectorListTableHeader from 'src/views/shared/media-asset-selector/list/TableHeader'
 
-interface CellType {
-  row: MediaAssetType
-}
+// ** Hook Imports
+import useDebounce from 'src/hooks/useDebounce'
+
+// ** API Imports
+import { useFindQuery } from 'src/store/api/management/mediaAsset'
+
+// ** Util Imports
+import { getInitials } from 'src/@core/utils/get-initials'
+import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
+
+// ** Type Imports
+import type { ChangeEvent } from 'react'
+import type { GridColDef, GridRenderCellParams } from '@mui/x-data-grid'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
+
 interface Props {
   handleSelect: (newSelectedMediaAssetId: number) => void
 }
@@ -40,7 +39,7 @@ const MediaAssetSelectorList = (props: Props) => {
   // ** Props
   const { handleSelect } = props
 
-  // ** State
+  // ** States
   const [filteredMediaAssetName, setFilteredMediaAssetName] = useState<string>('')
   const [filteredExtension, setFilteredExtension] = useState<string>('all')
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
@@ -64,62 +63,66 @@ const MediaAssetSelectorList = (props: Props) => {
   // ** Vars
   const mediaAssets = mediaAssetsData?.data || []
   const totalRows = mediaAssetsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
-      flex: 1,
       field: 'id',
-      headerName: '編號',
-      renderCell: ({ row }: CellType) => <Typography noWrap>{`#${row.id}`}</Typography>
+      display: 'flex',
+      minWidth: 60,
+      headerName: '# ID',
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => <Typography noWrap>{`#${row.id}`}</Typography>
     },
 
     {
-      flex: 1,
-      minWidth: 80,
       field: 'preview',
+      display: 'flex',
+      minWidth: 80,
       headerName: '預覽',
-      renderCell: ({ row }: CellType) => renderPreview(row)
+      disableColumnMenu: true,
+      disableExport: true,
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => renderPreview(row)
     },
     {
-      flex: 6,
-      minWidth: 280,
       field: 'name',
+      display: 'flex',
+      minWidth: 350,
       headerName: '檔案名稱',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap variant='body2' color='text.primary' sx={{ fontWeight: 600 }}>
           {row.name}
         </Typography>
       )
     },
     {
-      flex: 1,
       field: 'ext',
+      display: 'flex',
       minWidth: 80,
       headerName: '類型',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {row.ext}
         </Typography>
       )
     },
     {
-      flex: 1,
-      minWidth: 120,
       field: 'size',
+      display: 'flex',
+      minWidth: 120,
       headerName: '大小',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {getMediaAssetFileAttributes(row).formattedSize}
         </Typography>
       )
     },
     {
-      flex: 1,
-      minWidth: 200,
       field: 'createdAt',
+      display: 'flex',
+      minWidth: 280,
       headerName: '建立日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          {format(new Date(row.createdAt), 'yyyy/MM/dd HH:mm:ss')}
+      renderCell: ({ row }: GridRenderCellParams<MediaAssetType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
+          {format(new Date(row.createdAt), 'PPpp')}
         </Typography>
       )
     }
@@ -128,13 +131,18 @@ const MediaAssetSelectorList = (props: Props) => {
   // ** renders preview column
   const renderPreview = (row: MediaAssetType) => {
     const isImage = getMediaAssetFileAttributes(row).isImage
+
     if (isImage) {
       return (
-        <CustomAvatar src={getPublicMediaAssetUrl(row.formats?.thumbnail?.url)} sx={{ mr: 3, width: 34, height: 34 }} />
+        <CustomAvatar
+          variant='rounded'
+          src={getPublicMediaAssetUrl(row.formats?.thumbnail?.url)}
+          sx={{ width: 34, height: 34 }}
+        />
       )
     } else {
       return (
-        <CustomAvatar skin='light' color='primary' sx={{ mr: 3, width: 34, height: 34, fontSize: '1rem' }}>
+        <CustomAvatar variant='rounded' skin='light' color='primary' sx={{ width: 34, height: 34, fontSize: '1rem' }}>
           {getInitials(row.ext)}
         </CustomAvatar>
       )
@@ -145,6 +153,7 @@ const MediaAssetSelectorList = (props: Props) => {
   const handleFilterMediaAssetName = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredMediaAssetName(e.target.value)
   }, [])
+
   const handleFilterExtensionChange = useCallback((e: SelectChangeEvent) => {
     setFilteredExtension(e.target.value)
   }, [])
@@ -171,13 +180,13 @@ const MediaAssetSelectorList = (props: Props) => {
             if (params.length > 1) {
               params.shift()
             }
+
             handleSelect(params[0] as number)
           }}
           pageSizeOptions={[10]}
           paginationModel={paginationModel}
           onPaginationModelChange={setPaginationModel}
           rowCount={totalRows}
-          sx={{ '& .MuiDataGrid-columnHeaders': { borderRadius: 0 } }}
         />
       </Grid>
     </Grid>

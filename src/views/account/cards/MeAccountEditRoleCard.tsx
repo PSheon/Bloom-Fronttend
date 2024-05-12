@@ -9,11 +9,11 @@ import Divider from '@mui/material/Divider'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Types
-import { UserDataType } from 'src/context/types'
+// ** Util Imports
+import { getUserRoleAttributes } from 'src/utils'
 
-// ** Config Import
-import { userRoleAttributes } from 'src/configs/acl'
+// ** Type Imports
+import type { UserDataType } from 'src/types/authTypes'
 
 interface Props {
   initMeUserEntity: UserDataType
@@ -22,6 +22,9 @@ interface Props {
 const MeAccountEditRoleCard = (props: Props) => {
   // ** Props
   const { initMeUserEntity } = props
+
+  // ** Vars
+  const userRoleAttributes = getUserRoleAttributes(initMeUserEntity.role!.name)
 
   return (
     <Card sx={{ boxShadow: 'none', border: theme => `2px solid ${theme.palette.primary.main}` }}>
@@ -37,45 +40,17 @@ const MeAccountEditRoleCard = (props: Props) => {
             <Typography
               variant='h4'
               sx={{
-                color: `${userRoleAttributes[initMeUserEntity.role!.name].color}.main`
+                color: `${userRoleAttributes.color}.main`
               }}
             >
-              {initMeUserEntity.role!.name}
+              {userRoleAttributes.displayName}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Box sx={{ display: 'flex', mb: 2.5, alignItems: 'center', '& svg': { mr: 2, color: 'text.secondary' } }}>
               <Icon icon='mdi:circle' fontSize='0.625rem' />
               <Typography component='span' sx={{ fontSize: '0.875rem' }}>
-                待加入權限說明
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                mt: 2.5,
-                display: 'flex',
-                mb: 2.5,
-                alignItems: 'center',
-                '& svg': { mr: 2, color: 'text.secondary' }
-              }}
-            >
-              <Icon icon='mdi:circle' fontSize='0.625rem' />
-              <Typography component='span' sx={{ fontSize: '0.875rem' }}>
-                待加入權限說明
-              </Typography>
-            </Box>
-            <Box
-              sx={{
-                mt: 2.5,
-                display: 'flex',
-                mb: 2.5,
-                alignItems: 'center',
-                '& svg': { mr: 2, color: 'text.secondary' }
-              }}
-            >
-              <Icon icon='mdi:circle' fontSize='0.625rem' />
-              <Typography component='span' sx={{ fontSize: '0.875rem' }}>
-                待加入權限說明
+                {userRoleAttributes.description}
               </Typography>
             </Box>
           </Grid>

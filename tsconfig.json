@@ -2,11 +2,12 @@
   "compilerOptions": {
     "baseUrl": ".",
     "rootDir": "src",
-    "target": "es6",
+    "target": "ESNext",
+    "downlevelIteration": true,
     "lib": [
-      "dom",
-      "dom.iterable",
-      "esnext"
+      "DOM",
+      "DOM.Iterable",
+      "ESNext"
     ],
     "allowJs": true,
     "skipLibCheck": true,
@@ -14,8 +15,8 @@
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
     "esModuleInterop": true,
-    "module": "esnext",
-    "moduleResolution": "node",
+    "module": "ESnext",
+    "moduleResolution": "bundler",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
@@ -27,11 +28,15 @@
       "apexcharts/*": [
         "./node_modules/apexcharts-clevision/*"
       ],
+      "next-auth": [
+        "./node_modules/next-auth"
+      ],
     }
   },
   "include": [
     "src",
-    "declaration.d.ts"
+    "declaration.d.ts",
+    "next-auth.d.ts"
   ],
   "exclude": [
     "node_modules"

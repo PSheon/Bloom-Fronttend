@@ -1,4 +1,4 @@
-export default {
+const buttonGroup = {
   MuiButtonGroup: {
     styleOverrides: {
       root: {
@@ -7,3 +7,5 @@ export default {
     }
   }
 }
+
+export default buttonGroup

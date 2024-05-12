@@ -1,13 +1,12 @@
-// ** Types
-import { UserDataType } from 'src/context/types'
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
-import { ThemeColor } from 'src/@core/layouts/types'
+// ** Type Imports
+import type { UserDataType } from 'src/types/authTypes'
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
-const sanitizeText = (text: string): string => {
-  return text.replace(/[#-]|[[-^]|[?|{}]/g, '').replace(' ', '')
-}
+const sanitizeText = (text: string): string => text.replace(/[#-]|[[-^]|[?|{}]/g, '').replace(' ', '')
 const checkMediaAssetIsImage = (ext: string): boolean => /(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(ext)
 const checkMediaAssetIsPdf = (ext: string): boolean => /(pdf)$/i.test(ext)
+
 const getFormattedSize = (sizeInKB: number): string => {
   if (sizeInKB < 1) {
     return `${Math.round(sizeInKB * 1000)}B`

@@ -1,31 +1,42 @@
 // ** React Imports
-import { ReactNode, useEffect } from 'react'
+import { useEffect } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // ** MUI Components
+import { styled, useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-import { styled } from '@mui/material/styles'
-import MuiCard, { CardProps } from '@mui/material/Card'
+import Card from '@mui/material/Card'
 
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Demo Imports
+// ** Custom Component Imports
 import LogoImage from 'src/views/shared/LogoImage'
-import FooterIllustrationsV1 from 'src/views/pages/auth/FooterIllustrationsV1'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { CardContentProps } from '@mui/material/CardContent'
+import type { CardProps } from '@mui/material/Card'
 
 // ** Styled Components
-const Card = styled(MuiCard)<CardProps>(({ theme }) => ({
+const StyledRootCard = styled(Card)<CardProps>(({ theme }) => ({
   [theme.breakpoints.up('sm')]: { width: 450 }
+}))
+
+const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
+  position: 'relative',
+  padding: `${theme.spacing(8, 12, 10)} !important`,
+  [theme.breakpoints.down('md')]: {
+    padding: `${theme.spacing(2, 4, 6.5)} !important`
+  }
 }))
 
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -35,8 +46,10 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 const AuthVerifyEmailPage = () => {
-  // ** Hook
+  // ** Hooks
   const router = useRouter()
+  const theme = useTheme()
+  const isDesktopView = useMediaQuery(theme.breakpoints.up('md'))
 
   useEffect(() => {
     const { email } = router.query
@@ -48,35 +61,50 @@ const AuthVerifyEmailPage = () => {
 
   return (
     <Box className='content-center'>
-      <Card sx={{ zIndex: 1 }}>
-        <CardContent sx={{ p: theme => `${theme.spacing(15.5, 7, 9)} !important` }}>
-          <Box sx={{ mb: 8, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <LogoImage width={48} height={48} />
-            <Typography variant='h6' sx={{ ml: 2, lineHeight: 1, fontWeight: 700, fontSize: '1.5rem !important' }}>
-              {themeConfig.templateName}
-            </Typography>
-          </Box>
-          <Box sx={{ mb: 8 }}>
-            <Typography variant='h5' sx={{ mb: 2 }}>
-              Verify your email ✉️
-            </Typography>
-            <Typography sx={{ color: 'text.secondary' }}>
-              Account activation link sent to your email address: <strong>{router.query.email}</strong> Please follow
-              the link inside to continue.
-            </Typography>
-          </Box>
-          <LinkStyled href='/auth/login'>
-            <Button fullWidth variant='contained'>
-              登入我的帳號
-            </Button>
-          </LinkStyled>
-          <Box sx={{ mt: 4, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-            <Typography sx={{ color: 'text.secondary' }}>打錯信箱了嗎？</Typography>
-            <LinkStyled href='/auth/register'>重新註冊</LinkStyled>
-          </Box>
-        </CardContent>
-      </Card>
-      <FooterIllustrationsV1 />
+      <StyledRootCard sx={{ zIndex: 1 }}>
+        <MainCardContentStyled>
+          <Stack spacing={6} alignItems='flex-start'>
+            <Link href='/'>
+              <Box
+                sx={{
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center'
+                }}
+              >
+                {isDesktopView ? <LogoImage width={80} height={80} /> : <LogoImage width={64} height={64} />}
+              </Box>
+            </Link>
+            <Box sx={{ width: '100%' }}>
+              <Typography variant='h5' sx={{ mb: 2 }}>
+                Verify your email ✉️
+              </Typography>
+              <Typography sx={{ color: 'text.secondary' }}>
+                Account activation link sent to your email address: <strong>{router.query.email}</strong> Please follow
+                the link inside to continue.
+              </Typography>
+            </Box>
+            <Box sx={{ width: '100%' }}>
+              <LinkStyled href='/auth/login'>
+                <Button fullWidth variant='contained'>
+                  Sign in
+                </Button>
+              </LinkStyled>
+            </Box>
+            <Stack
+              direction='row'
+              spacing={2}
+              alignItems='center'
+              justifyContent='center'
+              flexWrap='wrap'
+              sx={{ width: '100%' }}
+            >
+              <Typography sx={{ color: 'text.secondary' }}>Not this Email？</Typography>
+              <LinkStyled href='/auth/register'>Register again</LinkStyled>
+            </Stack>
+          </Stack>
+        </MainCardContentStyled>
+      </StyledRootCard>
     </Box>
   )
 }

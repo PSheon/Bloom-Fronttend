@@ -1,10 +1,10 @@
-// ** Type Imports
-import { NavLink, NavGroup, LayoutProps, NavSectionTitle } from 'src/@core/layouts/types'
-
-// ** Custom Menu Components
+// ** Custom Component Imports
 import VerticalNavLink from './VerticalNavLink'
 import VerticalNavGroup from './VerticalNavGroup'
 import VerticalNavSectionTitle from './VerticalNavSectionTitle'
+
+// ** Type Imports
+import type { NavLink, NavGroup, LayoutProps, NavSectionTitle } from 'src/@core/layouts/types'
 
 interface Props {
   parent?: NavGroup

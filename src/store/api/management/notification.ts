@@ -1,14 +1,12 @@
 // ** Redux Imports
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import qs from 'qs'
+import { getSession } from 'next-auth/react'
 
-// ** Config
-import authConfig from 'src/configs/auth'
-
-// ** Types
-import {
+// ** Type Imports
+import type {
   FindMeOneNotificationParamsType,
   FindMeOneNotificationTransformResponseType,
   FindMeOneNotificationResponseType,
@@ -30,16 +28,18 @@ import {
   DeleteOneNotificationParamsType,
   DeleteOneNotificationTransformResponseType,
   DeleteOneNotificationResponseType
-} from 'src/types/api/notificationTypes'
+} from 'src/types/notificationTypes'
 
 const NOTIFICATION_API_REDUCER_KEY = 'notificationApi'
+
 export const notificationApi = createApi({
   reducerPath: NOTIFICATION_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
-    prepareHeaders: headers => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
-      headers.set('Authorization', `Bearer ${storedToken}`)
+    prepareHeaders: async headers => {
+      const session = await getSession()
+
+      headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers
     }
@@ -53,6 +53,7 @@ export const notificationApi = createApi({
         })}`,
         method: 'GET'
       }),
+      providesTags: ['Notification'],
       transformResponse: (responseData: FindMeOneNotificationTransformResponseType) => ({
         id: responseData?.data?.id,
         ...responseData?.data?.attributes
@@ -69,9 +70,9 @@ export const notificationApi = createApi({
       providesTags: ['Notification'],
       transformResponse: (responseData: FindMeNotificationTransformResponseType) => ({
         ...responseData,
-        data: responseData.data.map(announcement => ({
-          id: announcement.id,
-          ...announcement.attributes
+        data: responseData.data.map(notification => ({
+          id: notification.id,
+          ...notification.attributes
         }))
       })
     }),
@@ -155,3 +156,4 @@ export const {
   useUpdateOneMutation,
   useDeleteOneMutation
 } = notificationApi
+export default notificationApi

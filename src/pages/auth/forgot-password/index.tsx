@@ -1,53 +1,57 @@
-// ** React Imports
-import { useState, ReactNode } from 'react'
-
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Components
-import TextField from '@mui/material/TextField'
-import Box, { BoxProps } from '@mui/material/Box'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import { styled, useTheme } from '@mui/material/styles'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import TextField from '@mui/material/TextField'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
+import Box from '@mui/material/Box'
+import useMediaQuery from '@mui/material/useMediaQuery'
+import Typography from '@mui/material/Typography'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Third Party Imports
+// ** Third-Party Imports
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
+import toast from 'react-hot-toast'
 
-// ** Hooks
-import { useAuth } from 'src/hooks/useAuth'
-
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Layout Import
+// ** Layout Imports
 import BlankLayout from 'src/@core/layouts/BlankLayout'
 
-// ** Hooks
-import { useSettings } from 'src/@core/hooks/useSettings'
-
-// ** Demo Imports
+// ** Custom Component Imports
 import LogoImage from 'src/views/shared/LogoImage'
-import FooterIllustrationsV2 from 'src/views/pages/auth/FooterIllustrationsV2'
 
-// ** Types
-import { AxiosError } from 'axios'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
-// Styled Components
-const ForgotPasswordIllustrationWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  padding: theme.spacing(20),
-  paddingRight: '0 !important',
-  [theme.breakpoints.down('lg')]: {
-    padding: theme.spacing(10)
+// ** API Imports
+import { useForgotPasswordMutation } from 'src/store/api/auth'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { CardContentProps } from '@mui/material/CardContent'
+import type { TypographyProps } from '@mui/material/Typography'
+
+// ** Styled Components
+const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
+  position: 'relative',
+  padding: `${theme.spacing(8, 12, 10)} !important`,
+  [theme.breakpoints.down('md')]: {
+    padding: `${theme.spacing(2, 4, 6.5)} !important`
   }
+}))
+
+const TitleTypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
+  fontWeight: 600,
+  letterSpacing: '0.18px',
+  marginBottom: theme.spacing(1.5),
+  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
 }))
 
 const ForgotPasswordIllustration = styled('img')(({ theme }) => ({
@@ -60,45 +64,12 @@ const ForgotPasswordIllustration = styled('img')(({ theme }) => ({
   }
 }))
 
-const RightWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.up('md')]: {
-    maxWidth: 400
-  },
-  [theme.breakpoints.up('lg')]: {
-    maxWidth: 450
-  }
-}))
-
-const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({
-  width: '100%',
-  [theme.breakpoints.down('md')]: {
-    maxWidth: 400
-  }
-}))
-
-const TypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
-  fontWeight: 600,
-  letterSpacing: '0.18px',
-  marginBottom: theme.spacing(1.5),
-  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
-}))
-
-const LinkStyled = styled(Link)(({ theme }) => ({
-  display: 'flex',
-  '& svg': { mr: 1.5 },
-  alignItems: 'center',
-  textDecoration: 'none',
-  justifyContent: 'center',
-  color: theme.palette.primary.main
-}))
-
 const schema = yup.object().shape({
   email: yup.string().email().required()
 })
 
 const defaultValues = {
-  email: 'pauljiang61020@gmail.com'
+  email: ''
 }
 
 interface FormData {
@@ -107,16 +78,9 @@ interface FormData {
 
 const AuthForgotPasswordPage = () => {
   // ** Hooks
-  const auth = useAuth()
   const theme = useTheme()
-  const { settings } = useSettings()
-
-  // ** States
-  const [isForgotPasswordLoading, setIsForgotPasswordLoading] = useState<boolean>(false)
-
-  // ** Vars
-  const { skin } = settings
-  const hidden = useMediaQuery(theme.breakpoints.down('md'))
+  const [forgotPassword, { isLoading: isForgotPasswordLoading }] = useForgotPasswordMutation()
+  const isDesktopView = useMediaQuery(theme.breakpoints.up('md'))
 
   const {
     control,
@@ -129,125 +93,146 @@ const AuthForgotPasswordPage = () => {
     resolver: yupResolver(schema)
   })
 
+  // ** Logics
   const onSubmit = async (data: FormData) => {
     const { email } = data
-    setIsForgotPasswordLoading(true)
 
-    try {
-      await auth.forgotPassword({ email })
-      setIsForgotPasswordLoading(false)
-    } catch (error) {
-      setIsForgotPasswordLoading(false)
-      let errorMessage = 'Internal Server Error'
+    forgotPassword({ email })
+      .unwrap()
+      .then(({ ok }) => {
+        if (ok) {
+          toast.success('We have sent you an email, please check your inbox.')
+        }
+      })
+      .catch(error => {
+        let errorMessage = 'Internal Server Error'
 
-      if (error instanceof AxiosError) {
-        if (error?.response?.status === 404) {
+        if (error?.status === 404) {
           errorMessage = 'Email not found'
-        } else if (error?.response?.status === 401) {
+        } else if (error?.status === 401) {
           errorMessage = 'You have been blocked by the administrator'
-        } else if (error?.response?.status === 429) {
+        } else if (error?.status === 429) {
           errorMessage = 'We have already sent you an email, please check your inbox or wait 3 minutes'
         }
-      }
 
-      setError('email', {
-        type: 'manual',
-        message: errorMessage
+        setError('email', {
+          type: 'manual',
+          message: errorMessage
+        })
       })
-    }
   }
 
-  const imageSource =
-    skin === 'bordered' ? 'auth-v2-forgot-password-illustration-bordered' : 'auth-v2-forgot-password-illustration'
-
   return (
-    <Box className='content-right'>
-      {!hidden ? (
-        <Box sx={{ flex: 1, display: 'flex', position: 'relative', alignItems: 'center', justifyContent: 'center' }}>
-          <ForgotPasswordIllustrationWrapper>
-            <ForgotPasswordIllustration
-              alt='forgot-password-illustration'
-              src={`/images/pages/${imageSource}-${theme.palette.mode}.png`}
-            />
-          </ForgotPasswordIllustrationWrapper>
-          <FooterIllustrationsV2 image={`/images/pages/auth-v2-forgot-password-mask-${theme.palette.mode}.png`} />
-        </Box>
-      ) : null}
-      <RightWrapper sx={skin === 'bordered' && !hidden ? { borderLeft: `1px solid ${theme.palette.divider}` } : {}}>
-        <Box
-          sx={{
-            p: 7,
-            height: '100%',
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            backgroundColor: 'background.paper'
-          }}
-        >
-          <BoxWrapper>
-            <Box
+    <Box className='content-center'>
+      <Card sx={{ zIndex: 1, width: '100%', maxWidth: theme => theme.spacing(isDesktopView ? 360 : 120) }}>
+        <Grid container className='match-height'>
+          {isDesktopView && (
+            <Grid
+              item
+              xs={12}
+              md={7}
               sx={{
-                top: 30,
-                left: 40,
+                flex: 1,
                 display: 'flex',
-                position: 'absolute',
                 alignItems: 'center',
                 justifyContent: 'center'
               }}
             >
-              <LogoImage width={48} height={48} />
-              <Typography variant='h6' sx={{ ml: 2, lineHeight: 1, fontWeight: 700, fontSize: '1.5rem !important' }}>
-                {themeConfig.templateName}
-              </Typography>
-            </Box>
-            <Box sx={{ mb: 6 }}>
-              <TypographyStyled variant='h5'>Forgot Password? 🔒</TypographyStyled>
-              <Typography variant='body2'>
-                Enter your email and we&prime;ll send you instructions to reset your password
-              </Typography>
-            </Box>
-            <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-              <FormControl fullWidth sx={{ mb: 4 }}>
-                <Controller
-                  name='email'
-                  control={control}
-                  rules={{ required: true }}
-                  render={({ field: { value, onChange, onBlur } }) => (
-                    <TextField
-                      autoFocus
-                      label='Email'
-                      value={value}
-                      onBlur={onBlur}
-                      onChange={onChange}
-                      error={Boolean(errors.email)}
-                      sx={{ display: 'flex', mb: 4 }}
-                    />
-                  )}
-                />
-                {errors.email && <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>}
-              </FormControl>
+              <ForgotPasswordIllustration
+                height={500}
+                alt='forgot-password-illustration'
+                src='/images/auth/forgot-password-illustration.svg'
+              />
+            </Grid>
+          )}
+          <Grid item xs={12} md={5}>
+            <MainCardContentStyled>
+              <Stack spacing={6} alignItems='flex-start'>
+                <Link href='/'>
+                  <Box
+                    sx={{
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center'
+                    }}
+                  >
+                    {isDesktopView ? <LogoImage width={80} height={80} /> : <LogoImage width={64} height={64} />}
+                  </Box>
+                </Link>
+                <Box>
+                  <TitleTypographyStyled variant='h5' sx={{ mt: '0 !important' }}>
+                    Forgot Password? 🔒
+                  </TitleTypographyStyled>
+                  <Typography variant='body2'>
+                    Enter your email and we&prime;ll send you instructions to reset your password
+                  </Typography>
+                </Box>
+                <Box sx={{ width: '100%' }}>
+                  <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+                    <FormControl fullWidth sx={{ mb: 4 }}>
+                      <Controller
+                        name='email'
+                        control={control}
+                        rules={{ required: true }}
+                        render={({ field: { value, onChange, onBlur } }) => (
+                          <TextField
+                            label='Email'
+                            value={value}
+                            onBlur={onBlur}
+                            onChange={onChange}
+                            error={Boolean(errors.email)}
+                          />
+                        )}
+                      />
+                      {errors.email && (
+                        <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>
+                      )}
+                    </FormControl>
 
-              <LoadingButton
-                fullWidth
-                loading={isForgotPasswordLoading}
-                disabled={Boolean(errors.email)}
-                size='large'
-                type='submit'
-                variant='contained'
-                sx={{ mb: 5.25 }}
-              >
-                Send reset link
-              </LoadingButton>
-              <Typography sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <LinkStyled href='/auth/login'>
-                  <Icon icon='mdi:chevron-left' fontSize='2rem' />
-                  <span>Back to login</span>
-                </LinkStyled>
-              </Typography>
-            </form>
-          </BoxWrapper>
-        </Box>
-      </RightWrapper>
+                    <LoadingButton
+                      fullWidth
+                      loading={isForgotPasswordLoading}
+                      disabled={Boolean(errors.email)}
+                      size='large'
+                      type='submit'
+                      variant='contained'
+                      sx={{ my: 5.25 }}
+                    >
+                      Send reset link
+                    </LoadingButton>
+
+                    <Stack
+                      direction='row'
+                      spacing={2}
+                      alignItems='center'
+                      justifyContent='center'
+                      flexWrap='wrap'
+                      sx={{ width: '100%', pt: 8 }}
+                    >
+                      <Typography
+                        component={Link}
+                        href='/auth/login'
+                        noWrap
+                        sx={{
+                          display: 'flex',
+                          '& svg': { mr: 1.5 },
+                          alignItems: 'center',
+                          color: 'primary.main',
+                          textDecoration: 'none',
+                          justifyContent: 'center'
+                        }}
+                      >
+                        <Icon icon='mdi:chevron-left' fontSize='2rem' />
+                        <span>Back to login</span>
+                      </Typography>
+                    </Stack>
+                  </form>
+                </Box>
+              </Stack>
+            </MainCardContentStyled>
+          </Grid>
+        </Grid>
+      </Card>
     </Box>
   )
 }

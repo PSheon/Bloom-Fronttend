@@ -1,16 +1,17 @@
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** Api Imports
+// ** Custom Component Imports
+import ManagementMediaAssetEditLoadingSkeleton from 'src/views/management/media-asset/edit/ManagementMediaAssetEditLoadingSkeleton'
+import ManagementMediaAssetEditSection from 'src/views/management/media-asset/edit'
+
+// ** API Imports
 import { useFindOneQuery } from 'src/store/api/management/mediaAsset'
 
-// ** Styled Component
-import MediaAssetEditLoadingSkeleton from 'src/views/management/media-asset/edit/LoadingSkeleton'
-import MediaAssetEditSection from 'src/views/management/media-asset/edit'
-
-const MediaAssetEditPage = () => {
+const ManagementMediaAssetEditPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: mediaAssetEntity,
     isError: isFindOneMediaAssetEntityError,
@@ -20,15 +21,15 @@ const MediaAssetEditPage = () => {
   if (router.query.id === undefined || isFindOneMediaAssetEntityError) {
     router.push('/management/media-asset/list')
   } else if (isFindOneMediaAssetEntityLoading) {
-    return <MediaAssetEditLoadingSkeleton />
+    return <ManagementMediaAssetEditLoadingSkeleton />
   } else {
-    return <MediaAssetEditSection initMediaAssetEntity={mediaAssetEntity!} />
+    return <ManagementMediaAssetEditSection initMediaAssetEntity={mediaAssetEntity!} />
   }
 }
 
-MediaAssetEditPage.acl = {
+ManagementMediaAssetEditPage.acl = {
   action: 'read',
-  subject: 'manager-page'
+  subject: 'planner-page'
 }
 
-export default MediaAssetEditPage
+export default ManagementMediaAssetEditPage

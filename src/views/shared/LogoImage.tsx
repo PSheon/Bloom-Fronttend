@@ -1,8 +1,8 @@
 // ** MUI Imports
 import { useTheme, alpha } from '@mui/material/styles'
 
-// ** Types
-import { ThemeColor } from 'src/@core/layouts/types'
+// ** Type Imports
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 interface Props {
   width?: number
@@ -14,7 +14,7 @@ const LogoImage = (props: Props) => {
   // ** Props
   const { width = 40, height = 40, color } = props
 
-  // ** Hooks & Vars
+  // ** Hooks
   const theme = useTheme()
 
   return (

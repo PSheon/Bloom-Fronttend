@@ -1,61 +1,55 @@
-// ** Toolkit imports
+// ** Third-Party Imports
 import { configureStore } from '@reduxjs/toolkit'
 
-// ** Reducers
-import chat from 'src/store/apps/chat'
-import user from 'src/store/apps/user'
-import email from 'src/store/apps/email'
-import invoice from 'src/store/apps/invoice'
-import calendar from 'src/store/apps/calendar'
-import permissions from 'src/store/apps/permissions'
+// ** Reducer Imports
 import dashboard from 'src/store/dashboard'
 
-// ** Api
+// ** API Imports
+import { authApi } from 'src/store/api/auth'
+import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
+import { fundApi } from 'src/store/api/management/fund'
 import { userApi } from 'src/store/api/management/user'
+import { articleApi } from 'src/store/api/management/article'
 import { mediaAssetApi } from 'src/store/api/management/mediaAsset'
-import { announcementApi } from 'src/store/api/management/announcement'
+import { notificationApi } from 'src/store/api/management/notification'
+import { walletApi } from 'src/store/api/management/wallet'
+import { packageApi } from 'src/store/api/management/package'
 import { accessLogApi } from 'src/store/api/management/accessLog'
 import { activityLogApi } from 'src/store/api/management/activityLog'
-import { notificationApi } from 'src/store/api/management/notification'
-import { requestSheetApi } from 'src/store/api/management/requestSheet'
-import { reviewApi } from 'src/store/api/management/review'
-import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
-import { statisticApi } from 'src/store/api/statistic'
 
 export const store = configureStore({
   reducer: {
-    user,
-    chat,
-    email,
-    invoice,
-    calendar,
-    permissions,
     dashboard,
-    [userApi.reducerPath]: userApi.reducer,
-    [mediaAssetApi.reducerPath]: mediaAssetApi.reducer,
-    [announcementApi.reducerPath]: announcementApi.reducer,
-    [accessLogApi.reducerPath]: accessLogApi.reducer,
-    [activityLogApi.reducerPath]: activityLogApi.reducer,
-    [notificationApi.reducerPath]: notificationApi.reducer,
-    [requestSheetApi.reducerPath]: requestSheetApi.reducer,
-    [reviewApi.reducerPath]: reviewApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
     [roleAndPermissionApi.reducerPath]: roleAndPermissionApi.reducer,
-    [statisticApi.reducerPath]: statisticApi.reducer
+    [fundApi.reducerPath]: fundApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
+    [articleApi.reducerPath]: articleApi.reducer,
+    [mediaAssetApi.reducerPath]: mediaAssetApi.reducer,
+    [notificationApi.reducerPath]: notificationApi.reducer,
+    [walletApi.reducerPath]: walletApi.reducer,
+    [packageApi.reducerPath]: packageApi.reducer,
+    [accessLogApi.reducerPath]: accessLogApi.reducer,
+    [activityLogApi.reducerPath]: activityLogApi.reducer
   },
+
+  // ** NOTE: Fix here later
+  // @ts-ignore
   middleware: getDefaultMiddleware =>
     getDefaultMiddleware({
       serializableCheck: false
     }).concat([
-      userApi.middleware,
-      mediaAssetApi.middleware,
-      announcementApi.middleware,
-      accessLogApi.middleware,
-      activityLogApi.middleware,
-      notificationApi.middleware,
-      requestSheetApi.middleware,
-      reviewApi.middleware,
+      authApi.middleware,
       roleAndPermissionApi.middleware,
-      statisticApi.middleware
+      fundApi.middleware,
+      userApi.middleware,
+      articleApi.middleware,
+      mediaAssetApi.middleware,
+      notificationApi.middleware,
+      walletApi.middleware,
+      packageApi.middleware,
+      accessLogApi.middleware,
+      activityLogApi.middleware
     ])
 })
 

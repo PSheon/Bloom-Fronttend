@@ -1,14 +1,12 @@
 // ** Redux Imports
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import qs from 'qs'
+import { getSession } from 'next-auth/react'
 
-// ** Config
-import authConfig from 'src/configs/auth'
-
-// ** Types
-import {
+// ** Type Imports
+import type {
   FindMeActivityLogParamsType,
   FindMeActivityLogTransformResponseType,
   FindMeActivityLogResponseType,
@@ -18,16 +16,18 @@ import {
   UpdateOneActivityLogParamsType,
   UpdateOneActivityLogTransformResponseType,
   UpdateOneActivityLogResponseType
-} from 'src/types/api/activityLogTypes'
+} from 'src/types/activityLogTypes'
 
 const ACTIVITY_LOG_API_REDUCER_KEY = 'activityLogApi'
+
 export const activityLogApi = createApi({
   reducerPath: ACTIVITY_LOG_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
-    prepareHeaders: headers => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
-      headers.set('Authorization', `Bearer ${storedToken}`)
+    prepareHeaders: async headers => {
+      const session = await getSession()
+
+      headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers
     }
@@ -83,3 +83,4 @@ export const activityLogApi = createApi({
 })
 
 export const { useFindMeQuery, useFindQuery, useUpdateOneMutation } = activityLogApi
+export default activityLogApi

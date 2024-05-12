@@ -5,14 +5,14 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 
-// ** Third Party Import
+// ** Third-Party Imports
 import { useTranslation } from 'react-i18next'
 
-// ** Components Imports
+// ** Custom Component Imports
 import LanguageSelectBox from 'src/views/settings/select-box/LanguageSelectBox'
 
 const LanguageSettingCard = () => {
-  // ** Hook
+  // ** Hooks
   const { i18n } = useTranslation()
 
   return (

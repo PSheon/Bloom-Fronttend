@@ -5,11 +5,9 @@
  * ! To clear local storage, you may refer https://www.leadshook.com/help/how-to-clear-local-storage-in-google-chrome-browser/.
  */
 
-// ** MUI Imports
-import { Direction } from '@mui/material'
-
-// ** Types
-import {
+// ** Type Imports
+import type { Direction } from '@mui/material'
+import type {
   Skin,
   Mode,
   AppBar,
@@ -49,9 +47,9 @@ type ThemeConfig = {
 
 const themeConfig: ThemeConfig = {
   // ** Layout Configs
-  templateName: 'Frontend' /* App Name */,
+  templateName: 'Bloom' /* App Name */,
   layout: 'vertical' /* vertical | horizontal */,
-  mode: 'dark' as Mode /* light | dark | semi-dark /*! Note: semi-dark value will only work for Vertical Layout */,
+  mode: 'light' as Mode /* light | dark | semi-dark /*! Note: semi-dark value will only work for Vertical Layout */,
   direction: 'ltr' /* ltr | rtl */,
   skin: 'default' /* default | bordered */,
   contentWidth: 'full' /* full | boxed */,
@@ -80,7 +78,7 @@ const themeConfig: ThemeConfig = {
   // ** Other Configs
   responsiveFontSizes: true /* true | false */,
   disableRipple: false /* true | false */,
-  disableCustomizer: false /* true | false */,
+  disableCustomizer: process.env.NODE_ENV === 'production' /* true | false */,
   toastPosition: 'top-right' /* top-left | top-center | top-right | bottom-left | bottom-center | bottom-right */
 }
 

@@ -1,14 +1,12 @@
-// ** Types
-import { RepeaterProps } from './types'
+// ** Type Imports
+import type { RepeaterProps } from './types'
 
 const Repeater = (props: RepeaterProps) => {
   // ** Props
   const { count, tag, children } = props
 
-  // ** Custom Tag
+  // ** Vars
   const Tag = tag || 'div'
-
-  // ** Default Items
   const items = []
 
   // ** Loop passed count times and push it in items Array

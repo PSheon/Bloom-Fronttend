@@ -1,50 +1,48 @@
 // ** React Imports
-import { useState, useCallback, ChangeEvent } from 'react'
+import { useState, useCallback } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
+import { styled } from '@mui/material/styles'
+import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Tooltip from '@mui/material/Tooltip'
-import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
-import { SelectChangeEvent } from '@mui/material/Select'
+
+// ** Third-Party Imports
+import format from 'date-fns/format'
+
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Custom Component Imports
+import ManagementNotificationListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ManagementNotificationListHeaderCardContent from 'src/views/management/notification/list/ManagementNotificationListHeaderCardContent'
+import DataGrid from 'src/views/shared/wrapped-data-grid'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Third Party Imports
-import format from 'date-fns/format'
-
-// ** Hooks Import
+// ** Hook Imports
 import useDebounce from 'src/hooks/useDebounce'
 
-// ** Api Imports
+// ** API Imports
 import { useFindQuery, useUpdateOneMutation } from 'src/store/api/management/notification'
 
-// ** Types Imports
-import { NotificationType } from 'src/types/api/notificationTypes'
-
-// ** Utils Import
+// ** Util Imports
 import { getInitials } from 'src/@core/utils/get-initials'
 import { getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import CustomAvatar from 'src/@core/components/mui/avatar'
-
-// ** Styled Components
-import NotificationListBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import NotificationListHeaderCardContent from 'src/views/management/notification/list/HeaderCardContent'
-import DataGrid, { GridColDef } from 'src/views/shared/wrapped-data-grid'
-
-interface CellType {
-  row: NotificationType
-}
+// ** Type Imports
+import type { ChangeEvent } from 'react'
+import type { SelectChangeEvent } from '@mui/material/Select'
+import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
+import type { NotificationType } from 'src/types/notificationTypes'
 
 // ** Styled component for the link in the dataTable
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -58,8 +56,8 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   }
 }))
 
-const NotificationListPage = () => {
-  // ** State
+const ManagementNotificationListPage = () => {
+  // ** States
   const [filteredNotificationTitle, setFilteredNotificationTitle] = useState<string>('')
   const [filteredIsSeen, setFilteredIsSeen] = useState<string>('all')
   const [filteredIsHighlighted, setFilteredIsHighlighted] = useState<string>('all')
@@ -67,7 +65,12 @@ const NotificationListPage = () => {
   const debouncedFilteredNotificationTitle = useDebounce(filteredNotificationTitle, 300)
 
   // ** Hooks
-  const { data: notificationsData, isLoading: isNotificationListLoading } = useFindQuery({
+  const {
+    data: notificationsData,
+    isLoading: isNotificationListLoading,
+    refetch: refetchNotificationList,
+    isFetching: isNotificationListFetching
+  } = useFindQuery({
     filters: {
       ...(debouncedFilteredNotificationTitle !== '' && {
         $or: [{ title: { $containsi: debouncedFilteredNotificationTitle } }]
@@ -80,27 +83,27 @@ const NotificationListPage = () => {
       pageSize: paginationModel.pageSize
     }
   })
+
   const [updateNotification] = useUpdateOneMutation()
 
   // ** Vars
   const notifications = notificationsData?.data || []
   const totalRows = notificationsData?.meta.pagination.total || 0
+
   const columns: GridColDef[] = [
     {
-      flex: 1,
-      minWidth: 60,
       field: 'id',
-      headerName: '編號',
-      renderCell: ({ row }: CellType) => (
+      minWidth: 60,
+      headerName: '# ID',
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
         <LinkStyled href={`/management/notification/edit/${row.id}`}>{`#${row.id}`}</LinkStyled>
       )
     },
     {
-      flex: 5,
-      minWidth: 150,
       field: 'title',
+      minWidth: 350,
       headerName: '標題',
-      renderCell: ({ row }: CellType) => (
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
         <LinkStyled
           href={`/management/notification/edit/${row.id}`}
           sx={{ fontWeight: 600, color: 'text.primary', overflow: 'hidden', textOverflow: 'ellipsis' }}
@@ -110,32 +113,32 @@ const NotificationListPage = () => {
       )
     },
     {
-      flex: 2,
       field: 'notifier',
+      display: 'flex',
       minWidth: 250,
       headerName: '通知者',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => {
         const { username, email } = row.notifier?.data?.attributes || {}
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
             {row.notifier.data?.attributes?.avatar ? (
               <CustomAvatar
                 variant='rounded'
                 src={getPublicMediaAssetUrl(row.notifier.data.attributes.avatar.data?.attributes.url)}
-                sx={{ mr: 3, width: 34, height: 34 }}
+                sx={{ width: 34, height: 34 }}
               />
             ) : (
               <CustomAvatar
                 skin='light'
                 color='primary'
                 variant='rounded'
-                sx={{ mr: 3, fontSize: '1rem', width: 34, height: 34 }}
+                sx={{ fontSize: '1rem', width: 34, height: 34 }}
               >
                 {getInitials(row.notifier.data?.attributes.username || 'John Doe')}
               </CustomAvatar>
             )}
-            <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+            <Stack alignItems='flex-start' justifyContent='center'>
               <Typography
                 noWrap
                 variant='body2'
@@ -146,30 +149,30 @@ const NotificationListPage = () => {
               <Typography noWrap variant='caption'>
                 {email}
               </Typography>
-            </Box>
-          </Box>
+            </Stack>
+          </Stack>
         )
       },
-      valueGetter: ({ row }: CellType) => row.notifier?.data?.attributes.username
+      valueGetter: (data: NotificationType['notifier']) => data?.data?.attributes.username
     },
     {
-      flex: 1,
-      minWidth: 125,
       field: 'createdAt',
+      display: 'flex',
+      minWidth: 125,
       headerName: '通知日期',
-      renderCell: ({ row }: CellType) => (
-        <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.secondary' }}>
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
+        <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
           {format(new Date(row.createdAt), 'MM/dd/yyyy')}
         </Typography>
       ),
-      valueGetter: ({ row }: CellType) => format(new Date(row.createdAt), 'MM/dd/yyyy')
+      valueGetter: (data: NotificationType['createdAt']) => format(new Date(data), 'MM/dd/yyyy')
     },
     {
-      flex: 1,
-      minWidth: 100,
       field: 'isSeen',
+      display: 'flex',
+      minWidth: 100,
       headerName: '閱讀狀態',
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => {
         const { isSeen } = row
 
         return (
@@ -183,37 +186,36 @@ const NotificationListPage = () => {
           />
         )
       },
-      valueGetter: ({ row }: CellType) => (row.isSeen ? '已閱讀' : '未閱讀')
+      valueGetter: (data: NotificationType['isSeen']) => (data ? '已閱讀' : '未閱讀')
     },
     {
-      flex: 1,
-      minWidth: 130,
-      sortable: false,
       field: 'actions',
-      headerName: '操作',
+      display: 'flex',
+      minWidth: 130,
+      headerName: 'Actions',
+      sortable: false,
       disableColumnMenu: true,
       disableExport: true,
-      renderCell: ({ row }: CellType) => {
+      renderCell: ({ row }: GridRenderCellParams<NotificationType>) => {
         const { id, isHighlighted } = row
 
         return (
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Tooltip title='查看'>
-              <IconButton size='small' component={Link} sx={{ mr: 0.5 }} href={`/management/notification/edit/${id}`}>
+          <Stack direction='row' spacing={0.5} alignItems='center'>
+            <Tooltip title='Edit'>
+              <IconButton size='small' component={Link} href={`/management/notification/edit/${id}`}>
                 <Icon icon='mdi:eye-outline' />
               </IconButton>
             </Tooltip>
-            <Tooltip title={isHighlighted ? '已加星號' : '未加星號'}>
+            <Tooltip title={isHighlighted ? 'Starred' : 'Star'}>
               <IconButton
                 size='small'
-                sx={{ mr: 0.5 }}
                 color={isHighlighted ? 'primary' : 'inherit'}
                 onClick={() => handleHighlightNotification(id, !isHighlighted)}
               >
                 <Icon icon={isHighlighted ? 'mdi:star' : 'mdi:star-outline'} />
               </IconButton>
             </Tooltip>
-          </Box>
+          </Stack>
         )
       }
     }
@@ -223,35 +225,43 @@ const NotificationListPage = () => {
   const handleFilterNotificationTitle = useCallback((e: ChangeEvent<HTMLInputElement>) => {
     setFilteredNotificationTitle(e.target.value)
   }, [])
+
   const handleFilterIsSeenChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsSeen(e.target.value)
   }, [])
+
   const handleIsHighlightedChange = useCallback((e: SelectChangeEvent) => {
     setFilteredIsHighlighted(e.target.value)
   }, [])
+
   const handleHighlightNotification = async (id: number, isHighlighted: boolean) => {
     await updateNotification({ id, data: { isHighlighted } })
+  }
+
+  const handleRefetchNotificationList = () => {
+    refetchNotificationList()
   }
 
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <NotificationListBreadcrumbs pageLevels={[{ title: '通知管理' }]} />
+        <ManagementNotificationListBreadcrumbs pageLevels={[{ title: '通知管理' }]} />
       </Grid>
       <Grid item xs={12}>
         <Card>
-          <NotificationListHeaderCardContent
+          <ManagementNotificationListHeaderCardContent
             filteredNotificationTitle={filteredNotificationTitle}
             handleFilterNotificationTitle={handleFilterNotificationTitle}
             filteredIsSeen={filteredIsSeen}
             handleFilterIsSeenChange={handleFilterIsSeenChange}
             filteredIsHighlighted={filteredIsHighlighted}
             handleIsHighlightedChange={handleIsHighlightedChange}
+            handleRefetchNotificationList={handleRefetchNotificationList}
           />
           <DataGrid
             autoHeight
             rows={notifications}
-            loading={isNotificationListLoading}
+            loading={isNotificationListLoading || isNotificationListFetching}
             columns={columns}
             checkboxSelection
             disableRowSelectionOnClick
@@ -267,9 +277,9 @@ const NotificationListPage = () => {
   )
 }
 
-NotificationListPage.acl = {
+ManagementNotificationListPage.acl = {
   action: 'read',
-  subject: 'manager-page'
+  subject: 'planner-page'
 }
 
-export default NotificationListPage
+export default ManagementNotificationListPage

@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -6,11 +6,11 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
-
-// ** Theme Config Import
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   hidden: LayoutProps['hidden']

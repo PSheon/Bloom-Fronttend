@@ -1,58 +1,55 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Demo Components Imports
-import DashboardSystemBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import CardOSInfoStatistics from 'src/views/system/dashboard/cards/OSInfoStatisticsCard'
-import CardDBInfoStatistics from 'src/views/system/dashboard/cards/DBInfoStatisticsCard'
-import CardCpuUsageStatisticsLineChart from 'src/views/system/dashboard/cards/CpuUsageStatisticsLineChartCard'
-import CardMemUsageStatisticsLineChart from 'src/views/system/dashboard/cards/MemUsageStatisticsLineChartCard'
-import CardProcUsageStatisticsLineChart from 'src/views/system/dashboard/cards/ProcUsageStatisticsLineChartCard'
-import CardDriveUsageRadialBarChart from 'src/views/system/dashboard/cards/DriveUsageRadialBarChartCard'
-import CardSystemLogSnippet from 'src/views/system/dashboard/cards/SystemLogSnippetCard'
-
-// ** Styled Component Import
-import SocketProvider from 'src/views/system/dashboard/provider/SocketProvider'
-import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
+// ** Core Component Imports
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
+
+// ** Custom Component Imports
+import SystemDashboardSocketProvider from 'src/views/system/dashboard/providers/SystemDashboardSocketProvider'
+import SystemDashboardBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import SystemDashboardCardOSInfoStatistics from 'src/views/system/dashboard/cards/SystemDashboardOSInfoStatisticsCard'
+import SystemDashboardCardDBInfoStatistics from 'src/views/system/dashboard/cards/SystemDashboardDBInfoStatisticsCard'
+import SystemDashboardCardCpuUsageStatisticsLineChart from 'src/views/system/dashboard/cards/SystemDashboardCpuUsageStatisticsLineChartCard'
+import SystemDashboardCardMemUsageStatisticsLineChart from 'src/views/system/dashboard/cards/SystemDashboardMemUsageStatisticsLineChartCard'
+import SystemDashboardCardProcUsageStatisticsLineChart from 'src/views/system/dashboard/cards/SystemDashboardProcUsageStatisticsLineChartCard'
+import SystemDashboardCardDriveUsageRadialBarChart from 'src/views/system/dashboard/cards/SystemDashboardDriveUsageRadialBarChartCard'
+import SystemDashboardCardSystemLogSnippet from 'src/views/system/dashboard/cards/SystemDashboardSystemLogSnippetCard'
 
 const SystemDashboardPage = () => {
   return (
-    <SocketProvider>
+    <SystemDashboardSocketProvider>
       <ApexChartWrapper>
-        <KeenSliderWrapper>
-          <Grid container spacing={6} className='match-height'>
-            <Grid item xs={12}>
-              <DashboardSystemBreadcrumbs pageLevels={[{ title: '系統監控' }]} />
-            </Grid>
-
-            <Grid item xs={12} md={9}>
-              <CardOSInfoStatistics />
-            </Grid>
-            <Grid item xs={12} md={3}>
-              <CardDBInfoStatistics />
-            </Grid>
-
-            <Grid item xs={12} md={3} sm={6}>
-              <CardCpuUsageStatisticsLineChart keepElements={15} />
-            </Grid>
-            <Grid item xs={12} md={3} sm={6}>
-              <CardMemUsageStatisticsLineChart keepElements={15} />
-            </Grid>
-            <Grid item xs={12} md={3} sm={6}>
-              <CardProcUsageStatisticsLineChart keepElements={10} />
-            </Grid>
-            <Grid item xs={12} md={3} sm={6}>
-              <CardDriveUsageRadialBarChart />
-            </Grid>
-
-            <Grid item xs={12}>
-              <CardSystemLogSnippet />
-            </Grid>
+        <Grid container spacing={6} className='match-height'>
+          <Grid item xs={12}>
+            <SystemDashboardBreadcrumbs pageLevels={[{ title: '系統監控' }]} />
           </Grid>
-        </KeenSliderWrapper>
+
+          <Grid item xs={12} md={9}>
+            <SystemDashboardCardOSInfoStatistics />
+          </Grid>
+          <Grid item xs={12} md={3}>
+            <SystemDashboardCardDBInfoStatistics />
+          </Grid>
+
+          <Grid item xs={12} md={3} sm={6}>
+            <SystemDashboardCardCpuUsageStatisticsLineChart />
+          </Grid>
+          <Grid item xs={12} md={3} sm={6}>
+            <SystemDashboardCardMemUsageStatisticsLineChart />
+          </Grid>
+          <Grid item xs={12} md={3} sm={6}>
+            <SystemDashboardCardProcUsageStatisticsLineChart />
+          </Grid>
+          <Grid item xs={12} md={3} sm={6}>
+            <SystemDashboardCardDriveUsageRadialBarChart />
+          </Grid>
+
+          <Grid item xs={12}>
+            <SystemDashboardCardSystemLogSnippet />
+          </Grid>
+        </Grid>
       </ApexChartWrapper>
-    </SocketProvider>
+    </SystemDashboardSocketProvider>
   )
 }
 

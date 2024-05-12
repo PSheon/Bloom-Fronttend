@@ -1,9 +1,6 @@
 // ** React Imports
 import { useState } from 'react'
 
-// ** Third Party Components
-import PerfectScrollbar from 'react-perfect-scrollbar'
-
 // ** MUI Imports
 import Radio from '@mui/material/Radio'
 import Switch from '@mui/material/Switch'
@@ -12,18 +9,23 @@ import { styled } from '@mui/material/styles'
 import IconButton from '@mui/material/IconButton'
 import RadioGroup from '@mui/material/RadioGroup'
 import Typography from '@mui/material/Typography'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import FormControlLabel from '@mui/material/FormControlLabel'
-import MuiDrawer, { DrawerProps } from '@mui/material/Drawer'
+import MuiDrawer from '@mui/material/Drawer'
+
+// ** Third-Party Components
+import PerfectScrollbar from 'react-perfect-scrollbar'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
-
-// ** Hook Import
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+import type { DrawerProps } from '@mui/material/Drawer'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 const Toggler = styled(Box)<BoxProps>(({ theme }) => ({
   right: 0,
@@ -72,10 +74,10 @@ const ColorBox = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const Customizer = () => {
-  // ** State
+  // ** States
   const [open, setOpen] = useState<boolean>(false)
 
-  // ** Hook
+  // ** Hooks
   const { settings, saveSettings } = useSettings()
 
   // ** Vars

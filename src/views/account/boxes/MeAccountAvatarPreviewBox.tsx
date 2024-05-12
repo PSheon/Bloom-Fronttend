@@ -1,23 +1,24 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
+
+// ** Custom Component Imports
+import AvatarUploader from 'src/views/shared/avatar-uploader'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Api Imports
+// ** API Imports
 import { useUpdateMeOneMutation } from 'src/store/api/management/user'
 
-// ** Component Imports
-import AvatarUploader from 'src/views/shared/avatar-uploader'
-
-// ** Utils Import
+// ** Util Imports
 import { getMediaAssetFileAttributes, getPublicMediaAssetUrl } from 'src/utils'
 
-// ** Types
-import { UserDataType } from 'src/context/types'
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+import type { UserDataType } from 'src/types/authTypes'
 
 // ** Styled Preview Box
 const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
@@ -39,6 +40,7 @@ const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
     borderRadius: 10
   }
 }))
+
 const ProfilePicture = styled('img')(({ theme }) => ({
   margin: theme.spacing(4),
   width: 96,

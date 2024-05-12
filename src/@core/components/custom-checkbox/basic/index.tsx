@@ -5,12 +5,13 @@ import Checkbox from '@mui/material/Checkbox'
 import Typography from '@mui/material/Typography'
 
 // ** Type Imports
-import { CustomCheckboxBasicProps } from 'src/@core/components/custom-checkbox/types'
+import type { CustomCheckboxBasicProps } from 'src/@core/components/custom-checkbox/types'
 
 const CustomCheckbox = (props: CustomCheckboxBasicProps) => {
   // ** Props
   const { data, name, selected, gridProps, handleChange, color = 'primary' } = props
 
+  // ** Vars
   const { meta, title, value, content } = data
 
   const renderData = () => {

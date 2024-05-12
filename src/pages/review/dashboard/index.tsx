@@ -1,11 +1,14 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Styled Component Import
+// ** Custom Component Imports
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
-import DashboardHomeBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import ReviewDashboardRequestSheetOverviewCard from 'src/views/review/dashboard/cards/RequestSheetOverviewCard'
+import ReviewDashboardBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import ReviewDashboardStatisticsOverviewCard from 'src/views/review/dashboard/cards/ReviewDashboardStatisticsOverviewCard'
+import ReviewDashboardRatingsCard from 'src/views/review/dashboard/cards/ReviewDashboardRatingsCard'
+import ReviewDashboardSessionsCard from 'src/views/review/dashboard/cards/ReviewDashboardSessionsCard'
+import ReviewDashboardFundDataGridCard from 'src/views/review/dashboard/cards/ReviewDashboardFundDataGridCard'
 
 const ReviewDashboardPage = () => {
   return (
@@ -13,11 +16,21 @@ const ReviewDashboardPage = () => {
       <KeenSliderWrapper>
         <Grid container spacing={6} className='match-height'>
           <Grid item xs={12}>
-            <DashboardHomeBreadcrumbs pageLevels={[{ title: '審核儀表板' }]} />
+            <ReviewDashboardBreadcrumbs pageLevels={[{ title: '審核資金儀表板' }]} />
+          </Grid>
+
+          <Grid item xs={12} md={6}>
+            <ReviewDashboardStatisticsOverviewCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <ReviewDashboardRatingsCard />
+          </Grid>
+          <Grid item xs={12} sm={6} md={3}>
+            <ReviewDashboardSessionsCard />
           </Grid>
 
           <Grid item xs={12}>
-            <ReviewDashboardRequestSheetOverviewCard />
+            <ReviewDashboardFundDataGridCard />
           </Grid>
         </Grid>
       </KeenSliderWrapper>
@@ -27,7 +40,7 @@ const ReviewDashboardPage = () => {
 
 ReviewDashboardPage.acl = {
   action: 'read',
-  subject: 'reviewer-page'
+  subject: 'asset-manager-page'
 }
 
 export default ReviewDashboardPage

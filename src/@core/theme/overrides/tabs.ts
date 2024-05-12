@@ -1,5 +1,5 @@
-// ** Type Import
-import { OwnerStateThemeType } from './'
+// ** Type Imports
+import type { OwnerStateThemeType } from './'
 
 const Tabs = () => {
   return {
@@ -18,7 +18,8 @@ const Tabs = () => {
     MuiTab: {
       styleOverrides: {
         root: {
-          lineHeight: 1.5
+          lineHeight: 1.5,
+          textTransform: 'inherit'
         },
         textColorSecondary: ({ theme }: OwnerStateThemeType) => ({
           '&.Mui-selected': {

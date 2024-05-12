@@ -1,4 +1,4 @@
-// ** Next Import
+// ** Next Imports
 import Link from 'next/link'
 
 // ** MUI Imports
@@ -7,11 +7,11 @@ import Toolbar from '@mui/material/Toolbar'
 import Typography from '@mui/material/Typography'
 import { styled, useTheme } from '@mui/material/styles'
 
-// ** Configs
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Hook
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
 
 const LinkStyled = styled(Link)(({ theme }) => ({
   display: 'flex',
@@ -21,9 +21,11 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 const BlankLayoutAppBar = () => {
-  // ** Hooks & Vars
+  // ** Hooks
   const theme = useTheme()
   const { settings } = useSettings()
+
+  // ** Vars
   const { skin } = settings
 
   return (

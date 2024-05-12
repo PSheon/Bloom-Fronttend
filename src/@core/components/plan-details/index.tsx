@@ -2,19 +2,20 @@
 import Button from '@mui/material/Button'
 import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
+
+// ** Core Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Util Import
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-// ** Custom Components Imports
-import CustomChip from 'src/@core/components/mui/chip'
-
-// ** Types
-import { PricingPlanProps } from './types'
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+import type { PricingPlanProps } from './types'
 
 // ** Styled Component for the wrapper of whole component
 const BoxWrapper = styled(Box)<BoxProps>(({ theme }) => ({

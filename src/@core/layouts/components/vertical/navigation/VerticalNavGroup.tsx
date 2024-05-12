@@ -1,39 +1,40 @@
 // ** React Imports
 import { useEffect, Fragment } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Chip from '@mui/material/Chip'
 import Collapse from '@mui/material/Collapse'
 import ListItem from '@mui/material/ListItem'
-import { styled } from '@mui/material/styles'
 import Typography from '@mui/material/Typography'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import ListItemButton from '@mui/material/ListItemButton'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import clsx from 'clsx'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Configs Import
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Utils
-import { hasActiveChild, removeChildren } from 'src/@core/layouts/utils'
-
-// ** Type Import
-import { NavGroup, LayoutProps } from 'src/@core/layouts/types'
-
-// ** Custom Components Imports
+// ** Custom Component Imports
 import VerticalNavItems from './VerticalNavItems'
 import UserIcon from 'src/layouts/components/UserIcon'
 import Translations from 'src/layouts/components/Translations'
 import CanViewNavGroup from 'src/layouts/components/acl/CanViewNavGroup'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
+import { hasActiveChild, removeChildren } from 'src/@core/layouts/utils'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+import type { NavGroup, LayoutProps } from 'src/@core/layouts/types'
 
 interface Props {
   item: NavGroup
@@ -78,8 +79,10 @@ const VerticalNavGroup = (props: Props) => {
     navigationBorderWidth
   } = props
 
-  // ** Hooks & Vars
+  // ** Hooks
   const router = useRouter()
+
+  // ** Vars
   const currentURL = router.asPath
   const { direction, navCollapsed, verticalNavToggleType } = settings
 
@@ -121,18 +124,21 @@ const VerticalNavGroup = (props: Props) => {
         openGroup.push(item.title)
       }
     }
+
     setGroupActive([...openGroup])
   }
 
   // ** Menu Group Click
   const handleGroupClick = () => {
     const openGroup = groupActive
+
     if (verticalNavToggleType === 'collapse') {
       if (openGroup.includes(item.title)) {
         openGroup.splice(openGroup.indexOf(item.title), 1)
       } else {
         openGroup.push(item.title)
       }
+
       setGroupActive([...openGroup])
     } else {
       toggleActiveGroup(item, parent)
@@ -144,8 +150,10 @@ const VerticalNavGroup = (props: Props) => {
       if (!groupActive.includes(item.title)) groupActive.push(item.title)
     } else {
       const index = groupActive.indexOf(item.title)
+
       if (index > -1) groupActive.splice(index, 1)
     }
+
     setGroupActive([...groupActive])
     setCurrentActiveGroup([...groupActive])
 

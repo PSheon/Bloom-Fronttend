@@ -1,12 +1,14 @@
-// ** MUI Imports
-import { Theme } from '@mui/material/styles'
-
-// ** Hook Import
+// ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
 
+// ** Type Imports
+import type { Theme } from '@mui/material/styles'
+
 const GlobalStyles = (theme: Theme) => {
-  // ** Hook & Var
+  // ** Hooks
   const { settings } = useSettings()
+
+  // ** Vars
   const { mode } = settings
 
   const perfectScrollbarThumbBgColor = () => {

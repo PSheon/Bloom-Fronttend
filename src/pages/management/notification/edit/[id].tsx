@@ -1,16 +1,17 @@
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
-// ** Api Imports
+// ** Custom Component Imports
+import ManagementNotificationEditLoadingSkeleton from 'src/views/management/notification/edit/ManagementNotificationEditLoadingSkeleton'
+import ManagementNotificationEditSection from 'src/views/management/notification/edit'
+
+// ** API Imports
 import { useFindOneQuery } from 'src/store/api/management/notification'
 
-// ** Styled Component
-import NotificationEditLoadingSkeleton from 'src/views/management/notification/edit/LoadingSkeleton'
-import NotificationEditSection from 'src/views/management/notification/edit'
-
-const NotificationEditPage = () => {
+const ManagementNotificationEditPage = () => {
   // ** Hooks
   const router = useRouter()
+
   const {
     data: notificationEntity,
     isError: isFindOneNotificationEntityError,
@@ -20,15 +21,15 @@ const NotificationEditPage = () => {
   if (router.query.id === undefined || isFindOneNotificationEntityError) {
     router.push('/management/notification/list')
   } else if (isFindOneNotificationEntityLoading) {
-    return <NotificationEditLoadingSkeleton />
+    return <ManagementNotificationEditLoadingSkeleton />
   } else {
-    return <NotificationEditSection initNotificationEntity={notificationEntity!} />
+    return <ManagementNotificationEditSection initNotificationEntity={notificationEntity!} />
   }
 }
 
-NotificationEditPage.acl = {
+ManagementNotificationEditPage.acl = {
   action: 'read',
-  subject: 'manager-page'
+  subject: 'planner-page'
 }
 
-export default NotificationEditPage
+export default ManagementNotificationEditPage

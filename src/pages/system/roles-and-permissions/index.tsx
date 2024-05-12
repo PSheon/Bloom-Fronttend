@@ -2,23 +2,22 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 
-// ** Api Imports
+// ** API Imports
 import { useFindQuery } from 'src/store/api/roleAndPermission'
 
-// ** Styled Component Import
-import RolesAndPermissionsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import RolesListLoadingSkeleton from 'src/views/system/roles-and-permissions/roles-list/LoadingSkeleton'
-import RolesList from 'src/views/system/roles-and-permissions/roles-list'
-import PermissionsList from 'src/views/system/roles-and-permissions/permissions-list'
+// ** Custom Component Imports
+import SystemDashboardRolesAndPermissionsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
+import SystemDashboardRolesList from 'src/views/system/roles-and-permissions/roles-list'
+import SystemDashboardPermissionsList from 'src/views/system/roles-and-permissions/permissions-list'
 
-const SystemRolesAndPermissionsPage = () => {
+const SystemDashboardRolesAndPermissionsPage = () => {
   // ** Hooks
   const { data: roles, isLoading: isRolesLoading } = useFindQuery(null)
 
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <RolesAndPermissionsBreadcrumbs pageLevels={[{ title: '角色與權限' }]} />
+        <SystemDashboardRolesAndPermissionsBreadcrumbs pageLevels={[{ title: '角色與權限' }]} />
       </Grid>
 
       <Grid item xs={12}>
@@ -27,9 +26,8 @@ const SystemRolesAndPermissionsPage = () => {
           角色提供對預定義選單和功能的訪問，以便管理員可以根據分配的角色訪問需要的內容
         </Typography>
       </Grid>
-
       <Grid item xs={12}>
-        {isRolesLoading ? <RolesListLoadingSkeleton /> : <RolesList roles={roles!} />}
+        <SystemDashboardRolesList roles={roles!} isRolesLoading={isRolesLoading} />
       </Grid>
 
       <Grid item xs={12}>
@@ -38,17 +36,16 @@ const SystemRolesAndPermissionsPage = () => {
           每個角色都有一組預定義的權限，以便管理員可以根據分配的角色訪問需要的內容
         </Typography>
       </Grid>
-
       <Grid item xs={12}>
-        <PermissionsList />
+        <SystemDashboardPermissionsList />
       </Grid>
     </Grid>
   )
 }
 
-SystemRolesAndPermissionsPage.acl = {
+SystemDashboardRolesAndPermissionsPage.acl = {
   action: 'read',
   subject: 'user-page'
 }
 
-export default SystemRolesAndPermissionsPage
+export default SystemDashboardRolesAndPermissionsPage

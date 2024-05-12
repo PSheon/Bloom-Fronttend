@@ -1,16 +1,17 @@
 // ** MUI Imports
+import { styled, useTheme } from '@mui/material/styles'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
-import { styled, useTheme } from '@mui/material/styles'
-import MuiListSubheader, { ListSubheaderProps } from '@mui/material/ListSubheader'
+import MuiListSubheader from '@mui/material/ListSubheader'
 
-// ** Types
-import { NavSectionTitle } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
-
-// ** Custom Components Imports
+// ** Custom Component Imports
 import Translations from 'src/layouts/components/Translations'
 import CanViewNavSectionTitle from 'src/layouts/components/acl/CanViewNavSectionTitle'
+
+// ** Type Imports
+import type { ListSubheaderProps } from '@mui/material/ListSubheader'
+import type { NavSectionTitle } from 'src/@core/layouts/types'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   navHover: boolean
@@ -38,7 +39,7 @@ const VerticalNavSectionTitle = (props: Props) => {
   // ** Props
   const { item, navHover, settings, collapsedNavWidth, navigationBorderWidth } = props
 
-  // ** Hook
+  // ** Hooks
   const theme = useTheme()
 
   // ** Vars
@@ -48,7 +49,7 @@ const VerticalNavSectionTitle = (props: Props) => {
     if (mode === 'semi-dark') {
       return {
         '&, &:before': {
-          borderColor: `rgba(${theme.palette.customColors.dark}, 0.12)`
+          borderColor: `rgba(${theme.palette.customColors.darkColor}, 0.12)` // ** NOTE: It should be `dark`, fix here later
         }
       }
     } else return {}
@@ -57,7 +58,7 @@ const VerticalNavSectionTitle = (props: Props) => {
   const conditionalColor = () => {
     if (mode === 'semi-dark') {
       return {
-        color: `rgba(${theme.palette.customColors.dark}, 0.38) !important`
+        color: `rgba(${theme.palette.customColors.darkColor}, 0.38) !important` // ** NOTE: It should be `dark`, fix here later
       }
     } else {
       return {

@@ -1,12 +1,14 @@
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
+import Box from '@mui/material/Box'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Type Import
-import { ThemeColor } from 'src/@core/layouts/types'
+// ** Type Imports
+import type { SxProps, Theme } from '@mui/material/styles'
+import type { BoxProps } from '@mui/material/Box'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 const RootBox = styled(Box)<BoxProps>(({ theme }) => ({
   width: '100%',
@@ -24,22 +26,22 @@ const RootBox = styled(Box)<BoxProps>(({ theme }) => ({
 
 interface Props {
   selected: ThemeColor
-  backgroundColor: string
   value: string
   handleClick: () => void
+  sx: SxProps<Theme>
 }
 
 const ThemeColorSelectBox = (props: Props) => {
   // ** Props
-  const { selected, value, backgroundColor, handleClick } = props
+  const { selected, value, sx, handleClick } = props
 
   return (
     <RootBox
       onClick={handleClick}
       sx={{
         ml: 0,
-        backgroundColor: backgroundColor,
-        ...(selected === value ? { boxShadow: 9 } : { '&:hover': { boxShadow: 4 } })
+        ...(selected === value ? { boxShadow: 9 } : { '&:hover': { boxShadow: 4 } }),
+        ...sx
       }}
     >
       {selected === value ? <Icon icon='mdi:check' fontSize='1.25rem' /> : null}

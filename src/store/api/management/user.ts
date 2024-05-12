@@ -1,14 +1,12 @@
 // ** Redux Imports
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import qs from 'qs'
+import { getSession } from 'next-auth/react'
 
-// ** Config
-import authConfig from 'src/configs/auth'
-
-// ** Types
-import {
+// ** Type Imports
+import type {
   FindMeOneUserParamsType,
   FindMeOneUserTransformResponseType,
   FindMeOneUserResponseType,
@@ -24,16 +22,18 @@ import {
   UpdateMeOneUserParamsType,
   UpdateMeOneUserTransformResponseType,
   UpdateMeOneUserResponseType
-} from 'src/types/api/userTypes'
+} from 'src/types/userTypes'
 
 const USER_API_REDUCER_KEY = 'userApi'
+
 export const userApi = createApi({
   reducerPath: USER_API_REDUCER_KEY,
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL as string,
-    prepareHeaders: headers => {
-      const storedToken = window.localStorage.getItem(authConfig.storageTokenKeyName)!
-      headers.set('Authorization', `Bearer ${storedToken}`)
+    prepareHeaders: async headers => {
+      const session = await getSession()
+
+      headers.set('Authorization', `Bearer ${session?.accessToken}`)
 
       return headers
     }
@@ -98,3 +98,4 @@ export const userApi = createApi({
 
 export const { useFindMeOneQuery, useFindOneQuery, useFindQuery, useUpdateOneMutation, useUpdateMeOneMutation } =
   userApi
+export default userApi

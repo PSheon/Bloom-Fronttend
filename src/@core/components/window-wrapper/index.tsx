@@ -1,19 +1,24 @@
 // ** React Imports
-import { useState, useEffect, ReactNode } from 'react'
+import { useState, useEffect } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
+
+// ** Type Imports
+import type { ReactNode } from 'react'
 
 interface Props {
   children: ReactNode
 }
 
 const WindowWrapper = ({ children }: Props) => {
-  // ** State
+  // ** States
   const [windowReadyFlag, setWindowReadyFlag] = useState<boolean>(false)
 
+  // ** Hooks
   const router = useRouter()
 
+  // ** Side Effects
   useEffect(
     () => {
       if (typeof window !== 'undefined') {

@@ -1,21 +1,23 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
 
-// ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
+// ** Third-Party Components
+import { useSession } from 'next-auth/react'
 
-// ** Components
-import Autocomplete from 'src/layouts/components/Autocomplete'
+// ** Core Component Imports
 import ModeToggler from 'src/@core/layouts/components/shared-components/ModeToggler'
 import UserDropdown from 'src/@core/layouts/components/shared-components/UserDropdown'
 import LanguageDropdown from 'src/@core/layouts/components/shared-components/LanguageDropdown'
-import NotificationDropdown, {
-  NotificationsType
-} from 'src/@core/layouts/components/shared-components/NotificationDropdown'
-import ShortcutsDropdown, { ShortcutsType } from 'src/@core/layouts/components/shared-components/ShortcutsDropdown'
+import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
+import ShortcutsDropdown from 'src/@core/layouts/components/shared-components/ShortcutsDropdown'
 
-// ** Hook Import
-import { useAuth } from 'src/hooks/useAuth'
+// ** Custom Components Imports
+import Autocomplete from 'src/layouts/components/Autocomplete'
+
+// ** Type Imports
+import type { NotificationsType } from 'src/@core/layouts/components/shared-components/NotificationDropdown'
+import type { ShortcutsType } from 'src/@core/layouts/components/shared-components/ShortcutsDropdown'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   hidden: boolean
@@ -123,15 +125,15 @@ const AppBarContent = (props: Props) => {
   // ** Props
   const { hidden, settings, saveSettings } = props
 
-  // ** Hook
-  const auth = useAuth()
+  // ** Hooks
+  const session = useSession()
 
   return (
     <Box sx={{ display: 'flex', alignItems: 'center' }}>
-      {auth.user && <Autocomplete hidden={hidden} settings={settings} />}
+      {session.data?.user && <Autocomplete hidden={hidden} settings={settings} />}
       <LanguageDropdown settings={settings} saveSettings={saveSettings} />
       <ModeToggler settings={settings} saveSettings={saveSettings} />
-      {auth.user && (
+      {session.data?.user && (
         <>
           <ShortcutsDropdown settings={settings} shortcuts={shortcuts} />
           <NotificationDropdown settings={settings} notifications={notifications} />

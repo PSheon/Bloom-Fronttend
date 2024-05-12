@@ -1,28 +1,32 @@
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Fab from '@mui/material/Fab'
 import AppBar from '@mui/material/AppBar'
-import { styled } from '@mui/material/styles'
-import Box, { BoxProps } from '@mui/material/Box'
-import MuiToolbar, { ToolbarProps } from '@mui/material/Toolbar'
+import Box from '@mui/material/Box'
+import MuiToolbar from '@mui/material/Toolbar'
+
+// ** Core Component Imports
+import Customizer from 'src/@core/components/customizer'
+import ScrollToTop from 'src/@core/components/scroll-to-top'
+
+// ** Custom Component Imports
+import Footer from './components/shared-components/footer'
+import Navigation from './components/horizontal/navigation'
+import AppBarContent from './components/horizontal/app-bar-content'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Theme Config Import
+// ** Util Imports
+import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
-
-// ** Components
-import Customizer from 'src/@core/components/customizer'
-import Footer from './components/shared-components/footer'
-import Navigation from './components/horizontal/navigation'
-import ScrollToTop from 'src/@core/components/scroll-to-top'
-import AppBarContent from './components/horizontal/app-bar-content'
-
-// ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+// ** Type Imports
+import type { BoxProps } from '@mui/material/Box'
+import type { ToolbarProps } from '@mui/material/Toolbar'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 const HorizontalLayoutWrapper = styled('div')({
   height: '100%',
@@ -81,10 +85,13 @@ const HorizontalLayout = (props: LayoutProps) => {
   const userNavMenuContent = horizontalLayoutProps?.navMenu?.content
 
   let userAppBarStyle = {}
+
   if (appBarProps && appBarProps.sx) {
     userAppBarStyle = appBarProps.sx
   }
+
   const userAppBarProps = Object.assign({}, appBarProps)
+
   delete userAppBarProps.sx
 
   return (

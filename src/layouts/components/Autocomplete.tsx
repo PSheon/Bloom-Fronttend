@@ -1,11 +1,12 @@
 // ** React Imports
-import { useEffect, useCallback, useRef, useState, ChangeEvent } from 'react'
+import { useEffect, useCallback, useRef, useState } from 'react'
 
 // ** Next Imports
 import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
+import { styled, useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
 import List from '@mui/material/List'
@@ -15,23 +16,31 @@ import TextField from '@mui/material/TextField'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
 import useMediaQuery from '@mui/material/useMediaQuery'
-import { styled, useTheme } from '@mui/material/styles'
 import ListItemButton from '@mui/material/ListItemButton'
 import InputAdornment from '@mui/material/InputAdornment'
-import MuiAutocomplete, { AutocompleteRenderInputParams } from '@mui/material/Autocomplete'
+import MuiAutocomplete from '@mui/material/Autocomplete'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import axios from 'axios'
-
-// ** Types Imports
-import { AppBarSearchType } from 'src/@fake-db/types'
-import { Settings } from 'src/@core/context/settingsContext'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 // ** Configs Imports
 import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import type { ChangeEvent } from 'react'
+import type { AutocompleteRenderInputParams } from '@mui/material/Autocomplete'
+import type { Settings } from 'src/@core/context/settingsContext'
+
+export type AppBarSearchType = {
+  id: number
+  url: string
+  icon: string
+  title: string
+  category: string
+}
 
 interface Props {
   hidden: boolean
@@ -368,12 +377,16 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
   const [openDialog, setOpenDialog] = useState<boolean>(false)
   const [options, setOptions] = useState<AppBarSearchType[]>([])
 
+  // ** Refs
+  const wrapper = useRef<HTMLDivElement>(null)
+
   // ** Hooks & Vars
   const theme = useTheme()
   const router = useRouter()
-  const { layout } = settings
-  const wrapper = useRef<HTMLDivElement>(null)
   const fullScreenDialog = useMediaQuery(theme.breakpoints.down('sm'))
+
+  // ** Vars
+  const { layout } = settings
 
   // Get all data using API
   useEffect(() => {
@@ -406,6 +419,7 @@ const AutocompleteComponent = ({ hidden, settings }: Props) => {
   const handleOptionClick = (obj: AppBarSearchType) => {
     setSearchValue('')
     setOpenDialog(false)
+
     if (obj.url) {
       router.push(obj.url)
     }

@@ -1,15 +1,11 @@
-// ** React Import
-import { ReactNode } from 'react'
-
-// ** MUI Imports
-import { MenuProps } from '@mui/material/Menu'
-import { DividerProps } from '@mui/material/Divider'
-import { MenuItemProps } from '@mui/material/MenuItem'
-import { IconButtonProps } from '@mui/material/IconButton'
-
-// ** Types
-import { LinkProps } from 'next/link'
-import { IconProps } from '@iconify/react'
+// ** Type Imports
+import type { ReactNode } from 'react'
+import type { MenuProps } from '@mui/material/Menu'
+import type { DividerProps } from '@mui/material/Divider'
+import type { MenuItemProps } from '@mui/material/MenuItem'
+import type { IconButtonProps } from '@mui/material/IconButton'
+import type { LinkProps } from 'next/link'
+import type { IconProps } from '@iconify/react'
 
 export type OptionDividerType = {
   divider: boolean

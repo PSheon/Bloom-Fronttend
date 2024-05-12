@@ -1,7 +1,7 @@
 // ** React Imports
-import { SyntheticEvent, useState, useEffect, Fragment } from 'react'
+import { useState, useEffect, Fragment } from 'react'
 
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -14,31 +14,33 @@ import Typography from '@mui/material/Typography'
 import ListItemIcon from '@mui/material/ListItemIcon'
 import { styled, useTheme } from '@mui/material/styles'
 import ClickAwayListener from '@mui/material/ClickAwayListener'
-import MuiListItem, { ListItemProps } from '@mui/material/ListItem'
+import MuiListItem from '@mui/material/ListItem'
 
-// ** Third Party Imports
+// ** Third-Party Imports
 import clsx from 'clsx'
 import { usePopper } from 'react-popper'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Theme Config Import
-import themeConfig from 'src/configs/themeConfig'
-
-// ** Types
-import { NavGroup } from 'src/@core/layouts/types'
-import { Settings } from 'src/@core/context/settingsContext'
-
-// ** Custom Components Imports
+// ** Custom Component Imports
 import HorizontalNavItems from './HorizontalNavItems'
 import UserIcon from 'src/layouts/components/UserIcon'
 import Translations from 'src/layouts/components/Translations'
 import CanViewNavGroup from 'src/layouts/components/acl/CanViewNavGroup'
 
-// ** Utils
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 import { hasActiveChild } from 'src/@core/layouts/utils'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
+// ** Type Imports
+import type { ListItemProps } from '@mui/material/ListItem'
+import type { SyntheticEvent } from 'react'
+import type { NavGroup } from 'src/@core/layouts/types'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   item: NavGroup
@@ -87,13 +89,14 @@ const HorizontalNavGroup = (props: Props) => {
   // ** Props
   const { item, hasParent, settings } = props
 
-  // ** Hooks & Vars
+  // ** Hooks
   const theme = useTheme()
   const router = useRouter()
+
+  // ** Vars
   const currentURL = router.asPath
   const { skin, direction } = settings
   const { navSubItemIcon, menuTextTruncate, horizontalMenuToggle, horizontalMenuAnimation } = themeConfig
-
   const popperOffsetHorizontal = direction === 'rtl' ? 16 : -16
   const popperPlacement = direction === 'rtl' ? 'bottom-end' : 'bottom-start'
   const popperPlacementSubMenu = direction === 'rtl' ? 'left-start' : 'right-start'
@@ -159,6 +162,7 @@ const HorizontalNavGroup = (props: Props) => {
         if (attributes.popper['data-popper-placement'] === 'right-start') {
           return 'left'
         }
+
         if (attributes.popper['data-popper-placement'] === 'left-start') {
           return 'right'
         }
@@ -166,6 +170,7 @@ const HorizontalNavGroup = (props: Props) => {
         if (attributes.popper['data-popper-placement'] === 'right-start') {
           return 'right'
         }
+
         if (attributes.popper['data-popper-placement'] === 'left-start') {
           return 'left'
         }

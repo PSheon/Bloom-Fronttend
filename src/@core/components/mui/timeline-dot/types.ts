@@ -1,5 +1,5 @@
-// ** MUI Imports
-import { TimelineDotProps } from '@mui/lab/TimelineDot'
+// ** Type Imports
+import type { TimelineDotProps } from '@mui/lab/TimelineDot'
 
 export type CustomTimelineDotProps = TimelineDotProps & { skin?: 'light' }
 

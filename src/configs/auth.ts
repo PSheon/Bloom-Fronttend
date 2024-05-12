@@ -1,4 +1,8 @@
-export default {
+/*
+ * Deprecated
+ */
+
+const authConfig = {
   meEndpoint: '/api/users/me',
   loginEndpoint: '/api/auth/local',
   registerEndpoint: '/api/auth/local/register',
@@ -8,3 +12,5 @@ export default {
   storageTokenKeyName: 'accessToken',
   onTokenExpiration: 'logout' // logout | refreshToken
 }
+
+export default authConfig

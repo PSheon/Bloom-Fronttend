@@ -3,22 +3,24 @@ import Link from 'next/link'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Typography, { TypographyProps } from '@mui/material/Typography'
+import Typography from '@mui/material/Typography'
 
-// ** Type Import
-import { LayoutProps } from 'src/@core/layouts/types'
+// ** Custom Component Imports
+import LogoImage from 'src/views/shared/LogoImage'
 
-// ** Configs
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Component Imports
-import LogoImage from 'src/views/shared/LogoImage'
+// ** Type Imports
+import type { TypographyProps } from '@mui/material/Typography'
+import type { LayoutProps } from 'src/@core/layouts/types'
 
 const HeaderTitle = styled(Typography)<TypographyProps>({
   fontWeight: 700,
   lineHeight: 1.2,
   transition: 'opacity .25s ease-in-out, margin .25s ease-in-out'
 })
+
 const LinkStyled = styled(Link)({
   display: 'flex',
   alignItems: 'center',
@@ -34,7 +36,7 @@ const AppBrand = (props: Props) => {
   // ** Props
   const { navHover, settings } = props
 
-  // ** Hooks & Vars
+  // ** Vars
   const { navCollapsed } = settings
   const menuCollapsedStyles = navCollapsed && !navHover ? { opacity: 0 } : { opacity: 1 }
 

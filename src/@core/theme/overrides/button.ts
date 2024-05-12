@@ -1,11 +1,11 @@
-// ** Type Import
-import { OwnerStateThemeType } from './'
+// ** Util Imports
+import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
 
-// ** Theme Config Imports
+// ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-// ** Util Import
-import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
+// ** Type Imports
+import type { OwnerStateThemeType } from './'
 
 const Button = () => {
   return {
@@ -15,6 +15,7 @@ const Button = () => {
           fontWeight: 500,
           borderRadius: 8,
           lineHeight: 1.715,
+          textTransform: 'inherit' /* NOTE: unset text transform */,
           ...(ownerState.size === 'medium' &&
             ownerState.variant === 'text' && {
               padding: `${theme.spacing(1.75, 3)}`

@@ -1,6 +1,6 @@
-// ** Types
-import { NavGroup, NavLink } from 'src/@core/layouts/types'
-import { NextRouter } from 'next/router'
+// ** Type Imports
+import type { NextRouter } from 'next/router'
+import type { NavGroup, NavLink } from 'src/@core/layouts/types'
 
 /**
  * Check for URL queries as well for matching
@@ -39,6 +39,7 @@ export const hasActiveChild = (item: NavGroup, currentURL: string): boolean => {
         return true
       }
     }
+
     const childPath = (child as NavLink).path
 
     // Check if the child has a link and is active
@@ -67,6 +68,7 @@ export const removeChildren = (children: NavLink[], openGroup: string[], current
   children.forEach((child: NavLink) => {
     if (!currentActiveGroup.includes(child.title)) {
       const index = openGroup.indexOf(child.title)
+
       if (index > -1) openGroup.splice(index, 1)
 
       // @ts-ignore

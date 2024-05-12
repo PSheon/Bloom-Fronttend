@@ -1,5 +1,5 @@
-// ** MUI Imports
-import { ThemeOptions } from '@mui/material'
+// ** Type Imports
+import type { ThemeOptions } from '@mui/material'
 
 // ** To use core palette, uncomment the below import
 // import { PaletteMode } from '@mui/material'

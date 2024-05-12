@@ -1,8 +1,6 @@
-// ** MUI Imports
-import { AvatarProps } from '@mui/material/Avatar'
-
-// ** Types
-import { ThemeColor } from 'src/@core/layouts/types'
+// ** Type Imports
+import type { AvatarProps } from '@mui/material/Avatar'
+import type { ThemeColor } from 'src/@core/layouts/types'
 
 export type CustomAvatarProps = AvatarProps & {
   color?: ThemeColor

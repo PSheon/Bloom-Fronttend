@@ -1,5 +1,5 @@
-// ** Type Import
-import { OwnerStateThemeType } from './'
+// ** Type Imports
+import type { OwnerStateThemeType } from './'
 
 const Avatar = () => {
   return {

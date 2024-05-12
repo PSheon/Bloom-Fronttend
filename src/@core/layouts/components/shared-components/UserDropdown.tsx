@@ -1,7 +1,10 @@
 // ** React Imports
-import { useState, SyntheticEvent, Fragment } from 'react'
+import { useState, Fragment } from 'react'
 
-// ** Next Import
+// ** Context Imports
+import { useAuth } from 'src/hooks/useAuth'
+
+// ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -17,11 +20,9 @@ import Typography from '@mui/material/Typography'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Context
-import { useAuth } from 'src/hooks/useAuth'
-
 // ** Type Imports
-import { Settings } from 'src/@core/context/settingsContext'
+import type { SyntheticEvent } from 'react'
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   settings: Settings
@@ -58,6 +59,7 @@ const UserDropdown = (props: Props) => {
     if (url) {
       router.push(url)
     }
+
     setAnchorEl(null)
   }
 

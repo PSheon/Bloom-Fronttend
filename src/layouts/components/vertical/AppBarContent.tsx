@@ -5,19 +5,19 @@ import { Fragment } from 'react'
 import Box from '@mui/material/Box'
 import IconButton from '@mui/material/IconButton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
+// ** Third-Party Components
+import { useSession } from 'next-auth/react'
 
-// ** Type Import
-import { Settings } from 'src/@core/context/settingsContext'
-
-// ** Components
+// ** Custom Components
 import UserDropdown from 'src/views/shared/UserDropdown'
 import PageSearch from 'src/views/shared/PageSearch'
 import NotificationDropdown from 'src/views/shared/notification-dropdown'
 
-// ** Hook Import
-import { useAuth } from 'src/hooks/useAuth'
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Type Import
+import type { Settings } from 'src/@core/context/settingsContext'
 
 interface Props {
   hidden: boolean
@@ -30,8 +30,8 @@ const AppBarContent = (props: Props) => {
   // ** Props
   const { hidden, settings, toggleNavVisibility } = props
 
-  // ** Hook
-  const auth = useAuth()
+  // ** Hooks
+  const session = useSession()
 
   return (
     <Box sx={{ width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -41,10 +41,10 @@ const AppBarContent = (props: Props) => {
             <Icon icon='mdi:menu' />
           </IconButton>
         ) : null}
-        {auth.user && <PageSearch hidden={hidden} settings={settings} />}
+        {session.data!.user && <PageSearch hidden={hidden} settings={settings} />}
       </Box>
       <Box className='actions-right' sx={{ display: 'flex', alignItems: 'center' }}>
-        {auth.user && (
+        {session.data!.user && (
           <Fragment>
             <NotificationDropdown settings={settings} />
             <UserDropdown settings={settings} />

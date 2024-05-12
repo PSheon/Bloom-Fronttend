@@ -1,16 +1,16 @@
-// ** Next Import
+// ** Next Imports
 import { useRouter } from 'next/router'
 
-const MediaAssetEditPage = () => {
+const ManagementMediaAssetEditPage = () => {
   // ** Hooks
   const router = useRouter()
 
   router.push('/management/media-asset/list')
 }
 
-MediaAssetEditPage.acl = {
+ManagementMediaAssetEditPage.acl = {
   action: 'read',
-  subject: 'manager-page'
+  subject: 'planner-page'
 }
 
-export default MediaAssetEditPage
+export default ManagementMediaAssetEditPage

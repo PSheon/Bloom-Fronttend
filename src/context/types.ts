@@ -1,4 +1,5 @@
-import { MediaAssetType } from 'src/types/api/mediaAssetTypes'
+// ** Type Imports
+import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
 // ** Login
 export type LoginParamsType = {
@@ -49,6 +50,13 @@ export type ResetPasswordResponseType = {
   ok: boolean
 }
 
+export type Role = 'Admin' | 'Planner' | 'Asset Manager' | 'User' | 'Public'
+export type Permission = {
+  id: string
+  displayName: string
+  assignedTo: Role[]
+  createdAt: string
+}
 export type UserDataType = {
   id: number
   provider: string
@@ -64,7 +72,7 @@ export type UserDataType = {
   avatar?: MediaAssetType
   role?: {
     id: number
-    name: string
+    name: Role
     description: string
     type: string
     createdAt: string

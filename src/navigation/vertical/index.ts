@@ -1,5 +1,5 @@
-// ** Type import
-import { VerticalNavItemsType } from 'src/@core/layouts/types'
+// ** Type imports
+import type { VerticalNavItemsType } from 'src/@core/layouts/types'
 
 const navigation = (): VerticalNavItemsType => {
   return [
@@ -25,7 +25,7 @@ const navigation = (): VerticalNavItemsType => {
     {
       sectionTitle: 'Management',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
     },
     {
       title: 'Management.Dashboard',
@@ -34,61 +34,66 @@ const navigation = (): VerticalNavItemsType => {
       badgeContent: 'new',
       badgeColor: 'error',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
+    },
+    {
+      title: 'Management.Funds',
+      icon: 'ant-design:fund-projection-screen-outlined',
+      path: '/management/fund/list',
+      action: 'read',
+      subject: 'planner-page'
     },
     {
       title: 'Management.Users',
       icon: 'mdi:user-group-outline',
       path: '/management/user/list',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
+    },
+    {
+      title: 'Management.Articles',
+      icon: 'mdi:blog-outline',
+      path: '/management/article/list',
+      action: 'read',
+      subject: 'planner-page'
     },
     {
       title: 'Management.Media Assets',
       icon: 'mdi:multimedia',
       path: '/management/media-asset/list',
       action: 'read',
-      subject: 'manager-page'
-    },
-    {
-      title: 'Management.Request Sheets',
-      icon: 'mdi:newspaper-variant-multiple-outline',
-      path: '/management/request-sheet/list',
-      action: 'read',
-      subject: 'manager-page'
-    },
-    {
-      title: 'Management.Announcements',
-      icon: 'mdi:announcement-outline',
-      path: '/management/announcement/list',
-      action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
     },
     {
       title: 'Management.Notifications',
       icon: 'mdi:bell-outline',
       path: '/management/notification/list',
       action: 'read',
-      subject: 'manager-page'
+      subject: 'planner-page'
     },
     {
       sectionTitle: 'Review',
       action: 'read',
-      subject: 'reviewer-page'
+      subject: 'asset-manager-page'
     },
     {
       title: 'Review.Dashboard',
-      icon: 'mdi:chart-pie-outline',
+      icon: 'mdi:newspaper-variant-outline',
       path: '/review/dashboard',
       action: 'read',
-      subject: 'reviewer-page'
+      subject: 'asset-manager-page'
     },
     {
-      title: 'Review.Request Sheets',
-      icon: 'mdi:rate-review',
-      path: '/review/request-sheet/list',
+      sectionTitle: 'Public',
       action: 'read',
-      subject: 'reviewer-page'
+      subject: 'user-page'
+    },
+    {
+      title: 'Public.Funds & Strategies',
+      path: '/fund/list',
+      icon: 'mdi:strategy',
+      action: 'read',
+      subject: 'user-page'
     },
     {
       sectionTitle: 'Me',
@@ -96,16 +101,9 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'user-page'
     },
     {
-      title: 'Me.Dashboard',
-      icon: 'mdi:home-outline',
-      path: '/dashboard',
-      action: 'read',
-      subject: 'user-page'
-    },
-    {
-      title: 'Me.Request Sheet',
-      icon: 'mdi:newspaper-variant-outline',
-      path: '/request-sheet/list',
+      title: 'Me.Portfolio',
+      icon: 'mdi:chart-pie-outline',
+      path: '/portfolio',
       action: 'read',
       subject: 'user-page'
     },

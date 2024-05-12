@@ -1,7 +1,7 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 
-// ** Styled Component
+// ** Custom Component Imports
 import SettingsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import SettingsSystemProfileCard from 'src/views/settings/cards/SettingsSystemProfileCard'
 import SettingsThemingSettingCard from 'src/views/settings/cards/SettingsThemingSettingCard'
