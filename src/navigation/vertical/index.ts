@@ -51,6 +51,13 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'planner-page'
     },
     {
+      title: 'Management.Articles',
+      icon: 'mdi:blog-outline',
+      path: '/management/article/list',
+      action: 'read',
+      subject: 'planner-page'
+    },
+    {
       title: 'Management.Blogs',
       icon: 'mdi:blog-outline',
       path: '/management/blog/list',
