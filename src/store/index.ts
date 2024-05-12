@@ -5,32 +5,32 @@ import { configureStore } from '@reduxjs/toolkit'
 import dashboard from 'src/store/dashboard'
 
 // ** API Imports
-import { userApi } from 'src/store/api/management/user'
+import { authApi } from 'src/store/api/auth'
+import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
 import { fundApi } from 'src/store/api/management/fund'
-import { packageApi } from 'src/store/api/management/package'
-import { mediaAssetApi } from 'src/store/api/management/mediaAsset'
+import { userApi } from 'src/store/api/management/user'
 import { articleApi } from 'src/store/api/management/article'
-import { accessLogApi } from 'src/store/api/management/accessLog'
-import { activityLogApi } from 'src/store/api/management/activityLog'
+import { mediaAssetApi } from 'src/store/api/management/mediaAsset'
 import { notificationApi } from 'src/store/api/management/notification'
 import { walletApi } from 'src/store/api/management/wallet'
-import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
-import { authApi } from 'src/store/api/auth'
+import { packageApi } from 'src/store/api/management/package'
+import { accessLogApi } from 'src/store/api/management/accessLog'
+import { activityLogApi } from 'src/store/api/management/activityLog'
 
 export const store = configureStore({
   reducer: {
     dashboard,
-    [userApi.reducerPath]: userApi.reducer,
+    [authApi.reducerPath]: authApi.reducer,
+    [roleAndPermissionApi.reducerPath]: roleAndPermissionApi.reducer,
     [fundApi.reducerPath]: fundApi.reducer,
-    [packageApi.reducerPath]: packageApi.reducer,
-    [mediaAssetApi.reducerPath]: mediaAssetApi.reducer,
+    [userApi.reducerPath]: userApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
-    [accessLogApi.reducerPath]: accessLogApi.reducer,
-    [activityLogApi.reducerPath]: activityLogApi.reducer,
+    [mediaAssetApi.reducerPath]: mediaAssetApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
     [walletApi.reducerPath]: walletApi.reducer,
-    [roleAndPermissionApi.reducerPath]: roleAndPermissionApi.reducer,
-    [authApi.reducerPath]: authApi.reducer
+    [packageApi.reducerPath]: packageApi.reducer,
+    [accessLogApi.reducerPath]: accessLogApi.reducer,
+    [activityLogApi.reducerPath]: activityLogApi.reducer
   },
 
   // ** NOTE: Fix here later
@@ -39,17 +39,17 @@ export const store = configureStore({
     getDefaultMiddleware({
       serializableCheck: false
     }).concat([
-      userApi.middleware,
+      authApi.middleware,
+      roleAndPermissionApi.middleware,
       fundApi.middleware,
-      packageApi.middleware,
-      mediaAssetApi.middleware,
+      userApi.middleware,
       articleApi.middleware,
-      accessLogApi.middleware,
-      activityLogApi.middleware,
+      mediaAssetApi.middleware,
       notificationApi.middleware,
       walletApi.middleware,
-      roleAndPermissionApi.middleware,
-      authApi.middleware
+      packageApi.middleware,
+      accessLogApi.middleware,
+      activityLogApi.middleware
     ])
 })
 
