@@ -208,13 +208,9 @@ const PublicFundLivePackageCard = (props: Props) => {
 
   return (
     <Card
-      onClick={() => {
-        handleSelectPackage(initPackageEntity.id)
-      }}
       sx={{
         border: theme =>
           `1px ${selectedPackageEntityId === initPackageEntity.id ? theme.palette.primary.main : 'transparent'} solid`,
-        cursor: 'pointer',
         transition: 'border-color 0.2s',
         '&:hover': {
           borderColor: theme => theme.palette.primary.main
@@ -274,8 +270,8 @@ const PublicFundLivePackageCard = (props: Props) => {
             pl: theme => [`${theme.spacing(6)} !important`, `${theme.spacing(6)} !important`, '0 !important']
           }}
         >
-          <CardContent>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+          <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Stack direction='row' spacing={2} flexWrap='wrap' justifyContent='space-between'>
               <Stack direction='row' spacing={2} alignItems='center'>
                 <Box>
                   <CustomChip
@@ -292,13 +288,15 @@ const PublicFundLivePackageCard = (props: Props) => {
                     }}
                   />
                 </Box>
-                <Typography variant='h6'>{initPackageEntity.displayName}</Typography>
+                <Typography variant='h6' component='p'>
+                  {initPackageEntity.displayName}
+                </Typography>
               </Stack>
-
               <Stack direction='row' sx={{ position: 'relative' }}>
                 <Sup>{fundBaseCurrencyProperties.symbol}</Sup>
                 <Typography
                   variant='h4'
+                  component='p'
                   sx={{
                     mb: -1.2,
                     ml: 2,
@@ -309,13 +307,15 @@ const PublicFundLivePackageCard = (props: Props) => {
                   {getFormattedPriceUnit(initPackageEntity.priceInUnit)}
                 </Typography>
               </Stack>
-            </Box>
-            <Typography variant='body2' sx={{ mt: 4, mb: 2 }}>
-              {initPackageEntity.description || 'No description'}
-            </Typography>
-            <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
+            </Stack>
 
-            <Stack spacing={2} justifyContent='center' sx={{ mb: 2 }}>
+            <Box sx={{ mt: 4 }}>
+              <Typography variant='body2'>{initPackageEntity.description || 'No description'}</Typography>
+            </Box>
+            <Box>
+              <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
+            </Box>
+            <Stack spacing={2} justifyContent='center'>
               <Typography variant='subtitle2'>Utility</Typography>
 
               {initPackageEntity.slot?.length === 0 ? (
@@ -336,6 +336,29 @@ const PublicFundLivePackageCard = (props: Props) => {
                   )
                 })
               )}
+            </Stack>
+
+            <Stack sx={{ pt: 8, mt: 'auto' }}>
+              <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
+              <Button
+                fullWidth
+                disabled={selectedPackageEntityId === initPackageEntity.id}
+                variant={selectedPackageEntityId === initPackageEntity.id ? 'text' : 'outlined'}
+                sx={{
+                  '& svg': {
+                    transition: theme => theme.transitions.create('transform'),
+                    transform: selectedPackageEntityId === initPackageEntity.id ? 'rotate(180deg)' : 'rotate(0)'
+                  }
+                }}
+                startIcon={<Icon icon='mdi:keyboard-arrow-down' />}
+                onClick={() => {
+                  handleSelectPackage(initPackageEntity.id)
+                }}
+              >
+                <Typography variant='h6' component='p'>
+                  鑄造
+                </Typography>
+              </Button>
             </Stack>
           </CardContent>
         </Grid>

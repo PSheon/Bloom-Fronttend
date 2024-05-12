@@ -264,8 +264,8 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                     pl: theme => [`${theme.spacing(6)} !important`, `${theme.spacing(6)} !important`, '0 !important']
                   }}
                 >
-                  <CardContent>
-                    <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+                  <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+                    <Stack direction='row' spacing={2} flexWrap='wrap' justifyContent='space-between'>
                       <Stack direction='row' spacing={2} alignItems='center'>
                         <Box>
                           <CustomChip
@@ -282,13 +282,15 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                             }}
                           />
                         </Box>
-                        <Typography variant='h6'>{defaultPackage.displayName}</Typography>
+                        <Typography variant='h6' component='p'>
+                          {defaultPackage.displayName}
+                        </Typography>
                       </Stack>
-
                       <Stack direction='row' sx={{ position: 'relative' }}>
                         <Sup>{fundBaseCurrencyProperties.symbol}</Sup>
                         <Typography
                           variant='h4'
+                          component='p'
                           sx={{
                             mb: -1.2,
                             ml: 2,
@@ -299,13 +301,15 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                           {getFormattedPriceUnit(defaultPackage.priceInUnit)}
                         </Typography>
                       </Stack>
-                    </Box>
-                    <Typography variant='body2' sx={{ mt: 4, mb: 2 }}>
-                      {defaultPackage.description || 'No description'}
-                    </Typography>
-                    <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
+                    </Stack>
 
-                    <Stack spacing={2} justifyContent='center' sx={{ mb: 2 }}>
+                    <Box sx={{ mt: 4 }}>
+                      <Typography variant='body2'>{defaultPackage.description || 'No description'}</Typography>
+                    </Box>
+                    <Box>
+                      <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
+                    </Box>
+                    <Stack spacing={2} justifyContent='center'>
                       <Stack
                         direction='row'
                         justifyContent='space-between'
@@ -352,14 +356,16 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                       )}
                     </Stack>
                   </CardContent>
-                  <CardActions className='card-action-dense' sx={{ mt: 'auto' }}>
+                  <CardActions className='card-action-dense' sx={{ display: 'flex', flexDirection: 'column' }}>
+                    <Divider sx={{ width: '100%', my: theme => `${theme.spacing(4)} !important` }} />
                     <Button
-                      sx={{ '& svg': { mr: 2 } }}
+                      fullWidth
+                      startIcon={<Icon icon='mdi:edit-outline' fontSize={20} />}
+                      variant='outlined'
                       onClick={() => {
                         handleEditOpen(defaultPackage)
                       }}
                     >
-                      <Icon icon='mdi:edit-outline' fontSize={20} />
                       編輯方案
                     </Button>
                   </CardActions>

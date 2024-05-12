@@ -208,13 +208,9 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
 
   return (
     <Card
-      onClick={() => {
-        handleSelectPackage(initPackageEntity.id)
-      }}
       sx={{
         border: theme =>
           `1px ${selectedPackageEntityId === initPackageEntity.id ? theme.palette.primary.main : 'transparent'} solid`,
-        cursor: 'pointer',
         transition: 'border-color 0.2s',
         '&:hover': {
           borderColor: theme => theme.palette.primary.main
@@ -274,8 +270,8 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
             pl: theme => [`${theme.spacing(6)} !important`, `${theme.spacing(6)} !important`, '0 !important']
           }}
         >
-          <CardContent>
-            <Box sx={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-between' }}>
+          <CardContent sx={{ height: '100%', display: 'flex', flexDirection: 'column' }}>
+            <Stack direction='row' spacing={2} flexWrap='wrap' justifyContent='space-between'>
               <Stack direction='row' spacing={2} alignItems='center'>
                 <Box>
                   <CustomChip
@@ -292,13 +288,15 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                     }}
                   />
                 </Box>
-                <Typography variant='h6'>{initPackageEntity.displayName}</Typography>
+                <Typography variant='h5' component='p'>
+                  {initPackageEntity.displayName}
+                </Typography>
               </Stack>
-
               <Stack direction='row' sx={{ position: 'relative' }}>
                 <Sup>{fundBaseCurrencyProperties.symbol}</Sup>
                 <Typography
                   variant='h4'
+                  component='p'
                   sx={{
                     mb: -1.2,
                     ml: 2,
@@ -309,23 +307,25 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                   {getFormattedPriceUnit(initPackageEntity.priceInUnit)}
                 </Typography>
               </Stack>
-            </Box>
-            <Typography variant='body2' sx={{ mt: 4, mb: 2 }}>
-              {initPackageEntity.description || 'No description'}
-            </Typography>
-            <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
+            </Stack>
 
-            <Stack spacing={2} justifyContent='center' sx={{ mb: 2 }}>
+            <Box sx={{ mt: 4 }}>
+              <Typography variant='body2'>{initPackageEntity.description || 'No description'}</Typography>
+            </Box>
+            <Box>
+              <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
+            </Box>
+            <Stack spacing={2} justifyContent='center'>
               <Typography variant='subtitle2'>Utility</Typography>
 
               {initPackageEntity.slot?.length === 0 ? (
-                <Typography sx={{ mb: 2 }}>尚未設定內容</Typography>
+                <Typography>尚未設定內容</Typography>
               ) : (
                 initPackageEntity.slot.map(property => {
                   return (
-                    <Grid key={`slot-${property.id}`} container spacing={2} sx={{ mb: 2 }}>
+                    <Grid key={`slot-${property.id}`} container spacing={2}>
                       <Grid item xs={5} sm={4} md={3}>
-                        <Typography>{property.propertyType}</Typography>
+                        <Typography component='span'>{property.propertyType}</Typography>
                       </Grid>
                       <Grid item xs={7} sm={8} md={9}>
                         <Typography component='span' sx={{ fontWeight: 600 }}>
@@ -337,6 +337,29 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                 })
               )}
             </Stack>
+
+            <Stack sx={{ pt: 8, mt: 'auto' }}>
+              <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
+              <Button
+                fullWidth
+                disabled={selectedPackageEntityId === initPackageEntity.id}
+                variant={selectedPackageEntityId === initPackageEntity.id ? 'text' : 'outlined'}
+                sx={{
+                  '& svg': {
+                    transition: theme => theme.transitions.create('transform'),
+                    transform: selectedPackageEntityId === initPackageEntity.id ? 'rotate(180deg)' : 'rotate(0)'
+                  }
+                }}
+                startIcon={<Icon icon='mdi:keyboard-arrow-down' />}
+                onClick={() => {
+                  handleSelectPackage(initPackageEntity.id)
+                }}
+              >
+                <Typography variant='h6' component='p'>
+                  鑄造
+                </Typography>
+              </Button>
+            </Stack>
           </CardContent>
         </Grid>
 
@@ -345,9 +368,6 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
             <Divider sx={{ mt: -6 }} />
             <CardContent>
               <Grid container spacing={4}>
-                <Grid item xs={12}>
-                  <Typography variant='subtitle2'>鑄造</Typography>
-                </Grid>
                 <Grid item xs={12}>
                   <StepperWrapper>
                     <Stepper activeStep={activeMintStep}>
