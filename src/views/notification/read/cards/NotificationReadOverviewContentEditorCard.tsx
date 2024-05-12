@@ -1,3 +1,6 @@
+// ** Next Imports
+import dynamic from 'next/dynamic'
+
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
@@ -7,7 +10,7 @@ import Stack from '@mui/material/Stack'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Custom Component Imports
-import TextEditorPreview from 'src/views/shared/TextEditorPreview'
+const TextEditorPreview = dynamic(() => import('src/views/shared/TextEditorPreview'), { ssr: false })
 
 // ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/notification'

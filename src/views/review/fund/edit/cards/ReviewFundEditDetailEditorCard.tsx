@@ -20,9 +20,8 @@ import type { OutputData } from '@editorjs/editorjs'
 import type { EditorCore } from 'src/views/shared/TextEditor'
 
 // ** Custom Component Imports
-import TextEditorPreview from 'src/views/shared/TextEditorPreview'
-
 const TextEditor = dynamic(() => import('src/views/shared/TextEditor'), { ssr: false })
+const TextEditorPreview = dynamic(() => import('src/views/shared/TextEditorPreview'), { ssr: false })
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'

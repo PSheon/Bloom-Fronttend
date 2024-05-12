@@ -1,3 +1,6 @@
+// ** Next Imports
+import dynamic from 'next/dynamic'
+
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
@@ -5,7 +8,7 @@ import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 
 // ** Custom Component Imports
-import TextEditorPreview from 'src/views/shared/TextEditorPreview'
+const TextEditorPreview = dynamic(() => import('src/views/shared/TextEditorPreview'), { ssr: false })
 
 // ** Type Imports
 import type { CardProps } from '@mui/material/Card'

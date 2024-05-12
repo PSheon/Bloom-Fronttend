@@ -1,5 +1,6 @@
 // ** Next Imports
 import Link from 'next/link'
+import dynamic from 'next/dynamic'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
@@ -14,7 +15,8 @@ import format from 'date-fns/format'
 // ** Custom Component Imports
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import CustomChip from 'src/@core/components/mui/chip'
-import TextEditorPreview from 'src/views/shared/TextEditorPreview'
+
+const TextEditorPreview = dynamic(() => import('src/views/shared/TextEditorPreview'), { ssr: false })
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
