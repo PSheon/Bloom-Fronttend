@@ -22,7 +22,7 @@ const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
   alignItems: 'center',
   overflow: 'hidden',
   [theme.breakpoints.down('md')]: {
-    minHeight: theme.spacing(180)
+    minHeight: theme.spacing(140)
   }
 }))
 

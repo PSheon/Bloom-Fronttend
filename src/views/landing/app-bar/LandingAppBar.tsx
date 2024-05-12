@@ -187,6 +187,19 @@ const LandingAppBar = () => {
             ) : null}
           </Stack>
           <Stack direction='row' spacing={2} alignItems='center' className='actions-right'>
+            {!hidden ? (
+              <Stack direction='row' spacing={2} alignItems='center' className='actions-left'>
+                {settings.mode === 'dark' ? (
+                  <IconButton color='inherit' onClick={() => handleChangeSettings('mode', 'light' as Mode)}>
+                    <Icon icon='mdi:moon-and-stars' />
+                  </IconButton>
+                ) : (
+                  <IconButton color='inherit' onClick={() => handleChangeSettings('mode', 'dark' as Mode)}>
+                    <Icon icon='mdi:white-balance-sunny' />
+                  </IconButton>
+                )}
+              </Stack>
+            ) : null}
             {session.status === 'authenticated' ? (
               <Badge
                 overlap='circular'
