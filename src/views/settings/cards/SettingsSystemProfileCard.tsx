@@ -18,6 +18,7 @@ import Icon from 'src/@core/components/icon'
 
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
+import packageConfig from 'package.json'
 
 // ** Type Imports
 import type { BoxProps } from '@mui/material/Box'
@@ -115,19 +116,19 @@ const SettingsSystemProfileCard = () => {
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
               版本:
             </Typography>
-            <Typography variant='body2'>v0.1.0</Typography>
+            <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
           </Box>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
               API 版本:
             </Typography>
-            <Typography variant='body2'>v0.1.0</Typography>
+            <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
           </Box>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
               Socket 版本:
             </Typography>
-            <Typography variant='body2'>v0.1.0</Typography>
+            <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
           </Box>
         </Box>
       </CardContent>
