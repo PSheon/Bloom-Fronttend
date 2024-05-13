@@ -99,17 +99,21 @@ const PublicArticleLiveSection = (props: Props) => {
 
                 <Stack direction='row' spacing={4} alignItems='center'>
                   <Avatar
-                    src={getPublicMediaAssetUrl(initArticleEntity.author.data?.attributes.avatar.data?.attributes.url)}
-                    alt={initArticleEntity.author.data?.attributes.username}
+                    src={getPublicMediaAssetUrl(
+                      initArticleEntity?.author?.data?.attributes.avatar.data?.attributes.url
+                    )}
+                    alt={initArticleEntity?.author?.data?.attributes.username}
                     sx={{ width: 34, height: 34 }}
                   />
 
                   <Stack alignItems='flex-start'>
                     <Typography variant='body1' component='p'>
-                      Posted by
+                      {initArticleEntity?.author?.data?.attributes?.username ?? 'Paul'}
                     </Typography>
                     <Typography variant='body2' component='p' color='secondary'>
-                      Posted by
+                      {initArticleEntity?.author?.data?.attributes?.title ??
+                        initArticleEntity?.author?.data?.attributes?.email ??
+                        'Custom Service Agent'}
                     </Typography>
                   </Stack>
                 </Stack>
