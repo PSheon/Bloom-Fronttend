@@ -113,12 +113,31 @@ export const authOptions: NextAuthOptions = {
       return true
     },
 
+    async redirect({ baseUrl }) {
+      return baseUrl
+    },
+
+    async session({ session, token }) {
+      if (session.user) {
+        // ** Add custom params to user in session which are added in `jwt()` callback via `token` parameter
+        session.user = token.user.userData
+        session.accessToken = token.user.accessToken
+      }
+
+      return Promise.resolve(session)
+    },
+
     /*
      * While using `jwt` as a strategy, `jwt()` callback will be called before
      * the `session()` callback. So we have to add custom parameters in `token`
      * via `jwt()` callback to make them accessible in the `session()` callback
      */
     async jwt({ token, trigger, account, user }) {
+      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:136 > token', token)
+      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:137 > trigger', trigger)
+      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:138 > account', account)
+      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:139 > user', user)
+
       if (trigger === 'update') {
         // ** Note, that `session` can be any arbitrary object, remember to validate it!
         const { data: updatedUserData } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/me`, {
@@ -175,15 +194,6 @@ export const authOptions: NextAuthOptions = {
       }
 
       return Promise.resolve(token)
-    },
-    async session({ session, token }) {
-      if (session.user) {
-        // ** Add custom params to user in session which are added in `jwt()` callback via `token` parameter
-        session.user = token.user.userData
-        session.accessToken = token.user.accessToken
-      }
-
-      return Promise.resolve(session)
     }
   }
 }
