@@ -28,6 +28,7 @@ const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
 
 const LandingBuyAndSellSection = () => {
   // ** Hooks
+  const isLargeDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('xl'))
   const isDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'))
 
   return (
@@ -42,11 +43,15 @@ const LandingBuyAndSellSection = () => {
           </Typography>
         </Stack>
 
-        {isDesktopView && (
-          <Stack spacing={4} justifyContent='center' alignItems='center'>
+        <Stack spacing={4} justifyContent='center' alignItems='center'>
+          {isLargeDesktopView ? (
             <Image src='/images/landing/buy-and-sell/table.png' alt='table' width={1180} height={580} />
-          </Stack>
-        )}
+          ) : isDesktopView ? (
+            <Image src='/images/landing/buy-and-sell/table.png' alt='table' width={800} height={360} />
+          ) : (
+            <Image src='/images/landing/buy-and-sell/table.png' alt='table' width={400} height={180} />
+          )}
+        </Stack>
       </Stack>
     </StyledRootBox>
   )

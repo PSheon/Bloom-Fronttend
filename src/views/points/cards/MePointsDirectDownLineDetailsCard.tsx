@@ -18,12 +18,11 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import TableContainer from '@mui/material/TableContainer'
 
+// ** Custom Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
-
-// ** Core Component Imports
-import CustomChip from 'src/@core/components/mui/chip'
-import OptionsMenu from 'src/@core/components/option-menu'
 
 // ** Util Imports
 import { hexToRGBA } from 'src/@core/utils/hex-to-rgba'
@@ -228,11 +227,10 @@ const RenderTabContent = ({ data }: { data: TabContentType[] }) => {
   )
 }
 
-const ManagementDashboardTopReferralSourcesCard = () => {
-  // ** States
+const MePointsDirectDownLineDetailsCard = () => {
+  // ** State
   const [value, setValue] = useState<string>('google')
 
-  // ** Logics
   const handleChange = (event: SyntheticEvent, newValue: string) => {
     setValue(newValue)
   }
@@ -265,14 +263,12 @@ const ManagementDashboardTopReferralSourcesCard = () => {
   return (
     <Card>
       <CardHeader
-        title='Top Referral Sources'
-        subheader='82% Activity Growth'
-        action={
-          <OptionsMenu
-            options={['Last 28 Days', 'Last Month', 'Last Year']}
-            iconButtonProps={{ size: 'small', className: 'card-more-options' }}
-          />
+        title={
+          <Typography variant='h6' component='h3'>
+            直推積分
+          </Typography>
         }
+        subheader='82% Activity Growth'
       />
       <TabContext value={value}>
         <TabList
@@ -342,4 +338,4 @@ const ManagementDashboardTopReferralSourcesCard = () => {
   )
 }
 
-export default ManagementDashboardTopReferralSourcesCard
+export default MePointsDirectDownLineDetailsCard

@@ -13,6 +13,7 @@ import Typography from '@mui/material/Typography'
 // ** Type Imports
 import type { Theme } from '@mui/material/styles'
 import type { BoxProps } from '@mui/material/Box'
+import type { ButtonProps } from '@mui/material/Button'
 
 const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: theme.spacing(200),
@@ -26,37 +27,63 @@ const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
   }
 }))
 
+const StyledButton = styled(Button)<ButtonProps>(() => ({
+  background: 'linear-gradient(-45deg, #ffa63d, #ff3d77, #338aff, #3cf0c5)',
+  backgroundSize: '600%',
+  animation: `anime 12s linear infinite`,
+  '@keyframes anime': {
+    '0%': {
+      backgroundPosition: '0% 50%'
+    },
+    '50%': {
+      backgroundPosition: '100% 50%'
+    },
+    '100%': {
+      backgroundPosition: '0% 50%'
+    }
+  }
+}))
+
 const LandingHeaderSection = () => {
   // ** Hooks
-  const isLargeDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('xl'))
+  const isLargeDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'))
+  const isDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'))
 
   return (
     <StyledRootBox>
-      {isLargeDesktopView && (
+      {isLargeDesktopView ? (
         <Image
           src='/images/landing/hero/deco-orbit.png'
           alt='deco orbit'
-          width={1440}
-          height={827}
-          style={{ position: 'absolute', top: 0 }}
+          width={1200}
+          height={780}
+          style={{ pointerEvents: 'none', position: 'absolute', top: 0 }}
         />
-      )}
-      {isLargeDesktopView && (
+      ) : isDesktopView ? (
+        <Image
+          src='/images/landing/hero/deco-orbit.png'
+          alt='deco orbit'
+          width={890}
+          height={700}
+          style={{ pointerEvents: 'none', position: 'absolute', top: 0 }}
+        />
+      ) : null}
+      {isDesktopView && (
         <Image
           src='/images/landing/hero/deco-left.png'
           alt='deco planet'
           width={620}
           height={754}
-          style={{ position: 'absolute', left: 0, top: 0 }}
+          style={{ pointerEvents: 'none', position: 'absolute', left: 0, top: 0 }}
         />
       )}
-      {isLargeDesktopView && (
+      {isDesktopView && (
         <Image
           src='/images/landing/hero/deco-right.png'
           alt='deco coin'
           width={539}
           height={907}
-          style={{ position: 'absolute', right: 0, top: 0 }}
+          style={{ pointerEvents: 'none', position: 'absolute', right: 0, top: 0 }}
         />
       )}
 
@@ -70,15 +97,9 @@ const LandingHeaderSection = () => {
       </Stack>
 
       <Stack spacing={4} sx={{ mt: 12 }}>
-        <Button
-          component={Link}
-          href='/portfolio'
-          variant='contained'
-          size='large'
-          sx={{ background: 'linear-gradient(225deg, #18C8FF 14.89%, #933FFE 85.85%)' }}
-        >
+        <StyledButton component={Link} href='/portfolio' variant='contained' size='large'>
           Explore
-        </Button>
+        </StyledButton>
       </Stack>
     </StyledRootBox>
   )

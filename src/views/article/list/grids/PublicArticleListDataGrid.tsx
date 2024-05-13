@@ -90,12 +90,14 @@ const PublicArticleListDataGrid = (props: Props) => {
                     <Stack direction='row' spacing={2} alignItems='center' justifyContent='space-between'>
                       <Stack direction='row' spacing={2} alignItems='center' justifyContent='space-between'>
                         <Avatar
-                          src={getPublicMediaAssetUrl(article.author.data?.attributes.avatar.data?.attributes.url)}
-                          alt={article.author.data?.attributes.username}
+                          src={getPublicMediaAssetUrl(article?.author?.data?.attributes.avatar.data?.attributes.url)}
+                          alt={article?.author?.data?.attributes.username ?? 'Paul'}
                           sx={{ width: 22, height: 22 }}
                         />
 
-                        <Typography variant='caption'>{article.author?.data?.attributes.username}</Typography>
+                        <Typography variant='caption'>
+                          {article?.author?.data?.attributes.username ?? 'Custom Service Agent'}
+                        </Typography>
                       </Stack>
 
                       <Typography variant='caption' sx={{ whiteSpace: 'nowrap' }}>
