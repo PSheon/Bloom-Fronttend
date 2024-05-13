@@ -31,7 +31,6 @@ const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
 
 const LandingCustomerSupportSection = () => {
   // ** Hooks
-  const isLargeDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('xl'))
   const isDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'))
 
   // ** Refs
@@ -39,7 +38,7 @@ const LandingCustomerSupportSection = () => {
 
   return (
     <StyledRootBox ref={rootRef}>
-      {isLargeDesktopView && (
+      {isDesktopView && (
         <Image
           src='/images/landing/customer-support/deco-left.png'
           alt='deco left'
@@ -52,7 +51,7 @@ const LandingCustomerSupportSection = () => {
           }}
         />
       )}
-      {isLargeDesktopView && (
+      {isDesktopView && (
         <Image
           src='/images/landing/customer-support/deco-right.png'
           alt='deco right'

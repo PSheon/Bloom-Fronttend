@@ -28,20 +28,29 @@ const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
 
 const LandingHeaderSection = () => {
   // ** Hooks
-  const isLargeDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('xl'))
+  const isLargeDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'))
+  const isDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'))
 
   return (
     <StyledRootBox>
-      {isLargeDesktopView && (
+      {isLargeDesktopView ? (
         <Image
           src='/images/landing/hero/deco-orbit.png'
           alt='deco orbit'
-          width={1440}
-          height={827}
+          width={1200}
+          height={780}
           style={{ position: 'absolute', top: 0 }}
         />
-      )}
-      {isLargeDesktopView && (
+      ) : isDesktopView ? (
+        <Image
+          src='/images/landing/hero/deco-orbit.png'
+          alt='deco orbit'
+          width={890}
+          height={700}
+          style={{ position: 'absolute', top: 0 }}
+        />
+      ) : null}
+      {isDesktopView && (
         <Image
           src='/images/landing/hero/deco-left.png'
           alt='deco planet'
@@ -50,7 +59,7 @@ const LandingHeaderSection = () => {
           style={{ position: 'absolute', left: 0, top: 0 }}
         />
       )}
-      {isLargeDesktopView && (
+      {isDesktopView && (
         <Image
           src='/images/landing/hero/deco-right.png'
           alt='deco coin'
