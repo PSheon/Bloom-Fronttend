@@ -1,7 +1,7 @@
 // ** React Imports
 import { useState } from 'react'
 
-// ** MUI Import
+// ** MUI Imports
 import Box from '@mui/material/Box'
 import Tab from '@mui/material/Tab'
 import Card from '@mui/material/Card'

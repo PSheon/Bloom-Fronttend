@@ -11,7 +11,7 @@ import LanguageDropdown from 'src/@core/layouts/components/shared-components/Lan
 import NotificationDropdown from 'src/@core/layouts/components/shared-components/NotificationDropdown'
 import ShortcutsDropdown from 'src/@core/layouts/components/shared-components/ShortcutsDropdown'
 
-// ** Custom Components Imports
+// ** Custom Component Imports
 import Autocomplete from 'src/layouts/components/Autocomplete'
 
 // ** Type Imports
