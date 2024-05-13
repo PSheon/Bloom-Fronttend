@@ -1,8 +1,6 @@
 // ** Next Imports
 import Head from 'next/head'
-import { Router } from 'next/router'
-import type { NextPage } from 'next'
-import type { AppProps } from 'next/app'
+import { Router, useRouter } from 'next/router'
 
 // ** Store Imports
 import { store } from 'src/store'
@@ -13,7 +11,6 @@ import NProgress from 'nprogress'
 
 // ** Emotion Imports
 import { CacheProvider } from '@emotion/react'
-import type { EmotionCache } from '@emotion/cache'
 
 // ** Config Imports
 import 'src/configs/i18n'
@@ -22,6 +19,7 @@ import { defaultACLObj } from 'src/configs/acl'
 import themeConfig from 'src/configs/themeConfig'
 
 // ** Third-Party Imports
+import { AnimatePresence, motion } from 'framer-motion'
 import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from 'next-auth/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
@@ -54,6 +52,9 @@ import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
 
 // ** Type Imports
 import type { ReactNode } from 'react'
+import type { NextPage } from 'next'
+import type { AppProps } from 'next/app'
+import type { EmotionCache } from '@emotion/cache'
 
 // ** Prismjs Style Imports
 import 'prismjs'
@@ -125,9 +126,13 @@ const Guard = ({ children, authGuard, guestGuard }: GuardProps) => {
 
 // ** Configure JSS & ClassName
 const App = (props: ExtendedAppProps) => {
+  // ** Props
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
-  // ** Variables
+  // ** Hooks
+  const router = useRouter()
+
+  // ** Vars
   const contentHeightFixed = Component.contentHeightFixed ?? false
 
   const getLayout =
@@ -205,16 +210,29 @@ const App = (props: ExtendedAppProps) => {
                 <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
                   <SettingsConsumer>
                     {({ settings }) => (
-                      <ThemeComponent settings={settings}>
-                        <Guard authGuard={authGuard} guestGuard={guestGuard}>
-                          <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard} authGuard={authGuard}>
-                            {getLayout(<Component {...pageProps} />)}
-                          </AclGuard>
-                        </Guard>
-                        <ReactHotToast>
-                          <Toaster position={settings.toastPosition} toastOptions={{ className: 'react-hot-toast' }} />
-                        </ReactHotToast>
-                      </ThemeComponent>
+                      <AnimatePresence mode='wait' initial={false}>
+                        <ThemeComponent settings={settings}>
+                          <Guard authGuard={authGuard} guestGuard={guestGuard}>
+                            <AclGuard aclAbilities={aclAbilities} guestGuard={guestGuard} authGuard={authGuard}>
+                              <motion.div
+                                key={router.route}
+                                initial={{ y: 5, opacity: 0 }}
+                                animate={{ y: 0, opacity: 1 }}
+                                exit={{ y: 5, opacity: 0 }}
+                                transition={{ ease: 'easeInOut', duration: 0.35 }}
+                              >
+                                {getLayout(<Component {...pageProps} />)}
+                              </motion.div>
+                            </AclGuard>
+                          </Guard>
+                          <ReactHotToast>
+                            <Toaster
+                              position={settings.toastPosition}
+                              toastOptions={{ className: 'react-hot-toast' }}
+                            />
+                          </ReactHotToast>
+                        </ThemeComponent>
+                      </AnimatePresence>
                     )}
                   </SettingsConsumer>
                 </SettingsProvider>
