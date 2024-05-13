@@ -108,6 +108,13 @@ const navigation = (): VerticalNavItemsType => {
       subject: 'user-page'
     },
     {
+      title: 'Me.Points',
+      icon: 'mdi:progress-star-four-points',
+      path: '/points',
+      action: 'read',
+      subject: 'user-page'
+    },
+    {
       sectionTitle: 'General',
       action: 'read',
       subject: 'user-page'
