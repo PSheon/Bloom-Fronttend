@@ -1,54 +1,48 @@
+// ** Redux Imports
+import { store } from 'src/store'
+import { Provider } from 'react-redux'
+
+// ** Context Imports
+import { SettingsConsumer, SettingsProvider } from 'src/@core/context/settingsContext'
+
 // ** Next Imports
 import Head from 'next/head'
 import { Router, useRouter } from 'next/router'
 
-// ** Store Imports
-import { store } from 'src/store'
-import { Provider } from 'react-redux'
-
-// ** Loader Import
-import NProgress from 'nprogress'
-
-// ** Emotion Imports
-import { CacheProvider } from '@emotion/react'
-
-// ** Config Imports
-import 'src/configs/i18n'
-import 'src/configs/date-fn'
-import { defaultACLObj } from 'src/configs/acl'
-import themeConfig from 'src/configs/themeConfig'
-
 // ** Third-Party Imports
+import NProgress from 'nprogress'
+import { CacheProvider } from '@emotion/react'
 import { AnimatePresence, motion } from 'framer-motion'
 import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from 'next-auth/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
-import { getDefaultConfig, RainbowKitProvider } from '@rainbow-me/rainbowkit'
-import { WagmiProvider, http } from 'wagmi'
-import { mainnet, sepolia } from 'wagmi/chains'
-import { QueryClientProvider, QueryClient } from '@tanstack/react-query'
+import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { WagmiProvider } from 'wagmi'
+import { QueryClientProvider } from '@tanstack/react-query'
 
-// ** Component Imports
+// ** Layout Imports
+import UserLayout from 'src/layouts/UserLayout'
+import Spinner from 'src/layouts/components/fallback-spinner'
+
+// ** Core Component Imports
 import ThemeComponent from 'src/@core/theme/ThemeComponent'
+import ReactHotToast from 'src/@core/styles/libs/react-hot-toast'
+
+// ** Custom Component Imports
 import AclGuard from 'src/layouts/components/auth/UserAclGuard'
 import AuthGuard from 'src/layouts/components/auth/UserAuthGuard'
 import GuestGuard from 'src/layouts/components/auth/UserGuestGuard'
 
-// ** Layout Imports
-import UserLayout from 'src/layouts/UserLayout'
-
-// ** Spinner Imports
-import Spinner from 'src/layouts/components/fallback-spinner'
-
-// ** Context Imports
-import { SettingsConsumer, SettingsProvider } from 'src/@core/context/settingsContext'
-
-// ** Core Component Imports
-import ReactHotToast from 'src/@core/styles/libs/react-hot-toast'
-
 // ** Util Imports
 import { createEmotionCache } from 'src/@core/utils/create-emotion-cache'
+
+// ** Config Imports
+import { defaultACLObj } from 'src/configs/acl'
+import themeConfig from 'src/configs/themeConfig'
+import { wagmiConfig, queryClient } from 'src/configs/ethereum'
+import 'src/configs/i18n'
+import 'src/configs/date-fn'
 
 // ** Type Imports
 import type { ReactNode } from 'react'
@@ -87,19 +81,6 @@ type GuardProps = {
 }
 
 const clientSideEmotionCache = createEmotionCache()
-
-const wagmiConfig = getDefaultConfig({
-  appName: themeConfig.templateName,
-  projectId: process.env.NEXT_PUBLIC_WALLET_CONNECT_PROJECT_ID as string,
-  chains: [mainnet, sepolia],
-  transports: {
-    [mainnet.id]: http(`https://eth-mainnet.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_RTHEREUM_MAINNET_KEY}`),
-    [sepolia.id]: http(`https://eth-sepolia.g.alchemy.com/v2/${process.env.NEXT_PUBLIC_ALCHEMY_RTHEREUM_SEPOLIA_KEY}`)
-  },
-  ssr: true
-})
-
-const queryClient = new QueryClient()
 
 // ** Pace Loader
 if (themeConfig.routingLoader) {

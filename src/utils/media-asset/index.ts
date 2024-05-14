@@ -58,6 +58,14 @@ export const getAvatarFileInfo = (file: File, user: UserDataType) => {
 export const getPublicMediaAssetUrl = (mediaAssetUrl: string | undefined): string => {
   if (mediaAssetUrl !== undefined) {
     return `${process.env.NEXT_PUBLIC_BACKEND_URL}${mediaAssetUrl}`
+  } else if (typeof mediaAssetUrl === 'string') {
+    const mediaAssetUrlString = String(mediaAssetUrl)
+
+    if (mediaAssetUrlString.startsWith('http') || mediaAssetUrlString.startsWith('https')) {
+      return mediaAssetUrlString
+    } else {
+      return '/images/avatars/1.png'
+    }
   } else {
     return '/images/avatars/1.png'
   }
