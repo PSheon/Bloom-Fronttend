@@ -23,8 +23,8 @@ export type LiveTabIndex = 'overview' | 'mint' | 'vault'
 export type FundType = {
   id: number
   banner: MediaAssetApiResponseType
-  chain: 'Ethereum' | 'Blast'
-  baseCurrency: 'ETH' | 'USDT' | 'USDC' | 'DAI'
+  chain: 'Ethereum' | 'Ethereum Sepolia' | 'Blast'
+  baseCurrency: 'ETH' | 'USDT' | 'USDC' | 'DAI' | 'BLT'
   category: CategoryType
   displayName: string
   description?: string

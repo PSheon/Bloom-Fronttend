@@ -51,7 +51,7 @@ export const getNextValidPackageId = (fundEntity: FundType): number => {
   }
 }
 
-export const getFundCurrencyProperties = (currency: 'ETH' | 'USDT' | 'USDC' | 'DAI') => {
+export const getFundCurrencyProperties = (currency: FundType['baseCurrency']) => {
   const currencyAttributes = {
     ETH: {
       icon: 'mdi:ethereum',
@@ -79,6 +79,13 @@ export const getFundCurrencyProperties = (currency: 'ETH' | 'USDT' | 'USDC' | 'D
       imageUrl: '/images/funds/currencies/dai.svg',
       displayName: 'Dai',
       currency: 'DAI',
+      symbol: '$'
+    },
+    BLT: {
+      icon: 'mdi:currency-usd',
+      imageUrl: '/images/funds/currencies/blt.svg',
+      displayName: 'Blt',
+      currency: 'BLT',
       symbol: '$'
     }
   }
