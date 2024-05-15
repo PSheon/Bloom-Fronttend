@@ -284,33 +284,21 @@ const LandingAppBar = () => {
 
         <List disablePadding sx={{ mt: 'auto' }}>
           <ListItem disablePadding>
-            {settings.mode === 'dark' ? (
-              <ListItemButton sx={{ px: 0 }} onClick={() => handleChangeSettings('mode', 'light' as Mode)}>
-                <ListItemIcon>
-                  <Icon icon='mdi:moon-and-stars' />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography variant='body1' component='span'>
-                      Dark
-                    </Typography>
-                  }
-                />
-              </ListItemButton>
-            ) : (
-              <ListItemButton sx={{ px: 0 }} onClick={() => handleChangeSettings('mode', 'dark' as Mode)}>
-                <ListItemIcon>
-                  <Icon icon='mdi:white-balance-sunny' />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography variant='body1' component='span'>
-                      Light
-                    </Typography>
-                  }
-                />
-              </ListItemButton>
-            )}
+            <ListItemButton
+              sx={{ px: 0 }}
+              onClick={() => handleChangeSettings('mode', (settings.mode === 'dark' ? 'light' : 'dark') as Mode)}
+            >
+              <ListItemIcon>
+                <Icon icon={settings.mode === 'dark' ? 'mdi:weather-sunny' : 'mdi:weather-night'} />
+              </ListItemIcon>
+              <ListItemText
+                primary={
+                  <Typography variant='body1' component='span'>
+                    {settings.mode === 'dark' ? 'Dark' : 'Light'}
+                  </Typography>
+                }
+              />
+            </ListItemButton>
           </ListItem>
         </List>
       </SwipeableDrawer>
