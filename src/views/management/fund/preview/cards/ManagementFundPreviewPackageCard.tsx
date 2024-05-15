@@ -28,13 +28,10 @@ import Fade from '@mui/material/Fade'
 // ** Third-Party Imports
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
-import { useAccount, useSignMessage } from 'wagmi'
+import { useAccount, useSignMessage, useDisconnect } from 'wagmi'
 import safePrice from 'currency.js'
 import { Atropos } from 'atropos/react'
 import toast from 'react-hot-toast'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -44,6 +41,12 @@ import StepperWrapper from 'src/@core/styles/mui/stepper'
 // ** Custom Component Imports
 import ManagementFundPreviewPackageMintStepperDotBox from 'src/views/management/fund/preview/boxes/ManagementFundPreviewPackageMintStepperDotBox'
 
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Hook Imports
+import useBgColor from 'src/@core/hooks/useBgColor'
+
 // ** API Imports
 import { useFindMeQuery, useGetNonceQuery, useVerifyMutation } from 'src/store/api/management/wallet'
 
@@ -52,6 +55,8 @@ import {
   getFundCurrencyProperties,
   getPackageStatusProperties,
   getFormattedPriceUnit,
+  getGradientColors,
+  getChainId,
   getFormattedEthereumAddress
 } from 'src/utils'
 
@@ -101,11 +106,14 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
   const [isVerifyWalletProcessLoading, setIsVerifyWalletProcessLoading] = useState<boolean>(false)
   const [mintQuantity, setMintQuantity] = useState<number>(1)
   const [approvedPayToken, setApprovedPayToken] = useState<number>(0)
+  const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
 
   // ** Hooks
   const theme = useTheme()
+  const bgColors = useBgColor()
   const walletAccount = useAccount()
   const { signMessageAsync } = useSignMessage()
+  const { disconnectAsync } = useDisconnect()
 
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
@@ -138,16 +146,18 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
           return walletAccount.status === 'connected'
         },
         connectedNetwork: () => {
-          return walletAccount.chain?.name.toLowerCase() === initFundEntity.chain.toLowerCase()
+          const requiredChainId = getChainId(initFundEntity.chain)
+
+          return walletAccount.chain?.id === requiredChainId
         },
         walletVerified: () => {
           return isCurrentWalletVerified
         },
         total: () => {
           return (
-            walletAccount.status === 'connected' &&
-            walletAccount.chain?.name.toLowerCase() === initFundEntity.chain.toLowerCase() &&
-            Boolean(isCurrentWalletVerified)
+            STEPS[0].checks!.walletConnect!() &&
+            STEPS[0].checks!.connectedNetwork!() &&
+            STEPS[0].checks!.walletVerified!()
           )
         }
       }
@@ -156,8 +166,11 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
       title: 'Approve Token',
       subtitle: 'Select quantity and approve pay token',
       checks: {
-        total: () => {
+        sufficientApproved: () => {
           return approvedPayToken >= Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
+        },
+        total: () => {
+          return STEPS[1].checks!.sufficientApproved!()
         }
       }
     },
@@ -173,6 +186,22 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
   ]
 
   // ** Logics
+  const handleDisconnect = async () => {
+    try {
+      await disconnectAsync()
+    } catch {
+      toast.error('Failed to disconnect wallet')
+    }
+  }
+
+  const handleCopyAddress = (address: string) => {
+    navigator.clipboard.writeText(address)
+    setIsAddressCopied(() => true)
+    setTimeout(() => {
+      setIsAddressCopied(() => false)
+    }, 2 * 1000)
+  }
+
   const handleVerifyWallet = async () => {
     try {
       setIsVerifyWalletProcessLoading(() => true)
@@ -204,6 +233,36 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
       setIsVerifyWalletProcessLoading(() => false)
       toast.error('Failed to verify wallet')
     }
+  }
+
+  // ** Renders
+  const renderWalletAvatar = (address: string) => {
+    const colors = getGradientColors(address)
+
+    return (
+      <CustomAvatar
+        skin='light'
+        sx={{
+          width: 74,
+          height: 74,
+          boxShadow: `${colors[0]} 0px 3px 5px`
+        }}
+      >
+        <Box
+          sx={{
+            width: 74,
+            height: 74,
+            backgroundColor: colors[0],
+            backgroundImage: `
+              radial-gradient(at 66% 77%, ${colors[1]} 0px, transparent 50%),
+              radial-gradient(at 29% 97%, ${colors[2]} 0px, transparent 50%),
+              radial-gradient(at 99% 86%, ${colors[3]} 0px, transparent 50%),
+              radial-gradient(at 29% 88%, ${colors[4]} 0px, transparent 50%)
+            `
+          }}
+        />
+      </CustomAvatar>
+    )
   }
 
   return (
@@ -344,6 +403,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                 fullWidth
                 disabled={selectedPackageEntityId === initPackageEntity.id}
                 variant={selectedPackageEntityId === initPackageEntity.id ? 'text' : 'outlined'}
+                size='small'
                 sx={{
                   '& svg': {
                     transition: theme => theme.transitions.create('transform'),
@@ -355,7 +415,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                   handleSelectPackage(initPackageEntity.id)
                 }}
               >
-                <Typography variant='h6' component='p'>
+                <Typography variant='subtitle1' component='p'>
                   鑄造
                 </Typography>
               </Button>
@@ -472,7 +532,6 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               {({
                                 account,
                                 chain,
-                                openAccountModal,
                                 openChainModal,
                                 openConnectModal,
                                 authenticationStatus,
@@ -511,29 +570,90 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                 }
 
                                 return (
-                                  <Stack
-                                    direction='column'
-                                    spacing={4}
-                                    alignItems='center'
-                                    justifyContent='space-between'
+                                  <Box
+                                    sx={{
+                                      px: 4,
+                                      py: 6,
+                                      width: '100%',
+                                      maxWidth: theme => theme.spacing(96),
+                                      borderRadius: 1,
+                                      border: theme => `1px solid ${theme.palette.primary.main}`,
+                                      ...bgColors.primaryLight
+                                    }}
                                   >
-                                    <Button variant='outlined' onClick={openAccountModal}>
-                                      {`${account.displayName} ${
-                                        account.displayBalance ? ` - ${account.displayBalance}` : ''
-                                      }`}
-                                    </Button>
-
-                                    {!isCurrentWalletVerified && (
-                                      <LoadingButton
-                                        variant='contained'
-                                        loading={isVerifyWalletLoading || isVerifyWalletProcessLoading}
-                                        disabled={!nonce}
-                                        onClick={handleVerifyWallet}
-                                      >
-                                        Verify
-                                      </LoadingButton>
-                                    )}
-                                  </Stack>
+                                    <Stack
+                                      direction='column'
+                                      spacing={4}
+                                      alignItems='center'
+                                      justifyContent='space-between'
+                                    >
+                                      {renderWalletAvatar(account.address)}
+                                      <Stack alignItems='center'>
+                                        <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                                          {getFormattedEthereumAddress(account.address)}
+                                        </Typography>
+                                        <Typography variant='subtitle2' component='p'>
+                                          {`${account.displayBalance ? `~ ${account.displayBalance}` : ''}`}
+                                        </Typography>
+                                      </Stack>
+                                      {isCurrentWalletVerified ? (
+                                        <Stack
+                                          direction='row'
+                                          spacing={4}
+                                          alignSelf='stretch'
+                                          alignItems='center'
+                                          justifyContent='center'
+                                        >
+                                          <Button variant='contained' onClick={handleDisconnect} sx={{ flex: 1 }}>
+                                            <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                              <Icon icon='mdi:logout' fontSize={16} />
+                                              Disconnect
+                                            </Stack>
+                                          </Button>
+                                          <Button
+                                            variant='contained'
+                                            onClick={() => handleCopyAddress(account.address)}
+                                            sx={{ flex: 1 }}
+                                          >
+                                            <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                              <Icon
+                                                icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'}
+                                                fontSize={16}
+                                              />
+                                              {isAddressCopied ? 'Copied' : 'Copy'}
+                                            </Stack>
+                                          </Button>
+                                        </Stack>
+                                      ) : (
+                                        <Stack
+                                          direction='row'
+                                          spacing={4}
+                                          alignSelf='stretch'
+                                          alignItems='center'
+                                          justifyContent='center'
+                                        >
+                                          <Button variant='outlined' onClick={handleDisconnect} sx={{ flex: 1 }}>
+                                            <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                              <Icon icon='mdi:logout' fontSize={16} />
+                                              Disconnect
+                                            </Stack>
+                                          </Button>
+                                          <LoadingButton
+                                            variant='contained'
+                                            loading={isVerifyWalletLoading || isVerifyWalletProcessLoading}
+                                            disabled={!nonce}
+                                            onClick={handleVerifyWallet}
+                                            sx={{ flex: 1 }}
+                                          >
+                                            <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                              <Icon icon='mdi:clipboard-check-outline' fontSize={16} />
+                                              Verify
+                                            </Stack>
+                                          </LoadingButton>
+                                        </Stack>
+                                      )}
+                                    </Stack>
+                                  </Box>
                                 )
                               }}
                             </ConnectButton.Custom>
