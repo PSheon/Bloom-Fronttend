@@ -8,8 +8,6 @@ import Image from 'next/image'
 import { styled, useTheme } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
-import InputAdornment from '@mui/material/InputAdornment'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import IconButton from '@mui/material/IconButton'
@@ -28,7 +26,7 @@ import Fade from '@mui/material/Fade'
 // ** Third-Party Imports
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
-import { useAccount, useSignMessage, useDisconnect } from 'wagmi'
+import { useAccount, useAccountEffect, useSignMessage, useDisconnect } from 'wagmi'
 import safePrice from 'currency.js'
 import { Atropos } from 'atropos/react'
 import toast from 'react-hot-toast'
@@ -105,7 +103,6 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
   const [activeMintStep, setActiveMintStep] = useState<number>(0)
   const [isVerifyWalletProcessLoading, setIsVerifyWalletProcessLoading] = useState<boolean>(false)
   const [mintQuantity, setMintQuantity] = useState<number>(1)
-  const [approvedPayToken, setApprovedPayToken] = useState<number>(0)
   const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
 
   // ** Hooks
@@ -163,14 +160,14 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
       }
     },
     {
-      title: 'Approve Token',
-      subtitle: 'Select quantity and approve pay token',
+      title: 'Select Quantity',
+      subtitle: 'Select quantity and check fees',
       checks: {
-        sufficientApproved: () => {
-          return approvedPayToken >= Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
+        checkQuantity: () => {
+          return 1 <= mintQuantity && mintQuantity <= 10
         },
         total: () => {
-          return STEPS[1].checks!.sufficientApproved!()
+          return STEPS[1].checks!.checkQuantity!()
         }
       }
     },
@@ -265,6 +262,17 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
     )
   }
 
+  // ** Side Effects
+  useAccountEffect({
+    onConnect(data) {
+      toast.success(`Wallet ${getFormattedEthereumAddress(data.address)} connected!`)
+    },
+    onDisconnect() {
+      setActiveMintStep(() => 0)
+      toast.success('Wallet disconnected!')
+    }
+  })
+
   return (
     <Card
       sx={{
@@ -336,7 +344,9 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                   <CustomChip
                     skin='light'
                     size='medium'
-                    label={<Typography variant='subtitle1'>{`#${initPackageEntity.packageId}`}</Typography>}
+                    label={
+                      <Typography variant='subtitle1' component='p'>{`#${initPackageEntity.packageId}`}</Typography>
+                    }
                     color='secondary'
                     sx={{
                       height: 20,
@@ -416,7 +426,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                 }}
               >
                 <Typography variant='subtitle1' component='p'>
-                  鑄造
+                  Mint
                 </Typography>
               </Button>
             </Stack>
@@ -474,7 +484,9 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               divider={<Divider orientation='horizontal' flexItem />}
                             >
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Connect Wallet</Typography>
+                                <Typography variant='subtitle1' component='p'>
+                                  Connect Wallet
+                                </Typography>
                                 <Stack
                                   alignItems='center'
                                   justifyContent='center'
@@ -492,7 +504,10 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                 </Stack>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>{`Network ${initFundEntity.chain}`}</Typography>
+                                <Typography
+                                  variant='subtitle1'
+                                  component='p'
+                                >{`Network ${initFundEntity.chain}`}</Typography>
                                 <Stack
                                   alignItems='center'
                                   justifyContent='center'
@@ -510,7 +525,9 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                 </Stack>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Wallet Verified</Typography>
+                                <Typography variant='subtitle1' component='p'>
+                                  Wallet Verified
+                                </Typography>
                                 <Stack
                                   alignItems='center'
                                   justifyContent='center'
@@ -575,7 +592,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                       px: 4,
                                       py: 6,
                                       width: '100%',
-                                      maxWidth: theme => theme.spacing(96),
+                                      maxWidth: theme => theme.spacing(120),
                                       borderRadius: 1,
                                       border: theme => `1px solid ${theme.palette.primary.main}`,
                                       ...bgColors.primaryLight
@@ -589,7 +606,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                     >
                                       {renderWalletAvatar(account.address)}
                                       <Stack alignItems='center'>
-                                        <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                                        <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
                                           {getFormattedEthereumAddress(account.address)}
                                         </Typography>
                                         <Typography variant='subtitle2' component='p'>
@@ -684,7 +701,9 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               divider={<Divider orientation='horizontal' flexItem />}
                             >
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Quantity</Typography>
+                                <Typography variant='subtitle2' component='p'>
+                                  Quantity
+                                </Typography>
                                 <Stack
                                   direction='row'
                                   alignItems='center'
@@ -705,7 +724,9 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                     >
                                       <Icon icon='mdi:minus-box-outline' />
                                     </IconButton>
-                                    <Typography variant='h6'>{mintQuantity}</Typography>
+                                    <Typography variant='h6' component='p'>
+                                      {mintQuantity}
+                                    </Typography>
                                     <IconButton
                                       size='large'
                                       onClick={() => {
@@ -718,45 +739,37 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                 </Stack>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Price</Typography>
-                                <Typography variant='h6'>{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                                <Typography variant='subtitle2' component='p'>
+                                  Price
+                                </Typography>
+                                <Typography
+                                  variant='subtitle1'
+                                  component='p'
+                                >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
                                   initPackageEntity?.priceInUnit
                                 )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Total</Typography>
-                                <Typography variant='h6'>{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                                <Typography variant='subtitle2' component='p'>
+                                  Fee
+                                </Typography>
+                                <Typography
+                                  variant='subtitle1'
+                                  component='p'
+                                >{`${initFundEntity.performanceFeePercentage} %`}</Typography>
+                              </Stack>
+                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                                <Typography variant='subtitle2' component='p'>
+                                  Total
+                                </Typography>
+                                <Typography
+                                  variant='h6'
+                                  component='p'
+                                  sx={{ fontWeight: 600 }}
+                                >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
                                   Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
                                 )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                               </Stack>
-                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Approved</Typography>
-                                <Typography variant='h6'>{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                                  approvedPayToken
-                                )} ${fundBaseCurrencyProperties.currency}`}</Typography>
-                              </Stack>
-                            </Stack>
-                            <Stack direction='row' spacing={4} flexGrow='1' alignItems='center' justifyContent='center'>
-                              <TextField
-                                fullWidth
-                                value={approvedPayToken}
-                                onChange={e => {
-                                  setApprovedPayToken(() => parseInt(e.target.value, 10))
-                                }}
-                                size='small'
-                                inputProps={{ type: 'number' }}
-                                InputProps={{
-                                  startAdornment: (
-                                    <InputAdornment position='start' sx={{ color: 'text.primary' }}>
-                                      <Icon icon='mdi:dollar' />
-                                    </InputAdornment>
-                                  )
-                                }}
-                                sx={{ display: 'flex' }}
-                              />
-                              <LoadingButton loading={false} variant='contained' sx={{ textTransform: 'capitalize' }}>
-                                Approve
-                              </LoadingButton>
                             </Stack>
                           </Stack>
                         </Stack>
@@ -785,25 +798,56 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               divider={<Divider orientation='horizontal' flexItem />}
                             >
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Wallet</Typography>
-                                <Typography variant='h6'>
+                                <Typography variant='subtitle2' component='p'>
+                                  Quantity
+                                </Typography>
+                                <Typography variant='subtitle1' component='p'>{`x ${mintQuantity}`}</Typography>
+                              </Stack>
+                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                                <Typography variant='subtitle2' component='p'>
+                                  Total
+                                </Typography>
+                                <Typography
+                                  variant='subtitle1'
+                                  component='p'
+                                >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                                  Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
+                                )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                              </Stack>
+                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                                <Typography variant='subtitle2' component='p'>
+                                  Wallet
+                                </Typography>
+                                <Typography variant='subtitle1' component='p'>
                                   {getFormattedEthereumAddress(walletAccount.address as string)}
                                 </Typography>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Quantity</Typography>
-                                <Typography variant='h6'>{`x ${mintQuantity}`}</Typography>
+                                <Typography variant='subtitle2' component='p'>
+                                  {`${initFundEntity.baseCurrency} Balance`}
+                                </Typography>
+                                <Typography variant='subtitle1' component='p'>
+                                  {`${fundBaseCurrencyProperties.symbol} ${123} ${fundBaseCurrencyProperties.currency}`}
+                                </Typography>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Total</Typography>
-                                <Typography variant='h6'>{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                                  Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
-                                )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                                <Typography variant='subtitle2' component='p'>
+                                  {`${initFundEntity.baseCurrency} Approved`}
+                                </Typography>
+                                <Typography variant='subtitle1' component='p'>
+                                  {`${fundBaseCurrencyProperties.symbol} ${123} ${fundBaseCurrencyProperties.currency}`}
+                                </Typography>
                               </Stack>
                             </Stack>
-                            <Stack direction='row' spacing={4} flexGrow='1' alignItems='center' justifyContent='center'>
+                            <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                              <Button fullWidth variant='contained' disabled startIcon={<Icon icon='mdi:approve' />}>
+                                Approved
+                              </Button>
+                              <Button fullWidth variant='contained' disabled startIcon={<Icon icon='mdi:hammer' />}>
+                                Mint
+                              </Button>
                               <Typography variant='subtitle1' textAlign='center'>
-                                無法在預覽模式下鑄造
+                                {`Can't mint in preview mode`}
                               </Typography>
                             </Stack>
                           </Stack>
