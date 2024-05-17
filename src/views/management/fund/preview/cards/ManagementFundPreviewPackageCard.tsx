@@ -22,11 +22,12 @@ import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Grow from '@mui/material/Grow'
 import Fade from '@mui/material/Fade'
+import Skeleton from '@mui/material/Skeleton'
 
 // ** Third-Party Imports
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
-import { useAccount, useAccountEffect, useSignMessage, useDisconnect } from 'wagmi'
+import { useAccount, useAccountEffect, useSignMessage, useDisconnect, useReadContract } from 'wagmi'
 import safePrice from 'currency.js'
 import { Atropos } from 'atropos/react'
 import toast from 'react-hot-toast'
@@ -55,8 +56,13 @@ import {
   getFormattedPriceUnit,
   getGradientColors,
   getChainId,
-  getFormattedEthereumAddress
+  getFormattedEthereumAddress,
+  getBaseCurrencyABI,
+  getBaseCurrencyAddress
 } from 'src/utils'
+
+// ** Config Imports
+import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
 import type { GridProps } from '@mui/material/Grid'
@@ -111,6 +117,23 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
   const walletAccount = useAccount()
   const { signMessageAsync } = useSignMessage()
   const { disconnectAsync } = useDisconnect()
+
+  const {
+    data: payTokenBalance,
+    refetch: refetchPayTokenBalance,
+    isLoading: isPayTokenBalanceLoading,
+    isFetching: isPayTokenBalanceFetching
+  } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
+    functionName: 'balanceOf',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: walletAccount.status === 'connected' && activeMintStep === 2
+    }
+  })
 
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
@@ -425,7 +448,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                   handleSelectPackage(initPackageEntity.id)
                 }}
               >
-                <Typography variant='subtitle1' component='p'>
+                <Typography variant='subtitle2' component='p'>
                   Mint
                 </Typography>
               </Button>
@@ -818,25 +841,79 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                 <Typography variant='subtitle2' component='p'>
                                   Wallet
                                 </Typography>
-                                <Typography variant='subtitle1' component='p'>
-                                  {getFormattedEthereumAddress(walletAccount.address as string)}
-                                </Typography>
+                                <Stack
+                                  direction='row'
+                                  spacing={2}
+                                  alignItems='center'
+                                  justifyContent='center'
+                                  sx={{
+                                    color: 'warning.main'
+                                  }}
+                                >
+                                  <Typography variant='subtitle1' component='p'>
+                                    {getFormattedEthereumAddress(walletAccount.address as string)}
+                                  </Typography>
+                                  <IconButton
+                                    size='small'
+                                    onClick={() => handleCopyAddress(walletAccount.address as string)}
+                                  >
+                                    <Icon
+                                      icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'}
+                                      fontSize={16}
+                                    />
+                                  </IconButton>
+                                </Stack>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Typography variant='subtitle2' component='p'>
                                   {`${initFundEntity.baseCurrency} Balance`}
                                 </Typography>
-                                <Typography variant='subtitle1' component='p'>
-                                  {`${fundBaseCurrencyProperties.symbol} ${123} ${fundBaseCurrencyProperties.currency}`}
-                                </Typography>
+                                {isPayTokenBalanceLoading || isPayTokenBalanceFetching ? (
+                                  <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                    <Skeleton variant='text' width={120} />
+                                    <Skeleton variant='circular' width={28} height={28} />
+                                  </Stack>
+                                ) : (
+                                  <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                    <Typography variant='subtitle1' component='p'>
+                                      {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit((payTokenBalance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                    </Typography>
+                                    <IconButton size='small' onClick={() => refetchPayTokenBalance()}>
+                                      <Icon icon='mdi:reload' fontSize={16} />
+                                    </IconButton>
+                                  </Stack>
+                                )}
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Typography variant='subtitle2' component='p'>
                                   {`${initFundEntity.baseCurrency} Approved`}
                                 </Typography>
-                                <Typography variant='subtitle1' component='p'>
-                                  {`${fundBaseCurrencyProperties.symbol} ${123} ${fundBaseCurrencyProperties.currency}`}
-                                </Typography>
+                                <Stack
+                                  direction='row'
+                                  spacing={2}
+                                  alignItems='center'
+                                  justifyContent='center'
+                                  sx={{
+                                    color: 'warning.main'
+                                  }}
+                                >
+                                  <Icon icon='mdi:alert-circle-outline' />
+                                  {isPayTokenBalanceLoading || isPayTokenBalanceFetching ? (
+                                    <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                      <Skeleton variant='text' width={120} />
+                                      <Skeleton variant='circular' width={28} height={28} />
+                                    </Stack>
+                                  ) : (
+                                    <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                      <Typography variant='subtitle1' component='p'>
+                                        {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit((payTokenBalance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                      </Typography>
+                                      <IconButton size='small' onClick={() => refetchPayTokenBalance()}>
+                                        <Icon icon='mdi:reload' fontSize={16} />
+                                      </IconButton>
+                                    </Stack>
+                                  )}
+                                </Stack>
                               </Stack>
                             </Stack>
                             <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>

@@ -33,7 +33,7 @@ export function getGradientColors(address: string) {
   return colors
 }
 
-export const getFormattedPriceUnit = (priceInUnit: number): string => {
+export const getFormattedPriceUnit = (priceInUnit: number | bigint): string => {
   return new Intl.NumberFormat('en-US').format(priceInUnit)
 }
 
@@ -89,4 +89,36 @@ export const getBaseCurrencyABI = (
   }
 
   return ABI_TABLE[network][baseCurrency]
+}
+
+export const getBaseCurrencyAddress = (
+  network: FundType['chain'] = 'Ethereum',
+  baseCurrency: FundType['baseCurrency'] = 'ETH'
+): `0x${string}` => {
+  // ** NOTE: Fix here later
+  const ADDRESS_TABLE: Record<FundType['chain'], Record<FundType['baseCurrency'], any>> = {
+    Ethereum: {
+      ETH: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDC: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      DAI: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      BLT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd'
+    },
+    'Ethereum Sepolia': {
+      ETH: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDC: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      DAI: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      BLT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd'
+    },
+    Blast: {
+      ETH: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDC: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      DAI: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      BLT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd'
+    }
+  }
+
+  return ADDRESS_TABLE[network][baseCurrency]
 }
