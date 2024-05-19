@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 
 // ** Custom Component Imports
 import PublicFundLivePerformanceChartCard from 'src/views/fund/live/cards/PublicFundLivePerformanceChartCard'
-import PublicFundLiveRiskAnalyticsCard from 'src/views/fund/live/cards/PublicFundLiveRiskAnalyticsCard'
+import PublicFundLiveStakeStatisticsCard from 'src/views/fund/live/cards/PublicFundLiveStakeStatisticsCard'
 import PublicFundLiveDetailCard from 'src/views/fund/live/cards/PublicFundLiveDetailCard'
 import PublicFundLiveSpecificationCard from 'src/views/fund/live/cards/PublicFundLiveSpecificationCard'
 import PublicFundLiveDefaultPackageGrid from 'src/views/fund/live/grids/PublicFundLiveDefaultPackageGrid'
@@ -29,7 +29,7 @@ const PublicFundLiveOverviewTabPanel = (props: Props) => {
           <PublicFundLivePerformanceChartCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12} md={4}>
-          <PublicFundLiveRiskAnalyticsCard initFundEntity={initFundEntity} />
+          <PublicFundLiveStakeStatisticsCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12}>
           <PublicFundLiveDetailCard initFundEntity={initFundEntity} />

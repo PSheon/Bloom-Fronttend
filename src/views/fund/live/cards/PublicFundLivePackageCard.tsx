@@ -8,8 +8,6 @@ import Image from 'next/image'
 import { styled, useTheme } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
-import TextField from '@mui/material/TextField'
-import InputAdornment from '@mui/material/InputAdornment'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import IconButton from '@mui/material/IconButton'
@@ -24,17 +22,15 @@ import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Grow from '@mui/material/Grow'
 import Fade from '@mui/material/Fade'
+import Skeleton from '@mui/material/Skeleton'
 
 // ** Third-Party Imports
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
-import { useAccount, useSignMessage } from 'wagmi'
+import { useAccount, useAccountEffect, useSignMessage, useDisconnect, useReadContract } from 'wagmi'
 import safePrice from 'currency.js'
 import { Atropos } from 'atropos/react'
 import toast from 'react-hot-toast'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -44,6 +40,12 @@ import StepperWrapper from 'src/@core/styles/mui/stepper'
 // ** Custom Component Imports
 import PublicFundLivePackageMintStepperDotBox from 'src/views/fund/live/boxes/PublicFundLivePackageMintStepperDotBox'
 
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Hook Imports
+import useBgColor from 'src/@core/hooks/useBgColor'
+
 // ** API Imports
 import { useFindMeQuery, useGetNonceQuery, useVerifyMutation } from 'src/store/api/management/wallet'
 
@@ -52,8 +54,15 @@ import {
   getFundCurrencyProperties,
   getPackageStatusProperties,
   getFormattedPriceUnit,
-  getFormattedEthereumAddress
+  getGradientColors,
+  getChainId,
+  getFormattedEthereumAddress,
+  getBaseCurrencyABI,
+  getBaseCurrencyAddress
 } from 'src/utils'
+
+// ** Config Imports
+import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
 import type { GridProps } from '@mui/material/Grid'
@@ -100,12 +109,31 @@ const PublicFundLivePackageCard = (props: Props) => {
   const [activeMintStep, setActiveMintStep] = useState<number>(0)
   const [isVerifyWalletProcessLoading, setIsVerifyWalletProcessLoading] = useState<boolean>(false)
   const [mintQuantity, setMintQuantity] = useState<number>(1)
-  const [approvedPayToken, setApprovedPayToken] = useState<number>(0)
+  const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
 
   // ** Hooks
   const theme = useTheme()
+  const bgColors = useBgColor()
   const walletAccount = useAccount()
   const { signMessageAsync } = useSignMessage()
+  const { disconnectAsync } = useDisconnect()
+
+  const {
+    data: payTokenBalance,
+    refetch: refetchPayTokenBalance,
+    isLoading: isPayTokenBalanceLoading,
+    isFetching: isPayTokenBalanceFetching
+  } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
+    functionName: 'balanceOf',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: walletAccount.status === 'connected' && activeMintStep === 2
+    }
+  })
 
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
@@ -138,26 +166,31 @@ const PublicFundLivePackageCard = (props: Props) => {
           return walletAccount.status === 'connected'
         },
         connectedNetwork: () => {
-          return walletAccount.chain?.name.toLowerCase() === initFundEntity.chain.toLowerCase()
+          const requiredChainId = getChainId(initFundEntity.chain)
+
+          return walletAccount.chain?.id === requiredChainId
         },
         walletVerified: () => {
           return isCurrentWalletVerified
         },
         total: () => {
           return (
-            walletAccount.status === 'connected' &&
-            walletAccount.chain?.name.toLowerCase() === initFundEntity.chain.toLowerCase() &&
-            Boolean(isCurrentWalletVerified)
+            STEPS[0].checks!.walletConnect!() &&
+            STEPS[0].checks!.connectedNetwork!() &&
+            STEPS[0].checks!.walletVerified!()
           )
         }
       }
     },
     {
-      title: 'Approve Token',
-      subtitle: 'Select quantity and approve pay token',
+      title: 'Select Quantity',
+      subtitle: 'Select quantity and check fees',
       checks: {
+        checkQuantity: () => {
+          return 1 <= mintQuantity && mintQuantity <= 10
+        },
         total: () => {
-          return approvedPayToken >= Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
+          return STEPS[1].checks!.checkQuantity!()
         }
       }
     },
@@ -173,6 +206,22 @@ const PublicFundLivePackageCard = (props: Props) => {
   ]
 
   // ** Logics
+  const handleDisconnect = async () => {
+    try {
+      await disconnectAsync()
+    } catch {
+      toast.error('Failed to disconnect wallet')
+    }
+  }
+
+  const handleCopyAddress = (address: string) => {
+    navigator.clipboard.writeText(address)
+    setIsAddressCopied(() => true)
+    setTimeout(() => {
+      setIsAddressCopied(() => false)
+    }, 2 * 1000)
+  }
+
   const handleVerifyWallet = async () => {
     try {
       setIsVerifyWalletProcessLoading(() => true)
@@ -205,6 +254,47 @@ const PublicFundLivePackageCard = (props: Props) => {
       toast.error('Failed to verify wallet')
     }
   }
+
+  // ** Renders
+  const renderWalletAvatar = (address: string) => {
+    const colors = getGradientColors(address)
+
+    return (
+      <CustomAvatar
+        skin='light'
+        sx={{
+          width: 74,
+          height: 74,
+          boxShadow: `${colors[0]} 0px 3px 5px`
+        }}
+      >
+        <Box
+          sx={{
+            width: 74,
+            height: 74,
+            backgroundColor: colors[0],
+            backgroundImage: `
+              radial-gradient(at 66% 77%, ${colors[1]} 0px, transparent 50%),
+              radial-gradient(at 29% 97%, ${colors[2]} 0px, transparent 50%),
+              radial-gradient(at 99% 86%, ${colors[3]} 0px, transparent 50%),
+              radial-gradient(at 29% 88%, ${colors[4]} 0px, transparent 50%)
+            `
+          }}
+        />
+      </CustomAvatar>
+    )
+  }
+
+  // ** Side Effects
+  useAccountEffect({
+    onConnect(data) {
+      toast.success(`Wallet ${getFormattedEthereumAddress(data.address)} connected!`)
+    },
+    onDisconnect() {
+      setActiveMintStep(() => 0)
+      toast.success('Wallet disconnected!')
+    }
+  })
 
   return (
     <Card
@@ -277,11 +367,18 @@ const PublicFundLivePackageCard = (props: Props) => {
                   <CustomChip
                     skin='light'
                     size='medium'
-                    label={<Typography variant='subtitle1'>{`#${initPackageEntity.packageId}`}</Typography>}
+                    label={
+                      <Typography
+                        variant='subtitle1'
+                        component='p'
+                        sx={{ fontWeight: 600 }}
+                      >{`# ${initPackageEntity.packageId}`}</Typography>
+                    }
                     color='secondary'
                     sx={{
                       height: 20,
                       fontWeight: 500,
+                      borderRadius: '5px',
                       fontSize: '0.75rem',
                       alignSelf: 'flex-start',
                       color: 'text.secondary'
@@ -295,7 +392,7 @@ const PublicFundLivePackageCard = (props: Props) => {
               <Stack direction='row' sx={{ position: 'relative' }}>
                 <Sup>{fundBaseCurrencyProperties.symbol}</Sup>
                 <Typography
-                  variant='h4'
+                  variant='h3'
                   component='p'
                   sx={{
                     mb: -1.2,
@@ -316,25 +413,32 @@ const PublicFundLivePackageCard = (props: Props) => {
               <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
             </Box>
             <Stack spacing={2} justifyContent='center'>
-              <Typography variant='subtitle2'>Utility</Typography>
+              <Typography variant='subtitle2' component='p'>
+                Utility
+              </Typography>
 
               {initPackageEntity.slot?.length === 0 ? (
-                <Typography sx={{ mb: 2 }}>No utilities</Typography>
+                <Typography component='p'>No utilities</Typography>
               ) : (
-                initPackageEntity.slot.map(property => {
-                  return (
-                    <Grid key={`slot-${property.id}`} container spacing={2} sx={{ mb: 2 }}>
-                      <Grid item xs={5} sm={4} md={3}>
-                        <Typography>{property.propertyType}</Typography>
-                      </Grid>
-                      <Grid item xs={7} sm={8} md={9}>
-                        <Typography component='span' sx={{ fontWeight: 600 }}>
+                <Stack spacing={2} alignSelf='stretch'>
+                  {initPackageEntity.slot.map(property => {
+                    return (
+                      <Stack
+                        key={`slot-${property.id}`}
+                        direction='row'
+                        alignItems='center'
+                        justifyContent='space-between'
+                      >
+                        <Typography variant='subtitle1' component='p'>
+                          {property.propertyType}
+                        </Typography>
+                        <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
                           {property.value}
                         </Typography>
-                      </Grid>
-                    </Grid>
-                  )
-                })
+                      </Stack>
+                    )
+                  })}
+                </Stack>
               )}
             </Stack>
 
@@ -344,6 +448,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                 fullWidth
                 disabled={selectedPackageEntityId === initPackageEntity.id}
                 variant={selectedPackageEntityId === initPackageEntity.id ? 'text' : 'outlined'}
+                size='small'
                 sx={{
                   '& svg': {
                     transition: theme => theme.transitions.create('transform'),
@@ -355,8 +460,8 @@ const PublicFundLivePackageCard = (props: Props) => {
                   handleSelectPackage(initPackageEntity.id)
                 }}
               >
-                <Typography variant='h6' component='p'>
-                  鑄造
+                <Typography variant='subtitle2' component='p'>
+                  Mint
                 </Typography>
               </Button>
             </Stack>
@@ -368,9 +473,6 @@ const PublicFundLivePackageCard = (props: Props) => {
             <Divider sx={{ mt: -6 }} />
             <CardContent>
               <Grid container spacing={4}>
-                <Grid item xs={12}>
-                  <Typography variant='subtitle2'>鑄造</Typography>
-                </Grid>
                 <Grid item xs={12}>
                   <StepperWrapper>
                     <Stepper activeStep={activeMintStep}>
@@ -435,7 +537,10 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 </Stack>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>{`Network ${initFundEntity.chain}`}</Typography>
+                                <Typography
+                                  variant='subtitle1'
+                                  component='p'
+                                >{`Network ${initFundEntity.chain}`}</Typography>
                                 <Stack
                                   alignItems='center'
                                   justifyContent='center'
@@ -453,7 +558,9 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 </Stack>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Wallet Verified</Typography>
+                                <Typography variant='subtitle1' component='p'>
+                                  Wallet Verified
+                                </Typography>
                                 <Stack
                                   alignItems='center'
                                   justifyContent='center'
@@ -475,7 +582,6 @@ const PublicFundLivePackageCard = (props: Props) => {
                               {({
                                 account,
                                 chain,
-                                openAccountModal,
                                 openChainModal,
                                 openConnectModal,
                                 authenticationStatus,
@@ -491,52 +597,122 @@ const PublicFundLivePackageCard = (props: Props) => {
 
                                 if (!connected) {
                                   return (
-                                    <Button variant='contained' onClick={openConnectModal}>
-                                      Connect Wallet
+                                    <Button variant='contained' onClick={openConnectModal} sx={{ flex: 1 }}>
+                                      <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                        <Icon icon='mdi:login-variant' fontSize={16} />
+                                        Connect Wallet
+                                      </Stack>
                                     </Button>
                                   )
                                 }
 
                                 if (chain.unsupported) {
                                   return (
-                                    <Button color='error' variant='contained' onClick={openChainModal}>
-                                      Wrong network
+                                    <Button color='error' variant='contained' onClick={openChainModal} sx={{ flex: 1 }}>
+                                      <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                        <Icon icon='mdi:error-outline' fontSize={16} />
+                                        Network unsupported
+                                      </Stack>
                                     </Button>
                                   )
                                 }
 
                                 if (!STEPS[0].checks!.connectedNetwork!()) {
                                   return (
-                                    <Button color='error' variant='contained' onClick={openChainModal}>
-                                      Switch network
+                                    <Button color='error' variant='contained' onClick={openChainModal} sx={{ flex: 1 }}>
+                                      <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                        <Icon icon='mdi:exchange' fontSize={16} />
+                                        Switch network
+                                      </Stack>
                                     </Button>
                                   )
                                 }
 
                                 return (
-                                  <Stack
-                                    direction='column'
-                                    spacing={4}
-                                    alignItems='center'
-                                    justifyContent='space-between'
+                                  <Box
+                                    sx={{
+                                      px: 4,
+                                      py: 6,
+                                      width: '100%',
+                                      maxWidth: theme => theme.spacing(120),
+                                      borderRadius: 1,
+                                      border: theme => `1px solid ${theme.palette.primary.main}`,
+                                      ...bgColors.primaryLight
+                                    }}
                                   >
-                                    <Button variant='outlined' onClick={openAccountModal}>
-                                      {`${account.displayName} ${
-                                        account.displayBalance ? ` - ${account.displayBalance}` : ''
-                                      }`}
-                                    </Button>
-
-                                    {!isCurrentWalletVerified && (
-                                      <LoadingButton
-                                        variant='contained'
-                                        loading={isVerifyWalletLoading || isVerifyWalletProcessLoading}
-                                        disabled={!nonce}
-                                        onClick={handleVerifyWallet}
-                                      >
-                                        Verify
-                                      </LoadingButton>
-                                    )}
-                                  </Stack>
+                                    <Stack
+                                      direction='column'
+                                      spacing={4}
+                                      alignItems='center'
+                                      justifyContent='space-between'
+                                    >
+                                      {renderWalletAvatar(account.address)}
+                                      <Stack alignItems='center'>
+                                        <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
+                                          {getFormattedEthereumAddress(account.address)}
+                                        </Typography>
+                                        <Typography variant='subtitle2' component='p'>
+                                          {`${account.displayBalance ? `~ ${account.displayBalance}` : ''}`}
+                                        </Typography>
+                                      </Stack>
+                                      {isCurrentWalletVerified ? (
+                                        <Stack
+                                          direction='row'
+                                          spacing={4}
+                                          alignSelf='stretch'
+                                          alignItems='center'
+                                          justifyContent='center'
+                                        >
+                                          <Button variant='contained' onClick={handleDisconnect} sx={{ flex: 1 }}>
+                                            <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                              <Icon icon='mdi:logout' fontSize={16} />
+                                              Disconnect
+                                            </Stack>
+                                          </Button>
+                                          <Button
+                                            variant='contained'
+                                            onClick={() => handleCopyAddress(account.address)}
+                                            sx={{ flex: 1 }}
+                                          >
+                                            <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                              <Icon
+                                                icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'}
+                                                fontSize={16}
+                                              />
+                                              {isAddressCopied ? 'Copied' : 'Copy'}
+                                            </Stack>
+                                          </Button>
+                                        </Stack>
+                                      ) : (
+                                        <Stack
+                                          direction='row'
+                                          spacing={4}
+                                          alignSelf='stretch'
+                                          alignItems='center'
+                                          justifyContent='center'
+                                        >
+                                          <Button variant='outlined' onClick={handleDisconnect} sx={{ flex: 1 }}>
+                                            <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                              <Icon icon='mdi:logout' fontSize={16} />
+                                              Disconnect
+                                            </Stack>
+                                          </Button>
+                                          <LoadingButton
+                                            variant='contained'
+                                            loading={isVerifyWalletLoading || isVerifyWalletProcessLoading}
+                                            disabled={!nonce}
+                                            onClick={handleVerifyWallet}
+                                            sx={{ flex: 1 }}
+                                          >
+                                            <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                              <Icon icon='mdi:clipboard-check-outline' fontSize={16} />
+                                              Verify
+                                            </Stack>
+                                          </LoadingButton>
+                                        </Stack>
+                                      )}
+                                    </Stack>
+                                  </Box>
                                 )
                               }}
                             </ConnectButton.Custom>
@@ -560,14 +736,18 @@ const PublicFundLivePackageCard = (props: Props) => {
                             <CustomAvatar skin='light' sx={{ width: 56, height: 56 }}>
                               <Icon icon='mdi:attach-money' fontSize='2rem' />
                             </CustomAvatar>
-                            <Typography variant='body2'>Set quantity and approve pay token</Typography>
+                            <Typography variant='body2' component='p'>
+                              Set quantity and approve pay token
+                            </Typography>
                             <Stack
                               spacing={2}
                               alignSelf='stretch'
                               divider={<Divider orientation='horizontal' flexItem />}
                             >
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Quantity</Typography>
+                                <Typography variant='subtitle1' component='p'>
+                                  Quantity
+                                </Typography>
                                 <Stack
                                   direction='row'
                                   alignItems='center'
@@ -601,47 +781,28 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 </Stack>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Price</Typography>
-                                <Typography variant='h6'>{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                                <Typography variant='subtitle2' component='p'>
+                                  Price
+                                </Typography>
+                                <Typography
+                                  variant='subtitle1'
+                                  component='p'
+                                >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
                                   initPackageEntity?.priceInUnit
                                 )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Total</Typography>
-                                <Typography variant='h6'>{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                                <Typography variant='subtitle2' component='p'>
+                                  Total
+                                </Typography>
+                                <Typography
+                                  variant='subtitle1'
+                                  component='p'
+                                  sx={{ fontWeight: 600 }}
+                                >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
                                   Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
                                 )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                               </Stack>
-                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Approved</Typography>
-                                <Typography variant='h6'>{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                                  approvedPayToken
-                                )} ${fundBaseCurrencyProperties.currency}`}</Typography>
-                              </Stack>
-                            </Stack>
-                            <Stack direction='row' spacing={4} flexGrow='1' alignItems='center' justifyContent='center'>
-                              <TextField
-                                fullWidth
-                                value={approvedPayToken}
-                                onChange={e => {
-                                  const newApprovedPayToken = parseInt(e.target.value, 10) || 0
-
-                                  setApprovedPayToken(() => newApprovedPayToken)
-                                }}
-                                size='small'
-                                inputProps={{ type: 'number' }}
-                                InputProps={{
-                                  startAdornment: (
-                                    <InputAdornment position='start' sx={{ color: 'text.primary' }}>
-                                      <Icon icon='mdi:dollar' />
-                                    </InputAdornment>
-                                  )
-                                }}
-                                sx={{ display: 'flex' }}
-                              />
-                              <LoadingButton loading={false} variant='contained' sx={{ textTransform: 'capitalize' }}>
-                                Approve
-                              </LoadingButton>
                             </Stack>
                           </Stack>
                         </Stack>
@@ -663,31 +824,123 @@ const PublicFundLivePackageCard = (props: Props) => {
                             <CustomAvatar skin='light' sx={{ width: 56, height: 56 }}>
                               <Icon icon='mdi:cart-arrow-down' fontSize='2rem' />
                             </CustomAvatar>
-                            <Typography variant='body2'>Confirm details and mint token</Typography>
+                            <Typography variant='body2' component='p'>
+                              Confirm details and mint token
+                            </Typography>
                             <Stack
                               spacing={2}
                               alignSelf='stretch'
                               divider={<Divider orientation='horizontal' flexItem />}
                             >
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Wallet</Typography>
-                                <Typography variant='h6'>
-                                  {getFormattedEthereumAddress(walletAccount.address as string)}
+                                <Typography variant='subtitle2' component='p'>
+                                  Quantity
                                 </Typography>
+                                <Typography variant='subtitle1' component='p'>{`x ${mintQuantity}`}</Typography>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Quantity</Typography>
-                                <Typography variant='h6'>{`x ${mintQuantity}`}</Typography>
-                              </Stack>
-                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Total</Typography>
-                                <Typography variant='h6'>{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                                <Typography variant='subtitle2' component='p'>
+                                  Total
+                                </Typography>
+                                <Typography
+                                  variant='subtitle1'
+                                  component='p'
+                                >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
                                   Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
                                 )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                               </Stack>
+                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                                <Typography variant='subtitle2' component='p'>
+                                  Wallet
+                                </Typography>
+                                <Stack
+                                  direction='row'
+                                  spacing={2}
+                                  alignItems='center'
+                                  justifyContent='center'
+                                  sx={{
+                                    color: 'warning.main'
+                                  }}
+                                >
+                                  <Typography variant='subtitle1' component='p'>
+                                    {getFormattedEthereumAddress(walletAccount.address as string)}
+                                  </Typography>
+                                  <IconButton
+                                    size='small'
+                                    onClick={() => handleCopyAddress(walletAccount.address as string)}
+                                  >
+                                    <Icon
+                                      icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'}
+                                      fontSize={16}
+                                    />
+                                  </IconButton>
+                                </Stack>
+                              </Stack>
+                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                                <Typography variant='subtitle2' component='p'>
+                                  {`${initFundEntity.baseCurrency} Balance`}
+                                </Typography>
+                                {isPayTokenBalanceLoading || isPayTokenBalanceFetching ? (
+                                  <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                    <Skeleton variant='text' width={120} />
+                                    <Skeleton variant='circular' width={28} height={28} />
+                                  </Stack>
+                                ) : (
+                                  <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                    <Typography variant='subtitle1' component='p'>
+                                      {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit((payTokenBalance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                    </Typography>
+                                    <IconButton size='small' onClick={() => refetchPayTokenBalance()}>
+                                      <Icon icon='mdi:reload' fontSize={16} />
+                                    </IconButton>
+                                  </Stack>
+                                )}
+                              </Stack>
+                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                                <Typography variant='subtitle2' component='p'>
+                                  {`${initFundEntity.baseCurrency} Approved`}
+                                </Typography>
+                                <Stack
+                                  direction='row'
+                                  spacing={2}
+                                  alignItems='center'
+                                  justifyContent='center'
+                                  sx={{
+                                    color: 'warning.main'
+                                  }}
+                                >
+                                  <Icon icon='mdi:alert-circle-outline' />
+                                  {isPayTokenBalanceLoading || isPayTokenBalanceFetching ? (
+                                    <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                      <Skeleton variant='text' width={120} />
+                                      <Skeleton variant='circular' width={28} height={28} />
+                                    </Stack>
+                                  ) : (
+                                    <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                      <Typography variant='subtitle1' component='p'>
+                                        {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit((payTokenBalance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                      </Typography>
+                                      <IconButton size='small' onClick={() => refetchPayTokenBalance()}>
+                                        <Icon icon='mdi:reload' fontSize={16} />
+                                      </IconButton>
+                                    </Stack>
+                                  )}
+                                </Stack>
+                              </Stack>
                             </Stack>
-                            <Stack direction='row' spacing={4} flexGrow='1' alignItems='center' justifyContent='center'>
-                              <LoadingButton variant='contained'>Mint</LoadingButton>
+                            <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                              <Button fullWidth variant='contained' disabled sx={{ flex: 1 }}>
+                                <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                  <Icon icon='mdi:approve' fontSize={16} />
+                                  Approved
+                                </Stack>
+                              </Button>
+                              <Button fullWidth variant='contained' disabled sx={{ flex: 1 }}>
+                                <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                  <Icon icon='mdi:hammer' fontSize={16} />
+                                  Mint
+                                </Stack>
+                              </Button>
                             </Stack>
                           </Stack>
                         </Stack>

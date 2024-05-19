@@ -39,16 +39,6 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
   // ** Vars
   const fundCategoryProperties = getFundCategoryProperties(initFundEntity.category)
 
-  const data = {
-    fullName: 'John Doe',
-    location: 'Vatican City',
-    joiningDate: 'April 2021',
-    designation: 'UX Designer',
-    profileImg: '/images/avatars/1.png',
-    designationIcon: 'mdi:fountain-pen-tip',
-    coverImg: '/images/pages/profile-banner.png'
-  }
-
   const currentBannerMediaAsset = initFundEntity.banner?.data?.id
     ? ({
         id: initFundEntity.banner.data.id,
@@ -58,7 +48,7 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
 
   const baseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
-  return data !== null ? (
+  return (
     <Card>
       <CardMedia
         component='img'
@@ -66,7 +56,7 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
         image={
           currentBannerMediaAsset
             ? getPublicMediaAssetUrl(currentBannerMediaAsset.formats?.thumbnail?.url)
-            : data.coverImg
+            : '/images/pages/profile-banner.png'
         }
         sx={{
           height: { xs: 150, md: 250 }
@@ -87,14 +77,24 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
             <CustomAvatar
               src={baseCurrencyProperties.imageUrl}
               alt={baseCurrencyProperties.displayName}
-              sx={{ height: 120, width: 120, borderWidth: '5px !important' }}
+              sx={{
+                height: 120,
+                width: 120,
+                borderWidth: '5px !important',
+                backgroundColor: theme => theme.palette.background.default
+              }}
             />
           </Tooltip>
           <Tooltip title='RWA'>
             <CustomAvatar
               src='/images/funds/rwa.png'
               alt='rwa'
-              sx={{ height: 120, width: 120, borderWidth: '5px !important' }}
+              sx={{
+                height: 120,
+                width: 120,
+                borderWidth: '5px !important',
+                backgroundColor: theme => theme.palette.background.default
+              }}
             />
           </Tooltip>
         </FundAvatarGroup>
@@ -109,20 +109,34 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
           }}
         >
           <Box sx={{ mb: [6, 0], display: 'flex', flexDirection: 'column', alignItems: ['center', 'flex-start'] }}>
-            <Typography variant='h5' color='primary.main' sx={{ mb: 4, fontSize: '1.375rem' }}>
+            <Typography variant='h5' sx={{ mb: 4, fontSize: '1.375rem' }}>
               {initFundEntity.displayName}
             </Typography>
             <Stack direction='row' spacing={4} flexWrap='wrap' justifyContent={['center', 'flex-start']}>
-              <Box sx={{ mr: 4, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'text.secondary' } }}>
+              <Stack
+                direction='row'
+                spacing={2}
+                alignItems='center'
+                justifyContent='center'
+                sx={{ '& svg': { color: 'text.secondary' } }}
+              >
                 <Icon icon='mdi:map-marker-outline' />
-                <Typography sx={{ color: 'text.secondary', fontWeight: 600 }}>{initFundEntity.chain}</Typography>
-              </Box>
-              <Box sx={{ mr: 4, display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'text.secondary' } }}>
+                <Typography color='text.secondary' sx={{ fontWeight: 600 }}>
+                  {initFundEntity.chain}
+                </Typography>
+              </Stack>
+              <Stack
+                direction='row'
+                spacing={2}
+                alignItems='center'
+                justifyContent='center'
+                sx={{ '& svg': { color: 'text.secondary' } }}
+              >
                 <Icon icon='mdi:category-plus-outline' />
-                <Typography sx={{ color: 'text.secondary', fontWeight: 600 }}>
+                <Typography color='text.secondary' sx={{ fontWeight: 600 }}>
                   {fundCategoryProperties.displayName}
                 </Typography>
-              </Box>
+              </Stack>
             </Stack>
           </Box>
           <Stack direction='row' spacing={4} justifyContent='center'>
@@ -142,7 +156,7 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
         </Box>
       </CardContent>
     </Card>
-  ) : null
+  )
 }
 
 export default PublicFundLiveProfileHeaderCard
