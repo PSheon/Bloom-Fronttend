@@ -368,12 +368,17 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                     skin='light'
                     size='medium'
                     label={
-                      <Typography variant='subtitle1' component='p'>{`#${initPackageEntity.packageId}`}</Typography>
+                      <Typography
+                        variant='subtitle1'
+                        component='p'
+                        sx={{ fontWeight: 600 }}
+                      >{`# ${initPackageEntity.packageId}`}</Typography>
                     }
                     color='secondary'
                     sx={{
                       height: 20,
                       fontWeight: 500,
+                      borderRadius: '5px',
                       fontSize: '0.75rem',
                       alignSelf: 'flex-start',
                       color: 'text.secondary'
@@ -387,7 +392,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
               <Stack direction='row' sx={{ position: 'relative' }}>
                 <Sup>{fundBaseCurrencyProperties.symbol}</Sup>
                 <Typography
-                  variant='h4'
+                  variant='h3'
                   component='p'
                   sx={{
                     mb: -1.2,
@@ -413,20 +418,25 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
               {initPackageEntity.slot?.length === 0 ? (
                 <Typography>尚未設定內容</Typography>
               ) : (
-                initPackageEntity.slot.map(property => {
-                  return (
-                    <Grid key={`slot-${property.id}`} container spacing={2}>
-                      <Grid item xs={5} sm={4} md={3}>
-                        <Typography component='span'>{property.propertyType}</Typography>
-                      </Grid>
-                      <Grid item xs={7} sm={8} md={9}>
-                        <Typography component='span' sx={{ fontWeight: 600 }}>
+                <Stack spacing={2} alignSelf='stretch'>
+                  {initPackageEntity.slot.map(property => {
+                    return (
+                      <Stack
+                        key={`slot-${property.id}`}
+                        direction='row'
+                        alignItems='center'
+                        justifyContent='space-between'
+                      >
+                        <Typography variant='subtitle1' component='p'>
+                          {property.propertyType}
+                        </Typography>
+                        <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
                           {property.value}
                         </Typography>
-                      </Grid>
-                    </Grid>
-                  )
-                })
+                      </Stack>
+                    )
+                  })}
+                </Stack>
               )}
             </Stack>
 
@@ -587,24 +597,33 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
 
                                 if (!connected) {
                                   return (
-                                    <Button variant='contained' onClick={openConnectModal}>
-                                      Connect Wallet
+                                    <Button variant='contained' onClick={openConnectModal} sx={{ flex: 1 }}>
+                                      <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                        <Icon icon='mdi:login-variant' fontSize={16} />
+                                        Connect Wallet
+                                      </Stack>
                                     </Button>
                                   )
                                 }
 
                                 if (chain.unsupported) {
                                   return (
-                                    <Button color='error' variant='contained' onClick={openChainModal}>
-                                      Wrong network
+                                    <Button color='error' variant='contained' onClick={openChainModal} sx={{ flex: 1 }}>
+                                      <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                        <Icon icon='mdi:error-outline' fontSize={16} />
+                                        Network unsupported
+                                      </Stack>
                                     </Button>
                                   )
                                 }
 
                                 if (!STEPS[0].checks!.connectedNetwork!()) {
                                   return (
-                                    <Button color='error' variant='contained' onClick={openChainModal}>
-                                      Switch network
+                                    <Button color='error' variant='contained' onClick={openChainModal} sx={{ flex: 1 }}>
+                                      <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                        <Icon icon='mdi:exchange' fontSize={16} />
+                                        Switch network
+                                      </Stack>
                                     </Button>
                                   )
                                 }
@@ -917,16 +936,22 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               </Stack>
                             </Stack>
                             <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                              <Button fullWidth variant='contained' disabled startIcon={<Icon icon='mdi:approve' />}>
-                                Approved
+                              <Button fullWidth variant='contained' disabled sx={{ flex: 1 }}>
+                                <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                  <Icon icon='mdi:approve' fontSize={16} />
+                                  Approved
+                                </Stack>
                               </Button>
-                              <Button fullWidth variant='contained' disabled startIcon={<Icon icon='mdi:hammer' />}>
-                                Mint
+                              <Button fullWidth variant='contained' disabled sx={{ flex: 1 }}>
+                                <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                  <Icon icon='mdi:hammer' fontSize={16} />
+                                  Mint
+                                </Stack>
                               </Button>
-                              <Typography variant='subtitle1' textAlign='center'>
-                                {`Can't mint in preview mode`}
-                              </Typography>
                             </Stack>
+                            <Typography variant='subtitle1' textAlign='center'>
+                              {`Can't mint in preview mode`}
+                            </Typography>
                           </Stack>
                         </Stack>
                       </Grid>

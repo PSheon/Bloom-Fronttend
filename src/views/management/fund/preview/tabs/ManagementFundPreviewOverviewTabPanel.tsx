@@ -6,7 +6,7 @@ import Typography from '@mui/material/Typography'
 
 // ** Custom Component Imports
 import ManagementFundPreviewPerformanceChartCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewPerformanceChartCard'
-import ManagementFundPreviewRiskAnalyticsCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewRiskAnalyticsCard'
+import ManagementFundPreviewStakeStatisticsCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewStakeStatisticsCard'
 import ManagementFundPreviewDetailCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewDetailCard'
 import ManagementFundPreviewSpecificationCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewSpecificationCard'
 import ManagementFundPreviewDefaultPackageGrid from 'src/views/management/fund/preview/grids/ManagementFundPreviewDefaultPackageGrid'
@@ -29,7 +29,7 @@ const ManagementFundPreviewOverviewTabPanel = (props: Props) => {
           <ManagementFundPreviewPerformanceChartCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12} md={4}>
-          <ManagementFundPreviewRiskAnalyticsCard initFundEntity={initFundEntity} />
+          <ManagementFundPreviewStakeStatisticsCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12}>
           <ManagementFundPreviewDetailCard initFundEntity={initFundEntity} />
