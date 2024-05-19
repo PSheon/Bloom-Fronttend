@@ -7,12 +7,13 @@ import Link from 'next/link'
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Chip from '@mui/material/Chip'
-import Grid from '@mui/material/Grid'
 import Dialog from '@mui/material/Dialog'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Fade from '@mui/material/Fade'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import Stack from '@mui/material/Stack'
@@ -120,111 +121,112 @@ const MediaAssetUploader = () => {
         </Typography>
       </Button>
 
-      <Dialog fullWidth open={show} maxWidth='md' scroll='body' onClose={handleClose} TransitionComponent={Transition}>
-        <DialogContent
+      <Dialog
+        open={show}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
+      >
+        <IconButton size='small' onClick={handleClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
+
+        <DialogTitle
           sx={{
-            position: 'relative',
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          <IconButton
-            size='small'
-            onClick={() => setShow(false)}
-            sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
-          >
-            <Icon icon='mdi:close' />
-          </IconButton>
-          <Box sx={{ mb: 4, textAlign: 'center' }}>
-            <Typography variant='h5' sx={{ mb: 3, lineHeight: '2rem' }}>
-              上傳檔案
-            </Typography>
-            <Typography variant='body2'>上傳圖片或者檔案</Typography>
-          </Box>
+          上傳檔案
+          <DialogContentText variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            上傳圖片或者檔案
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
+          <DropzoneWrapper>
+            <Box {...getRootProps({ className: 'dropzone' })} sx={files.length ? { height: 200 } : {}}>
+              <input {...getInputProps()} />
+              {files.length ? (
+                files.map((file: FileProp) => {
+                  const isImage = /(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(file.type)
 
-          <Grid container spacing={4}>
-            <Grid item xs={12}>
-              <DropzoneWrapper>
-                <Box {...getRootProps({ className: 'dropzone' })} sx={files.length ? { height: 200 } : {}}>
-                  <input {...getInputProps()} />
-                  {files.length ? (
-                    files.map((file: FileProp) => {
-                      const isImage = /(jpg|jpeg|png|webp|avif|gif|svg)$/i.test(file.type)
-
-                      return (
-                        <Fragment key={file.name}>
-                          {isImage ? (
-                            <img alt={file.name} className='single-file-image' src={URL.createObjectURL(file as any)} />
-                          ) : (
-                            <Stack spacing={2} alignItems='center' sx={{ maxWidth: '20ch' }}>
-                              <Icon icon='mdi:file' fontSize={40} />
-                              <Typography variant='caption' noWrap sx={{ width: '100%', fontWeight: 600 }}>
-                                {file.name}
-                              </Typography>
-                            </Stack>
-                          )}
-                          <Box sx={{ position: 'absolute', bottom: 20 }}>
-                            <Button
-                              variant='contained'
-                              color='error'
-                              size='small'
-                              startIcon={<Icon icon='mdi:delete-outline' />}
-                              onClick={handleRemoveFiles}
-                            >
-                              移除
-                            </Button>
-                          </Box>
-                          <Box sx={{ position: 'absolute', right: 20, bottom: 20 }}>
-                            <Chip label={file.type} />
-                          </Box>
-                        </Fragment>
-                      )
-                    })
-                  ) : (
-                    <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
-                      <Typography
-                        variant='h5'
-                        color='text.primary'
-                        sx={{ mb: 5, '& a': { color: 'primary.main', textDecoration: 'none' } }}
-                      >
-                        將檔案拖放到此處或{' '}
-                        <Link href='/' onClick={e => e.preventDefault()}>
-                          點擊瀏覽
-                        </Link>{' '}
-                        您的文件夾
-                      </Typography>
-                      <Typography color='textSecondary'>支援JPG、PNG、PDF、Word、PPT</Typography>
-                      <Typography color='textSecondary'>每個檔案大小限制為20MB</Typography>
-                    </Box>
-                  )}
+                  return (
+                    <Fragment key={file.name}>
+                      {isImage ? (
+                        <img alt={file.name} className='single-file-image' src={URL.createObjectURL(file as any)} />
+                      ) : (
+                        <Stack spacing={2} alignItems='center' sx={{ maxWidth: '20ch' }}>
+                          <Icon icon='mdi:file' fontSize={40} />
+                          <Typography variant='caption' noWrap sx={{ width: '100%', fontWeight: 600 }}>
+                            {file.name}
+                          </Typography>
+                        </Stack>
+                      )}
+                      <Box sx={{ position: 'absolute', bottom: 20 }}>
+                        <Button
+                          variant='contained'
+                          color='error'
+                          size='small'
+                          startIcon={<Icon icon='mdi:delete-outline' />}
+                          onClick={handleRemoveFiles}
+                        >
+                          移除
+                        </Button>
+                      </Box>
+                      <Box sx={{ position: 'absolute', right: 20, bottom: 20 }}>
+                        <Chip label={file.type} />
+                      </Box>
+                    </Fragment>
+                  )
+                })
+              ) : (
+                <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+                  <Typography
+                    variant='h5'
+                    color='text.primary'
+                    sx={{ mb: 5, '& a': { color: 'primary.main', textDecoration: 'none' } }}
+                  >
+                    將檔案拖放到此處或{' '}
+                    <Link href='/' onClick={e => e.preventDefault()}>
+                      點擊瀏覽
+                    </Link>{' '}
+                    您的文件夾
+                  </Typography>
+                  <Typography color='textSecondary'>支援JPG、PNG、PDF、Word、PPT</Typography>
+                  <Typography color='textSecondary'>每個檔案大小限制為20MB</Typography>
                 </Box>
-              </DropzoneWrapper>
-            </Grid>
-          </Grid>
+              )}
+            </Box>
+          </DropzoneWrapper>
         </DialogContent>
         <DialogActions
           sx={{
+            justifyContent: 'space-between',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Grid container spacing={6} justifyContent='space-between'>
-            <Grid item>
-              <Button variant='outlined' color='secondary' onClick={handleClose}>
-                取消
-              </Button>
-            </Grid>
-            <Grid item>
-              <LoadingButton
-                loading={isUploadMediaAssetsLoading}
-                disabled={files.length === 0}
-                onClick={handleUploadClick}
-                variant='contained'
-              >
-                上傳
-              </LoadingButton>
-            </Grid>
-          </Grid>
+          <Button variant='outlined' color='secondary' onClick={handleClose}>
+            取消
+          </Button>
+          <LoadingButton
+            loading={isUploadMediaAssetsLoading}
+            disabled={files.length === 0}
+            variant='contained'
+            startIcon={<Icon icon='mdi:cloud-upload-outline' />}
+            onClick={handleUploadClick}
+          >
+            上傳
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </Fragment>

@@ -15,6 +15,7 @@ import DialogActions from '@mui/material/DialogActions'
 import FormControl from '@mui/material/FormControl'
 import FormHelperText from '@mui/material/FormHelperText'
 import Fade from '@mui/material/Fade'
+import IconButton from '@mui/material/IconButton'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
@@ -145,34 +146,43 @@ const ManagementFundEditOverviewCreateDefaultPackageStack = (props: Props) => {
 
       <Dialog
         open={show}
-        maxWidth='sm'
         onClose={handleClose}
-        TransitionComponent={Transition}
         aria-labelledby='package-view-edit'
         aria-describedby='package-view-edit-description'
+        TransitionComponent={Transition}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
       >
-        <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle
-            id='package-view-edit'
-            sx={{
-              textAlign: 'center',
-              fontSize: '1.5rem !important',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
-          >
-            新增方案
-          </DialogTitle>
-          <DialogContent
-            sx={{
-              pb: theme => `${theme.spacing(8)} !important`,
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`]
-            }}
-          >
-            <DialogContentText variant='body2' id='package-view-edit-description' sx={{ textAlign: 'center', mb: 7 }}>
-              每個方案都必須提供不同的內容.
-            </DialogContentText>
+        <IconButton size='small' onClick={handleClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
 
+        <DialogTitle
+          id='package-view-edit'
+          sx={{
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
+          }}
+        >
+          新增方案
+          <DialogContentText
+            id='package-view-edit-description'
+            variant='body2'
+            component='p'
+            sx={{ textAlign: 'center' }}
+          >
+            每個方案都必須提供不同的內容.
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
+          <form noValidate autoComplete='off'>
             <Grid container spacing={6}>
               <Grid item xs={12}>
                 <FormControl fullWidth>
@@ -286,28 +296,29 @@ const ManagementFundEditOverviewCreateDefaultPackageStack = (props: Props) => {
                 </Grid>
               </Grid>
             </Grid>
-          </DialogContent>
-          <DialogActions
-            sx={{
-              justifyContent: 'space-between',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
+          </form>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'space-between',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
+          }}
+        >
+          <Button variant='outlined' color='secondary' onClick={handleClose}>
+            取消
+          </Button>
+          <LoadingButton
+            loading={isCreateNewPackageLoading || isUpdateOneFundLoading}
+            disabled={!isDirty || Boolean(errors.displayName || errors.description)}
+            variant='contained'
+            startIcon={<Icon icon='mdi:add-circle-outline' />}
+            onClick={handleSubmit(onSubmit)}
           >
-            <Button variant='outlined' color='secondary' onClick={handleClose}>
-              取消
-            </Button>
-            <LoadingButton
-              loading={isCreateNewPackageLoading || isUpdateOneFundLoading}
-              disabled={!isDirty || Boolean(errors.displayName || errors.description)}
-              type='submit'
-              variant='contained'
-              startIcon={<Icon icon='mdi:add-circle-outline' />}
-            >
-              建立
-            </LoadingButton>
-          </DialogActions>
-        </form>
+            建立
+          </LoadingButton>
+        </DialogActions>
       </Dialog>
     </Stack>
   )
