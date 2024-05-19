@@ -52,10 +52,12 @@ interface SpecDetailStackProps {
 const SpecDetailStack = (props: SpecDetailStackProps) => {
   // ** Props
   const { title, hint = null, content, linkHref = null } = props
-  const formattedContent = getFormattedEthereumAddress(content)
 
   // ** States
   const [isCopied, setIsCopied] = useState(false)
+
+  // ** Vars
+  const formattedContent = getFormattedEthereumAddress(content)
 
   // ** Logics
   const handleCopy = (content: string) => {

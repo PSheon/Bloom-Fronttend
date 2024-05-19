@@ -413,10 +413,12 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
               <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
             </Box>
             <Stack spacing={2} justifyContent='center'>
-              <Typography variant='subtitle2'>Utility</Typography>
+              <Typography variant='subtitle2' component='p'>
+                Utility
+              </Typography>
 
               {initPackageEntity.slot?.length === 0 ? (
-                <Typography>尚未設定內容</Typography>
+                <Typography component='p'>尚未設定內容</Typography>
               ) : (
                 <Stack spacing={2} alignSelf='stretch'>
                   {initPackageEntity.slot.map(property => {
@@ -736,7 +738,9 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                             <CustomAvatar skin='light' sx={{ width: 56, height: 56 }}>
                               <Icon icon='mdi:attach-money' fontSize='2rem' />
                             </CustomAvatar>
-                            <Typography variant='body2'>Set quantity and approve pay token</Typography>
+                            <Typography variant='body2' component='p'>
+                              Set quantity and approve pay token
+                            </Typography>
                             <Stack
                               spacing={2}
                               alignSelf='stretch'
@@ -833,7 +837,9 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                             <CustomAvatar skin='light' sx={{ width: 56, height: 56 }}>
                               <Icon icon='mdi:cart-arrow-down' fontSize='2rem' />
                             </CustomAvatar>
-                            <Typography variant='body2'>Confirm details and mint token</Typography>
+                            <Typography variant='body2' component='p'>
+                              Confirm details and mint token
+                            </Typography>
                             <Stack
                               spacing={2}
                               alignSelf='stretch'
