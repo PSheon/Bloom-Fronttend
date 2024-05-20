@@ -22,6 +22,7 @@ import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Grow from '@mui/material/Grow'
 import Fade from '@mui/material/Fade'
+import Tooltip from '@mui/material/Tooltip'
 import Skeleton from '@mui/material/Skeleton'
 
 // ** Third-Party Imports
@@ -135,6 +136,23 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
     }
   })
 
+  const {
+    data: payTokenAllowance,
+    refetch: refetchPayTokenAllowance,
+    isLoading: isPayTokenAllowanceLoading,
+    isFetching: isPayTokenAllowanceFetching
+  } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
+    functionName: 'allowance',
+    args: [walletAccount.address!, initFundEntity.fundSFTContractAddress],
+    account: walletAccount.address!,
+    query: {
+      enabled: walletAccount.status === 'connected' && activeMintStep === 2
+    }
+  })
+
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
     pagination: {
@@ -148,6 +166,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
 
   // ** Vars
   const wallets = walletsData?.data || []
+  const totalPrice = Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
 
   const isCurrentWalletVerified =
     walletAccount.status === 'connected' &&
@@ -206,6 +225,12 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
   ]
 
   // ** Logics
+  const checkAllowanceSufficient = (): boolean => {
+    if (isPayTokenAllowanceLoading || isPayTokenAllowanceFetching) return false
+
+    return totalPrice <= Number(payTokenAllowance ?? 0)
+  }
+
   const handleDisconnect = async () => {
     try {
       await disconnectAsync()
@@ -855,7 +880,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                   variant='subtitle1'
                                   component='p'
                                 >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                                  Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
+                                  totalPrice
                                 )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
@@ -907,19 +932,22 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Typography variant='subtitle2' component='p'>
-                                  {`${initFundEntity.baseCurrency} Approved`}
+                                  {`${initFundEntity.baseCurrency} Allowance`}
                                 </Typography>
-                                <Stack
-                                  direction='row'
-                                  spacing={2}
-                                  alignItems='center'
-                                  justifyContent='center'
-                                  sx={{
-                                    color: 'warning.main'
-                                  }}
-                                >
-                                  <Icon icon='mdi:alert-circle-outline' />
-                                  {isPayTokenBalanceLoading || isPayTokenBalanceFetching ? (
+                                <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                  {checkAllowanceSufficient() && (
+                                    <Tooltip title='Allowance Insufficient' placement='top' arrow>
+                                      <IconButton
+                                        size='small'
+                                        sx={{
+                                          color: 'warning.main'
+                                        }}
+                                      >
+                                        <Icon icon='mdi:alert-circle-outline' fontSize={18} />
+                                      </IconButton>
+                                    </Tooltip>
+                                  )}
+                                  {isPayTokenAllowanceLoading || isPayTokenAllowanceFetching ? (
                                     <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                       <Skeleton variant='text' width={120} />
                                       <Skeleton variant='circular' width={28} height={28} />
@@ -927,9 +955,9 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                   ) : (
                                     <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                       <Typography variant='subtitle1' component='p'>
-                                        {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit((payTokenBalance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                        {`${fundBaseCurrencyProperties.symbol} ${payTokenAllowance ? getFormattedPriceUnit((payTokenAllowance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
                                       </Typography>
-                                      <IconButton size='small' onClick={() => refetchPayTokenBalance()}>
+                                      <IconButton size='small' onClick={() => refetchPayTokenAllowance()}>
                                         <Icon icon='mdi:reload' fontSize={16} />
                                       </IconButton>
                                     </Stack>
