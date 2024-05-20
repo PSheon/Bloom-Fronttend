@@ -29,6 +29,7 @@ export type FundType = {
   displayName: string
   description?: string
   fundSFTContractAddress: string
+  fundSFTContractAbi: string
   detail: OutputData
   genesisDate: Date
   saleStartTime: Date
@@ -41,6 +42,8 @@ export type FundType = {
       attributes: Omit<PackageType, 'id'>
     }[]
   }
+  twitterUrl?: string
+  discordUrl?: string
   isHighlighted: boolean
   status: 'Draft' | 'Published' | 'Archived'
   updatedAt: string
@@ -97,6 +100,10 @@ export type UpdateOneFundParamsType = {
     banner: number | null
     displayName: string
     description: string
+    saleStartTime: Date
+    maturityDate: Date
+    performanceFeePercentage: number
+    redemptionFrequencyInDays: number
     detail: OutputData
     defaultPackages: number[]
     isHighlighted: boolean
