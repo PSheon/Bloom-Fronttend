@@ -9,6 +9,10 @@ import Layout from 'src/@core/layouts/Layout'
 import VerticalNavItems from 'src/navigation/vertical'
 import HorizontalNavItems from 'src/navigation/horizontal'
 
+// ** Third-Party Imports
+import { useAccountEffect } from 'wagmi'
+import toast from 'react-hot-toast'
+
 // ** Custom Component Imports
 // Uncomment the below line (according to the layout type) when using server-side menu
 // import ServerSideVerticalNavItems from './components/vertical/ServerSideNavItems'
@@ -20,6 +24,9 @@ import FooterContent from 'src/layouts/components/FooterContent'
 
 // ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
+
+// ** Util Imports
+import { getFormattedEthereumAddress } from 'src/utils'
 
 // ** Type Imports
 import type { ReactNode } from 'react'
@@ -51,6 +58,16 @@ const UserLayout = ({ children, contentHeightFixed }: Props) => {
   if (hidden && settings.layout === 'horizontal') {
     settings.layout = 'vertical'
   }
+
+  // ** Side Effects
+  useAccountEffect({
+    onConnect(data) {
+      toast.success(`Wallet ${getFormattedEthereumAddress(data.address)} connected!`)
+    },
+    onDisconnect() {
+      toast.success('Wallet disconnected!')
+    }
+  })
 
   return (
     <Layout

@@ -287,12 +287,8 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
 
   // ** Side Effects
   useAccountEffect({
-    onConnect(data) {
-      toast.success(`Wallet ${getFormattedEthereumAddress(data.address)} connected!`)
-    },
     onDisconnect() {
       setActiveMintStep(() => 0)
-      toast.success('Wallet disconnected!')
     }
   })
 
