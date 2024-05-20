@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Next Imports
 import Image from 'next/image'
@@ -28,7 +28,15 @@ import Skeleton from '@mui/material/Skeleton'
 // ** Third-Party Imports
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
-import { useAccount, useAccountEffect, useSignMessage, useDisconnect, useReadContract } from 'wagmi'
+import {
+  useAccount,
+  useAccountEffect,
+  useSignMessage,
+  useDisconnect,
+  useReadContract,
+  useWriteContract,
+  useWaitForTransactionReceipt
+} from 'wagmi'
 import safePrice from 'currency.js'
 import { Atropos } from 'atropos/react'
 import toast from 'react-hot-toast'
@@ -153,6 +161,17 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
     }
   })
 
+  const {
+    data: approvePayTokenHash,
+    isPending: isApprovePayTokenPending,
+    writeContract: approvePayToken
+  } = useWriteContract()
+
+  const { isLoading: isApprovePayTokenConfirming, isSuccess: isApprovePayTokenSuccess } = useWaitForTransactionReceipt({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    hash: approvePayTokenHash
+  })
+
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
     pagination: {
@@ -225,12 +244,6 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
   ]
 
   // ** Logics
-  const checkAllowanceSufficient = (): boolean => {
-    if (isPayTokenAllowanceLoading || isPayTokenAllowanceFetching) return false
-
-    return totalPrice <= Number(payTokenAllowance ?? 0)
-  }
-
   const handleDisconnect = async () => {
     try {
       await disconnectAsync()
@@ -280,6 +293,12 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
     }
   }
 
+  const checkAllowanceSufficient = (): boolean => {
+    if (isPayTokenAllowanceLoading || isPayTokenAllowanceFetching) return true
+
+    return BigInt(totalPrice) * 10n ** 18n <= BigInt(Number(payTokenAllowance ?? 0))
+  }
+
   // ** Renders
   const renderWalletAvatar = (address: string) => {
     const colors = getGradientColors(address)
@@ -316,6 +335,12 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
       setActiveMintStep(() => 0)
     }
   })
+  useEffect(() => {
+    if (isApprovePayTokenSuccess) {
+      toast.success('Pay token approved')
+      refetchPayTokenAllowance()
+    }
+  }, [isApprovePayTokenSuccess, refetchPayTokenAllowance])
 
   return (
     <Card
@@ -935,7 +960,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                   {`${initFundEntity.baseCurrency} Allowance`}
                                 </Typography>
                                 <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                                  {checkAllowanceSufficient() && (
+                                  {!checkAllowanceSufficient() && (
                                     <Tooltip title='Allowance Insufficient' placement='top' arrow>
                                       <IconButton
                                         size='small'
@@ -966,18 +991,46 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               </Stack>
                             </Stack>
                             <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                              <Button fullWidth variant='contained' disabled sx={{ flex: 1 }}>
+                              <LoadingButton
+                                fullWidth
+                                loading={isApprovePayTokenPending || isApprovePayTokenConfirming}
+                                variant='contained'
+                                disabled={checkAllowanceSufficient()}
+                                onClick={() => {
+                                  approvePayToken(
+                                    {
+                                      chainId: getChainId(
+                                        initFundEntity.chain
+                                      ) as (typeof wagmiConfig)['chains'][number]['id'],
+                                      abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+                                      address: getBaseCurrencyAddress(
+                                        initFundEntity.chain,
+                                        initFundEntity.baseCurrency
+                                      ),
+                                      functionName: 'approve',
+                                      args: [initFundEntity.fundSFTContractAddress, BigInt(totalPrice) * 10n ** 18n],
+                                      account: walletAccount.address!
+                                    },
+                                    {
+                                      onError: () => {
+                                        toast.error('Failed to approve pay token')
+                                      }
+                                    }
+                                  )
+                                }}
+                                sx={{ flex: 1 }}
+                              >
                                 <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
                                   <Icon icon='mdi:approve' fontSize={16} />
                                   Approved
                                 </Stack>
-                              </Button>
-                              <Button fullWidth variant='contained' disabled sx={{ flex: 1 }}>
+                              </LoadingButton>
+                              <LoadingButton fullWidth variant='contained' disabled sx={{ flex: 1 }}>
                                 <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
                                   <Icon icon='mdi:hammer' fontSize={16} />
                                   Mint
                                 </Stack>
-                              </Button>
+                              </LoadingButton>
                             </Stack>
                             <Typography variant='subtitle1' textAlign='center'>
                               {`Can't mint in preview mode`}
