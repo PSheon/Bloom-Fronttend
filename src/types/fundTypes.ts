@@ -1,4 +1,5 @@
 // ** Type Imports
+import type { Abi } from 'viem'
 import type { OutputData } from '@editorjs/editorjs'
 import type { BaseApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
 import type { PackageType } from 'src/types/packageTypes'
@@ -29,7 +30,7 @@ export type FundType = {
   displayName: string
   description?: string
   fundSFTContractAddress: string
-  fundSFTContractAbi: string
+  fundSFTContractAbi: Abi
   detail: OutputData
   genesisDate: Date
   saleStartTime: Date
