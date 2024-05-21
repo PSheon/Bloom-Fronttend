@@ -6,14 +6,25 @@ import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 
+// ** Third-Party Imports
+import { useAccount, useReadContract } from 'wagmi'
+
 // ** Core Component Imports
 import CardStatisticsVertical from 'src/@core/components/card-statistics/card-stats-vertical'
+import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
 import ManagementFundPreviewAwardCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewAwardCard'
+import ManagementFundPreviewOwnedSFTCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewOwnedSFTCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
+import { getChainId } from 'src/utils'
+
+// ** Config Imports
+import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -24,9 +35,22 @@ interface Props {
 
 const ManagementFundPreviewVaultTabPanel = (props: Props) => {
   // ** Props
-  const {
-    /* initFundEntity */
-  } = props
+  const { initFundEntity } = props
+
+  // ** Hooks
+  const walletAccount = useAccount()
+
+  const { data: sftTokenBalance, isLoading: isSftTokenBalanceLoading } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.fundSFTContractAbi,
+    address: initFundEntity.fundSFTContractAddress as `0x${string}`,
+    functionName: 'balanceOf',
+    args: [walletAccount.address!],
+    account: walletAccount.address!
+  })
+
+  // ** Vars
+  const sftTokenBalanceCount = Number(sftTokenBalance ?? 0)
 
   return (
     <TabPanel sx={{ p: 0 }} value='vault'>
@@ -63,35 +87,44 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          <Grid container spacing={6}>
-            <Grid item xs={12} sm={6} md={4}>
-              <Card>
-                <CardContent>
-                  <Typography variant='h6'>My SFT</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Card>
-                <CardContent>
-                  <Typography variant='h6'>My SFT</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Card>
-                <CardContent>
-                  <Typography variant='h6'>My SFT</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
-            <Grid item xs={12} sm={6} md={4}>
-              <Card>
-                <CardContent>
-                  <Typography variant='h6'>My SFT</Typography>
-                </CardContent>
-              </Card>
-            </Grid>
+          <Grid container spacing={6} className='match-height'>
+            {isSftTokenBalanceLoading ? (
+              <Grid item xs={12}>
+                <Card>
+                  <CardContent>
+                    <Stack spacing={4} alignItems='center' justifyContent='center'>
+                      <CustomAvatar skin='light' sx={{ width: 56, height: 56 }}>
+                        <Icon icon='mdi:widget-line-shimmer' fontSize='2rem' />
+                      </CustomAvatar>
+                      <Typography variant='h6' component='p'>
+                        Loading...
+                      </Typography>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ) : sftTokenBalanceCount === 0 ? (
+              <Grid item xs={12}>
+                <Card>
+                  <CardContent>
+                    <Stack spacing={4} alignItems='center' justifyContent='center'>
+                      <CustomAvatar skin='light' sx={{ width: 56, height: 56 }}>
+                        <Icon icon='mdi:warning-circle-outline' fontSize='2rem' />
+                      </CustomAvatar>
+                      <Typography variant='h6' component='p'>
+                        Do not have any SFT yet
+                      </Typography>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </Grid>
+            ) : (
+              [...Array(sftTokenBalanceCount).keys()].map(sftTokenIndex => (
+                <Grid key={`sft-token-${sftTokenIndex}`} item xs={12} sm={6} md={4}>
+                  <ManagementFundPreviewOwnedSFTCard initFundEntity={initFundEntity} sftTokenIndex={sftTokenIndex} />
+                </Grid>
+              ))
+            )}
           </Grid>
         </Grid>
       </Grid>

@@ -438,7 +438,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
               <Stack direction='row' sx={{ position: 'relative' }}>
                 <Sup>{fundBaseCurrencyProperties.symbol}</Sup>
                 <Typography
-                  variant='h3'
+                  variant='h4'
                   component='p'
                   sx={{
                     mb: -1.2,
