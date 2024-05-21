@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Next Imports
 import Image from 'next/image'
@@ -22,12 +22,21 @@ import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Grow from '@mui/material/Grow'
 import Fade from '@mui/material/Fade'
+import Tooltip from '@mui/material/Tooltip'
 import Skeleton from '@mui/material/Skeleton'
 
 // ** Third-Party Imports
 import { ConnectButton } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
-import { useAccount, useAccountEffect, useSignMessage, useDisconnect, useReadContract } from 'wagmi'
+import {
+  useAccount,
+  useAccountEffect,
+  useSignMessage,
+  useDisconnect,
+  useReadContract,
+  useWriteContract,
+  useWaitForTransactionReceipt
+} from 'wagmi'
 import safePrice from 'currency.js'
 import { Atropos } from 'atropos/react'
 import toast from 'react-hot-toast'
@@ -47,6 +56,7 @@ import Icon from 'src/@core/components/icon'
 import useBgColor from 'src/@core/hooks/useBgColor'
 
 // ** API Imports
+import { useSignHashMutation } from 'src/store/api/management/fund'
 import { useFindMeQuery, useGetNonceQuery, useVerifyMutation } from 'src/store/api/management/wallet'
 
 // ** Util Imports
@@ -135,6 +145,41 @@ const PublicFundLivePackageCard = (props: Props) => {
     }
   })
 
+  const {
+    data: payTokenAllowance,
+    refetch: refetchPayTokenAllowance,
+    isLoading: isPayTokenAllowanceLoading,
+    isFetching: isPayTokenAllowanceFetching
+  } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
+    functionName: 'allowance',
+    args: [walletAccount.address!, initFundEntity.fundSFTContractAddress],
+    account: walletAccount.address!,
+    query: {
+      enabled: walletAccount.status === 'connected' && activeMintStep === 2
+    }
+  })
+
+  const {
+    data: approvePayTokenHash,
+    isPending: isApprovePayTokenPending,
+    writeContract: approvePayToken
+  } = useWriteContract()
+
+  const { isLoading: isApprovePayTokenConfirming, isSuccess: isApprovePayTokenSuccess } = useWaitForTransactionReceipt({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    hash: approvePayTokenHash
+  })
+
+  const { data: mintTokenHash, isPending: isMintTokenPending, writeContract: mintToken } = useWriteContract()
+
+  const { isLoading: isMintTokenConfirming, isSuccess: isMintTokenSuccess } = useWaitForTransactionReceipt({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    hash: mintTokenHash
+  })
+
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
     pagination: {
@@ -143,11 +188,14 @@ const PublicFundLivePackageCard = (props: Props) => {
     }
   })
 
+  const [signHash, { isLoading: isSignHashLoading }] = useSignHashMutation()
+
   const { data: nonceData } = useGetNonceQuery(null)
   const [verifyWallet, { isLoading: isVerifyWalletLoading }] = useVerifyMutation()
 
   // ** Vars
   const wallets = walletsData?.data || []
+  const totalPrice = Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
 
   const isCurrentWalletVerified =
     walletAccount.status === 'connected' &&
@@ -255,6 +303,49 @@ const PublicFundLivePackageCard = (props: Props) => {
     }
   }
 
+  const checkAllowanceSufficient = (): boolean => {
+    if (isPayTokenAllowanceLoading || isPayTokenAllowanceFetching) return true
+
+    return BigInt(totalPrice) * 10n ** 18n <= BigInt(Number(payTokenAllowance ?? 0))
+  }
+
+  const handleMint = async () => {
+    try {
+      const { hash } = await signHash({
+        id: initFundEntity.id,
+        data: {
+          contractName: 'Bloom RWA v0.0.1',
+          minterAddress: walletAccount.address!,
+          slotId: initPackageEntity.id,
+          value: (BigInt(totalPrice) * 10n ** 18n).toString()
+        }
+      }).unwrap()
+
+      mintToken(
+        {
+          chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+          abi: initFundEntity.fundSFTContractAbi,
+          address: initFundEntity.fundSFTContractAddress as `0x${string}`,
+          functionName: 'mintPackage',
+          args: [
+            hash,
+            walletAccount.address!,
+            initPackageEntity.id.toString(),
+            (BigInt(totalPrice) * 10n ** 18n).toString()
+          ],
+          account: walletAccount.address!
+        },
+        {
+          onError: () => {
+            toast.error('Failed to mint')
+          }
+        }
+      )
+    } catch {
+      toast.error('Failed to mint')
+    }
+  }
+
   // ** Renders
   const renderWalletAvatar = (address: string) => {
     const colors = getGradientColors(address)
@@ -291,6 +382,19 @@ const PublicFundLivePackageCard = (props: Props) => {
       setActiveMintStep(() => 0)
     }
   })
+  useEffect(() => {
+    if (isApprovePayTokenSuccess) {
+      toast.success('Pay token approved')
+      refetchPayTokenAllowance()
+    }
+  }, [isApprovePayTokenSuccess, refetchPayTokenAllowance])
+  useEffect(() => {
+    if (isMintTokenSuccess) {
+      toast.success('Mint success')
+      refetchPayTokenBalance()
+      refetchPayTokenAllowance()
+    }
+  }, [isMintTokenSuccess, refetchPayTokenBalance, refetchPayTokenAllowance])
 
   return (
     <Card
@@ -515,7 +619,9 @@ const PublicFundLivePackageCard = (props: Props) => {
                               divider={<Divider orientation='horizontal' flexItem />}
                             >
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1'>Connect Wallet</Typography>
+                                <Typography variant='subtitle1' component='p'>
+                                  Connect Wallet
+                                </Typography>
                                 <Stack
                                   alignItems='center'
                                   justifyContent='center'
@@ -741,7 +847,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                               divider={<Divider orientation='horizontal' flexItem />}
                             >
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1' component='p'>
+                                <Typography variant='subtitle2' component='p'>
                                   Quantity
                                 </Typography>
                                 <Stack
@@ -764,7 +870,9 @@ const PublicFundLivePackageCard = (props: Props) => {
                                     >
                                       <Icon icon='mdi:minus-box-outline' />
                                     </IconButton>
-                                    <Typography variant='h6'>{mintQuantity}</Typography>
+                                    <Typography variant='h6' component='p'>
+                                      {mintQuantity}
+                                    </Typography>
                                     <IconButton
                                       size='large'
                                       onClick={() => {
@@ -789,10 +897,19 @@ const PublicFundLivePackageCard = (props: Props) => {
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Typography variant='subtitle2' component='p'>
-                                  Total
+                                  Fee
                                 </Typography>
                                 <Typography
                                   variant='subtitle1'
+                                  component='p'
+                                >{`${initFundEntity.performanceFeePercentage} %`}</Typography>
+                              </Stack>
+                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                                <Typography variant='subtitle2' component='p'>
+                                  Total
+                                </Typography>
+                                <Typography
+                                  variant='h6'
                                   component='p'
                                   sx={{ fontWeight: 600 }}
                                 >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
@@ -842,7 +959,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                                   variant='subtitle1'
                                   component='p'
                                 >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                                  Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
+                                  totalPrice
                                 )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
@@ -894,19 +1011,22 @@ const PublicFundLivePackageCard = (props: Props) => {
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Typography variant='subtitle2' component='p'>
-                                  {`${initFundEntity.baseCurrency} Approved`}
+                                  {`${initFundEntity.baseCurrency} Allowance`}
                                 </Typography>
-                                <Stack
-                                  direction='row'
-                                  spacing={2}
-                                  alignItems='center'
-                                  justifyContent='center'
-                                  sx={{
-                                    color: 'warning.main'
-                                  }}
-                                >
-                                  <Icon icon='mdi:alert-circle-outline' />
-                                  {isPayTokenBalanceLoading || isPayTokenBalanceFetching ? (
+                                <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                  {!checkAllowanceSufficient() && (
+                                    <Tooltip title='Allowance Insufficient' placement='top' arrow>
+                                      <IconButton
+                                        size='small'
+                                        sx={{
+                                          color: 'warning.main'
+                                        }}
+                                      >
+                                        <Icon icon='mdi:alert-circle-outline' fontSize={18} />
+                                      </IconButton>
+                                    </Tooltip>
+                                  )}
+                                  {isPayTokenAllowanceLoading || isPayTokenAllowanceFetching ? (
                                     <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                       <Skeleton variant='text' width={120} />
                                       <Skeleton variant='circular' width={28} height={28} />
@@ -914,9 +1034,9 @@ const PublicFundLivePackageCard = (props: Props) => {
                                   ) : (
                                     <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                       <Typography variant='subtitle1' component='p'>
-                                        {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit((payTokenBalance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                        {`${fundBaseCurrencyProperties.symbol} ${payTokenAllowance ? getFormattedPriceUnit((payTokenAllowance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
                                       </Typography>
-                                      <IconButton size='small' onClick={() => refetchPayTokenBalance()}>
+                                      <IconButton size='small' onClick={() => refetchPayTokenAllowance()}>
                                         <Icon icon='mdi:reload' fontSize={16} />
                                       </IconButton>
                                     </Stack>
@@ -925,18 +1045,69 @@ const PublicFundLivePackageCard = (props: Props) => {
                               </Stack>
                             </Stack>
                             <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                              <Button fullWidth variant='contained' disabled sx={{ flex: 1 }}>
-                                <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                                  <Icon icon='mdi:approve' fontSize={16} />
-                                  Approved
-                                </Stack>
-                              </Button>
-                              <Button fullWidth variant='contained' disabled sx={{ flex: 1 }}>
+                              {checkAllowanceSufficient() ? (
+                                <Box
+                                  sx={{
+                                    px: 4,
+                                    py: 2,
+                                    width: '100%',
+                                    maxWidth: theme => theme.spacing(120),
+                                    borderRadius: 1,
+                                    border: theme => `1px solid ${theme.palette.primary.main}`,
+                                    ...bgColors.primaryLight
+                                  }}
+                                >
+                                  <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                    <Icon icon='mdi:approve' fontSize={16} />
+                                    {`${fundBaseCurrencyProperties.currency} Approved`}
+                                  </Stack>
+                                </Box>
+                              ) : (
+                                <LoadingButton
+                                  fullWidth
+                                  loading={isApprovePayTokenPending || isApprovePayTokenConfirming}
+                                  variant='contained'
+                                  onClick={() => {
+                                    approvePayToken(
+                                      {
+                                        chainId: getChainId(
+                                          initFundEntity.chain
+                                        ) as (typeof wagmiConfig)['chains'][number]['id'],
+                                        abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+                                        address: getBaseCurrencyAddress(
+                                          initFundEntity.chain,
+                                          initFundEntity.baseCurrency
+                                        ),
+                                        functionName: 'approve',
+                                        args: [initFundEntity.fundSFTContractAddress, BigInt(totalPrice) * 10n ** 18n],
+                                        account: walletAccount.address!
+                                      },
+                                      {
+                                        onError: () => {
+                                          toast.error('Failed to approve pay token')
+                                        }
+                                      }
+                                    )
+                                  }}
+                                >
+                                  <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                                    <Icon icon='mdi:approve' fontSize={16} />
+                                    {`Approve ${fundBaseCurrencyProperties.currency}`}
+                                  </Stack>
+                                </LoadingButton>
+                              )}
+                              <LoadingButton
+                                fullWidth
+                                loading={isSignHashLoading || isMintTokenPending || isMintTokenConfirming}
+                                variant='contained'
+                                disabled={!checkAllowanceSufficient()}
+                                onClick={handleMint}
+                              >
                                 <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
                                   <Icon icon='mdi:hammer' fontSize={16} />
                                   Mint
                                 </Stack>
-                              </Button>
+                              </LoadingButton>
                             </Stack>
                           </Stack>
                         </Stack>

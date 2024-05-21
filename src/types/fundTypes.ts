@@ -130,3 +130,20 @@ export type DeleteOneFundTransformResponseType = BaseApiResponseType<{
   attributes: Omit<FundType, 'id'>
 }>
 export type DeleteOneFundResponseType = FundType
+
+// ** Sign Hash
+export type SignHashParamsType = {
+  id: number
+  data: {
+    contractName: string
+    minterAddress: string
+    slotId: number
+    value: string
+  }
+}
+export type SignHashTransformResponseType = {
+  hash: string
+}
+export type SignHashResponseType = {
+  hash: string
+}
