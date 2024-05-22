@@ -560,9 +560,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                   handleSelectPackage(initPackageEntity.id)
                 }}
               >
-                <Typography variant='subtitle2' component='p'>
-                  Mint
-                </Typography>
+                Mint
               </Button>
             </Stack>
           </CardContent>
@@ -862,39 +860,16 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 <Typography variant='subtitle2' component='p'>
                                   Quantity
                                 </Typography>
-                                <Stack
-                                  direction='row'
-                                  alignItems='center'
-                                  justifyContent='space-between'
-                                  sx={{ mr: -4 }}
-                                >
-                                  <Stack
-                                    direction='row'
-                                    spacing={4}
-                                    alignItems='center'
-                                    sx={{ flex: 1, display: 'flex', justifyContent: 'center' }}
-                                  >
-                                    <IconButton
-                                      size='large'
-                                      onClick={() => {
-                                        setMintQuantity(prevMintQuantity => Math.max(prevMintQuantity - 1, 1))
-                                      }}
-                                    >
-                                      <Icon icon='mdi:minus-box-outline' />
-                                    </IconButton>
-                                    <Typography variant='h6' component='p'>
-                                      {mintQuantity}
-                                    </Typography>
-                                    <IconButton
-                                      size='large'
-                                      onClick={() => {
-                                        setMintQuantity(prevMintQuantity => Math.min(prevMintQuantity + 1, 10))
-                                      }}
-                                    >
-                                      <Icon icon='mdi:plus-box-outline' />
-                                    </IconButton>
-                                  </Stack>
-                                </Stack>
+                                <Typography variant='subtitle1' component='p'>{`x ${mintQuantity}`}</Typography>
+                              </Stack>
+                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                                <Typography variant='subtitle2' component='p'>
+                                  Fee
+                                </Typography>
+                                <Typography
+                                  variant='subtitle1'
+                                  component='p'
+                                >{`${initFundEntity.performanceFeePercentage} %`}</Typography>
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Typography variant='subtitle2' component='p'>
@@ -909,15 +884,6 @@ const PublicFundLivePackageCard = (props: Props) => {
                               </Stack>
                               <Stack direction='row' alignItems='center' justifyContent='space-between'>
                                 <Typography variant='subtitle2' component='p'>
-                                  Fee
-                                </Typography>
-                                <Typography
-                                  variant='subtitle1'
-                                  component='p'
-                                >{`${initFundEntity.performanceFeePercentage} %`}</Typography>
-                              </Stack>
-                              <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle2' component='p'>
                                   Total
                                 </Typography>
                                 <Typography
@@ -928,6 +894,27 @@ const PublicFundLivePackageCard = (props: Props) => {
                                   Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
                                 )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                               </Stack>
+                            </Stack>
+                            <Stack direction='row' spacing={4} alignItems='center' justifyContent='space-between'>
+                              <IconButton
+                                size='large'
+                                onClick={() => {
+                                  setMintQuantity(prevMintQuantity => Math.max(prevMintQuantity - 1, 1))
+                                }}
+                              >
+                                <Icon icon='mdi:minus-box-outline' fontSize={28} />
+                              </IconButton>
+                              <Typography variant='h6' component='p'>
+                                {mintQuantity}
+                              </Typography>
+                              <IconButton
+                                size='large'
+                                onClick={() => {
+                                  setMintQuantity(prevMintQuantity => Math.min(prevMintQuantity + 1, 10))
+                                }}
+                              >
+                                <Icon icon='mdi:plus-box-outline' fontSize={28} />
+                              </IconButton>
                             </Stack>
                           </Stack>
                         </Stack>
