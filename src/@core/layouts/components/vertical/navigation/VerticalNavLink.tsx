@@ -172,6 +172,7 @@ const VerticalNavLink = ({
                 size='small'
                 label={item.badgeContent}
                 color={item.badgeColor || 'primary'}
+                className='MuiChip-rounded'
                 sx={{ '& .MuiChip-label': { px: 2.5, lineHeight: 1.385, textTransform: 'capitalize' } }}
               />
             ) : null}
