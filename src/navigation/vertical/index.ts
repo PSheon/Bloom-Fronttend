@@ -71,18 +71,19 @@ const navigation = (): VerticalNavItemsType => {
       action: 'read',
       subject: 'planner-page'
     },
-    {
-      sectionTitle: 'Review',
-      action: 'read',
-      subject: 'asset-manager-page'
-    },
-    {
-      title: 'Review.Dashboard',
-      icon: 'mdi:newspaper-variant-outline',
-      path: '/review/dashboard',
-      action: 'read',
-      subject: 'asset-manager-page'
-    },
+
+    // {
+    //   sectionTitle: 'Review',
+    //   action: 'read',
+    //   subject: 'asset-manager-page'
+    // },
+    // {
+    //   title: 'Review.Dashboard',
+    //   icon: 'mdi:newspaper-variant-outline',
+    //   path: '/review/dashboard',
+    //   action: 'read',
+    //   subject: 'asset-manager-page'
+    // },
     {
       sectionTitle: 'Public',
       action: 'read',
