@@ -1,49 +1,50 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
+import Typography from '@mui/material/Typography'
+
+// ** Core Component Imports
+import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 
 // ** Custom Component Imports
-import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
-import KeenSliderWrapper from 'src/@core/styles/libs/keen-slider'
 import PortfolioBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import PortfolioBannerCard from 'src/views/portfolio/cards/PortfolioBannerCard'
-import PortfolioStatisticsOverviewCard from 'src/views/portfolio/cards/PortfolioStatisticsOverviewCard'
-import PortfolioMeNotificationCard from 'src/views/portfolio/cards/me-notification'
-import PortfolioMePositionsCard from 'src/views/portfolio/cards/me-positions'
-import PortfolioMeActivityLogCard from 'src/views/portfolio/cards/me-activity-log'
+import PortfolioMePositionGrid from 'src/views/portfolio/grids/PortfolioMePositionGrid'
 
 const PortfolioPage = () => {
   return (
     <ApexChartWrapper>
-      <KeenSliderWrapper>
-        <Grid container spacing={6} className='match-height'>
-          <Grid item xs={12}>
-            <PortfolioBreadcrumbs pageLevels={[{ title: '主頁' }]} />
-          </Grid>
-          <Grid item xs={12}>
-            <PortfolioBannerCard />
-          </Grid>
-          <Grid item xs={12} md={5} lg={4}>
-            <Grid container spacing={6}>
-              <Grid item xs={12}>
-                <PortfolioStatisticsOverviewCard />
-              </Grid>
-              <Grid item xs={12}>
-                <PortfolioMeNotificationCard />
-              </Grid>
-            </Grid>
-          </Grid>
-          <Grid item xs={12} md={7} lg={8}>
-            <Grid container spacing={6}>
-              <Grid item xs={12}>
-                <PortfolioMePositionsCard />
-              </Grid>
-              <Grid item xs={12}>
-                <PortfolioMeActivityLogCard />
-              </Grid>
-            </Grid>
-          </Grid>
+      <Grid container spacing={6} className='match-height'>
+        <Grid item xs={12}>
+          <PortfolioBreadcrumbs pageLevels={[{ title: '主頁' }]} />
         </Grid>
-      </KeenSliderWrapper>
+        <Grid item xs={12}>
+          <PortfolioBannerCard />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant='h5' component='p'>
+            My Position
+          </Typography>
+          <Typography variant='body2' component='p'>
+            Your RWA positions
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          <PortfolioMePositionGrid />
+        </Grid>
+
+        <Grid item xs={12}>
+          <Typography variant='h5' component='p'>
+            My Activities
+          </Typography>
+          <Typography variant='body2' component='p'>
+            Your recently activities on Ethereum
+          </Typography>
+        </Grid>
+        <Grid item xs={12}>
+          PortfolioMeActivitiesGrid
+        </Grid>
+      </Grid>
     </ApexChartWrapper>
   )
 }
