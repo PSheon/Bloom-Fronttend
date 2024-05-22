@@ -16,6 +16,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Custom Component Imports
 import PublicFundLiveAwardCard from 'src/views/fund/live/cards/PublicFundLiveAwardCard'
 import PublicFundLiveOwnedSFTCard from 'src/views/fund/live/cards/PublicFundLiveOwnedSFTCard'
+import PublicFundLiveOwnedSFTSkeletonCard from 'src/views/fund/live/cards/PublicFundLiveOwnedSFTSkeletonCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -89,20 +90,11 @@ const PublicFundLiveVaultTabPanel = (props: Props) => {
         <Grid item xs={12}>
           <Grid container spacing={6} className='match-height'>
             {isSftTokenBalanceLoading ? (
-              <Grid item xs={12}>
-                <Card>
-                  <CardContent>
-                    <Stack spacing={4} alignItems='center' justifyContent='center'>
-                      <CustomAvatar skin='light' sx={{ width: 56, height: 56 }}>
-                        <Icon icon='mdi:widget-line-shimmer' fontSize='2rem' />
-                      </CustomAvatar>
-                      <Typography variant='h6' component='p'>
-                        Loading...
-                      </Typography>
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </Grid>
+              [...Array(3).keys()].map(index => (
+                <Grid key={`public-fund-live-skeleton-${index}`} item xs={12} sm={6} md={4}>
+                  <PublicFundLiveOwnedSFTSkeletonCard />
+                </Grid>
+              ))
             ) : sftTokenBalanceCount === 0 ? (
               <Grid item xs={12}>
                 <Card>
