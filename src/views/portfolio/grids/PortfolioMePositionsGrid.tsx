@@ -5,7 +5,7 @@ import Grid from '@mui/material/Grid'
 import PortfolioOwnedSFTSkeletonCard from 'src/views/portfolio/cards/me-positions/PortfolioOwnedSFTSkeletonCard'
 
 // TODO: Fill here later
-const PortfolioMePositionGrid = () => {
+const PortfolioMePositionsGrid = () => {
   return (
     <Grid container spacing={6} className='match-height'>
       {[...Array(3).keys()].map(index => (
@@ -17,4 +17,4 @@ const PortfolioMePositionGrid = () => {
   )
 }
 
-export default PortfolioMePositionGrid
+export default PortfolioMePositionsGrid

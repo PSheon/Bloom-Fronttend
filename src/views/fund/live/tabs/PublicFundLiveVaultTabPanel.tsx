@@ -15,8 +15,8 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
 import PublicFundLiveAwardCard from 'src/views/fund/live/cards/PublicFundLiveAwardCard'
-import PublicFundLiveOwnedSFTCard from 'src/views/fund/live/cards/PublicFundLiveOwnedSFTCard'
-import PublicFundLiveOwnedSFTSkeletonCard from 'src/views/fund/live/cards/PublicFundLiveOwnedSFTSkeletonCard'
+import PublicFundLiveOwnedSFTCard from 'src/views/fund/live/cards/owned-sft/PublicFundLiveOwnedSFTCard'
+import PublicFundLiveOwnedSFTSkeletonCard from 'src/views/fund/live/cards/owned-sft/PublicFundLiveOwnedSFTSkeletonCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'

@@ -15,8 +15,8 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
 import ManagementFundPreviewAwardCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewAwardCard'
-import ManagementFundPreviewOwnedSFTCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewOwnedSFTCard'
-import ManagementFundPreviewOwnedSFTSkeletonCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewOwnedSFTSkeletonCard'
+import ManagementFundPreviewOwnedSFTCard from 'src/views/management/fund/preview/cards/owned-sft/ManagementFundPreviewOwnedSFTCard'
+import ManagementFundPreviewOwnedSFTSkeletonCard from 'src/views/management/fund/preview/cards/owned-sft/ManagementFundPreviewOwnedSFTSkeletonCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'

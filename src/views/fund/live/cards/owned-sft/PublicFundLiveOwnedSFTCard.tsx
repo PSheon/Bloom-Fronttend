@@ -19,7 +19,7 @@ import { Atropos } from 'atropos/react'
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Custom Component Imports
-import ManagementFundPreviewOwnedSFTSkeletonCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewOwnedSFTSkeletonCard'
+import PublicFundLiveOwnedSFTSkeletonCard from 'src/views/fund/live/cards/owned-sft/PublicFundLiveOwnedSFTSkeletonCard'
 
 // ** Util Imports
 import { getFundCurrencyProperties, getFormattedPriceUnit, getChainId } from 'src/utils'
@@ -44,7 +44,7 @@ interface Props {
   sftTokenIndex: number
 }
 
-const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
+const PublicFundLiveOwnedSFTCard = (props: Props) => {
   // ** Props
   const { initFundEntity, sftTokenIndex } = props
 
@@ -92,7 +92,7 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
 
   // ** Side Effects
   if (isSftTokenIdLoading || isSftValueLoading || isSftSlotIdLoading) {
-    return <ManagementFundPreviewOwnedSFTSkeletonCard />
+    return <PublicFundLiveOwnedSFTSkeletonCard />
   }
 
   return (
@@ -195,14 +195,18 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
             </Stack>
             <Stack sx={{ mt: 'auto' }}>
               <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
-              <Stack spacing={2} alignItems='center' justifyContent='center'>
-                <Button fullWidth disabled variant='contained' size='small'>
-                  Stake
-                </Button>
-                <Typography variant='body2' component='p'>
-                  {`Can't stake in preview mode`}
-                </Typography>
-              </Stack>
+              <Button
+                fullWidth
+                variant='contained'
+                size='small'
+                sx={{
+                  '& svg': {
+                    transition: theme => theme.transitions.create('transform')
+                  }
+                }}
+              >
+                Stake
+              </Button>
             </Stack>
           </Stack>
         </Stack>
@@ -211,4 +215,4 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
   )
 }
 
-export default ManagementFundPreviewOwnedSFTCard
+export default PublicFundLiveOwnedSFTCard

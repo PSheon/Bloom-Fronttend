@@ -8,7 +8,7 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 // ** Custom Component Imports
 import PortfolioBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import PortfolioBannerCard from 'src/views/portfolio/cards/PortfolioBannerCard'
-import PortfolioMePositionGrid from 'src/views/portfolio/grids/PortfolioMePositionGrid'
+import PortfolioMePositionsGrid from 'src/views/portfolio/grids/PortfolioMePositionsGrid'
 
 const PortfolioPage = () => {
   return (
@@ -30,7 +30,7 @@ const PortfolioPage = () => {
           </Typography>
         </Grid>
         <Grid item xs={12}>
-          <PortfolioMePositionGrid />
+          <PortfolioMePositionsGrid />
         </Grid>
 
         <Grid item xs={12}>
