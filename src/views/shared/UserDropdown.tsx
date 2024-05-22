@@ -133,7 +133,7 @@ const UserDropdown = (props: Props) => {
                   <Typography color='error' sx={{ flex: 1 }}>
                     Wrong Network
                   </Typography>
-                  <Icon icon='mdi:keyboard-arrow-down' />
+                  <Icon icon='mdi:exchange' />
                 </MenuItemStack>
               </MenuItem>
             )
@@ -148,7 +148,7 @@ const UserDropdown = (props: Props) => {
                   <Icon icon='mdi:question-mark-circle-outline' />
                 )}
                 <Typography sx={{ flex: 1 }}>{chain.name || 'Unknown'}</Typography>
-                <Icon icon='mdi:keyboard-arrow-down' />
+                <Icon icon='mdi:exchange' />
               </MenuItemStack>
             </MenuItem>
           )
