@@ -699,7 +699,7 @@ const PublicFundLivePackageCard = (props: Props) => {
 
                                 if (!connected) {
                                   return (
-                                    <Button variant='contained' onClick={openConnectModal} sx={{ flex: 1 }}>
+                                    <Button fullWidth variant='contained' onClick={openConnectModal}>
                                       <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
                                         <Icon icon='mdi:login-variant' fontSize={16} />
                                         Connect Wallet
@@ -710,7 +710,13 @@ const PublicFundLivePackageCard = (props: Props) => {
 
                                 if (chain.unsupported) {
                                   return (
-                                    <Button color='error' variant='contained' onClick={openChainModal} sx={{ flex: 1 }}>
+                                    <Button
+                                      fullWidth
+                                      color='error'
+                                      variant='contained'
+                                      onClick={openChainModal}
+                                      sx={{ flex: 1 }}
+                                    >
                                       <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
                                         <Icon icon='mdi:error-outline' fontSize={16} />
                                         Network unsupported
@@ -721,7 +727,13 @@ const PublicFundLivePackageCard = (props: Props) => {
 
                                 if (!STEPS[0].checks!.connectedNetwork!()) {
                                   return (
-                                    <Button color='error' variant='contained' onClick={openChainModal} sx={{ flex: 1 }}>
+                                    <Button
+                                      fullWidth
+                                      color='error'
+                                      variant='contained'
+                                      onClick={openChainModal}
+                                      sx={{ flex: 1 }}
+                                    >
                                       <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
                                         <Icon icon='mdi:exchange' fontSize={16} />
                                         Switch network
