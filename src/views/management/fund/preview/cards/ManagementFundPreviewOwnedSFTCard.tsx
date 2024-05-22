@@ -159,9 +159,7 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
               }}
               startIcon={<Icon icon='mdi:keyboard-arrow-down' />}
             >
-              <Typography variant='subtitle2' component='p'>
-                Stake
-              </Typography>
+              Stake
             </Button>
           </Stack>
         </CardContent>
@@ -269,21 +267,14 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
             </Stack>
             <Stack sx={{ mt: 'auto' }}>
               <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
-              <Button
-                fullWidth
-                variant='contained'
-                size='small'
-                sx={{
-                  '& svg': {
-                    transition: theme => theme.transitions.create('transform')
-                  }
-                }}
-                startIcon={<Icon icon='mdi:keyboard-arrow-down' />}
-              >
-                <Typography variant='subtitle2' component='p'>
+              <Stack spacing={2} alignItems='center' justifyContent='center'>
+                <Button fullWidth disabled variant='contained' size='small'>
                   Stake
+                </Button>
+                <Typography variant='body2' component='p'>
+                  {`Can't stake in preview mode`}
                 </Typography>
-              </Button>
+              </Stack>
             </Stack>
           </Stack>
         </Stack>
