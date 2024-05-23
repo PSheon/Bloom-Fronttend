@@ -2,7 +2,6 @@
 import { useState } from 'react'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -10,7 +9,8 @@ import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
 import Dialog from '@mui/material/Dialog'
-import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import LoadingButton from '@mui/lab/LoadingButton'
 
@@ -42,6 +42,7 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
   const [updateUser, { data: updatedUser = initUserEntity, isLoading: isUpdateUserLoading }] = useUpdateOneMutation()
 
   // ** Logics
+  const handleOpen = () => setSuspendDialogOpen(true)
   const handleClose = () => setSuspendDialogOpen(false)
 
   const handleBlockClick = async () => {
@@ -81,54 +82,46 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
             color='error'
             variant='outlined'
             disabled={session.data!.user.id === initUserEntity.id}
-            onClick={() => setSuspendDialogOpen(true)}
+            onClick={handleOpen}
           >
             封鎖帳號
           </Button>
         )}
       </CardActions>
 
-      <Dialog
-        fullWidth
-        open={suspendDialogOpen}
-        onClose={handleClose}
-        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 512 } }}
-      >
-        <DialogContent
+      <Dialog fullWidth maxWidth='xs' open={suspendDialogOpen} onClose={handleClose}>
+        <DialogTitle
           sx={{
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              textAlign: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              '& svg': { mb: 8, color: 'error.main' }
-            }}
-          >
-            <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-            <Typography variant='h4' sx={{ mb: 5, color: 'text.secondary' }}>
-              確定要暫停使用者？
-            </Typography>
-            <Typography>此操作將導致使用者無法進入系統!</Typography>
-          </Box>
-        </DialogContent>
+          確定要暫停使用者？
+          <DialogContentText variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            此操作將導致使用者無法進入系統
+          </DialogContentText>
+        </DialogTitle>
         <DialogActions
           sx={{
             justifyContent: 'space-between',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Button variant='contained' onClick={() => handleClose()}>
+          <Button variant='contained' color='secondary' onClick={handleClose}>
             取消
           </Button>
-          <LoadingButton loading={isUpdateUserLoading} variant='outlined' color='secondary' onClick={handleBlockClick}>
-            確定，封鎖使用者
+          <LoadingButton
+            loading={isUpdateUserLoading}
+            variant='outlined'
+            color='error'
+            startIcon={<Icon icon='mdi:delete-outline' />}
+            onClick={handleBlockClick}
+          >
+            確定
           </LoadingButton>
         </DialogActions>
       </Dialog>

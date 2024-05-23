@@ -1,5 +1,4 @@
 // ** Next Imports
-import Link from 'next/link'
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
@@ -8,6 +7,7 @@ import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
+import CardMedia from '@mui/material/CardMedia'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
@@ -27,7 +27,7 @@ import PublicFundListLoadingSkeletonCard from 'src/views/fund/list/cards/PublicF
 import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
-import { getFundCurrencyProperties } from 'src/utils'
+import { getFundCurrencyProperties, getPublicMediaAssetUrl } from 'src/utils'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -98,6 +98,18 @@ const PublicFundListDataGrid = (props: Props) => {
                     }
                   }}
                 >
+                  <CardMedia
+                    component='img'
+                    alt='banner'
+                    image={
+                      fund?.banner?.data
+                        ? getPublicMediaAssetUrl(fund.banner.data.attributes.url)
+                        : '/images/pages/profile-banner.png'
+                    }
+                    sx={{
+                      height: { xs: 120, md: 160 }
+                    }}
+                  />
                   <CardHeader
                     avatar={
                       <AvatarGroup className='pull-up'>
@@ -105,14 +117,24 @@ const PublicFundListDataGrid = (props: Props) => {
                           <CustomAvatar
                             src={baseCurrencyProperties.imageUrl}
                             alt={baseCurrencyProperties.displayName}
-                            sx={{ height: 48, width: 48, borderWidth: '5px !important' }}
+                            sx={{
+                              height: 32,
+                              width: 32,
+                              borderWidth: '5px !important',
+                              backgroundColor: theme => theme.palette.background.default
+                            }}
                           />
                         </Tooltip>
                         <Tooltip title='RWA'>
                           <CustomAvatar
                             src='/images/funds/rwa.png'
                             alt='rwa'
-                            sx={{ height: 48, width: 48, borderWidth: '5px !important' }}
+                            sx={{
+                              height: 32,
+                              width: 32,
+                              borderWidth: '5px !important',
+                              backgroundColor: theme => theme.palette.background.default
+                            }}
                           />
                         </Tooltip>
                       </AvatarGroup>
@@ -126,19 +148,17 @@ const PublicFundListDataGrid = (props: Props) => {
                     subheader={<Typography sx={{ color: 'text.secondary' }}>{fund.chain}</Typography>}
                   />
                   <CardContent>
-                    <Box
-                      sx={{
-                        mb: 4,
-                        gap: 2,
-                        display: 'flex',
-                        flexWrap: 'wrap',
-                        alignItems: 'center',
-                        justifyContent: 'space-between'
-                      }}
+                    <Stack
+                      direction='row'
+                      alignItems='center'
+                      justifyContent='space-between'
+                      flexWrap='wrap'
+                      sx={{ mb: 4, gap: 2 }}
                     >
-                      <Box sx={{ display: 'flex', position: 'relative' }}>
+                      <Stack direction='row' sx={{ position: 'relative' }}>
                         <Typography
                           variant='h3'
+                          component='p'
                           sx={{
                             mb: -1.2,
                             mr: 2,
@@ -146,26 +166,70 @@ const PublicFundListDataGrid = (props: Props) => {
                             color: 'primary.main'
                           }}
                         >
-                          42%
+                          {`${42}%`}
                         </Typography>
                         <Sub> APY</Sub>
-                      </Box>
-                      <Box sx={{ display: 'flex', alignItems: 'flex-end', flexDirection: 'column' }}>
+                      </Stack>
+                      <Stack alignItems='flex-end'>
                         <Stack direction='row' spacing={2}>
-                          <Typography sx={{ color: 'text.secondary' }}>Net Asset Value</Typography>
-                          <Typography sx={{ fontWeight: 500 }}>6 M</Typography>
+                          <Typography component='p' color='tet.secondary'>
+                            Net Asset Value
+                          </Typography>
+                          <Typography sx={{ fontWeight: 500 }}>{`${6} M`}</Typography>
                         </Stack>
                         <Stack direction='row' spacing={2}>
-                          <Typography sx={{ color: 'text.secondary' }}>TVL</Typography>
-                          <Typography sx={{ fontWeight: 500 }}>436,555 USDT</Typography>
+                          <Typography component='p' color='tet.secondary'>
+                            TVL
+                          </Typography>
+                          <Typography sx={{ fontWeight: 500 }}>{`436,555 ${fund.baseCurrency}`}</Typography>
                         </Stack>
-                      </Box>
-                    </Box>
-                    {fund.description && <Typography sx={{ color: 'text.secondary' }}>{fund.description}</Typography>}
+                      </Stack>
+                    </Stack>
+                    <Typography variant='body2' component='p'>
+                      {fund.description || 'No description'}
+                    </Typography>
                   </CardContent>
                   <Divider sx={{ my: '0 !important' }} />
                   <CardContent>
-                    <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+                    <Stack spacing={4}>
+                      <Box>
+                        <CustomChip size='small' rounded skin='light' color='success' label={`${25} days left`} />
+                      </Box>
+                      <Stack spacing={2}>
+                        <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                          <Typography
+                            variant='body2'
+                            component='p'
+                            sx={{ mr: 2, fontWeight: 600, color: 'text.primary' }}
+                          >
+                            Progress
+                          </Typography>
+                          <Typography variant='body2' component='p' sx={{ fontWeight: 600, color: 'text.primary' }}>
+                            68%
+                          </Typography>
+                        </Stack>
+                        <LinearProgress value={68} color='success' sx={{ mb: 5.75 }} variant='determinate' />
+                      </Stack>
+                      <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                        <AvatarGroup className='pull-up' sx={{ mr: 2 }}>
+                          <CustomAvatar src='/images/avatars/1.png' alt='demo 01' sx={{ height: 32, width: 32 }} />
+                          <CustomAvatar src='/images/avatars/1.png' alt='demo 01' sx={{ height: 32, width: 32 }} />
+                          <CustomAvatar src='/images/avatars/1.png' alt='demo 01' sx={{ height: 32, width: 32 }} />
+                        </AvatarGroup>
+                        <Stack direction='row' alignItems='center' sx={{ '& svg': { mr: 1, color: 'text.secondary' } }}>
+                          <Icon icon='mdi:paperclip' fontSize='1.375rem' />
+                          <Typography variant='body2' sx={{ mr: 2.5, fontWeight: 600 }}>
+                            24
+                          </Typography>
+                          <Icon icon='mdi:check-circle-outline' fontSize='1.375rem' />
+                          <Typography variant='body2' sx={{ fontWeight: 600 }}>
+                            74/180
+                          </Typography>
+                        </Stack>
+                      </Stack>
+                    </Stack>
+
+                    {/* <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
                       <Box sx={{ display: 'flex' }}>
                         <Typography sx={{ mr: 1, fontWeight: 500 }}>Position:</Typography>
                         <Typography sx={{ color: 'text.secondary' }}>TODO</Typography>
@@ -205,9 +269,6 @@ const PublicFundListDataGrid = (props: Props) => {
                         </Typography>
                       </Box>
                       <Box
-                        href='/'
-                        component={Link}
-                        onClick={e => e.preventDefault()}
                         sx={{
                           display: 'flex',
                           alignItems: 'center',
@@ -218,7 +279,7 @@ const PublicFundListDataGrid = (props: Props) => {
                         <Icon icon='mdi:message-outline' />
                         <Typography sx={{ color: 'text.secondary' }}>13</Typography>
                       </Box>
-                    </Box>
+                    </Box> */}
                   </CardContent>
                 </Card>
               </Grid>

@@ -276,6 +276,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                             sx={{
                               height: 20,
                               fontWeight: 500,
+                              borderRadius: '5px',
                               fontSize: '0.75rem',
                               alignSelf: 'flex-start',
                               color: 'text.secondary'
@@ -304,45 +305,41 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                     </Stack>
 
                     <Box sx={{ mt: 4 }}>
-                      <Typography variant='body2'>{defaultPackage.description || 'No description'}</Typography>
+                      <Typography variant='body2' component='p'>
+                        {defaultPackage.description || 'No description'}
+                      </Typography>
                     </Box>
                     <Box>
                       <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
                     </Box>
                     <Stack spacing={2} justifyContent='center'>
-                      <Stack
-                        direction='row'
-                        justifyContent='space-between'
-                        alignContent='center'
-                        sx={{ width: '100%' }}
-                      >
-                        <Typography variant='subtitle2'>Utility</Typography>
+                      <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                        <Typography variant='subtitle2' component='p'>
+                          Utility
+                        </Typography>
 
                         <ManagementFundEditPackageSlotAddPropertyButton initPackageEntity={defaultPackage} />
                       </Stack>
 
                       {defaultPackage.slot?.length === 0 ? (
-                        <Typography sx={{ mb: 2 }}>尚未設定內容</Typography>
+                        <Typography>尚未設定內容</Typography>
                       ) : (
                         defaultPackage.slot.map(property => {
                           return (
                             <Stack
                               key={`slot-${property.id}`}
                               direction='row'
+                              alignItems='center'
                               justifyContent='space-between'
-                              alignContent='center'
-                              sx={{ width: '100%' }}
                             >
-                              <Grid container spacing={2} sx={{ mb: 2 }}>
-                                <Grid item xs={6} sm={4}>
-                                  <Typography>{property.propertyType}</Typography>
-                                </Grid>
-                                <Grid item xs={6} sm={8}>
-                                  <Typography component='span' sx={{ fontWeight: 600 }}>
-                                    {property.value}
-                                  </Typography>
-                                </Grid>
-                              </Grid>
+                              <Stack direction='row' spacing={4} alignItems='center' justifyContent='space-between'>
+                                <Typography variant='subtitle1' component='p'>
+                                  {property.propertyType}
+                                </Typography>
+                                <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
+                                  {property.value}
+                                </Typography>
+                              </Stack>
 
                               <IconButton
                                 size='small'
@@ -381,30 +378,39 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
         onClose={handleEditClose}
         aria-labelledby='package-view-edit'
         aria-describedby='package-view-edit-description'
-        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800 } }}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
       >
-        <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle
-            id='package-view-edit'
-            sx={{
-              textAlign: 'center',
-              fontSize: '1.5rem !important',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
-          >
-            {`編輯方案 #${selectedPackageEntity?.packageId}`}
-          </DialogTitle>
-          <DialogContent
-            sx={{
-              pb: theme => `${theme.spacing(8)} !important`,
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`]
-            }}
-          >
-            <DialogContentText variant='body2' id='package-view-edit-description' sx={{ textAlign: 'center', mb: 7 }}>
-              每個方案都必須提供不同的內容.
-            </DialogContentText>
+        <IconButton size='small' onClick={handleEditClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
 
+        <DialogTitle
+          id='package-view-edit'
+          sx={{
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
+          }}
+        >
+          {`編輯方案 #${selectedPackageEntity?.packageId}`}
+          <DialogContentText
+            id='package-view-edit-description'
+            variant='body2'
+            component='p'
+            sx={{ textAlign: 'center' }}
+          >
+            每個方案都必須提供不同的內容.
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
+          <form noValidate autoComplete='off'>
             <Grid container spacing={6}>
               <Grid item xs={12}>
                 <FormControl fullWidth>
@@ -453,7 +459,9 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
               </Grid>
 
               <Grid item xs={12}>
-                <Typography variant='subtitle1'>卡面色系</Typography>
+                <Typography variant='subtitle1' component='p'>
+                  卡面色系
+                </Typography>
               </Grid>
               <Grid item xs={12}>
                 <Grid container spacing={4}>
@@ -520,7 +528,9 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
               </Grid>
 
               <Grid item xs={12}>
-                <Typography variant='subtitle1'>價格</Typography>
+                <Typography variant='subtitle1' component='p'>
+                  價格
+                </Typography>
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth>
@@ -554,7 +564,9 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
               </Grid>
 
               <Grid item xs={12}>
-                <Typography variant='subtitle1'>發布狀態</Typography>
+                <Typography variant='subtitle1' component='p'>
+                  發布狀態
+                </Typography>
               </Grid>
               <Grid item xs={12}>
                 <FormControl fullWidth>
@@ -582,28 +594,29 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                 </FormControl>
               </Grid>
             </Grid>
-          </DialogContent>
-          <DialogActions
-            sx={{
-              justifyContent: 'space-between',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
+          </form>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'space-between',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
+          }}
+        >
+          <Button variant='outlined' color='secondary' onClick={handleEditClose}>
+            取消
+          </Button>
+          <LoadingButton
+            loading={isUpdateOnePackageLoading}
+            disabled={!isDirty || Boolean(errors.displayName || errors.description)}
+            variant='contained'
+            startIcon={<Icon icon='mdi:content-save-outline' />}
+            onClick={handleSubmit(onSubmit)}
           >
-            <Button variant='outlined' color='secondary' onClick={handleEditClose}>
-              取消
-            </Button>
-            <LoadingButton
-              loading={isUpdateOnePackageLoading}
-              disabled={!isDirty || Boolean(errors.displayName || errors.description)}
-              type='submit'
-              variant='contained'
-              startIcon={<Icon icon='mdi:content-save-outline' />}
-            >
-              更新
-            </LoadingButton>
-          </DialogActions>
-        </form>
+            更新
+          </LoadingButton>
+        </DialogActions>
       </Dialog>
     </Grid>
   )

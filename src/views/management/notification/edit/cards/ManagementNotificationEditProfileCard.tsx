@@ -18,6 +18,7 @@ import FormControl from '@mui/material/FormControl'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import DialogContentText from '@mui/material/DialogContentText'
+import IconButton from '@mui/material/IconButton'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
@@ -171,34 +172,39 @@ const ManagementNotificationEditProfileCard = (props: Props) => {
         onClose={handleEditClose}
         aria-labelledby='notification-view-edit'
         aria-describedby='notification-view-edit-description'
-        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800 } }}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
       >
-        <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle
-            id='notification-view-edit'
-            sx={{
-              textAlign: 'center',
-              fontSize: '1.5rem !important',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
-          >
-            編輯通知
-          </DialogTitle>
-          <DialogContent
-            sx={{
-              pb: theme => `${theme.spacing(8)} !important`,
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`]
-            }}
-          >
-            <DialogContentText
-              variant='body2'
-              id='notification-view-edit-description'
-              sx={{ textAlign: 'center', mb: 7 }}
-            >
-              更新文件詳細資訊將接受隱私審核
-            </DialogContentText>
+        <IconButton size='small' onClick={handleEditClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
 
+        <DialogTitle
+          id='notification-view-edit'
+          sx={{
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
+          }}
+        >
+          編輯通知
+          <DialogContentText
+            id='notification-view-edit-description'
+            variant='body2'
+            component='p'
+            sx={{ textAlign: 'center' }}
+          >
+            更新通知詳細資訊將接受隱私審核
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
+          <form noValidate autoComplete='off'>
             <Grid container spacing={6}>
               <Grid item xs={12}>
                 <FormControl fullWidth>
@@ -221,28 +227,29 @@ const ManagementNotificationEditProfileCard = (props: Props) => {
                 </FormControl>
               </Grid>
             </Grid>
-          </DialogContent>
-          <DialogActions
-            sx={{
-              justifyContent: 'space-between',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
+          </form>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'space-between',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
+          }}
+        >
+          <Button variant='outlined' color='secondary' onClick={handleEditClose}>
+            取消
+          </Button>
+          <LoadingButton
+            loading={isUpdateNotificationLoading}
+            disabled={!isDirty || Boolean(errors.title)}
+            variant='contained'
+            startIcon={<Icon icon='mdi:content-save-outline' />}
+            onClick={handleSubmit(onSubmit)}
           >
-            <Button variant='outlined' color='secondary' onClick={handleEditClose}>
-              取消
-            </Button>
-            <LoadingButton
-              loading={isUpdateNotificationLoading}
-              disabled={!isDirty || Boolean(errors.title)}
-              type='submit'
-              variant='contained'
-              startIcon={<Icon icon='mdi:content-save-outline' />}
-            >
-              儲存
-            </LoadingButton>
-          </DialogActions>
-        </form>
+            儲存
+          </LoadingButton>
+        </DialogActions>
       </Dialog>
     </Card>
   )

@@ -8,6 +8,8 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Fade from '@mui/material/Fade'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
 import DialogContent from '@mui/material/DialogContent'
 
 // ** Third-Party Imports
@@ -78,26 +80,36 @@ const PDFViewerDialogButton = (props: Props) => {
         </Typography>
       </Button>
 
-      <Dialog fullWidth open={show} maxWidth='lg' scroll='body' onClose={handleClose} TransitionComponent={Transition}>
-        <DialogContent
+      <Dialog
+        open={show}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
+      >
+        <IconButton size='small' onClick={handleClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
+
+        <DialogTitle
           sx={{
-            position: 'relative',
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          <IconButton
-            size='small'
-            onClick={() => setShow(false)}
-            sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
-          >
-            <Icon icon='mdi:close' />
-          </IconButton>
-          {/* <Box sx={{ mb: 4, textAlign: 'center' }}>
-            <Typography variant='h5' sx={{ mb: 3, lineHeight: '2rem' }}>
-              查看
-            </Typography>
-          </Box> */}
+          查看 PDF
+          <DialogContentText variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            點擊右上角的關閉按鈕或點擊背景以關閉
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
           <Box sx={{ height: '80vh' }}>
             <Viewer
               fileUrl={getPublicMediaAssetUrl(mediaAssetUrl)}

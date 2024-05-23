@@ -6,10 +6,11 @@ import { styled } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Avatar from '@mui/material/Avatar'
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
 import DialogContent from '@mui/material/DialogContent'
 import TimelineDot from '@mui/lab/TimelineDot'
 import TimelineItem from '@mui/lab/TimelineItem'
@@ -199,41 +200,38 @@ const ManagementArticleEditSecurityActivityTimelineCard = (props: Props) => {
       <CardContent>{isActivityLogsLoading ? renderLoadingSkeleton() : renderTimeline()}</CardContent>
 
       <Dialog
-        fullWidth
         open={activityPayloadDialogOpen}
-        maxWidth='sm'
         onClose={handleCloseDialog}
         TransitionComponent={Transition}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
       >
-        <DialogContent
+        <IconButton size='small' onClick={handleCloseDialog} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
+
+        <DialogTitle
           sx={{
-            position: 'relative',
-            pb: theme => `${theme.spacing(8)} !important`,
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          <IconButton
-            size='small'
-            onClick={() => setActivityPayloadDialogOpen(false)}
-            sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
-          >
-            <Icon icon='mdi:close' />
-          </IconButton>
-          <Grid container spacing={4}>
-            <Grid item xs={12}>
-              <Typography variant='h5' textAlign='center' sx={{ mb: 3, lineHeight: '2rem' }}>
-                操作細節
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Box sx={{ mb: 2 }}>
-                <pre className='language-jsx' style={{ borderRadius: '10px' }}>
-                  <code className='language-jsx'>{activityPayload}</code>
-                </pre>
-              </Box>
-            </Grid>
-          </Grid>
+          操作細節
+          <DialogContentText variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            點擊右上角的關閉按鈕或點擊背景以關閉
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
+          <pre className='language-jsx' style={{ borderRadius: '10px' }}>
+            <code className='language-jsx'>{activityPayload}</code>
+          </pre>
         </DialogContent>
       </Dialog>
     </Card>

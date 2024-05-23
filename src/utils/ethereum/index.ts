@@ -7,7 +7,33 @@ import { ETHEREUM_SEPOLIA_BLT_ABI } from 'src/configs/ethereum'
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
 
-export const getFormattedPriceUnit = (priceInUnit: number): string => {
+export function getGradientColors(address: string) {
+  const seedArr = address.match(/.{1,7}/g)?.splice(0, 5)
+  const colors: string[] = []
+
+  seedArr?.forEach(seed => {
+    let hash = 0
+
+    for (let i = 0; i < seed.length; i += 1) {
+      hash = seed.charCodeAt(i) + ((hash << 5) - hash)
+      hash = hash & hash
+    }
+
+    const rgb = [0, 0, 0]
+
+    for (let i = 0; i < 3; i += 1) {
+      const value = (hash >> (i * 8)) & 255
+
+      rgb[i] = value
+    }
+
+    colors.push(`rgb(${rgb[0]}, ${rgb[1]}, ${rgb[2]})`)
+  })
+
+  return colors
+}
+
+export const getFormattedPriceUnit = (priceInUnit: number | bigint): string => {
   return new Intl.NumberFormat('en-US').format(priceInUnit)
 }
 
@@ -63,4 +89,36 @@ export const getBaseCurrencyABI = (
   }
 
   return ABI_TABLE[network][baseCurrency]
+}
+
+export const getBaseCurrencyAddress = (
+  network: FundType['chain'] = 'Ethereum',
+  baseCurrency: FundType['baseCurrency'] = 'ETH'
+): `0x${string}` => {
+  // ** NOTE: Fix here later
+  const ADDRESS_TABLE: Record<FundType['chain'], Record<FundType['baseCurrency'], any>> = {
+    Ethereum: {
+      ETH: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDC: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      DAI: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      BLT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd'
+    },
+    'Ethereum Sepolia': {
+      ETH: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDC: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      DAI: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      BLT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd'
+    },
+    Blast: {
+      ETH: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      USDC: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      DAI: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd',
+      BLT: '0x132C522DC646F33f04101A2C6D1762aA3bb5bACd'
+    }
+  }
+
+  return ADDRESS_TABLE[network][baseCurrency]
 }

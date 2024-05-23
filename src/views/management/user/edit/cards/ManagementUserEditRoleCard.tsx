@@ -18,6 +18,7 @@ import Divider from '@mui/material/Divider'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import Skeleton from '@mui/material/Skeleton'
+import IconButton from '@mui/material/IconButton'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Components
@@ -137,29 +138,38 @@ const ManagementUserEditRoleCard = (props: Props) => {
         onClose={handleEditClose}
         aria-labelledby='user-view-role'
         aria-describedby='user-view-role-description'
-        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 650 } }}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
       >
+        <IconButton size='small' onClick={handleEditClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
+
         <DialogTitle
           id='user-view-role'
           sx={{
             textAlign: 'center',
             fontSize: '1.5rem !important',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
           變更使用者角色
+          <DialogContentText
+            id='user-view-role-edit-description'
+            variant='body2'
+            component='p'
+            sx={{ textAlign: 'center' }}
+          >
+            不同角色有不同的權限，請根據使用者的需求選擇適合的角色
+          </DialogContentText>
         </DialogTitle>
         <DialogContent
           sx={{
-            pb: theme => `${theme.spacing(8)} !important`,
-            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`]
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
           }}
         >
-          <DialogContentText variant='body2' id='user-view-role-edit-description' sx={{ textAlign: 'center', mb: 7 }}>
-            不同角色有不同的權限，請根據使用者的需求選擇適合的角色
-          </DialogContentText>
-
           <Grid container spacing={6}>
             <Grid item xs={12}>
               <FormControl fullWidth>
@@ -211,7 +221,8 @@ const ManagementUserEditRoleCard = (props: Props) => {
           sx={{
             justifyContent: 'space-between',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
           <Button variant='outlined' color='secondary' onClick={handleEditClose}>
@@ -220,7 +231,6 @@ const ManagementUserEditRoleCard = (props: Props) => {
           <LoadingButton
             loading={isUpdateUserLoading}
             disabled={updatedUser.role!.id === selectedRoleId}
-            variant='contained'
             onClick={handleRoleChange}
             startIcon={<Icon icon='mdi:content-save-outline' />}
           >

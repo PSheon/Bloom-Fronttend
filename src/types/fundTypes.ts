@@ -1,4 +1,5 @@
 // ** Type Imports
+import type { Abi } from 'viem'
 import type { OutputData } from '@editorjs/editorjs'
 import type { BaseApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
 import type { PackageType } from 'src/types/packageTypes'
@@ -29,6 +30,7 @@ export type FundType = {
   displayName: string
   description?: string
   fundSFTContractAddress: string
+  fundSFTContractAbi: Abi
   detail: OutputData
   genesisDate: Date
   saleStartTime: Date
@@ -41,6 +43,8 @@ export type FundType = {
       attributes: Omit<PackageType, 'id'>
     }[]
   }
+  twitterUrl?: string
+  discordUrl?: string
   isHighlighted: boolean
   status: 'Draft' | 'Published' | 'Archived'
   updatedAt: string
@@ -97,6 +101,10 @@ export type UpdateOneFundParamsType = {
     banner: number | null
     displayName: string
     description: string
+    saleStartTime: Date
+    maturityDate: Date
+    performanceFeePercentage: number
+    redemptionFrequencyInDays: number
     detail: OutputData
     defaultPackages: number[]
     isHighlighted: boolean
@@ -122,3 +130,20 @@ export type DeleteOneFundTransformResponseType = BaseApiResponseType<{
   attributes: Omit<FundType, 'id'>
 }>
 export type DeleteOneFundResponseType = FundType
+
+// ** Sign Hash
+export type SignHashParamsType = {
+  id: number
+  data: {
+    contractName: string
+    minterAddress: string
+    slotId: number
+    value: string
+  }
+}
+export type SignHashTransformResponseType = {
+  hash: string
+}
+export type SignHashResponseType = {
+  hash: string
+}

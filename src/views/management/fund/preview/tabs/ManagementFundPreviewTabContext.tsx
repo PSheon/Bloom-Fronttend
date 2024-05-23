@@ -91,7 +91,7 @@ const ManagementFundPreviewTabContext = (props: Props) => {
               label={
                 <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
                   <Icon icon='mdi:view-dashboard-outline' />
-                  總攬
+                  Overview
                 </Box>
               }
             />
@@ -100,7 +100,7 @@ const ManagementFundPreviewTabContext = (props: Props) => {
               label={
                 <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
                   <Icon icon='ph:vault-bold' />
-                  金庫
+                  Vault
                 </Box>
               }
             />

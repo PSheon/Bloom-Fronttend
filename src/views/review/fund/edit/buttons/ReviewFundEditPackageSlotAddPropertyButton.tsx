@@ -109,30 +109,39 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
         onClose={handleEditClose}
         aria-labelledby='property-view-edit'
         aria-describedby='property-view-edit-description'
-        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800 } }}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
       >
-        <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-          <DialogTitle
-            id='property-view-edit'
-            sx={{
-              textAlign: 'center',
-              fontSize: '1.5rem !important',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
-          >
-            新增賦能
-          </DialogTitle>
-          <DialogContent
-            sx={{
-              pb: theme => `${theme.spacing(8)} !important`,
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`]
-            }}
-          >
-            <DialogContentText variant='body2' id='property-view-edit-description' sx={{ textAlign: 'center', mb: 7 }}>
-              請選擇賦能類型
-            </DialogContentText>
+        <IconButton size='small' onClick={handleEditClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
 
+        <DialogTitle
+          id='property-view-edit'
+          sx={{
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
+          }}
+        >
+          新增賦能
+          <DialogContentText
+            id='property-view-edit-description'
+            variant='body2'
+            component='p'
+            sx={{ textAlign: 'center' }}
+          >
+            請選擇賦能類型
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
+          <form noValidate autoComplete='off'>
             <Grid container spacing={6}>
               <Grid item xs={12}>
                 <FormControl fullWidth>
@@ -174,28 +183,29 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
                 </FormControl>
               </Grid>
             </Grid>
-          </DialogContent>
-          <DialogActions
-            sx={{
-              justifyContent: 'space-between',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
+          </form>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'space-between',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
+          }}
+        >
+          <Button variant='outlined' color='secondary' onClick={handleEditClose}>
+            取消
+          </Button>
+          <LoadingButton
+            loading={isUpdateOnePackageLoading}
+            disabled={!isDirty || Boolean(errors.propertyType || errors.value)}
+            variant='contained'
+            startIcon={<Icon icon='mdi:content-save-outline' />}
+            onClick={handleSubmit(onSubmit)}
           >
-            <Button variant='outlined' color='secondary' onClick={handleEditClose}>
-              取消
-            </Button>
-            <LoadingButton
-              loading={isUpdateOnePackageLoading}
-              disabled={!isDirty || Boolean(errors.propertyType || errors.value)}
-              type='submit'
-              variant='contained'
-              startIcon={<Icon icon='mdi:content-save-outline' />}
-            >
-              新增
-            </LoadingButton>
-          </DialogActions>
-        </form>
+            新增
+          </LoadingButton>
+        </DialogActions>
       </Dialog>
     </Fragment>
   )

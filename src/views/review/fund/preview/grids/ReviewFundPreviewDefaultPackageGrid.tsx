@@ -17,6 +17,8 @@ import CardActions from '@mui/material/CardActions'
 import Divider from '@mui/material/Divider'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -278,31 +280,37 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
         )
       })}
 
-      <Dialog fullWidth maxWidth='sm' open={openMint} onClose={handleMintClose}>
-        <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-          <DialogContent
-            sx={{
-              position: 'relative',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
-          >
-            <IconButton
-              size='small'
-              onClick={handleMintClose}
-              sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
-            >
-              <Icon icon='mdi:close' />
-            </IconButton>
-            <Box sx={{ textAlign: 'center' }}>
-              <Typography variant='h5' sx={{ mb: 3, lineHeight: '2rem' }}>
-                {`鑄造方案 #${selectedPackageEntity?.packageId}`}
-              </Typography>
-              <Typography variant='body2'>請確認您選擇的方案內容及數量.</Typography>
-            </Box>
-          </DialogContent>
-          <DialogContent sx={{ px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`] }}>
-            <Stack spacing={8}>
+      <Dialog
+        open={openMint}
+        onClose={handleMintClose}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
+      >
+        <IconButton size='small' onClick={handleMintClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
+
+        <DialogTitle
+          sx={{
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
+          }}
+        >
+          {`鑄造方案 #${selectedPackageEntity?.packageId}`}
+          <DialogContentText variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            請確認您選擇的方案內容及數量.
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
+          <form noValidate autoComplete='off'>
+            <Stack spacing={6}>
               <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <Image
                   width={180}
@@ -360,29 +368,26 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
                 </Stack>
               </Stack>
             </Stack>
-          </DialogContent>
-          <DialogActions
-            sx={{
-              flexDirection: 'column',
-              justifyContent: 'space-between',
-              px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-              py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
-            }}
+          </form>
+        </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'space-between',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
+          }}
+        >
+          <LoadingButton
+            fullWidth
+            disabled
+            variant='contained'
+            startIcon={<Icon icon='mdi:medical-bag' />}
+            onClick={handleSubmit(onSubmit)}
           >
-            <Typography variant='subtitle1' textAlign='center' color='error' sx={{ pb: 4 }}>
-              無法在預覽模式下鑄造
-            </Typography>
-            <LoadingButton
-              fullWidth
-              disabled
-              type='submit'
-              variant='contained'
-              startIcon={<Icon icon='mdi:medical-bag' />}
-            >
-              確認鑄造
-            </LoadingButton>
-          </DialogActions>
-        </form>
+            確認鑄造
+          </LoadingButton>
+        </DialogActions>
       </Dialog>
     </Grid>
   )

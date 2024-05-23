@@ -10,8 +10,8 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'System.Dashboard',
-      path: '/system/dashboard',
       icon: 'mdi:monitor-dashboard',
+      path: '/system/dashboard',
       action: 'read',
       subject: 'admin-page'
     },
@@ -29,10 +29,8 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'Management.Dashboard',
-      path: '/management/dashboard',
       icon: 'mdi:google-analytics',
-      badgeContent: 'new',
-      badgeColor: 'error',
+      path: '/management/dashboard',
       action: 'read',
       subject: 'planner-page'
     },
@@ -40,6 +38,8 @@ const navigation = (): VerticalNavItemsType => {
       title: 'Management.Funds',
       icon: 'ant-design:fund-projection-screen-outlined',
       path: '/management/fund/list',
+      badgeContent: 'new',
+      badgeColor: 'error',
       action: 'read',
       subject: 'planner-page'
     },
@@ -71,18 +71,19 @@ const navigation = (): VerticalNavItemsType => {
       action: 'read',
       subject: 'planner-page'
     },
-    {
-      sectionTitle: 'Review',
-      action: 'read',
-      subject: 'asset-manager-page'
-    },
-    {
-      title: 'Review.Dashboard',
-      icon: 'mdi:newspaper-variant-outline',
-      path: '/review/dashboard',
-      action: 'read',
-      subject: 'asset-manager-page'
-    },
+
+    // {
+    //   sectionTitle: 'Review',
+    //   action: 'read',
+    //   subject: 'asset-manager-page'
+    // },
+    // {
+    //   title: 'Review.Dashboard',
+    //   icon: 'mdi:newspaper-variant-outline',
+    //   path: '/review/dashboard',
+    //   action: 'read',
+    //   subject: 'asset-manager-page'
+    // },
     {
       sectionTitle: 'Public',
       action: 'read',
@@ -90,8 +91,8 @@ const navigation = (): VerticalNavItemsType => {
     },
     {
       title: 'Public.Funds & Strategies',
-      path: '/fund/list',
       icon: 'mdi:strategy',
+      path: '/fund/list',
       action: 'read',
       subject: 'user-page'
     },

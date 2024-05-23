@@ -52,10 +52,12 @@ interface SpecDetailStackProps {
 const SpecDetailStack = (props: SpecDetailStackProps) => {
   // ** Props
   const { title, hint = null, content, linkHref = null } = props
-  const formattedContent = getFormattedEthereumAddress(content)
 
   // ** States
   const [isCopied, setIsCopied] = useState(false)
+
+  // ** Vars
+  const formattedContent = getFormattedEthereumAddress(content)
 
   // ** Logics
   const handleCopy = (content: string) => {
@@ -70,7 +72,7 @@ const SpecDetailStack = (props: SpecDetailStackProps) => {
   return (
     <Stack spacing={2} sx={{ maxWidth: '24ch' }}>
       <Stack direction='row' spacing={1.2} alignItems='center'>
-        <Typography variant='subtitle2' sx={{ color: 'text.secondary' }}>
+        <Typography variant='body2' component='p' color='text.secondary' sx={{ py: 1 }}>
           {title}
         </Typography>
         {hint && (
@@ -87,6 +89,7 @@ const SpecDetailStack = (props: SpecDetailStackProps) => {
         <Stack direction='row' spacing={1.2} alignItems='center'>
           <Typography
             variant='subtitle1'
+            component='p'
             sx={{
               fontWeight: 600,
               textOverflow: 'ellipsis',
@@ -129,14 +132,15 @@ const ManagementFundPreviewSpecificationCard = (props: Props) => {
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack
-              title='Genesis Date (UTC)'
-              hint='Date where returns start accruing.'
+              title='Genesis Date'
+              hint='(UTC) Date where returns start accruing.'
               content={format(new Date(initFundEntity.genesisDate), 'yyyy/MM/dd')}
             />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack
-              title='Maturity Date (UTC)'
+              title='Maturity Date'
+              hint="(UTC) Date where the fund's term ends."
               content={format(new Date(initFundEntity.maturityDate), 'yyyy/MM/dd')}
             />
           </Grid>
@@ -158,7 +162,8 @@ const ManagementFundPreviewSpecificationCard = (props: Props) => {
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack
-              title='Sale Start Time (UTC)'
+              title='Sale Start Time'
+              hint='(UTC) Date when the fund starts accepting investments.'
               content={format(new Date(initFundEntity.saleStartTime), 'PPpp')}
             />
           </Grid>

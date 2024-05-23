@@ -13,6 +13,8 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import Fade from '@mui/material/Fade'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -122,28 +124,37 @@ const AvatarUploader = (props: Props) => {
         上傳頭像
       </Button>
 
-      <Dialog fullWidth open={show} maxWidth='md' scroll='body' onClose={handleClose} TransitionComponent={Transition}>
-        <DialogContent
+      <Dialog
+        open={show}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
+      >
+        <IconButton size='small' onClick={handleClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
+
+        <DialogTitle
+          id='user-view-edit'
           sx={{
-            position: 'relative',
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          <IconButton
-            size='small'
-            onClick={() => setShow(false)}
-            sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
-          >
-            <Icon icon='mdi:close' />
-          </IconButton>
-          <Box sx={{ mb: 4, textAlign: 'center' }}>
-            <Typography variant='h5' sx={{ mb: 3, lineHeight: '2rem' }}>
-              上傳頭像
-            </Typography>
-            <Typography variant='body2'>上傳圖片</Typography>
-          </Box>
-
+          上傳頭像
+          <DialogContentText id='user-view-edit-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            更新個人資料詳細資訊將接受隱私審核
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
           <Grid container spacing={4}>
             <Grid item xs={12}>
               <DropzoneWrapper>
@@ -193,27 +204,24 @@ const AvatarUploader = (props: Props) => {
         </DialogContent>
         <DialogActions
           sx={{
+            justifyContent: 'space-between',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Grid container spacing={6} justifyContent='space-between'>
-            <Grid item>
-              <Button variant='outlined' color='secondary' onClick={handleClose}>
-                取消
-              </Button>
-            </Grid>
-            <Grid item>
-              <LoadingButton
-                loading={isUploadMediaAssetsLoading}
-                disabled={files.length === 0}
-                onClick={handleUploadClick}
-                variant='contained'
-              >
-                上傳頭像
-              </LoadingButton>
-            </Grid>
-          </Grid>
+          <Button variant='outlined' color='secondary' onClick={handleClose}>
+            取消
+          </Button>
+          <LoadingButton
+            loading={isUploadMediaAssetsLoading}
+            disabled={files.length === 0}
+            variant='contained'
+            startIcon={<Icon icon='mdi:cloud-upload-outline' />}
+            onClick={handleUploadClick}
+          >
+            上傳頭像
+          </LoadingButton>
         </DialogActions>
       </Dialog>
     </Fragment>

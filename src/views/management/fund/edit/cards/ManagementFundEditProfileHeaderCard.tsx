@@ -91,14 +91,24 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
             <CustomAvatar
               src={baseCurrencyProperties.imageUrl}
               alt={baseCurrencyProperties.displayName}
-              sx={{ height: 120, width: 120, borderWidth: '5px !important' }}
+              sx={{
+                height: 120,
+                width: 120,
+                borderWidth: '5px !important',
+                backgroundColor: theme => theme.palette.background.default
+              }}
             />
           </Tooltip>
           <Tooltip title='RWA'>
             <CustomAvatar
               src='/images/funds/rwa.png'
               alt='rwa'
-              sx={{ height: 120, width: 120, borderWidth: '5px !important' }}
+              sx={{
+                height: 120,
+                width: 120,
+                borderWidth: '5px !important',
+                backgroundColor: theme => theme.palette.background.default
+              }}
             />
           </Tooltip>
         </FundAvatarGroup>

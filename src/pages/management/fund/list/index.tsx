@@ -137,14 +137,24 @@ const ManagementFundListPage = () => {
               <CustomAvatar
                 src={baseCurrencyProperties.imageUrl}
                 alt={baseCurrencyProperties.displayName}
-                sx={{ height: 28, width: 28, borderWidth: '5px !important' }}
+                sx={{
+                  height: 28,
+                  width: 28,
+                  borderWidth: '5px !important',
+                  backgroundColor: theme => theme.palette.background.default
+                }}
               />
             </Tooltip>
             <Tooltip title='RWA'>
               <CustomAvatar
                 src='/images/funds/rwa.png'
                 alt='rwa'
-                sx={{ height: 28, width: 28, borderWidth: '5px !important' }}
+                sx={{
+                  height: 28,
+                  width: 28,
+                  borderWidth: '5px !important',
+                  backgroundColor: theme => theme.palette.background.default
+                }}
               />
             </Tooltip>
           </AvatarGroup>

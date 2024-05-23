@@ -2,13 +2,12 @@
 import { useState, forwardRef, Fragment } from 'react'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
-import Grid from '@mui/material/Grid'
 import Dialog from '@mui/material/Dialog'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
-import Typography from '@mui/material/Typography'
 import Fade from '@mui/material/Fade'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
 
@@ -60,58 +59,58 @@ const MediaAssetSelector = (props: Props) => {
         選擇檔案
       </Button>
 
-      <Dialog fullWidth open={show} maxWidth='lg' scroll='body' onClose={handleClose} TransitionComponent={Transition}>
-        <DialogContent
+      <Dialog
+        open={show}
+        onClose={handleClose}
+        TransitionComponent={Transition}
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
+      >
+        <IconButton size='small' onClick={handleClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
+
+        <DialogTitle
           sx={{
-            position: 'relative',
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            py: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          <IconButton
-            size='small'
-            onClick={() => setShow(false)}
-            sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
-          >
-            <Icon icon='mdi:close' />
-          </IconButton>
-          <Box sx={{ mb: 4, textAlign: 'center' }}>
-            <Typography variant='h5' sx={{ mb: 3, lineHeight: '2rem' }}>
-              選擇檔案
-            </Typography>
-            <Typography variant='body2'>選擇圖片或者檔案</Typography>
-          </Box>
-
-          <Grid container spacing={4}>
-            <Grid item xs={12}>
-              <MediaAssetSelectorList handleSelect={handleSelectMediaAsset} />
-            </Grid>
-          </Grid>
+          選擇檔案
+          <DialogContentText variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            選擇圖片或者檔案
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
+          <MediaAssetSelectorList handleSelect={handleSelectMediaAsset} />
         </DialogContent>
         <DialogActions
           sx={{
+            justifyContent: 'space-between',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Grid container spacing={6} justifyContent='space-between'>
-            <Grid item>
-              <Button variant='outlined' color='secondary' onClick={handleClose}>
-                取消
-              </Button>
-            </Grid>
-            <Grid item>
-              <Button
-                disabled={!selectedMediaAssetId}
-                onClick={() => {
-                  handleFinish(selectedMediaAssetId!)
-                }}
-                variant='contained'
-              >
-                選擇
-              </Button>
-            </Grid>
-          </Grid>
+          <Button variant='outlined' color='secondary' onClick={handleClose}>
+            取消
+          </Button>
+          <Button
+            disabled={!selectedMediaAssetId}
+            onClick={() => {
+              handleFinish(selectedMediaAssetId!)
+            }}
+            variant='contained'
+          >
+            選擇
+          </Button>
         </DialogActions>
       </Dialog>
     </Fragment>

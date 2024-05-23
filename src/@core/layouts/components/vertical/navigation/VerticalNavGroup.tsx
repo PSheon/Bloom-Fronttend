@@ -268,6 +268,7 @@ const VerticalNavGroup = (props: Props) => {
                     size='small'
                     label={item.badgeContent}
                     color={item.badgeColor || 'primary'}
+                    className='MuiChip-rounded'
                     sx={{ mr: 1.5, '& .MuiChip-label': { px: 2.5, lineHeight: 1.385, textTransform: 'capitalize' } }}
                   />
                 ) : null}

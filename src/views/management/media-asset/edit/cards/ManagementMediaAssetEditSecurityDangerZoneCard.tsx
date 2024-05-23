@@ -5,7 +5,6 @@ import { useState } from 'react'
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
@@ -13,7 +12,8 @@ import CardContent from '@mui/material/CardContent'
 import CardActions from '@mui/material/CardActions'
 import Typography from '@mui/material/Typography'
 import Dialog from '@mui/material/Dialog'
-import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import LoadingButton from '@mui/lab/LoadingButton'
 
@@ -69,52 +69,39 @@ const ManagementMediaAssetEditSecurityDangerZoneCard = (props: Props) => {
         </Button>
       </CardActions>
 
-      <Dialog
-        fullWidth
-        open={deleteDialogOpen}
-        onClose={handleCloseDeleteDialog}
-        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 512 } }}
-      >
-        <DialogContent
+      <Dialog fullWidth maxWidth='xs' open={deleteDialogOpen} onClose={handleCloseDeleteDialog}>
+        <DialogTitle
           sx={{
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              textAlign: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              '& svg': { mb: 8, color: 'error.main' }
-            }}
-          >
-            <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-            <Typography variant='h4' sx={{ mb: 5, color: 'text.secondary' }}>
-              確定要刪除檔案？
-            </Typography>
-            <Typography>此操作將無法回復!</Typography>
-          </Box>
-        </DialogContent>
+          刪除檔案
+          <DialogContentText variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            此操作將無法復原
+          </DialogContentText>
+        </DialogTitle>
         <DialogActions
           sx={{
             justifyContent: 'space-between',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Button variant='contained' onClick={() => handleCloseDeleteDialog()}>
+          <Button variant='contained' color='secondary' onClick={handleCloseDeleteDialog}>
             取消
           </Button>
           <LoadingButton
             loading={isDeleteOneMediaAssetsLoading}
             variant='outlined'
-            color='secondary'
+            color='error'
+            startIcon={<Icon icon='mdi:delete-outline' />}
             onClick={handleDeleteOneMediaAssetClick}
           >
-            確定，刪除
+            確定
           </LoadingButton>
         </DialogActions>
       </Dialog>

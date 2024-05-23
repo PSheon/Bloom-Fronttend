@@ -1,18 +1,18 @@
 // ** React Imports
-import { useState, Fragment } from 'react'
+import { useState } from 'react'
 
 // ** Next Imports
 import { useRouter } from 'next/router'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Dialog from '@mui/material/Dialog'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -56,68 +56,60 @@ const ManagementArticleEditSecurityDangerZoneCard = (props: Props) => {
   }
 
   return (
-    <Fragment>
-      <Card>
-        <CardHeader title='危險區域' />
-        <CardContent>
-          <Grid container spacing={6}>
-            <Grid item xs={12}>
-              <Typography sx={{ fontWeight: 600, color: 'text.secondary' }}>
-                刪除公告，將無法復原，所有修改記錄也將一併刪除
-              </Typography>
-            </Grid>
-            <Grid item xs={12}>
-              <Button variant='outlined' color='error' type='submit' onClick={handleOpenDeleteArticleDialog}>
-                刪除公告
-              </Button>
-            </Grid>
+    <Card>
+      <CardHeader title='危險區域' />
+      <CardContent>
+        <Grid container spacing={6}>
+          <Grid item xs={12}>
+            <Typography sx={{ fontWeight: 600, color: 'text.secondary' }}>
+              刪除公告，將無法復原，所有修改記錄也將一併刪除
+            </Typography>
           </Grid>
-        </CardContent>
-      </Card>
+          <Grid item xs={12}>
+            <Button variant='outlined' color='error' type='submit' onClick={handleOpenDeleteArticleDialog}>
+              刪除公告
+            </Button>
+          </Grid>
+        </Grid>
+      </CardContent>
 
       <Dialog fullWidth maxWidth='xs' open={open} onClose={handleCloseDeleteArticleDialog}>
-        <DialogContent
+        <DialogTitle
           sx={{
-            pb: theme => `${theme.spacing(6)} !important`,
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              textAlign: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              '& svg': { mb: 6, color: 'warning.main' }
-            }}
-          >
-            <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-            <Typography>確認要刪除公告？</Typography>
-          </Box>
-        </DialogContent>
+          確認要刪除公告？
+          <DialogContentText id='user-view-edit-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            此操作將無法復原
+          </DialogContentText>
+        </DialogTitle>
         <DialogActions
           sx={{
             justifyContent: 'space-between',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Button variant='contained' onClick={handleCloseDeleteArticleDialog}>
+          <Button variant='contained' color='secondary' onClick={handleCloseDeleteArticleDialog}>
             取消
           </Button>
           <LoadingButton
             loading={isDeleteOneArticleLoading}
             variant='outlined'
             color='error'
+            startIcon={<Icon icon='mdi:delete-outline' />}
             onClick={handleDeleteOneArticleClick}
           >
             確認
           </LoadingButton>
         </DialogActions>
       </Dialog>
-    </Fragment>
+    </Card>
   )
 }
 

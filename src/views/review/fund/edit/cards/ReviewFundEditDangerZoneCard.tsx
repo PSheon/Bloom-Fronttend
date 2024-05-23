@@ -2,14 +2,14 @@
 import { useState, Fragment } from 'react'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Dialog from '@mui/material/Dialog'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
-import DialogContent from '@mui/material/DialogContent'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContentText from '@mui/material/DialogContentText'
 import DialogActions from '@mui/material/DialogActions'
 import Button from '@mui/material/Button'
 
@@ -55,39 +55,32 @@ const ReviewFundEditDangerZoneCard = (props: Props) => {
       </Card>
 
       <Dialog fullWidth maxWidth='xs' open={open} onClose={handleCloseArchiveFundDialog}>
-        <DialogContent
+        <DialogTitle
           sx={{
-            pb: theme => `${theme.spacing(6)} !important`,
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          <Box
-            sx={{
-              display: 'flex',
-              textAlign: 'center',
-              alignItems: 'center',
-              flexDirection: 'column',
-              justifyContent: 'center',
-              '& svg': { mb: 6, color: 'warning.main' }
-            }}
-          >
-            <Icon icon='mdi:alert-circle-outline' fontSize='5.5rem' />
-            <Typography>{`確認要封存 ${initFundEntity.displayName}？`}</Typography>
-          </Box>
-        </DialogContent>
+          {`確認要封存 ${initFundEntity.displayName}？`}
+          <DialogContentText id='user-view-edit-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            此操作將無法復原
+          </DialogContentText>
+        </DialogTitle>
         <DialogActions
           sx={{
-            justifyContent: 'center',
+            justifyContent: 'space-between',
             px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
-            pb: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(12.5)} !important`]
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Button variant='contained' sx={{ mr: 2 }}>
-            確認
-          </Button>
-          <Button variant='outlined' color='secondary' onClick={handleCloseArchiveFundDialog}>
+          <Button variant='outlined' onClick={handleCloseArchiveFundDialog}>
             取消
+          </Button>
+          <Button variant='contained' color='error' startIcon={<Icon icon='mdi:delete-outline' />}>
+            確認
           </Button>
         </DialogActions>
       </Dialog>
