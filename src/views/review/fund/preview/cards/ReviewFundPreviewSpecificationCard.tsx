@@ -122,22 +122,23 @@ const ReviewFundPreviewSpecificationCard = (props: Props) => {
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack
-              title='Risk Manager'
-              hint='Risk Manager is responsible for fund custody and risk control according to pre-agreed requirements.'
-              content='Bloom DAO'
-            />
-          </Grid>
-          <Grid item xs={6} sm={4} md={2}>
-            <SpecDetailStack
-              title='Genesis Date (UTC)'
-              hint='Date where returns start accruing.'
+              title='Genesis Date'
+              hint='(UTC) Date where returns start accruing.'
               content={format(new Date(initFundEntity.genesisDate), 'yyyy/MM/dd')}
             />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack
-              title='Maturity Date (UTC)'
+              title='Maturity Date'
+              hint="(UTC) Date where the fund's term ends."
               content={format(new Date(initFundEntity.maturityDate), 'yyyy/MM/dd')}
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} md={2}>
+            <SpecDetailStack
+              title='Sale Start Time'
+              hint='(UTC) Date when the fund starts accepting investments.'
+              content={format(new Date(initFundEntity.saleStartTime), 'PPp')}
             />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
@@ -151,16 +152,13 @@ const ReviewFundPreviewSpecificationCard = (props: Props) => {
             <SpecDetailStack title='Protocol Fee' content={`${0}%`} />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
+            <SpecDetailStack title='Fund SFT' content={initFundEntity.sft?.contractAddress ?? 'Generating'} />
+          </Grid>
+          <Grid item xs={6} sm={4} md={2}>
+            <SpecDetailStack title='Vault SFT' content={initFundEntity.vault?.contractAddress ?? 'Generating'} />
+          </Grid>
+          <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack title='Est.APY' hint='Estimated APY.' content={`${8}%`} />
-          </Grid>
-          <Grid item xs={6} sm={4} md={2}>
-            <SpecDetailStack title='Fund SFT' content='0xb794f5ea0ba39494ce839613fffba74279579268' />
-          </Grid>
-          <Grid item xs={6} sm={4} md={2}>
-            <SpecDetailStack
-              title='Sale Start Time (UTC)'
-              content={format(new Date(initFundEntity.saleStartTime), 'PPpp')}
-            />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack title='Redemption Freq' content={`${initFundEntity.redemptionFrequencyInDays} Days`} />

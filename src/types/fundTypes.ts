@@ -29,8 +29,6 @@ export type FundType = {
   category: CategoryType
   displayName: string
   description?: string
-  fundSFTContractAddress: string
-  fundSFTContractAbi: Abi
   detail: OutputData
   genesisDate: Date
   saleStartTime: Date
@@ -42,6 +40,24 @@ export type FundType = {
       id: number
       attributes: Omit<PackageType, 'id'>
     }[]
+  }
+  sft: {
+    id: number
+    contractName: string
+    contractAddress: string
+    contractRootSignerAddress?: string
+    contractRootSignerPrivateKey?: string
+    contractAbi: Abi
+    version: string
+  }
+  vault: {
+    id: number
+    contractName: string
+    contractAddress: string
+    contractRootSignerAddress?: string
+    contractRootSignerPrivateKey?: string
+    contractAbi: Abi
+    version: string
   }
   twitterUrl?: string
   discordUrl?: string

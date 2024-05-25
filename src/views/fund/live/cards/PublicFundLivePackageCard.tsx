@@ -155,7 +155,7 @@ const PublicFundLivePackageCard = (props: Props) => {
     abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
     address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
     functionName: 'allowance',
-    args: [walletAccount.address!, initFundEntity.fundSFTContractAddress],
+    args: [walletAccount.address!, initFundEntity.sft.contractAddress],
     account: walletAccount.address!,
     query: {
       enabled: walletAccount.status === 'connected' && activeMintStep === 2
@@ -314,7 +314,7 @@ const PublicFundLivePackageCard = (props: Props) => {
       const { hash } = await signHash({
         id: initFundEntity.id,
         data: {
-          contractName: 'Bloom RWA v0.0.1',
+          contractName: initFundEntity.sft.contractName,
           minterAddress: walletAccount.address!,
           slotId: initPackageEntity.id,
           value: (BigInt(totalPrice) * 10n ** 18n).toString()
@@ -324,8 +324,8 @@ const PublicFundLivePackageCard = (props: Props) => {
       mintToken(
         {
           chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-          abi: initFundEntity.fundSFTContractAbi,
-          address: initFundEntity.fundSFTContractAddress as `0x${string}`,
+          abi: initFundEntity.sft.contractAbi,
+          address: initFundEntity.sft.contractAddress as `0x${string}`,
           functionName: 'mintPackage',
           args: [
             hash,
@@ -1078,7 +1078,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                                           initFundEntity.baseCurrency
                                         ),
                                         functionName: 'approve',
-                                        args: [initFundEntity.fundSFTContractAddress, BigInt(totalPrice) * 10n ** 18n],
+                                        args: [initFundEntity.sft.contractAddress, BigInt(totalPrice) * 10n ** 18n],
                                         account: walletAccount.address!
                                       },
                                       {

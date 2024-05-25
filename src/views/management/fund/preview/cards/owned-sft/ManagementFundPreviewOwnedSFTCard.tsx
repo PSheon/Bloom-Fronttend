@@ -54,8 +54,8 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
 
   const { data: sftTokenId, isLoading: isSftTokenIdLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.fundSFTContractAbi,
-    address: initFundEntity.fundSFTContractAddress as `0x${string}`,
+    abi: initFundEntity.sft.contractAbi,
+    address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'tokenOfOwnerByIndex',
     args: [walletAccount.address!, sftTokenIndex],
     account: walletAccount.address!
@@ -63,8 +63,8 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
 
   const { data: sftValue, isLoading: isSftValueLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.fundSFTContractAbi,
-    address: initFundEntity.fundSFTContractAddress as `0x${string}`,
+    abi: initFundEntity.sft.contractAbi,
+    address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'balanceOf',
     args: [sftTokenId],
     account: walletAccount.address!,
@@ -75,8 +75,8 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
 
   const { data: sftSlotId, isLoading: isSftSlotIdLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.fundSFTContractAbi,
-    address: initFundEntity.fundSFTContractAddress as `0x${string}`,
+    abi: initFundEntity.sft.contractAbi,
+    address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'slotOf',
     args: [sftTokenId],
     account: walletAccount.address!,

@@ -43,8 +43,8 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
 
   const { data: sftTokenBalance, isLoading: isSftTokenBalanceLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.fundSFTContractAbi,
-    address: initFundEntity.fundSFTContractAddress as `0x${string}`,
+    abi: initFundEntity.sft.contractAbi,
+    address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'balanceOf',
     args: [walletAccount.address!],
     account: walletAccount.address!

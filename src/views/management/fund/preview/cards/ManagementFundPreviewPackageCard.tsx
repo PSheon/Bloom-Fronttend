@@ -154,7 +154,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
     abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
     address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
     functionName: 'allowance',
-    args: [walletAccount.address!, initFundEntity.fundSFTContractAddress],
+    args: [walletAccount.address!, initFundEntity.sft.contractAddress],
     account: walletAccount.address!,
     query: {
       enabled: walletAccount.status === 'connected' && activeMintStep === 2
@@ -1024,7 +1024,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                           initFundEntity.baseCurrency
                                         ),
                                         functionName: 'approve',
-                                        args: [initFundEntity.fundSFTContractAddress, BigInt(totalPrice) * 10n ** 18n],
+                                        args: [initFundEntity.sft.contractAddress, BigInt(totalPrice) * 10n ** 18n],
                                         account: walletAccount.address!
                                       },
                                       {

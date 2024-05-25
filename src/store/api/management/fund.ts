@@ -46,7 +46,7 @@ export const fundApi = createApi({
     findOne: builder.query<FindOneFundResponseType, FindOneFundParamsType>({
       query: fundId => ({
         url: `/api/funds/${fundId}?${qs.stringify({
-          populate: ['banner', 'defaultPackages', 'defaultPackages.slot', 'tokens']
+          populate: ['banner', 'defaultPackages', 'defaultPackages.slot', 'sft', 'vault']
         })}`,
         method: 'GET'
       }),
