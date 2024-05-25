@@ -118,43 +118,56 @@ export const getFundStatusProperties = (status: 'Draft' | 'Published' | 'Archive
 export const getFundCategoryProperties = (category: CategoryType) => {
   const categoryAttributes = {
     'Health and Medical': {
-      displayName: '健康與醫療'
+      // displayName: '健康與醫療'
+      displayName: 'Health & Medical'
     },
     'Arts and Culture': {
-      displayName: '藝術與文化'
+      // displayName: '藝術與文化'
+      displayName: 'Arts & Culture'
     },
     'Finance and Technology': {
-      displayName: '金融與科技'
+      // displayName: '金融與科技'
+      displayName: 'Finance & Technology'
     },
     'Social Enterprise': {
-      displayName: '社會企業'
+      // displayName: '社會企業'
+      displayName: 'Social Enterprise'
     },
     'Emerging Industries': {
-      displayName: '新興產業'
+      // displayName: '新興產業'
+      displayName: 'Emerging Industries'
     },
     'Environment and Sustainability': {
-      displayName: '環保與可持續發展'
+      // displayName: '環保與可持續發展'
+      displayName: 'Environment & Sustainability'
     },
     'Food and Agriculture': {
-      displayName: '食品與農業'
+      // displayName: '食品與農業'
+      displayName: 'Food & Agriculture'
     },
     'Education and Training': {
-      displayName: '教育與培訓'
+      // displayName: '教育與培訓'
+      displayName: 'Education & Training'
     },
     'Travel and Hospitality': {
-      displayName: '旅遊與酒店'
+      // displayName: '旅遊與酒店'
+      displayName: 'Travel & Hospitality'
     },
     'Entertainment and Recreation': {
-      displayName: '娛樂與休閒'
+      // displayName: '娛樂與休閒'
+      displayName: 'Entertainment & Recreation'
     },
     'Fashion and Beauty': {
-      displayName: '時尚與美容'
+      // displayName: '時尚與美容'
+      displayName: 'Fashion & Beauty'
     },
     'Social and Communication': {
-      displayName: '社交與溝通'
+      // displayName: '社交與溝通'
+      displayName: 'Social & Communication'
     },
     'Web3.0 and Blockchain': {
-      displayName: 'Web3.0與區塊鏈'
+      // displayName: 'Web3.0與區塊鏈'
+      displayName: 'Web3.0 & Blockchain'
     }
   }
 
