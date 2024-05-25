@@ -1,3 +1,6 @@
+// ** React Imports
+import { useState } from 'react'
+
 // ** Next Imports
 import Image from 'next/image'
 
@@ -10,10 +13,20 @@ import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
+import Grid from '@mui/material/Grid'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
+import IconButton from '@mui/material/IconButton'
+import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
-import { useAccount, useReadContract } from 'wagmi'
+import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { Atropos } from 'atropos/react'
+import format from 'date-fns/format'
+import addDays from 'date-fns/addDays'
+import toast from 'react-hot-toast'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -21,14 +34,27 @@ import CustomChip from 'src/@core/components/mui/chip'
 // ** Custom Component Imports
 import PublicFundLiveOwnedSFTSkeletonCard from 'src/views/fund/live/cards/owned-sft/PublicFundLiveOwnedSFTSkeletonCard'
 
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Hook Imports
+import useBgColor from 'src/@core/hooks/useBgColor'
+
 // ** Util Imports
-import { getFundCurrencyProperties, getFormattedPriceUnit, getChainId } from 'src/utils'
+import {
+  getFundCurrencyProperties,
+  getFormattedPriceUnit,
+  getChainId,
+  getFormattedEthereumAddress,
+  getExpectInterestBalance
+} from 'src/utils'
 
 // ** Config Imports
 import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
+import type { StackProps } from '@mui/material/Stack'
 
 // ** Styled <sup> Component
 const Sup = styled('sup')(({ theme }) => ({
@@ -39,25 +65,49 @@ const Sup = styled('sup')(({ theme }) => ({
   color: theme.palette.primary.main
 }))
 
+const StyledPeriodDateSelectStack = styled(Stack)<StackProps>(({ theme }) => ({
+  borderRadius: '5px',
+  padding: theme.spacing(6),
+  transition: 'border-color 0.2s'
+}))
+
+type StakePeriodType = {
+  img: string
+  periodInDays: number
+  apy: number
+}
+
 interface Props {
   initFundEntity: FundType
-  sftTokenIndex: number
+  sftIndex: number
 }
 
 const PublicFundLiveOwnedSFTCard = (props: Props) => {
   // ** Props
-  const { initFundEntity, sftTokenIndex } = props
+  const { initFundEntity, sftIndex } = props
+
+  // ** States
+  const [openEdit, setOpenEdit] = useState<boolean>(false)
+
+  const [stakePeriod, setStakePeriod] = useState<StakePeriodType>({
+    img: '/images/vault/stake-7-days.png',
+    periodInDays: 7,
+    apy: 8
+  })
+
+  const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
 
   // ** Hooks
   const theme = useTheme()
+  const bgColors = useBgColor()
   const walletAccount = useAccount()
 
-  const { data: sftTokenId, isLoading: isSftTokenIdLoading } = useReadContract({
+  const { data: sftId, isLoading: isSftIdLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initFundEntity.sft.contractAbi,
     address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'tokenOfOwnerByIndex',
-    args: [walletAccount.address!, sftTokenIndex],
+    args: [walletAccount.address!, sftIndex],
     account: walletAccount.address!
   })
 
@@ -66,10 +116,10 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
     abi: initFundEntity.sft.contractAbi,
     address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'balanceOf',
-    args: [sftTokenId],
+    args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftTokenIdLoading && sftTokenId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined
     }
   })
 
@@ -78,11 +128,41 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
     abi: initFundEntity.sft.contractAbi,
     address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'slotOf',
-    args: [sftTokenId],
+    args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftTokenIdLoading && sftTokenId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined
     }
+  })
+
+  const {
+    data: sftApproved,
+    isLoading: isSftApprovedLoading,
+    isFetching: isSftApprovedFetching
+  } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.sft.contractAbi,
+    address: initFundEntity.sft.contractAddress as `0x${string}`,
+    functionName: 'getApproved',
+    args: [sftId],
+    account: walletAccount.address!,
+    query: {
+      enabled: walletAccount.status === 'connected' && sftId !== undefined
+    }
+  })
+
+  const { data: approveSftHash, isPending: isApproveSftPending, writeContract: approveSft } = useWriteContract()
+
+  const { isLoading: isApproveSftConfirming } = useWaitForTransactionReceipt({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    hash: approveSftHash
+  })
+
+  const { data: stakeSftHash, isPending: isStakeSftPending, writeContract: stakeSft } = useWriteContract()
+
+  const { isLoading: isStakeSftConfirming } = useWaitForTransactionReceipt({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    hash: stakeSftHash
   })
 
   // ** Vars
@@ -90,8 +170,44 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const sftSlot = initFundEntity.defaultPackages?.data.find(pkg => pkg.id === Number(sftSlotId))
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
+  const STAKE_PERIOD_INFORMATION: StakePeriodType[] = [
+    {
+      img: '/images/vault/stake-7-days.png',
+      periodInDays: 7,
+      apy: 8
+    },
+    {
+      img: '/images/vault/stake-30-days.png',
+      periodInDays: 30,
+      apy: 18
+    },
+    {
+      img: '/images/vault/stake-60-days.png',
+      periodInDays: 60,
+      apy: 22
+    }
+  ]
+
+  // ** Logics
+  const handleEditOpen = () => setOpenEdit(true)
+  const handleEditClose = () => setOpenEdit(false)
+
+  const handleCopyAddress = (address: string) => {
+    navigator.clipboard.writeText(address)
+    setIsAddressCopied(() => true)
+    setTimeout(() => {
+      setIsAddressCopied(() => false)
+    }, 2 * 1000)
+  }
+
+  const checkAllowanceSufficient = (): boolean => {
+    if (isSftApprovedLoading || isSftApprovedFetching) return true
+
+    return sftApproved === initFundEntity.vault.contractAddress
+  }
+
   // ** Side Effects
-  if (isSftTokenIdLoading || isSftValueLoading || isSftSlotIdLoading) {
+  if (isSftIdLoading || isSftValueLoading || isSftSlotIdLoading) {
     return <PublicFundLiveOwnedSFTSkeletonCard />
   }
 
@@ -103,7 +219,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
             <CustomChip
               skin='light'
               size='medium'
-              label={`# ${sftTokenId ?? '-'}`}
+              label={`# ${sftId ?? '-'}`}
               color='success'
               sx={{
                 height: 20,
@@ -199,6 +315,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                 fullWidth
                 variant='contained'
                 size='small'
+                onClick={handleEditOpen}
                 sx={{
                   '& svg': {
                     transition: theme => theme.transitions.create('transform')
@@ -211,6 +328,254 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
           </Stack>
         </Stack>
       </CardContent>
+
+      <Dialog
+        open={openEdit}
+        onClose={handleEditClose}
+        aria-labelledby='stake-view'
+        aria-describedby='stake-view-description'
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
+      >
+        <IconButton size='small' onClick={handleEditClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+          <Icon icon='mdi:close' />
+        </IconButton>
+
+        <DialogTitle
+          id='stake-view'
+          sx={{
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
+          }}
+        >
+          Stake
+          <DialogContentText id='stake-view-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            There will be penalties for unstaking early
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
+          <Grid container spacing={6}>
+            <Grid item xs={12}>
+              <Grid container spacing={6}>
+                {STAKE_PERIOD_INFORMATION.map(periodDateInfo => {
+                  const { img, periodInDays, apy } = periodDateInfo
+
+                  return (
+                    <Grid key={`stake-period-${periodInDays}-days`} item xs={12} sm={4}>
+                      <StyledPeriodDateSelectStack
+                        spacing={4}
+                        alignItems='center'
+                        onClick={() => setStakePeriod(periodDateInfo)}
+                        sx={{
+                          border: theme =>
+                            `1px ${stakePeriod.periodInDays === periodInDays ? theme.palette.primary.main : theme.palette.divider} solid`,
+                          '&:hover': {
+                            cursor: 'pointer',
+                            borderColor: theme => theme.palette.primary.main
+                          }
+                        }}
+                      >
+                        <Box>
+                          <Image width={100} height={80} src={img} alt={`${periodInDays} days plan`} />
+                        </Box>
+                        <Box>
+                          <Typography variant='h5' align='center'>
+                            {`${periodInDays} Days`}
+                          </Typography>
+                        </Box>
+                        <Stack spacing={2} alignContent='center' sx={{ position: 'relative' }}>
+                          <Stack direction='row' justifyContent='center'>
+                            <Typography
+                              variant='body2'
+                              component='p'
+                              sx={{ mt: 1.6, fontWeight: 600, alignSelf: 'flex-start' }}
+                            >
+                              APY
+                            </Typography>
+                            <Typography
+                              variant='h3'
+                              component='p'
+                              color='primary.main'
+                              sx={{ fontWeight: 600, lineHeight: 1.17 }}
+                            >
+                              {apy}
+                            </Typography>
+                            <Typography
+                              variant='body2'
+                              component='p'
+                              sx={{ ml: 2, mb: 1.6, fontWeight: 600, alignSelf: 'flex-end' }}
+                            >
+                              %
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </StyledPeriodDateSelectStack>
+                    </Grid>
+                  )
+                })}
+              </Grid>
+            </Grid>
+            <Grid item xs={12}>
+              <Stack spacing={4} alignItems='center' justifyContent='center'>
+                <Stack
+                  spacing={6}
+                  alignItems='center'
+                  justifyContent='center'
+                  sx={{ width: '100%', maxWidth: theme => theme.spacing(120), py: 12 }}
+                >
+                  <Stack spacing={2} alignSelf='stretch' divider={<Divider orientation='horizontal' flexItem />}>
+                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                      <Typography variant='subtitle2' component='p'>
+                        Token ID
+                      </Typography>
+                      <Typography variant='subtitle1' component='p'>{`# ${sftId ?? '-'}`}</Typography>
+                    </Stack>
+                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                      <Typography variant='subtitle2' component='p'>
+                        Balance
+                      </Typography>
+                      <Typography
+                        variant='subtitle1'
+                        component='p'
+                      >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                        BigInt(Number(sftValue)) ?? 0n
+                      )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                    </Stack>
+                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                      <Typography variant='subtitle2' component='p'>
+                        Wallet
+                      </Typography>
+                      <Stack
+                        direction='row'
+                        spacing={2}
+                        alignItems='center'
+                        justifyContent='center'
+                        sx={{
+                          color: 'warning.main'
+                        }}
+                      >
+                        <Typography variant='subtitle1' component='p'>
+                          {getFormattedEthereumAddress(walletAccount.address as string)}
+                        </Typography>
+                        <IconButton size='small' onClick={() => handleCopyAddress(walletAccount.address as string)}>
+                          <Icon icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'} fontSize={16} />
+                        </IconButton>
+                      </Stack>
+                    </Stack>
+                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                      <Typography variant='subtitle2' component='p'>
+                        Unlock Date
+                      </Typography>
+                      <Typography variant='subtitle1' component='p'>
+                        {format(addDays(new Date(), stakePeriod.periodInDays), 'PPpp')}
+                      </Typography>
+                    </Stack>
+                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                      <Typography variant='subtitle2' component='p'>
+                        Earn Expectation
+                      </Typography>
+                      <Typography
+                        variant='h6'
+                        component='p'
+                      >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                        sftValue
+                          ? getExpectInterestBalance(sftValue as bigint, stakePeriod.apy, stakePeriod.periodInDays)
+                          : 0n
+                      )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                    </Stack>
+                  </Stack>
+                  <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                    {checkAllowanceSufficient() ? (
+                      <Box
+                        sx={{
+                          px: 4,
+                          py: 2,
+                          width: '100%',
+                          maxWidth: theme => theme.spacing(120),
+                          borderRadius: 1,
+                          border: theme => `1px solid ${theme.palette.primary.main}`,
+                          ...bgColors.primaryLight
+                        }}
+                      >
+                        <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                          <Icon icon='mdi:approve' fontSize={16} />
+                          {`SFT #${sftId} Approved`}
+                        </Stack>
+                      </Box>
+                    ) : (
+                      <LoadingButton
+                        fullWidth
+                        loading={isApproveSftPending || isApproveSftConfirming}
+                        variant='contained'
+                        onClick={() => {
+                          approveSft(
+                            {
+                              chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+                              abi: initFundEntity.sft.contractAbi,
+                              address: initFundEntity.sft.contractAddress as `0x${string}`,
+                              functionName: 'approve',
+                              args: [initFundEntity.vault.contractAddress, sftId!],
+                              account: walletAccount.address!
+                            },
+                            {
+                              onError: () => {
+                                toast.error('Failed to approve sft')
+                              }
+                            }
+                          )
+                        }}
+                      >
+                        <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                          <Icon icon='mdi:approve' fontSize={16} />
+                          {`Approve SFT #${sftId}`}
+                        </Stack>
+                      </LoadingButton>
+                    )}
+                    <LoadingButton
+                      fullWidth
+                      loading={isStakeSftPending || isStakeSftConfirming}
+                      variant='contained'
+                      onClick={() => {
+                        const interest =
+                          getExpectInterestBalance(sftValue as bigint, stakePeriod.apy, stakePeriod.periodInDays) *
+                          10 ** 18
+
+                        stakeSft(
+                          {
+                            chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+                            abi: initFundEntity.vault.contractAbi,
+                            address: initFundEntity.vault.contractAddress as `0x${string}`,
+                            functionName: 'stake',
+                            args: [sftId!, sftValue, interest],
+                            account: walletAccount.address!
+                          },
+                          {
+                            onError: () => {
+                              toast.error('Failed to approve sft')
+                            }
+                          }
+                        )
+                      }}
+                    >
+                      <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                        <Icon icon='mdi:hammer' fontSize={16} />
+                        Stake
+                      </Stack>
+                    </LoadingButton>
+                  </Stack>
+                </Stack>
+              </Stack>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
     </Card>
   )
 }

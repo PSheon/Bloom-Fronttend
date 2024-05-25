@@ -41,23 +41,23 @@ const Sup = styled('sup')(({ theme }) => ({
 
 interface Props {
   initFundEntity: FundType
-  sftTokenIndex: number
+  sftIndex: number
 }
 
 const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
   // ** Props
-  const { initFundEntity, sftTokenIndex } = props
+  const { initFundEntity, sftIndex } = props
 
   // ** Hooks
   const theme = useTheme()
   const walletAccount = useAccount()
 
-  const { data: sftTokenId, isLoading: isSftTokenIdLoading } = useReadContract({
+  const { data: sftId, isLoading: isSftIdLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initFundEntity.sft.contractAbi,
     address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'tokenOfOwnerByIndex',
-    args: [walletAccount.address!, sftTokenIndex],
+    args: [walletAccount.address!, sftIndex],
     account: walletAccount.address!
   })
 
@@ -66,10 +66,10 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
     abi: initFundEntity.sft.contractAbi,
     address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'balanceOf',
-    args: [sftTokenId],
+    args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftTokenIdLoading && sftTokenId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined
     }
   })
 
@@ -78,10 +78,10 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
     abi: initFundEntity.sft.contractAbi,
     address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'slotOf',
-    args: [sftTokenId],
+    args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftTokenIdLoading && sftTokenId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined
     }
   })
 
@@ -91,7 +91,7 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   // ** Side Effects
-  if (isSftTokenIdLoading || isSftValueLoading || isSftSlotIdLoading) {
+  if (isSftIdLoading || isSftValueLoading || isSftSlotIdLoading) {
     return <ManagementFundPreviewOwnedSFTSkeletonCard />
   }
 
@@ -103,7 +103,7 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
             <CustomChip
               skin='light'
               size='medium'
-              label={`# ${sftTokenId ?? '-'}`}
+              label={`# ${sftId ?? '-'}`}
               color='success'
               sx={{
                 height: 20,

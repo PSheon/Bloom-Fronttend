@@ -41,7 +41,7 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
   // ** Hooks
   const walletAccount = useAccount()
 
-  const { data: sftTokenBalance, isLoading: isSftTokenBalanceLoading } = useReadContract({
+  const { data: sftBalance, isLoading: isSftBalanceLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initFundEntity.sft.contractAbi,
     address: initFundEntity.sft.contractAddress as `0x${string}`,
@@ -51,7 +51,7 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
   })
 
   // ** Vars
-  const sftTokenBalanceCount = Number(sftTokenBalance ?? 0)
+  const sftBalanceCount = Number(sftBalance ?? 0)
 
   return (
     <TabPanel sx={{ p: 0 }} value='vault'>
@@ -89,13 +89,13 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
         </Grid>
         <Grid item xs={12}>
           <Grid container spacing={6} className='match-height'>
-            {isSftTokenBalanceLoading ? (
+            {isSftBalanceLoading ? (
               [...Array(3).keys()].map(index => (
                 <Grid key={`management-fund-preview-skeleton-${index}`} item xs={12} sm={6} md={4}>
                   <ManagementFundPreviewOwnedSFTSkeletonCard />
                 </Grid>
               ))
-            ) : sftTokenBalanceCount === 0 ? (
+            ) : sftBalanceCount === 0 ? (
               <Grid item xs={12}>
                 <Card>
                   <CardContent>
@@ -111,9 +111,9 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
                 </Card>
               </Grid>
             ) : (
-              [...Array(sftTokenBalanceCount).keys()].map(sftTokenIndex => (
-                <Grid key={`sft-token-${sftTokenIndex}`} item xs={12} sm={6} md={4}>
-                  <ManagementFundPreviewOwnedSFTCard initFundEntity={initFundEntity} sftTokenIndex={sftTokenIndex} />
+              [...Array(sftBalanceCount).keys()].map(sftIndex => (
+                <Grid key={`sft-token-${sftIndex}`} item xs={12} sm={6} md={4}>
+                  <ManagementFundPreviewOwnedSFTCard initFundEntity={initFundEntity} sftIndex={sftIndex} />
                 </Grid>
               ))
             )}
