@@ -124,7 +124,7 @@ const PublicFundLiveVaultAverageAPYCard = () => {
               alignItems={{ xs: 'space-between', sm: 'flex-start' }}
               justifyContent={{ xs: 'center', sm: 'space-between' }}
             >
-              <Stack spacing={4} flexGrow='1' alignItems='flex-start' justifyContent='center'>
+              <Stack spacing={4} alignItems='flex-start' justifyContent='center'>
                 <Box sx={{ pt: 2 }}>
                   <Typography variant='h6'>{`${12} %`}</Typography>
                   <Typography variant='body2' sx={{ mb: 2 }}>
@@ -147,13 +147,15 @@ const PublicFundLiveVaultAverageAPYCard = () => {
                   }}
                 />
               </Stack>
-              <Stack alignItems='center' justifyContent='center'>
-                <ReactApexcharts
-                  type='area'
-                  height={120}
-                  options={options}
-                  series={[{ name: 'Traffic Rate', data: [0, 85, 25, 125, 90, 250, 200, 350] }]}
-                />
+              <Stack flexGrow='1' alignItems='center' justifyContent='center'>
+                <Box sx={{ width: '100%' }}>
+                  <ReactApexcharts
+                    type='area'
+                    height={120}
+                    options={options}
+                    series={[{ name: 'Traffic Rate', data: [0, 85, 25, 125, 90, 250, 280, 230] }]}
+                  />
+                </Box>
               </Stack>
             </Stack>
           </Stack>
