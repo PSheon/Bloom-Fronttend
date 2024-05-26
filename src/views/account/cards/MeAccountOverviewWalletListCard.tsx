@@ -1,38 +1,33 @@
-// ** React Imports
-import { useState } from 'react'
-
 // ** MUI Imports
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
-import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import Skeleton from '@mui/material/Skeleton'
-import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
-import toast from 'react-hot-toast'
-import format from 'date-fns/format'
-import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { SiweMessage } from 'siwe'
-import { useAccount, useSignMessage } from 'wagmi'
+import { useAccount } from 'wagmi'
+
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Custom Components
+import CustomChip from 'src/@core/components/mui/chip'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 // ** API Imports
-import { useFindMeQuery, useGetNonceQuery, useVerifyMutation } from 'src/store/api/management/wallet'
+import { useFindMeQuery } from 'src/store/api/management/wallet'
 
 // ** Util Imports
-import { getFormattedEthereumAddress } from 'src/utils'
+import { getFormattedEthereumAddress, getGradientColors } from 'src/utils'
 
 const MeAccountOverviewWalletListCard = () => {
-  // ** States
-  const [isVerifyWalletProcessLoading, setIsVerifyWalletProcessLoading] = useState<boolean>(false)
-
   // ** Hooks
   const walletAccount = useAccount()
-  const { signMessageAsync } = useSignMessage()
 
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
@@ -42,171 +37,149 @@ const MeAccountOverviewWalletListCard = () => {
     }
   })
 
-  const { data: nonceData } = useGetNonceQuery(null)
-  const [verifyWallet, { isLoading: isVerifyWalletLoading }] = useVerifyMutation()
-
   // ** Vars
   const wallets = walletsData?.data || []
 
-  const isCurrentWalletVerified =
-    walletAccount.status === 'connected' &&
-    wallets.find(wallet => wallet.address.toLowerCase() === walletAccount.address.toLowerCase())
+  // ** Renders
+  const renderWalletAvatar = (address: string) => {
+    const colors = getGradientColors(address)
 
-  const nonce = nonceData?.nonce
-
-  // ** Logics
-  const handleVerifyWallet = async () => {
-    try {
-      setIsVerifyWalletProcessLoading(() => true)
-
-      const message = new SiweMessage({
-        domain: window?.location.host,
-        address: walletAccount.address!,
-        statement: `Welcome to Bloom, Please sign in with Ethereum`,
-        uri: window?.location.origin,
-        version: '1',
-        chainId: walletAccount.chainId!,
-        nonce: nonce!
-      }).prepareMessage()
-
-      const signature = await signMessageAsync({ message })
-
-      await verifyWallet({
-        data: {
-          message,
-          signature,
-          address: walletAccount.address!,
-          connector: walletAccount?.connector?.name || 'Unknown'
-        }
-      }).unwrap()
-
-      setIsVerifyWalletProcessLoading(() => false)
-      toast.success('Wallet verified')
-    } catch {
-      setIsVerifyWalletProcessLoading(() => false)
-      toast.error('Failed to verify wallet')
-    }
+    return (
+      <CustomAvatar
+        skin='light'
+        sx={{
+          width: 36,
+          height: 36,
+          boxShadow: `${colors[0]} 0px 3px 5px`
+        }}
+      >
+        <Box
+          sx={{
+            width: 36,
+            height: 36,
+            backgroundColor: colors[0],
+            backgroundImage: `
+              radial-gradient(at 66% 77%, ${colors[1]} 0px, transparent 50%),
+              radial-gradient(at 29% 97%, ${colors[2]} 0px, transparent 50%),
+              radial-gradient(at 99% 86%, ${colors[3]} 0px, transparent 50%),
+              radial-gradient(at 29% 88%, ${colors[4]} 0px, transparent 50%)
+            `
+          }}
+        />
+      </CustomAvatar>
+    )
   }
 
   return (
     <Card>
       <CardHeader title='Wallets' />
       <CardContent>
-        <Grid container spacing={4}>
-          <Grid item xs={12}>
-            <Typography sx={{ fontWeight: 600, color: 'text.secondary' }}>
-              we need to verify your identity before you can use your wallet, please click the button below to verify
-            </Typography>
-          </Grid>
-          <Grid item xs={12}>
-            <ConnectButton.Custom>
-              {({
-                account,
-                chain,
-                openAccountModal,
-                openChainModal,
-                openConnectModal,
-                authenticationStatus,
-                mounted
-              }) => {
-                const ready = mounted && authenticationStatus !== 'loading'
-
-                const connected =
-                  ready && account && chain && (!authenticationStatus || authenticationStatus === 'authenticated')
-
-                if (!connected) {
-                  return (
-                    <Button variant='contained' onClick={openConnectModal}>
-                      Connect Wallet
-                    </Button>
-                  )
-                }
-
-                if (chain.unsupported) {
-                  return (
-                    <Button color='error' variant='contained' onClick={openChainModal}>
-                      Wrong network
-                    </Button>
-                  )
-                }
-
-                return (
-                  <Stack direction='column' spacing={4} alignItems='flex-start' justifyContent='space-between'>
-                    <Button variant='outlined' onClick={openAccountModal}>
-                      {`${account.displayName} ${account.displayBalance ? ` - ${account.displayBalance}` : ''}`}
-                    </Button>
-
-                    {!isCurrentWalletVerified && (
-                      <LoadingButton
-                        variant='contained'
-                        loading={isVerifyWalletLoading || isVerifyWalletProcessLoading}
-                        disabled={!nonce}
-                        onClick={handleVerifyWallet}
-                      >
-                        Verify
-                      </LoadingButton>
-                    )}
-                  </Stack>
-                )
+        <Stack spacing={4} alignItems='center' justifyContent='center'>
+          <Stack direction='row' alignSelf='stretch' justifyContent='space-between'>
+            <Typography
+              sx={{
+                lineHeight: 2,
+                fontWeight: 500,
+                fontSize: '0.75rem',
+                letterSpacing: '0.17px'
               }}
-            </ConnectButton.Custom>
-          </Grid>
-          <Grid item xs={12}>
-            <Typography variant='subtitle2'>Verified</Typography>
-          </Grid>
-          {isWalletListLoading ? (
-            <Grid item xs={12}>
-              <Skeleton variant='rounded' width='100%' height={64} />
-            </Grid>
-          ) : (
-            wallets.map((wallet, index: number) => {
-              const isVerified =
-                walletAccount.status === 'connected' &&
-                wallet.address.toLowerCase() === walletAccount.address.toLowerCase()
-
-              return (
-                <Grid key={index} item xs={12}>
+            >
+              Address
+            </Typography>
+            <Typography
+              sx={{
+                lineHeight: 2,
+                fontWeight: 500,
+                fontSize: '0.75rem',
+                letterSpacing: '0.17px'
+              }}
+            >
+              Status
+            </Typography>
+          </Stack>
+          <Stack spacing={4} alignSelf='stretch' alignItems='center' justifyContent='center'>
+            {isWalletListLoading ? (
+              [...Array(3).keys()].map(index => (
+                <Stack
+                  key={`wallet-list-skeleton-${index}`}
+                  direction='row'
+                  spacing={4}
+                  alignSelf='stretch'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Stack direction='row' spacing={4} flexGrow='1' alignItems='center'>
+                    <Skeleton variant='circular' width={40} height={40} />
+                    <Stack spacing='0.5'>
+                      <Skeleton variant='text' width={120} />
+                      <Skeleton variant='text' width={50} />
+                    </Stack>
+                  </Stack>
+                  <Stack>
+                    <Skeleton variant='text' width={40} />
+                  </Stack>
+                </Stack>
+              ))
+            ) : wallets.length === 0 ? (
+              <CardContent sx={{ display: 'flex', textAlign: 'center', alignItems: 'center', flexDirection: 'column' }}>
+                <CustomAvatar skin='light' sx={{ width: 56, height: 56, mb: 2 }}>
+                  <Icon icon='mdi:help-circle-outline' fontSize='2rem' />
+                </CustomAvatar>
+                <Typography variant='subtitle1' component='p'>
+                  No verified wallets found
+                </Typography>
+              </CardContent>
+            ) : (
+              wallets.map((wallet, index: number) => {
+                return (
                   <Stack
-                    direction={{
-                      xs: 'column',
-                      md: 'row'
-                    }}
-                    spacing={2}
+                    key={`wallet-list-${index}`}
+                    direction='row'
+                    spacing={4}
+                    alignSelf='stretch'
+                    alignItems='center'
                     justifyContent='space-between'
-                    alignItems={['flex-start', 'center']}
-                    sx={{
-                      p: 4,
-                      borderRadius: 1,
-                      border: theme => `1px solid ${theme.palette.divider}`,
-                      backgroundColor: 'action.hover'
-                    }}
                   >
-                    <Stack spacing={2} alignItems='flex-start' justifyContent='center'>
-                      <Typography variant='body2'>{wallet.connector}</Typography>
-                      <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                        <Box
-                          sx={{
-                            width: 8,
-                            height: 8,
-                            borderRadius: '50%',
-                            backgroundColor: theme => theme.palette[isVerified ? 'success' : 'warning'].main
-                          }}
-                        />
-                        <Typography sx={{ fontWeight: 500 }}>{getFormattedEthereumAddress(wallet.address)}</Typography>
+                    <Stack direction='row' spacing={4} flexGrow='1' alignItems='center'>
+                      {renderWalletAvatar(wallet.address)}
+                      <Stack spacing='0.5'>
+                        <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                          <Box
+                            sx={{
+                              width: 8,
+                              height: 8,
+                              borderRadius: '50%',
+                              backgroundColor: theme =>
+                                theme.palette[
+                                  wallet.address.toLowerCase() === walletAccount?.address?.toLowerCase()
+                                    ? 'success'
+                                    : 'warning'
+                                ].main
+                            }}
+                          />
+                          <Typography sx={{ fontWeight: 500 }}>
+                            {getFormattedEthereumAddress(wallet.address)}
+                          </Typography>
+                        </Stack>
+                        <Typography variant='caption'>{wallet.connector}</Typography>
                       </Stack>
                     </Stack>
-
-                    <Stack alignSelf={['flex-start', 'flex-end']} sx={{ textAlign: ['start', 'end'] }}>
-                      <Typography variant='body2'>
-                        Verified at {format(new Date(wallet.createdAt), 'dd/MM/yyyy')}
-                      </Typography>
+                    <Stack alignItems='center'>
+                      <CustomChip
+                        skin='light'
+                        size='small'
+                        color='primary'
+                        label='verified'
+                        rounded
+                        sx={{ height: 20, fontSize: '0.75rem', fontWeight: 500 }}
+                      />
                     </Stack>
                   </Stack>
-                </Grid>
-              )
-            })
-          )}
-        </Grid>
+                )
+              })
+            )}
+          </Stack>
+        </Stack>
       </CardContent>
     </Card>
   )

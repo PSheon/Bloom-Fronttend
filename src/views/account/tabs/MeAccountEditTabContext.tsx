@@ -11,6 +11,7 @@ import TabContext from '@mui/lab/TabContext'
 import MuiTab from '@mui/material/Tab'
 
 // ** Custom Component Imports
+import MeAccountOverviewWalletConnectCard from 'src/views/account/cards/MeAccountOverviewWalletConnectCard'
 import MeAccountOverviewWalletListCard from 'src/views/account/cards/MeAccountOverviewWalletListCard'
 import MeAccountOverviewActivityLogListCard from 'src/views/account/cards/MeAccountOverviewActivityLogListCard'
 import MeAccountSecurityChangePasswordCard from 'src/views/account/cards/MeAccountSecurityChangePasswordCard'
@@ -57,8 +58,11 @@ const MeAccountEditTabContext = () => {
       </TabList>
       <Box sx={{ mt: 6 }}>
         <TabPanel sx={{ p: 0 }} value='overview'>
-          <Grid container spacing={6}>
-            <Grid item xs={12}>
+          <Grid container spacing={6} className='match-height'>
+            <Grid item xs={12} sm={7}>
+              <MeAccountOverviewWalletConnectCard />
+            </Grid>
+            <Grid item xs={12} sm={5}>
               <MeAccountOverviewWalletListCard />
             </Grid>
             <Grid item xs={12}>
