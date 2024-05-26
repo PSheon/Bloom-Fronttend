@@ -309,20 +309,14 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                 })}
               </Stack>
             </Stack>
-            <Stack sx={{ mt: 'auto' }}>
+            <Stack spacing={2} sx={{ mt: 'auto' }}>
               <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
-              <Button
-                fullWidth
-                variant='contained'
-                size='small'
-                onClick={handleEditOpen}
-                sx={{
-                  '& svg': {
-                    transition: theme => theme.transitions.create('transform')
-                  }
-                }}
-              >
+              <Button fullWidth variant='contained' onClick={handleEditOpen}>
                 Stake
+              </Button>
+              {/* TODO: Fill here later */}
+              <Button fullWidth variant='contained' disabled>
+                Redeem
               </Button>
             </Stack>
           </Stack>
@@ -445,7 +439,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                         variant='subtitle1'
                         component='p'
                       >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                        BigInt(Number(sftValue)) ?? 0n
+                        (Number(sftValue) ?? 0) / 10 ** 18
                       )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                     </Stack>
                     <Stack direction='row' alignItems='center' justifyContent='space-between'>
@@ -486,7 +480,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                         component='p'
                       >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
                         sftValue
-                          ? getExpectInterestBalance(sftValue as bigint, stakePeriod.apy, stakePeriod.periodInDays)
+                          ? getExpectInterestBalance(sftValue as bigint, stakePeriod.apy, stakePeriod.periodInDays) /
+                              10 ** 18
                           : 0n
                       )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                     </Stack>
