@@ -61,7 +61,7 @@ const AccountLoadingSkeleton = () => {
             </Card>
           </Grid>
           <Grid item xs={12}>
-            <Card sx={{ boxShadow: 'none', border: theme => `2px solid ${theme.palette.primary.main}` }}>
+            <Card>
               <CardContent>
                 <Grid container spacing={4}>
                   <Grid item xs={12}>

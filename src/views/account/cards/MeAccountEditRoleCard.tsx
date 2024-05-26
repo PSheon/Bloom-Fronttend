@@ -27,7 +27,7 @@ const MeAccountEditRoleCard = (props: Props) => {
   const userRoleAttributes = getUserRoleAttributes(initMeUserEntity.role!.name)
 
   return (
-    <Card sx={{ boxShadow: 'none', border: theme => `2px solid ${theme.palette.primary.main}` }}>
+    <Card>
       <CardContent>
         <Grid container spacing={2.7}>
           <Grid item xs={12}>
