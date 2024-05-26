@@ -17,7 +17,7 @@ import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from 'next-auth/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { RainbowKitProvider, darkTheme, lightTheme } from '@rainbow-me/rainbowkit'
 import { WagmiProvider } from 'wagmi'
 import { QueryClientProvider } from '@tanstack/react-query'
 
@@ -185,12 +185,12 @@ const App = (props: ExtendedAppProps) => {
         </Head>
 
         <SessionProvider session={pageProps.session}>
-          <WagmiProvider config={wagmiConfig}>
-            <QueryClientProvider client={queryClient}>
-              <RainbowKitProvider>
-                <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
-                  <SettingsConsumer>
-                    {({ settings }) => (
+          <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
+            <SettingsConsumer>
+              {({ settings }) => (
+                <WagmiProvider config={wagmiConfig}>
+                  <QueryClientProvider client={queryClient}>
+                    <RainbowKitProvider theme={settings.mode === 'dark' ? darkTheme() : lightTheme()}>
                       <AnimatePresence mode='wait' initial={false}>
                         <ThemeComponent settings={settings}>
                           <Guard authGuard={authGuard} guestGuard={guestGuard}>
@@ -214,12 +214,12 @@ const App = (props: ExtendedAppProps) => {
                           </ReactHotToast>
                         </ThemeComponent>
                       </AnimatePresence>
-                    )}
-                  </SettingsConsumer>
-                </SettingsProvider>
-              </RainbowKitProvider>
-            </QueryClientProvider>
-          </WagmiProvider>
+                    </RainbowKitProvider>
+                  </QueryClientProvider>
+                </WagmiProvider>
+              )}
+            </SettingsConsumer>
+          </SettingsProvider>
         </SessionProvider>
 
         <SpeedInsights />
