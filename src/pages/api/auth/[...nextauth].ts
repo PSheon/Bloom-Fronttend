@@ -133,11 +133,6 @@ export const authOptions: NextAuthOptions = {
      * via `jwt()` callback to make them accessible in the `session()` callback
      */
     async jwt({ token, trigger, account, user }) {
-      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:136 > token', token)
-      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:137 > trigger', trigger)
-      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:138 > account', account)
-      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:139 > user', user)
-
       if (trigger === 'update') {
         // ** Note, that `session` can be any arbitrary object, remember to validate it!
         const { data: updatedUserData } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/me`, {

@@ -57,8 +57,6 @@ const MeAccountOverviewWalletConnectCard = () => {
   const { data: nonceData } = useGetNonceQuery(null)
   const [verifyWallet, { isLoading: isVerifyWalletLoading }] = useVerifyMutation()
 
-  console.log('🚀 ~ src/views/account/cards/TestCard.tsx:78 > walletAccount', walletAccount)
-
   // ** Vars
   const wallets = walletsData?.data || []
 

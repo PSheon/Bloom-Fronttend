@@ -327,11 +327,7 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
                       account: walletAccount.address!
                     },
                     {
-                      onError: err => {
-                        console.log(
-                          '🚀 ~ src/views/fund/live/cards/staked-sft/PublicFundLiveStakedSFTCard.tsx:335 > err',
-                          err
-                        )
+                      onError: () => {
                         toast.error('Failed to un stake sft')
                       }
                     }
