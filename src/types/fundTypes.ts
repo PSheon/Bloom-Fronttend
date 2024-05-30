@@ -147,8 +147,8 @@ export type DeleteOneFundTransformResponseType = BaseApiResponseType<{
 }>
 export type DeleteOneFundResponseType = FundType
 
-// ** Sign Hash
-export type SignHashParamsType = {
+// ** SFT Sign Hash
+export type SFTSignHashParamsType = {
   id: number
   data: {
     contractName: string
@@ -157,9 +157,32 @@ export type SignHashParamsType = {
     value: string
   }
 }
-export type SignHashTransformResponseType = {
+export type SFTSignHashTransformResponseType = {
   hash: string
 }
-export type SignHashResponseType = {
+export type SFTSignHashResponseType = {
   hash: string
+}
+
+// ** Vault Sign Hash
+export type VaultSignHashParamsType = {
+  id: number
+  data: {
+    contractName: string
+    stakerAddress: string
+    tokenId: string
+    balance: string
+    periodInDays: number
+    apy: number
+  }
+}
+export type VaultSignHashTransformResponseType = {
+  hash: string
+  unlockTime: number
+  interest: string
+}
+export type VaultSignHashResponseType = {
+  hash: string
+  unlockTime: number
+  interest: string
 }

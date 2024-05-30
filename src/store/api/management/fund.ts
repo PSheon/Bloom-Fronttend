@@ -22,9 +22,12 @@ import type {
   DeleteOneFundParamsType,
   DeleteOneFundTransformResponseType,
   DeleteOneFundResponseType,
-  SignHashParamsType,
-  SignHashTransformResponseType,
-  SignHashResponseType
+  SFTSignHashParamsType,
+  SFTSignHashTransformResponseType,
+  SFTSignHashResponseType,
+  VaultSignHashParamsType,
+  VaultSignHashTransformResponseType,
+  VaultSignHashResponseType
 } from 'src/types/fundTypes'
 
 const FUND_API_REDUCER_KEY = 'fundApi'
@@ -111,13 +114,21 @@ export const fundApi = createApi({
         ...responseData?.data?.attributes
       })
     }),
-    signHash: builder.mutation<SignHashResponseType, SignHashParamsType>({
+    sftSignHash: builder.mutation<SFTSignHashResponseType, SFTSignHashParamsType>({
       query: params => ({
-        url: `/api/funds/sign-hash/${params.id}`,
+        url: `/api/funds/sft/sign-hash/${params.id}`,
         method: 'POST',
         body: params
       }),
-      transformResponse: (responseData: SignHashTransformResponseType) => responseData
+      transformResponse: (responseData: SFTSignHashTransformResponseType) => responseData
+    }),
+    vaultSignHash: builder.mutation<VaultSignHashResponseType, VaultSignHashParamsType>({
+      query: params => ({
+        url: `/api/funds/vault/sign-hash/${params.id}`,
+        method: 'POST',
+        body: params
+      }),
+      transformResponse: (responseData: VaultSignHashTransformResponseType) => responseData
     })
   })
 })
@@ -128,6 +139,7 @@ export const {
   useCreateMutation,
   useUpdateOneMutation,
   useDeleteOneMutation,
-  useSignHashMutation
+  useSftSignHashMutation,
+  useVaultSignHashMutation
 } = fundApi
 export default fundApi
