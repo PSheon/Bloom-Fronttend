@@ -79,7 +79,7 @@ const AuthVerifyEmailPage = () => {
               <Typography variant='h5' sx={{ mb: 2 }}>
                 Verify your email ✉️
               </Typography>
-              <Typography sx={{ color: 'text.secondary' }}>
+              <Typography color='text.secondary'>
                 Account activation link sent to your email address: <strong>{router.query.email}</strong> Please follow
                 the link inside to continue.
               </Typography>
@@ -99,7 +99,7 @@ const AuthVerifyEmailPage = () => {
               flexWrap='wrap'
               sx={{ width: '100%' }}
             >
-              <Typography sx={{ color: 'text.secondary' }}>Not this Email？</Typography>
+              <Typography color='text.secondary'>Not this Email？</Typography>
               <LinkStyled href='/auth/register'>Register again</LinkStyled>
             </Stack>
           </Stack>

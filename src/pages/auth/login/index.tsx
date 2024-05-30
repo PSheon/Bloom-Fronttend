@@ -78,6 +78,18 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
   }
 }))
 
+const SidecarCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
+  width: '100%',
+  padding: `${theme.spacing(12, 8)} !important`,
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: theme.palette.primary.light,
+  display: 'flex',
+  flexDirection: 'column',
+  alignSelf: 'stretch',
+  alignItems: 'center',
+  justifyContent: 'center'
+}))
+
 const LoginIllustration = styled('img')(({ theme }) => ({
   maxWidth: '48rem',
   [theme.breakpoints.down('xl')]: {
@@ -173,22 +185,7 @@ const AuthLoginPage = () => {
   return (
     <Box className='content-center'>
       <Card sx={{ zIndex: 1, width: '100%', maxWidth: theme => theme.spacing(isDesktopView ? 360 : 120) }}>
-        <Grid container className='match-height'>
-          {isDesktopView && (
-            <Grid
-              item
-              xs={12}
-              md={7}
-              sx={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <LoginIllustration height={500} alt='login-illustration' src='/images/auth/login-illustration.svg' />
-            </Grid>
-          )}
+        <Grid container>
           <Grid item xs={12} md={5}>
             <MainCardContentStyled>
               <Stack spacing={6} alignItems='flex-start'>
@@ -350,14 +347,15 @@ const AuthLoginPage = () => {
                   flexWrap='wrap'
                   sx={{ width: '100%', pt: 8 }}
                 >
-                  <Typography noWrap sx={{ color: 'text.secondary' }}>
+                  <Typography noWrap color='text.secondary'>
                     New on our platform?
                   </Typography>
                   <Typography
                     component={Link}
                     href='/auth/register'
                     noWrap
-                    sx={{ color: 'primary.main', textDecoration: 'none' }}
+                    color='primary.main'
+                    sx={{ textDecoration: 'none' }}
                   >
                     Create an account
                   </Typography>
@@ -365,6 +363,32 @@ const AuthLoginPage = () => {
               </Stack>
             </MainCardContentStyled>
           </Grid>
+          {isDesktopView && (
+            <Grid
+              item
+              xs={12}
+              md={7}
+              sx={{
+                display: 'flex',
+                alignSelf: 'stretch',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: `${theme.spacing(10, 10, 10, 0)} !important`
+              }}
+            >
+              <SidecarCardContentStyled>
+                <LoginIllustration height={350} alt='login-illustration' src='/images/auth/login-illustration.svg' />
+                <Stack spacing={2} alignItems='center' justifyContent='center' sx={{ mt: 12 }}>
+                  <Typography variant='subtitle1' component='p' color='common.white'>
+                    Best RWA trade desk
+                  </Typography>
+                  <Typography variant='subtitle2' component='p' color='common.white'>
+                    ETH、USDT、USDC
+                  </Typography>
+                </Stack>
+              </SidecarCardContentStyled>
+            </Grid>
+          )}
         </Grid>
       </Card>
     </Box>

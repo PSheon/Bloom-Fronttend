@@ -72,6 +72,18 @@ const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ t
   }
 }))
 
+const SidecarCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
+  width: '100%',
+  padding: `${theme.spacing(12, 8)} !important`,
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: theme.palette.primary.light,
+  display: 'flex',
+  flexDirection: 'column',
+  alignSelf: 'stretch',
+  alignItems: 'center',
+  justifyContent: 'center'
+}))
+
 const RegisterIllustration = styled('img')(({ theme }) => ({
   maxWidth: '48rem',
   [theme.breakpoints.down('xl')]: {
@@ -155,26 +167,7 @@ const AuthRegisterPage = () => {
   return (
     <Box className='content-center'>
       <Card sx={{ zIndex: 1, width: '100%', maxWidth: theme => theme.spacing(isDesktopView ? 360 : 120) }}>
-        <Grid container className='match-height'>
-          {isDesktopView && (
-            <Grid
-              item
-              xs={12}
-              md={7}
-              sx={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <RegisterIllustration
-                height={500}
-                alt='register-illustration'
-                src='/images/auth/register-illustration.svg'
-              />
-            </Grid>
-          )}
+        <Grid container>
           <Grid item xs={12} md={5}>
             <MainCardContentStyled>
               <Stack spacing={6} alignItems='flex-start'>
@@ -213,9 +206,7 @@ const AuthRegisterPage = () => {
                           />
                         )}
                       />
-                      {errors.username && (
-                        <FormHelperText sx={{ color: 'error.main' }}>{errors.username.message}</FormHelperText>
-                      )}
+                      {errors.username && <FormHelperText color='error.main'>{errors.username.message}</FormHelperText>}
                     </FormControl>
                     <FormControl fullWidth sx={{ mb: 4 }}>
                       <Controller
@@ -233,9 +224,7 @@ const AuthRegisterPage = () => {
                           />
                         )}
                       />
-                      {errors.email && (
-                        <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>
-                      )}
+                      {errors.email && <FormHelperText color='error.main'>{errors.email.message}</FormHelperText>}
                     </FormControl>
                     <FormControl fullWidth>
                       <InputLabel htmlFor='auth-login-password' error={Boolean(errors.password)}>
@@ -268,11 +257,7 @@ const AuthRegisterPage = () => {
                           />
                         )}
                       />
-                      {errors.password && (
-                        <FormHelperText sx={{ color: 'error.main' }} id=''>
-                          {errors.password.message}
-                        </FormHelperText>
-                      )}
+                      {errors.password && <FormHelperText color='error.main'>{errors.password.message}</FormHelperText>}
                     </FormControl>
 
                     <FormControlLabel
@@ -309,18 +294,41 @@ const AuthRegisterPage = () => {
                   flexWrap='wrap'
                   sx={{ width: '100%', pt: 8 }}
                 >
-                  <Typography sx={{ color: 'text.secondary' }}>Already have an account?</Typography>
-                  <Typography
-                    href='/auth/login'
-                    component={Link}
-                    sx={{ color: 'primary.main', textDecoration: 'none' }}
-                  >
+                  <Typography color='text.secondary'>Already have an account?</Typography>
+                  <Typography component={Link} href='/auth/login' color='primary.main' sx={{ textDecoration: 'none' }}>
                     Sign in instead
                   </Typography>
                 </Stack>
               </Stack>
             </MainCardContentStyled>
           </Grid>
+          {isDesktopView && (
+            <Grid
+              item
+              xs={12}
+              md={7}
+              sx={{
+                display: 'flex',
+                alignSelf: 'stretch',
+                alignItems: 'center',
+                justifyContent: 'center',
+                padding: `${theme.spacing(10, 10, 10, 0)} !important`
+              }}
+            >
+              <SidecarCardContentStyled>
+                <RegisterIllustration
+                  height={350}
+                  alt='register-illustration'
+                  src='/images/auth/register-illustration.svg'
+                />
+                <Stack spacing={2} alignItems='center' justifyContent='center' sx={{ mt: 12 }}>
+                  <Typography variant='subtitle1' component='p' color='common.white'>
+                    Welcome to the future of RWA trading
+                  </Typography>
+                </Stack>
+              </SidecarCardContentStyled>
+            </Grid>
+          )}
         </Grid>
       </Card>
     </Box>
