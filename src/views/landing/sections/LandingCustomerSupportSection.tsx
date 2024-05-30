@@ -58,20 +58,23 @@ const LandingCustomerSupportSection = () => {
       <Box
         sx={{
           width: theme => ({
-            xs: theme.spacing(140),
+            xs: theme.spacing(80),
+            sm: theme.spacing(100),
             md: theme.spacing(120),
             lg: theme.spacing(140),
             xl: theme.spacing(180)
           }),
           height: theme => ({
-            xs: theme.spacing(160),
+            xs: theme.spacing(90),
+            sm: theme.spacing(125),
             md: theme.spacing(160),
             lg: theme.spacing(220),
             xl: theme.spacing(240)
           }),
           position: 'absolute',
           top: theme => ({
-            xs: `calc(${containerTop}px - ${theme.spacing(40)})`,
+            xs: `calc(${containerTop}px - ${theme.spacing(10)})`,
+            sm: `calc(${containerTop}px - ${theme.spacing(30)})`,
             md: `calc(${containerTop}px - ${theme.spacing(80)})`,
             lg: `calc(${containerTop}px - ${theme.spacing(100)})`
           }),

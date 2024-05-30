@@ -85,12 +85,18 @@ const LandingSafeAndSecuritySection = () => {
       </Box>
 
       <Grid container spacing={6}>
-        <Grid item xs={12} md={6}>
-          <Stack spacing={4} justifyContent='center'>
-            <Typography variant='h3' sx={{ fontWeight: 900, maxWidth: theme => theme.spacing(120) }}>
+        <Grid item xs={12} md={6} sx={{ display: 'flex', justifyContent: 'flex-end' }}>
+          <Stack
+            spacing={4}
+            alignSelf='stretch'
+            alignItems='flex-end'
+            justifyContent='center'
+            sx={{ maxWidth: theme => theme.spacing(120) }}
+          >
+            <Typography variant='h3' component='p' textAlign='right' sx={{ fontWeight: 900 }}>
               Take your first step into safe, secure crypto investing
             </Typography>
-            <Typography variant='subtitle1'>
+            <Typography variant='subtitle1' component='p' textAlign='right'>
               Separated they live in Bookmarks right at the coast of the famous Semantics, large language ocean
               Separated they live in Bookmarks right at the coast.
             </Typography>
@@ -98,7 +104,7 @@ const LandingSafeAndSecuritySection = () => {
         </Grid>
         <Grid item xs={12} md={6}>
           <Stack spacing={4} alignItems='center' justifyContent='center'>
-            <Box sx={{ position: 'relative', width: isDesktopView ? 580 : 440, height: isDesktopView ? 420 : 360 }}>
+            <Box sx={{ position: 'relative', width: isDesktopView ? 540 : 360, height: isDesktopView ? 380 : 280 }}>
               <Image src='/images/landing/safe-and-security/briefcase.png' alt='briefcase' fill />
             </Box>
           </Stack>

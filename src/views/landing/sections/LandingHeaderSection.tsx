@@ -61,7 +61,7 @@ const LandingHeaderSection = () => {
           pointerEvents: 'none'
         }}
       >
-        <Image src='/images/landing/hero/deco-orbit.svg' alt='deco orbit' fill />
+        <Image src='/images/landing/hero/deco-orbit.svg' alt='deco orbit' fill priority />
       </Box>
       <Box
         sx={{
@@ -86,7 +86,7 @@ const LandingHeaderSection = () => {
           pointerEvents: 'none'
         }}
       >
-        <Image src='/images/landing/hero/deco-left-bg.png' alt='deco left bg' fill />
+        <Image src='/images/landing/hero/deco-left-bg.png' alt='deco left bg' fill priority />
       </Box>
       <Box
         sx={{
@@ -110,7 +110,7 @@ const LandingHeaderSection = () => {
           pointerEvents: 'none'
         }}
       >
-        <Image src='/images/landing/hero/deco-left.svg' alt='deco left' fill />
+        <Image src='/images/landing/hero/deco-left.svg' alt='deco left' fill priority />
       </Box>
       <Box
         sx={{
@@ -140,7 +140,7 @@ const LandingHeaderSection = () => {
           pointerEvents: 'none'
         }}
       >
-        <Image src='/images/landing/hero/deco-right-bg.png' alt='deco right bg' fill />
+        <Image src='/images/landing/hero/deco-right-bg.png' alt='deco right bg' fill priority />
       </Box>
       <Box
         sx={{
@@ -164,7 +164,7 @@ const LandingHeaderSection = () => {
           pointerEvents: 'none'
         }}
       >
-        <Image src='/images/landing/hero/deco-right.svg' alt='deco right' fill />
+        <Image src='/images/landing/hero/deco-right.svg' alt='deco right' fill priority />
       </Box>
 
       <Stack
