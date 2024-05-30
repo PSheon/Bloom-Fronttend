@@ -15,7 +15,6 @@
     "@casl/ability": "^6.3.3",
     "@casl/react": "^3.1.0",
     "@editorjs/checklist": "^1.6.0",
-    "@editorjs/code": "^2.9.0",
     "@editorjs/delimiter": "^1.4.0",
     "@editorjs/editorjs": "^2.29.1",
     "@editorjs/embed": "^2.7.1",
@@ -31,14 +30,6 @@
     "@emotion/react": "^11.11.4",
     "@emotion/server": "^11.11.0",
     "@emotion/styled": "^11.11.5",
-    "@fullcalendar/bootstrap5": "^6.1.4",
-    "@fullcalendar/common": "^5.11.4",
-    "@fullcalendar/core": "^6.1.4",
-    "@fullcalendar/daygrid": "^6.1.4",
-    "@fullcalendar/interaction": "^6.1.4",
-    "@fullcalendar/list": "^6.1.4",
-    "@fullcalendar/react": "^6.1.4",
-    "@fullcalendar/timegrid": "^6.1.4",
     "@hookform/resolvers": "^3.3.4",
     "@iconify/react": "^4.1.0",
     "@mui/lab": "^5.0.0-alpha.163",
@@ -78,14 +69,12 @@
     "next": "14.2.2",
     "next-auth": "^4.24.7",
     "nprogress": "^0.2.0",
-    "payment": "^2.4.6",
     "pdfjs-dist": "^3.11.174",
     "prismjs": "^1.29.0",
     "qs": "^6.11.2",
     "react": "^18.3.1",
     "react-apexcharts": "^1.4.0",
     "react-chartjs-2": "^5.2.0",
-    "react-credit-cards": "^0.8.3",
     "react-datepicker": "^4.10.0",
     "react-dom": "^18.3.1",
     "react-draft-wysiwyg": "^1.15.0",
@@ -117,11 +106,9 @@
     "@types/draft-js": "^0.11.10",
     "@types/node": "^20.12.8",
     "@types/nprogress": "^0.2.0",
-    "@types/payment": "^2.1.4",
     "@types/prismjs": "^1.26.0",
     "@types/qs": "^6.9.10",
     "@types/react": "^18.3.1",
-    "@types/react-credit-cards": "^0.8.1",
     "@types/react-datepicker": "^4.10.0",
     "@types/react-draft-wysiwyg": "^1.13.4",
     "@types/react-redux": "^7.1.33",
@@ -134,21 +121,5 @@
     "eslint-plugin-import": "^2.29.1",
     "prettier": "^3.2.5",
     "typescript": "^5.4.5"
-  },
-  "resolutions": {
-    "minipass": "~4.2.5",
-    "@mui/x-data-grid/@mui/system": "^5.4.1",
-    "react-credit-cards/prop-types": "^15.7.2",
-    "react-hot-toast/goober/csstype": "^3.0.10",
-    "recharts/react-smooth/prop-types": "^15.6.0",
-    "react-draft-wysiwyg/html-to-draftjs/immutable": "4.3.0",
-    "react-draft-wysiwyg/draftjs-utils/immutable": "4.3.0",
-    "@emotion/react/@emotion/babel-plugin/@babel/core": "^7.0.0",
-    "@emotion/react/@emotion/babel-plugin/@babel/plugin-syntax-jsx/@babel/core": "^7.0.0"
-  },
-  "overrides": {
-    "react-credit-cards": {
-      "react": "$react"
-    }
   }
 }
