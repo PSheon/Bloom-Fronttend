@@ -10,16 +10,22 @@ import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
+import IconButton from '@mui/material/IconButton'
+import Skeleton from '@mui/material/Skeleton'
 
 // ** Third-Party Imports
 import { useAccount, useReadContract } from 'wagmi'
 import { Atropos } from 'atropos/react'
+import format from 'date-fns/format'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Custom Component Imports
-import ManagementFundPreviewOwnedSFTSkeletonCard from 'src/views/management/fund/preview/cards/owned-sft/ManagementFundPreviewOwnedSFTSkeletonCard'
+import PublicFundLiveStakedSFTSkeletonCard from 'src/views/fund/live/cards/staked-sft/PublicFundLiveStakedSFTSkeletonCard'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
 import { getFundCurrencyProperties, getFormattedPriceUnit, getChainId } from 'src/utils'
@@ -39,12 +45,13 @@ const Sup = styled('sup')(({ theme }) => ({
   color: theme.palette.primary.main
 }))
 
+type StakeRecordType = [string, bigint, bigint, number, number, bigint]
 interface Props {
   initFundEntity: FundType
   sftIndex: number
 }
 
-const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
+const ManagementFundPreviewStakedSFTCard = (props: Props) => {
   // ** Props
   const { initFundEntity, sftIndex } = props
 
@@ -57,7 +64,7 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
     abi: initFundEntity.sft.contractAbi,
     address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'tokenOfOwnerByIndex',
-    args: [walletAccount.address!, sftIndex],
+    args: [initFundEntity.vault.contractAddress, sftIndex],
     account: walletAccount.address!
   })
 
@@ -85,14 +92,50 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
     }
   })
 
+  const { data: vaultStakeRecord, isLoading: isVaultStakeRecordLoading } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.vault.contractAbi,
+    address: initFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'stakeRecord',
+    args: [sftId],
+    account: walletAccount.address!,
+    query: {
+      enabled: !isSftIdLoading && sftId !== undefined
+    }
+  })
+
+  const {
+    data: vaultStakedEarningInfo,
+    refetch: refetchVaultStakedEarningInfo,
+    isLoading: isVaultStakedEarningInfoLoading
+  } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.vault.contractAbi,
+    address: initFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'earningInfo',
+    args: [walletAccount.address!, sftId],
+    account: walletAccount.address!,
+    query: {
+      enabled: !isSftIdLoading && sftId !== undefined
+    }
+  })
+
   // ** Vars
   const formattedSftValue = BigInt(Number(sftValue ?? 0)) / 10n ** 18n
   const sftSlot = initFundEntity.defaultPackages?.data.find(pkg => pkg.id === Number(sftSlotId))
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
+  const stakeRecordStartDate = vaultStakeRecord
+    ? format(new Date((vaultStakeRecord as StakeRecordType)[3] * 1_000), 'PPp')
+    : '-'
+
+  const stakeRecordUnlockDate = vaultStakeRecord
+    ? format(new Date((vaultStakeRecord as StakeRecordType)[4] * 1_000), 'PPp')
+    : '-'
+
   // ** Side Effects
   if (isSftIdLoading || isSftValueLoading || isSftSlotIdLoading) {
-    return <ManagementFundPreviewOwnedSFTSkeletonCard />
+    return <PublicFundLiveStakedSFTSkeletonCard />
   }
 
   return (
@@ -193,13 +236,78 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
                 })}
               </Stack>
             </Stack>
+            <Stack spacing={2} justifyContent='center'>
+              <Typography variant='subtitle2' component='p'>
+                Stake Information
+              </Typography>
+
+              <Stack spacing={2} alignSelf='stretch'>
+                <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                  <Typography variant='subtitle1' component='p'>
+                    Stake Start Date
+                  </Typography>
+                  {isVaultStakeRecordLoading ? (
+                    <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                      <Skeleton variant='text' width={120} />
+                    </Stack>
+                  ) : (
+                    <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
+                      {stakeRecordStartDate}
+                    </Typography>
+                  )}
+                </Stack>
+                <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                  <Typography variant='subtitle1' component='p'>
+                    Stake Unlock Date
+                  </Typography>
+                  {isVaultStakeRecordLoading ? (
+                    <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                      <Skeleton variant='text' width={120} />
+                    </Stack>
+                  ) : (
+                    <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
+                      {stakeRecordUnlockDate}
+                    </Typography>
+                  )}
+                </Stack>
+                <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                  <Typography variant='subtitle1' component='p'>
+                    Earned
+                  </Typography>
+                  <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                    {isVaultStakedEarningInfoLoading ? (
+                      <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                        <Skeleton variant='text' width={120} />
+                        <Skeleton variant='circular' width={28} height={28} />
+                      </Stack>
+                    ) : (
+                      <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                        <Typography
+                          variant='subtitle1'
+                          component='p'
+                          sx={{ fontWeight: 600 }}
+                        >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                          Number(vaultStakedEarningInfo ?? 0) / 10 ** 18
+                        )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                        <IconButton size='small' onClick={() => refetchVaultStakedEarningInfo()}>
+                          <Icon icon='mdi:reload' fontSize={16} />
+                        </IconButton>
+                      </Stack>
+                    )}
+                  </Stack>
+                </Stack>
+              </Stack>
+            </Stack>
             <Stack spacing={2} sx={{ mt: 'auto' }}>
               <Divider />
-              <Button fullWidth disabled variant='contained' size='small'>
-                Stake
+              <Button fullWidth disabled variant='contained'>
+                Claim
+              </Button>
+              <Button fullWidth disabled variant='contained'>
+                UnStake
               </Button>
               <Typography variant='body2' component='p' textAlign='center'>
-                {`Can't stake in preview mode`}
+                {`Can't unstake in preview mode`}
               </Typography>
             </Stack>
           </Stack>
@@ -209,4 +317,4 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
   )
 }
 
-export default ManagementFundPreviewOwnedSFTCard
+export default ManagementFundPreviewStakedSFTCard

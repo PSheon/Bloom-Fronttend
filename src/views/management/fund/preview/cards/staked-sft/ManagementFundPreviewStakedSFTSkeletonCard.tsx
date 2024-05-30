@@ -8,7 +8,7 @@ import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
 import Skeleton from '@mui/material/Skeleton'
 
-const ManagementFundPreviewOwnedSFTSkeletonCard = () => {
+const ManagementFundPreviewStakedSFTSkeletonCard = () => {
   return (
     <Card>
       <CardContent>
@@ -58,14 +58,27 @@ const ManagementFundPreviewOwnedSFTSkeletonCard = () => {
               <Skeleton variant='text' width={100} />
             </Stack>
           </Stack>
+
+          <Skeleton variant='text' width={40} />
+
+          <Stack spacing={2} alignSelf='stretch'>
+            <Stack direction='row' alignItems='center' justifyContent='space-between'>
+              <Skeleton variant='text' width={160} />
+              <Skeleton variant='text' width={100} />
+            </Stack>
+            <Stack direction='row' alignItems='center' justifyContent='space-between'>
+              <Skeleton variant='text' width={160} />
+              <Skeleton variant='text' width={100} />
+            </Stack>
+          </Stack>
         </Stack>
-        <Stack sx={{ mt: 'auto' }}>
+        <Stack spacing={2} sx={{ mt: 'auto' }}>
           <Divider />
           <Button fullWidth disabled variant='contained'>
-            Stake
+            Claim
           </Button>
           <Button fullWidth disabled variant='contained'>
-            Redeem
+            Unstake
           </Button>
         </Stack>
       </CardContent>
@@ -73,4 +86,4 @@ const ManagementFundPreviewOwnedSFTSkeletonCard = () => {
   )
 }
 
-export default ManagementFundPreviewOwnedSFTSkeletonCard
+export default ManagementFundPreviewStakedSFTSkeletonCard
