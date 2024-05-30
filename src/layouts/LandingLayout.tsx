@@ -50,11 +50,9 @@ const LandingLayout = ({ children }: Props) => {
         <ContentWrapper
           className='layout-page-content'
           sx={{
-            ...{
-              mx: 'auto',
-              '@media (min-width:1440px)': { maxWidth: 1440 },
-              '@media (min-width:1200px)': { maxWidth: '100%' }
-            }
+            mx: 'auto',
+            '@media (min-width:1440px)': { maxWidth: 1440 },
+            '@media (min-width:1200px)': { maxWidth: '100%' }
           }}
         >
           {children}

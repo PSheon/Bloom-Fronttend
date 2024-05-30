@@ -4,14 +4,12 @@ import Image from 'next/image'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import useMediaQuery from '@mui/material/useMediaQuery'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
 // ** Type Imports
-import type { Theme } from '@mui/material/styles'
 import type { BoxProps } from '@mui/material/Box'
 import type { ButtonProps } from '@mui/material/Button'
 
@@ -21,13 +19,13 @@ const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
-  overflow: 'hidden',
   [theme.breakpoints.down('md')]: {
     minHeight: theme.spacing(140)
   }
 }))
 
-const StyledButton = styled(Button)<ButtonProps>(() => ({
+const StyledButton = styled(Button)<ButtonProps>(({ theme }) => ({
+  mt: theme.spacing(4),
   background: 'linear-gradient(-45deg, #ffa63d, #ff3d77, #338aff, #3cf0c5)',
   backgroundSize: '600%',
   animation: `anime 12s linear infinite`,
@@ -45,62 +43,153 @@ const StyledButton = styled(Button)<ButtonProps>(() => ({
 }))
 
 const LandingHeaderSection = () => {
-  // ** Hooks
-  const isLargeDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('lg'))
-  const isDesktopView = useMediaQuery((theme: Theme) => theme.breakpoints.up('md'))
-
   return (
     <StyledRootBox>
-      {isLargeDesktopView ? (
-        <Image
-          src='/images/landing/hero/deco-orbit.png'
-          alt='deco orbit'
-          width={1200}
-          height={780}
-          style={{ pointerEvents: 'none', position: 'absolute', top: 0 }}
-        />
-      ) : isDesktopView ? (
-        <Image
-          src='/images/landing/hero/deco-orbit.png'
-          alt='deco orbit'
-          width={890}
-          height={700}
-          style={{ pointerEvents: 'none', position: 'absolute', top: 0 }}
-        />
-      ) : null}
-      {isDesktopView && (
-        <Image
-          src='/images/landing/hero/deco-left.png'
-          alt='deco planet'
-          width={620}
-          height={754}
-          style={{ pointerEvents: 'none', position: 'absolute', left: 0, top: 0 }}
-        />
-      )}
-      {isDesktopView && (
-        <Image
-          src='/images/landing/hero/deco-right.png'
-          alt='deco coin'
-          width={539}
-          height={907}
-          style={{ pointerEvents: 'none', position: 'absolute', right: 0, top: 0 }}
-        />
-      )}
+      <Box
+        sx={{
+          zIndex: -1,
+          width: '100%',
+          height: theme => ({
+            xs: theme.spacing(220),
+            sm: theme.spacing(260),
+            md: theme.spacing(300),
+            lg: theme.spacing(380),
+            xl: theme.spacing(380)
+          }),
+          position: 'absolute',
+          top: 0,
+          pointerEvents: 'none'
+        }}
+      >
+        <Image src='/images/landing/hero/deco-orbit.svg' alt='deco orbit' fill />
+      </Box>
+      <Box
+        sx={{
+          width: theme => ({
+            xs: theme.spacing(100),
+            md: theme.spacing(140),
+            lg: theme.spacing(160),
+            xl: theme.spacing(180)
+          }),
+          height: theme => ({
+            xs: theme.spacing(100),
+            md: theme.spacing(160),
+            lg: theme.spacing(180),
+            xl: theme.spacing(200)
+          }),
+          position: 'absolute',
+          top: 0,
+          left: theme => ({
+            xs: theme.spacing(-20),
+            md: theme.spacing(-10)
+          }),
+          pointerEvents: 'none'
+        }}
+      >
+        <Image src='/images/landing/hero/deco-left-bg.png' alt='deco left bg' fill />
+      </Box>
+      <Box
+        sx={{
+          width: theme => ({
+            xs: theme.spacing(0),
+            lg: theme.spacing(120),
+            xl: theme.spacing(160)
+          }),
+          height: theme => ({
+            xs: theme.spacing(0),
+            lg: theme.spacing(160),
+            xl: theme.spacing(200)
+          }),
+          position: 'absolute',
+          top: theme => ({
+            xs: theme.spacing(0),
+            lg: theme.spacing(50),
+            xl: theme.spacing(35)
+          }),
+          left: 0,
+          pointerEvents: 'none'
+        }}
+      >
+        <Image src='/images/landing/hero/deco-left.svg' alt='deco left' fill />
+      </Box>
+      <Box
+        sx={{
+          width: theme => ({
+            xs: theme.spacing(60),
+            sm: theme.spacing(100),
+            md: theme.spacing(140),
+            lg: theme.spacing(160),
+            xl: theme.spacing(180)
+          }),
+          height: theme => ({
+            xs: theme.spacing(80),
+            sm: theme.spacing(120),
+            md: theme.spacing(160),
+            lg: theme.spacing(180),
+            xl: theme.spacing(200)
+          }),
+          position: 'absolute',
+          top: theme => ({
+            xs: theme.spacing(80),
+            sm: theme.spacing(60),
+            md: theme.spacing(50),
+            lg: theme.spacing(55),
+            xl: theme.spacing(65)
+          }),
+          right: 0,
+          pointerEvents: 'none'
+        }}
+      >
+        <Image src='/images/landing/hero/deco-right-bg.png' alt='deco right bg' fill />
+      </Box>
+      <Box
+        sx={{
+          width: theme => ({
+            xs: theme.spacing(0),
+            lg: theme.spacing(120),
+            xl: theme.spacing(160)
+          }),
+          height: theme => ({
+            xs: theme.spacing(0),
+            lg: theme.spacing(160),
+            xl: theme.spacing(200)
+          }),
+          position: 'absolute',
+          top: theme => ({
+            xs: theme.spacing(0),
+            lg: theme.spacing(50),
+            xl: theme.spacing(35)
+          }),
+          right: 0,
+          pointerEvents: 'none'
+        }}
+      >
+        <Image src='/images/landing/hero/deco-right.svg' alt='deco right' fill />
+      </Box>
 
-      <Stack spacing={4} justifyContent='center' sx={{ maxWidth: theme => theme.spacing(240) }}>
-        <Typography variant='h1' textAlign='center' sx={{ fontWeight: 900 }}>
+      <Stack
+        spacing={4}
+        alignItems='center'
+        justifyContent='center'
+        sx={{
+          maxWidth: theme => ({
+            xs: theme.spacing(120),
+            sm: theme.spacing(180),
+            lg: theme.spacing(240)
+          })
+        }}
+      >
+        <Typography variant='h1' component='h1' textAlign='center' sx={{ fontWeight: 900 }}>
           We make crypto clear and simple
         </Typography>
-        <Typography variant='h5' textAlign='center'>
+        <Typography variant='h5' component='h2' textAlign='center'>
           Buy, sell, and grow your crypto with Bloom, the platform dedicated to every trader at every level.
         </Typography>
       </Stack>
 
-      <Stack spacing={4} sx={{ mt: 12 }}>
-        <StyledButton component={Link} href='/portfolio' variant='contained' size='large'>
-          Explore
-        </StyledButton>
-      </Stack>
+      <StyledButton component={Link} href='/portfolio' variant='contained' size='large' sx={{ mt: 16 }}>
+        Explore
+      </StyledButton>
     </StyledRootBox>
   )
 }
