@@ -187,7 +187,7 @@ const PublicFundLiveVaultSFTListGrid = (props: Props) => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <Stack spacing={6} alignItems='center' justifyContent='center' sx={{ py: 12 }}>
+        <Stack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ py: 12 }}>
           <Stack
             spacing={4}
             alignItems='center'
@@ -202,7 +202,7 @@ const PublicFundLiveVaultSFTListGrid = (props: Props) => {
               the creation of new units, and verify the transfer of assets.
             </Typography>
           </Stack>
-          <Box sx={{ width: '100%', maxWidth: theme => theme.spacing(64) }}>
+          <Stack sx={{ width: '100%', maxWidth: theme => theme.spacing(200) }}>
             <ConnectButton.Custom>
               {({ account, chain, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
                 const ready = mounted && authenticationStatus !== 'loading'
@@ -311,7 +311,7 @@ const PublicFundLiveVaultSFTListGrid = (props: Props) => {
                 )
               }}
             </ConnectButton.Custom>
-          </Box>
+          </Stack>
         </Stack>
       </Grid>
     </Grid>

@@ -38,7 +38,11 @@ const PublicFundLiveOwnedSFTListGrid = (props: Props) => {
   // ** Hooks
   const walletAccount = useAccount()
 
-  const { data: sftBalance, isLoading: isSftBalanceLoading } = useReadContract({
+  const {
+    data: sftBalance,
+    isLoading: isSftBalanceLoading,
+    isFetching: isSftBalanceFetching
+  } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initFundEntity.sft.contractAbi,
     address: initFundEntity.sft.contractAddress as `0x${string}`,
@@ -52,9 +56,9 @@ const PublicFundLiveOwnedSFTListGrid = (props: Props) => {
 
   return (
     <Grid container spacing={6} className='match-height'>
-      {isSftBalanceLoading ? (
+      {isSftBalanceLoading || isSftBalanceFetching ? (
         [...Array(3).keys()].map(index => (
-          <Grid key={`public-fund-live-skeleton-${index}`} item xs={12} sm={6} md={4}>
+          <Grid key={`public-fund-live-owned-skeleton-${index}`} item xs={12} sm={6} md={4}>
             <PublicFundLiveOwnedSFTSkeletonCard />
           </Grid>
         ))
@@ -75,7 +79,7 @@ const PublicFundLiveOwnedSFTListGrid = (props: Props) => {
         </Grid>
       ) : (
         [...Array(sftBalanceCount).keys()].map(sftIndex => (
-          <Grid key={`sft-token-${sftIndex}`} item xs={12} sm={6} md={4}>
+          <Grid key={`public-fund-live-owned-sft-${sftIndex}`} item xs={12} sm={6} md={4}>
             <PublicFundLiveOwnedSFTCard initFundEntity={initFundEntity} sftIndex={sftIndex} />
           </Grid>
         ))

@@ -1,3 +1,6 @@
+// ** React Imports
+import { useState, useEffect } from 'react'
+
 // ** Next Imports
 import Image from 'next/image'
 
@@ -5,11 +8,16 @@ import Image from 'next/image'
 import { styled, useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
+import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
+import Dialog from '@mui/material/Dialog'
+import DialogTitle from '@mui/material/DialogTitle'
+import DialogContent from '@mui/material/DialogContent'
+import DialogContentText from '@mui/material/DialogContentText'
 import IconButton from '@mui/material/IconButton'
 import Skeleton from '@mui/material/Skeleton'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -18,7 +26,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { Atropos } from 'atropos/react'
 import format from 'date-fns/format'
-import toast from 'react-hot-toast'
+import confetti from 'canvas-confetti'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -57,6 +65,9 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
   // ** Props
   const { initFundEntity, sftIndex } = props
 
+  // ** States
+  const [isUnstakeSFTDialogOpen, setIsUnstakeSFTDialogOpen] = useState<boolean>(false)
+
   // ** Hooks
   const theme = useTheme()
   const walletAccount = useAccount()
@@ -94,6 +105,42 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
     }
   })
 
+  const { refetch: refetchSftBalance } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.sft.contractAbi,
+    address: initFundEntity.sft.contractAddress as `0x${string}`,
+    functionName: 'balanceOf',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: false
+    }
+  })
+
+  const { refetch: refetchOwnedStakedSFTBalance } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.vault.contractAbi,
+    address: initFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'balanceOf',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: false
+    }
+  })
+
+  const { refetch: refetchVaultTotalStaked } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.vault.contractAbi,
+    address: initFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'totalStaked',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: false
+    }
+  })
+
   const { data: vaultStakeRecord, isLoading: isVaultStakeRecordLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initFundEntity.vault.contractAbi,
@@ -122,11 +169,11 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
     }
   })
 
-  const { data: unStakeSftHash, isPending: isUnStakeSftPending, writeContract: unStakeSft } = useWriteContract()
+  const { data: unstakeSftHash, isPending: isUnstakeSftPending, writeContract: unstakeSft } = useWriteContract()
 
-  const { isLoading: isUnStakeSftConfirming } = useWaitForTransactionReceipt({
+  const { isLoading: isUnstakeSftConfirming, isSuccess: isUnstakeSftSuccess } = useWaitForTransactionReceipt({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    hash: unStakeSftHash
+    hash: unstakeSftHash
   })
 
   // ** Vars
@@ -142,7 +189,54 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
     ? format(new Date((vaultStakeRecord as StakeRecordType)[4] * 1_000), 'PPp')
     : '-'
 
+  // ** Logics
+  const handleOpenUnstakeSFTDialog = () => setIsUnstakeSFTDialogOpen(() => true)
+  const handleCloseUnstakeSFTDialog = () => setIsUnstakeSFTDialogOpen(() => false)
+
+  const handleUnstake = async () => {
+    try {
+      if (typeof sftId === 'bigint') {
+        const tokenId = sftId.toString()
+
+        unstakeSft(
+          {
+            chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+            abi: initFundEntity.vault.contractAbi,
+            address: initFundEntity.vault.contractAddress as `0x${string}`,
+            functionName: 'unstake',
+            args: [[tokenId]],
+            account: walletAccount.address!
+          },
+          {
+            onError: () => {
+              /* TODO: fix here later */
+              // toast.error('Failed to unstake sft')
+            }
+          }
+        )
+      }
+    } catch {
+      /* TODO: fix here later */
+      // toast.error('Failed to stake sft')
+    }
+  }
+
   // ** Side Effects
+  useEffect(() => {
+    if (isUnstakeSftSuccess) {
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.8 },
+        zIndex: 9999
+      })
+      refetchSftBalance()
+      refetchOwnedStakedSFTBalance()
+      refetchVaultTotalStaked()
+      setIsUnstakeSFTDialogOpen(() => false)
+    }
+  }, [isUnstakeSftSuccess, refetchSftBalance, refetchOwnedStakedSFTBalance, refetchVaultTotalStaked])
+
   if (isSftIdLoading || isSftValueLoading || isSftSlotIdLoading) {
     return <PublicFundLiveStakedSFTSkeletonCard />
   }
@@ -309,37 +403,93 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
             </Stack>
             <Stack spacing={2} sx={{ mt: 'auto' }}>
               <Divider />
-              <Button fullWidth variant='contained'>
+              <Button disabled fullWidth variant='contained'>
                 Claim
               </Button>
-              <LoadingButton
-                fullWidth
-                loading={isUnStakeSftPending || isUnStakeSftConfirming}
-                variant='contained'
-                onClick={() => {
-                  unStakeSft(
-                    {
-                      chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-                      abi: initFundEntity.vault.contractAbi,
-                      address: initFundEntity.vault.contractAddress as `0x${string}`,
-                      functionName: 'unstake',
-                      args: [[sftId]],
-                      account: walletAccount.address!
-                    },
-                    {
-                      onError: () => {
-                        toast.error('Failed to un stake sft')
-                      }
-                    }
-                  )
-                }}
-              >
+              <Button fullWidth variant='contained' onClick={handleOpenUnstakeSFTDialog}>
                 UnStake
-              </LoadingButton>
+              </Button>
             </Stack>
           </Stack>
         </Stack>
       </CardContent>
+
+      <Dialog
+        open={isUnstakeSFTDialogOpen}
+        onClose={handleCloseUnstakeSFTDialog}
+        aria-labelledby='unstake-view'
+        aria-describedby='unstake-view-description'
+        sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
+      >
+        <IconButton
+          size='small'
+          onClick={handleCloseUnstakeSFTDialog}
+          sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
+        >
+          <Icon icon='mdi:close' />
+        </IconButton>
+
+        <DialogTitle
+          id='unstake-view'
+          sx={{
+            textAlign: 'center',
+            fontSize: '1.5rem !important',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
+          }}
+        >
+          {`Unstake #${sftId}`}
+          <DialogContentText id='unstake-view-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
+            There will be penalties for unstaking early
+          </DialogContentText>
+        </DialogTitle>
+        <DialogContent
+          sx={{
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(6)} !important`]
+          }}
+        >
+          <Grid container spacing={6}>
+            <Grid item xs={12}>
+              <Stack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ py: 12 }}>
+                <Stack spacing={2} alignSelf='stretch' divider={<Divider orientation='horizontal' flexItem />}>
+                  <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                    <Typography variant='subtitle2' component='p'>
+                      Token ID
+                    </Typography>
+                    <Typography variant='subtitle1' component='p'>{`# ${sftId ?? '-'}`}</Typography>
+                  </Stack>
+                  <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                    <Typography variant='subtitle2' component='p'>
+                      Balance
+                    </Typography>
+                    <Typography
+                      variant='subtitle1'
+                      component='p'
+                    >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                      (Number(sftValue) ?? 0) / 10 ** 18
+                    )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                  </Stack>
+                </Stack>
+                <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                  <LoadingButton
+                    fullWidth
+                    loading={isUnstakeSftPending || isUnstakeSftConfirming}
+                    variant='contained'
+                    onClick={handleUnstake}
+                  >
+                    <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                      <Icon icon='mdi:hammer' fontSize={16} />
+                      Unstake
+                    </Stack>
+                  </LoadingButton>
+                </Stack>
+              </Stack>
+            </Grid>
+          </Grid>
+        </DialogContent>
+      </Dialog>
     </Card>
   )
 }

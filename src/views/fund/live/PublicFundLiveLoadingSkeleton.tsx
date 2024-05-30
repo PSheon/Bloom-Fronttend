@@ -12,9 +12,7 @@ const PublicFundLiveLoadingSkeleton = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <PublicFundLiveBreadcrumbs
-          pageLevels={[{ title: '資金審核', href: '/review/dashboard' }, { title: '預覽資金' }]}
-        />
+        <PublicFundLiveBreadcrumbs pageLevels={[{ title: '公開資金列表', href: '/fund/list/' }, { title: '資金' }]} />
       </Grid>
       <Grid item xs={12}>
         <Card>
@@ -49,8 +47,7 @@ const PublicFundLiveLoadingSkeleton = () => {
           <CardContent>
             <Stack spacing={2}>
               <Skeleton variant='text' width={200} sx={{ fontSize: '1.6rem' }} />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
+              <Skeleton variant='rounded' height={240} />
               <Skeleton variant='text' />
               <Skeleton variant='text' />
             </Stack>

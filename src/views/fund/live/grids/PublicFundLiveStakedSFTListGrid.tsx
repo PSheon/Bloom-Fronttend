@@ -13,7 +13,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
 import PublicFundLiveStakedSFTCard from 'src/views/fund/live/cards/staked-sft/PublicFundLiveStakedSFTCard'
-import PublicFundLiveOwnedSFTSkeletonCard from 'src/views/fund/live/cards/owned-sft/PublicFundLiveOwnedSFTSkeletonCard'
+import PublicFundLiveStakedSFTSkeletonCard from 'src/views/fund/live/cards/staked-sft/PublicFundLiveStakedSFTSkeletonCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -38,7 +38,11 @@ const PublicFundLiveStakedSFTListGrid = (props: Props) => {
   // ** Hooks
   const walletAccount = useAccount()
 
-  const { data: ownedStakedSFTBalance, isLoading: isOwnedStakedSFTBalanceLoading } = useReadContract({
+  const {
+    data: ownedStakedSFTBalance,
+    isLoading: isOwnedStakedSFTBalanceLoading,
+    isFetching: isOwnedStakedSFTBalanceFetching
+  } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initFundEntity.vault.contractAbi,
     address: initFundEntity.vault.contractAddress as `0x${string}`,
@@ -52,10 +56,10 @@ const PublicFundLiveStakedSFTListGrid = (props: Props) => {
 
   return (
     <Grid container spacing={6} className='match-height'>
-      {isOwnedStakedSFTBalanceLoading ? (
+      {isOwnedStakedSFTBalanceLoading || isOwnedStakedSFTBalanceFetching ? (
         [...Array(3).keys()].map(index => (
-          <Grid key={`public-fund-live-skeleton-${index}`} item xs={12} sm={6} md={4}>
-            <PublicFundLiveOwnedSFTSkeletonCard />
+          <Grid key={`public-fund-live-staked-skeleton-${index}`} item xs={12} sm={6} md={4}>
+            <PublicFundLiveStakedSFTSkeletonCard />
           </Grid>
         ))
       ) : stakedSFTBalanceCount === 0 ? (
@@ -75,7 +79,7 @@ const PublicFundLiveStakedSFTListGrid = (props: Props) => {
         </Grid>
       ) : (
         [...Array(stakedSFTBalanceCount).keys()].map(sftIndex => (
-          <Grid key={`staked-sft-token-${sftIndex}`} item xs={12} sm={6} md={4}>
+          <Grid key={`public-fund-live-staked-sft-${sftIndex}`} item xs={12} sm={6} md={4}>
             <PublicFundLiveStakedSFTCard initFundEntity={initFundEntity} sftIndex={sftIndex} />
           </Grid>
         ))

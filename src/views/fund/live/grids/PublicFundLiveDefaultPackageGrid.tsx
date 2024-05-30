@@ -1,6 +1,3 @@
-// ** React Imports
-import { useState } from 'react'
-
 // ** MUI Components
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
@@ -27,20 +24,12 @@ const PublicFundLiveDefaultPackageGrid = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
-  // ** States
-  const [selectedPackageEntityId, setSelectedPackageEntityId] = useState<number | null>(null)
-
   // ** Vars
   const { defaultPackages: defaultPackagesData } = initFundEntity
 
   const publishedDefaultPackages = defaultPackagesData?.data
     ?.map(pkg => ({ id: pkg.id, ...pkg.attributes }))
     ?.filter(pkg => pkg.status === 'Published')
-
-  // ** Logics
-  const handleSelectPackage = (packageId: number) => {
-    setSelectedPackageEntityId(() => packageId)
-  }
 
   // ** Renders
   if (!publishedDefaultPackages || publishedDefaultPackages?.length === 0) {
@@ -53,7 +42,7 @@ const PublicFundLiveDefaultPackageGrid = (props: Props) => {
                 <Icon icon='mdi:exclamation-thick' fontSize='2rem' />
               </CustomAvatar>
               <Typography variant='h6' sx={{ mb: 2 }}>
-                注意
+                Attention
               </Typography>
               <Typography variant='body2'>項目方尚未新增方案</Typography>
             </CardContent>
@@ -68,12 +57,7 @@ const PublicFundLiveDefaultPackageGrid = (props: Props) => {
       {publishedDefaultPackages.map(defaultPackage => {
         return (
           <Grid key={`default-package-${defaultPackage.id}`} item xs={12}>
-            <PublicFundLivePackageCard
-              initFundEntity={initFundEntity}
-              initPackageEntity={defaultPackage}
-              selectedPackageEntityId={selectedPackageEntityId}
-              handleSelectPackage={handleSelectPackage}
-            />
+            <PublicFundLivePackageCard initFundEntity={initFundEntity} initPackageEntity={defaultPackage} />
           </Grid>
         )
       })}

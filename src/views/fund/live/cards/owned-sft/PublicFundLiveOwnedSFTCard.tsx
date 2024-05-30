@@ -1,5 +1,5 @@
 // ** React Imports
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 
 // ** Next Imports
 import Image from 'next/image'
@@ -26,7 +26,7 @@ import { useAccount, useReadContract, useWriteContract, useWaitForTransactionRec
 import { Atropos } from 'atropos/react'
 import format from 'date-fns/format'
 import addDays from 'date-fns/addDays'
-import toast from 'react-hot-toast'
+import confetti from 'canvas-confetti'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -39,6 +39,9 @@ import Icon from 'src/@core/components/icon'
 
 // ** Hook Imports
 import useBgColor from 'src/@core/hooks/useBgColor'
+
+// ** API Imports
+import { useVaultSignHashMutation } from 'src/store/api/management/fund'
 
 // ** Util Imports
 import {
@@ -87,7 +90,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const { initFundEntity, sftIndex } = props
 
   // ** States
-  const [openEdit, setOpenEdit] = useState<boolean>(false)
+  const [isStakeSFTDialogOpen, setIsStakeSFTDialogOpen] = useState<boolean>(false)
 
   const [stakePeriod, setStakePeriod] = useState<StakePeriodType>({
     img: '/images/vault/stake-7-days.png',
@@ -135,8 +138,45 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
     }
   })
 
+  const { refetch: refetchSftBalance } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.sft.contractAbi,
+    address: initFundEntity.sft.contractAddress as `0x${string}`,
+    functionName: 'balanceOf',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: false
+    }
+  })
+
+  const { refetch: refetchOwnedStakedSFTBalance } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.vault.contractAbi,
+    address: initFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'balanceOf',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: false
+    }
+  })
+
+  const { refetch: refetchVaultTotalStaked } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.vault.contractAbi,
+    address: initFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'totalStaked',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: false
+    }
+  })
+
   const {
     data: sftApproved,
+    refetch: refetchSftApproved,
     isLoading: isSftApprovedLoading,
     isFetching: isSftApprovedFetching
   } = useReadContract({
@@ -153,17 +193,19 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
 
   const { data: approveSftHash, isPending: isApproveSftPending, writeContract: approveSft } = useWriteContract()
 
-  const { isLoading: isApproveSftConfirming } = useWaitForTransactionReceipt({
+  const { isLoading: isApproveSftConfirming, isSuccess: isApproveSftSuccess } = useWaitForTransactionReceipt({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     hash: approveSftHash
   })
 
   const { data: stakeSftHash, isPending: isStakeSftPending, writeContract: stakeSft } = useWriteContract()
 
-  const { isLoading: isStakeSftConfirming } = useWaitForTransactionReceipt({
+  const { isLoading: isStakeSftConfirming, isSuccess: isStakeSftSuccess } = useWaitForTransactionReceipt({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     hash: stakeSftHash
   })
+
+  const [signHash, { isLoading: isSignHashLoading }] = useVaultSignHashMutation()
 
   // ** Vars
   const formattedSftValue = BigInt(Number(sftValue ?? 0)) / 10n ** 18n
@@ -189,8 +231,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   ]
 
   // ** Logics
-  const handleEditOpen = () => setOpenEdit(true)
-  const handleEditClose = () => setOpenEdit(false)
+  const handleOpenStakeSFTDialog = () => setIsStakeSFTDialogOpen(() => true)
+  const handleCloseStakeSFTDialog = () => setIsStakeSFTDialogOpen(() => false)
 
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address)
@@ -206,7 +248,74 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
     return sftApproved === initFundEntity.vault.contractAddress
   }
 
+  const handleStake = async () => {
+    try {
+      if (typeof sftId === 'bigint' && typeof sftValue === 'bigint') {
+        const tokenId = sftId.toString()
+        const tokenValue = sftValue.toString()
+
+        const { hash, unlockTime, interest } = await signHash({
+          id: initFundEntity.id,
+          data: {
+            contractName: initFundEntity.vault.contractName,
+            stakerAddress: walletAccount.address!,
+            tokenId: tokenId,
+            balance: tokenValue,
+            periodInDays: stakePeriod.periodInDays,
+            apy: stakePeriod.apy
+          }
+        }).unwrap()
+
+        stakeSft(
+          {
+            chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+            abi: initFundEntity.vault.contractAbi,
+            address: initFundEntity.vault.contractAddress as `0x${string}`,
+            functionName: 'stake',
+            args: [hash, sftId!.toString(), sftValue!.toString(), unlockTime.toString(), interest.toString()],
+            account: walletAccount.address!
+          },
+          {
+            onError: () => {
+              /* TODO: fix here later */
+              // toast.error('Failed to stake sft')
+            }
+          }
+        )
+      }
+    } catch {
+      /* TODO: fix here later */
+      // toast.error('Failed to stake sft')
+    }
+  }
+
   // ** Side Effects
+  useEffect(() => {
+    if (isApproveSftSuccess) {
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.8 },
+        zIndex: 9999
+      })
+      refetchSftApproved()
+    }
+  }, [isApproveSftSuccess, refetchSftApproved])
+  useEffect(() => {
+    if (isStakeSftSuccess) {
+      confetti({
+        particleCount: 150,
+        spread: 70,
+        origin: { y: 0.8 },
+        zIndex: 9999
+      })
+      refetchSftBalance()
+      refetchOwnedStakedSFTBalance()
+      refetchVaultTotalStaked()
+      setIsStakeSFTDialogOpen(() => false)
+    }
+  }, [isStakeSftSuccess, refetchSftBalance, refetchOwnedStakedSFTBalance, refetchVaultTotalStaked])
+
   if (isSftIdLoading || isSftValueLoading || isSftSlotIdLoading) {
     return <PublicFundLiveOwnedSFTSkeletonCard />
   }
@@ -310,8 +419,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
               </Stack>
             </Stack>
             <Stack spacing={2} sx={{ mt: 'auto' }}>
-              <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
-              <Button fullWidth variant='contained' onClick={handleEditOpen}>
+              <Divider />
+              <Button fullWidth variant='contained' onClick={handleOpenStakeSFTDialog}>
                 Stake
               </Button>
               {/* TODO: Fill here later */}
@@ -324,13 +433,17 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
       </CardContent>
 
       <Dialog
-        open={openEdit}
-        onClose={handleEditClose}
+        open={isStakeSFTDialogOpen}
+        onClose={handleCloseStakeSFTDialog}
         aria-labelledby='stake-view'
         aria-describedby='stake-view-description'
         sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
       >
-        <IconButton size='small' onClick={handleEditClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
+        <IconButton
+          size='small'
+          onClick={handleCloseStakeSFTDialog}
+          sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
+        >
           <Icon icon='mdi:close' />
         </IconButton>
 
@@ -343,7 +456,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          Stake
+          {`Stake #${sftId}`}
           <DialogContentText id='stake-view-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
             There will be penalties for unstaking early
           </DialogContentText>
@@ -418,12 +531,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
             </Grid>
             <Grid item xs={12}>
               <Stack spacing={4} alignItems='center' justifyContent='center'>
-                <Stack
-                  spacing={6}
-                  alignItems='center'
-                  justifyContent='center'
-                  sx={{ width: '100%', maxWidth: theme => theme.spacing(120), py: 12 }}
-                >
+                <Stack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ py: 12 }}>
                   <Stack spacing={2} alignSelf='stretch' divider={<Divider orientation='horizontal' flexItem />}>
                     <Stack direction='row' alignItems='center' justifyContent='space-between'>
                       <Typography variant='subtitle2' component='p'>
@@ -493,7 +601,6 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                           px: 4,
                           py: 2,
                           width: '100%',
-                          maxWidth: theme => theme.spacing(120),
                           borderRadius: 1,
                           border: theme => `1px solid ${theme.palette.primary.main}`,
                           ...bgColors.primaryLight
@@ -521,7 +628,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                             },
                             {
                               onError: () => {
-                                toast.error('Failed to approve sft')
+                                /* TODO: fix here later */
+                                // toast.error('Failed to approve')
                               }
                             }
                           )
@@ -535,29 +643,10 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                     )}
                     <LoadingButton
                       fullWidth
-                      loading={isStakeSftPending || isStakeSftConfirming}
+                      loading={isSignHashLoading || isStakeSftPending || isStakeSftConfirming}
+                      disabled={sftApproved !== initFundEntity.vault.contractAddress}
                       variant='contained'
-                      onClick={() => {
-                        const interest =
-                          getExpectInterestBalance(sftValue as bigint, stakePeriod.apy, stakePeriod.periodInDays) *
-                          10 ** 18
-
-                        stakeSft(
-                          {
-                            chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-                            abi: initFundEntity.vault.contractAbi,
-                            address: initFundEntity.vault.contractAddress as `0x${string}`,
-                            functionName: 'stake',
-                            args: [sftId!, sftValue, interest],
-                            account: walletAccount.address!
-                          },
-                          {
-                            onError: () => {
-                              toast.error('Failed to approve sft')
-                            }
-                          }
-                        )
-                      }}
+                      onClick={handleStake}
                     >
                       <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
                         <Icon icon='mdi:hammer' fontSize={16} />
