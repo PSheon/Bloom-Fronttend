@@ -156,13 +156,14 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
   const {
     data: vaultStakedEarningInfo,
     refetch: refetchVaultStakedEarningInfo,
-    isLoading: isVaultStakedEarningInfoLoading
+    isLoading: isVaultStakedEarningInfoLoading,
+    isFetching: isVaultStakedEarningInfoFetching
   } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initFundEntity.vault.contractAbi,
     address: initFundEntity.vault.contractAddress as `0x${string}`,
     functionName: 'earningInfo',
-    args: [walletAccount.address!, sftId],
+    args: [sftId],
     account: walletAccount.address!,
     query: {
       enabled: !isSftIdLoading && sftId !== undefined
@@ -378,7 +379,7 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
                     Earned
                   </Typography>
                   <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                    {isVaultStakedEarningInfoLoading ? (
+                    {isVaultStakedEarningInfoLoading || isVaultStakedEarningInfoFetching ? (
                       <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                         <Skeleton variant='text' width={120} />
                         <Skeleton variant='circular' width={28} height={28} />
@@ -389,7 +390,7 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
                           variant='subtitle1'
                           component='p'
                           sx={{ fontWeight: 600 }}
-                        >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                        >{`≈ ${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
                           Number(vaultStakedEarningInfo ?? 0) / 10 ** 18
                         )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                         <IconButton size='small' onClick={() => refetchVaultStakedEarningInfo()}>
@@ -462,14 +463,19 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
                   </Stack>
                   <Stack direction='row' alignItems='center' justifyContent='space-between'>
                     <Typography variant='subtitle2' component='p'>
-                      Balance
+                      Earned
                     </Typography>
-                    <Typography
-                      variant='subtitle1'
-                      component='p'
-                    >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                      (Number(sftValue) ?? 0) / 10 ** 18
-                    )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                    <Stack alignItems='flex-end' justifyContent='center'>
+                      <Typography
+                        variant='subtitle1'
+                        component='p'
+                      >{`≈ ${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                        (Number(vaultStakedEarningInfo) ?? 0) / 10 ** 18
+                      )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                      <Typography variant='subtitle1' component='p'>{`(${getFormattedPriceUnit(
+                        Number(vaultStakedEarningInfo) ?? 0
+                      )})`}</Typography>
+                    </Stack>
                   </Stack>
                 </Stack>
                 <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
