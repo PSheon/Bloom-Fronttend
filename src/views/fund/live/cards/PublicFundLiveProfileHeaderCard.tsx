@@ -1,13 +1,21 @@
+// ** Next Imports
+import Link from 'next/link'
+
 // ** MUI Components
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Card from '@mui/material/Card'
 import { styled } from '@mui/material/styles'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import CardContent from '@mui/material/CardContent'
-import Tooltip from '@mui/material/Tooltip'
 import AvatarGroup from '@mui/material/AvatarGroup'
+import Box from '@mui/material/Box'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import IconButton from '@mui/material/IconButton'
+import Stack from '@mui/material/Stack'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
+import Skeleton from '@mui/material/Skeleton'
+
+// ** Third-Party Imports
+import { useAccount, useReadContract } from 'wagmi'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -16,7 +24,18 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
-import { getFundCategoryProperties, getPublicMediaAssetUrl, getFundCurrencyProperties } from 'src/utils'
+import {
+  getFundCategoryProperties,
+  getPublicMediaAssetUrl,
+  getChainId,
+  getBaseCurrencyAddress,
+  getFundCurrencyProperties,
+  getBaseCurrencyABI,
+  getFormattedPriceUnit
+} from 'src/utils'
+
+// ** Config Imports
+import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -36,8 +55,24 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
+  // ** Hooks
+  const walletAccount = useAccount()
+
+  const { data: payTokenBalance, isLoading: isPayTokenBalanceLoading } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
+    functionName: 'balanceOf',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: walletAccount.status === 'connected'
+    }
+  })
+
   // ** Vars
   const fundCategoryProperties = getFundCategoryProperties(initFundEntity.category)
+  const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   const currentBannerMediaAsset = initFundEntity.banner?.data?.id
     ? ({
@@ -140,7 +175,7 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
             </Stack>
           </Box>
           <Stack direction='row' spacing={4} justifyContent='center'>
-            <Stack direction='column' alignItems='flex-end'>
+            <Stack alignItems='flex-end' justifyContent='center'>
               <Typography variant='caption' sx={{ color: 'text.secondary', fontWeight: 600 }}>
                 My Total Position
               </Typography>
@@ -149,9 +184,24 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
                 sx={{ color: 'text.secondary', fontWeight: 600 }}
               >{`(${baseCurrencyProperties.currency})`}</Typography>
             </Stack>
-            <Typography variant='h5' sx={{ mb: 4, fontSize: '1.375rem' }}>
-              6,000,122
-            </Typography>
+            {isPayTokenBalanceLoading ? (
+              <Stack alignItems='center' justifyContent='center'>
+                <Skeleton variant='text' width={100} height={40} />
+              </Stack>
+            ) : (
+              <Stack direction='row' alignItems='center' justifyContent='center'>
+                <Typography variant='h5' sx={{ fontSize: '1.375rem' }}>
+                  {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit((payTokenBalance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                </Typography>
+                <IconButton
+                  component={Link}
+                  href={`${walletAccount?.chain?.blockExplorers?.default.url}/address/${walletAccount.address}`}
+                  target='_blank'
+                >
+                  <Icon icon='mdi:coins-outline' fontSize={16} />
+                </IconButton>
+              </Stack>
+            )}
           </Stack>
         </Box>
       </CardContent>
