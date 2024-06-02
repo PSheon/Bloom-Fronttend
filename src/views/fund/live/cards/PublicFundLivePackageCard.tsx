@@ -30,17 +30,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 
 // ** Third-Party Imports
-import { ConnectButton } from '@rainbow-me/rainbowkit'
-import { SiweMessage } from 'siwe'
-import {
-  useAccount,
-  useAccountEffect,
-  useSignMessage,
-  useDisconnect,
-  useReadContract,
-  useWriteContract,
-  useWaitForTransactionReceipt
-} from 'wagmi'
+import { useAccount, useAccountEffect, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import safePrice from 'currency.js'
 import { Atropos } from 'atropos/react'
 import confetti from 'canvas-confetti'
@@ -52,6 +42,7 @@ import StepperWrapper from 'src/@core/styles/mui/stepper'
 
 // ** Custom Component Imports
 import PublicFundLivePackageMintStepperDotBox from 'src/views/fund/live/boxes/PublicFundLivePackageMintStepperDotBox'
+import WalletConnectCard from 'src/views/shared/wallet-connect-card'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -61,14 +52,13 @@ import useBgColor from 'src/@core/hooks/useBgColor'
 
 // ** API Imports
 import { useSftSignHashMutation } from 'src/store/api/management/fund'
-import { useFindMeQuery, useGetNonceQuery, useVerifyMutation } from 'src/store/api/management/wallet'
+import { useFindMeQuery } from 'src/store/api/management/wallet'
 
 // ** Util Imports
 import {
   getFundCurrencyProperties,
   getPackageStatusProperties,
   getFormattedPriceUnit,
-  getGradientColors,
   getChainId,
   getFormattedEthereumAddress,
   getBaseCurrencyABI,
@@ -120,7 +110,6 @@ const PublicFundLivePackageCard = (props: Props) => {
   // ** States
   const [isMintSFTDialogOpen, setIsMintSFTDialogOpen] = useState<boolean>(false)
   const [activeMintStep, setActiveMintStep] = useState<number>(0)
-  const [isVerifyWalletProcessLoading, setIsVerifyWalletProcessLoading] = useState<boolean>(false)
   const [mintQuantity, setMintQuantity] = useState<number>(1)
   const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
 
@@ -128,8 +117,6 @@ const PublicFundLivePackageCard = (props: Props) => {
   const theme = useTheme()
   const bgColors = useBgColor()
   const walletAccount = useAccount()
-  const { signMessageAsync } = useSignMessage()
-  const { disconnect } = useDisconnect()
 
   const {
     data: payTokenBalance,
@@ -193,9 +180,6 @@ const PublicFundLivePackageCard = (props: Props) => {
 
   const [signHash, { isLoading: isSignHashLoading }] = useSftSignHashMutation()
 
-  const { data: nonceData } = useGetNonceQuery(null)
-  const [verifyWallet, { isLoading: isVerifyWalletLoading }] = useVerifyMutation()
-
   // ** Vars
   const wallets = walletsData?.data || []
   const totalPrice = Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
@@ -204,7 +188,6 @@ const PublicFundLivePackageCard = (props: Props) => {
     walletAccount.status === 'connected' &&
     wallets.find(wallet => wallet.address.toLowerCase() === walletAccount.address.toLowerCase())
 
-  const nonce = nonceData?.nonce
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
   const packageStatusProperties = getPackageStatusProperties(initPackageEntity.status)
 
@@ -273,53 +256,12 @@ const PublicFundLivePackageCard = (props: Props) => {
   const handleOpenMintSFTDialog = () => setIsMintSFTDialogOpen(() => true)
   const handleCloseMintSFTDialog = () => setIsMintSFTDialogOpen(() => false)
 
-  const handleDisconnect = async () => {
-    disconnect()
-  }
-
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address)
     setIsAddressCopied(() => true)
     setTimeout(() => {
       setIsAddressCopied(() => false)
     }, 2 * 1000)
-  }
-
-  const handleVerifyWallet = async () => {
-    try {
-      setIsVerifyWalletProcessLoading(() => true)
-
-      const message = new SiweMessage({
-        domain: window?.location.host,
-        address: walletAccount.address!,
-        statement: `Welcome to Bloom, Please sign in with Ethereum`,
-        uri: window?.location.origin,
-        version: '1',
-        chainId: walletAccount.chainId!,
-        nonce: nonce!
-      }).prepareMessage()
-
-      const signature = await signMessageAsync({ message })
-
-      await verifyWallet({
-        data: {
-          message,
-          signature,
-          address: walletAccount.address!,
-          connector: walletAccount?.connector?.name || 'Unknown'
-        }
-      }).unwrap()
-
-      setIsVerifyWalletProcessLoading(() => false)
-      confetti({
-        particleCount: 70,
-        spread: 70,
-        origin: { y: 0.7 },
-        zIndex: 9999
-      })
-    } catch {
-      setIsVerifyWalletProcessLoading(() => false)
-    }
   }
 
   const checkAllowanceSufficient = (): boolean => {
@@ -365,36 +307,6 @@ const PublicFundLivePackageCard = (props: Props) => {
       /* TODO: fix here later */
       // toast.error('Failed to mint')
     }
-  }
-
-  // ** Renders
-  const renderWalletAvatar = (address: string) => {
-    const colors = getGradientColors(address)
-
-    return (
-      <CustomAvatar
-        skin='light'
-        sx={{
-          width: 74,
-          height: 74,
-          boxShadow: `${colors[0]} 0px 3px 5px`
-        }}
-      >
-        <Box
-          sx={{
-            width: 74,
-            height: 74,
-            backgroundColor: colors[0],
-            backgroundImage: `
-              radial-gradient(at 66% 77%, ${colors[1]} 0px, transparent 50%),
-              radial-gradient(at 29% 97%, ${colors[2]} 0px, transparent 50%),
-              radial-gradient(at 99% 86%, ${colors[3]} 0px, transparent 50%),
-              radial-gradient(at 29% 88%, ${colors[4]} 0px, transparent 50%)
-            `
-          }}
-        />
-      </CustomAvatar>
-    )
   }
 
   // ** Side Effects
@@ -738,148 +650,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                               </Stack>
                             </Stack>
                           </Stack>
-                          <ConnectButton.Custom>
-                            {({ account, chain, openChainModal, openConnectModal, authenticationStatus, mounted }) => {
-                              const ready = mounted && authenticationStatus !== 'loading'
-
-                              const connected =
-                                ready &&
-                                account &&
-                                chain &&
-                                (!authenticationStatus || authenticationStatus === 'authenticated')
-
-                              if (!connected) {
-                                return (
-                                  <Button fullWidth variant='contained' onClick={openConnectModal}>
-                                    <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                                      <Icon icon='mdi:login-variant' fontSize={16} />
-                                      Connect Wallet
-                                    </Stack>
-                                  </Button>
-                                )
-                              }
-
-                              if (chain.unsupported) {
-                                return (
-                                  <Button
-                                    fullWidth
-                                    color='error'
-                                    variant='contained'
-                                    onClick={openChainModal}
-                                    sx={{ flex: 1 }}
-                                  >
-                                    <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                                      <Icon icon='mdi:error-outline' fontSize={16} />
-                                      Network unsupported
-                                    </Stack>
-                                  </Button>
-                                )
-                              }
-
-                              if (!STEPS[0].checks!.connectedNetwork!()) {
-                                return (
-                                  <Button
-                                    fullWidth
-                                    color='error'
-                                    variant='contained'
-                                    onClick={openChainModal}
-                                    sx={{ flex: 1 }}
-                                  >
-                                    <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                                      <Icon icon='mdi:exchange' fontSize={16} />
-                                      Switch network
-                                    </Stack>
-                                  </Button>
-                                )
-                              }
-
-                              return (
-                                <Box
-                                  sx={{
-                                    px: 4,
-                                    py: 6,
-                                    width: '100%',
-                                    borderRadius: 1,
-                                    border: theme => `1px solid ${theme.palette.primary.main}`,
-                                    ...bgColors.primaryLight
-                                  }}
-                                >
-                                  <Stack
-                                    direction='column'
-                                    spacing={4}
-                                    alignItems='center'
-                                    justifyContent='space-between'
-                                  >
-                                    {renderWalletAvatar(account.address)}
-                                    <Stack alignItems='center'>
-                                      <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
-                                        {getFormattedEthereumAddress(account.address)}
-                                      </Typography>
-                                      <Typography variant='subtitle2' component='p'>
-                                        {`${account.displayBalance ? `~ ${account.displayBalance}` : ''}`}
-                                      </Typography>
-                                    </Stack>
-                                    {isCurrentWalletVerified ? (
-                                      <Stack
-                                        direction='row'
-                                        spacing={4}
-                                        alignSelf='stretch'
-                                        alignItems='center'
-                                        justifyContent='center'
-                                      >
-                                        <Button variant='contained' onClick={handleDisconnect} sx={{ flex: 1 }}>
-                                          <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                                            <Icon icon='mdi:logout' fontSize={16} />
-                                            Disconnect
-                                          </Stack>
-                                        </Button>
-                                        <Button
-                                          variant='contained'
-                                          onClick={() => handleCopyAddress(account.address)}
-                                          sx={{ flex: 1 }}
-                                        >
-                                          <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                                            <Icon
-                                              icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'}
-                                              fontSize={16}
-                                            />
-                                            {isAddressCopied ? 'Copied' : 'Copy'}
-                                          </Stack>
-                                        </Button>
-                                      </Stack>
-                                    ) : (
-                                      <Stack
-                                        direction='row'
-                                        spacing={4}
-                                        alignSelf='stretch'
-                                        alignItems='center'
-                                        justifyContent='center'
-                                      >
-                                        <Button variant='outlined' onClick={handleDisconnect} sx={{ flex: 1 }}>
-                                          <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                                            <Icon icon='mdi:logout' fontSize={16} />
-                                            Disconnect
-                                          </Stack>
-                                        </Button>
-                                        <LoadingButton
-                                          variant='contained'
-                                          loading={isVerifyWalletLoading || isVerifyWalletProcessLoading}
-                                          disabled={!nonce}
-                                          onClick={handleVerifyWallet}
-                                          sx={{ flex: 1 }}
-                                        >
-                                          <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                                            <Icon icon='mdi:clipboard-check-outline' fontSize={16} />
-                                            Verify
-                                          </Stack>
-                                        </LoadingButton>
-                                      </Stack>
-                                    )}
-                                  </Stack>
-                                </Box>
-                              )
-                            }}
-                          </ConnectButton.Custom>
+                          <WalletConnectCard />
                         </Stack>
                       </Stack>
                     </Grid>
