@@ -198,6 +198,10 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
               <Button fullWidth disabled variant='contained' size='small'>
                 Stake
               </Button>
+              {/* TODO: Fill here later */}
+              <Button fullWidth variant='contained' disabled>
+                Redeem
+              </Button>
               <Typography variant='body2' component='p' textAlign='center'>
                 {`Can't stake in preview mode`}
               </Typography>

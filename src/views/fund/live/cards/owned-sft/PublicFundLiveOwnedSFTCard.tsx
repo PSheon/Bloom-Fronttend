@@ -475,7 +475,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                   const { img, periodInDays, apy } = periodDateInfo
 
                   return (
-                    <Grid key={`stake-period-${periodInDays}-days`} item xs={12} sm={4}>
+                    <Grid key={`stake-period-${periodInDays}-days`} item xs={4}>
                       <StyledPeriodDateSelectStack
                         spacing={4}
                         alignItems='center'
@@ -490,7 +490,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                         }}
                       >
                         <Box>
-                          <Image width={100} height={80} src={img} alt={`${periodInDays} days plan`} />
+                          <Image width={60} height={50} src={img} alt={`${periodInDays} days plan`} />
                         </Box>
                         <Box>
                           <Typography variant='h5' align='center'>

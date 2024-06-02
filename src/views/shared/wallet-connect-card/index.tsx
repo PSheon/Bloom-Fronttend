@@ -8,7 +8,6 @@ import Link from 'next/link'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Stack from '@mui/material/Stack'
-import Button from '@mui/material/Button'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
@@ -20,7 +19,7 @@ import toast from 'react-hot-toast'
 import { useSession } from 'next-auth/react'
 import { ConnectButton, useConnectModal } from '@rainbow-me/rainbowkit'
 import { SiweMessage } from 'siwe'
-import { useAccount, useSignMessage, useDisconnect } from 'wagmi'
+import { useAccount, useSignMessage, useSwitchChain, useDisconnect } from 'wagmi'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -32,9 +31,19 @@ import Icon from 'src/@core/components/icon'
 import { useFindMeQuery, useGetNonceQuery, useVerifyMutation } from 'src/store/api/management/wallet'
 
 // ** Util Imports
-import { getFormattedEthereumAddress, getGradientColors } from 'src/utils'
+import { getFormattedEthereumAddress, getChainId, getGradientColors } from 'src/utils'
 
-const WalletConnectCard = () => {
+// ** Type Imports
+import type { FundType } from 'src/types/fundTypes'
+
+interface Props {
+  requiredChain?: FundType['chain']
+}
+
+const WalletConnectCard = (props: Props) => {
+  // ** Props
+  const { requiredChain } = props
+
   // ** States
   const [isVerifyWalletProcessLoading, setIsVerifyWalletProcessLoading] = useState<boolean>(false)
   const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
@@ -42,6 +51,7 @@ const WalletConnectCard = () => {
   // ** Hooks
   const session = useSession()
   const walletAccount = useAccount()
+  const { switchChain } = useSwitchChain()
   const { signMessageAsync } = useSignMessage()
   const { openConnectModal } = useConnectModal()
   const { disconnectAsync } = useDisconnect()
@@ -222,94 +232,132 @@ const WalletConnectCard = () => {
                     </Stack>
                   </Stack>
 
-                  <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='center'>
-                    <Stack alignItems='center' justifyContent='center'>
-                      <Typography variant='h5' component='p' color='common.white' sx={{ fontWeight: 600 }}>
-                        {`${account?.displayBalance ? `~ ${account.displayBalance}` : '-'}`}
-                      </Typography>
-                      <Typography variant='body2' component='p' color='common.white'>
-                        wallet balance
-                      </Typography>
-                    </Stack>
-                  </Stack>
-
                   {chain?.unsupported ? (
-                    <Button fullWidth color='error' variant='contained' onClick={openChainModal} sx={{ px: 6, py: 4 }}>
-                      <Stack spacing={2} alignItems='center'>
-                        <CustomAvatar skin='filled' color='error'>
-                          <Icon icon='mdi:error-outline' fontSize={20} />
-                        </CustomAvatar>
-                        Network unsupported
+                    <Stack spacing={4} alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
+                      <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack alignItems='center' justifyContent='center'>
+                          <Typography variant='h5' component='p' color='common.white' sx={{ fontWeight: 600 }}>
+                            {requiredChain ? `Switch to ${requiredChain}` : 'Network Unsupported'}
+                          </Typography>
+                          <Typography variant='body2' component='p' color='common.white'>
+                            Please switch to a supported network
+                          </Typography>
+                        </Stack>
                       </Stack>
-                    </Button>
-                  ) : (
-                    <Stack
-                      direction='row'
-                      spacing={4}
-                      alignSelf='stretch'
-                      alignItems='center'
-                      justifyContent='space-around'
-                      sx={{
-                        px: 6,
-                        py: 4,
-                        borderRadius: '10px',
-                        backgroundColor: theme => theme.palette.primary.dark
-                      }}
-                    >
-                      {walletAccount.chain?.blockExplorers?.default.url && (
+                      <Stack
+                        direction='row'
+                        spacing={4}
+                        alignSelf='stretch'
+                        alignItems='center'
+                        justifyContent='space-around'
+                        sx={{
+                          px: 6,
+                          py: 4,
+                          borderRadius: '10px',
+                          backgroundColor: theme => theme.palette.primary.dark
+                        }}
+                      >
                         <Stack alignItems='center' justifyContent='center'>
                           <IconButton
-                            component={Link}
-                            target='_blank'
-                            href={`${walletAccount?.chain?.blockExplorers?.default.url}/address/${walletAccount.address}`}
+                            color='error'
+                            onClick={() => {
+                              if (requiredChain) {
+                                switchChain({ chainId: getChainId(requiredChain) })
+                              } else {
+                                openChainModal()
+                              }
+                            }}
                           >
-                            <CustomAvatar skin='filled'>
-                              <Icon icon='mdi:clipboard-text-history-outline' fontSize={20} />
+                            <CustomAvatar skin='filled' color='error'>
+                              <Icon icon='mdi:exchange' fontSize={20} />
                             </CustomAvatar>
                           </IconButton>
                           <Typography variant='subtitle2' color='common.white'>
-                            Explore
+                            click to switch
                           </Typography>
                         </Stack>
-                      )}
-                      {isCurrentWalletVerified ? (
+                      </Stack>
+                    </Stack>
+                  ) : (
+                    <Stack spacing={4} alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
+                      <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='center'>
                         <Stack alignItems='center' justifyContent='center'>
-                          <IconButton onClick={() => handleCopyAddress(account!.address)}>
-                            <CustomAvatar skin='filled'>
-                              <Icon icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'} fontSize={20} />
-                            </CustomAvatar>
-                          </IconButton>
-                          <Typography variant='subtitle2' color='common.white'>
-                            {isAddressCopied ? 'Copied' : 'Copy'}
+                          <Typography variant='h5' component='p' color='common.white' sx={{ fontWeight: 600 }}>
+                            {`${account?.displayBalance ? `~ ${account.displayBalance}` : '-'}`}
+                          </Typography>
+                          <Typography variant='body2' component='p' color='common.white'>
+                            wallet balance
                           </Typography>
                         </Stack>
-                      ) : (
-                        <Stack alignItems='center' justifyContent='center'>
-                          <Box sx={{ position: 'relative' }}>
-                            <IconButton disabled={!nonce} onClick={handleVerifyWallet}>
+                      </Stack>
+                      <Stack
+                        direction='row'
+                        spacing={4}
+                        alignSelf='stretch'
+                        alignItems='center'
+                        justifyContent='space-around'
+                        sx={{
+                          px: 6,
+                          py: 4,
+                          borderRadius: '10px',
+                          backgroundColor: theme => theme.palette.primary.dark
+                        }}
+                      >
+                        {walletAccount.chain?.blockExplorers?.default.url && (
+                          <Stack alignItems='center' justifyContent='center'>
+                            <IconButton
+                              component={Link}
+                              target='_blank'
+                              href={`${walletAccount?.chain?.blockExplorers?.default.url}/address/${walletAccount.address}`}
+                            >
                               <CustomAvatar skin='filled'>
-                                <Icon icon='mdi:clipboard-check-outline' fontSize={20} />
+                                <Icon icon='mdi:clipboard-text-history-outline' fontSize={20} />
                               </CustomAvatar>
                             </IconButton>
-                            {(isVerifyWalletLoading || isVerifyWalletProcessLoading) && (
-                              <CircularProgress
-                                size={48}
-                                sx={{
-                                  color: theme => theme.palette.success.main,
-                                  position: 'absolute',
-                                  top: '50%',
-                                  left: '50%',
-                                  marginTop: '-24px',
-                                  marginLeft: '-24px'
-                                }}
-                              />
-                            )}
-                          </Box>
-                          <Typography variant='subtitle2' color='common.white'>
-                            {isVerifyWalletLoading || isVerifyWalletProcessLoading ? 'Verifying' : 'Verify'}
-                          </Typography>
-                        </Stack>
-                      )}
+                            <Typography variant='subtitle2' color='common.white'>
+                              Explore
+                            </Typography>
+                          </Stack>
+                        )}
+                        {isCurrentWalletVerified ? (
+                          <Stack alignItems='center' justifyContent='center'>
+                            <IconButton onClick={() => handleCopyAddress(account!.address)}>
+                              <CustomAvatar skin='filled'>
+                                <Icon icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'} fontSize={20} />
+                              </CustomAvatar>
+                            </IconButton>
+                            <Typography variant='subtitle2' color='common.white'>
+                              {isAddressCopied ? 'Copied' : 'Copy'}
+                            </Typography>
+                          </Stack>
+                        ) : (
+                          <Stack alignItems='center' justifyContent='center'>
+                            <Box sx={{ position: 'relative' }}>
+                              <IconButton color='success' disabled={!nonce} onClick={handleVerifyWallet}>
+                                <CustomAvatar skin='filled' color='success'>
+                                  <Icon icon='mdi:clipboard-check-outline' fontSize={20} />
+                                </CustomAvatar>
+                              </IconButton>
+                              {(isVerifyWalletLoading || isVerifyWalletProcessLoading) && (
+                                <CircularProgress
+                                  size={56}
+                                  sx={{
+                                    color: theme => theme.palette.primary.main,
+                                    position: 'absolute',
+                                    top: '50%',
+                                    left: '50%',
+                                    marginTop: '-28px',
+                                    marginLeft: '-28px'
+                                  }}
+                                />
+                              )}
+                            </Box>
+                            <Typography variant='subtitle2' color='common.white'>
+                              {isVerifyWalletLoading || isVerifyWalletProcessLoading ? 'Verifying' : 'Verify'}
+                            </Typography>
+                          </Stack>
+                        )}
+                      </Stack>
                     </Stack>
                   )}
                 </Stack>

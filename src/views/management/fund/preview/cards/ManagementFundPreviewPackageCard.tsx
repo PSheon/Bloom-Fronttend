@@ -643,40 +643,78 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                 initPackageEntity?.priceInUnit
                               )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                             </Stack>
-                            <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                              <Typography variant='subtitle2' component='p'>
-                                Total
-                              </Typography>
-                              <Typography
-                                variant='h6'
-                                component='p'
-                                sx={{ fontWeight: 600 }}
-                              >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                                Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
-                              )} ${fundBaseCurrencyProperties.currency}`}</Typography>
-                            </Stack>
                           </Stack>
-                          <Stack direction='row' spacing={12} alignItems='center' justifyContent='space-between'>
-                            <IconButton
-                              size='large'
-                              onClick={() => {
-                                setMintQuantity(prevMintQuantity => Math.max(prevMintQuantity - 1, 1))
-                              }}
-                            >
-                              <Icon icon='mdi:minus-box-outline' fontSize={48} />
-                            </IconButton>
-                            <Typography variant='h5' component='p'>
-                              {mintQuantity}
-                            </Typography>
-                            <IconButton
-                              size='large'
-                              onClick={() => {
-                                setMintQuantity(prevMintQuantity => Math.min(prevMintQuantity + 1, 10))
-                              }}
-                            >
-                              <Icon icon='mdi:plus-box-outline' fontSize={48} />
-                            </IconButton>
-                          </Stack>
+                          <Card sx={{ backgroundColor: 'primary.main' }}>
+                            <CardContent>
+                              <Stack spacing={4} alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
+                                <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='center'>
+                                  <Stack alignItems='center' justifyContent='center'>
+                                    <Typography
+                                      variant='h5'
+                                      component='p'
+                                      color='common.white'
+                                      sx={{ fontWeight: 600 }}
+                                    >
+                                      {`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                                        Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
+                                      )} ${fundBaseCurrencyProperties.currency}`}
+                                    </Typography>
+                                    <Typography variant='body2' component='p' color='common.white'>
+                                      total
+                                    </Typography>
+                                  </Stack>
+                                </Stack>
+                                <Stack
+                                  direction='row'
+                                  spacing={4}
+                                  alignSelf='stretch'
+                                  alignItems='center'
+                                  justifyContent='space-around'
+                                  sx={{
+                                    px: 6,
+                                    py: 4,
+                                    borderRadius: '10px',
+                                    backgroundColor: theme => theme.palette.primary.dark
+                                  }}
+                                >
+                                  <Stack alignItems='center' justifyContent='center'>
+                                    <IconButton
+                                      size='large'
+                                      onClick={() => {
+                                        setMintQuantity(prevMintQuantity => Math.max(prevMintQuantity - 1, 1))
+                                      }}
+                                    >
+                                      <CustomAvatar skin='filled'>
+                                        <Icon icon='mdi:minus-circle-outline' fontSize={48} />
+                                      </CustomAvatar>
+                                    </IconButton>
+                                  </Stack>
+                                  <Stack alignItems='center' justifyContent='center'>
+                                    <Typography
+                                      variant='h5'
+                                      component='p'
+                                      color='common.white'
+                                      sx={{ fontWeight: 600 }}
+                                    >
+                                      {`x ${mintQuantity}`}
+                                    </Typography>
+                                  </Stack>
+                                  <Stack alignItems='center' justifyContent='center'>
+                                    <IconButton
+                                      size='large'
+                                      onClick={() => {
+                                        setMintQuantity(prevMintQuantity => Math.min(prevMintQuantity + 1, 10))
+                                      }}
+                                    >
+                                      <CustomAvatar skin='filled'>
+                                        <Icon icon='mdi:plus-circle-outline' fontSize={48} />
+                                      </CustomAvatar>
+                                    </IconButton>
+                                  </Stack>
+                                </Stack>
+                              </Stack>
+                            </CardContent>
+                          </Card>
                         </Stack>
                       </Stack>
                     </Grid>
