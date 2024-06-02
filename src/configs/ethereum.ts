@@ -22,7 +22,14 @@ export const queryClient = new QueryClient()
 
 // ** Token ABI
 export const ETHEREUM_SEPOLIA_BLT_ABI = [
-  { inputs: [], stateMutability: 'nonpayable', type: 'constructor' },
+  {
+    inputs: [
+      { internalType: 'string', name: '_contractName', type: 'string' },
+      { internalType: 'string', name: '_contractSymbol', type: 'string' }
+    ],
+    stateMutability: 'nonpayable',
+    type: 'constructor'
+  },
   {
     inputs: [
       { internalType: 'address', name: 'spender', type: 'address' },
@@ -63,6 +70,7 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
     name: 'OwnableUnauthorizedAccount',
     type: 'error'
   },
+  { inputs: [], name: 'ReentrancyGuardReentrantCall', type: 'error' },
   {
     anonymous: false,
     inputs: [
@@ -92,13 +100,7 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
     name: 'Transfer',
     type: 'event'
   },
-  {
-    inputs: [{ internalType: 'address', name: 'controller', type: 'address' }],
-    name: 'addController',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
+  { stateMutability: 'payable', type: 'fallback' },
   {
     inputs: [
       { internalType: 'address', name: 'owner', type: 'address' },
@@ -135,8 +137,8 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
   },
   {
     inputs: [
-      { internalType: 'address', name: 'account', type: 'address' },
-      { internalType: 'uint256', name: 'amount', type: 'uint256' }
+      { internalType: 'address', name: '_account', type: 'address' },
+      { internalType: 'uint256', name: '_amount', type: 'uint256' }
     ],
     name: 'burnFrom',
     outputs: [],
@@ -152,8 +154,8 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
   },
   {
     inputs: [
-      { internalType: 'address', name: 'to', type: 'address' },
-      { internalType: 'uint256', name: 'amount', type: 'uint256' }
+      { internalType: 'address', name: '_to', type: 'address' },
+      { internalType: 'uint256', name: '_amount', type: 'uint256' }
     ],
     name: 'mint',
     outputs: [],
@@ -172,13 +174,6 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
     name: 'owner',
     outputs: [{ internalType: 'address', name: '', type: 'address' }],
     stateMutability: 'view',
-    type: 'function'
-  },
-  {
-    inputs: [{ internalType: 'address', name: 'controller', type: 'address' }],
-    name: 'removeController',
-    outputs: [],
-    stateMutability: 'nonpayable',
     type: 'function'
   },
   { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
@@ -223,5 +218,13 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
     outputs: [],
     stateMutability: 'nonpayable',
     type: 'function'
-  }
+  },
+  {
+    inputs: [{ internalType: 'address', name: '_receiver', type: 'address' }],
+    name: 'withdraw',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  { stateMutability: 'payable', type: 'receive' }
 ] as const
