@@ -79,7 +79,7 @@ const themeConfig: ThemeConfig = {
   responsiveFontSizes: true /* true | false */,
   disableRipple: false /* true | false */,
   disableCustomizer: process.env.NODE_ENV === 'production' /* true | false */,
-  toastPosition: 'top-right' /* top-left | top-center | top-right | bottom-left | bottom-center | bottom-right */
+  toastPosition: 'bottom-center' /* top-left | top-center | top-right | bottom-left | bottom-center | bottom-right */
 }
 
 export default themeConfig
