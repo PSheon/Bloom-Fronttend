@@ -65,6 +65,7 @@ const LandingHeaderSection = () => {
       </Box>
       <Box
         sx={{
+          zIndex: -1,
           width: theme => ({
             xs: theme.spacing(100),
             md: theme.spacing(140),
@@ -90,6 +91,7 @@ const LandingHeaderSection = () => {
       </Box>
       <Box
         sx={{
+          zIndex: -1,
           width: theme => ({
             xs: theme.spacing(0),
             lg: theme.spacing(120),
@@ -114,6 +116,7 @@ const LandingHeaderSection = () => {
       </Box>
       <Box
         sx={{
+          zIndex: -1,
           width: theme => ({
             xs: theme.spacing(60),
             sm: theme.spacing(100),
@@ -144,6 +147,7 @@ const LandingHeaderSection = () => {
       </Box>
       <Box
         sx={{
+          zIndex: -1,
           width: theme => ({
             xs: theme.spacing(0),
             lg: theme.spacing(120),

@@ -53,6 +53,7 @@ const LandingBuyAndSellSection = () => {
     <StyledRootBox ref={rootRef}>
       <Box
         sx={{
+          zIndex: -1,
           width: theme => ({
             xs: theme.spacing(80),
             md: theme.spacing(120),

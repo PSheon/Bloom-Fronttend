@@ -59,6 +59,7 @@ const LandingSafeAndSecuritySection = () => {
     <StyledRootBox ref={rootRef}>
       <Box
         sx={{
+          zIndex: -1,
           width: theme => ({
             xs: theme.spacing(180),
             md: theme.spacing(160),

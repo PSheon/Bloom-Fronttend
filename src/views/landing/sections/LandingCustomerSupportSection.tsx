@@ -86,6 +86,7 @@ const LandingCustomerSupportSection = () => {
       </Box>
       <Box
         sx={{
+          zIndex: -1,
           width: theme => ({
             xs: theme.spacing(100),
             md: theme.spacing(80),
@@ -108,7 +109,7 @@ const LandingCustomerSupportSection = () => {
           pointerEvents: 'none'
         }}
       >
-        <Image src='/images/landing/customer-support/deco-right.png' alt='deco right' fill />
+        <Image src='/images/landing/customer-support/deco-right-bg.png' alt='deco right bg' fill />
       </Box>
 
       <Grid container spacing={6}>

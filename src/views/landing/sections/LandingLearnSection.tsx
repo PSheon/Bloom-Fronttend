@@ -96,6 +96,7 @@ const LandingLearnSection = () => {
       </Box>
       <Box
         sx={{
+          zIndex: -1,
           width: theme => ({
             sm: theme.spacing(0),
             xs: theme.spacing(60),
