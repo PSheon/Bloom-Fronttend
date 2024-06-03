@@ -277,7 +277,7 @@ const PublicFundLivePackageCard = (props: Props) => {
         data: {
           contractName: initFundEntity.sft.contractName,
           minterAddress: walletAccount.address!,
-          slotId: initPackageEntity.id,
+          slotId: initPackageEntity.packageId,
           value: (Number(totalPrice) * 10 ** 18).toString()
         }
       }).unwrap()
@@ -291,7 +291,7 @@ const PublicFundLivePackageCard = (props: Props) => {
           args: [
             hash,
             walletAccount.address!,
-            initPackageEntity.id.toString(),
+            initPackageEntity.packageId.toString(),
             (Number(totalPrice) * 10 ** 18).toString()
           ],
           account: walletAccount.address!
