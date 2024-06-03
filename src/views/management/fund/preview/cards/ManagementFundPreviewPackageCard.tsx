@@ -256,7 +256,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
   const checkAllowanceSufficient = (): boolean => {
     if (isPayTokenAllowanceLoading || isPayTokenAllowanceFetching) return true
 
-    return BigInt(totalPrice) * 10n ** 18n <= BigInt(Number(payTokenAllowance ?? 0))
+    return Number(totalPrice) * 10 ** 18 <= Number(payTokenAllowance ?? 0)
   }
 
   // ** Side Effects
@@ -791,7 +791,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               ) : (
                                 <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                   <Typography variant='subtitle1' component='p'>
-                                    {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit((payTokenBalance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                    {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit(Number(payTokenBalance ?? 0) / 10 ** 18) : 0} ${fundBaseCurrencyProperties.currency}`}
                                   </Typography>
                                   <IconButton size='small' onClick={() => refetchPayTokenBalance()}>
                                     <Icon icon='mdi:reload' fontSize={16} />
@@ -806,12 +806,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                 {!checkAllowanceSufficient() && (
                                   <Tooltip title='Allowance Insufficient' placement='top' arrow>
-                                    <IconButton
-                                      size='small'
-                                      sx={{
-                                        color: 'warning.main'
-                                      }}
-                                    >
+                                    <IconButton size='small' color='warning'>
                                       <Icon icon='mdi:alert-circle-outline' fontSize={18} />
                                     </IconButton>
                                   </Tooltip>
@@ -824,7 +819,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                 ) : (
                                   <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                     <Typography variant='subtitle1' component='p'>
-                                      {`${fundBaseCurrencyProperties.symbol} ${payTokenAllowance ? getFormattedPriceUnit((payTokenAllowance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                      {`${fundBaseCurrencyProperties.symbol} ${payTokenAllowance ? getFormattedPriceUnit(Number(payTokenAllowance ?? 0) / 10 ** 18) : 0} ${fundBaseCurrencyProperties.currency}`}
                                     </Typography>
                                     <IconButton size='small' onClick={() => refetchPayTokenAllowance()}>
                                       <Icon icon='mdi:reload' fontSize={16} />
@@ -865,7 +860,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                     abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
                                     address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
                                     functionName: 'approve',
-                                    args: [initFundEntity.sft.contractAddress, BigInt(totalPrice) * 10n ** 18n],
+                                    args: [initFundEntity.sft.contractAddress, Number(totalPrice ?? 0) * 10 ** 18],
                                     account: walletAccount.address!
                                   })
                                 }}

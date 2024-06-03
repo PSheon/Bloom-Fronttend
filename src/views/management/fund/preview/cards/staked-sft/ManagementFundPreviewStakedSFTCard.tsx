@@ -121,7 +121,7 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
   })
 
   // ** Vars
-  const formattedSftValue = BigInt(Number(sftValue ?? 0)) / 10n ** 18n
+  const formattedSftValue = Number(sftValue ?? 0) / 10 ** 18
   const sftSlot = initFundEntity.defaultPackages?.data.find(pkg => pkg.id === Number(sftSlotId))
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 

@@ -191,14 +191,14 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
             ) : (
               <Stack direction='row' alignItems='center' justifyContent='center'>
                 <Typography variant='h5' sx={{ fontSize: '1.375rem' }}>
-                  {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit((payTokenBalance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                  {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit(Number(payTokenBalance ?? 0) / 10 ** 18) : 0} ${fundBaseCurrencyProperties.currency}`}
                 </Typography>
                 <IconButton
                   component={Link}
                   href={`${walletAccount?.chain?.blockExplorers?.default.url}/address/${walletAccount.address}`}
                   target='_blank'
                 >
-                  <Icon icon='mdi:coins-outline' fontSize={16} />
+                  <Icon icon='mdi:arrow-top-right-thin-circle-outline' fontSize={16} />
                 </IconButton>
               </Stack>
             )}

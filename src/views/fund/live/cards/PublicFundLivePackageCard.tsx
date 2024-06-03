@@ -267,7 +267,7 @@ const PublicFundLivePackageCard = (props: Props) => {
   const checkAllowanceSufficient = (): boolean => {
     if (isPayTokenAllowanceLoading || isPayTokenAllowanceFetching) return true
 
-    return BigInt(totalPrice) * 10n ** 18n <= BigInt(Number(payTokenAllowance ?? 0))
+    return Number(totalPrice) * 10 ** 18 <= Number(payTokenAllowance ?? 0)
   }
 
   const handleMint = async () => {
@@ -278,7 +278,7 @@ const PublicFundLivePackageCard = (props: Props) => {
           contractName: initFundEntity.sft.contractName,
           minterAddress: walletAccount.address!,
           slotId: initPackageEntity.id,
-          value: (BigInt(totalPrice) * 10n ** 18n).toString()
+          value: (Number(totalPrice) * 10 ** 18).toString()
         }
       }).unwrap()
 
@@ -292,7 +292,7 @@ const PublicFundLivePackageCard = (props: Props) => {
             hash,
             walletAccount.address!,
             initPackageEntity.id.toString(),
-            (BigInt(totalPrice) * 10n ** 18n).toString()
+            (Number(totalPrice) * 10 ** 18).toString()
           ],
           account: walletAccount.address!
         },
@@ -867,7 +867,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                               ) : (
                                 <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                   <Typography variant='subtitle1' component='p'>
-                                    {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit((payTokenBalance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                    {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit(Number(payTokenBalance ?? 0) / 10 ** 18) : 0} ${fundBaseCurrencyProperties.currency}`}
                                   </Typography>
                                   <IconButton size='small' onClick={() => refetchPayTokenBalance()}>
                                     <Icon icon='mdi:reload' fontSize={16} />
@@ -882,12 +882,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                               <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                 {!checkAllowanceSufficient() && (
                                   <Tooltip title='Allowance Insufficient' placement='top' arrow>
-                                    <IconButton
-                                      size='small'
-                                      sx={{
-                                        color: 'warning.main'
-                                      }}
-                                    >
+                                    <IconButton size='small' color='warning'>
                                       <Icon icon='mdi:alert-circle-outline' fontSize={18} />
                                     </IconButton>
                                   </Tooltip>
@@ -900,7 +895,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 ) : (
                                   <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                     <Typography variant='subtitle1' component='p'>
-                                      {`${fundBaseCurrencyProperties.symbol} ${payTokenAllowance ? getFormattedPriceUnit((payTokenAllowance as bigint) / 10n ** 18n) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                      {`${fundBaseCurrencyProperties.symbol} ${payTokenAllowance ? getFormattedPriceUnit(Number(payTokenAllowance ?? 0) / 10 ** 18) : 0} ${fundBaseCurrencyProperties.currency}`}
                                     </Typography>
                                     <IconButton size='small' onClick={() => refetchPayTokenAllowance()}>
                                       <Icon icon='mdi:reload' fontSize={16} />
@@ -940,7 +935,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                                     abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
                                     address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
                                     functionName: 'approve',
-                                    args: [initFundEntity.sft.contractAddress, BigInt(totalPrice) * 10n ** 18n],
+                                    args: [initFundEntity.sft.contractAddress, Number(totalPrice ?? 0) * 10 ** 18],
                                     account: walletAccount.address!
                                   })
                                 }}
