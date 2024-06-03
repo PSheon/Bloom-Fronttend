@@ -108,7 +108,7 @@ const ManagementFundEditTabContext = (props: Props) => {
               label={
                 <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
                   <Icon icon='mdi:view-dashboard-outline' />
-                  總攬
+                  Overview
                 </Box>
               }
             />
@@ -117,7 +117,7 @@ const ManagementFundEditTabContext = (props: Props) => {
               label={
                 <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
                   <Icon icon='mdi:format-list-text' />
-                  細節
+                  Detail
                 </Box>
               }
             />
@@ -126,7 +126,7 @@ const ManagementFundEditTabContext = (props: Props) => {
               label={
                 <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
                   <Icon icon='mdi:alpha-t-circle-outline' />
-                  憑證
+                  SFT
                 </Box>
               }
             />
@@ -135,7 +135,7 @@ const ManagementFundEditTabContext = (props: Props) => {
               label={
                 <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
                   <Icon icon='ph:vault-bold' />
-                  金庫
+                  Vault
                 </Box>
               }
             />
@@ -144,7 +144,7 @@ const ManagementFundEditTabContext = (props: Props) => {
               label={
                 <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 2 } }}>
                   <Icon icon='mdi:lock-outline' />
-                  安全
+                  Security
                 </Box>
               }
             />

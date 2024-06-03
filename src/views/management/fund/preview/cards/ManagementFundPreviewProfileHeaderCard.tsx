@@ -150,10 +150,10 @@ const ManagementFundPreviewProfileHeaderCard = (props: Props) => {
               variant='outlined'
               startIcon={<Icon icon='mdi:edit-box-outline' fontSize={20} />}
             >
-              編輯資金
+              Edit
             </Button>
             <Button variant='contained' startIcon={<Icon icon='mdi:public' fontSize={20} />}>
-              發布資金
+              Publish
             </Button>
           </Stack>
         </Box>
