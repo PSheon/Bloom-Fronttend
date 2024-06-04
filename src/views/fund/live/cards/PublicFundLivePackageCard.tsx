@@ -59,6 +59,7 @@ import {
   getFundCurrencyProperties,
   getPackageStatusProperties,
   getFormattedPriceUnit,
+  getFormattedBigint,
   getChainId,
   getFormattedEthereumAddress,
   getBaseCurrencyABI,
@@ -272,13 +273,15 @@ const PublicFundLivePackageCard = (props: Props) => {
 
   const handleMint = async () => {
     try {
+      const formattedValue = getFormattedBigint(Number(totalPrice) * 10 ** 18)
+
       const { hash } = await signHash({
         id: initFundEntity.id,
         data: {
           contractName: initFundEntity.sft.contractName,
           minterAddress: walletAccount.address!,
           slotId: initPackageEntity.packageId,
-          value: (Number(totalPrice) * 10 ** 18).toString()
+          value: formattedValue
         }
       }).unwrap()
 
@@ -288,12 +291,7 @@ const PublicFundLivePackageCard = (props: Props) => {
           abi: initFundEntity.sft.contractAbi,
           address: initFundEntity.sft.contractAddress as `0x${string}`,
           functionName: 'mintPackage',
-          args: [
-            hash,
-            walletAccount.address!,
-            initPackageEntity.packageId.toString(),
-            (Number(totalPrice) * 10 ** 18).toString()
-          ],
+          args: [hash, walletAccount.address!, initPackageEntity.packageId.toString(), formattedValue],
           account: walletAccount.address!
         },
         {

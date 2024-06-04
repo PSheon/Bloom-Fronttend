@@ -37,6 +37,12 @@ export const getFormattedPriceUnit = (priceInUnit: number | bigint): string => {
   return new Intl.NumberFormat('en-US').format(priceInUnit)
 }
 
+export const getFormattedBigint = (num: number | string): string => {
+  return BigInt(Number(num)).toLocaleString('fullwide', {
+    useGrouping: false
+  })
+}
+
 export const getFormattedEthereumAddress = (address: string): string => {
   const isValidEthAddress = /^(0x)[0-9a-f]{40}$/i.test(address)
 

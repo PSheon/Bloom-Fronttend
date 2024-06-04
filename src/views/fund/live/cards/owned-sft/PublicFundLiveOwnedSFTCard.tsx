@@ -47,6 +47,7 @@ import { useVaultSignHashMutation } from 'src/store/api/management/fund'
 import {
   getFundCurrencyProperties,
   getFormattedPriceUnit,
+  getFormattedBigint,
   getChainId,
   getFormattedEthereumAddress,
   getExpectInterestBalance
@@ -252,7 +253,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
     try {
       if (typeof sftId === 'bigint' && typeof sftValue === 'bigint') {
         const tokenId = sftId.toString()
-        const tokenValue = sftValue.toString()
+        const formattedBalance = getFormattedBigint(sftValue.toString())
 
         const { hash, unlockTime, interest } = await signHash({
           id: initFundEntity.id,
@@ -260,7 +261,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
             contractName: initFundEntity.vault.contractName,
             stakerAddress: walletAccount.address!,
             tokenId: tokenId,
-            balance: tokenValue,
+            balance: formattedBalance,
             periodInDays: stakePeriod.periodInDays,
             apy: stakePeriod.apy
           }
@@ -272,7 +273,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
             abi: initFundEntity.vault.contractAbi,
             address: initFundEntity.vault.contractAddress as `0x${string}`,
             functionName: 'stake',
-            args: [hash, sftId!.toString(), sftValue!.toString(), unlockTime.toString(), interest.toString()],
+            args: [hash, sftId!.toString(), formattedBalance, unlockTime.toString(), interest.toString()],
             account: walletAccount.address!
           },
           {
