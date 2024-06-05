@@ -34,13 +34,10 @@ export function getGradientColors(address: string) {
 }
 
 export const getFormattedPriceUnit = (priceInUnit: number | bigint): string => {
-  return new Intl.NumberFormat('en-US').format(priceInUnit)
-}
-
-export const getFormattedBigint = (num: number | string): string => {
-  return BigInt(Number(num)).toLocaleString('fullwide', {
-    useGrouping: false
-  })
+  return new Intl.NumberFormat('en-US', {
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 2
+  }).format(priceInUnit)
 }
 
 export const getFormattedEthereumAddress = (address: string): string => {

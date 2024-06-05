@@ -15,6 +15,7 @@ import Skeleton from '@mui/material/Skeleton'
 
 // ** Third-Party Imports
 import { useAccount, useReadContract } from 'wagmi'
+import { ExactNumber as N } from 'exactnumber'
 import { Atropos } from 'atropos/react'
 import format from 'date-fns/format'
 
@@ -76,7 +77,8 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
     args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftIdLoading && sftId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined,
+      placeholderData: 0n
     }
   })
 
@@ -88,7 +90,8 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
     args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftIdLoading && sftId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined,
+      placeholderData: 0n
     }
   })
 
@@ -113,7 +116,7 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
     abi: initFundEntity.vault.contractAbi,
     address: initFundEntity.vault.contractAddress as `0x${string}`,
     functionName: 'earningInfo',
-    args: [walletAccount.address!, sftId],
+    args: [sftId],
     account: walletAccount.address!,
     query: {
       enabled: !isSftIdLoading && sftId !== undefined
@@ -121,7 +124,6 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
   })
 
   // ** Vars
-  const formattedSftValue = Number(sftValue ?? 0) / 10 ** 18
   const sftSlot = initFundEntity.defaultPackages?.data.find(pkg => pkg.id === Number(sftSlotId))
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
@@ -200,7 +202,7 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
                     color: 'primary.main'
                   }}
                 >
-                  {getFormattedPriceUnit(formattedSftValue ?? 0)}
+                  {typeof sftValue === 'bigint' ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber()) : 0n}
                 </Typography>
               </Stack>
             </Stack>
@@ -286,9 +288,11 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
                           variant='subtitle1'
                           component='p'
                           sx={{ fontWeight: 600 }}
-                        >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                          Number(vaultStakedEarningInfo ?? 0) / 10 ** 18
-                        )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                        >{`${fundBaseCurrencyProperties.symbol} ${
+                          typeof vaultStakedEarningInfo === 'bigint'
+                            ? getFormattedPriceUnit(N(vaultStakedEarningInfo).div(N(10).pow(18)).toNumber())
+                            : 0n
+                        } ${fundBaseCurrencyProperties.currency}`}</Typography>
                         <IconButton size='small' onClick={() => refetchVaultStakedEarningInfo()}>
                           <Icon icon='mdi:reload' fontSize={16} />
                         </IconButton>

@@ -13,6 +13,7 @@ import Divider from '@mui/material/Divider'
 
 // ** Third-Party Imports
 import { useAccount, useReadContract } from 'wagmi'
+import { ExactNumber as N } from 'exactnumber'
 import { Atropos } from 'atropos/react'
 
 // ** Core Component Imports
@@ -69,7 +70,8 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
     args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftIdLoading && sftId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined,
+      placeholderData: 0n
     }
   })
 
@@ -81,12 +83,12 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
     args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftIdLoading && sftId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined,
+      placeholderData: 0n
     }
   })
 
   // ** Vars
-  const formattedSftValue = Number(sftValue ?? 0) / 10 ** 18
   const sftSlot = initFundEntity.defaultPackages?.data.find(pkg => pkg.id === Number(sftSlotId))
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
@@ -157,7 +159,7 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
                     color: 'primary.main'
                   }}
                 >
-                  {getFormattedPriceUnit(formattedSftValue ?? 0)}
+                  {typeof sftValue === 'bigint' ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber()) : 0n}
                 </Typography>
               </Stack>
             </Stack>

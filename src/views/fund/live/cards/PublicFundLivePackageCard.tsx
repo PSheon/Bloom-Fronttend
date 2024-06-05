@@ -31,7 +31,7 @@ import Typography from '@mui/material/Typography'
 
 // ** Third-Party Imports
 import { useAccount, useAccountEffect, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
-import safePrice from 'currency.js'
+import { ExactNumber as N } from 'exactnumber'
 import { Atropos } from 'atropos/react'
 import confetti from 'canvas-confetti'
 
@@ -59,7 +59,6 @@ import {
   getFundCurrencyProperties,
   getPackageStatusProperties,
   getFormattedPriceUnit,
-  getFormattedBigint,
   getChainId,
   getFormattedEthereumAddress,
   getBaseCurrencyABI,
@@ -132,7 +131,8 @@ const PublicFundLivePackageCard = (props: Props) => {
     args: [walletAccount.address!],
     account: walletAccount.address!,
     query: {
-      enabled: walletAccount.status === 'connected' && activeMintStep === 2
+      enabled: walletAccount.status === 'connected' && activeMintStep === 2,
+      placeholderData: 0n
     }
   })
 
@@ -149,7 +149,8 @@ const PublicFundLivePackageCard = (props: Props) => {
     args: [walletAccount.address!, initFundEntity.sft.contractAddress],
     account: walletAccount.address!,
     query: {
-      enabled: walletAccount.status === 'connected' && activeMintStep === 2
+      enabled: walletAccount.status === 'connected' && activeMintStep === 2,
+      placeholderData: 0n
     }
   })
 
@@ -183,7 +184,10 @@ const PublicFundLivePackageCard = (props: Props) => {
 
   // ** Vars
   const wallets = walletsData?.data || []
-  const totalPrice = Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
+
+  const totalPriceString = N(initPackageEntity?.priceInUnit ?? 0)
+    .mul(mintQuantity)
+    .toString()
 
   const isCurrentWalletVerified =
     walletAccount.status === 'connected' &&
@@ -267,13 +271,14 @@ const PublicFundLivePackageCard = (props: Props) => {
 
   const checkAllowanceSufficient = (): boolean => {
     if (isPayTokenAllowanceLoading || isPayTokenAllowanceFetching) return true
+    const NPayTokenAllowance = typeof payTokenAllowance === 'bigint' ? N(payTokenAllowance) : N(0)
 
-    return Number(totalPrice) * 10 ** 18 <= Number(payTokenAllowance ?? 0)
+    return N(totalPriceString).mul(N(10).pow(18)).toNumber() <= NPayTokenAllowance.toNumber()
   }
 
   const handleMint = async () => {
     try {
-      const formattedValue = getFormattedBigint(Number(totalPrice) * 10 ** 18)
+      const formattedValueString = N(totalPriceString).mul(N(10).pow(18)).toString()
 
       const { hash } = await signHash({
         id: initFundEntity.id,
@@ -281,7 +286,7 @@ const PublicFundLivePackageCard = (props: Props) => {
           contractName: initFundEntity.sft.contractName,
           minterAddress: walletAccount.address!,
           slotId: initPackageEntity.packageId,
-          value: formattedValue
+          value: formattedValueString
         }
       }).unwrap()
 
@@ -291,7 +296,7 @@ const PublicFundLivePackageCard = (props: Props) => {
           abi: initFundEntity.sft.contractAbi,
           address: initFundEntity.sft.contractAddress as `0x${string}`,
           functionName: 'mintPackage',
-          args: [hash, walletAccount.address!, initPackageEntity.packageId.toString(), formattedValue],
+          args: [hash, walletAccount.address!, initPackageEntity.packageId.toString(), formattedValueString],
           account: walletAccount.address!
         },
         {
@@ -708,7 +713,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 variant='subtitle1'
                                 component='p'
                               >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                                initPackageEntity?.priceInUnit
+                                initPackageEntity.priceInUnit
                               )} ${fundBaseCurrencyProperties.currency}`}</Typography>
                             </Stack>
                           </Stack>
@@ -724,7 +729,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                                       sx={{ fontWeight: 600 }}
                                     >
                                       {`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                                        Number(safePrice(initPackageEntity?.priceInUnit ?? 0).multiply(mintQuantity))
+                                        N(initPackageEntity.priceInUnit).mul(mintQuantity).toNumber()
                                       )} ${fundBaseCurrencyProperties.currency}`}
                                     </Typography>
                                     <Typography variant='body2' component='p' color='common.white'>
@@ -825,9 +830,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                               <Typography
                                 variant='subtitle1'
                                 component='p'
-                              >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                                totalPrice
-                              )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                              >{`${fundBaseCurrencyProperties.symbol} ${totalPriceString} ${fundBaseCurrencyProperties.currency}`}</Typography>
                             </Stack>
                             <Stack direction='row' alignItems='center' justifyContent='space-between'>
                               <Typography variant='subtitle2' component='p'>
@@ -865,7 +868,11 @@ const PublicFundLivePackageCard = (props: Props) => {
                               ) : (
                                 <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                   <Typography variant='subtitle1' component='p'>
-                                    {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit(Number(payTokenBalance ?? 0) / 10 ** 18) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                    {`${fundBaseCurrencyProperties.symbol} ${
+                                      typeof payTokenBalance === 'bigint'
+                                        ? getFormattedPriceUnit(N(payTokenBalance).div(N(10).pow(18)).toNumber())
+                                        : 0n
+                                    } ${fundBaseCurrencyProperties.currency}`}
                                   </Typography>
                                   <IconButton size='small' onClick={() => refetchPayTokenBalance()}>
                                     <Icon icon='mdi:reload' fontSize={16} />
@@ -893,7 +900,15 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 ) : (
                                   <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
                                     <Typography variant='subtitle1' component='p'>
-                                      {`${fundBaseCurrencyProperties.symbol} ${payTokenAllowance ? getFormattedPriceUnit(Number(payTokenAllowance ?? 0) / 10 ** 18) : 0} ${fundBaseCurrencyProperties.currency}`}
+                                      {`${fundBaseCurrencyProperties.symbol} ${
+                                        typeof payTokenAllowance === 'bigint'
+                                          ? getFormattedPriceUnit(
+                                              N(payTokenAllowance ?? 0)
+                                                .div(N(10).pow(18))
+                                                .toNumber()
+                                            )
+                                          : 0
+                                      } ${fundBaseCurrencyProperties.currency}`}
                                     </Typography>
                                     <IconButton size='small' onClick={() => refetchPayTokenAllowance()}>
                                       <Icon icon='mdi:reload' fontSize={16} />
@@ -926,6 +941,8 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 loading={isApprovePayTokenPending || isApprovePayTokenConfirming}
                                 variant='contained'
                                 onClick={() => {
+                                  const formattedApproveValueString = N(totalPriceString).mul(N(10).pow(18)).toString()
+
                                   approvePayToken({
                                     chainId: getChainId(
                                       initFundEntity.chain
@@ -933,7 +950,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                                     abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
                                     address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
                                     functionName: 'approve',
-                                    args: [initFundEntity.sft.contractAddress, Number(totalPrice ?? 0) * 10 ** 18],
+                                    args: [initFundEntity.sft.contractAddress, formattedApproveValueString],
                                     account: walletAccount.address!
                                   })
                                 }}

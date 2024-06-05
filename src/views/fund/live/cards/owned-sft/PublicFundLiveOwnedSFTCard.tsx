@@ -23,6 +23,7 @@ import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
 import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import { ExactNumber as N } from 'exactnumber'
 import { Atropos } from 'atropos/react'
 import format from 'date-fns/format'
 import addDays from 'date-fns/addDays'
@@ -47,10 +48,9 @@ import { useVaultSignHashMutation } from 'src/store/api/management/fund'
 import {
   getFundCurrencyProperties,
   getFormattedPriceUnit,
-  getFormattedBigint,
   getChainId,
   getFormattedEthereumAddress,
-  getExpectInterestBalance
+  getExpectInterestBalanceString
 } from 'src/utils'
 
 // ** Config Imports
@@ -123,7 +123,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
     args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftIdLoading && sftId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined,
+      placeholderData: 0n
     }
   })
 
@@ -135,7 +136,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
     args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftIdLoading && sftId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined,
+      placeholderData: 0n
     }
   })
 
@@ -209,7 +211,6 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const [signHash, { isLoading: isSignHashLoading }] = useVaultSignHashMutation()
 
   // ** Vars
-  const formattedSftValue = Number(sftValue ?? 0) / 10 ** 18
   const sftSlot = initFundEntity.defaultPackages?.data.find(pkg => pkg.id === Number(sftSlotId))
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
@@ -253,7 +254,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
     try {
       if (typeof sftId === 'bigint' && typeof sftValue === 'bigint') {
         const tokenId = sftId.toString()
-        const formattedBalance = getFormattedBigint(sftValue.toString())
+        const formattedBalanceString = N(sftValue).toString()
 
         const { hash, unlockTime, interest } = await signHash({
           id: initFundEntity.id,
@@ -261,7 +262,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
             contractName: initFundEntity.vault.contractName,
             stakerAddress: walletAccount.address!,
             tokenId: tokenId,
-            balance: formattedBalance,
+            balance: formattedBalanceString,
             periodInDays: stakePeriod.periodInDays,
             apy: stakePeriod.apy
           }
@@ -273,7 +274,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
             abi: initFundEntity.vault.contractAbi,
             address: initFundEntity.vault.contractAddress as `0x${string}`,
             functionName: 'stake',
-            args: [hash, sftId!.toString(), formattedBalance, unlockTime.toString(), interest.toString()],
+            args: [hash, sftId!.toString(), formattedBalanceString, unlockTime.toString(), interest.toString()],
             account: walletAccount.address!
           },
           {
@@ -383,7 +384,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                     color: 'primary.main'
                   }}
                 >
-                  {getFormattedPriceUnit(formattedSftValue ?? 0)}
+                  {typeof sftValue === 'bigint' ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber()) : 0n}
                 </Typography>
               </Stack>
             </Stack>
@@ -544,12 +545,11 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                       <Typography variant='subtitle2' component='p'>
                         Balance
                       </Typography>
-                      <Typography
-                        variant='subtitle1'
-                        component='p'
-                      >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                        (Number(sftValue) ?? 0) / 10 ** 18
-                      )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                      <Typography variant='subtitle1' component='p'>{`${fundBaseCurrencyProperties.symbol} ${
+                        typeof sftValue === 'bigint'
+                          ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber())
+                          : 0n
+                      } ${fundBaseCurrencyProperties.currency}`}</Typography>
                     </Stack>
                     <Stack direction='row' alignItems='center' justifyContent='space-between'>
                       <Typography variant='subtitle2' component='p'>
@@ -584,15 +584,15 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                       <Typography variant='subtitle2' component='p'>
                         Earn Expectation
                       </Typography>
-                      <Typography
-                        variant='h6'
-                        component='p'
-                      >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                        sftValue
-                          ? getExpectInterestBalance(sftValue as bigint, stakePeriod.apy, stakePeriod.periodInDays) /
-                              10 ** 18
+                      <Typography variant='h6' component='p'>{`${fundBaseCurrencyProperties.symbol} ${
+                        typeof sftValue === 'bigint'
+                          ? getFormattedPriceUnit(
+                              N(getExpectInterestBalanceString(sftValue, stakePeriod.apy, stakePeriod.periodInDays))
+                                .div(N(10).pow(18))
+                                .toNumber()
+                            )
                           : 0n
-                      )} ${fundBaseCurrencyProperties.currency}`}</Typography>
+                      } ${fundBaseCurrencyProperties.currency}`}</Typography>
                     </Stack>
                   </Stack>
                   <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>

@@ -1,3 +1,6 @@
+// ** Third-Party Imports
+import { ExactNumber as N } from 'exactnumber'
+
 // ** Type Imports
 import type { ThemeColor } from 'src/@core/layouts/types'
 import type { EditTabIndex, PreviewTabIndex, LiveTabIndex, FundType, CategoryType } from 'src/types/fundTypes'
@@ -51,12 +54,14 @@ export const getNextValidPackageId = (fundEntity: FundType): number => {
   }
 }
 
-export const getExpectInterestBalance = (balance: bigint, apy: number, periodInDays: number): number => {
+export const getExpectInterestBalanceString = (balance: bigint, apy: number, periodInDays: number): string => {
   const formattedApy = 1 + Math.min(Math.max(apy, 1), 24) / 100
   const interestRatePerDay = Math.pow(formattedApy, 1 / 365)
   const multiplier = Math.pow(interestRatePerDay, periodInDays)
 
-  return Number(balance) * (multiplier - 1)
+  return N(balance)
+    .mul(N(multiplier.toFixed(6)).sub(1))
+    .toString()
 }
 
 export const getFundCurrencyProperties = (currency: FundType['baseCurrency']) => {

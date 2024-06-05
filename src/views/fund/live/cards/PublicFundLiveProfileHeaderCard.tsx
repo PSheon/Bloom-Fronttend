@@ -16,6 +16,7 @@ import Skeleton from '@mui/material/Skeleton'
 
 // ** Third-Party Imports
 import { useAccount, useReadContract } from 'wagmi'
+import { ExactNumber as N } from 'exactnumber'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -66,7 +67,8 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
     args: [walletAccount.address!],
     account: walletAccount.address!,
     query: {
-      enabled: walletAccount.status === 'connected'
+      enabled: walletAccount.status === 'connected',
+      placeholderData: 0n
     }
   })
 
@@ -176,12 +178,13 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
           </Box>
           <Stack direction='row' spacing={4} justifyContent='center'>
             <Stack alignItems='flex-end' justifyContent='center'>
-              <Typography variant='caption' sx={{ color: 'text.secondary', fontWeight: 600 }}>
+              <Typography variant='caption' color='text.secondary' sx={{ fontWeight: 600 }}>
                 My Total Position
               </Typography>
               <Typography
                 variant='caption'
-                sx={{ color: 'text.secondary', fontWeight: 600 }}
+                color='text.secondary'
+                sx={{ fontWeight: 600 }}
               >{`(${baseCurrencyProperties.currency})`}</Typography>
             </Stack>
             {isPayTokenBalanceLoading ? (
@@ -190,8 +193,12 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
               </Stack>
             ) : (
               <Stack direction='row' alignItems='center' justifyContent='center'>
-                <Typography variant='h5' sx={{ fontSize: '1.375rem' }}>
-                  {`${fundBaseCurrencyProperties.symbol} ${payTokenBalance ? getFormattedPriceUnit(Number(payTokenBalance ?? 0) / 10 ** 18) : 0} ${fundBaseCurrencyProperties.currency}`}
+                <Typography variant='h6' component='p'>
+                  {`${fundBaseCurrencyProperties.symbol} ${
+                    typeof payTokenBalance === 'bigint'
+                      ? getFormattedPriceUnit(N(payTokenBalance).div(N(10).pow(18)).toNumber())
+                      : 0n
+                  }`}
                 </Typography>
                 <IconButton
                   component={Link}
