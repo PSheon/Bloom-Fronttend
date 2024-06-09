@@ -124,7 +124,10 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
   })
 
   // ** Vars
-  const sftSlot = initFundEntity.defaultPackages?.data.find(pkg => pkg.id === Number(sftSlotId))
+  const sftSlot = initFundEntity.defaultPackages?.data.find(
+    pkg => Number(pkg.attributes.packageId) === Number(sftSlotId)
+  )
+
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   const stakeRecordStartDate = vaultStakeRecord
