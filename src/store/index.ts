@@ -8,6 +8,7 @@ import dashboard from 'src/store/dashboard'
 import { authApi } from 'src/store/api/auth'
 import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
 import { fundApi } from 'src/store/api/management/fund'
+import { tokenApi } from 'src/store/api/management/token'
 import { userApi } from 'src/store/api/management/user'
 import { articleApi } from 'src/store/api/management/article'
 import { mediaAssetApi } from 'src/store/api/management/mediaAsset'
@@ -23,6 +24,7 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [roleAndPermissionApi.reducerPath]: roleAndPermissionApi.reducer,
     [fundApi.reducerPath]: fundApi.reducer,
+    [tokenApi.reducerPath]: tokenApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
     [mediaAssetApi.reducerPath]: mediaAssetApi.reducer,
@@ -42,6 +44,7 @@ export const store = configureStore({
       authApi.middleware,
       roleAndPermissionApi.middleware,
       fundApi.middleware,
+      tokenApi.middleware,
       userApi.middleware,
       articleApi.middleware,
       mediaAssetApi.middleware,

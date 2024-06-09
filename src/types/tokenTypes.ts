@@ -1,5 +1,6 @@
 // ** Type Imports
 import type { BaseApiResponseType } from 'src/types/api/baseApiTypes'
+import type { FundType } from 'src/types/fundTypes'
 import type { PackageType } from 'src/types/packageTypes'
 
 type AttributeType = {
@@ -9,14 +10,24 @@ type AttributeType = {
 
 export type TokenType = {
   id: number
-  tokenId: number
-  displayName: string
-  description?: string
-  tokenAddress: string
+  belongToFund?: {
+    data?: {
+      id: number
+      attributes: Omit<FundType, 'id'>
+    }
+  }
+  package?: {
+    data?: {
+      id: number
+      attributes: Omit<PackageType, 'id'>
+    }
+  }
   contractAddress: string
-  package: PackageType
+  owner: string
+  tokenId: string
+  tokenValue: string
   attributes: AttributeType[]
-  status: 'Draft' | 'Generating' | 'Published' | 'Archived'
+  status: 'Holding' | 'Staking' | 'Burned'
   updatedAt: string
   createdAt: string
 }
@@ -32,8 +43,9 @@ export type FindOneTokenResponseType = TokenType
 // ** Find
 export type FindTokensParamsType = {
   filters: Partial<{
+    contractAddress: Record<string, string>
     $or: Partial<{
-      displayName: Record<string, string>
+      owner: Record<string, string>
     }>[]
   }>
   sort?: string[]
@@ -51,24 +63,11 @@ export type FindTokensTransformResponseType = BaseApiResponseType<
 >
 export type FindTokensResponseType = BaseApiResponseType<TokenType[]>
 
-// ** Create
-export type CreateTokenParamsType = {
-  data: {
-    displayName: string
-  }
-}
-export type CreateTokenTransformResponseType = BaseApiResponseType<{
-  id: number
-  attributes: Omit<TokenType, 'id'>
-}>
-export type CreateTokenResponseType = TokenType
-
 // ** Update One
 export type UpdateOneTokenParamsType = {
   id: number
   data: Partial<{
-    displayName: string
-    status: 'Draft' | 'Generating' | 'Published' | 'Archived'
+    owner: string
   }>
   meta?: {
     pagination?: {
@@ -83,11 +82,3 @@ export type UpdateOneTokenTransformResponseType = BaseApiResponseType<{
   attributes: Omit<TokenType, 'id'>
 }>
 export type UpdateOneTokenResponseType = TokenType
-
-// ** Delete One
-export type DeleteOneTokenParamsType = number
-export type DeleteOneTokenTransformResponseType = BaseApiResponseType<{
-  id: number
-  attributes: Omit<TokenType, 'id'>
-}>
-export type DeleteOneTokenResponseType = TokenType
