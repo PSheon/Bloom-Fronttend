@@ -24,11 +24,21 @@ export const queryClient = new QueryClient()
 export const ETHEREUM_SEPOLIA_BLT_ABI = [
   {
     inputs: [
+      { internalType: 'address', name: '_defaultAdmin', type: 'address' },
       { internalType: 'string', name: '_contractName', type: 'string' },
       { internalType: 'string', name: '_contractSymbol', type: 'string' }
     ],
     stateMutability: 'nonpayable',
     type: 'constructor'
+  },
+  { inputs: [], name: 'AccessControlBadConfirmation', type: 'error' },
+  {
+    inputs: [
+      { internalType: 'address', name: 'account', type: 'address' },
+      { internalType: 'bytes32', name: 'neededRole', type: 'bytes32' }
+    ],
+    name: 'AccessControlUnauthorizedAccount',
+    type: 'error'
   },
   {
     inputs: [
@@ -64,12 +74,6 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
     name: 'ERC20InvalidSpender',
     type: 'error'
   },
-  { inputs: [{ internalType: 'address', name: 'owner', type: 'address' }], name: 'OwnableInvalidOwner', type: 'error' },
-  {
-    inputs: [{ internalType: 'address', name: 'account', type: 'address' }],
-    name: 'OwnableUnauthorizedAccount',
-    type: 'error'
-  },
   { inputs: [], name: 'ReentrancyGuardReentrantCall', type: 'error' },
   {
     anonymous: false,
@@ -84,10 +88,31 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
   {
     anonymous: false,
     inputs: [
-      { indexed: true, internalType: 'address', name: 'previousOwner', type: 'address' },
-      { indexed: true, internalType: 'address', name: 'newOwner', type: 'address' }
+      { indexed: true, internalType: 'bytes32', name: 'role', type: 'bytes32' },
+      { indexed: true, internalType: 'bytes32', name: 'previousAdminRole', type: 'bytes32' },
+      { indexed: true, internalType: 'bytes32', name: 'newAdminRole', type: 'bytes32' }
     ],
-    name: 'OwnershipTransferred',
+    name: 'RoleAdminChanged',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'bytes32', name: 'role', type: 'bytes32' },
+      { indexed: true, internalType: 'address', name: 'account', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'sender', type: 'address' }
+    ],
+    name: 'RoleGranted',
+    type: 'event'
+  },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'bytes32', name: 'role', type: 'bytes32' },
+      { indexed: true, internalType: 'address', name: 'account', type: 'address' },
+      { indexed: true, internalType: 'address', name: 'sender', type: 'address' }
+    ],
+    name: 'RoleRevoked',
     type: 'event'
   },
   {
@@ -100,7 +125,23 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
     name: 'Transfer',
     type: 'event'
   },
+  {
+    anonymous: false,
+    inputs: [
+      { indexed: true, internalType: 'address', name: 'caller', type: 'address' },
+      { indexed: true, internalType: 'uint256', name: 'balance', type: 'uint256' }
+    ],
+    name: 'Withdraw',
+    type: 'event'
+  },
   { stateMutability: 'payable', type: 'fallback' },
+  {
+    inputs: [],
+    name: 'DEFAULT_ADMIN_ROLE',
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
   {
     inputs: [
       { internalType: 'address', name: 'owner', type: 'address' },
@@ -147,15 +188,73 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
   },
   {
     inputs: [],
+    name: 'contractType',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'pure',
+    type: 'function'
+  },
+  {
+    inputs: [],
+    name: 'contractVersion',
+    outputs: [{ internalType: 'string', name: '', type: 'string' }],
+    stateMutability: 'pure',
+    type: 'function'
+  },
+  {
+    inputs: [],
     name: 'decimals',
     outputs: [{ internalType: 'uint8', name: '', type: 'uint8' }],
     stateMutability: 'view',
     type: 'function'
   },
   {
+    inputs: [{ internalType: 'bytes32', name: 'role', type: 'bytes32' }],
+    name: 'getRoleAdmin',
+    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
     inputs: [
-      { internalType: 'address', name: '_to', type: 'address' },
-      { internalType: 'uint256', name: '_amount', type: 'uint256' }
+      { internalType: 'bytes32', name: 'role', type: 'bytes32' },
+      { internalType: 'uint256', name: 'index', type: 'uint256' }
+    ],
+    name: 'getRoleMember',
+    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'bytes32', name: 'role', type: 'bytes32' }],
+    name: 'getRoleMemberCount',
+    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'bytes32', name: 'role', type: 'bytes32' },
+      { internalType: 'address', name: 'account', type: 'address' }
+    ],
+    name: 'grantRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'bytes32', name: 'role', type: 'bytes32' },
+      { internalType: 'address', name: 'account', type: 'address' }
+    ],
+    name: 'hasRole',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
+    stateMutability: 'view',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'address', name: 'to', type: 'address' },
+      { internalType: 'uint256', name: 'amount', type: 'uint256' }
     ],
     name: 'mint',
     outputs: [],
@@ -170,13 +269,32 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
     type: 'function'
   },
   {
-    inputs: [],
-    name: 'owner',
-    outputs: [{ internalType: 'address', name: '', type: 'address' }],
+    inputs: [
+      { internalType: 'bytes32', name: 'role', type: 'bytes32' },
+      { internalType: 'address', name: 'callerConfirmation', type: 'address' }
+    ],
+    name: 'renounceRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [
+      { internalType: 'bytes32', name: 'role', type: 'bytes32' },
+      { internalType: 'address', name: 'account', type: 'address' }
+    ],
+    name: 'revokeRole',
+    outputs: [],
+    stateMutability: 'nonpayable',
+    type: 'function'
+  },
+  {
+    inputs: [{ internalType: 'bytes4', name: 'interfaceId', type: 'bytes4' }],
+    name: 'supportsInterface',
+    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
     stateMutability: 'view',
     type: 'function'
   },
-  { inputs: [], name: 'renounceOwnership', outputs: [], stateMutability: 'nonpayable', type: 'function' },
   {
     inputs: [],
     name: 'symbol',
@@ -213,13 +331,6 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
     type: 'function'
   },
   {
-    inputs: [{ internalType: 'address', name: 'newOwner', type: 'address' }],
-    name: 'transferOwnership',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function'
-  },
-  {
     inputs: [{ internalType: 'address', name: '_receiver', type: 'address' }],
     name: 'withdraw',
     outputs: [],
@@ -227,4 +338,4 @@ export const ETHEREUM_SEPOLIA_BLT_ABI = [
     type: 'function'
   },
   { stateMutability: 'payable', type: 'receive' }
-] as const
+]
