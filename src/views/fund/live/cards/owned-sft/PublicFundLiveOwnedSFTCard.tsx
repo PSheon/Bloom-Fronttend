@@ -165,18 +165,6 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
     }
   })
 
-  const { refetch: refetchVaultTotalStaked } = useReadContract({
-    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.vault.contractAbi,
-    address: initFundEntity.vault.contractAddress as `0x${string}`,
-    functionName: 'totalStaked',
-    args: [walletAccount.address!],
-    account: walletAccount.address!,
-    query: {
-      enabled: false
-    }
-  })
-
   const {
     data: sftApproved,
     refetch: refetchSftApproved,
@@ -211,7 +199,10 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const [signHash, { isLoading: isSignHashLoading }] = useVaultSignHashMutation()
 
   // ** Vars
-  const sftSlot = initFundEntity.defaultPackages?.data.find(pkg => pkg.id === Number(sftSlotId))
+  const sftSlot = initFundEntity.defaultPackages?.data.find(
+    pkg => Number(pkg.attributes.packageId) === Number(sftSlotId)
+  )
+
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   const STAKE_PERIOD_INFORMATION: StakePeriodType[] = [
@@ -313,10 +304,9 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
       })
       refetchSftBalance()
       refetchOwnedStakedSFTBalance()
-      refetchVaultTotalStaked()
       setIsStakeSFTDialogOpen(() => false)
     }
-  }, [isStakeSftSuccess, refetchSftBalance, refetchOwnedStakedSFTBalance, refetchVaultTotalStaked])
+  }, [isStakeSftSuccess, refetchSftBalance, refetchOwnedStakedSFTBalance])
 
   if (isSftIdLoading || isSftValueLoading || isSftSlotIdLoading) {
     return <PublicFundLiveOwnedSFTSkeletonCard />

@@ -8,6 +8,7 @@ import Skeleton from '@mui/material/Skeleton'
 
 // ** Third-Party Imports
 import { useReadContract } from 'wagmi'
+import { ExactNumber as N } from 'exactnumber'
 
 // ** Custom Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -17,7 +18,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
-import { getChainId } from 'src/utils'
+import { getChainId, getFundCurrencyProperties, getFormattedPriceUnit } from 'src/utils'
 
 // ** Config Imports
 import type { wagmiConfig } from 'src/configs/ethereum'
@@ -34,15 +35,19 @@ const PublicFundLiveVaultTVLCard = (props: Props) => {
   const { initFundEntity } = props
 
   // ** Hooks
-  const { data: totalStaked, isLoading: isTotalStakedLoading } = useReadContract({
+  const { data: totalValueLocked, isLoading: isTotalValueLockedLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initFundEntity.vault.contractAbi,
     address: initFundEntity.vault.contractAddress as `0x${string}`,
-    functionName: 'totalStaked',
+    functionName: 'totalValueLocked',
     query: {
-      enabled: initFundEntity?.vault?.contractAddress !== undefined
+      enabled: initFundEntity?.vault?.contractAddress !== undefined,
+      placeholderData: 0n
     }
   })
+
+  // ** Vars
+  const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   return (
     <Card>
@@ -60,10 +65,18 @@ const PublicFundLiveVaultTVLCard = (props: Props) => {
             </Stack>
           </Stack>
           <Box sx={{ pt: 2 }}>
-            {isTotalStakedLoading ? (
+            {isTotalValueLockedLoading ? (
               <Skeleton variant='text' width={100} height={32} />
             ) : (
-              <Typography variant='h6'>{Number(totalStaked ?? 0)}</Typography>
+              <Stack direction='row' sx={{ position: 'relative' }}>
+                <Typography variant='h6' component='p'>
+                  {`${fundBaseCurrencyProperties.symbol} ${
+                    typeof totalValueLocked === 'bigint'
+                      ? getFormattedPriceUnit(N(totalValueLocked).div(N(10).pow(18)).toNumber())
+                      : 0n
+                  }`}
+                </Typography>
+              </Stack>
             )}
             <Typography variant='body2' sx={{ mb: 2 }}>
               Total Value Locked
