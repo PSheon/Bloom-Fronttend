@@ -86,7 +86,7 @@ const PublicFundListDataGrid = (props: Props) => {
             const baseCurrencyProperties = getFundCurrencyProperties(fund.baseCurrency)
 
             return (
-              <Grid key={`fund-${fund.id}`} item xs={12} md={6} xl={4}>
+              <Grid key={`fund-${fund.id}`} item xs={12} sm={6} md={4}>
                 <Card
                   onClick={() => handleRedirectToFund(fund.id)}
                   sx={{
