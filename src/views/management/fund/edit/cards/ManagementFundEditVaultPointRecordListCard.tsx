@@ -39,7 +39,8 @@ const LinkStyled = styled(Link)(({ theme }) => ({
   }
 }))
 
-const ManagementFundEditTokenTransactionsCard = () => {
+/* TODO: update here */
+const ManagementFundEditVaultPointRecordListCard = () => {
   // ** States
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
@@ -174,7 +175,7 @@ const ManagementFundEditTokenTransactionsCard = () => {
 
   return (
     <Card>
-      <CardHeader title='Last Transactions' />
+      <CardHeader title='Point Record List' />
       <DataGrid
         autoHeight
         loading={isActivityLogsLoading}
@@ -192,4 +193,4 @@ const ManagementFundEditTokenTransactionsCard = () => {
   )
 }
 
-export default ManagementFundEditTokenTransactionsCard
+export default ManagementFundEditVaultPointRecordListCard
