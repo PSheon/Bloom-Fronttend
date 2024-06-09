@@ -146,7 +146,7 @@ const App = (props: ExtendedAppProps) => {
           <meta name='publisher' content='Bloom' />
           <meta name='apple-mobile-web-app-title' content='Bloom' />
           <meta name='application-name' content='Bloom' />
-          <meta name='msapplication-TileColor' content='#da532c' />
+          <meta name='msapplication-TileColor' content='#f7f7f9' />
           <meta name='theme-color' content='#f7f7f9' />
 
           {/* Link */}
@@ -154,7 +154,7 @@ const App = (props: ExtendedAppProps) => {
           <link rel='apple-touch-icon' sizes='180x180' href='/seo/apple-touch-icon.png' />
           <link rel='icon' type='image/png' sizes='32x32' href='/seo/favicon-32x32.png' />
           <link rel='icon' type='image/png' sizes='16x16' href='/seo/favicon-16x16.png' />
-          <link rel='mask-icon' href='/seo/safari-pinned-tab.svg' color='#5bbad5' />
+          <link rel='mask-icon' href='/seo/safari-pinned-tab.svg' color='#666cff' />
           <link rel='manifest' href='/seo/site.webmanifest' />
 
           {/* OG */}
