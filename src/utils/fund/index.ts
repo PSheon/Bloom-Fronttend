@@ -64,6 +64,36 @@ export const getExpectInterestBalanceString = (balance: bigint, apy: number, per
     .toString()
 }
 
+export const getContractTypeProperties = (contractType: unknown) => {
+  const contractTypeAttributes = {
+    TokenERC20: {
+      color: 'success',
+      displayName: 'Token Drop',
+      description: 'Release collection of unique NFTs for a set price'
+    },
+    TokenERC3525: {
+      color: 'success',
+      displayName: 'SFT Drop',
+      description: 'Release collection of unique NFTs for a set price'
+    },
+    VaultRWA: {
+      color: 'success',
+      displayName: 'RWA Vault',
+      description: 'Release collection of unique NFTs for a set price'
+    }
+  }
+
+  switch (contractType) {
+    case 'TokenERC20':
+      return contractTypeAttributes['TokenERC20']
+    case 'TokenERC3525':
+      return contractTypeAttributes['TokenERC3525']
+    case 'VaultRWA':
+    default:
+      return contractTypeAttributes['VaultRWA']
+  }
+}
+
 export const getFundCurrencyProperties = (currency: FundType['baseCurrency']) => {
   const currencyAttributes = {
     ETH: {
