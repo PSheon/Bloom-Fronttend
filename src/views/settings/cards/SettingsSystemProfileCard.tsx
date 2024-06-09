@@ -62,7 +62,7 @@ const SettingsSystemProfileCard = () => {
             <LogoImage width={96} height={96} />
           </Box>
         </RootPreviewBox>
-        <Typography variant='h6' sx={{ mt: 4, mb: 2 }}>
+        <Typography variant='h6' component='p' sx={{ mt: 4, mb: 2 }}>
           {themeConfig.templateName}
         </Typography>
         <CustomChip

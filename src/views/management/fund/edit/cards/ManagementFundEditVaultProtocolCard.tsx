@@ -138,7 +138,7 @@ const ManagementFundEditVaultProtocolCard = (props: Props) => {
                 backgroundColor: theme => theme.palette.background.default
               }}
             >
-              <LogoImage width={20} height={20} />
+              <LogoImage width={14} height={14} />
             </CustomAvatar>
 
             <Typography variant='body2' sx={{ fontWeight: 600 }}>

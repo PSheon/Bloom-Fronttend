@@ -67,12 +67,13 @@ const AuthVerifyEmailPage = () => {
             <Link href='/'>
               <Box
                 sx={{
+                  mt: 4,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center'
                 }}
               >
-                {isDesktopView ? <LogoImage width={80} height={80} /> : <LogoImage width={64} height={64} />}
+                {isDesktopView ? <LogoImage width={64} height={64} /> : <LogoImage width={48} height={48} />}
               </Box>
             </Link>
             <Box sx={{ width: '100%' }}>

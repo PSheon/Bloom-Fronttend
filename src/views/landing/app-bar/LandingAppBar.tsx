@@ -164,7 +164,7 @@ const LandingAppBar = () => {
                 </IconButton>
                 <Link href='/'>
                   <Stack alignItems='center' justifyContent='center'>
-                    <LogoImage width={40} height={40} />
+                    <LogoImage width={32} height={32} />
                   </Stack>
                 </Link>
               </Box>
@@ -172,7 +172,7 @@ const LandingAppBar = () => {
               <Stack direction='row' spacing={2} alignItems='center'>
                 <Link href='/'>
                   <Stack alignItems='center' justifyContent='center'>
-                    <LogoImage width={40} height={40} />
+                    <LogoImage width={32} height={32} />
                   </Stack>
                 </Link>
                 <Typography variant='subtitle1' component='span' sx={{ ml: 2, fontWeight: 600 }}>
@@ -250,7 +250,7 @@ const LandingAppBar = () => {
         <Stack direction='row' spacing={2} alignItems='center'>
           <Link href='/'>
             <Stack alignItems='center' justifyContent='center'>
-              <LogoImage width={40} height={40} />
+              <LogoImage width={28} height={28} />
             </Stack>
           </Link>
           <Typography variant='subtitle1' component='span' sx={{ ml: 2, fontWeight: 600 }}>
