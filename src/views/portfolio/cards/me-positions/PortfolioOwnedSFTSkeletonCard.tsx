@@ -76,7 +76,7 @@ const PortfolioOwnedSFTSkeletonCard = () => {
             }}
             startIcon={<Icon icon='mdi:keyboard-arrow-down' />}
           >
-            Stake
+            Check
           </Button>
         </Stack>
       </CardContent>

@@ -1,6 +1,5 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
-import Typography from '@mui/material/Typography'
 
 // ** Core Component Imports
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
@@ -8,7 +7,9 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 // ** Custom Component Imports
 import PortfolioBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import PortfolioBannerCard from 'src/views/portfolio/cards/PortfolioBannerCard'
-import PortfolioMePositionsGrid from 'src/views/portfolio/grids/PortfolioMePositionsGrid'
+import PortfolioPointsRecordChartCard from 'src/views/portfolio/cards/me-points-record-chart'
+import PortfolioPointsRecordListCard from 'src/views/portfolio/cards/me-points-record-list'
+import PortfolioPositionsGrid from 'src/views/portfolio/grids/PortfolioPositionsGrid'
 
 const PortfolioPage = () => {
   return (
@@ -21,28 +22,15 @@ const PortfolioPage = () => {
           <PortfolioBannerCard />
         </Grid>
 
-        <Grid item xs={12}>
-          <Typography variant='h5' component='p'>
-            My Position
-          </Typography>
-          <Typography variant='body2' component='p'>
-            Your RWA positions
-          </Typography>
+        <Grid item xs={12} md={5}>
+          <PortfolioPointsRecordChartCard />
         </Grid>
-        <Grid item xs={12}>
-          <PortfolioMePositionsGrid />
+        <Grid item xs={12} md={7}>
+          <PortfolioPointsRecordListCard />
         </Grid>
 
         <Grid item xs={12}>
-          <Typography variant='h5' component='p'>
-            My Activities
-          </Typography>
-          <Typography variant='body2' component='p'>
-            Your recently activities on Ethereum
-          </Typography>
-        </Grid>
-        <Grid item xs={12}>
-          PortfolioMeActivitiesGrid
+          <PortfolioPositionsGrid />
         </Grid>
       </Grid>
     </ApexChartWrapper>

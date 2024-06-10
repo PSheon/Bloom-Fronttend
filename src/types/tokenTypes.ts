@@ -44,8 +44,9 @@ export type FindOneTokenResponseType = TokenType
 export type FindTokensParamsType = {
   filters: Partial<{
     contractAddress: Record<string, string>
+    owner: Record<string, string>
     $or: Partial<{
-      owner: Record<string, string>
+      status: Record<string, TokenType['status']>
     }>[]
   }>
   sort?: string[]

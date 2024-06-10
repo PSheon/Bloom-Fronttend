@@ -39,7 +39,7 @@ export const tokenApi = createApi({
     findOne: builder.query<FindOneTokenResponseType, FindOneTokenParamsType>({
       query: announceId => ({
         url: `/api/tokens/${announceId}?${qs.stringify({
-          populate: ['package']
+          populate: ['belongToFund', 'package', 'package.slot']
         })}`,
         method: 'GET'
       }),
@@ -53,7 +53,7 @@ export const tokenApi = createApi({
       query: params => ({
         url: `/api/tokens?${qs.stringify({
           ...params,
-          populate: ['package']
+          populate: ['belongToFund', 'package', 'package.slot']
         })}`,
         method: 'GET'
       }),
@@ -69,7 +69,7 @@ export const tokenApi = createApi({
     updateOne: builder.mutation<UpdateOneTokenResponseType, UpdateOneTokenParamsType>({
       query: params => ({
         url: `/api/tokens/${params.id}?${qs.stringify({
-          populate: ['package']
+          populate: ['belongToFund', 'package', 'package.slot']
         })}`,
         method: 'PUT',
         body: params
