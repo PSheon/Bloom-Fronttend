@@ -26,6 +26,11 @@ import { getActivityLogStatusProperties, getActivityLogActionProperties, getActi
 // ** Type Imports
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 import type { ActivityLogType } from 'src/types/activityLogTypes'
+import type { FundType } from 'src/types/fundTypes'
+
+interface Props {
+  initFundEntity: FundType
+}
 
 // ** Styled Components
 const LinkStyled = styled(Link)(({ theme }) => ({
@@ -40,7 +45,15 @@ const LinkStyled = styled(Link)(({ theme }) => ({
 }))
 
 /* TODO: update here */
-const ManagementFundEditVaultPointRecordListCard = () => {
+const ManagementFundEditVaultPointsRecordListCard = (props: Props) => {
+  // ** Props
+  const { initFundEntity } = props
+
+  console.log(
+    '🚀 ~ src/views/management/fund/edit/cards/ManagementFundEditVaultPointsRecordListCard.tsx:52 > initFundEntity',
+    initFundEntity
+  )
+
   // ** States
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 10 })
 
@@ -193,4 +206,4 @@ const ManagementFundEditVaultPointRecordListCard = () => {
   )
 }
 
-export default ManagementFundEditVaultPointRecordListCard
+export default ManagementFundEditVaultPointsRecordListCard

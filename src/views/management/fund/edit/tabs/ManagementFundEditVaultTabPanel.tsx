@@ -6,7 +6,7 @@ import TabPanel from '@mui/lab/TabPanel'
 import ManagementFundEditVaultProtocolCard from 'src/views/management/fund/edit/cards/ManagementFundEditVaultProtocolCard'
 import ManagementFundEditVaultPermissionsCard from 'src/views/management/fund/edit/cards/vault-permissions'
 import ManagementFundEditVaultStatisticsCard from 'src/views/management/fund/edit/cards/ManagementFundEditVaultStatisticsCard'
-import ManagementFundEditVaultPointRecordListCard from 'src/views/management/fund/edit/cards/ManagementFundEditVaultPointRecordListCard'
+import ManagementFundEditVaultPointsRecordListCard from 'src/views/management/fund/edit/cards/ManagementFundEditVaultPointsRecordListCard'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -38,7 +38,7 @@ const ManagementFundEditVaultTabPanel = (props: Props) => {
               <ManagementFundEditVaultStatisticsCard initFundEntity={initFundEntity} />
             </Grid>
             <Grid item xs={12}>
-              <ManagementFundEditVaultPointRecordListCard />
+              <ManagementFundEditVaultPointsRecordListCard initFundEntity={initFundEntity} />
             </Grid>
           </Grid>
         </Grid>
