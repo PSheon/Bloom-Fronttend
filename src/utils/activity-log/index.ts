@@ -41,7 +41,11 @@ export const getActivityLogRefContentLink = (activityLog: ActivityLogType) => {
 
   switch (refContentType) {
     case 'Fund':
-    default:
       return `/fund/live/${refId}/overview`
+    case 'Article':
+      return `/articles/live/${refId}`
+    case 'Wallet':
+    default:
+      return '/'
   }
 }
