@@ -8,6 +8,7 @@ import Skeleton from '@mui/material/Skeleton'
 
 // ** Third-Party Imports
 import { useReadContract } from 'wagmi'
+import { ExactNumber as N } from 'exactnumber'
 
 // ** Custom Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -17,7 +18,13 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
-import { getChainId } from 'src/utils'
+import {
+  getChainId,
+  getFundCurrencyProperties,
+  getFormattedPriceUnit,
+  getBaseCurrencyABI,
+  getBaseCurrencyAddress
+} from 'src/utils'
 
 // ** Config Imports
 import type { wagmiConfig } from 'src/configs/ethereum'
@@ -29,28 +36,33 @@ interface Props {
   initFundEntity: FundType
 }
 
-const PublicFundLiveVaultTotalStakedCard = (props: Props) => {
+const PublicFundLiveVaultBalanceCard = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
   // ** Hooks
-  const { data: totalStaked, isLoading: isTotalStakedLoading } = useReadContract({
+  const { data: vaultBalance, isLoading: isVaultBalanceLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.vault.contractAbi,
-    address: initFundEntity.vault.contractAddress as `0x${string}`,
-    functionName: 'totalStaked',
+    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
+    functionName: 'balanceOf',
+    args: [initFundEntity.vault.contractAddress as string],
     query: {
-      enabled: initFundEntity?.vault?.contractAddress !== undefined
+      enabled: initFundEntity?.vault?.contractAddress !== undefined,
+      placeholderData: 0n
     }
   })
+
+  // ** Vars
+  const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   return (
     <Card>
       <CardContent>
         <Stack spacing={4} alignItems='flex-start' justifyContent='center'>
           <Stack direction='row' alignSelf='stretch' alignItems='flex-start' justifyContent='space-between'>
-            <CustomAvatar skin='light' variant='rounded' color='primary'>
-              <Icon icon='mdi:tray-arrow-down' />
+            <CustomAvatar skin='light' variant='rounded' color='warning'>
+              <Icon icon='mdi:account-balance' />
             </CustomAvatar>
             <Stack direction='row' sx={{ color: 'success.main' }}>
               <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
@@ -60,13 +72,21 @@ const PublicFundLiveVaultTotalStakedCard = (props: Props) => {
             </Stack>
           </Stack>
           <Box sx={{ pt: 2 }}>
-            {isTotalStakedLoading ? (
+            {isVaultBalanceLoading ? (
               <Skeleton variant='text' width={100} height={32} />
             ) : (
-              <Typography variant='h6'>{Number(totalStaked ?? 0)}</Typography>
+              <Stack direction='row' sx={{ position: 'relative' }}>
+                <Typography variant='h6' component='p'>
+                  {`${fundBaseCurrencyProperties.symbol} ${
+                    typeof vaultBalance === 'bigint'
+                      ? getFormattedPriceUnit(N(vaultBalance).div(N(10).pow(18)).toNumber())
+                      : 0n
+                  } ${fundBaseCurrencyProperties.currency}`}
+                </Typography>
+              </Stack>
             )}
             <Typography variant='body2' sx={{ mb: 2 }}>
-              Total SFT Staked
+              Value Balance
             </Typography>
           </Box>
           <CustomChip
@@ -83,4 +103,4 @@ const PublicFundLiveVaultTotalStakedCard = (props: Props) => {
   )
 }
 
-export default PublicFundLiveVaultTotalStakedCard
+export default PublicFundLiveVaultBalanceCard

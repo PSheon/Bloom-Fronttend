@@ -54,14 +54,14 @@ const PublicFundLiveVaultTVLCard = (props: Props) => {
       <CardContent>
         <Stack spacing={4} alignItems='flex-start' justifyContent='center'>
           <Stack direction='row' alignSelf='stretch' alignItems='flex-start' justifyContent='space-between'>
-            <CustomAvatar skin='light' variant='rounded' color='primary'>
-              <Icon icon='mdi:cart-plus' />
+            <CustomAvatar skin='light' variant='rounded' color='success'>
+              <Icon icon='mdi:safe' />
             </CustomAvatar>
             <Stack direction='row' sx={{ color: 'success.main' }}>
               <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
                 +22%
               </Typography>
-              <Icon icon={'mdi:chevron-up'} fontSize='1.25rem' />
+              <Icon icon='mdi:chevron-up' fontSize='1.25rem' />
             </Stack>
           </Stack>
           <Box sx={{ pt: 2 }}>
@@ -74,7 +74,7 @@ const PublicFundLiveVaultTVLCard = (props: Props) => {
                     typeof totalValueLocked === 'bigint'
                       ? getFormattedPriceUnit(N(totalValueLocked).div(N(10).pow(18)).toNumber())
                       : 0n
-                  }`}
+                  } ${fundBaseCurrencyProperties.currency}`}
                 </Typography>
               </Stack>
             )}
