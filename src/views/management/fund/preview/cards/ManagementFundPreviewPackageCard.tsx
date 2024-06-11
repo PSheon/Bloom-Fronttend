@@ -42,6 +42,7 @@ import StepperWrapper from 'src/@core/styles/mui/stepper'
 // ** Custom Component Imports
 import ManagementFundPreviewPackageMintStepperDotBox from 'src/views/management/fund/preview/boxes/ManagementFundPreviewPackageMintStepperDotBox'
 import WalletConnectCard from 'src/views/shared/wallet-connect-card'
+import ManagementFundPreviewTransactionErrorDrawer from 'src/views/management/fund/preview/drawers/ManagementFundPreviewTransactionErrorDrawer'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -67,6 +68,7 @@ import {
 import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
+import type { BaseError } from 'wagmi'
 import type { GridProps } from '@mui/material/Grid'
 import type { FundType } from 'src/types/fundTypes'
 import type { PackageType } from 'src/types/packageTypes'
@@ -96,6 +98,12 @@ const Sup = styled('sup')(({ theme }) => ({
   color: theme.palette.primary.main
 }))
 
+type TransactionErrorType = {
+  from: string
+  to: string
+  chainInformation: string
+  message: string
+}
 interface Props {
   initFundEntity: FundType
   initPackageEntity: PackageType
@@ -110,6 +118,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
   const [activeMintStep, setActiveMintStep] = useState<number>(0)
   const [mintQuantity, setMintQuantity] = useState<number>(1)
   const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
+  const [transactionError, setTransactionError] = useState<TransactionErrorType | null>(null)
 
   // ** Hooks
   const theme = useTheme()
@@ -249,6 +258,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
   // ** Logics
   const handleOpenMintSFTDialog = () => setIsMintSFTDialogOpen(() => true)
   const handleCloseMintSFTDialog = () => setIsMintSFTDialogOpen(() => false)
+  const handleCloseTransactionErrorDrawer = () => setTransactionError(() => null)
 
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address)
@@ -875,16 +885,31 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                 onClick={() => {
                                   const formattedApproveValueString = N(totalPriceString).mul(N(10).pow(18)).toString()
 
-                                  approvePayToken({
-                                    chainId: getChainId(
-                                      initFundEntity.chain
-                                    ) as (typeof wagmiConfig)['chains'][number]['id'],
-                                    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
-                                    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
-                                    functionName: 'approve',
-                                    args: [initFundEntity.sft.contractAddress, formattedApproveValueString],
-                                    account: walletAccount.address!
-                                  })
+                                  approvePayToken(
+                                    {
+                                      chainId: getChainId(
+                                        initFundEntity.chain
+                                      ) as (typeof wagmiConfig)['chains'][number]['id'],
+                                      abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+                                      address: getBaseCurrencyAddress(
+                                        initFundEntity.chain,
+                                        initFundEntity.baseCurrency
+                                      ),
+                                      functionName: 'approve',
+                                      args: [initFundEntity.sft.contractAddress, formattedApproveValueString],
+                                      account: walletAccount.address!
+                                    },
+                                    {
+                                      onError: error => {
+                                        setTransactionError(() => ({
+                                          from: walletAccount.address!,
+                                          to: initFundEntity.sft.contractAddress as `0x${string}`,
+                                          chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
+                                          message: (error as BaseError)?.shortMessage || 'Failed to approve'
+                                        }))
+                                      }
+                                    }
+                                  )
                                 }}
                               >
                                 <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
@@ -941,6 +966,11 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
           </DialogActions>
         </Dialog>
       </Grid>
+
+      <ManagementFundPreviewTransactionErrorDrawer
+        transactionError={transactionError}
+        onClose={handleCloseTransactionErrorDrawer}
+      />
     </Card>
   )
 }

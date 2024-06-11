@@ -43,6 +43,7 @@ import StepperWrapper from 'src/@core/styles/mui/stepper'
 // ** Custom Component Imports
 import PublicFundLivePackageMintStepperDotBox from 'src/views/fund/live/boxes/PublicFundLivePackageMintStepperDotBox'
 import WalletConnectCard from 'src/views/shared/wallet-connect-card'
+import PublicFundLiveTransactionErrorDrawer from 'src/views/fund/live/drawers/PublicFundLiveTransactionErrorDrawer'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -69,6 +70,7 @@ import {
 import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
+import type { BaseError } from 'wagmi'
 import type { GridProps } from '@mui/material/Grid'
 import type { FundType } from 'src/types/fundTypes'
 import type { PackageType } from 'src/types/packageTypes'
@@ -98,6 +100,12 @@ const Sup = styled('sup')(({ theme }) => ({
   color: theme.palette.primary.main
 }))
 
+type TransactionErrorType = {
+  from: string
+  to: string
+  chainInformation: string
+  message: string
+}
 interface Props {
   initFundEntity: FundType
   initPackageEntity: PackageType
@@ -112,6 +120,7 @@ const PublicFundLivePackageCard = (props: Props) => {
   const [activeMintStep, setActiveMintStep] = useState<number>(0)
   const [mintQuantity, setMintQuantity] = useState<number>(1)
   const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
+  const [transactionError, setTransactionError] = useState<TransactionErrorType | null>(null)
 
   // ** Hooks
   const theme = useTheme()
@@ -260,6 +269,7 @@ const PublicFundLivePackageCard = (props: Props) => {
   // ** Logics
   const handleOpenMintSFTDialog = () => setIsMintSFTDialogOpen(() => true)
   const handleCloseMintSFTDialog = () => setIsMintSFTDialogOpen(() => false)
+  const handleCloseTransactionErrorDrawer = () => setTransactionError(() => null)
 
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address)
@@ -300,15 +310,23 @@ const PublicFundLivePackageCard = (props: Props) => {
           account: walletAccount.address!
         },
         {
-          onError: () => {
-            /* TODO: fix here later */
-            // toast.error('Failed to mint')
+          onError: error => {
+            setTransactionError(() => ({
+              from: walletAccount.address!,
+              to: initFundEntity.sft.contractAddress as `0x${string}`,
+              chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
+              message: (error as BaseError)?.shortMessage || 'Failed to mint'
+            }))
           }
         }
       )
     } catch {
-      /* TODO: fix here later */
-      // toast.error('Failed to mint')
+      setTransactionError(() => ({
+        from: walletAccount.address!,
+        to: initFundEntity.sft.contractAddress as `0x${string}`,
+        chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
+        message: 'Failed to mint'
+      }))
     }
   }
 
@@ -943,16 +961,31 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 onClick={() => {
                                   const formattedApproveValueString = N(totalPriceString).mul(N(10).pow(18)).toString()
 
-                                  approvePayToken({
-                                    chainId: getChainId(
-                                      initFundEntity.chain
-                                    ) as (typeof wagmiConfig)['chains'][number]['id'],
-                                    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
-                                    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
-                                    functionName: 'approve',
-                                    args: [initFundEntity.sft.contractAddress, formattedApproveValueString],
-                                    account: walletAccount.address!
-                                  })
+                                  approvePayToken(
+                                    {
+                                      chainId: getChainId(
+                                        initFundEntity.chain
+                                      ) as (typeof wagmiConfig)['chains'][number]['id'],
+                                      abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+                                      address: getBaseCurrencyAddress(
+                                        initFundEntity.chain,
+                                        initFundEntity.baseCurrency
+                                      ),
+                                      functionName: 'approve',
+                                      args: [initFundEntity.sft.contractAddress, formattedApproveValueString],
+                                      account: walletAccount.address!
+                                    },
+                                    {
+                                      onError: error => {
+                                        setTransactionError(() => ({
+                                          from: walletAccount.address!,
+                                          to: initFundEntity.sft.contractAddress as `0x${string}`,
+                                          chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
+                                          message: (error as BaseError)?.shortMessage || 'Failed to approve'
+                                        }))
+                                      }
+                                    }
+                                  )
                                 }}
                               >
                                 <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
@@ -1047,6 +1080,11 @@ const PublicFundLivePackageCard = (props: Props) => {
           </DialogActions>
         </Dialog>
       </Grid>
+
+      <PublicFundLiveTransactionErrorDrawer
+        transactionError={transactionError}
+        onClose={handleCloseTransactionErrorDrawer}
+      />
     </Card>
   )
 }

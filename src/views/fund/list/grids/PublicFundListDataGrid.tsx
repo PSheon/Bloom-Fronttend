@@ -228,58 +228,6 @@ const PublicFundListDataGrid = (props: Props) => {
                         </Stack>
                       </Stack>
                     </Stack>
-
-                    {/* <Box sx={{ mb: 4, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Box sx={{ display: 'flex' }}>
-                        <Typography sx={{ mr: 1, fontWeight: 500 }}>Position:</Typography>
-                        <Typography sx={{ color: 'text.secondary' }}>TODO</Typography>
-                      </Box>
-                      <CustomChip size='small' rounded skin='light' color='success' label={`${25} days left`} />
-                    </Box>
-                    <Box sx={{ mb: 1, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Typography variant='body2'>{`Tasks: ${12}/${34}`}</Typography>
-                      <Typography variant='body2'>{`${Math.round(80)}% Completed`}</Typography>
-                    </Box>
-                    <LinearProgress
-                      color='primary'
-                      variant='determinate'
-                      value={Math.round(1.2 * 100)}
-                      sx={{
-                        mb: 4,
-                        height: 8,
-                        borderRadius: 2,
-                        '& .MuiLinearProgress-bar': { borderRadius: 2 }
-                      }}
-                    />
-                    <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                      <Box sx={{ display: 'flex', alignItems: 'center' }}>
-                        <AvatarGroup className='pull-up' sx={{ mr: 2 }}>
-                          <Tooltip title='demo 01'>
-                            <CustomAvatar src='/images/avatars/1.png' alt='demo 01' sx={{ height: 32, width: 32 }} />
-                          </Tooltip>
-                          <Tooltip title='demo 02'>
-                            <CustomAvatar src='/images/avatars/2.png' alt='demo 02' sx={{ height: 32, width: 32 }} />
-                          </Tooltip>
-                          <Tooltip title='demo 03'>
-                            <CustomAvatar src='/images/avatars/3.png' alt='demo 03' sx={{ height: 32, width: 32 }} />
-                          </Tooltip>
-                        </AvatarGroup>
-                        <Typography variant='body2' sx={{ color: 'text.disabled' }}>
-                          234
-                        </Typography>
-                      </Box>
-                      <Box
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          textDecoration: 'none',
-                          '& svg': { mr: 1, color: 'text.secondary' }
-                        }}
-                      >
-                        <Icon icon='mdi:message-outline' />
-                        <Typography sx={{ color: 'text.secondary' }}>13</Typography>
-                      </Box>
-                    </Box> */}
                   </CardContent>
                 </Card>
               </Grid>

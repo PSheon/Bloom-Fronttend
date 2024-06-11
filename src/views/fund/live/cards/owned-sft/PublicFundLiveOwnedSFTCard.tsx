@@ -34,6 +34,7 @@ import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Custom Component Imports
 import PublicFundLiveOwnedSFTSkeletonCard from 'src/views/fund/live/cards/owned-sft/PublicFundLiveOwnedSFTSkeletonCard'
+import PublicFundLiveTransactionErrorDrawer from 'src/views/fund/live/drawers/PublicFundLiveTransactionErrorDrawer'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -57,6 +58,7 @@ import {
 import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
+import type { BaseError } from 'wagmi'
 import type { FundType } from 'src/types/fundTypes'
 import type { StackProps } from '@mui/material/Stack'
 
@@ -81,6 +83,12 @@ type StakePeriodType = {
   apy: number
 }
 
+type TransactionErrorType = {
+  from: string
+  to: string
+  chainInformation: string
+  message: string
+}
 interface Props {
   initFundEntity: FundType
   sftIndex: number
@@ -92,6 +100,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
 
   // ** States
   const [isStakeSFTDialogOpen, setIsStakeSFTDialogOpen] = useState<boolean>(false)
+  const [transactionError, setTransactionError] = useState<TransactionErrorType | null>(null)
 
   const [stakePeriod, setStakePeriod] = useState<StakePeriodType>({
     img: '/images/vault/stake-7-days.png',
@@ -226,6 +235,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   // ** Logics
   const handleOpenStakeSFTDialog = () => setIsStakeSFTDialogOpen(() => true)
   const handleCloseStakeSFTDialog = () => setIsStakeSFTDialogOpen(() => false)
+  const handleCloseTransactionErrorDrawer = () => setTransactionError(() => null)
 
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address)
@@ -269,16 +279,24 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
             account: walletAccount.address!
           },
           {
-            onError: () => {
-              /* TODO: fix here later */
-              // toast.error('Failed to stake sft')
+            onError: error => {
+              setTransactionError(() => ({
+                from: walletAccount.address!,
+                to: initFundEntity.sft.contractAddress as `0x${string}`,
+                chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
+                message: (error as BaseError)?.shortMessage || 'Failed to mint'
+              }))
             }
           }
         )
       }
     } catch {
-      /* TODO: fix here later */
-      // toast.error('Failed to stake sft')
+      setTransactionError(() => ({
+        from: walletAccount.address!,
+        to: initFundEntity.sft.contractAddress as `0x${string}`,
+        chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
+        message: 'Failed to mint'
+      }))
     }
   }
 
@@ -423,7 +441,6 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
           </Stack>
         </Stack>
       </CardContent>
-
       <Dialog
         open={isStakeSFTDialogOpen}
         onClose={handleCloseStakeSFTDialog}
@@ -618,9 +635,13 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                               account: walletAccount.address!
                             },
                             {
-                              onError: () => {
-                                /* TODO: fix here later */
-                                // toast.error('Failed to approve')
+                              onError: error => {
+                                setTransactionError(() => ({
+                                  from: walletAccount.address!,
+                                  to: initFundEntity.sft.contractAddress as `0x${string}`,
+                                  chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
+                                  message: (error as BaseError)?.shortMessage || 'Failed to approve'
+                                }))
                               }
                             }
                           )
@@ -651,6 +672,11 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
           </Grid>
         </DialogContent>
       </Dialog>
+
+      <PublicFundLiveTransactionErrorDrawer
+        transactionError={transactionError}
+        onClose={handleCloseTransactionErrorDrawer}
+      />
     </Card>
   )
 }

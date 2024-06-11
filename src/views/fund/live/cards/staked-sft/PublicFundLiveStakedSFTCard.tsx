@@ -34,6 +34,7 @@ import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Custom Component Imports
 import PublicFundLiveStakedSFTSkeletonCard from 'src/views/fund/live/cards/staked-sft/PublicFundLiveStakedSFTSkeletonCard'
+import PublicFundLiveTransactionErrorDrawer from 'src/views/fund/live/drawers/PublicFundLiveTransactionErrorDrawer'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -45,6 +46,7 @@ import { getFundCurrencyProperties, getFormattedPriceUnit, getChainId } from 'sr
 import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
+import type { BaseError } from 'wagmi'
 import type { FundType } from 'src/types/fundTypes'
 
 // ** Styled <sup> Component
@@ -57,6 +59,12 @@ const Sup = styled('sup')(({ theme }) => ({
 }))
 
 type StakeRecordType = [string, bigint, bigint, number, number, bigint]
+type TransactionErrorType = {
+  from: string
+  to: string
+  chainInformation: string
+  message: string
+}
 interface Props {
   initFundEntity: FundType
   sftIndex: number
@@ -68,6 +76,7 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
 
   // ** States
   const [isUnstakeSFTDialogOpen, setIsUnstakeSFTDialogOpen] = useState<boolean>(false)
+  const [transactionError, setTransactionError] = useState<TransactionErrorType | null>(null)
 
   // ** Hooks
   const theme = useTheme()
@@ -198,32 +207,39 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
   // ** Logics
   const handleOpenUnstakeSFTDialog = () => setIsUnstakeSFTDialogOpen(() => true)
   const handleCloseUnstakeSFTDialog = () => setIsUnstakeSFTDialogOpen(() => false)
+  const handleCloseTransactionErrorDrawer = () => setTransactionError(() => null)
 
   const handleUnstake = async () => {
-    try {
-      if (typeof sftId === 'bigint') {
-        const tokenId = sftId.toString()
+    if (typeof sftId === 'bigint') {
+      const tokenId = sftId.toString()
 
-        unstakeSft(
-          {
-            chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-            abi: initFundEntity.vault.contractAbi,
-            address: initFundEntity.vault.contractAddress as `0x${string}`,
-            functionName: 'unstake',
-            args: [[tokenId]],
-            account: walletAccount.address!
-          },
-          {
-            onError: () => {
-              /* TODO: fix here later */
-              // toast.error('Failed to unstake sft')
-            }
+      unstakeSft(
+        {
+          chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+          abi: initFundEntity.vault.contractAbi,
+          address: initFundEntity.vault.contractAddress as `0x${string}`,
+          functionName: 'unstake',
+          args: [[tokenId]],
+          account: walletAccount.address!
+        },
+        {
+          onError: error => {
+            setTransactionError(() => ({
+              from: walletAccount.address!,
+              to: initFundEntity.sft.contractAddress as `0x${string}`,
+              chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
+              message: (error as BaseError)?.shortMessage || 'Failed to mint'
+            }))
           }
-        )
-      }
-    } catch {
-      /* TODO: fix here later */
-      // toast.error('Failed to stake sft')
+        }
+      )
+    } else {
+      setTransactionError(() => ({
+        from: walletAccount.address!,
+        to: initFundEntity.sft.contractAddress as `0x${string}`,
+        chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
+        message: 'Failed to get SFT ID'
+      }))
     }
   }
 
@@ -504,6 +520,11 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
           </Grid>
         </DialogContent>
       </Dialog>
+
+      <PublicFundLiveTransactionErrorDrawer
+        transactionError={transactionError}
+        onClose={handleCloseTransactionErrorDrawer}
+      />
     </Card>
   )
 }
