@@ -57,8 +57,8 @@ const PortfolioPositionsOwnedSFTListGrid = () => {
         <Grid item xs={12}>
           <Card>
             <CardContent>
-              <Stack spacing={4} alignItems='center' justifyContent='center'>
-                <CustomAvatar skin='light' sx={{ width: 56, height: 56 }}>
+              <Stack spacing={4} alignItems='center' justifyContent='center' sx={{ py: 12 }}>
+                <CustomAvatar skin='light' color='warning' sx={{ width: 56, height: 56 }}>
                   <Icon icon='mdi:warning-circle-outline' fontSize='2rem' />
                 </CustomAvatar>
                 <Typography variant='h6' component='p'>
