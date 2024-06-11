@@ -30,16 +30,16 @@ interface Props {
   initFundEntity: FundType
 }
 
-const ManagementFundPreviewVaultTVLCard = (props: Props) => {
+const ManagementFundPreviewVaultTVCCard = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
   // ** Hooks
-  const { data: totalValueLocked, isLoading: isTotalValueLockedLoading } = useReadContract({
+  const { data: totalValueClaimed, isLoading: isTotalValueClaimedLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initFundEntity.vault.contractAbi,
     address: initFundEntity.vault.contractAddress as `0x${string}`,
-    functionName: 'totalValueLocked',
+    functionName: 'totalValueClaimed',
     query: {
       enabled: initFundEntity?.vault?.contractAddress !== undefined,
       placeholderData: 0n
@@ -54,8 +54,8 @@ const ManagementFundPreviewVaultTVLCard = (props: Props) => {
       <CardContent>
         <Stack spacing={4} alignItems='flex-start' justifyContent='center'>
           <Stack direction='row' alignSelf='stretch' alignItems='flex-start' justifyContent='space-between'>
-            <CustomAvatar skin='light' variant='rounded' color='success'>
-              <Icon icon='mdi:cart-plus' />
+            <CustomAvatar skin='light' variant='rounded' color='info'>
+              <Icon icon='mdi:dollar' />
             </CustomAvatar>
             <Stack direction='row' sx={{ color: 'success.main' }}>
               <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
@@ -65,21 +65,21 @@ const ManagementFundPreviewVaultTVLCard = (props: Props) => {
             </Stack>
           </Stack>
           <Box sx={{ pt: 2 }}>
-            {isTotalValueLockedLoading ? (
+            {isTotalValueClaimedLoading ? (
               <Skeleton variant='text' width={100} height={32} />
             ) : (
               <Stack direction='row' sx={{ position: 'relative' }}>
                 <Typography variant='h6' component='p'>
                   {`${fundBaseCurrencyProperties.symbol} ${
-                    typeof totalValueLocked === 'bigint'
-                      ? getFormattedPriceUnit(N(totalValueLocked).div(N(10).pow(18)).toNumber())
+                    typeof totalValueClaimed === 'bigint'
+                      ? getFormattedPriceUnit(N(totalValueClaimed).div(N(10).pow(18)).toNumber())
                       : 0n
-                  }`}
+                  } ${fundBaseCurrencyProperties.currency}`}
                 </Typography>
               </Stack>
             )}
             <Typography variant='body2' sx={{ mb: 2 }}>
-              Total Value Locked
+              Total Value Claimed
             </Typography>
           </Box>
           <CustomChip
@@ -96,4 +96,4 @@ const ManagementFundPreviewVaultTVLCard = (props: Props) => {
   )
 }
 
-export default ManagementFundPreviewVaultTVLCard
+export default ManagementFundPreviewVaultTVCCard

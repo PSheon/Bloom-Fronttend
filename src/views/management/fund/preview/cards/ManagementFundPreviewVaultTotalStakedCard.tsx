@@ -49,14 +49,14 @@ const ManagementFundPreviewVaultTotalStakedCard = (props: Props) => {
       <CardContent>
         <Stack spacing={4} alignItems='flex-start' justifyContent='center'>
           <Stack direction='row' alignSelf='stretch' alignItems='flex-start' justifyContent='space-between'>
-            <CustomAvatar skin='light' variant='rounded' color='success'>
-              <Icon icon='mdi:currency-usd' />
+            <CustomAvatar skin='light' variant='rounded' color='primary'>
+              <Icon icon='mdi:tray-arrow-down' />
             </CustomAvatar>
             <Stack direction='row' sx={{ color: 'success.main' }}>
               <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
                 +22%
               </Typography>
-              <Icon icon={'mdi:chevron-up'} fontSize='1.25rem' />
+              <Icon icon='mdi:chevron-up' fontSize='1.25rem' />
             </Stack>
           </Stack>
           <Box sx={{ pt: 2 }}>

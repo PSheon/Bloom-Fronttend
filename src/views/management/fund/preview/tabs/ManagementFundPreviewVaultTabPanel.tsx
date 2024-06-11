@@ -3,9 +3,10 @@ import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
 
 // ** Custom Component Imports
-import ManagementFundPreviewVaultAverageAPYCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultAverageAPYCard'
-import ManagementFundPreviewVaultTVLCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTVLCard'
 import ManagementFundPreviewVaultTotalStakedCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTotalStakedCard'
+import ManagementFundPreviewVaultTVLCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTVLCard'
+import ManagementFundPreviewVaultTVCCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTVCCard'
+import ManagementFundPreviewVaultBalanceCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultBalanceCard'
 import ManagementFundPreviewVaultSFTListGrid from 'src/views/management/fund/preview/grids/ManagementFundPreviewVaultSFTListGrid'
 
 // ** Type Imports
@@ -22,14 +23,17 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
   return (
     <TabPanel sx={{ p: 0 }} value='vault'>
       <Grid container spacing={6}>
-        <Grid item xs={12} md={6}>
-          <ManagementFundPreviewVaultAverageAPYCard />
+        <Grid item xs={6} md={3}>
+          <ManagementFundPreviewVaultTotalStakedCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={6} md={3}>
           <ManagementFundPreviewVaultTVLCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={6} md={3}>
-          <ManagementFundPreviewVaultTotalStakedCard initFundEntity={initFundEntity} />
+          <ManagementFundPreviewVaultTVCCard initFundEntity={initFundEntity} />
+        </Grid>
+        <Grid item xs={6} md={3}>
+          <ManagementFundPreviewVaultBalanceCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12}>
           <ManagementFundPreviewVaultSFTListGrid initFundEntity={initFundEntity} />

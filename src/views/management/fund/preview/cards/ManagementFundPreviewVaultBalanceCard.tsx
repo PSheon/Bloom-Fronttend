@@ -18,7 +18,13 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
-import { getChainId, getFundCurrencyProperties, getFormattedPriceUnit } from 'src/utils'
+import {
+  getChainId,
+  getFundCurrencyProperties,
+  getFormattedPriceUnit,
+  getBaseCurrencyABI,
+  getBaseCurrencyAddress
+} from 'src/utils'
 
 // ** Config Imports
 import type { wagmiConfig } from 'src/configs/ethereum'
@@ -30,16 +36,17 @@ interface Props {
   initFundEntity: FundType
 }
 
-const ManagementFundPreviewVaultTVLCard = (props: Props) => {
+const ManagementFundPreviewVaultBalanceCard = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
   // ** Hooks
-  const { data: totalValueLocked, isLoading: isTotalValueLockedLoading } = useReadContract({
+  const { data: vaultBalance, isLoading: isVaultBalanceLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.vault.contractAbi,
-    address: initFundEntity.vault.contractAddress as `0x${string}`,
-    functionName: 'totalValueLocked',
+    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
+    functionName: 'balanceOf',
+    args: [initFundEntity.vault.contractAddress as string],
     query: {
       enabled: initFundEntity?.vault?.contractAddress !== undefined,
       placeholderData: 0n
@@ -54,8 +61,8 @@ const ManagementFundPreviewVaultTVLCard = (props: Props) => {
       <CardContent>
         <Stack spacing={4} alignItems='flex-start' justifyContent='center'>
           <Stack direction='row' alignSelf='stretch' alignItems='flex-start' justifyContent='space-between'>
-            <CustomAvatar skin='light' variant='rounded' color='success'>
-              <Icon icon='mdi:cart-plus' />
+            <CustomAvatar skin='light' variant='rounded' color='warning'>
+              <Icon icon='mdi:account-balance' />
             </CustomAvatar>
             <Stack direction='row' sx={{ color: 'success.main' }}>
               <Typography variant='subtitle2' sx={{ color: 'success.main' }}>
@@ -65,21 +72,21 @@ const ManagementFundPreviewVaultTVLCard = (props: Props) => {
             </Stack>
           </Stack>
           <Box sx={{ pt: 2 }}>
-            {isTotalValueLockedLoading ? (
+            {isVaultBalanceLoading ? (
               <Skeleton variant='text' width={100} height={32} />
             ) : (
               <Stack direction='row' sx={{ position: 'relative' }}>
                 <Typography variant='h6' component='p'>
                   {`${fundBaseCurrencyProperties.symbol} ${
-                    typeof totalValueLocked === 'bigint'
-                      ? getFormattedPriceUnit(N(totalValueLocked).div(N(10).pow(18)).toNumber())
+                    typeof vaultBalance === 'bigint'
+                      ? getFormattedPriceUnit(N(vaultBalance).div(N(10).pow(18)).toNumber())
                       : 0n
-                  }`}
+                  } ${fundBaseCurrencyProperties.currency}`}
                 </Typography>
               </Stack>
             )}
             <Typography variant='body2' sx={{ mb: 2 }}>
-              Total Value Locked
+              Value Balance
             </Typography>
           </Box>
           <CustomChip
@@ -96,4 +103,4 @@ const ManagementFundPreviewVaultTVLCard = (props: Props) => {
   )
 }
 
-export default ManagementFundPreviewVaultTVLCard
+export default ManagementFundPreviewVaultBalanceCard
