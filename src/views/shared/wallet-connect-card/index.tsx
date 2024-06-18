@@ -11,7 +11,6 @@ import Stack from '@mui/material/Stack'
 import CardContent from '@mui/material/CardContent'
 import Typography from '@mui/material/Typography'
 import IconButton from '@mui/material/IconButton'
-import Skeleton from '@mui/material/Skeleton'
 import CircularProgress from '@mui/material/CircularProgress'
 
 // ** Third-Party Imports
@@ -23,6 +22,9 @@ import { useAccount, useSignMessage, useSwitchChain, useDisconnect } from 'wagmi
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Custom Component Imports
+import WalletConnectSkeletonCard from 'src/views/shared/wallet-connect-card/WalletConnectSkeletonCard'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -157,49 +159,7 @@ const WalletConnectCard = (props: Props) => {
   }
 
   if (walletAccount.status === 'connecting' || walletAccount.status === 'reconnecting') {
-    return (
-      <Card sx={{ backgroundColor: 'primary.main' }}>
-        <CardContent>
-          <Stack spacing={4} alignItems='flex-start' justifyContent='center'>
-            <Stack direction='row' spacing={4} alignItems='center' justifyContent='center'>
-              <Skeleton variant='circular' width={36} height={36} />
-              <Stack alignItems='flex-start' justifyContent='center'>
-                <Skeleton variant='text' width={200} />
-                <Skeleton variant='text' width={80} />
-              </Stack>
-            </Stack>
-            <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='center'>
-              <Stack spacing={2} alignItems='center' justifyContent='center'>
-                <Skeleton variant='text' width={200} />
-                <Skeleton variant='text' width={120} />
-              </Stack>
-            </Stack>
-            <Stack
-              direction='row'
-              spacing={4}
-              alignSelf='stretch'
-              alignItems='center'
-              justifyContent='space-around'
-              sx={{
-                px: 6,
-                py: 4,
-                borderRadius: '10px',
-                backgroundColor: theme => theme.palette.primary.dark
-              }}
-            >
-              <Stack spacing={2} alignItems='center' justifyContent='center'>
-                <Skeleton variant='circular' width={36} height={36} />
-                <Skeleton variant='text' width={80} />
-              </Stack>
-              <Stack spacing={2} alignItems='center' justifyContent='center'>
-                <Skeleton variant='circular' width={36} height={36} />
-                <Skeleton variant='text' width={80} />
-              </Stack>
-            </Stack>
-          </Stack>
-        </CardContent>
-      </Card>
-    )
+    return <WalletConnectSkeletonCard />
   }
 
   if (walletAccount.status === 'connected') {
