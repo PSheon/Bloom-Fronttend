@@ -30,7 +30,7 @@ const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
 
 const LandingBuyAndSellSection = () => {
   // ** States
-  const [containerTop, setContainerTop] = useState<number>(0)
+  const [containerTop, setContainerTop] = useState<number>(2000)
 
   // ** Refs
   const rootRef = useRef<HTMLElement>(null)

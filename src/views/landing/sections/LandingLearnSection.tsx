@@ -47,7 +47,7 @@ const StyledButton = styled(Button)<ButtonProps>(({ theme }) => ({
 
 const LandingLearnSection = () => {
   // ** States
-  const [containerTop, setContainerTop] = useState<number>(0)
+  const [containerTop, setContainerTop] = useState<number>(1250)
 
   // ** Refs
   const rootRef = useRef<HTMLElement>(null)

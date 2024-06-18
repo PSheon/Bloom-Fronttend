@@ -33,7 +33,7 @@ const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
 
 const LandingSafeAndSecuritySection = () => {
   // ** States
-  const [containerTop, setContainerTop] = useState<number>(0)
+  const [containerTop, setContainerTop] = useState<number>(3350)
 
   // ** Refs
   const rootRef = useRef<HTMLElement>(null)
