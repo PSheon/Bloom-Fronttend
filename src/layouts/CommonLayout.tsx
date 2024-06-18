@@ -3,15 +3,15 @@ import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 
 // ** Custom Component Imports
-import LandingAppBar from 'src/views/landing/app-bar/LandingAppBar'
-import LandingFooter from 'src/views/landing/footer/LandingFooter'
+import CommonAppBar from 'src/views/shared/app-bar/CommonAppBar'
+import CommonFooter from 'src/views/shared/footer/CommonFooter'
 
 // ** Type Imports
 import type { ReactNode } from 'react'
 import type { BoxProps } from '@mui/material/Box'
 
 // ** Styled Components
-const LandingLayoutWrapper = styled('div')({
+const CommonLayoutWrapper = styled('div')({
   height: '100%',
   display: 'flex'
 })
@@ -36,20 +36,29 @@ const ContentWrapper = styled('main')(({ theme }) => ({
 }))
 
 interface Props {
+  showAppBar?: boolean
+  showFooter?: boolean
   children: ReactNode
 }
 
-const LandingLayout = ({ children }: Props) => {
+const CommonLayout = (props: Props) => {
+  // ** Props
+  const { showAppBar = true, showFooter = true, children } = props
+
   return (
-    <LandingLayoutWrapper className='layout-wrapper'>
+    <CommonLayoutWrapper className='layout-wrapper'>
       <MainContentWrapper className='layout-content-wrapper'>
         {/* AppBar */}
-        <LandingAppBar />
+        {showAppBar && <CommonAppBar />}
 
         {/* Content */}
         <ContentWrapper
           className='layout-page-content'
           sx={{
+            display: 'flex',
+            flexDirection: 'column',
+            alignItems: 'center',
+            justifyContent: 'center',
             mx: 'auto',
             '@media (min-width:1440px)': { maxWidth: 1440 },
             '@media (min-width:1200px)': { maxWidth: '100%' }
@@ -59,10 +68,10 @@ const LandingLayout = ({ children }: Props) => {
         </ContentWrapper>
 
         {/* Footer */}
-        <LandingFooter />
+        {showFooter && <CommonFooter />}
       </MainContentWrapper>
-    </LandingLayoutWrapper>
+    </CommonLayoutWrapper>
   )
 }
 
-export default LandingLayout
+export default CommonLayout

@@ -8,11 +8,7 @@ import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Stack from '@mui/material/Stack'
 
-// ** Layout Imports
-import CommonLayout from 'src/layouts/CommonLayout'
-
 // ** Type Imports
-import type { ReactNode } from 'react'
 import type { StackProps } from '@mui/material/Stack'
 
 // ** Styled Components
@@ -28,7 +24,7 @@ const StackWrapper = styled(Stack)<StackProps>(({ theme }) => ({
   }
 }))
 
-const Error404Page = () => {
+const NotAuthorizedSection = () => {
   // ** Hooks
   const theme = useTheme()
 
@@ -36,7 +32,7 @@ const Error404Page = () => {
     <RootStack alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ p: 5 }}>
       <StackWrapper spacing={6} alignItems='center' justifyContent='center'>
         <Typography variant='h1' sx={{ mb: 2.5 }}>
-          404
+          401
         </Typography>
 
         <Stack spacing={2} alignItems='center' justifyContent='center'>
@@ -45,9 +41,9 @@ const Error404Page = () => {
             component='h2'
             sx={{ mb: 2.5, letterSpacing: '0.18px', fontSize: '1.5rem !important' }}
           >
-            {`Oops, you've lost in space`}
+            {`Oops, You're not authorized!`}
           </Typography>
-          <Typography variant='body2'>{`We can't find the page that you're looking for`}</Typography>
+          <Typography variant='body2'>{`You don't have permission to access this page. Go Home!`}</Typography>
         </Stack>
 
         <Button href='/' component={Link} variant='contained' size='large'>
@@ -111,12 +107,4 @@ const Error404Page = () => {
   )
 }
 
-Error404Page.authGuard = false
-Error404Page.contentHeightFixed = true
-Error404Page.getLayout = (page: ReactNode) => (
-  <CommonLayout showAppBar={false} showFooter={false}>
-    {page}
-  </CommonLayout>
-)
-
-export default Error404Page
+export default NotAuthorizedSection

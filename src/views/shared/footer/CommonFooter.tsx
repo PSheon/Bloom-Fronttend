@@ -48,7 +48,7 @@ const StyledLink = styled(Link)(({ theme }) => ({
   }
 }))
 
-const LandingFooter = () => {
+const CommonFooter = () => {
   return (
     <StyledRootBox>
       <FooterWrapper
@@ -76,8 +76,10 @@ const LandingFooter = () => {
                   <Typography variant='h6' sx={{ fontWeight: 900 }}>
                     Docs
                   </Typography>
-                  <StyledLink href=''>Documentation</StyledLink>
-                  <StyledLink href=''>ERC-3525</StyledLink>
+                  <StyledLink href='/article/list'>Articles</StyledLink>
+                  <StyledLink href='https://eips.ethereum.org/EIPS/eip-3525' target='_blank'>
+                    ERC-3525
+                  </StyledLink>
                 </Stack>
               </Grid>
               <Grid item xs={4}>
@@ -85,8 +87,12 @@ const LandingFooter = () => {
                   <Typography variant='h6' sx={{ fontWeight: 900 }}>
                     Community
                   </Typography>
-                  <StyledLink href=''>Twitter</StyledLink>
-                  <StyledLink href=''>Telegram</StyledLink>
+                  <StyledLink href='' target='_blank'>
+                    Twitter
+                  </StyledLink>
+                  <StyledLink href='' target='_blank'>
+                    Telegram
+                  </StyledLink>
                 </Stack>
               </Grid>
               <Grid item xs={4}>
@@ -94,8 +100,12 @@ const LandingFooter = () => {
                   <Typography variant='h6' sx={{ fontWeight: 900 }}>
                     About
                   </Typography>
-                  <StyledLink href='/blog'>Blog</StyledLink>
-                  <StyledLink href=''>Contract</StyledLink>
+                  <StyledLink href='/terms-of-service' target='_blank'>
+                    Terms of Service
+                  </StyledLink>
+                  <StyledLink href='/privacy-policy' target='_blank'>
+                    Privacy Policy
+                  </StyledLink>
                 </Stack>
               </Grid>
             </Grid>
@@ -109,4 +119,4 @@ const LandingFooter = () => {
   )
 }
 
-export default LandingFooter
+export default CommonFooter

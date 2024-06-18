@@ -36,34 +36,40 @@ import { useForgotPasswordMutation } from 'src/store/api/auth'
 // ** Type Imports
 import type { ReactNode } from 'react'
 import type { CardContentProps } from '@mui/material/CardContent'
-import type { TypographyProps } from '@mui/material/Typography'
+import type { StackProps } from '@mui/material/Stack'
 
 // ** Styled Components
-const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
-  position: 'relative',
-  padding: `${theme.spacing(8, 12, 10)} !important`,
+const StyledMainCardContent = styled(CardContent)<CardContentProps>(({ theme }) => ({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  minHeight: theme.spacing(140),
+  padding: `${theme.spacing(10)} !important`,
   [theme.breakpoints.down('md')]: {
-    padding: `${theme.spacing(2, 4, 6.5)} !important`
+    padding: `${theme.spacing(8, 6, 8)} !important`
   }
 }))
 
-const TitleTypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
-  fontWeight: 600,
-  letterSpacing: '0.18px',
-  marginBottom: theme.spacing(1.5),
-  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
+const StyledTitleStack = styled(Stack)(({ theme }) => ({
+  marginTop: theme.spacing(2),
+  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(4) }
 }))
 
-const SidecarCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
+const StyledSidecarCardContent = styled(CardContent)<CardContentProps>(({ theme }) => ({
   width: '100%',
-  padding: `${theme.spacing(12, 8)} !important`,
-  borderRadius: theme.shape.borderRadius,
-  backgroundColor: theme.palette.primary.light,
+  height: '100%',
   display: 'flex',
   flexDirection: 'column',
-  alignSelf: 'stretch',
   alignItems: 'center',
-  justifyContent: 'center'
+  justifyContent: 'center',
+  padding: `${theme.spacing(10, 10, 10, 0)} !important`
+}))
+
+const StyledForgotPasswordIllustrationWrapperStack = styled(Stack)<StackProps>(({ theme }) => ({
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: theme.palette.primary.light
 }))
 
 const ForgotPasswordIllustration = styled('img')(({ theme }) => ({
@@ -139,115 +145,99 @@ const AuthForgotPasswordPage = () => {
       <Card sx={{ zIndex: 1, width: '100%', maxWidth: theme => theme.spacing(isDesktopView ? 360 : 120) }}>
         <Grid container>
           <Grid item xs={12} md={5}>
-            <MainCardContentStyled>
-              <Stack spacing={6} alignItems='flex-start'>
+            <StyledMainCardContent>
+              <Stack>
                 <Link href='/'>
-                  <Box
-                    sx={{
-                      mt: 4,
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    {isDesktopView ? <LogoImage width={64} height={64} /> : <LogoImage width={48} height={48} />}
-                  </Box>
+                  {isDesktopView ? <LogoImage width={64} height={64} /> : <LogoImage width={48} height={48} />}
                 </Link>
-                <Box>
-                  <TitleTypographyStyled variant='h5' sx={{ mt: '0 !important' }}>
-                    Forgot Password? 🔒
-                  </TitleTypographyStyled>
-                  <Typography variant='body2'>
-                    Enter your email and we&prime;ll send you instructions to reset your password
-                  </Typography>
-                </Box>
-                <Box sx={{ width: '100%' }}>
-                  <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-                    <FormControl fullWidth sx={{ mb: 4 }}>
-                      <Controller
-                        name='email'
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field: { value, onChange, onBlur } }) => (
-                          <TextField
-                            label='Email'
-                            value={value}
-                            onBlur={onBlur}
-                            onChange={onChange}
-                            error={Boolean(errors.email)}
-                          />
-                        )}
-                      />
-                      {errors.email && <FormHelperText color='error.main'>{errors.email.message}</FormHelperText>}
-                    </FormControl>
-
-                    <LoadingButton
-                      fullWidth
-                      loading={isForgotPasswordLoading}
-                      disabled={Boolean(errors.email)}
-                      size='large'
-                      type='submit'
-                      variant='contained'
-                      sx={{ my: 5.25 }}
-                    >
-                      Send reset link
-                    </LoadingButton>
-
-                    <Stack
-                      direction='row'
-                      spacing={2}
-                      alignItems='center'
-                      justifyContent='center'
-                      flexWrap='wrap'
-                      sx={{ width: '100%', pt: 8 }}
-                    >
-                      <Typography
-                        component={Link}
-                        href='/auth/login'
-                        noWrap
-                        color='primary.main'
-                        sx={{
-                          display: 'flex',
-                          alignItems: 'center',
-                          textDecoration: 'none',
-                          justifyContent: 'center',
-                          '& svg': { mr: 1.5 }
-                        }}
-                      >
-                        <Icon icon='mdi:chevron-left' fontSize='2rem' />
-                        Back to login
-                      </Typography>
-                    </Stack>
-                  </form>
-                </Box>
               </Stack>
-            </MainCardContentStyled>
+              <StyledTitleStack spacing={2}>
+                <Typography variant='h5' component='p' sx={{ fontWeight: 600, letterSpacing: '0.18px' }}>
+                  Forgot Password? 🔒
+                </Typography>
+                <Typography variant='body2'>{`Enter your email and we'll send you instructions to reset your password`}</Typography>
+              </StyledTitleStack>
+
+              <Stack spacing={4} alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ mt: 6 }}>
+                <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+                  <FormControl fullWidth>
+                    <Controller
+                      name='email'
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange, onBlur } }) => (
+                        <TextField
+                          label='Email'
+                          fullWidth
+                          value={value}
+                          onBlur={onBlur}
+                          onChange={onChange}
+                          error={Boolean(errors.email)}
+                        />
+                      )}
+                    />
+                    {errors.email && (
+                      <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>
+                    )}
+                  </FormControl>
+
+                  <LoadingButton
+                    fullWidth
+                    loading={isForgotPasswordLoading}
+                    disabled={Boolean(errors.email)}
+                    size='large'
+                    type='submit'
+                    variant='contained'
+                    sx={{ mt: 4 }}
+                  >
+                    Send reset link
+                  </LoadingButton>
+                </form>
+              </Stack>
+
+              <Stack
+                direction='row'
+                spacing={4}
+                alignSelf='stretch'
+                alignItems='center'
+                justifyContent='center'
+                flexWrap='wrap'
+                sx={{ mt: 'auto', pt: 6 }}
+              >
+                <Typography
+                  component={Link}
+                  href='/auth/login'
+                  noWrap
+                  color='primary.main'
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    textDecoration: 'none',
+                    justifyContent: 'center',
+                    '& svg': { mr: 1.5 }
+                  }}
+                >
+                  <Icon icon='mdi:chevron-left' fontSize='2rem' />
+                  Back to login
+                </Typography>
+              </Stack>
+            </StyledMainCardContent>
           </Grid>
           {isDesktopView && (
-            <Grid
-              item
-              xs={12}
-              md={7}
-              sx={{
-                display: 'flex',
-                alignSelf: 'stretch',
-                alignItems: 'center',
-                justifyContent: 'center',
-                padding: `${theme.spacing(10, 10, 10, 0)} !important`
-              }}
-            >
-              <SidecarCardContentStyled>
-                <ForgotPasswordIllustration
-                  height={350}
-                  alt='forgot-password-illustration'
-                  src='/images/auth/forgot-password-illustration.svg'
-                />
-                <Stack spacing={2} alignItems='center' justifyContent='center' sx={{ mt: 12 }}>
-                  <Typography variant='subtitle1' component='p' color='common.white'>
-                    Welcome to the future of RWA trading
-                  </Typography>
-                </Stack>
-              </SidecarCardContentStyled>
+            <Grid item xs={12} md={7}>
+              <StyledSidecarCardContent>
+                <StyledForgotPasswordIllustrationWrapperStack
+                  alignSelf='stretch'
+                  alignItems='center'
+                  justifyContent='center'
+                >
+                  <ForgotPasswordIllustration
+                    height={500}
+                    alt='forgot-password-illustration'
+                    src='/images/auth/forgot-password-illustration.webp'
+                  />
+                </StyledForgotPasswordIllustrationWrapperStack>
+              </StyledSidecarCardContent>
             </Grid>
           )}
         </Grid>

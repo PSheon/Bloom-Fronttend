@@ -92,7 +92,7 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
   boxShadow: `0 0 0 2px ${theme.palette.background.paper}`
 }))
 
-const LandingAppBar = () => {
+const CommonAppBar = () => {
   // ** States
   const [isNavOpen, setIsNavOpen] = useState<boolean>(false)
 
@@ -306,4 +306,4 @@ const LandingAppBar = () => {
   )
 }
 
-export default LandingAppBar
+export default CommonAppBar
