@@ -5,7 +5,7 @@ import { useState, useCallback } from 'react'
 import Grid from '@mui/material/Grid'
 
 // ** Layout Imports
-import LandingLayout from 'src/layouts/LandingLayout'
+import CommonLayout from 'src/layouts/CommonLayout'
 
 // ** Custom Component Imports
 import PublicArticleListHeaderGrid from 'src/views/article/list/grids/PublicArticleListHeaderGrid'
@@ -49,7 +49,7 @@ const ArticleListPage = () => {
           handleFilterCategoryChange={handleFilterCategoryChange}
         />
       </Grid>
-      <Grid item xs={12}>
+      <Grid item xs={12} sx={{ minHeight: theme => theme.spacing(80) }}>
         <PublicArticleListDataGrid
           articles={articles}
           totalRows={totalRows}
@@ -61,6 +61,6 @@ const ArticleListPage = () => {
 }
 
 ArticleListPage.authGuard = false
-ArticleListPage.getLayout = (page: ReactNode) => <LandingLayout>{page}</LandingLayout>
+ArticleListPage.getLayout = (page: ReactNode) => <CommonLayout>{page}</CommonLayout>
 
 export default ArticleListPage
