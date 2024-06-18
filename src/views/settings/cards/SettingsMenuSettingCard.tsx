@@ -28,11 +28,11 @@ const SettingsMenuSettingCard = () => {
 
   return (
     <Card>
-      <CardHeader title='選單' />
+      <CardHeader title='MENU' />
       <CardContent>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>選單開合</Typography>
+            <Typography variant='subtitle2'>Menu Toggle</Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={4}>
@@ -45,7 +45,7 @@ const SettingsMenuSettingCard = () => {
                       ? `/images/settings/layout/collapsed.svg`
                       : `/images/settings/layout/collapsed-dark.svg`
                   }
-                  title='收起選單'
+                  title='Collapsed'
                   color='primary'
                   handleClick={() => handleChange('navCollapsed', true)}
                 />
@@ -59,7 +59,7 @@ const SettingsMenuSettingCard = () => {
                       ? `/images/settings/layout/expanded.svg`
                       : `/images/settings/layout/expanded-dark.svg`
                   }
-                  title='打開選單'
+                  title='Expanded'
                   color='primary'
                   handleClick={() => handleChange('navCollapsed', false)}
                 />

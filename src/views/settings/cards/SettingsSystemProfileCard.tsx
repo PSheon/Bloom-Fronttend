@@ -68,7 +68,7 @@ const SettingsSystemProfileCard = () => {
         <CustomChip
           skin='light'
           size='small'
-          label='服務中'
+          label='In Service'
           color='success'
           sx={{
             height: 20,
@@ -89,9 +89,9 @@ const SettingsSystemProfileCard = () => {
             </CustomAvatar>
             <Box>
               <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
-                繁體中文
+                English
               </Typography>
-              <Typography variant='body2'>語言</Typography>
+              <Typography variant='body2'>Language</Typography>
             </Box>
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
@@ -102,31 +102,31 @@ const SettingsSystemProfileCard = () => {
               <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
                 GMT+8
               </Typography>
-              <Typography variant='body2'>時區</Typography>
+              <Typography variant='body2'>Time zone</Typography>
             </Box>
           </Box>
         </Box>
       </CardContent>
 
       <CardContent>
-        <Typography variant='subtitle2'>系統資料</Typography>
+        <Typography variant='subtitle2'>System Information</Typography>
         <Divider sx={{ mt: theme => `${theme.spacing(4)} !important` }} />
         <Box sx={{ pt: 2, pb: 1 }}>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              版本:
+              Version:
             </Typography>
             <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
           </Box>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              API 版本:
+              API version:
             </Typography>
             <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
           </Box>
           <Box sx={{ display: 'flex', mb: 2.7 }}>
             <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              Socket 版本:
+              Socket version:
             </Typography>
             <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
           </Box>

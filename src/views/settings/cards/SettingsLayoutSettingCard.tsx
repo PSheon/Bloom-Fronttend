@@ -29,11 +29,11 @@ const SettingsLayoutSettingCard = () => {
 
   return (
     <Card>
-      <CardHeader title='佈景' />
+      <CardHeader title='LAYOUT' />
       <CardContent>
         <Grid container spacing={4}>
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>內框大小</Typography>
+            <Typography variant='subtitle2'>Content Width</Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={4}>
@@ -44,7 +44,7 @@ const SettingsLayoutSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/layout/full.svg` : `/images/settings/layout/full-dark.svg`
                   }
-                  title='全螢幕寬度'
+                  title='Full'
                   color='primary'
                   handleClick={() => handleChange('contentWidth', 'full' as ContentWidth)}
                 />
@@ -56,7 +56,7 @@ const SettingsLayoutSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/layout/boxed.svg` : `/images/settings/layout/boxed-dark.svg`
                   }
-                  title='固定寬度'
+                  title='Boxed'
                   color='primary'
                   handleClick={() => handleChange('contentWidth', 'boxed' as ContentWidth)}
                 />
@@ -65,7 +65,7 @@ const SettingsLayoutSettingCard = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>工具列顯示</Typography>
+            <Typography variant='subtitle2'>AppBar Type</Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={4}>
@@ -76,7 +76,7 @@ const SettingsLayoutSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/layout/fixed.svg` : `/images/settings/layout/fixed-dark.svg`
                   }
-                  title='固定'
+                  title='Fixed'
                   color='primary'
                   handleClick={() => handleChange('appBar', 'fixed' as AppBar)}
                 />
@@ -88,7 +88,7 @@ const SettingsLayoutSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/layout/static.svg` : `/images/settings/layout/static-dark.svg`
                   }
-                  title='置頂'
+                  title='Static'
                   color='primary'
                   handleClick={() => handleChange('appBar', 'static' as AppBar)}
                 />
@@ -100,7 +100,7 @@ const SettingsLayoutSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/layout/hidden.svg` : `/images/settings/layout/hidden-dark.svg`
                   }
-                  title='隱藏'
+                  title='Hidden'
                   color='primary'
                   handleClick={() => handleChange('appBar', 'hidden' as AppBar)}
                 />

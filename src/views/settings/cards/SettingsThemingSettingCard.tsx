@@ -30,11 +30,11 @@ const SettingsThemingSettingCard = () => {
 
   return (
     <Card>
-      <CardHeader title='主題' />
+      <CardHeader title='Theme' />
       <CardContent>
         <Grid container spacing={6}>
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>外框</Typography>
+            <Typography variant='subtitle2'>Skin</Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={6}>
@@ -47,7 +47,7 @@ const SettingsThemingSettingCard = () => {
                       ? `/images/settings/theming/default.svg`
                       : `/images/settings/theming/default-dark.svg`
                   }
-                  title='無邊框'
+                  title='Default'
                   color='primary'
                   handleClick={() => handleChange('skin', 'default' as Skin)}
                 />
@@ -61,7 +61,7 @@ const SettingsThemingSettingCard = () => {
                       ? `/images/settings/theming/bordered.svg`
                       : `/images/settings/theming/bordered-dark.svg`
                   }
-                  title='有邊框'
+                  title='Bordered'
                   color='primary'
                   handleClick={() => handleChange('skin', 'bordered' as Skin)}
                 />
@@ -70,7 +70,7 @@ const SettingsThemingSettingCard = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>模式</Typography>
+            <Typography variant='subtitle2'>Mode</Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={4}>
@@ -81,7 +81,7 @@ const SettingsThemingSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/theming/light.svg` : `/images/settings/theming/light-dark.svg`
                   }
-                  title='明亮'
+                  title='Light'
                   color='primary'
                   handleClick={() => handleChange('mode', 'light' as Mode)}
                 />
@@ -93,7 +93,7 @@ const SettingsThemingSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/theming/dark.svg` : `/images/settings/theming/dark-dark.svg`
                   }
-                  title='黑暗'
+                  title='Dark'
                   color='primary'
                   handleClick={() => handleChange('mode', 'dark' as Mode)}
                 />
@@ -102,7 +102,7 @@ const SettingsThemingSettingCard = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>主色</Typography>
+            <Typography variant='subtitle2'>Primary Color</Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={4}>
