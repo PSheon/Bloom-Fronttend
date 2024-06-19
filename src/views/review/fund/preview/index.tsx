@@ -29,7 +29,7 @@ const ReviewFundPreviewSection = (props: Props) => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <ReviewFundPreviewBreadcrumbs
-            pageLevels={[{ title: '資金審核', href: '/review/dashboard' }, { title: '預覽資金' }]}
+            pageLevels={[{ title: 'Fund Review', href: '/review/dashboard' }, { title: 'Preview' }]}
           />
         </Grid>
         <Grid item xs={12}>

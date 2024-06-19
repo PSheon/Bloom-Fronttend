@@ -21,7 +21,7 @@ const SystemDashboardPage = () => {
       <ApexChartWrapper>
         <Grid container spacing={6} className='match-height'>
           <Grid item xs={12}>
-            <SystemDashboardBreadcrumbs pageLevels={[{ title: '系統監控' }]} />
+            <SystemDashboardBreadcrumbs pageLevels={[{ title: 'System Monitoring' }]} />
           </Grid>
 
           <Grid item xs={12} md={9}>

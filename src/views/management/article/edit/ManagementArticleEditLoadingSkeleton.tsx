@@ -35,7 +35,7 @@ const ManagementArticleEditLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementArticleEditBreadcrumbs
-          pageLevels={[{ title: '文章管理', href: '/management/article/list' }, { title: '編輯文章' }]}
+          pageLevels={[{ title: 'Article Management', href: '/management/article/list' }, { title: 'Edit' }]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>

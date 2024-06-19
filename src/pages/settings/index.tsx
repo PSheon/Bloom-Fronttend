@@ -12,7 +12,7 @@ const SettingsPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <SettingsBreadcrumbs pageLevels={[{ title: '網站設定' }]} />
+        <SettingsBreadcrumbs pageLevels={[{ title: 'Settings' }]} />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
         <Grid container spacing={6}>

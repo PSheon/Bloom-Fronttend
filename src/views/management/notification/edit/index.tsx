@@ -22,7 +22,7 @@ const ManagementNotificationEditSection = (props: Props) => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementNotificationEditBreadcrumbs
-          pageLevels={[{ title: '通知管理', href: '/management/notification/list' }, { title: '編輯通知' }]}
+          pageLevels={[{ title: 'Notification Management', href: '/management/notification/list' }, { title: 'Edit' }]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>

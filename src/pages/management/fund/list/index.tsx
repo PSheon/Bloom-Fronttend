@@ -309,7 +309,7 @@ const ManagementFundListPage = () => {
   return (
     <Grid container spacing={6} className='match-height'>
       <Grid item xs={12}>
-        <ManagementFundListBreadcrumbs pageLevels={[{ title: '基金管理' }]} />
+        <ManagementFundListBreadcrumbs pageLevels={[{ title: 'Fund Management' }]} />
       </Grid>
 
       <Grid item xs={12}>

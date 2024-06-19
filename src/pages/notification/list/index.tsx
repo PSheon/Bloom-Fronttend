@@ -159,7 +159,7 @@ const NotificationListPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <NotificationListBreadcrumbs pageLevels={[{ title: '我的通知' }]} />
+        <NotificationListBreadcrumbs pageLevels={[{ title: 'My Notifications' }]} />
       </Grid>
       <Grid item xs={12}>
         <Card>

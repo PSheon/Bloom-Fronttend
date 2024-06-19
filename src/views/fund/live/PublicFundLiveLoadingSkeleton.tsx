@@ -12,7 +12,9 @@ const PublicFundLiveLoadingSkeleton = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <PublicFundLiveBreadcrumbs pageLevels={[{ title: '公開資金列表', href: '/fund/list/' }, { title: '資金' }]} />
+        <PublicFundLiveBreadcrumbs
+          pageLevels={[{ title: 'Funds & Strategies', href: '/fund/list/' }, { title: 'Fund' }]}
+        />
       </Grid>
       <Grid item xs={12}>
         <Card>

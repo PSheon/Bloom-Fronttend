@@ -24,7 +24,7 @@ const PublicFundLiveSection = (props: Props) => {
       <Grid container spacing={6} className='match-height'>
         <Grid item xs={12}>
           <PublicFundLiveBreadcrumbs
-            pageLevels={[{ title: '公開資金列表', href: '/fund/list' }, { title: `資金 #${initFundEntity.id}` }]}
+            pageLevels={[{ title: 'Funds & Strategies', href: '/fund/list' }, { title: `Fund #${initFundEntity.id}` }]}
           />
         </Grid>
         <Grid item xs={12}>

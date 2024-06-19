@@ -13,7 +13,7 @@ const ManagementFundPreviewLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementFundPreviewBreadcrumbs
-          pageLevels={[{ title: '公開資金列表', href: '/management/fund/list' }, { title: '資金' }]}
+          pageLevels={[{ title: 'Fund Management', href: '/management/fund/list' }, { title: 'Preview' }]}
         />
       </Grid>
       <Grid item xs={12}>

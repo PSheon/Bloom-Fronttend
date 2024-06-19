@@ -13,7 +13,7 @@ const ReviewFundEditLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ReviewFundEditBreadcrumbs
-          pageLevels={[{ title: '資金審核', href: '/review/dashboard' }, { title: '編輯資金' }]}
+          pageLevels={[{ title: 'Fund Review', href: '/review/dashboard' }, { title: 'Edit' }]}
         />
       </Grid>
       <Grid item xs={12}>

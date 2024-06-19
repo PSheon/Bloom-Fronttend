@@ -35,7 +35,7 @@ const ManagementMediaAssetEditLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementMediaAssetEditBreadcrumbs
-          pageLevels={[{ title: '檔案管理', href: '/management/media-asset/list' }, { title: '編輯檔案' }]}
+          pageLevels={[{ title: 'Media Asset Management', href: '/management/media-asset/list' }, { title: 'Edit' }]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
