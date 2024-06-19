@@ -2,7 +2,8 @@
 import { useState, useCallback } from 'react'
 
 // ** MUI Imports
-import Grid from '@mui/material/Grid'
+import { styled } from '@mui/material/styles'
+import Stack from '@mui/material/Stack'
 
 // ** Layout Imports
 import CommonLayout from 'src/layouts/CommonLayout'
@@ -16,6 +17,11 @@ import { useFindQuery } from 'src/store/api/management/article'
 
 // ** Type Imports
 import type { ReactNode } from 'react'
+import type { StackProps } from '@mui/material/Stack'
+
+const StyledRootStack = styled(Stack)<StackProps>({
+  height: '100%'
+})
 
 const ArticleListPage = () => {
   // ** States
@@ -42,21 +48,17 @@ const ArticleListPage = () => {
   }, [])
 
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <PublicArticleListHeaderGrid
-          filteredCategory={filteredCategory}
-          handleFilterCategoryChange={handleFilterCategoryChange}
-        />
-      </Grid>
-      <Grid item xs={12} sx={{ minHeight: theme => theme.spacing(80) }}>
-        <PublicArticleListDataGrid
-          articles={articles}
-          totalRows={totalRows}
-          isArticleListLoading={isArticleListLoading}
-        />
-      </Grid>
-    </Grid>
+    <StyledRootStack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='flex-start'>
+      <PublicArticleListHeaderGrid
+        filteredCategory={filteredCategory}
+        handleFilterCategoryChange={handleFilterCategoryChange}
+      />
+      <PublicArticleListDataGrid
+        articles={articles}
+        totalRows={totalRows}
+        isArticleListLoading={isArticleListLoading}
+      />
+    </StyledRootStack>
   )
 }
 
