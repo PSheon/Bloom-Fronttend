@@ -2,6 +2,11 @@
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import TextField from '@mui/material/TextField'
+import InputAdornment from '@mui/material/InputAdornment'
+import IconButton from '@mui/material/IconButton'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 // ** Type Imports
 import type { ChangeEvent } from 'react'
@@ -46,6 +51,25 @@ const PublicFundListHeaderGrid = (props: Props) => {
           placeholder='Search fund...'
           value={filteredFundDisplayname}
           onChange={handleFilterFundDisplayname}
+          InputProps={{
+            sx: {
+              borderRadius: '1.6rem'
+            },
+            startAdornment: (
+              <InputAdornment position='start'>
+                <IconButton>
+                  <Icon icon='mdi:stars-outline' fontSize={20} />
+                </IconButton>
+              </InputAdornment>
+            ),
+            endAdornment: (
+              <InputAdornment position='end'>
+                <IconButton>
+                  <Icon icon='mdi:search' fontSize={20} />
+                </IconButton>
+              </InputAdornment>
+            )
+          }}
         />
       </Grid>
     </Grid>
