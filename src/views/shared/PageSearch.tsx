@@ -572,7 +572,7 @@ const PageSearch = ({ hidden, settings }: Props) => {
           <Icon icon='mdi:magnify' />
         </IconButton>
         {!hidden && layout === 'vertical' ? (
-          <Typography sx={{ userSelect: 'none', color: 'text.disabled' }}>尋找 (Ctrl+/)</Typography>
+          <Typography sx={{ userSelect: 'none', color: 'text.disabled' }}>Search (Ctrl+/)</Typography>
         ) : null}
         {openDialog && (
           <Dialog fullWidth open={openDialog} fullScreen={fullScreenDialog} onClose={() => setOpenDialog(false)}>

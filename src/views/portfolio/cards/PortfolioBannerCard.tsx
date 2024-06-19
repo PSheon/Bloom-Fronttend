@@ -86,7 +86,7 @@ const PortfolioBannerCard = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'text.secondary' } }}>
                 <Icon icon='mdi:calendar-blank-outline' />
                 <Typography sx={{ color: 'text.secondary', fontWeight: 600 }}>
-                  {`${formatDistance(new Date(session.data!.user.createdAt), new Date(), { addSuffix: true })} 加入`}
+                  {`${formatDistance(new Date(session.data!.user.createdAt), new Date(), { addSuffix: true })} joined`}
                 </Typography>
               </Box>
             </Box>
