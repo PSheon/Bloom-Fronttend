@@ -7,7 +7,7 @@ import ManagementFundPreviewVaultTotalStakedCard from 'src/views/management/fund
 import ManagementFundPreviewVaultTVLCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTVLCard'
 import ManagementFundPreviewVaultTVCCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTVCCard'
 import ManagementFundPreviewVaultBalanceCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultBalanceCard'
-import ManagementFundPreviewVaultSFTListGrid from 'src/views/management/fund/preview/grids/ManagementFundPreviewVaultSFTListGrid'
+import ManagementFundPreviewVaultSFTWalletCheckGrid from 'src/views/management/fund/preview/grids/ManagementFundPreviewVaultSFTWalletCheckGrid'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -36,7 +36,7 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
           <ManagementFundPreviewVaultBalanceCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12}>
-          <ManagementFundPreviewVaultSFTListGrid initFundEntity={initFundEntity} />
+          <ManagementFundPreviewVaultSFTWalletCheckGrid initFundEntity={initFundEntity} />
         </Grid>
       </Grid>
     </TabPanel>

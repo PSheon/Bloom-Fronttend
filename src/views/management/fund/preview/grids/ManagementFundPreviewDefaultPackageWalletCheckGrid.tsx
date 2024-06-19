@@ -1,4 +1,4 @@
-// ** MUI Imports
+// ** MUI Components
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
@@ -8,8 +8,7 @@ import { useAccount } from 'wagmi'
 
 // ** Custom Component Imports
 import WalletConnectCard from 'src/views/shared/wallet-connect-card'
-import PublicFundLiveOwnedSFTListGrid from 'src/views/fund/live/grids/PublicFundLiveOwnedSFTListGrid'
-import PublicFundLiveStakedSFTListGrid from 'src/views/fund/live/grids/PublicFundLiveStakedSFTListGrid'
+import ManagementFundPreviewDefaultPackageListGrid from 'src/views/management/fund/preview/grids/ManagementFundPreviewDefaultPackageListGrid'
 
 // ** API Imports
 import { useFindMeQuery } from 'src/store/api/management/wallet'
@@ -24,7 +23,7 @@ interface Props {
   initFundEntity: FundType
 }
 
-const PublicFundLiveVaultSFTListGrid = (props: Props) => {
+const ManagementFundPreviewDefaultPackageWalletCheckGrid = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
@@ -48,30 +47,18 @@ const PublicFundLiveVaultSFTListGrid = (props: Props) => {
     walletAccount.status === 'connected' &&
     wallets.find(wallet => wallet.address.toLowerCase() === walletAccount.address.toLowerCase())
 
+  // ** Renders
   if (walletAccount.status === 'connected' && isCurrentChainSupported && isCurrentWalletVerified) {
     return (
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Stack>
-            <Typography variant='h5'>My SFT</Typography>
-            <Typography variant='body2'>
-              List of SFTs that you have staked in the fund. You can redeem the SFTs at any time
-            </Typography>
+            <Typography variant='h5'>資金方案</Typography>
+            <Typography variant='body2'>您可以從以下方案了解資金的運作方式，鑄造後將擁有相對應的資金權利</Typography>
           </Stack>
         </Grid>
         <Grid item xs={12}>
-          <PublicFundLiveOwnedSFTListGrid initFundEntity={initFundEntity} />
-        </Grid>
-        <Grid item xs={12}>
-          <Stack>
-            <Typography variant='h5'>Staked SFT</Typography>
-            <Typography variant='body2'>
-              List of SFTs that staked in the fund. You can redeem the SFTs at any time.
-            </Typography>
-          </Stack>
-        </Grid>
-        <Grid item xs={12}>
-          <PublicFundLiveStakedSFTListGrid initFundEntity={initFundEntity} />
+          <ManagementFundPreviewDefaultPackageListGrid initFundEntity={initFundEntity} />
         </Grid>
       </Grid>
     )
@@ -104,4 +91,4 @@ const PublicFundLiveVaultSFTListGrid = (props: Props) => {
   )
 }
 
-export default PublicFundLiveVaultSFTListGrid
+export default ManagementFundPreviewDefaultPackageWalletCheckGrid

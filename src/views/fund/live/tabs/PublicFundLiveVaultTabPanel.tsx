@@ -7,7 +7,7 @@ import PublicFundLiveVaultTotalStakedCard from 'src/views/fund/live/cards/Public
 import PublicFundLiveVaultTVLCard from 'src/views/fund/live/cards/PublicFundLiveVaultTVLCard'
 import PublicFundLiveVaultTVCCard from 'src/views/fund/live/cards/PublicFundLiveVaultTVCCard'
 import PublicFundLiveVaultBalanceCard from 'src/views/fund/live/cards/PublicFundLiveVaultBalanceCard'
-import PublicFundLiveVaultSFTListGrid from 'src/views/fund/live/grids/PublicFundLiveVaultSFTListGrid'
+import PublicFundLiveVaultSFTWalletCheckGrid from 'src/views/fund/live/grids/PublicFundLiveVaultSFTWalletCheckGrid'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -36,7 +36,7 @@ const PublicFundLiveVaultTabPanel = (props: Props) => {
           <PublicFundLiveVaultBalanceCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12}>
-          <PublicFundLiveVaultSFTListGrid initFundEntity={initFundEntity} />
+          <PublicFundLiveVaultSFTWalletCheckGrid initFundEntity={initFundEntity} />
         </Grid>
       </Grid>
     </TabPanel>

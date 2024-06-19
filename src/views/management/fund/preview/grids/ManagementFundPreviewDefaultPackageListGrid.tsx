@@ -11,7 +11,7 @@ import Icon from 'src/@core/components/icon'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
-import PublicFundLivePackageCard from 'src/views/fund/live/cards/PublicFundLivePackageCard'
+import ManagementFundPreviewPackageCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewPackageCard'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -20,7 +20,7 @@ interface Props {
   initFundEntity: FundType
 }
 
-const PublicFundLiveDefaultPackageGrid = (props: Props) => {
+const ManagementFundPreviewDefaultPackageListGrid = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
@@ -57,7 +57,7 @@ const PublicFundLiveDefaultPackageGrid = (props: Props) => {
       {publishedDefaultPackages.map(defaultPackage => {
         return (
           <Grid key={`default-package-${defaultPackage.id}`} item xs={12}>
-            <PublicFundLivePackageCard initFundEntity={initFundEntity} initPackageEntity={defaultPackage} />
+            <ManagementFundPreviewPackageCard initFundEntity={initFundEntity} initPackageEntity={defaultPackage} />
           </Grid>
         )
       })}
@@ -65,4 +65,4 @@ const PublicFundLiveDefaultPackageGrid = (props: Props) => {
   )
 }
 
-export default PublicFundLiveDefaultPackageGrid
+export default ManagementFundPreviewDefaultPackageListGrid

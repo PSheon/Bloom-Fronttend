@@ -1,15 +1,13 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
 
 // ** Custom Component Imports
 import PublicFundLivePerformanceChartCard from 'src/views/fund/live/cards/PublicFundLivePerformanceChartCard'
 import PublicFundLiveStakeStatisticsCard from 'src/views/fund/live/cards/PublicFundLiveStakeStatisticsCard'
 import PublicFundLiveDetailCard from 'src/views/fund/live/cards/PublicFundLiveDetailCard'
 import PublicFundLiveSpecificationCard from 'src/views/fund/live/cards/PublicFundLiveSpecificationCard'
-import PublicFundLiveDefaultPackageGrid from 'src/views/fund/live/grids/PublicFundLiveDefaultPackageGrid'
+import PublicFundLiveDefaultPackageWalletCheckGrid from 'src/views/fund/live/grids/PublicFundLiveDefaultPackageWalletCheckGrid'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -38,13 +36,7 @@ const PublicFundLiveOverviewTabPanel = (props: Props) => {
           <PublicFundLiveSpecificationCard initFundEntity={initFundEntity} />
         </Grid>
         <Grid item xs={12}>
-          <Stack>
-            <Typography variant='h5'>資金方案</Typography>
-            <Typography variant='body2'>您可以從以下方案了解資金的運作方式，鑄造後將擁有相對應的資金權利</Typography>
-          </Stack>
-        </Grid>
-        <Grid item xs={12}>
-          <PublicFundLiveDefaultPackageGrid initFundEntity={initFundEntity} />
+          <PublicFundLiveDefaultPackageWalletCheckGrid initFundEntity={initFundEntity} />
         </Grid>
       </Grid>
     </TabPanel>
