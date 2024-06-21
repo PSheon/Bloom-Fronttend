@@ -135,6 +135,7 @@ const AuthVerifyEmailPage = () => {
 }
 
 AuthVerifyEmailPage.guestGuard = true
+AuthVerifyEmailPage.contentHeightFixed = true
 AuthVerifyEmailPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default AuthVerifyEmailPage

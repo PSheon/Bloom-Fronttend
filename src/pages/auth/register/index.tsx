@@ -337,6 +337,7 @@ const AuthRegisterPage = () => {
 }
 
 AuthRegisterPage.guestGuard = true
+AuthRegisterPage.contentHeightFixed = true
 AuthRegisterPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default AuthRegisterPage

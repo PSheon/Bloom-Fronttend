@@ -247,6 +247,7 @@ const AuthForgotPasswordPage = () => {
 }
 
 AuthForgotPasswordPage.guestGuard = true
+AuthForgotPasswordPage.contentHeightFixed = true
 AuthForgotPasswordPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default AuthForgotPasswordPage

@@ -330,6 +330,7 @@ const AuthResetPasswordPage = () => {
 }
 
 AuthResetPasswordPage.guestGuard = true
+AuthResetPasswordPage.contentHeightFixed = true
 AuthResetPasswordPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default AuthResetPasswordPage

@@ -532,6 +532,7 @@ const AuthLoginPage = () => {
 }
 
 AuthLoginPage.guestGuard = true
+AuthLoginPage.contentHeightFixed = true
 AuthLoginPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default AuthLoginPage
