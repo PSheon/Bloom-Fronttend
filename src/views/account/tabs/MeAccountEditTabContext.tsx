@@ -59,10 +59,10 @@ const MeAccountEditTabContext = () => {
       <Box sx={{ mt: 6 }}>
         <TabPanel sx={{ p: 0 }} value='overview'>
           <Grid container spacing={6} className='match-height'>
-            <Grid item xs={12} sm={8}>
+            <Grid item xs={12} sm={7}>
               <WalletConnectCard />
             </Grid>
-            <Grid item xs={12} sm={4}>
+            <Grid item xs={12} sm={5}>
               <MeAccountOverviewSocialAccountCard />
             </Grid>
             <Grid item xs={12}>
