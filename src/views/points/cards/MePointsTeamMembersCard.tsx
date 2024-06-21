@@ -67,7 +67,7 @@ const MePointsTeamMembersCard = () => {
   return (
     <Card>
       <CardHeader
-        title='Meeting Schedule'
+        title='Team Members'
         action={
           <OptionsMenu
             options={['Refresh', 'Share', 'Reschedule']}

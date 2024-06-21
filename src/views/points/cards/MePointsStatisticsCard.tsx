@@ -67,7 +67,7 @@ const MePointsStatisticsCard = () => {
       <CardHeader
         title={
           <Typography variant='h6' component='h3'>
-            直推統計
+            Statistics
           </Typography>
         }
         subheader={
