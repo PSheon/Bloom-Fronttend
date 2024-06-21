@@ -36,8 +36,8 @@ const FooterContent = () => {
             ❤️
           </Box>
           {` by `}
-          <LinkStyled target='_blank' href='https://github.com/PSheon'>
-            PSheon
+          <LinkStyled target='_blank' href=''>
+            Bloom Dab
           </LinkStyled>
         </Typography>
       )}
