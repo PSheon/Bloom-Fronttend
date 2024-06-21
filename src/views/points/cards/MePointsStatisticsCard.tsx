@@ -61,7 +61,7 @@ const renderStats = () => {
   ))
 }
 
-const MePointsDirectDownLineStatisticsCard = () => {
+const MePointsStatisticsCard = () => {
   return (
     <Card>
       <CardHeader
@@ -91,4 +91,4 @@ const MePointsDirectDownLineStatisticsCard = () => {
   )
 }
 
-export default MePointsDirectDownLineStatisticsCard
+export default MePointsStatisticsCard

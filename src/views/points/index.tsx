@@ -4,13 +4,12 @@ import Grid from '@mui/material/Grid'
 // ** Custom Component Imports
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import PointsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import MePointsProfileCard from 'src/views/points/cards/MePointsProfileCard'
+import MePointsLevelCard from 'src/views/points/cards/MePointsLevelCard'
 import MePointsInvitationCard from 'src/views/points/cards/MePointsInvitationCard'
-import MePointsDirectDownLineStatisticsCard from 'src/views/points/cards/MePointsDirectDownLineStatisticsCard'
-import MePointsDirectDownLineTotalCard from 'src/views/points/cards/MePointsDirectDownLineTotalCard'
-import MePointsTeamTotalCard from 'src/views/points/cards/MePointsTeamTotalCard'
-import MePointsEarnHistoryCard from 'src/views/points/cards/MePointsEarnHistoryCard'
-import MePointsDirectDownLineDetailsCard from 'src/views/points/cards/MePointsDirectDownLineDetailsCard'
+import MePointsStatisticsCard from 'src/views/points/cards/MePointsStatisticsCard'
+import MePointsRecordChartCard from 'src/views/points/cards/MePointsRecordChartCard'
+import MePointsTeamMembersCard from 'src/views/points/cards/MePointsTeamMembersCard'
+import MePointsRecordListCard from 'src/views/points/cards/MePointsRecordListCard'
 
 const PointsSection = () => {
   return (
@@ -22,7 +21,7 @@ const PointsSection = () => {
         <Grid item xs={12} md={5} lg={4}>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <MePointsProfileCard />
+              <MePointsLevelCard />
             </Grid>
             <Grid item xs={12}>
               <MePointsInvitationCard />
@@ -32,27 +31,16 @@ const PointsSection = () => {
         <Grid item xs={12} md={7} lg={8}>
           <Grid container spacing={6} className='match-height'>
             <Grid item xs={12}>
-              <MePointsDirectDownLineStatisticsCard />
-            </Grid>
-            <Grid item xs={12} md={5}>
-              <Grid container spacing={6}>
-                <Grid item xs={6} md={12}>
-                  <MePointsDirectDownLineTotalCard />
-                </Grid>
-                <Grid item xs={6} md={12}>
-                  <MePointsTeamTotalCard />
-                </Grid>
-              </Grid>
+              <MePointsStatisticsCard />
             </Grid>
             <Grid item xs={12} md={7}>
-              <Grid container spacing={6}>
-                <Grid item xs={12}>
-                  <MePointsEarnHistoryCard />
-                </Grid>
-              </Grid>
+              <MePointsRecordChartCard />
+            </Grid>
+            <Grid item xs={12} md={5}>
+              <MePointsTeamMembersCard />
             </Grid>
             <Grid item xs={12}>
-              <MePointsDirectDownLineDetailsCard />
+              <MePointsRecordListCard />
             </Grid>
           </Grid>
         </Grid>
