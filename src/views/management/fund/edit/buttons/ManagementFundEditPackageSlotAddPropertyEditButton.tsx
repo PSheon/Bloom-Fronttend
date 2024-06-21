@@ -3,6 +3,7 @@ import { useState, Fragment } from 'react'
 
 // ** MUI Components
 import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Dialog from '@mui/material/Dialog'
@@ -13,6 +14,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
 import FormHelperText from '@mui/material/FormHelperText'
+import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -29,31 +31,32 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateOneMutation } from 'src/store/api/management/package'
 
 // ** Type Imports
-import type { PackageType } from 'src/types/packageTypes'
+import type { PackageType, SlotType } from 'src/types/packageTypes'
 
 const schema = yup.object().shape({
   propertyName: yup.string().oneOf(['DisplayName', 'APY', 'MinimumStakingPeriod']).required(),
   description: yup.string().optional(),
   value: yup.string().required(),
-  isIntrinsic: yup.boolean().required(),
   order: yup.number().required(),
   displayType: yup.string().oneOf(['string', 'number']).required()
 })
 
 interface Props {
   initPackageEntity: PackageType
+  initPropertyEntity: SlotType
+  handleRemoveProperty: (packageId: number, propertyId: number) => Promise<void>
 }
 interface FormData {
   propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
+  description?: string
   value: string
-  isIntrinsic: boolean
   order: number
   displayType: 'string' | 'number'
 }
 
-const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
+const ManagementFundEditPackageSlotAddPropertyEditButton = (props: Props) => {
   // ** Props
-  const { initPackageEntity } = props
+  const { initPackageEntity, initPropertyEntity, handleRemoveProperty } = props
 
   // ** States
   const [openEdit, setOpenEdit] = useState<boolean>(false)
@@ -68,11 +71,11 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
     formState: { isDirty, errors }
   } = useForm({
     defaultValues: {
-      propertyName: 'DisplayName',
-      value: '',
-      isIntrinsic: false,
-      order: 1,
-      displayType: 'string'
+      propertyName: initPropertyEntity.propertyName,
+      description: initPropertyEntity.description ?? '',
+      value: initPropertyEntity.value,
+      order: initPropertyEntity.order,
+      displayType: initPropertyEntity.displayType
     },
     mode: 'onBlur',
     resolver: yupResolver(schema)
@@ -88,25 +91,29 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
   }
 
   const onSubmit = async (data: FormData) => {
-    const { propertyName, value, isIntrinsic, order, displayType } = data
+    const { propertyName, value, order, displayType } = data
 
-    const currentSlots = initPackageEntity!.slots
+    const updatedSlots = initPackageEntity!.slots.map(slot => {
+      if (slot.id === initPropertyEntity.id) {
+        return {
+          ...slot,
+          propertyName,
+          value,
+          order,
+          displayType
+        }
+      }
+
+      return slot
+    })
 
     await updateOnePackage({
       id: initPackageEntity!.id,
       data: {
-        slots: [
-          ...currentSlots,
-          {
-            propertyName,
-            value,
-            isIntrinsic,
-            order,
-            displayType
-          }
-        ]
+        slots: updatedSlots
       }
     })
+
     reset(undefined, { keepValues: true, keepDirty: false, keepDefaultValues: false })
     handleEditClose()
   }
@@ -114,7 +121,7 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
   return (
     <Fragment>
       <IconButton size='small' onClick={handleEditOpen}>
-        <Icon icon='mdi:plus' fontSize={20} />
+        <Icon icon='mdi:edit-box-outline' fontSize={20} />
       </IconButton>
 
       <Dialog
@@ -137,14 +144,14 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          新增賦能
+          Edit Utility Property
           <DialogContentText
             id='property-view-edit-description'
             variant='body2'
             component='p'
             sx={{ textAlign: 'center' }}
           >
-            請選擇賦能類型
+            Utility properties are used to display additional information about the package.
           </DialogContentText>
         </DialogTitle>
         <DialogContent
@@ -158,14 +165,23 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
             <Grid container spacing={6}>
               <Grid item xs={12}>
                 <FormControl fullWidth>
+                  <InputLabel id='utility-edit-property-name-label'>Property Name</InputLabel>
                   <Controller
                     name='propertyName'
                     control={control}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
-                      <Select fullWidth value={value} onChange={onChange} error={Boolean(errors.propertyName)}>
+                      <Select
+                        fullWidth
+                        labelId='utility-edit-property-name-label'
+                        label='Property Name'
+                        value={value}
+                        onChange={onChange}
+                        error={Boolean(errors.propertyName)}
+                      >
                         <MenuItem value='DisplayName'>DisplayName</MenuItem>
-                        <MenuItem value='Period'>Period</MenuItem>
+                        <MenuItem value='APY'>APY</MenuItem>
+                        <MenuItem value='MinimumStakingPeriod'>MinimumStakingPeriod</MenuItem>
                       </Select>
                     )}
                   />
@@ -177,13 +193,34 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
               <Grid item xs={12}>
                 <FormControl fullWidth>
                   <Controller
+                    name='description'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        label='Description'
+                        value={value}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        error={Boolean(errors.description)}
+                        sx={{ display: 'flex' }}
+                      />
+                    )}
+                  />
+                  {errors.description && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.description.message}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <Controller
                     name='value'
                     control={control}
                     rules={{ required: true }}
                     render={({ field: { value, onChange, onBlur } }) => (
                       <TextField
-                        label='數值'
-                        placeholder='賦能數值'
+                        label='Value'
                         value={value}
                         onBlur={onBlur}
                         onChange={onChange}
@@ -193,6 +230,53 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
                     )}
                   />
                   {errors.value && <FormHelperText sx={{ color: 'error.main' }}>{errors.value.message}</FormHelperText>}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <Controller
+                    name='order'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        label='Order'
+                        type='number'
+                        value={value}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        error={Boolean(errors.order)}
+                        sx={{ display: 'flex' }}
+                      />
+                    )}
+                  />
+                  {errors.order && <FormHelperText sx={{ color: 'error.main' }}>{errors.order.message}</FormHelperText>}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel id='utility-edit-display-type-label'>Display Type</InputLabel>
+                  <Controller
+                    name='displayType'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        fullWidth
+                        labelId='utility-edit-display-type-label'
+                        label='Display Type'
+                        value={value}
+                        onChange={onChange}
+                        error={Boolean(errors.displayType)}
+                      >
+                        <MenuItem value='string'>String</MenuItem>
+                        <MenuItem value='number'>Number</MenuItem>
+                      </Select>
+                    )}
+                  />
+                  {errors.displayType && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.displayType.message}</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
             </Grid>
@@ -207,21 +291,32 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
           }}
         >
           <Button variant='outlined' color='secondary' onClick={handleEditClose}>
-            取消
+            Cancel
           </Button>
-          <LoadingButton
-            loading={isUpdateOnePackageLoading}
-            disabled={!isDirty || Boolean(errors.propertyName || errors.value)}
-            variant='contained'
-            startIcon={<Icon icon='mdi:content-save-outline' />}
-            onClick={handleSubmit(onSubmit)}
-          >
-            新增
-          </LoadingButton>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+            <LoadingButton
+              loading={isUpdateOnePackageLoading}
+              variant='outlined'
+              color='error'
+              startIcon={<Icon icon='mdi:remove-box-outline' />}
+              onClick={() => handleRemoveProperty(initPackageEntity.id, initPropertyEntity.id)}
+            >
+              Remove
+            </LoadingButton>
+            <LoadingButton
+              loading={isUpdateOnePackageLoading}
+              disabled={!isDirty || Boolean(errors.propertyName || errors.value)}
+              variant='contained'
+              startIcon={<Icon icon='mdi:content-save-outline' />}
+              onClick={handleSubmit(onSubmit)}
+            >
+              Update
+            </LoadingButton>
+          </Stack>
         </DialogActions>
       </Dialog>
     </Fragment>
   )
 }
 
-export default ReviewFundEditPackageSlotAddPropertyButton
+export default ManagementFundEditPackageSlotAddPropertyEditButton

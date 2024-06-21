@@ -145,8 +145,13 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
 
   return (
     <Card>
-      <CardContent>
-        <Stack spacing={4} alignItems='center' justifyContent='center' sx={{ position: 'relative' }}>
+      <CardContent sx={{ height: '100%' }}>
+        <Stack
+          spacing={4}
+          alignItems='center'
+          justifyContent='flex-start'
+          sx={{ position: 'relative', height: '100%' }}
+        >
           <Box sx={{ position: 'absolute', top: 0, right: 8 }}>
             <CustomChip
               skin='light'
@@ -186,7 +191,7 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
               />
             </Atropos>
           </Box>
-          <Stack spacing={4} alignSelf='stretch'>
+          <Stack spacing={4} flex='1' alignSelf='stretch'>
             <Stack direction='row' spacing={2} flexWrap='wrap' justifyContent='space-between'>
               <Stack direction='row' spacing={2} alignItems='center'>
                 <Typography variant='h5' component='p'>
@@ -216,13 +221,13 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
             <Box>
               <Divider />
             </Box>
-            <Stack spacing={2} justifyContent='center'>
+            <Stack spacing={2} flex='1' justifyContent='flex-start'>
               <Typography variant='subtitle2' component='p'>
                 Utility
               </Typography>
 
               <Stack spacing={2} alignSelf='stretch'>
-                {sftSlot?.attributes.slot.map(property => {
+                {sftSlot?.attributes.slots.map(property => {
                   return (
                     <Stack
                       key={`slot-${property.id}`}
@@ -230,9 +235,15 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
                       alignItems='center'
                       justifyContent='space-between'
                     >
-                      <Typography variant='subtitle1' component='p'>
-                        {property.propertyType}
-                      </Typography>
+                      <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                        <Icon
+                          icon={property.displayType === 'string' ? 'mdi:format-text-variant-outline' : 'mdi:numbers'}
+                          fontSize={16}
+                        />
+                        <Typography variant='subtitle1' component='p'>
+                          {property.propertyName}
+                        </Typography>
+                      </Stack>
                       <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
                         {property.value}
                       </Typography>

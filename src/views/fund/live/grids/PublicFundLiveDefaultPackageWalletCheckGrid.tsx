@@ -53,8 +53,12 @@ const PublicFundLiveDefaultPackageWalletCheckGrid = (props: Props) => {
       <Grid container spacing={6}>
         <Grid item xs={12}>
           <Stack>
-            <Typography variant='h5'>資金方案</Typography>
-            <Typography variant='body2'>您可以從以下方案了解資金的運作方式，鑄造後將擁有相對應的資金權利</Typography>
+            <Typography variant='h5' component='p'>
+              資金方案
+            </Typography>
+            <Typography variant='body2' component='p'>
+              您可以從以下方案了解資金的運作方式，鑄造後將擁有相對應的資金權利
+            </Typography>
           </Stack>
         </Grid>
         <Grid item xs={12}>

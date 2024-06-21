@@ -41,7 +41,7 @@ const PortfolioPositionsGrid = () => {
               My Positions
             </Typography>
             <Typography variant='body2' component='p'>
-              Your RWA positions
+              Your SFT positions in the ecosystem
             </Typography>
           </Stack>
         </Grid>

@@ -158,12 +158,12 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
 
   const handleRemoveProperty = async (packageId: number, propertyId: number): Promise<void> => {
     const currentPackage = defaultPackages!.find(defaultPackage => defaultPackage.id === packageId)
-    const currentSlot = currentPackage?.slot
-    const newSlot = currentSlot?.filter(property => property.id !== propertyId)
+    const currentSlots = currentPackage?.slots
+    const newSlot = currentSlots?.filter(property => property.id !== propertyId)
 
     await updateOnePackage({
       id: packageId,
-      data: { slot: newSlot }
+      data: { slots: newSlot }
     })
   }
 
@@ -289,45 +289,42 @@ const ReviewFundEditDefaultPackagesGrid = (props: Props) => {
                     <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
 
                     <Stack spacing={2} justifyContent='center' sx={{ mb: 2 }}>
-                      <Stack
-                        direction='row'
-                        justifyContent='space-between'
-                        alignContent='center'
-                        sx={{ width: '100%' }}
-                      >
+                      <Stack direction='row' alignSelf='stretch' alignContent='center' justifyContent='space-between'>
                         <Typography variant='subtitle2'>Utility</Typography>
 
                         <ReviewFundEditPackageSlotAddPropertyButton initPackageEntity={defaultPackage} />
                       </Stack>
 
-                      {defaultPackage.slot?.length === 0 ? (
-                        <Typography sx={{ mb: 2 }}>尚未設定內容</Typography>
+                      {defaultPackage.slots?.length === 0 ? (
+                        <Typography sx={{ mb: 2 }}>Utility not yet set</Typography>
                       ) : (
-                        defaultPackage.slot.map(property => {
-                          return (
-                            <Stack
-                              key={`slot-${property.id}`}
-                              direction='row'
-                              justifyContent='space-between'
-                              alignContent='center'
-                              sx={{ width: '100%' }}
-                            >
-                              <Typography sx={{ mb: 2 }}>
-                                {`${property.propertyType}:`}
-                                <Box component='span' sx={{ fontWeight: 600 }}>
-                                  {property.value}
-                                </Box>
-                              </Typography>
-
-                              <IconButton
-                                size='small'
-                                onClick={() => handleRemoveProperty(defaultPackage.id, property.id)}
+                        [...defaultPackage.slots]
+                          .sort((a, b) => a.order - b.order)
+                          .map(property => {
+                            return (
+                              <Stack
+                                key={`slot-${property.id}`}
+                                direction='row'
+                                justifyContent='space-between'
+                                alignContent='center'
+                                sx={{ width: '100%' }}
                               >
-                                <Icon icon='mdi:close' fontSize={20} />
-                              </IconButton>
-                            </Stack>
-                          )
-                        })
+                                <Typography sx={{ mb: 2 }}>
+                                  {`${property.propertyName}:`}
+                                  <Box component='span' sx={{ fontWeight: 600 }}>
+                                    {property.value}
+                                  </Box>
+                                </Typography>
+
+                                <IconButton
+                                  size='small'
+                                  onClick={() => handleRemoveProperty(defaultPackage.id, property.id)}
+                                >
+                                  <Icon icon='mdi:close' fontSize={20} />
+                                </IconButton>
+                              </Stack>
+                            )
+                          })
                       )}
                     </Stack>
                   </CardContent>

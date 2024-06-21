@@ -242,15 +242,17 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
                     <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
 
                     <Stack spacing={2} justifyContent='center' sx={{ mb: 2 }}>
-                      <Typography variant='subtitle2'>Utility</Typography>
+                      <Typography variant='subtitle2' component='p'>
+                        Utility
+                      </Typography>
 
-                      {defaultPackage.slot?.length === 0 ? (
-                        <Typography sx={{ mb: 2 }}>尚未設定內容</Typography>
+                      {defaultPackage.slots?.length === 0 ? (
+                        <Typography>No utilities</Typography>
                       ) : (
-                        defaultPackage.slot.map(property => {
+                        defaultPackage.slots.map(property => {
                           return (
                             <Typography key={`slot-${property.id}`} sx={{ mb: 2 }}>
-                              {`${property.propertyType}:`}
+                              {`${property.propertyName}:`}
                               <Box component='span' sx={{ fontWeight: 600 }}>
                                 {property.value}
                               </Box>

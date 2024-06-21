@@ -44,7 +44,7 @@ const PublicFundLiveDefaultPackageListGrid = (props: Props) => {
               <Typography variant='h6' sx={{ mb: 2 }}>
                 Attention
               </Typography>
-              <Typography variant='body2'>項目方尚未新增方案</Typography>
+              <Typography variant='body2'>Package not yet set</Typography>
             </CardContent>
           </Card>
         </Grid>

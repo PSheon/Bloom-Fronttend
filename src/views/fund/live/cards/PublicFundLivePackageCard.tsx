@@ -489,11 +489,11 @@ const PublicFundLivePackageCard = (props: Props) => {
                 Utility
               </Typography>
 
-              {initPackageEntity.slot?.length === 0 ? (
+              {initPackageEntity.slots?.length === 0 ? (
                 <Typography component='p'>No utilities</Typography>
               ) : (
                 <Stack spacing={2} alignSelf='stretch'>
-                  {initPackageEntity.slot.map(property => {
+                  {initPackageEntity.slots.map(property => {
                     return (
                       <Stack
                         key={`slot-${property.id}`}
@@ -501,9 +501,15 @@ const PublicFundLivePackageCard = (props: Props) => {
                         alignItems='center'
                         justifyContent='space-between'
                       >
-                        <Typography variant='subtitle1' component='p'>
-                          {property.propertyType}
-                        </Typography>
+                        <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                          <Icon
+                            icon={property.displayType === 'string' ? 'mdi:format-text-variant-outline' : 'mdi:numbers'}
+                            fontSize={16}
+                          />
+                          <Typography variant='subtitle1' component='p'>
+                            {property.propertyName}
+                          </Typography>
+                        </Stack>
                         <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
                           {property.value}
                         </Typography>

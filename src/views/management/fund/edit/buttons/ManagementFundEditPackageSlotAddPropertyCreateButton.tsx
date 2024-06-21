@@ -13,6 +13,7 @@ import DialogContentText from '@mui/material/DialogContentText'
 import FormControl from '@mui/material/FormControl'
 import TextField from '@mui/material/TextField'
 import FormHelperText from '@mui/material/FormHelperText'
+import InputLabel from '@mui/material/InputLabel'
 import Select from '@mui/material/Select'
 import MenuItem from '@mui/material/MenuItem'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -32,19 +33,26 @@ import { useUpdateOneMutation } from 'src/store/api/management/package'
 import type { PackageType } from 'src/types/packageTypes'
 
 const schema = yup.object().shape({
-  propertyType: yup.string().oneOf(['DisplayName', 'Period']).required(),
-  value: yup.string().required()
+  propertyName: yup.string().oneOf(['DisplayName', 'APY', 'MinimumStakingPeriod']).required(),
+  description: yup.string().optional(),
+  value: yup.string().required(),
+  isIntrinsic: yup.boolean().required(),
+  order: yup.number().required(),
+  displayType: yup.string().oneOf(['string', 'number']).required()
 })
 
 interface Props {
   initPackageEntity: PackageType
 }
 interface FormData {
-  propertyType: 'DisplayName' | 'Period'
+  propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
   value: string
+  isIntrinsic: boolean
+  order: number
+  displayType: 'string' | 'number'
 }
 
-const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
+const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
   // ** Props
   const { initPackageEntity } = props
 
@@ -61,8 +69,11 @@ const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
     formState: { isDirty, errors }
   } = useForm({
     defaultValues: {
-      propertyType: 'DisplayName' as 'DisplayName' | 'Period',
-      value: ''
+      propertyName: 'DisplayName',
+      value: '',
+      isIntrinsic: false,
+      order: 1,
+      displayType: 'string'
     },
     mode: 'onBlur',
     resolver: yupResolver(schema)
@@ -78,23 +89,26 @@ const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
   }
 
   const onSubmit = async (data: FormData) => {
-    const { propertyType, value } = data
+    const { propertyName, value, isIntrinsic, order, displayType } = data
 
-    const currentSlot = initPackageEntity!.slot
+    const currentSlots = initPackageEntity!.slots
 
     await updateOnePackage({
       id: initPackageEntity!.id,
       data: {
-        slot: [
-          ...currentSlot,
+        slots: [
+          ...currentSlots,
           {
-            propertyType,
-            value
+            propertyName,
+            value,
+            isIntrinsic,
+            order,
+            displayType
           }
         ]
       }
     })
-    reset(undefined, { keepValues: true, keepDirty: false, keepDefaultValues: false })
+    reset(undefined)
     handleEditClose()
   }
 
@@ -107,8 +121,8 @@ const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
       <Dialog
         open={openEdit}
         onClose={handleEditClose}
-        aria-labelledby='property-view-edit'
-        aria-describedby='property-view-edit-description'
+        aria-labelledby='property-view-create'
+        aria-describedby='property-view-create-description'
         sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
       >
         <IconButton size='small' onClick={handleEditClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
@@ -116,7 +130,7 @@ const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
         </IconButton>
 
         <DialogTitle
-          id='property-view-edit'
+          id='property-view-create'
           sx={{
             textAlign: 'center',
             fontSize: '1.5rem !important',
@@ -124,14 +138,14 @@ const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          新增賦能
+          Create Utility Property
           <DialogContentText
-            id='property-view-edit-description'
+            id='property-view-create-description'
             variant='body2'
             component='p'
             sx={{ textAlign: 'center' }}
           >
-            附能資訊將會顯示在賦能卡片上
+            Utility properties are used to display additional information about the package.
           </DialogContentText>
         </DialogTitle>
         <DialogContent
@@ -145,19 +159,28 @@ const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
             <Grid container spacing={6}>
               <Grid item xs={12}>
                 <FormControl fullWidth>
+                  <InputLabel id='utility-edit-property-name-label'>Property Name</InputLabel>
                   <Controller
-                    name='propertyType'
+                    name='propertyName'
                     control={control}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
-                      <Select fullWidth value={value} onChange={onChange} error={Boolean(errors.propertyType)}>
+                      <Select
+                        fullWidth
+                        labelId='utility-edit-property-name-label'
+                        label='Property Name'
+                        value={value}
+                        onChange={onChange}
+                        error={Boolean(errors.propertyName)}
+                      >
                         <MenuItem value='DisplayName'>DisplayName</MenuItem>
-                        <MenuItem value='Period'>Period</MenuItem>
+                        <MenuItem value='APY'>APY</MenuItem>
+                        <MenuItem value='MinimumStakingPeriod'>MinimumStakingPeriod</MenuItem>
                       </Select>
                     )}
                   />
-                  {errors.propertyType && (
-                    <FormHelperText sx={{ color: 'error.main' }}>{errors.propertyType.message}</FormHelperText>
+                  {errors.propertyName && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.propertyName.message}</FormHelperText>
                   )}
                 </FormControl>
               </Grid>
@@ -169,8 +192,7 @@ const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
                     rules={{ required: true }}
                     render={({ field: { value, onChange, onBlur } }) => (
                       <TextField
-                        label='數值'
-                        placeholder='賦能數值'
+                        label='Value'
                         value={value}
                         onBlur={onBlur}
                         onChange={onChange}
@@ -180,6 +202,53 @@ const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
                     )}
                   />
                   {errors.value && <FormHelperText sx={{ color: 'error.main' }}>{errors.value.message}</FormHelperText>}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <Controller
+                    name='order'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        label='Order'
+                        type='number'
+                        value={value}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        error={Boolean(errors.order)}
+                        sx={{ display: 'flex' }}
+                      />
+                    )}
+                  />
+                  {errors.order && <FormHelperText sx={{ color: 'error.main' }}>{errors.order.message}</FormHelperText>}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <InputLabel id='utility-edit-display-type-label'>Display Type</InputLabel>
+                  <Controller
+                    name='displayType'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        fullWidth
+                        labelId='utility-edit-display-type-label'
+                        label='Display Type'
+                        value={value}
+                        onChange={onChange}
+                        error={Boolean(errors.displayType)}
+                      >
+                        <MenuItem value='string'>String</MenuItem>
+                        <MenuItem value='number'>Number</MenuItem>
+                      </Select>
+                    )}
+                  />
+                  {errors.displayType && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.displayType.message}</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
             </Grid>
@@ -194,16 +263,16 @@ const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
           }}
         >
           <Button variant='outlined' color='secondary' onClick={handleEditClose}>
-            取消
+            Cancel
           </Button>
           <LoadingButton
             loading={isUpdateOnePackageLoading}
-            disabled={!isDirty || Boolean(errors.propertyType || errors.value)}
+            disabled={!isDirty || Boolean(errors.propertyName || errors.value)}
             variant='contained'
             startIcon={<Icon icon='mdi:content-save-outline' />}
             onClick={handleSubmit(onSubmit)}
           >
-            新增
+            Create
           </LoadingButton>
         </DialogActions>
       </Dialog>
@@ -211,4 +280,4 @@ const ManagementFundEditPackageSlotAddPropertyButton = (props: Props) => {
   )
 }
 
-export default ManagementFundEditPackageSlotAddPropertyButton
+export default ManagementFundEditPackageSlotAddPropertyCreateButton
