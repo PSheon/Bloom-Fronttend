@@ -42,7 +42,7 @@ const PublicFundListHeaderGrid = (props: Props) => {
       </Grid>
       <Grid item xs={12}>
         <Typography variant='subtitle1' textAlign='center'>
-          Explore thousands of free and paid templates, plugins, and UI kits to kickstart your next big idea.
+          Discover the best funds in the ecosystem
         </Typography>
       </Grid>
       <Grid item xs={12} sm={8} md={6} sx={{ mt: 8 }}>
