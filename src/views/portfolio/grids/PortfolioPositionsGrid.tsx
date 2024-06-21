@@ -21,7 +21,7 @@ const PortfolioPositionsGrid = () => {
     filters: {},
     pagination: {
       page: 1,
-      pageSize: 5
+      pageSize: 3
     }
   })
 

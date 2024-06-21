@@ -80,7 +80,7 @@ const UserDropdown = (props: Props) => {
     filters: {},
     pagination: {
       page: 1,
-      pageSize: 6
+      pageSize: 3
     }
   })
 

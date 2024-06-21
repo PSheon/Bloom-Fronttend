@@ -35,7 +35,7 @@ const PublicFundLiveVaultSFTWalletCheckGrid = (props: Props) => {
     filters: {},
     pagination: {
       page: 1,
-      pageSize: 5
+      pageSize: 3
     }
   })
 
