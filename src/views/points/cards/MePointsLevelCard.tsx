@@ -15,6 +15,12 @@ import Skeleton from '@mui/material/Skeleton'
 import LinearProgress from '@mui/material/LinearProgress'
 import LoadingButton from '@mui/lab/LoadingButton'
 
+// ** Third-Party Imports
+import toast from 'react-hot-toast'
+import isAfter from 'date-fns/isAfter'
+import addDays from 'date-fns/addDays'
+import formatDistance from 'date-fns/formatDistance'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
@@ -24,6 +30,10 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** API Imports
 import { useFindMeOneQuery } from 'src/store/api/management/user'
+import {
+  useDailyCheckMutation as useDailyCheckMutation,
+  useFindMeQuery as useFindMeDailyCheckRecordQuery
+} from 'src/store/api/management/dailyCheckRecord'
 import { useFindMeQuery as useFindMeWalletQuery } from 'src/store/api/management/wallet'
 
 // ** Util Imports
@@ -46,7 +56,20 @@ const StyledCircularProgress = styled(CircularProgress)<CircularProgressProps>((
 
 const MePointsLevelCard = () => {
   // ** Hooks
-  const { data: meUserData, isLoading: isMeUserDataLoading } = useFindMeOneQuery(null)
+  const {
+    data: meUserData,
+    isLoading: isMeUserDataLoading,
+    refetch: refetchMeUserData,
+    isFetching: isMeUserDataFetching
+  } = useFindMeOneQuery(null)
+
+  const { data: meDailyCheckRecordsData } = useFindMeDailyCheckRecordQuery({
+    filters: {},
+    pagination: {
+      page: 1,
+      pageSize: 3
+    }
+  })
 
   const { data: walletsData } = useFindMeWalletQuery({
     filters: {},
@@ -56,16 +79,30 @@ const MePointsLevelCard = () => {
     }
   })
 
+  const [dailyCheck, { isLoading: isDailyCheckLoading }] = useDailyCheckMutation()
+
   // ** Vars
   const wallets = walletsData?.data || []
+  const dailyCheckRecords = meDailyCheckRecordsData?.data || []
+  const latestDailyCheckDate = dailyCheckRecords[0]?.date ? new Date(dailyCheckRecords[0].date) : null
   const meExp = meUserData?.exp ?? 0
   const meLevelProperties = getLevelProperties(meExp)
 
+  const allowedDailyCheck = latestDailyCheckDate === null || isAfter(new Date(), addDays(latestDailyCheckDate, 1))
+
   // ** Logics
+  const handleDailyCheck = async () => {
+    try {
+      await dailyCheck(null).unwrap()
+      refetchMeUserData()
+    } catch (error) {
+      toast.error('Failed to check in')
+    }
+  }
 
   return (
     <Card>
-      {isMeUserDataLoading ? (
+      {isMeUserDataLoading || isMeUserDataFetching ? (
         <CardContent
           sx={{ pt: 15, position: 'relative', display: 'flex', alignItems: 'center', flexDirection: 'column' }}
         >
@@ -272,18 +309,20 @@ const MePointsLevelCard = () => {
             <Stack spacing={2} alignSelf='stretch' alignItems='center'>
               <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='flex-start'>
                 <Typography variant='body2' color='text.primary' sx={{ fontWeight: 600 }}>
-                  {`${wallets.length} left to check`}
+                  {latestDailyCheckDate
+                    ? `${formatDistance(addDays(latestDailyCheckDate, 1), new Date(), { includeSeconds: true, addSuffix: true })} to check`
+                    : ''}
                 </Typography>
               </Stack>
-              <LinearProgress
-                value={Math.round((wallets.length / 3) * 100)}
-                color='success'
-                variant='determinate'
-                sx={{ width: '100%' }}
-              />
             </Stack>
 
-            <LoadingButton fullWidth loading={false} variant='contained'>
+            <LoadingButton
+              fullWidth
+              loading={isDailyCheckLoading}
+              disabled={!allowedDailyCheck}
+              variant='contained'
+              onClick={handleDailyCheck}
+            >
               <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
                 <Icon icon='mdi:approve' fontSize={16} />
                 Check in
