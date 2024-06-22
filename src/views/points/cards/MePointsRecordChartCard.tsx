@@ -10,6 +10,7 @@ import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import TableContainer from '@mui/material/TableContainer'
+import Backdrop from '@mui/material/Backdrop'
 
 // ** Custom Component Imports
 import OptionsMenu from 'src/@core/components/option-menu'
@@ -167,8 +168,15 @@ const MePointsRecordChartCard = () => {
     ]
   }
 
+  /* TODO: fix here later */
   return (
-    <Card>
+    <Card sx={{ position: 'relative' }}>
+      <Backdrop
+        sx={{ position: 'absolute', color: 'common.white', zIndex: theme => theme.zIndex.mobileStepper - 1 }}
+        open
+      >
+        <Typography>Coming soon</Typography>
+      </Backdrop>
       <CardHeader
         title='Points Record'
         action={

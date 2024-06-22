@@ -5,6 +5,7 @@ import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
+import Backdrop from '@mui/material/Backdrop'
 
 // ** Custom Components
 import CustomChip from 'src/@core/components/mui/chip'
@@ -64,8 +65,15 @@ const MePointsTeamMembersCard = () => {
     }
   ]
 
+  /* TODO: fix here later */
   return (
-    <Card>
+    <Card sx={{ position: 'relative' }}>
+      <Backdrop
+        sx={{ position: 'absolute', color: 'common.white', zIndex: theme => theme.zIndex.mobileStepper - 1 }}
+        open
+      >
+        <Typography>Coming soon</Typography>
+      </Backdrop>
       <CardHeader
         title='Team Members'
         action={

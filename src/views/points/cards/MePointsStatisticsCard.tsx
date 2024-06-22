@@ -5,6 +5,7 @@ import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+import Backdrop from '@mui/material/Backdrop'
 
 // ** Custom Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -61,9 +62,16 @@ const renderStats = () => {
   ))
 }
 
+/* TODO: fix here later */
 const MePointsStatisticsCard = () => {
   return (
-    <Card>
+    <Card sx={{ position: 'relative' }}>
+      <Backdrop
+        sx={{ position: 'absolute', color: 'common.white', zIndex: theme => theme.zIndex.mobileStepper - 1 }}
+        open
+      >
+        <Typography>Coming soon</Typography>
+      </Backdrop>
       <CardHeader
         title={
           <Typography variant='h6' component='h3'>
