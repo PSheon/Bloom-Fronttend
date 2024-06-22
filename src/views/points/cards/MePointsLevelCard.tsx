@@ -13,12 +13,18 @@ import CircularProgress from '@mui/material/CircularProgress'
 import IconButton from '@mui/material/IconButton'
 import LoadingButton from '@mui/lab/LoadingButton'
 
+// ** Third-Party Components
+import { useSession } from 'next-auth/react'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Util Imports
+import { getFormattedPriceUnit } from 'src/utils'
 
 // ** Type Imports
 import type { CircularProgressProps } from '@mui/material/CircularProgress'
@@ -36,6 +42,13 @@ const StyledCircularProgress = styled(CircularProgress)<CircularProgressProps>((
 }))
 
 const MePointsLevelCard = () => {
+  // ** Hooks
+  const session = useSession()
+
+  // ** Vars
+  const user = session.data?.user
+  const myPoints = BigInt(user?.points ?? '0')
+
   return (
     <Card>
       <CardContent
@@ -68,7 +81,7 @@ const MePointsLevelCard = () => {
           <CustomChip
             skin='light'
             size='small'
-            label={`400 / 5,000`}
+            label={`${getFormattedPriceUnit(myPoints)} / 5,000`}
             color='success'
             sx={{
               height: 20,

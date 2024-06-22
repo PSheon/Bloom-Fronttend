@@ -10,6 +10,7 @@ import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
 import { fundApi } from 'src/store/api/management/fund'
 import { tokenApi } from 'src/store/api/management/token'
 import { userApi } from 'src/store/api/management/user'
+import { referralApi } from 'src/store/api/management/referral'
 import { articleApi } from 'src/store/api/management/article'
 import { mediaAssetApi } from 'src/store/api/management/mediaAsset'
 import { notificationApi } from 'src/store/api/management/notification'
@@ -26,6 +27,7 @@ export const store = configureStore({
     [fundApi.reducerPath]: fundApi.reducer,
     [tokenApi.reducerPath]: tokenApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
+    [referralApi.reducerPath]: referralApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
     [mediaAssetApi.reducerPath]: mediaAssetApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
@@ -46,6 +48,7 @@ export const store = configureStore({
       fundApi.middleware,
       tokenApi.middleware,
       userApi.middleware,
+      referralApi.middleware,
       articleApi.middleware,
       mediaAssetApi.middleware,
       notificationApi.middleware,

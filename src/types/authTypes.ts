@@ -15,6 +15,7 @@ export type UserDataType = {
   username: string
   title?: string
   phone?: string
+  points: number
   referralId: string
   blocked: boolean
   confirmed: boolean
