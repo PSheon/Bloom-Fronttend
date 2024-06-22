@@ -19,7 +19,7 @@ import { useFindMeQuery } from 'src/store/api/management/pointRecord'
 import type { GridColDef, GridRenderCellParams } from 'src/views/shared/wrapped-data-grid'
 import type { PointRecordType } from 'src/types/pointRecordTypes'
 
-const MePointsRecordListCard = () => {
+const MeEarningRecordListCard = () => {
   // ** States
   const [paginationModel, setPaginationModel] = useState({ page: 0, pageSize: 6 })
 
@@ -51,7 +51,7 @@ const MePointsRecordListCard = () => {
     {
       field: 'type',
       display: 'flex',
-      minWidth: 80,
+      minWidth: 180,
       headerName: 'Type',
       renderCell: ({ row }: GridRenderCellParams<PointRecordType>) => (
         <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
@@ -60,9 +60,20 @@ const MePointsRecordListCard = () => {
       )
     },
     {
+      field: 'earningExp',
+      display: 'flex',
+      minWidth: 180,
+      headerName: 'Earning Experience',
+      renderCell: ({ row }: GridRenderCellParams<PointRecordType>) => (
+        <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
+          {row.earningExp}
+        </Typography>
+      )
+    },
+    {
       field: 'earningPoints',
       display: 'flex',
-      minWidth: 80,
+      minWidth: 180,
       headerName: 'Earning Points',
       renderCell: ({ row }: GridRenderCellParams<PointRecordType>) => (
         <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
@@ -86,7 +97,7 @@ const MePointsRecordListCard = () => {
 
   return (
     <Card>
-      <CardHeader title='Point Record List' />
+      <CardHeader title='Earning Record List' />
       <DataGrid
         autoHeight
         loading={isPointRecordsLoading}
@@ -104,4 +115,4 @@ const MePointsRecordListCard = () => {
   )
 }
 
-export default MePointsRecordListCard
+export default MeEarningRecordListCard

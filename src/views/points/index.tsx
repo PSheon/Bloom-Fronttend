@@ -9,7 +9,7 @@ import MePointsInvitationCard from 'src/views/points/cards/MePointsInvitationCar
 import MePointsStatisticsCard from 'src/views/points/cards/MePointsStatisticsCard'
 import MePointsRecordChartCard from 'src/views/points/cards/MePointsRecordChartCard'
 import MePointsTeamMembersCard from 'src/views/points/cards/MePointsTeamMembersCard'
-import MePointsRecordListCard from 'src/views/points/cards/MePointsRecordListCard'
+import MeEarningRecordListCard from 'src/views/points/cards/MeEarningRecordListCard'
 
 const PointsSection = () => {
   return (
@@ -40,7 +40,7 @@ const PointsSection = () => {
               <MePointsTeamMembersCard />
             </Grid>
             <Grid item xs={12}>
-              <MePointsRecordListCard />
+              <MeEarningRecordListCard />
             </Grid>
           </Grid>
         </Grid>
