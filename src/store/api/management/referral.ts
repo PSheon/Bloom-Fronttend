@@ -7,9 +7,9 @@ import { getSession } from 'next-auth/react'
 
 // ** Type Imports
 import type {
-  JoinReferralParamsType,
-  JoinReferralTransformResponseType,
-  JoinReferralResponseType,
+  JoinReferralsParamsType,
+  JoinReferralsTransformResponseType,
+  JoinReferralsResponseType,
   FindMeReferralParamsType,
   FindMeReferralTransformResponseType,
   FindMeReferralResponseType,
@@ -37,14 +37,14 @@ export const referralApi = createApi({
   }),
   tagTypes: ['Referral'],
   endpoints: builder => ({
-    join: builder.mutation<JoinReferralResponseType, JoinReferralParamsType>({
+    join: builder.mutation<JoinReferralsResponseType, JoinReferralsParamsType>({
       query: params => ({
         url: '/api/referrals/join',
         method: 'POST',
         body: params
       }),
       invalidatesTags: ['Referral'],
-      transformResponse: (responseData: JoinReferralTransformResponseType) => ({
+      transformResponse: (responseData: JoinReferralsTransformResponseType) => ({
         id: responseData?.data?.id,
         ...responseData?.data?.attributes
       })

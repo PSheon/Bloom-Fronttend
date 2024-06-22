@@ -12,14 +12,14 @@ export type ReferralType = {
 }
 
 // ** Join
-export type JoinReferralParamsType = {
+export type JoinReferralsParamsType = {
   referralId: string
 }
-export type JoinReferralTransformResponseType = BaseApiResponseType<{
+export type JoinReferralsTransformResponseType = BaseApiResponseType<{
   id: number
   attributes: Omit<ReferralType, 'id'>
 }>
-export type JoinReferralResponseType = ReferralType
+export type JoinReferralsResponseType = ReferralType
 
 // ** Find Me
 export type FindMeReferralParamsType = {

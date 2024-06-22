@@ -11,6 +11,7 @@ import { fundApi } from 'src/store/api/management/fund'
 import { tokenApi } from 'src/store/api/management/token'
 import { userApi } from 'src/store/api/management/user'
 import { referralApi } from 'src/store/api/management/referral'
+import { pointRecordApi } from 'src/store/api/management/pointRecord'
 import { articleApi } from 'src/store/api/management/article'
 import { mediaAssetApi } from 'src/store/api/management/mediaAsset'
 import { notificationApi } from 'src/store/api/management/notification'
@@ -28,6 +29,7 @@ export const store = configureStore({
     [tokenApi.reducerPath]: tokenApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [referralApi.reducerPath]: referralApi.reducer,
+    [pointRecordApi.reducerPath]: pointRecordApi.reducer,
     [articleApi.reducerPath]: articleApi.reducer,
     [mediaAssetApi.reducerPath]: mediaAssetApi.reducer,
     [notificationApi.reducerPath]: notificationApi.reducer,
@@ -49,6 +51,7 @@ export const store = configureStore({
       tokenApi.middleware,
       userApi.middleware,
       referralApi.middleware,
+      pointRecordApi.middleware,
       articleApi.middleware,
       mediaAssetApi.middleware,
       notificationApi.middleware,
