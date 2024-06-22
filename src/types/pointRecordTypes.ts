@@ -5,6 +5,7 @@ export type PointRecordType = {
   id: number
   type: 'StakeShare' | 'TeamBonus' | 'DailyCheck' | 'CompleteTask' | 'PointRecord'
   user: UserApiResponseType
+  earningExp: number
   earningPoints: number
   receipt: Record<string, string>
   isHighlighted: boolean
