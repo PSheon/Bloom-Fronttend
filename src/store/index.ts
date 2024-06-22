@@ -8,6 +8,7 @@ import dashboard from 'src/store/dashboard'
 import { authApi } from 'src/store/api/auth'
 import { roleAndPermissionApi } from 'src/store/api/roleAndPermission'
 import { fundApi } from 'src/store/api/management/fund'
+import { dailyCheckRecordApi } from 'src/store/api/management/dailyCheckRecord'
 import { tokenApi } from 'src/store/api/management/token'
 import { userApi } from 'src/store/api/management/user'
 import { referralApi } from 'src/store/api/management/referral'
@@ -26,6 +27,7 @@ export const store = configureStore({
     [authApi.reducerPath]: authApi.reducer,
     [roleAndPermissionApi.reducerPath]: roleAndPermissionApi.reducer,
     [fundApi.reducerPath]: fundApi.reducer,
+    [dailyCheckRecordApi.reducerPath]: dailyCheckRecordApi.reducer,
     [tokenApi.reducerPath]: tokenApi.reducer,
     [userApi.reducerPath]: userApi.reducer,
     [referralApi.reducerPath]: referralApi.reducer,
@@ -48,6 +50,7 @@ export const store = configureStore({
       authApi.middleware,
       roleAndPermissionApi.middleware,
       fundApi.middleware,
+      dailyCheckRecordApi.middleware,
       tokenApi.middleware,
       userApi.middleware,
       referralApi.middleware,
