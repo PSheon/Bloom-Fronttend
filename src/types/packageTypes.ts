@@ -7,6 +7,7 @@ export type SlotType = {
   propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
   description?: string
   value: string
+  displayValue?: string
   isIntrinsic: boolean
   order: number
   displayType: 'string' | 'number'
@@ -79,6 +80,7 @@ export type UpdateOnePackageParamsType = {
           propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
           description: string
           value: string
+          displayValue: string
           isIntrinsic: boolean
           order: number
           displayType: 'string' | 'number'
@@ -88,6 +90,7 @@ export type UpdateOnePackageParamsType = {
           propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
           description: string
           value: string
+          displayValue: string
           order: number
           displayType: 'string' | 'number'
         }>

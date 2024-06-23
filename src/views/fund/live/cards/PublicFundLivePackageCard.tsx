@@ -511,7 +511,7 @@ const PublicFundLivePackageCard = (props: Props) => {
                           </Typography>
                         </Stack>
                         <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
-                          {property.value}
+                          {property.displayValue ?? property.value}
                         </Typography>
                       </Stack>
                     )

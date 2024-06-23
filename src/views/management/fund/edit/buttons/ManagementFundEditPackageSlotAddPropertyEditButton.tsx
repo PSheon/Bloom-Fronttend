@@ -37,6 +37,7 @@ const schema = yup.object().shape({
   propertyName: yup.string().oneOf(['DisplayName', 'APY', 'MinimumStakingPeriod']).required(),
   description: yup.string().optional(),
   value: yup.string().required(),
+  displayValue: yup.string().optional(),
   order: yup.number().required(),
   displayType: yup.string().oneOf(['string', 'number']).required()
 })
@@ -50,6 +51,7 @@ interface FormData {
   propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
   description?: string
   value: string
+  displayValue?: string
   order: number
   displayType: 'string' | 'number'
 }
@@ -74,6 +76,7 @@ const ManagementFundEditPackageSlotAddPropertyEditButton = (props: Props) => {
       propertyName: initPropertyEntity.propertyName,
       description: initPropertyEntity.description ?? '',
       value: initPropertyEntity.value,
+      displayValue: initPropertyEntity.displayValue ?? '',
       order: initPropertyEntity.order,
       displayType: initPropertyEntity.displayType
     },
@@ -91,7 +94,7 @@ const ManagementFundEditPackageSlotAddPropertyEditButton = (props: Props) => {
   }
 
   const onSubmit = async (data: FormData) => {
-    const { propertyName, value, order, displayType } = data
+    const { propertyName, value, displayValue, order, displayType } = data
 
     const updatedSlots = initPackageEntity!.slots.map(slot => {
       if (slot.id === initPropertyEntity.id) {
@@ -99,6 +102,7 @@ const ManagementFundEditPackageSlotAddPropertyEditButton = (props: Props) => {
           ...slot,
           propertyName,
           value,
+          displayValue,
           order,
           displayType
         }
@@ -230,6 +234,28 @@ const ManagementFundEditPackageSlotAddPropertyEditButton = (props: Props) => {
                     )}
                   />
                   {errors.value && <FormHelperText sx={{ color: 'error.main' }}>{errors.value.message}</FormHelperText>}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <Controller
+                    name='displayValue'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        label='displayValue'
+                        value={value}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        error={Boolean(errors.displayValue)}
+                        sx={{ display: 'flex' }}
+                      />
+                    )}
+                  />
+                  {errors.displayValue && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.displayValue.message}</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12}>

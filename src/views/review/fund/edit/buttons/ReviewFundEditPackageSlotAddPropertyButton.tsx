@@ -35,6 +35,7 @@ const schema = yup.object().shape({
   propertyName: yup.string().oneOf(['DisplayName', 'APY', 'MinimumStakingPeriod']).required(),
   description: yup.string().optional(),
   value: yup.string().required(),
+  displayValue: yup.string().optional(),
   isIntrinsic: yup.boolean().required(),
   order: yup.number().required(),
   displayType: yup.string().oneOf(['string', 'number']).required()
@@ -46,6 +47,7 @@ interface Props {
 interface FormData {
   propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
   value: string
+  displayValue?: string
   isIntrinsic: boolean
   order: number
   displayType: 'string' | 'number'
@@ -70,6 +72,7 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
     defaultValues: {
       propertyName: 'DisplayName',
       value: '',
+      displayValue: '',
       isIntrinsic: false,
       order: 1,
       displayType: 'string'

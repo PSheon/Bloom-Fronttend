@@ -254,7 +254,7 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
                             <Typography key={`slot-${property.id}`} sx={{ mb: 2 }}>
                               {`${property.propertyName}:`}
                               <Box component='span' sx={{ fontWeight: 600 }}>
-                                {property.value}
+                                {property.displayValue ?? property.value}
                               </Box>
                             </Typography>
                           )
