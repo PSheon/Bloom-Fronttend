@@ -106,7 +106,7 @@ const PointsJoinSection = () => {
                   <Stack spacing={4} alignItems='center' justifyContent='center'>
                     <MuiOtpInput
                       {...field}
-                      length={6}
+                      length={8}
                       validateChar={value => new RegExp(/^[23456789A-HJ-NP-Z]$/).test(value)}
                       TextFieldsProps={{
                         sx: {
