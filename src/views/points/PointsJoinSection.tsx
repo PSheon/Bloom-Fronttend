@@ -101,7 +101,7 @@ const PointsJoinSection = () => {
               <Controller
                 name='referralId'
                 control={control}
-                rules={{ validate: value => value!.length === 6 }}
+                rules={{ validate: value => value!.length === 8 }}
                 render={({ field, fieldState: { invalid } }) => (
                   <Stack spacing={4} alignItems='center' justifyContent='center'>
                     <MuiOtpInput
