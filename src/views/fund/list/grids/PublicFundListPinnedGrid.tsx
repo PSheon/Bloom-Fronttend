@@ -11,7 +11,7 @@ import Grid from '@mui/material/Grid'
 import Skeleton from '@mui/material/Skeleton'
 
 // ** API Imports
-import { useFindQuery } from 'src/store/api/management/fund'
+import { useFindQuery } from 'src/store/api/management/article'
 
 // ** Util Imports
 import { getPublicMediaAssetUrl } from 'src/utils'
@@ -133,7 +133,7 @@ const PublicFundListPinnedGrid = () => {
                   </Stack>
 
                   <Stack alignItems='center'>
-                    <Img alt={article.displayName} src={getPublicMediaAssetUrl(article.banner?.data?.attributes.url)} />
+                    <Img alt={article.displayName} src={getPublicMediaAssetUrl(article.cover?.data?.attributes.url)} />
                   </Stack>
                 </Stack>
               </CardContent>

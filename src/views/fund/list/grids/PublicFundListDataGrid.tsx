@@ -166,7 +166,7 @@ const PublicFundListDataGrid = (props: Props) => {
                               lineHeight: 1
                             }}
                           >
-                            {`${22}%`}
+                            {`${14}%`}
                           </Typography>
                           <Sub> average APY</Sub>
                         </Stack>
