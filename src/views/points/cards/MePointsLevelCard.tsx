@@ -256,7 +256,7 @@ const MePointsLevelCard = () => {
               </Stack>
               <Stack flex='1' alignItems='flex-end' justifyContent='center'>
                 <Typography variant='body2' color='text.primary' sx={{ fontWeight: 600 }}>
-                  +500
+                  +300
                 </Typography>
                 <Typography variant='body2' color='text.secondary'>
                   exp
