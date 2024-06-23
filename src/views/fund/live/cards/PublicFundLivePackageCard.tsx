@@ -635,9 +635,14 @@ const PublicFundLivePackageCard = (props: Props) => {
                             </Stack>
 
                             <Stack alignSelf='stretch' alignItems='center' justifyContent='center'>
-                              <IconButton size='small' onClick={handleDisconnect}>
+                              <Button
+                                variant='outlined'
+                                sx={{ p: 1.5, minWidth: 38 }}
+                                color='secondary'
+                                onClick={handleDisconnect}
+                              >
                                 <Icon icon='mdi:logout' fontSize={20} />
-                              </IconButton>
+                              </Button>
                             </Stack>
                           </Stack>
                         </Stack>
@@ -781,9 +786,14 @@ const PublicFundLivePackageCard = (props: Props) => {
                             </Stack>
 
                             <Stack alignSelf='stretch' alignItems='center' justifyContent='center'>
-                              <IconButton size='small' onClick={handleDisconnect}>
+                              <Button
+                                variant='outlined'
+                                sx={{ p: 1.5, minWidth: 38 }}
+                                color='secondary'
+                                onClick={handleDisconnect}
+                              >
                                 <Icon icon='mdi:logout' fontSize={20} />
-                              </IconButton>
+                              </Button>
                             </Stack>
                           </Stack>
                         </Stack>

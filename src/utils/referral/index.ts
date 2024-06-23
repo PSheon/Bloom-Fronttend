@@ -7,7 +7,8 @@ export const getLevelProperties = (userExp: number) => {
       privileges: [
         {
           title: 'APY Boost',
-          value: '+ 0%'
+          displayValue: '+ 0%',
+          value: 0
         }
       ]
     },
@@ -18,7 +19,8 @@ export const getLevelProperties = (userExp: number) => {
       privileges: [
         {
           title: 'APY Boost',
-          value: '+ 0.3%'
+          displayValue: '+ 0.3%',
+          value: 0.3
         }
       ]
     },
@@ -29,7 +31,8 @@ export const getLevelProperties = (userExp: number) => {
       privileges: [
         {
           title: 'APY Boost',
-          value: '+ 0.8%'
+          displayValue: '+ 0.8%',
+          value: 0.8
         }
       ]
     },
@@ -40,7 +43,8 @@ export const getLevelProperties = (userExp: number) => {
       privileges: [
         {
           title: 'APY Boost',
-          value: '+ 1.25%'
+          displayValue: '+ 1.25%',
+          value: 1.25
         }
       ]
     },
@@ -51,7 +55,8 @@ export const getLevelProperties = (userExp: number) => {
       privileges: [
         {
           title: 'APY Boost',
-          value: '+ 1.5%'
+          displayValue: '+ 1.5%',
+          value: 1.5
         }
       ]
     },
@@ -62,7 +67,8 @@ export const getLevelProperties = (userExp: number) => {
       privileges: [
         {
           title: 'APY Boost',
-          value: '+ 2%'
+          displayValue: '+ 2%',
+          value: 2
         }
       ]
     },
@@ -73,7 +79,8 @@ export const getLevelProperties = (userExp: number) => {
       privileges: [
         {
           title: 'APY Boost',
-          value: '+ 2.2%'
+          displayValue: '+ 2.2%',
+          value: 2.2
         }
       ]
     },
@@ -84,7 +91,8 @@ export const getLevelProperties = (userExp: number) => {
       privileges: [
         {
           title: 'APY Boost',
-          value: '+ 2.8%'
+          displayValue: '+ 2.8%',
+          value: 2.8
         }
       ]
     },
@@ -95,7 +103,8 @@ export const getLevelProperties = (userExp: number) => {
       privileges: [
         {
           title: 'APY Boost',
-          value: '+ 5%'
+          displayValue: '+ 5%',
+          value: 5
         }
       ]
     }

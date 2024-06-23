@@ -3,6 +3,7 @@ import { useState, useEffect } from 'react'
 
 // ** Next Imports
 import Image from 'next/image'
+import Link from 'next/link'
 
 // ** MUI Imports
 import { styled, useTheme } from '@mui/material/styles'
@@ -44,6 +45,7 @@ import Icon from 'src/@core/components/icon'
 import useBgColor from 'src/@core/hooks/useBgColor'
 
 // ** API Imports
+import { useFindMeOneQuery } from 'src/store/api/management/user'
 import { useVaultSignHashMutation } from 'src/store/api/management/fund'
 
 // ** Util Imports
@@ -53,7 +55,8 @@ import {
   getChainId,
   getFormattedEthereumAddress,
   getExpectInterestBalanceString,
-  getGradientColors
+  getGradientColors,
+  getLevelProperties
 } from 'src/utils'
 
 // ** Config Imports
@@ -117,6 +120,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const bgColors = useBgColor()
   const walletAccount = useAccount()
   const { disconnectAsync } = useDisconnect()
+
+  const { data: meUserData } = useFindMeOneQuery(null)
 
   const { data: sftId, isLoading: isSftIdLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
@@ -211,6 +216,10 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const [signHash, { isLoading: isSignHashLoading }] = useVaultSignHashMutation()
 
   // ** Vars
+  const meExp = meUserData?.exp ?? 0
+  const meLevelProperties = getLevelProperties(meExp)
+  const meLevelAPYPrivileges = meLevelProperties.privileges.find(privilege => privilege.title === 'APY Boost')
+
   const sftSlot = initFundEntity.defaultPackages?.data.find(
     pkg => Number(pkg.attributes.packageId) === Number(sftSlotId)
   )
@@ -226,7 +235,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
 
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
-  const totalAPY = sftSlotBaseAPY + selectedStakePeriod.bonusAPY
+  const totalAPY =
+    Math.round(((meLevelAPYPrivileges?.value ?? 0) + sftSlotBaseAPY + selectedStakePeriod.bonusAPY) * 1_000) / 1_000
 
   const STEPS = [
     {
@@ -603,9 +613,14 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                     </Stack>
 
                     <Stack alignSelf='stretch' alignItems='center' justifyContent='center'>
-                      <IconButton size='small' onClick={handleDisconnect}>
+                      <Button
+                        variant='outlined'
+                        sx={{ p: 1.5, minWidth: 38 }}
+                        color='secondary'
+                        onClick={handleDisconnect}
+                      >
                         <Icon icon='mdi:logout' fontSize={20} />
-                      </IconButton>
+                      </Button>
                     </Stack>
                   </Stack>
                 </Stack>
@@ -721,12 +736,55 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                   </Stack>
                   <Stack alignSelf='stretch' divider={<Divider orientation='horizontal' flexItem />}>
                     <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                      <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                        <CustomAvatar
+                          src={`/images/points/account-level-${meLevelProperties.level}.svg`}
+                          variant='rounded'
+                          alt={`level-${meLevelProperties.level}`}
+                          sx={{ width: 48, height: 48, fontWeight: 600, zIndex: 2 }}
+                        />
+                        <Stack alignItems='flex-start' justifyContent='center'>
+                          <Typography variant='subtitle1' component='p'>
+                            {meLevelProperties.title}
+                          </Typography>
+                          <CustomChip
+                            skin='light'
+                            size='small'
+                            label={`Level ${meLevelProperties.level}`}
+                            color='primary'
+                            sx={{
+                              height: 20,
+                              fontWeight: 600,
+                              borderRadius: '5px',
+                              fontSize: '0.875rem',
+                              textTransform: 'capitalize',
+                              '& .MuiChip-label': { mt: -0.25 }
+                            }}
+                          />
+                        </Stack>
+                      </Stack>
+                      <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                        <Typography variant='subtitle2' component='p'>
+                          Privileges
+                        </Typography>
+                        <Button
+                          variant='outlined'
+                          sx={{ p: 1.5, minWidth: 38 }}
+                          color='success'
+                          component={Link}
+                          href='/points'
+                        >
+                          <Icon icon='mdi:crown-circle-outline' fontSize={20} />
+                        </Button>
+                      </Stack>
+                    </Stack>
+                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
                       <Stack alignItems='flex-start' justifyContent='center'>
                         <Typography variant='subtitle2' component='p'>
                           Total APY
                         </Typography>
                         <Typography variant='subtitle2' component='p'>
-                          (Base + Bonus)
+                          (Level + Base + Bonus)
                         </Typography>
                       </Stack>
                       <Stack alignItems='flex-end' justifyContent='center'>
@@ -734,7 +792,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                           {`${totalAPY} %`}
                         </Typography>
                         <Typography variant='subtitle1' component='p'>
-                          {`(${sftSlotBaseAPY} % + ${selectedStakePeriod.bonusAPY} %)`}
+                          {`(${meLevelAPYPrivileges?.value ?? 0} % + ${sftSlotBaseAPY} % + ${selectedStakePeriod.bonusAPY} %)`}
                         </Typography>
                       </Stack>
                     </Stack>

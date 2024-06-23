@@ -224,7 +224,7 @@ const MePointsLevelCard = () => {
             >
               <Typography variant='body2'>{privilege.title}</Typography>
               <Typography variant='subtitle2' color='text.primary'>
-                {privilege.value}
+                {privilege.displayValue}
               </Typography>
             </Stack>
           ))}
