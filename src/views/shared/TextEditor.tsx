@@ -238,12 +238,15 @@ const TextEditor = (props: Props) => {
         sx={{
           pt: theme => theme.spacing(12),
           ...(mode === 'dark' && {
-            '& .cdx-block,& .ce-header,& .inlineToolButton,& .ce-inline-toolbar,& .ce-inline-tool,& .ce-conversion-toolbar,& .ce-toolbar__plus,& .ce-toolbar__settings-btn':
+            '& .codex-editor ::selection': {
+              backgroundColor: theme => theme.palette.background.default
+            },
+            '& .cdx-block,& .ce-header,& .inlineToolButton,& .ce-inline-toolbar,& .ce-inline-tool,& .ce-conversion-toolbar,& .ce-toolbar__plus,& .ce-toolbar__settings-btn,& .ce-conversion-tool__icon':
               {
                 backgroundColor: theme => theme.palette.background.paper,
                 color: theme => theme.palette.text.primary
               },
-            '& .ce-toolbar__plus:hover,& .ce-toolbar__settings-btn:hover,& .ce-inline-tool:hover,& .ce-inline-toolbar__dropdown:hover,& .cdx-loader,& .cdx-button,& .ce-popover__search':
+            '& .ce-toolbar__plus:hover,& .ce-toolbar__settings-btn:hover,& .ce-inline-tool:hover,& .ce-inline-toolbar__dropdown:hover,& .cdx-loader,& .cdx-button,& .ce-popover__search,& .ce-conversion-tool:hover':
               {
                 backgroundColor: '#262626',
                 color: 'white'
@@ -251,11 +254,12 @@ const TextEditor = (props: Props) => {
             '& .cdx-button:hover': {
               backgroundColor: '#2f2f2f'
             },
-            '& .ce-popover,& .ce-popover-item,& .ce-popover-item__icon,& .ce-popover-items,& .ce-popover-item:hover': {
-              backgroundColor: '#262626',
-              color: 'white',
-              border: 'none'
-            }
+            '& .ce-popover,& .ce-popover-item,& .ce-popover-item__icon,& .ce-popover-items,& .ce-popover-item:hover,& .cdx-search-field__input':
+              {
+                backgroundColor: '#262626',
+                color: 'white',
+                border: 'none'
+              }
           })
         }}
       />

@@ -11,9 +11,18 @@ import type { OutputData } from '@editorjs/editorjs'
 
 // ** Styled Root Box component
 const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
-  minHeight: theme.spacing(64),
-  '& img': {
-    borderRadius: theme.shape.borderRadius
+  minHeight: theme.spacing(8),
+  '& figure': {
+    padding: theme.spacing(2),
+    borderRadius: theme.shape.borderRadius,
+    backgroundColor: `${theme.palette.background.default} !important`,
+    '& img': {
+      padding: theme.spacing(2),
+      borderRadius: theme.shape.borderRadius
+    },
+    '& figcaption': {
+      backgroundColor: `${theme.palette.background.paper} !important`
+    }
   }
 }))
 
@@ -27,7 +36,7 @@ const TextEditorPreview = (props: Props) => {
 
   return (
     <StyledRootBox>
-      <EditorPreview data={blocks} />
+      <EditorPreview data={blocks as OutputData} />
     </StyledRootBox>
   )
 }
