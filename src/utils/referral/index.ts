@@ -98,7 +98,7 @@ export const getLevelProperties = (userExp: number) => {
     },
     {
       level: 9,
-      title: 'Blockchain Titans',
+      title: 'Blockchain Titan',
       expCap: 8_000,
       privileges: [
         {
