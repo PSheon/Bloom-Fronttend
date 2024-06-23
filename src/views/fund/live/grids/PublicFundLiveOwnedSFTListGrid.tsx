@@ -1,6 +1,10 @@
+// ** Next Imports
+import { useRouter } from 'next/router'
+
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
+import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
@@ -37,6 +41,7 @@ const PublicFundLiveOwnedSFTListGrid = (props: Props) => {
 
   // ** Hooks
   const walletAccount = useAccount()
+  const router = useRouter()
 
   const {
     data: sftBalance,
@@ -71,8 +76,15 @@ const PublicFundLiveOwnedSFTListGrid = (props: Props) => {
                   <Icon icon='mdi:warning-circle-outline' fontSize='2rem' />
                 </CustomAvatar>
                 <Typography variant='h6' component='p'>
-                  Do not have any SFT yet
+                  Check the latest investment package
                 </Typography>
+                <Button
+                  variant='contained'
+                  color='primary'
+                  onClick={() => router.push(`/fund/live/${initFundEntity.id}/overview`)}
+                >
+                  Go
+                </Button>
               </Stack>
             </CardContent>
           </Card>
