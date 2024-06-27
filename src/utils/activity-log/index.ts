@@ -18,9 +18,9 @@ interface ActivityLogActionAttributes {
 
 export const getActivityLogStatusProperties = (status: ActivityLogType['status']) => {
   const activityLogStatusAttributes: ActivityLogStatusAttributes = {
-    Pending: { color: 'primary', title: '執行中' },
-    Fulfilled: { color: 'success', title: '成功' },
-    Rejected: { color: 'error', title: '失敗' }
+    Pending: { color: 'primary', title: 'Pending' },
+    Fulfilled: { color: 'success', title: 'Succeed' },
+    Rejected: { color: 'error', title: 'Failed' }
   }
 
   return Object.assign(activityLogStatusAttributes['Pending'], activityLogStatusAttributes[status])
@@ -28,9 +28,9 @@ export const getActivityLogStatusProperties = (status: ActivityLogType['status']
 
 export const getActivityLogActionProperties = (action: ActivityLogType['action']) => {
   const activityLogActionAttributes: ActivityLogActionAttributes = {
-    Create: { icon: 'mdi:laptop', color: 'success', title: '建立' },
-    Update: { icon: 'mdi:cog-outline', color: 'primary', title: '更新' },
-    Delete: { icon: 'mdi:pencil-outline', color: 'error', title: '刪除' }
+    Create: { icon: 'mdi:laptop', color: 'success', title: 'Create' },
+    Update: { icon: 'mdi:cog-outline', color: 'primary', title: 'Update' },
+    Delete: { icon: 'mdi:pencil-outline', color: 'error', title: 'Delete' }
   }
 
   return Object.assign(activityLogActionAttributes['Create'], activityLogActionAttributes[action])
