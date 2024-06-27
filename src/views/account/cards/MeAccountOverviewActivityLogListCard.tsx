@@ -62,7 +62,7 @@ const MeAccountOverviewActivityLogListCard = () => {
       field: 'status',
       display: 'flex',
       minWidth: 110,
-      headerName: '狀態',
+      headerName: 'Status',
       renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const { color, title } = getActivityLogStatusProperties(row.status)
 
@@ -81,8 +81,8 @@ const MeAccountOverviewActivityLogListCard = () => {
     {
       field: 'action',
       display: 'flex',
-      minWidth: 80,
-      headerName: '操作',
+      minWidth: 160,
+      headerName: 'Action',
       renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const { color, title } = getActivityLogActionProperties(row.action)
 
@@ -95,8 +95,8 @@ const MeAccountOverviewActivityLogListCard = () => {
     },
     {
       field: 'refContentType',
-      minWidth: 200,
-      headerName: '執行個體',
+      minWidth: 280,
+      headerName: 'Content Type',
       renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const link = getActivityLogRefContentLink(row)
 
@@ -107,7 +107,7 @@ const MeAccountOverviewActivityLogListCard = () => {
       field: 'date',
       display: 'flex',
       minWidth: 250,
-      headerName: '日期',
+      headerName: 'Date',
       renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
         <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {format(new Date(row.date), 'PPpp')}
@@ -119,7 +119,7 @@ const MeAccountOverviewActivityLogListCard = () => {
 
   return (
     <Card>
-      <CardHeader title='操作記錄' />
+      <CardHeader title='Activity Log' />
       <DataGrid
         autoHeight
         loading={isActivityLogsLoading}

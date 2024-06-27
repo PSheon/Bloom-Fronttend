@@ -65,7 +65,7 @@ const AccountLoadingSkeleton = () => {
               <CardContent>
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>角色權限</Typography>
+                    <Typography variant='subtitle2'>Role</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />
@@ -87,7 +87,7 @@ const AccountLoadingSkeleton = () => {
               <CardContent>
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>屬性</Typography>
+                    <Typography variant='subtitle2'>Metadata</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />

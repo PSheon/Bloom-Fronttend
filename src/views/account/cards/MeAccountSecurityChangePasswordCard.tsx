@@ -128,14 +128,14 @@ const MeAccountSecurityChangePasswordCard = () => {
 
   return (
     <Card>
-      <CardHeader title='改變密碼' />
+      <CardHeader title='Change Password' />
       <CardContent>
         <form noValidate autoComplete='off' onSubmit={handleSubmit(onPasswordFormSubmit)}>
           <Grid container spacing={6}>
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
                 <InputLabel htmlFor='input-current-password' error={Boolean(errors.currentPassword)}>
-                  目前密碼
+                  Current Password
                 </InputLabel>
                 <Controller
                   name='currentPassword'
@@ -144,7 +144,7 @@ const MeAccountSecurityChangePasswordCard = () => {
                   render={({ field: { value, onChange } }) => (
                     <OutlinedInput
                       value={value}
-                      label='目前密碼'
+                      label='Current Password'
                       onChange={onChange}
                       id='input-current-password'
                       error={Boolean(errors.currentPassword)}
@@ -175,7 +175,7 @@ const MeAccountSecurityChangePasswordCard = () => {
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
                 <InputLabel htmlFor='input-new-password' error={Boolean(errors.newPassword)}>
-                  新密碼
+                  New Password
                 </InputLabel>
                 <Controller
                   name='newPassword'
@@ -184,7 +184,7 @@ const MeAccountSecurityChangePasswordCard = () => {
                   render={({ field: { value, onChange } }) => (
                     <OutlinedInput
                       value={value}
-                      label='新密碼'
+                      label='New Password'
                       onChange={onChange}
                       id='input-new-password'
                       error={Boolean(errors.newPassword)}
@@ -213,7 +213,7 @@ const MeAccountSecurityChangePasswordCard = () => {
             <Grid item xs={12} sm={6}>
               <FormControl fullWidth>
                 <InputLabel htmlFor='input-new-password-confirmation' error={Boolean(errors.newPasswordConfirmation)}>
-                  確認新密碼
+                  Confirm New Password
                 </InputLabel>
                 <Controller
                   name='newPasswordConfirmation'
@@ -222,7 +222,7 @@ const MeAccountSecurityChangePasswordCard = () => {
                   render={({ field: { value, onChange } }) => (
                     <OutlinedInput
                       value={value}
-                      label='確認新密碼'
+                      label='Confirm New Password'
                       onChange={onChange}
                       id='input-new-password-confirmation'
                       error={Boolean(errors.newPasswordConfirmation)}
@@ -253,16 +253,19 @@ const MeAccountSecurityChangePasswordCard = () => {
               </FormControl>
             </Grid>
             <Grid item xs={12}>
-              <Typography sx={{ fontWeight: 600, color: 'text.secondary' }}>安全性要求:</Typography>
+              <Typography color='text.secondary' sx={{ fontWeight: 600 }}>
+                Security requirements:
+              </Typography>
               <Box component='ul' sx={{ pl: 4, mb: 0, '& li': { mb: 1, color: 'text.secondary' } }}>
-                <li>至少 8 個字母 - 長度越長越安全</li>
-                <li>至少包含一個小寫和一個大寫字符</li>
-                <li>至少包含一個數字及特殊符號</li>
+                <li>At least 8 characters - the longer the better</li>
+                <li>At least one lowercase and one uppercase letter</li>
+                <li>At least one number</li>
+                <li>At least one special character</li>
               </Box>
             </Grid>
             <Grid container item xs={12} spacing={6} justifyContent='flex-end'>
               <LoadingButton disabled={!isDirty} loading={isChangePasswordLoading} variant='contained' type='submit'>
-                改變密碼
+                Change Password
               </LoadingButton>
             </Grid>
           </Grid>

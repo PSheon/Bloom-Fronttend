@@ -2,7 +2,7 @@
 import { useState } from 'react'
 
 // ** MUI Imports
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
@@ -103,15 +103,15 @@ const MeAccountEditProfileCard = (props: Props) => {
 
   return (
     <Card>
-      <CardContent sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
+      <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <MeAccountAvatarPreviewBox initMeUserEntity={updatedMeUser} />
-        <Typography variant='h6' sx={{ mt: 4, mb: 2 }}>
+        <Typography variant='h6' component='p' sx={{ mt: 4, mb: 2 }}>
           {initMeUserEntity.username}
         </Typography>
         <CustomChip
           skin='light'
           size='small'
-          label={initMeUserEntity.blocked ? '已封鎖' : '啟用中'}
+          label={initMeUserEntity.blocked ? 'Blocked' : 'Activating'}
           color={initMeUserEntity.blocked ? 'error' : 'success'}
           sx={{
             height: 20,
@@ -124,40 +124,44 @@ const MeAccountEditProfileCard = (props: Props) => {
         />
       </CardContent>
 
-      <CardContent>
-        <Typography variant='subtitle2'>個人資料</Typography>
-        <Divider sx={{ mt: theme => `${theme.spacing(4)} !important` }} />
-        <Box sx={{ pt: 2, pb: 1 }}>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              姓名:
+      <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Typography variant='subtitle2'>Information</Typography>
+        <Stack alignSelf='stretch'>
+          <Divider />
+        </Stack>
+        <Stack spacing={2.7}>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
+              Username:
             </Typography>
             <Typography variant='body2'>{initMeUserEntity.username}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
               Email:
             </Typography>
             <Typography variant='body2'>{initMeUserEntity.email}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              稱謂:
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
+              Title:
             </Typography>
-            <Typography variant='body2'>{updatedMeUser.title || '未填寫'}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              電話:
+            <Typography variant='body2'>{updatedMeUser.title || 'Unfilled'}</Typography>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
+              Phone:
             </Typography>
-            <Typography variant='body2'>{updatedMeUser.phone ? `(+886) ${updatedMeUser.phone}` : '未填寫'}</Typography>
-          </Box>
-        </Box>
+            <Typography variant='body2'>
+              {updatedMeUser.phone ? `(+886) ${updatedMeUser.phone}` : 'Unfilled'}
+            </Typography>
+          </Stack>
+        </Stack>
       </CardContent>
 
       <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button fullWidth variant='contained' onClick={handleEditOpen}>
-          編輯
+          Edit
         </Button>
       </CardActions>
 
@@ -181,9 +185,9 @@ const MeAccountEditProfileCard = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          編輯個人資料
+          Edit Profile
           <DialogContentText id='user-view-edit-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
-            更新個人資料詳細資訊將接受隱私審核
+            Updating personal information will undergo privacy review
           </DialogContentText>
         </DialogTitle>
         <DialogContent
@@ -196,10 +200,10 @@ const MeAccountEditProfileCard = (props: Props) => {
           <form noValidate autoComplete='off'>
             <Grid container spacing={6}>
               <Grid item xs={12} sm={6}>
-                <TextField fullWidth label='姓名' value={updatedMeUser.username} inputProps={{ readOnly: true }} />
+                <TextField fullWidth label='Username' value={updatedMeUser.username} inputProps={{ readOnly: true }} />
               </Grid>
               <Grid item xs={12} sm={6}>
-                <TextField fullWidth label='信箱' value={updatedMeUser.email} inputProps={{ readOnly: true }} />
+                <TextField fullWidth label='Email' value={updatedMeUser.email} inputProps={{ readOnly: true }} />
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
@@ -209,8 +213,8 @@ const MeAccountEditProfileCard = (props: Props) => {
                     rules={{ required: true }}
                     render={({ field: { value, onChange, onBlur } }) => (
                       <TextField
-                        label='稱謂'
-                        placeholder='教授、經理'
+                        label='Title'
+                        placeholder='Doctor/Manager'
                         value={value}
                         onBlur={onBlur}
                         onChange={onChange}
@@ -229,14 +233,13 @@ const MeAccountEditProfileCard = (props: Props) => {
                     rules={{ required: true }}
                     render={({ field: { value, onChange, onBlur } }) => (
                       <TextField
-                        label='電話號碼'
-                        placeholder='0988888888'
+                        label='Phone Number'
                         value={value}
                         onBlur={onBlur}
                         onChange={onChange}
                         error={Boolean(errors.phone)}
                         InputProps={{
-                          startAdornment: <InputAdornment position='start'>台灣 (+886)</InputAdornment>
+                          startAdornment: <InputAdornment position='start'>(+886)</InputAdornment>
                         }}
                         sx={{ display: 'flex' }}
                       />
@@ -257,7 +260,7 @@ const MeAccountEditProfileCard = (props: Props) => {
           }}
         >
           <Button variant='outlined' color='secondary' onClick={handleEditClose}>
-            取消
+            Cancel
           </Button>
           <LoadingButton
             loading={isUpdateMeUserLoading}
@@ -266,7 +269,7 @@ const MeAccountEditProfileCard = (props: Props) => {
             startIcon={<Icon icon='mdi:content-save-outline' />}
             onClick={handleSubmit(onSubmit)}
           >
-            更新
+            Update
           </LoadingButton>
         </DialogActions>
       </Dialog>
