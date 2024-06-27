@@ -62,73 +62,45 @@ interface DefaultSuggestionsType {
 const searchData: AppBarSearchType[] = [
   {
     id: 1,
-    url: '/dashboard/home',
-    icon: 'mdi:chart-donut',
-    title: 'Dashboard',
-    category: 'dashboards'
+    url: '/fund/list',
+    icon: 'mdi:strategy',
+    title: 'Public.Funds & Strategies',
+    category: 'public'
   },
   {
     id: 2,
-    url: '/dashboard/analytics',
-    icon: 'mdi:chart-timeline-variant',
-    title: 'Analytics Dashboard',
-    category: 'dashboards'
+    url: '/portfolio',
+    icon: 'mdi:chart-pie-outline',
+    title: 'Portfolio',
+    category: 'me'
   },
   {
     id: 3,
-    url: '/dashboard/system',
-    icon: 'mdi:cart-outline',
-    title: 'eCommerce Dashboard',
-    category: 'dashboards'
+    url: '/points',
+    icon: 'mdi:progress-star-four-points',
+    title: 'Points',
+    category: 'me'
   },
   {
     id: 4,
-    url: '/roles-and-permissions',
-    icon: 'mdi:email-outline',
-    title: 'Roles & Permissions',
-    category: 'appsPages'
-  },
-  {
-    id: 5,
-    url: '/management/user/list',
-    icon: 'mdi:message-outline',
-    title: 'Users',
-    category: 'appsPages'
-  },
-  {
-    id: 6,
-    url: '/management/media-asset/list',
-    icon: 'mdi:calendar-blank-outline',
-    title: 'Media Assets',
-    category: 'appsPages'
-  },
-  {
-    id: 7,
-    url: '/management/article/list',
-    icon: 'mdi:format-list-numbered',
-    title: 'Articles',
-    category: 'appsPages'
-  },
-  {
-    id: 8,
-    url: '/application/list',
-    icon: 'mdi:file-document-outline',
-    title: 'My Application',
-    category: 'appsPages'
-  },
-  {
-    id: 9,
     url: '/account',
     icon: 'mdi:account-outline',
     title: 'Account',
-    category: 'appsPages'
+    category: 'general'
   },
   {
-    id: 10,
+    id: 5,
+    url: '/notification/list',
+    icon: 'mdi:bell-outline',
+    title: 'Notifications',
+    category: 'general'
+  },
+  {
+    id: 6,
     url: '/settings',
-    icon: 'mdi:file-plus-outline',
+    icon: 'mdi:settings-outline',
     title: 'Settings',
-    category: 'appsPages'
+    category: 'general'
   }
 ]
 
@@ -136,19 +108,15 @@ const getSuggestion = (q: string) => {
   const queryLowered = q.toLowerCase()
 
   const exactData: { [k: string]: AppBarSearchType[] } = {
-    dashboards: [],
-    appsPages: [],
-    userInterface: [],
-    formsTables: [],
-    chartsMisc: []
+    public: [],
+    me: [],
+    general: []
   }
 
   const includeData: { [k: string]: AppBarSearchType[] } = {
-    dashboards: [],
-    appsPages: [],
-    userInterface: [],
-    formsTables: [],
-    chartsMisc: []
+    public: [],
+    me: [],
+    general: []
   }
 
   searchData.forEach(obj => {
@@ -187,11 +155,9 @@ const getSuggestion = (q: string) => {
   const resultsLength = categoriesCheck.length === 1 ? 5 : 3
 
   return [
-    ...exactData.dashboards.concat(includeData.dashboards).slice(0, resultsLength),
-    ...exactData.appsPages.concat(includeData.appsPages).slice(0, resultsLength),
-    ...exactData.userInterface.concat(includeData.userInterface).slice(0, resultsLength),
-    ...exactData.formsTables.concat(includeData.formsTables).slice(0, resultsLength),
-    ...exactData.chartsMisc.concat(includeData.chartsMisc).slice(0, resultsLength)
+    ...exactData.public.concat(includeData.public).slice(0, resultsLength),
+    ...exactData.me.concat(includeData.me).slice(0, resultsLength),
+    ...exactData.general.concat(includeData.general).slice(0, resultsLength)
   ]
 }
 
@@ -292,7 +258,7 @@ const NoResult = ({ value, setOpenDialog }: NoResultProps) => {
         <ListItem sx={{ py: 2 }} disablePadding onClick={() => setOpenDialog(false)}>
           <Box
             component={Link}
-            href='/dashboard/home'
+            href='/portfolio'
             sx={{
               display: 'flex',
               alignItems: 'center',
@@ -304,7 +270,7 @@ const NoResult = ({ value, setOpenDialog }: NoResultProps) => {
               <Icon icon='mdi:chart-pie-outline' fontSize={20} />
             </Box>
             <Typography variant='body2' sx={{ color: 'text.primary' }}>
-              Dashboard
+              Portfolio
             </Typography>
           </Box>
         </ListItem>
@@ -339,99 +305,44 @@ const DefaultSuggestions = ({ setOpenDialog }: DefaultSuggestionsProps) => {
       category: 'Popular Searches',
       suggestions: [
         {
-          icon: 'mdi:chart-donut',
-          suggestion: 'CRM',
-          link: '/dashboards/crm'
+          icon: 'mdi:strategy',
+          suggestion: 'Public.Funds & Strategies',
+          link: '/fund/list'
         },
         {
-          icon: 'mdi:poll',
-          suggestion: 'Analytics',
-          link: '/dashboards/analytics'
+          icon: 'mdi:chart-pie-outline',
+          suggestion: 'Portfolio',
+          link: '/portfolio'
         },
         {
-          icon: 'mdi:chart-bubble',
-          suggestion: 'eCommerce',
-          link: '/dashboards/ecommerce'
+          icon: 'mdi:progress-star-four-points',
+          suggestion: 'Me.Points',
+          link: '/points'
         },
         {
-          icon: 'mdi:account-group',
-          suggestion: 'User List',
-          link: '/apps/user/list'
+          icon: 'mdi:account-outline',
+          suggestion: 'Account',
+          link: '/account'
         }
       ]
     },
     {
-      category: 'Apps & Pages',
+      category: 'General',
       suggestions: [
         {
-          icon: 'mdi:calendar-blank',
-          suggestion: 'Calendar',
-          link: '/apps/calendar'
+          icon: 'mdi:account-outline',
+          suggestion: 'Account',
+          link: '/account'
         },
         {
-          icon: 'mdi:format-list-numbered',
-          suggestion: 'Invoice List',
-          link: '/apps/invoice/list'
+          icon: 'mdi:bell-outline',
+          suggestion: 'Notifications',
+          link: '/notification/list'
         },
         {
-          icon: 'mdi:currency-usd',
-          suggestion: 'Pricing',
-          link: '/pages/pricing'
-        },
-        {
-          icon: 'mdi:account-cog-outline',
-          suggestion: 'Account Settings',
-          link: '/pages/account-settings/account'
-        }
-      ]
-    },
-    {
-      category: 'User Interface',
-      suggestions: [
-        {
-          icon: 'mdi:format-text-variant-outline',
-          suggestion: 'Typography',
-          link: '/ui/typography'
-        },
-        {
-          icon: 'mdi:tab',
-          suggestion: 'Tabs',
-          link: '/components/tabs'
-        },
-        {
-          icon: 'mdi:gesture-tap-button',
-          suggestion: 'Buttons',
-          link: '/components/buttons'
-        },
-        {
-          icon: 'mdi:card-bulleted-settings-outline',
-          suggestion: 'Advanced Cards',
-          link: '/ui/cards/advanced'
-        }
-      ]
-    },
-    {
-      category: 'Forms & Tables',
-      suggestions: [
-        {
-          icon: 'mdi:format-list-checkbox',
-          suggestion: 'Select',
-          link: '/forms/form-elements/select'
-        },
-        {
-          icon: 'mdi:lastpass',
-          suggestion: 'Autocomplete',
-          link: '/forms/form-elements/autocomplete'
-        },
-        {
-          icon: 'mdi:view-grid-outline',
-          suggestion: 'Table',
-          link: '/tables/mui'
-        },
-        {
-          icon: 'mdi:calendar-range',
-          suggestion: 'Date Pickers',
-          link: '/forms/form-elements/pickers'
+          icon: 'mdi:settings-outline',
+          suggestion: 'Settings',
+          link: '/settings'
         }
       ]
     }
@@ -441,7 +352,7 @@ const DefaultSuggestions = ({ setOpenDialog }: DefaultSuggestionsProps) => {
     <Grid container spacing={6} sx={{ ml: 0 }}>
       {defaultSuggestionsData.map((item, index) => (
         <Grid item xs={12} sm={6} key={index}>
-          <Typography component='p' variant='overline' sx={{ lineHeight: 1.25, color: 'text.disabled' }}>
+          <Typography component='p' variant='overline' color='text.disabled' sx={{ lineHeight: 1.25 }}>
             {item.category}
           </Typography>
           <List sx={{ py: 2.5 }}>
@@ -682,9 +593,9 @@ const PageSearch = ({ hidden, settings }: Props) => {
               <Box
                 sx={{
                   p: 10,
-                  display: 'grid',
+                  display: 'flex',
                   overflow: 'auto',
-                  alignItems: 'center',
+                  alignItems: 'flex-start',
                   justifyContent: 'center',
                   borderTop: `1px solid ${theme.palette.divider}`,
                   height: fullScreenDialog ? 'calc(100vh - 69px)' : '100%'
