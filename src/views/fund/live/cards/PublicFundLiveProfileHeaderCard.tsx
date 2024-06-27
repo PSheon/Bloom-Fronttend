@@ -93,7 +93,7 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
         image={
           currentBannerMediaAsset
             ? getPublicMediaAssetUrl(currentBannerMediaAsset.formats?.thumbnail?.url)
-            : '/images/pages/profile-banner.png'
+            : '/images/pages/profile-banner.webp'
         }
         sx={{
           height: { xs: 150, md: 250 }

@@ -43,16 +43,6 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
   // ** Vars
   const fundCategoryProperties = getFundCategoryProperties(initFundEntity.category)
 
-  const data = {
-    fullName: 'John Doe',
-    location: 'Vatican City',
-    joiningDate: 'April 2021',
-    designation: 'UX Designer',
-    profileImg: '/images/avatars/1.png',
-    designationIcon: 'mdi:fountain-pen-tip',
-    coverImg: '/images/pages/profile-banner.png'
-  }
-
   const currentBannerMediaAsset = initFundEntity.banner?.data?.id
     ? ({
         id: initFundEntity.banner.data.id,
@@ -62,7 +52,7 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
 
   const baseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
-  return data !== null ? (
+  return (
     <Card>
       <CardMedia
         component='img'
@@ -70,7 +60,7 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
         image={
           currentBannerMediaAsset
             ? getPublicMediaAssetUrl(currentBannerMediaAsset.formats?.thumbnail?.url)
-            : data.coverImg
+            : '/images/pages/profile-banner.webp'
         }
         sx={{
           height: { xs: 150, md: 250 }
@@ -150,7 +140,7 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
         </Box>
       </CardContent>
     </Card>
-  ) : null
+  )
 }
 
 export default ManagementFundEditProfileHeaderCard

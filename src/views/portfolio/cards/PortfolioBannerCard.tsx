@@ -42,7 +42,7 @@ const PortfolioBannerCard = () => {
       <CardMedia
         component='img'
         alt='profile-header'
-        image='/images/pages/profile-banner.png'
+        image='/images/pages/profile-banner.webp'
         sx={{
           height: { xs: 150, md: 250 }
         }}

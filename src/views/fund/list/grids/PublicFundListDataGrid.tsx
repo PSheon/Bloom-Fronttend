@@ -96,7 +96,7 @@ const PublicFundListDataGrid = (props: Props) => {
                       image={
                         fund?.banner?.data
                           ? getPublicMediaAssetUrl(fund.banner.data.attributes.url)
-                          : '/images/pages/profile-banner.png'
+                          : '/images/pages/profile-banner.webp'
                       }
                       sx={{
                         height: { xs: 120, md: 160 }
