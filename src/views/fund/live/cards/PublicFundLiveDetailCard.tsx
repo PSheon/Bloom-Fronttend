@@ -29,7 +29,7 @@ const PublicFundLiveDetailCard = (props: Props) => {
 
   return (
     <StyledRootCard>
-      <CardHeader title='細節' />
+      <CardHeader title='Detail' />
       <CardContent>
         <TextEditorPreview blocks={initFundEntity.detail} />
       </CardContent>

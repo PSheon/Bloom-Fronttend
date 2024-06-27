@@ -135,12 +135,16 @@ const ManagementFundEditOverviewCreateDefaultPackageStack = (props: Props) => {
   return (
     <Stack direction='row' spacing={4} alignItems='center'>
       <Stack flex='1'>
-        <Typography variant='h5'>資金方案</Typography>
-        <Typography variant='body2'>提供方案，以便投資者了解資金的運作方式</Typography>
+        <Typography variant='h5' component='p'>
+          Packages
+        </Typography>
+        <Typography variant='body2' component='p'>
+          Provide a solution for investors to understand how the fund works with their funds
+        </Typography>
       </Stack>
       <Stack>
         <Button variant='contained' onClick={handleOpen}>
-          新增方案
+          New
         </Button>
       </Stack>
 
@@ -165,14 +169,14 @@ const ManagementFundEditOverviewCreateDefaultPackageStack = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          新增方案
+          New Package
           <DialogContentText
             id='package-view-edit-description'
             variant='body2'
             component='p'
             sx={{ textAlign: 'center' }}
           >
-            每個方案都必須提供不同的內容.
+            Must provide different content for each package
           </DialogContentText>
         </DialogTitle>
         <DialogContent

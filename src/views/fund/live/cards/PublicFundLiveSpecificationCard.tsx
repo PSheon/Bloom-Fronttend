@@ -117,7 +117,7 @@ const PublicFundLiveSpecificationCard = (props: Props) => {
 
   return (
     <Card>
-      <CardHeader title='規格' />
+      <CardHeader title='Specification' />
       <CardContent>
         <Grid container spacing={4}>
           <Grid item xs={6} sm={4} md={2}>
