@@ -90,18 +90,13 @@ const ManagementUserEditRoleCard = (props: Props) => {
       <CardContent>
         <Grid container spacing={2.7}>
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>角色權限</Typography>
+            <Typography variant='subtitle2'>Role</Typography>
           </Grid>
           <Grid item xs={12}>
             <Divider />
           </Grid>
           <Grid item xs={12}>
-            <Typography
-              variant='h4'
-              sx={{
-                color: `${userRoleAttributes.color}.main`
-              }}
-            >
+            <Typography variant='h4' component='p' color={`${userRoleAttributes.color}.main`}>
               {userRoleAttributes.displayName}
             </Typography>
           </Grid>

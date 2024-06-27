@@ -36,17 +36,18 @@ const ManagementFundEditSecurityDangerZoneCard = (props: Props) => {
 
   return (
     <Card>
-      <CardHeader title='危險區域' />
+      <CardHeader title='Danger Zone' />
       <CardContent>
         <Grid container spacing={6}>
           <Grid item xs={12}>
-            <Typography sx={{ fontWeight: 600, color: 'text.secondary' }}>
-              封存資金將無法繼續蒐集申請資料，並且無法復原
+            <Typography color='text.secondary' sx={{ fontWeight: 600 }}>
+              Please note! Once you archive this fund, the fund will no longer be able to collect application data and
+              cannot be recovered
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Button disabled variant='outlined' color='error' type='submit' onClick={handleOpenArchiveFundDialog}>
-              封存
+              Archive
             </Button>
           </Grid>
         </Grid>
@@ -61,9 +62,9 @@ const ManagementFundEditSecurityDangerZoneCard = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          {`確認要封存 ${initFundEntity.displayName}？`}
+          {`Are you sure you want to archive the fund ${initFundEntity.displayName}?`}
           <DialogContentText id='user-view-edit-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
-            此操作將無法復原
+            {`It can't be undone`}
           </DialogContentText>
         </DialogTitle>
         <DialogActions
@@ -74,11 +75,11 @@ const ManagementFundEditSecurityDangerZoneCard = (props: Props) => {
             pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Button variant='outlined' color='secondary' onClick={handleCloseArchiveFundDialog}>
-            取消
+          <Button variant='outlined' color='primary' onClick={handleCloseArchiveFundDialog}>
+            Cancel
           </Button>
           <Button disabled variant='contained' color='error' startIcon={<Icon icon='mdi:delete-outline' />}>
-            確認
+            Archive
           </Button>
         </DialogActions>
       </Dialog>

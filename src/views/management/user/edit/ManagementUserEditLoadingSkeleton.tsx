@@ -61,7 +61,7 @@ const ManagementUserEditLoadingSkeleton = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Button fullWidth disabled type='submit' variant='contained'>
-                      編輯
+                      Edit
                     </Button>
                   </Grid>
                 </Grid>
@@ -73,7 +73,7 @@ const ManagementUserEditLoadingSkeleton = () => {
               <CardContent>
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>角色權限</Typography>
+                    <Typography variant='subtitle2'>Role</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />
@@ -88,7 +88,7 @@ const ManagementUserEditLoadingSkeleton = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Button fullWidth disabled type='submit' variant='contained'>
-                      變更權限
+                      Change role
                     </Button>
                   </Grid>
                 </Grid>
@@ -98,9 +98,9 @@ const ManagementUserEditLoadingSkeleton = () => {
           <Grid item xs={12}>
             <Card>
               <CardContent>
-                <Grid container spacing={4}>
+                <Grid container spacing={2.7}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>屬性</Typography>
+                    <Typography variant='subtitle2'>Metadata</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />

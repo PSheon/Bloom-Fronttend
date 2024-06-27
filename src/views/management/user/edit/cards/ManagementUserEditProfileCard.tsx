@@ -4,6 +4,7 @@ import { useState } from 'react'
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
 import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
@@ -161,7 +162,7 @@ const ManagementUserEditProfileCard = (props: Props) => {
         <CustomChip
           skin='light'
           size='small'
-          label={initUserEntity.blocked ? '已封鎖' : '啟用中'}
+          label={initUserEntity.blocked ? 'Blocked' : 'Activating'}
           color={initUserEntity.blocked ? 'error' : 'success'}
           sx={{
             height: 20,
@@ -201,36 +202,42 @@ const ManagementUserEditProfileCard = (props: Props) => {
         </Box>
       </CardContent>
 
-      <CardContent>
-        <Typography variant='subtitle2'>個人資料</Typography>
-        <Divider sx={{ mt: theme => `${theme.spacing(4)} !important` }} />
-        <Box sx={{ pt: 2, pb: 1 }}>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              姓名:
+      <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Typography variant='subtitle2'>Information</Typography>
+        <Stack alignSelf='stretch'>
+          <Divider />
+        </Stack>
+        <Stack spacing={2.7}>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
+              Username:
             </Typography>
             <Typography variant='body2'>{initUserEntity.username}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
               Email:
             </Typography>
             <Typography variant='body2'>{initUserEntity.email}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>稱謂:</Typography>
-            <Typography variant='body2'>{updatedUser.title || '未填寫'}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography sx={{ mr: 2, fontWeight: 500, fontSize: '0.875rem' }}>電話:</Typography>
-            <Typography variant='body2'>{updatedUser.phone ? `(+886) ${updatedUser.phone}` : '未填寫'}</Typography>
-          </Box>
-        </Box>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
+              Title:
+            </Typography>
+            <Typography variant='body2'>{updatedUser.title || 'Unfilled'}</Typography>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
+              Phone:
+            </Typography>
+            <Typography variant='body2'>{updatedUser.phone ? `(+886) ${updatedUser.phone}` : 'Unfilled'}</Typography>
+          </Stack>
+        </Stack>
       </CardContent>
 
       <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
         <Button fullWidth variant='contained' onClick={handleEditOpen}>
-          編輯
+          Edit
         </Button>
       </CardActions>
 
