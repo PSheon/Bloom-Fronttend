@@ -35,7 +35,8 @@ const PublicFundListPage = () => {
     filters: {
       ...(debouncedFilteredFundDisplayname !== '' && {
         $or: [{ displayName: { $containsi: debouncedFilteredFundDisplayname } }]
-      })
+      }),
+      status: 'Published'
 
       // ...(filteredStatus !== 'all' && { status: filteredStatus }),
       // ...(filteredIsHighlighted !== 'all' && { isHighlighted: filteredIsHighlighted === 'isHighlighted' })
