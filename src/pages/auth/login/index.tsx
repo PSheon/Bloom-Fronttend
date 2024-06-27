@@ -130,6 +130,13 @@ const StyledLoginIllustration = styled('img')(({ theme }) => ({
 //   password: string
 // }
 
+type AuthErrorType =
+  | 'GoogleEmailNotVerified'
+  | 'FacebookEmailNotVerified'
+  | 'DiscordEmailNotVerified'
+  | 'MicrosoftEmailNotVerified'
+  | 'Callback'
+
 const AuthLoginPage = () => {
   // ** States
   // const [isLoginCredentialsLoading, setIsLoginCredentialsLoading] = useState<boolean>(false)
@@ -167,6 +174,20 @@ const AuthLoginPage = () => {
   const callbackUrl = returnUrl?.match(/\/points\/\?referral-id=[23456789A-HJ-NP-Z]{8}/gi) ? returnUrl : '/portfolio'
 
   // ** Logics
+  const getAuthErrorMessage = (authErrorCode: string | null) => {
+    const AUTH_ERROR_CODE: Record<AuthErrorType, string> = {
+      GoogleEmailNotVerified: 'Your Google account email is not verified. Please verify your email and try again',
+      FacebookEmailNotVerified: 'Your Facebook account email is not verified. Please verify your email and try again',
+      DiscordEmailNotVerified: 'Your Discord account email is not verified. Please verify your email and try again',
+      MicrosoftEmailNotVerified: 'Your Microsoft account email is not verified. Please verify your email and try again',
+      Callback: 'Email has already been used. Please try another email or login with your existing account'
+    }
+
+    return authErrorCode && authErrorCode in AUTH_ERROR_CODE
+      ? AUTH_ERROR_CODE[authErrorCode as AuthErrorType]
+      : AUTH_ERROR_CODE['Callback']
+  }
+
   const handleResetOAuthError = () => {
     const newQuery = Object.assign({}, router.query)
 
@@ -293,10 +314,7 @@ const AuthLoginPage = () => {
                   sx={{ width: '100%', py: 3, mt: 4, ...bgColors.errorLight, '& .MuiAlert-message': { p: 0 } }}
                 >
                   <Typography variant='caption' color='error.main'>
-                    Error:{' '}
-                    <strong>
-                      Email has already been used. Please try another email or login with your existing account
-                    </strong>
+                    Error: <strong>{getAuthErrorMessage(authError)}</strong>
                   </Typography>
                 </Alert>
               )}

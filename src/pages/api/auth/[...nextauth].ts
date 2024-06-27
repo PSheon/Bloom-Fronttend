@@ -128,19 +128,19 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ account, profile }) {
       if (account && account.provider === 'google' && profile && 'email_verified' in profile) {
-        if (!profile.email && !profile.email_verified) return false
+        if (!profile.email && !profile.email_verified) return '/auth/login?error=GoogleEmailNotVerified'
       }
 
-      if (account && account.provider === 'facebook' && profile && 'email_verified' in profile) {
-        if (!profile.email && !profile.email_verified) return false
+      if (account && account.provider === 'facebook' && profile && 'email' in profile) {
+        if (!profile.email) return '/auth/login?error=FacebookEmailNotVerified'
       }
 
-      if (account && account.provider === 'discord' && profile && 'email' in profile && 'verify' in profile) {
-        if (!profile.email || !profile.verify) return false
+      if (account && account.provider === 'discord' && profile && 'email' in profile && 'verified' in profile) {
+        if (!profile.email || !profile.verified) return '/auth/login?error=DiscordEmailNotVerified'
       }
 
-      if (account && account.provider === 'microsoft' && profile && 'email' in profile) {
-        if (!profile.email) return false
+      if (account && account.provider === 'azure-ad' && profile && 'email' in profile) {
+        if (!profile.email) return '/auth/login?error=MicrosoftEmailNotVerified'
       }
 
       return true
