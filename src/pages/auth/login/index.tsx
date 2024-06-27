@@ -161,7 +161,10 @@ const AuthLoginPage = () => {
 
   // ** Vars
   // TODO: fix this custom error later
+  const returnUrl = searchParams.get('returnUrl')
   const authError = searchParams.get('error')
+
+  const callbackUrl = returnUrl?.match(/\/points\/\?referral-id=[23456789A-HJ-NP-Z]{8}/gi) ? returnUrl : '/portfolio'
 
   // ** Logics
   const handleResetOAuthError = () => {
@@ -178,23 +181,21 @@ const AuthLoginPage = () => {
     e.preventDefault()
     setIsLoginGoogleLoading(true)
 
-    // await signIn('google', { callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/auth/callback/google` })
-    await signIn('google', { callbackUrl: '/portfolio' })
+    await signIn('google', { callbackUrl })
   }
 
   const handleLoginFacebook = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
     setIsLoginFacebookLoading(true)
 
-    await signIn('facebook', { callbackUrl: '/portfolio' })
+    await signIn('facebook', { callbackUrl })
   }
 
   const handleLoginDiscord = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
     setIsLoginDiscordLoading(true)
 
-    // await signIn('discord', { callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/auth/discord/callback` })
-    await signIn('discord', { callbackUrl: '/portfolio' })
+    await signIn('discord', { callbackUrl })
   }
 
   const handleLoginMicrosoft = async (e: MouseEvent<HTMLElement>) => {
@@ -206,7 +207,7 @@ const AuthLoginPage = () => {
     //   { callbackUrl: `${process.env.NEXT_PUBLIC_FRONTEND_URL}/api/auth/azure-ad/callback` },
     //   { prompt: 'login' }
     // )
-    await signIn('azure-ad', { callbackUrl: '/portfolio' }, { prompt: 'login' })
+    await signIn('azure-ad', { callbackUrl }, { prompt: 'login' })
   }
 
   // const onSubmit = async (data: FormData) => {

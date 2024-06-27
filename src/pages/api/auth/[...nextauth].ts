@@ -146,8 +146,8 @@ export const authOptions: NextAuthOptions = {
       return true
     },
 
-    async redirect() {
-      return '/portfolio'
+    async redirect({ url }) {
+      return url
     },
 
     async session({ session, token }) {
