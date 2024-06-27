@@ -30,6 +30,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** API Imports
+import { useFindMeOneQuery } from 'src/store/api/management/user'
 import { useFindMeQuery } from 'src/store/api/management/wallet'
 
 // ** Util Imports
@@ -75,6 +76,8 @@ const UserDropdown = (props: Props) => {
   const { openConnectModal } = useConnectModal()
   const { openAccountModal } = useAccountModal()
   const walletAccount = useAccount()
+
+  const { data: MeUserEntity } = useFindMeOneQuery(null)
 
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
@@ -267,7 +270,7 @@ const UserDropdown = (props: Props) => {
         }}
       >
         <Avatar
-          alt={session.data!.user?.username}
+          alt={MeUserEntity?.username || 'User'}
           onClick={handleDropdownOpen}
           sx={{
             width: 32,
@@ -275,7 +278,7 @@ const UserDropdown = (props: Props) => {
             boxShadow: theme => theme.shadows[9],
             border: theme => `4px solid ${lighten(theme.palette.background.paper, 0.1)}`
           }}
-          src={getPublicMediaAssetUrl(session.data!.user?.avatar?.url)}
+          src={getPublicMediaAssetUrl(MeUserEntity?.avatar?.url)}
         />
       </Badge>
       <Menu
@@ -297,8 +300,8 @@ const UserDropdown = (props: Props) => {
               }}
             >
               <Avatar
-                alt={session.data!.user?.username}
-                src={getPublicMediaAssetUrl(session.data!.user?.avatar?.url)}
+                alt={MeUserEntity?.username || 'User'}
+                src={getPublicMediaAssetUrl(MeUserEntity?.avatar?.url)}
                 sx={{
                   width: '2.5rem',
                   height: '2.5rem',
