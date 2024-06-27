@@ -52,6 +52,12 @@ interface NoResultProps {
 }
 interface DefaultSuggestionsType {
   category: string
+  sizes: {
+    xs: number
+    sm?: number
+    md?: number
+    lg?: number
+  }
   suggestions: {
     link: string
     icon: string
@@ -233,7 +239,7 @@ const Dialog = styled(MuiDialog)({
     overflow: 'hidden',
     '&:not(.MuiDialog-paperFullScreen)': {
       height: '100%',
-      maxHeight: 550
+      maxHeight: 420
     }
   }
 })
@@ -303,12 +309,24 @@ const DefaultSuggestions = ({ setOpenDialog }: DefaultSuggestionsProps) => {
   const defaultSuggestionsData: DefaultSuggestionsType[] = [
     {
       category: 'Popular Searches',
+      sizes: {
+        xs: 12
+      },
       suggestions: [
         {
           icon: 'mdi:strategy',
           suggestion: 'Public.Funds & Strategies',
           link: '/fund/list'
-        },
+        }
+      ]
+    },
+    {
+      category: 'Me',
+      sizes: {
+        xs: 12,
+        sm: 6
+      },
+      suggestions: [
         {
           icon: 'mdi:chart-pie-outline',
           suggestion: 'Portfolio',
@@ -316,18 +334,17 @@ const DefaultSuggestions = ({ setOpenDialog }: DefaultSuggestionsProps) => {
         },
         {
           icon: 'mdi:progress-star-four-points',
-          suggestion: 'Me.Points',
+          suggestion: 'Points',
           link: '/points'
-        },
-        {
-          icon: 'mdi:account-outline',
-          suggestion: 'Account',
-          link: '/account'
         }
       ]
     },
     {
       category: 'General',
+      sizes: {
+        xs: 12,
+        sm: 6
+      },
       suggestions: [
         {
           icon: 'mdi:account-outline',
@@ -351,7 +368,7 @@ const DefaultSuggestions = ({ setOpenDialog }: DefaultSuggestionsProps) => {
   return (
     <Grid container spacing={6} sx={{ ml: 0 }}>
       {defaultSuggestionsData.map((item, index) => (
-        <Grid item xs={12} sm={6} key={index}>
+        <Grid item xs={item.sizes.xs} sm={item.sizes.sm} key={index}>
           <Typography component='p' variant='overline' color='text.disabled' sx={{ lineHeight: 1.25 }}>
             {item.category}
           </Typography>
@@ -401,11 +418,9 @@ const PageSearch = ({ hidden, settings }: Props) => {
 
   // ** Vars
   const categoryTitle: { [k: string]: string } = {
-    dashboards: 'Dashboards',
-    appsPages: 'Apps & Pages',
-    userInterface: 'User Interface',
-    formsTables: 'Forms & Tables',
-    chartsMisc: 'Charts & Misc'
+    public: 'Public',
+    me: 'Me',
+    general: 'General'
   }
 
   // ** Logics
@@ -508,7 +523,7 @@ const PageSearch = ({ hidden, settings }: Props) => {
                           overflow: 'auto',
                           maxHeight: 'calc(100vh - 69px)',
                           borderTop: `1px solid ${theme.palette.divider}`,
-                          height: fullScreenDialog ? 'calc(100vh - 69px)' : 481,
+                          height: fullScreenDialog ? 'calc(100vh - 69px)' : 360,
                           '& .MuiListSubheader-root': { p: theme.spacing(3.75, 6, 0.75) }
                         }
                       : {
