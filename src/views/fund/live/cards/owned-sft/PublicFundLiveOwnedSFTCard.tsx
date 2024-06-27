@@ -23,7 +23,7 @@ import IconButton from '@mui/material/IconButton'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
-import { useAccount, useDisconnect, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { ExactNumber as N } from 'exactnumber'
 import { Atropos } from 'atropos/react'
 import format from 'date-fns/format'
@@ -119,7 +119,6 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const theme = useTheme()
   const bgColors = useBgColor()
   const walletAccount = useAccount()
-  const { disconnectAsync } = useDisconnect()
 
   const { data: meUserData } = useFindMeOneQuery(null)
 
@@ -301,10 +300,6 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const handleOpenStakeSFTDialog = () => setIsStakeSFTDialogOpen(() => true)
   const handleCloseStakeSFTDialog = () => setIsStakeSFTDialogOpen(() => false)
   const handleCloseTransactionErrorDrawer = () => setTransactionError(() => null)
-
-  const handleDisconnect = async () => {
-    await disconnectAsync()
-  }
 
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address)
@@ -617,9 +612,10 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                         variant='outlined'
                         sx={{ p: 1.5, minWidth: 38 }}
                         color='secondary'
-                        onClick={handleDisconnect}
+                        component={Link}
+                        href='/account'
                       >
-                        <Icon icon='mdi:logout' fontSize={20} />
+                        <Icon icon='mdi:verified-user' fontSize={20} />
                       </Button>
                     </Stack>
                   </Stack>

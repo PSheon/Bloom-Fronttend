@@ -29,14 +29,7 @@ import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
 
 // ** Third-Party Imports
-import {
-  useAccount,
-  useAccountEffect,
-  useDisconnect,
-  useReadContract,
-  useWriteContract,
-  useWaitForTransactionReceipt
-} from 'wagmi'
+import { useAccount, useAccountEffect, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { ExactNumber as N } from 'exactnumber'
 import { Atropos } from 'atropos/react'
 import { motion, AnimatePresence } from 'framer-motion'
@@ -132,7 +125,6 @@ const PublicFundLivePackageCard = (props: Props) => {
   const theme = useTheme()
   const bgColors = useBgColor()
   const walletAccount = useAccount()
-  const { disconnectAsync } = useDisconnect()
 
   const {
     data: payTokenBalance,
@@ -238,10 +230,6 @@ const PublicFundLivePackageCard = (props: Props) => {
   const handleOpenMintSFTDialog = () => setIsMintSFTDialogOpen(() => true)
   const handleCloseMintSFTDialog = () => setIsMintSFTDialogOpen(() => false)
   const handleCloseTransactionErrorDrawer = () => setTransactionError(() => null)
-
-  const handleDisconnect = async () => {
-    await disconnectAsync()
-  }
 
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address)
@@ -652,9 +640,10 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 variant='outlined'
                                 sx={{ p: 1.5, minWidth: 38 }}
                                 color='secondary'
-                                onClick={handleDisconnect}
+                                component={Link}
+                                href='/account'
                               >
-                                <Icon icon='mdi:logout' fontSize={20} />
+                                <Icon icon='mdi:verified-user' fontSize={20} />
                               </Button>
                             </Stack>
                           </Stack>
@@ -788,9 +777,10 @@ const PublicFundLivePackageCard = (props: Props) => {
                                 variant='outlined'
                                 sx={{ p: 1.5, minWidth: 38 }}
                                 color='secondary'
-                                onClick={handleDisconnect}
+                                component={Link}
+                                href='/account'
                               >
-                                <Icon icon='mdi:logout' fontSize={20} />
+                                <Icon icon='mdi:verified-user' fontSize={20} />
                               </Button>
                             </Stack>
                           </Stack>
