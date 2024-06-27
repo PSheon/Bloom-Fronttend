@@ -10,6 +10,9 @@ import type {
   FindMePointRecordsParamsType,
   FindMePointRecordsTransformResponseType,
   FindMePointRecordsResponseType,
+  FindMeStatisticsPointRecordsParamsType,
+  FindMeStatisticsPointRecordsTransformResponseType,
+  FindMeStatisticsPointRecordsResponseType,
   FindPointRecordsParamsType,
   FindPointRecordsTransformResponseType,
   FindPointRecordsResponseType,
@@ -48,6 +51,14 @@ export const pointRecordApi = createApi({
         }))
       })
     }),
+    findMeStatistics: builder.query<FindMeStatisticsPointRecordsResponseType, FindMeStatisticsPointRecordsParamsType>({
+      query: () => ({
+        url: `/api/point-records/me/statistics`,
+        method: 'GET'
+      }),
+      providesTags: ['PointRecord'],
+      transformResponse: (responseData: FindMeStatisticsPointRecordsTransformResponseType) => responseData
+    }),
     find: builder.query<FindPointRecordsResponseType, FindPointRecordsParamsType>({
       query: params => ({
         url: `/api/point-records?${qs.stringify({
@@ -81,5 +92,5 @@ export const pointRecordApi = createApi({
   })
 })
 
-export const { useFindMeQuery, useFindQuery, useUpdateOneMutation } = pointRecordApi
+export const { useFindMeQuery, useFindMeStatisticsQuery, useFindQuery, useUpdateOneMutation } = pointRecordApi
 export default pointRecordApi

@@ -18,6 +18,7 @@ export type FindMePointRecordsParamsType = {
   filters: Partial<{
     isActive: boolean
     isHighlighted: boolean
+    createdAt: string | number | { [key: string]: string }
   }>
   sort?: string[]
   pagination: {
@@ -32,6 +33,17 @@ export type FindMePointRecordsTransformResponseType = BaseApiResponseType<
   }[]
 >
 export type FindMePointRecordsResponseType = BaseApiResponseType<PointRecordType[]>
+
+// ** Find Me Statistics
+export type FindMeStatisticsPointRecordsParamsType = null
+export type FindMeStatisticsPointRecordsTransformResponseType = {
+  totalReferrals: number
+  totalCompletedTasks: number
+}
+export type FindMeStatisticsPointRecordsResponseType = {
+  totalReferrals: number
+  totalCompletedTasks: number
+}
 
 // ** Find
 export type FindPointRecordsParamsType = {

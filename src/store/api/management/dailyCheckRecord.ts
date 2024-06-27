@@ -3,7 +3,12 @@ import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react'
 
 // ** Third-Party Imports
 import qs from 'qs'
+import toast from 'react-hot-toast'
 import { getSession } from 'next-auth/react'
+
+// ** API Imports
+import { userApi } from 'src/store/api/management/user'
+import { pointRecordApi } from 'src/store/api/management/pointRecord'
 
 // ** Type Imports
 import type {
@@ -43,7 +48,16 @@ export const dailyCheckRecordApi = createApi({
         method: 'POST'
       }),
       invalidatesTags: ['DailyCheckRecord'],
-      transformResponse: (responseData: DailyCheckTransformResponseType) => responseData
+      transformResponse: (responseData: DailyCheckTransformResponseType) => responseData,
+      async onQueryStarted(params, { dispatch, queryFulfilled }) {
+        try {
+          await queryFulfilled
+          dispatch(userApi.util.invalidateTags(['Me']))
+          dispatch(pointRecordApi.util.invalidateTags(['PointRecord']))
+        } catch (err) {
+          toast.error('Error fetching post!')
+        }
+      }
     }),
     findMe: builder.query<FindMeDailyCheckRecordsResponseType, FindMeDailyCheckRecordsParamsType>({
       query: params => ({
