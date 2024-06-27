@@ -75,10 +75,10 @@ const StyledToolbar = styled(Toolbar)<ToolbarProps>(({ theme }) => ({
 
 const StyledLink = styled(Link)(({ theme }) => ({
   fontWeight: 500,
-  fontSize: '.8rem',
+  fontSize: '1rem',
   cursor: 'pointer',
   textDecoration: 'none',
-  color: theme.palette.text.secondary,
+  color: theme.palette.text.primary,
   '&:hover': {
     color: theme.palette.primary.main
   }
@@ -158,7 +158,7 @@ const CommonAppBar = () => {
         <Stack direction='row' alignItems='center' justifyContent='space-between' sx={{ width: '100%' }}>
           <Stack direction='row' spacing={4} alignItems='center' className='actions-left'>
             {hidden ? (
-              <Box sx={{ display: 'flex', alignItems: 'center' }}>
+              <Stack direction='row' alignItems='center'>
                 <IconButton color='inherit' sx={{ ml: -2.75 }} onClick={handleOpenNav}>
                   <Icon icon='mdi:menu' />
                 </IconButton>
@@ -167,25 +167,25 @@ const CommonAppBar = () => {
                     <LogoImage width={32} height={32} />
                   </Stack>
                 </Link>
-              </Box>
+              </Stack>
             ) : (
-              <Stack direction='row' spacing={2} alignItems='center'>
-                <Link href='/'>
+              <Link href='/' style={{ textDecoration: 'none' }}>
+                <Stack direction='row' spacing={2} alignItems='center'>
                   <Stack alignItems='center' justifyContent='center'>
                     <LogoImage width={32} height={32} />
                   </Stack>
-                </Link>
-                <Typography variant='subtitle1' component='span' sx={{ ml: 2, fontWeight: 600 }}>
-                  {themeConfig.templateName}
-                </Typography>
-              </Stack>
+                  <Typography variant='h6' component='span' sx={{ fontWeight: 600 }}>
+                    {themeConfig.templateName}
+                  </Typography>
+                </Stack>
+              </Link>
             )}
-            {!hidden ? (
-              <Stack direction='row' spacing={2} alignItems='center' className='actions-left'>
-                <StyledLink href='/article'>Article</StyledLink>
-              </Stack>
-            ) : null}
           </Stack>
+          {!hidden ? (
+            <Stack direction='row' flex='1' spacing={6} alignItems='center' justifyContent='center'>
+              <StyledLink href='/article'>Article</StyledLink>
+            </Stack>
+          ) : null}
           <Stack direction='row' spacing={2} alignItems='center' className='actions-right'>
             {!hidden ? (
               <Stack direction='row' spacing={2} alignItems='center' className='actions-left'>
