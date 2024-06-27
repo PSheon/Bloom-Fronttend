@@ -4,13 +4,15 @@ import Grid from '@mui/material/Grid'
 // ** Custom Component Imports
 import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import PointsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
-import MePointsLevelCard from 'src/views/points/cards/MePointsLevelCard'
+import MePointsLevelCard from 'src/views/points/cards/me-points-level-card'
 import MePointsInvitationCard from 'src/views/points/cards/MePointsInvitationCard'
 import MePointsStatisticsCard from 'src/views/points/cards/MePointsStatisticsCard'
 import MePointsRecordChartCard from 'src/views/points/cards/MePointsRecordChartCard'
-import MePointsTeamMembersCard from 'src/views/points/cards/MePointsTeamMembersCard'
+
+// import MePointsTeamMembersCard from 'src/views/points/cards/MePointsTeamMembersCard'
 import MeEarningRecordListCard from 'src/views/points/cards/MeEarningRecordListCard'
 
+// TODO: Fill here later
 const PointsSection = () => {
   return (
     <ApexChartWrapper>
@@ -33,12 +35,12 @@ const PointsSection = () => {
             <Grid item xs={12}>
               <MePointsStatisticsCard />
             </Grid>
-            <Grid item xs={12} md={7}>
+            <Grid item xs={12}>
               <MePointsRecordChartCard />
             </Grid>
-            <Grid item xs={12} md={5}>
+            {/* <Grid item xs={12} md={5}>
               <MePointsTeamMembersCard />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <MeEarningRecordListCard />
             </Grid>

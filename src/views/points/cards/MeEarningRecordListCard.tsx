@@ -62,8 +62,8 @@ const MeEarningRecordListCard = () => {
     {
       field: 'earningExp',
       display: 'flex',
-      minWidth: 180,
-      headerName: 'Earning Experience',
+      minWidth: 120,
+      headerName: 'Experience',
       renderCell: ({ row }: GridRenderCellParams<PointRecordType>) => (
         <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {row.earningExp}
@@ -73,8 +73,8 @@ const MeEarningRecordListCard = () => {
     {
       field: 'earningPoints',
       display: 'flex',
-      minWidth: 180,
-      headerName: 'Earning Points',
+      minWidth: 120,
+      headerName: 'Points',
       renderCell: ({ row }: GridRenderCellParams<PointRecordType>) => (
         <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {row.earningPoints}

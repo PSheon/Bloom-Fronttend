@@ -1,11 +1,11 @@
 // ** MUI Imports
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
-import Backdrop from '@mui/material/Backdrop'
+import Skeleton from '@mui/material/Skeleton'
 
 // ** Custom Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -13,65 +13,20 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-// ** Type Imports
-import type { ThemeColor } from 'src/@core/layouts/types'
-
-interface SaleDataType {
-  icon: string
-  stats: string
-  title: string
-  color: ThemeColor
-}
-
-const salesData: SaleDataType[] = [
-  {
-    stats: '8,458',
-    color: 'primary',
-    title: 'Customers',
-    icon: 'mdi:account-outline'
-  },
-  {
-    stats: '$28.5k',
-    color: 'warning',
-    icon: 'mdi:poll',
-    title: 'Total Profit'
-  },
-  {
-    color: 'info',
-    stats: '2,450k',
-    title: 'Transactions',
-    icon: 'mdi:trending-up'
-  }
-]
-
-const renderStats = () => {
-  return salesData.map((sale: SaleDataType, index: number) => (
-    <Grid item xs={12} sm={4} key={index}>
-      <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
-        <CustomAvatar skin='light' variant='rounded' color={sale.color} sx={{ mr: 4 }}>
-          <Icon icon={sale.icon} />
-        </CustomAvatar>
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
-          <Typography variant='h6' sx={{ fontWeight: 600 }}>
-            {sale.stats}
-          </Typography>
-          <Typography variant='caption'>{sale.title}</Typography>
-        </Box>
-      </Box>
-    </Grid>
-  ))
-}
+// ** API Imports
+import { useFindMeStatisticsQuery } from 'src/store/api/management/pointRecord'
 
 /* TODO: fix here later */
 const MePointsStatisticsCard = () => {
+  // ** Hooks
+  const { data: meStatisticsData, isLoading: isFindMeStatisticsDataLoading } = useFindMeStatisticsQuery(null)
+
+  // ** Vars
+  const totalReferrals = meStatisticsData?.totalReferrals || 0
+  const totalCompletedTasks = meStatisticsData?.totalCompletedTasks || 0
+
   return (
-    <Card sx={{ position: 'relative' }}>
-      <Backdrop
-        sx={{ position: 'absolute', color: 'common.white', zIndex: theme => theme.zIndex.mobileStepper - 1 }}
-        open
-      >
-        <Typography>Coming soon</Typography>
-      </Backdrop>
+    <Card>
       <CardHeader
         title={
           <Typography variant='h6' component='h3'>
@@ -79,7 +34,7 @@ const MePointsStatisticsCard = () => {
           </Typography>
         }
         subheader={
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Stack direction='row' alignItems='center'>
             <Typography variant='caption' sx={{ mr: 1.5 }}>
               Total 42.5k Sales
             </Typography>
@@ -87,12 +42,45 @@ const MePointsStatisticsCard = () => {
               +18%
             </Typography>
             <Icon icon='mdi:chevron-up' fontSize='1.25rem' />
-          </Box>
+          </Stack>
         }
       />
       <CardContent>
         <Grid container spacing={6}>
-          {renderStats()}
+          <Grid item xs={12} sm={6}>
+            <Stack direction='row' spacing={4} alignItems='center'>
+              <CustomAvatar skin='light' variant='rounded' color='primary'>
+                <Icon icon='mdi:account-outline' />
+              </CustomAvatar>
+              <Stack>
+                {isFindMeStatisticsDataLoading ? (
+                  <Skeleton variant='text' width={100} height={32} />
+                ) : (
+                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                    {totalReferrals}
+                  </Typography>
+                )}
+                <Typography variant='caption'>Total Referrals</Typography>
+              </Stack>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Stack direction='row' spacing={4} alignItems='center'>
+              <CustomAvatar skin='light' variant='rounded' color='warning'>
+                <Icon icon='mdi:poll' />
+              </CustomAvatar>
+              <Stack>
+                {isFindMeStatisticsDataLoading ? (
+                  <Skeleton variant='text' width={100} height={32} />
+                ) : (
+                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                    {totalCompletedTasks}
+                  </Typography>
+                )}
+                <Typography variant='caption'>Total Completed Tasks</Typography>
+              </Stack>
+            </Stack>
+          </Grid>
         </Grid>
       </CardContent>
     </Card>
