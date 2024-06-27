@@ -81,7 +81,7 @@ const ManagementFundEditVaultStatisticsCard = (props: Props) => {
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initFundEntity.vault.contractAbi,
     address: initFundEntity.vault.contractAddress as `0x${string}`,
-    functionName: 'totalValueLocked',
+    functionName: 'totalValueClaimed',
     args: [],
     account: walletAccount.address!,
     query: {
@@ -175,7 +175,13 @@ const ManagementFundEditVaultStatisticsCard = (props: Props) => {
               ) : (
                 <Stack alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
-                    {typeof totalValueLocked === 'bigint' ? getFormattedPriceUnit(totalValueLocked) : '0'}
+                    {/* {typeof totalValueLocked === 'bigint' ? getFormattedPriceUnit(totalValueLocked) : '0'} */}
+
+                    {`${fundBaseCurrencyProperties.symbol} ${
+                      typeof totalValueLocked === 'bigint'
+                        ? getFormattedPriceUnit(N(totalValueLocked).div(N(10).pow(18)).toNumber())
+                        : 0n
+                    } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>
                   <Typography variant='caption'>Total Value Locked</Typography>
                 </Stack>
@@ -185,7 +191,7 @@ const ManagementFundEditVaultStatisticsCard = (props: Props) => {
           <Grid item xs={12} sm={4}>
             <Stack direction='row' spacing={4} alignItems='center'>
               <CustomAvatar skin='light' variant='rounded' color='warning'>
-                <Icon icon='mdi:percent-outline' />
+                <Icon icon='mdi:hand-coin-outline' />
               </CustomAvatar>
               {isTotalValueClaimedLoading || isTotalValueClaimedFetching ? (
                 <Stack alignItems='flex-start' justifyContent='center'>
@@ -201,7 +207,7 @@ const ManagementFundEditVaultStatisticsCard = (props: Props) => {
                         : 0n
                     } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>
-                  <Typography variant='caption'>Balance</Typography>
+                  <Typography variant='caption'>Total Value Claimed</Typography>
                 </Stack>
               )}
             </Stack>

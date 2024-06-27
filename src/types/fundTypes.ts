@@ -33,9 +33,9 @@ export type FundType = {
   genesisDate: Date
   saleStartTime: Date
   maturityDate: Date
+  estimatedAPY: number
   performanceFeePercentage: number
   redemptionFrequencyInDays: number
-  estimatedAPY: number
   defaultPackages?: {
     data: {
       id: number
@@ -120,6 +120,7 @@ export type UpdateOneFundParamsType = {
     description: string
     saleStartTime: Date
     maturityDate: Date
+    estimatedAPY: number
     performanceFeePercentage: number
     redemptionFrequencyInDays: number
     detail: OutputData

@@ -181,7 +181,11 @@ const ManagementFundEditTokenStatisticsCard = (props: Props) => {
               ) : (
                 <Stack alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
-                    {typeof totalNetValue === 'bigint' ? getFormattedPriceUnit(totalNetValue) : '0'}
+                    {`${fundBaseCurrencyProperties.symbol} ${
+                      typeof totalNetValue === 'bigint'
+                        ? getFormattedPriceUnit(N(totalNetValue).div(N(10).pow(18)).toNumber())
+                        : 0n
+                    } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>
                   <Typography variant='caption'>Total Net Value</Typography>
                 </Stack>

@@ -112,7 +112,7 @@ const ManagementFundEditSecurityActivityLogListCard = (props: Props) => {
     {
       field: 'user',
       display: 'flex',
-      minWidth: 160,
+      minWidth: 200,
       headerName: '操作人員',
       renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const user = {
@@ -135,7 +135,7 @@ const ManagementFundEditSecurityActivityLogListCard = (props: Props) => {
                 variant='rounded'
                 sx={{ width: 34, height: 34, fontSize: '1rem' }}
               >
-                {getInitials(user.username ? user.username : 'John Doe')}
+                {getInitials(user.username ? user.username : 'User')}
               </CustomAvatar>
             )}
             <Stack alignItems='flex-start'>
