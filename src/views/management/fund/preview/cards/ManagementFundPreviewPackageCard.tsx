@@ -5,7 +5,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 
 // ** MUI Components
-import { styled, useTheme } from '@mui/material/styles'
+import { styled, useTheme, alpha } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -497,18 +497,33 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
           >
             <Grid container spacing={4}>
               <Grid item xs={12}>
-                <StepperWrapper>
-                  <Stepper activeStep={activeMintStep}>
+                <StepperWrapper sx={{ position: 'relative' }}>
+                  <Stack
+                    alignItems='center'
+                    justifyContent='center'
+                    sx={{ position: 'absolute', width: 'calc(25% - 16px)', height: '24px' }}
+                  >
+                    <Box sx={{ width: '100%', height: '3px', backgroundColor: theme => theme.palette.primary.main }} />
+                  </Stack>
+                  <Stack
+                    alignItems='center'
+                    justifyContent='center'
+                    sx={{ position: 'absolute', right: 0, width: 'calc(25% - 16px)', height: '24px' }}
+                  >
+                    <Box
+                      sx={{
+                        width: '100%',
+                        height: '3px',
+                        backgroundColor:
+                          activeMintStep === 2 ? theme.palette.primary.main : alpha(theme.palette.primary.main, 0.3)
+                      }}
+                    />
+                  </Stack>
+                  <Stepper alternativeLabel activeStep={activeMintStep}>
                     {STEPS.filter(step => step.show).map((step, index) => (
                       <Step key={`preview-package-mint-${index}`}>
                         <StepLabel StepIconComponent={ManagementFundPreviewPackageMintStepperDotBox}>
-                          <Box className='step-label'>
-                            <Typography className='step-number'>{`0${index + 1}`}</Typography>
-                            <Box>
-                              <Typography className='step-title'>{step.title}</Typography>
-                              <Typography className='step-subtitle'>{step.subtitle}</Typography>
-                            </Box>
-                          </Box>
+                          {step.title}
                         </StepLabel>
                       </Step>
                     ))}
@@ -598,7 +613,12 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               </Typography>
                             </Stack>
                             <Stack alignItems='center' justifyContent='center'>
-                              <Typography variant='h5' component='p' sx={{ fontWeight: 600 }}>
+                              <Typography variant='h4' component='p' sx={{ fontWeight: 600 }}>
+                                {`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                                  N(initPackageEntity.priceInUnit).mul(mintQuantity).toNumber()
+                                )} ${fundBaseCurrencyProperties.currency}`}
+                              </Typography>
+                              <Typography variant='h6' component='p' color='text.secondary' sx={{ fontWeight: 600 }}>
                                 {`x ${mintQuantity}`}
                               </Typography>
                             </Stack>
@@ -646,26 +666,6 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               >{`${initFundEntity.performanceFeePercentage} %`}</Typography>
                             </Stack>
                           </Stack>
-                        </Stack>
-
-                        <Stack
-                          alignSelf='stretch'
-                          alignItems='center'
-                          justifyContent='center'
-                          sx={{ color: 'text.secondary' }}
-                        >
-                          <Icon icon='mdi:arrow-down-circle-outline' fontSize={28} />
-                        </Stack>
-
-                        <Stack alignSelf='stretch' alignItems='center' justifyContent='center'>
-                          <Typography variant='h4' component='p' sx={{ fontWeight: 600 }}>
-                            {`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                              N(initPackageEntity.priceInUnit).mul(mintQuantity).toNumber()
-                            )} ${fundBaseCurrencyProperties.currency}`}
-                          </Typography>
-                          <Typography variant='body2' component='p'>
-                            total price
-                          </Typography>
                         </Stack>
                       </Stack>
                     </motion.div>
