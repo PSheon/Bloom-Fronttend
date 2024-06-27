@@ -117,7 +117,7 @@ const MediaAssetUploader = () => {
         onClick={handleOpen}
       >
         <Typography whiteSpace='nowrap' color='inherit'>
-          上傳
+          Upload
         </Typography>
       </Button>
 
@@ -139,9 +139,9 @@ const MediaAssetUploader = () => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          上傳檔案
+          Upload Media Asset
           <DialogContentText variant='body2' component='p' sx={{ textAlign: 'center' }}>
-            上傳圖片或者檔案
+            Upload an image or file
           </DialogContentText>
         </DialogTitle>
         <DialogContent
@@ -178,7 +178,7 @@ const MediaAssetUploader = () => {
                           startIcon={<Icon icon='mdi:delete-outline' />}
                           onClick={handleRemoveFiles}
                         >
-                          移除
+                          Remove
                         </Button>
                       </Box>
                       <Box sx={{ position: 'absolute', right: 20, bottom: 20 }}>
@@ -188,21 +188,25 @@ const MediaAssetUploader = () => {
                   )
                 })
               ) : (
-                <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+                <Stack textAlign='center'>
                   <Typography
                     variant='h5'
+                    component='p'
                     color='text.primary'
                     sx={{ mb: 5, '& a': { color: 'primary.main', textDecoration: 'none' } }}
                   >
-                    將檔案拖放到此處或{' '}
+                    Drag and drop an file here
+                    <br />
+                    or
+                    <br />
                     <Link href='/' onClick={e => e.preventDefault()}>
-                      點擊瀏覽
+                      Click to browse
                     </Link>{' '}
-                    您的文件夾
+                    Click to browse
                   </Typography>
-                  <Typography color='textSecondary'>支援JPG、PNG、PDF、Word、PPT</Typography>
-                  <Typography color='textSecondary'>每個檔案大小限制為20MB</Typography>
-                </Box>
+                  <Typography color='text.secondary'>Accept JPG/PNG/PDF/Word/PPT</Typography>
+                  <Typography color='text.secondary'>Each file size should be less than 20MB</Typography>
+                </Stack>
               )}
             </Box>
           </DropzoneWrapper>
