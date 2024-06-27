@@ -80,15 +80,15 @@ const NotificationListPage = () => {
     {
       field: 'id',
       maxWidth: 60,
-      headerName: '# ID',
+      headerName: '#',
       renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
         <LinkStyled href={`/notification/read/${row.id}`}>{`#${row.id}`}</LinkStyled>
       )
     },
     {
       field: 'title',
-      minWidth: 350,
-      headerName: '標題',
+      minWidth: 550,
+      headerName: 'Title',
       renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
         <LinkStyled
           href={`/notification/read/${row.id}`}
@@ -102,7 +102,7 @@ const NotificationListPage = () => {
       field: 'createdAt',
       display: 'flex',
       minWidth: 125,
-      headerName: '通知日期',
+      headerName: 'Date',
       renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
         <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
           {format(new Date(row.createdAt), 'MM/dd/yyyy')}
@@ -114,24 +114,24 @@ const NotificationListPage = () => {
       field: 'isSeen',
       display: 'flex',
       minWidth: 120,
-      headerName: '閱讀狀態',
+      headerName: 'Status',
       renderCell: ({ row }: GridRenderCellParams<NotificationType>) => (
         <CustomChip
           skin='light'
           size='small'
           rounded
-          label={row.isSeen ? '已閱讀' : '未閱讀'}
+          label={row.isSeen ? 'Seen' : 'Not seen'}
           color={row.isSeen ? 'success' : 'warning'}
           sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
         />
       ),
-      valueGetter: (data: NotificationType['isSeen']) => (data ? '已閱讀' : '未閱讀')
+      valueGetter: (data: NotificationType['isSeen']) => (data ? 'Seen' : 'Not Seen')
     },
     {
       field: 'actions',
       display: 'flex',
       minWidth: 130,
-      headerName: '操作',
+      headerName: 'Actions',
       sortable: false,
       disableColumnMenu: true,
       disableExport: true,

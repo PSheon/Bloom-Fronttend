@@ -46,7 +46,7 @@ const NotificationReadOverviewContentEditorCard = (props: Props) => {
   return (
     <StyledRootCard>
       <CardHeader
-        title='內容'
+        title='Content'
         action={
           <Stack direction='row' spacing={4}>
             <LoadingButton
@@ -56,7 +56,7 @@ const NotificationReadOverviewContentEditorCard = (props: Props) => {
               size='small'
               onClick={handleSeen}
             >
-              {initNotificationEntity.isSeen ? '已閱讀' : '標為已閱讀'}
+              {initNotificationEntity.isSeen ? 'Seen' : 'Mark as seen'}
             </LoadingButton>
           </Stack>
         }

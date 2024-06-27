@@ -54,7 +54,7 @@ const NotificationListHeaderCardContent = (props: Props) => {
               size='small'
               fullWidth
               value={filteredNotificationTitle}
-              placeholder='尋找通知名稱'
+              placeholder='Search notification title'
               onChange={handleFilterNotificationTitle}
               InputProps={{
                 startAdornment: <InputAdornment position='start'>{<Icon icon='mdi:magnify' />}</InputAdornment>
@@ -70,7 +70,7 @@ const NotificationListHeaderCardContent = (props: Props) => {
                 onClick={handleFiltersClick}
               >
                 <Typography whiteSpace='nowrap' color='inherit'>
-                  篩選
+                  Filters
                 </Typography>
               </Button>
             ) : (
@@ -78,6 +78,7 @@ const NotificationListHeaderCardContent = (props: Props) => {
                 color={isShowFilters ? 'primary' : 'secondary'}
                 variant={isShowFilters ? 'contained' : 'outlined'}
                 onClick={handleFiltersClick}
+                sx={{ p: 1.5, minWidth: 38 }}
               >
                 <Icon icon='mdi:filter-outline' fontSize={20} />
               </Button>
@@ -87,19 +88,19 @@ const NotificationListHeaderCardContent = (props: Props) => {
         <Collapse in={isShowFilters} timeout='auto' unmountOnExit>
           <Stack spacing={4} direction='row'>
             <FormControl fullWidth size='small'>
-              <InputLabel id='select-is-seen-label'>篩選狀態</InputLabel>
+              <InputLabel id='select-is-seen-label'>Status</InputLabel>
               <Select
                 fullWidth
                 value={filteredIsSeen}
                 id='select-is-seen'
-                label='篩選狀態'
+                label='Status'
                 labelId='select-is-seen-label'
                 onChange={handleFilterIsSeenChange}
-                inputProps={{ placeholder: '篩選狀態' }}
+                inputProps={{ placeholder: 'Status' }}
               >
-                <MenuItem value='all'>所有狀態</MenuItem>
-                <MenuItem value='isSeen'>已閱讀</MenuItem>
-                <MenuItem value='isNotSeen'>未閱讀</MenuItem>
+                <MenuItem value='all'>All</MenuItem>
+                <MenuItem value='isSeen'>Seen</MenuItem>
+                <MenuItem value='isNotSeen'>Not Seen</MenuItem>
               </Select>
             </FormControl>
           </Stack>

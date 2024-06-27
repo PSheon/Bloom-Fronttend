@@ -1,5 +1,6 @@
 // ** MUI Imports
 import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
@@ -30,13 +31,13 @@ const NotificationReadProfileCard = (props: Props) => {
     <Card>
       <CardContent sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
         <NotificationReadNotifierAvatarPreviewBox initNotificationEntity={initNotificationEntity} />
-        <Typography variant='h6' sx={{ mt: 4, mb: 2 }}>
+        <Typography variant='h6' component='p' sx={{ mt: 4, mb: 2 }}>
           {initNotificationEntity.title}
         </Typography>
         <CustomChip
           skin='light'
           size='small'
-          label={initNotificationEntity.isSeen ? '已讀' : '未讀'}
+          label={initNotificationEntity.isSeen ? 'Seen' : 'Not Seen'}
           color={initNotificationEntity.isSeen ? 'success' : 'warning'}
           sx={{
             height: 20,
@@ -49,46 +50,46 @@ const NotificationReadProfileCard = (props: Props) => {
         />
       </CardContent>
 
-      <CardContent sx={{ my: 1 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Box sx={{ mr: 8, display: 'flex', alignItems: 'center' }}>
-            <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
-              <Icon icon='mdi:storage' />
-            </CustomAvatar>
-            <Box>
-              <Typography variant='subtitle1' sx={{ lineHeight: 1.3 }}>
-                {initNotificationEntity.category}
-              </Typography>
-              <Typography variant='body2'>Trigger</Typography>
-            </Box>
+      <CardContent sx={{ my: 1, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Box sx={{ mr: 8, display: 'flex', alignItems: 'center' }}>
+          <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
+            <Icon icon='mdi:storage' />
+          </CustomAvatar>
+          <Box>
+            <Typography variant='subtitle1' sx={{ lineHeight: 1.3 }}>
+              {initNotificationEntity.category}
+            </Typography>
+            <Typography variant='body2'>Trigger</Typography>
           </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
-              <Icon icon='mdi:list-status' />
-            </CustomAvatar>
-            <Box>
-              <Typography variant='subtitle1' sx={{ lineHeight: 1.3 }}>
-                Succeed
-              </Typography>
-              <Typography variant='body2'>Status</Typography>
-            </Box>
+        </Box>
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
+            <Icon icon='mdi:list-status' />
+          </CustomAvatar>
+          <Box>
+            <Typography variant='subtitle1' sx={{ lineHeight: 1.3 }}>
+              Succeed
+            </Typography>
+            <Typography variant='body2'>Status</Typography>
           </Box>
         </Box>
       </CardContent>
 
-      <CardContent>
-        <Typography variant='subtitle2'>檔案資料</Typography>
-        <Divider sx={{ mt: theme => `${theme.spacing(4)} !important` }} />
-        <Box sx={{ pt: 2, pb: 1 }}>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary', whiteSpace: 'nowrap' }}>
-              名稱:
+      <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Typography variant='subtitle2'>Information</Typography>
+        <Stack alignSelf='stretch'>
+          <Divider />
+        </Stack>
+        <Stack spacing={2.7}>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
+              Title:
             </Typography>
             <Typography variant='body2' noWrap>
               {initNotificationEntity.title}
             </Typography>
-          </Box>
-        </Box>
+          </Stack>
+        </Stack>
       </CardContent>
     </Card>
   )
