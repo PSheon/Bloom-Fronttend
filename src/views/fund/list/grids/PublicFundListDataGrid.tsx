@@ -107,8 +107,8 @@ const PublicFundListDataGrid = (props: Props) => {
                       sx={{
                         position: 'absolute',
                         top: theme => ({
-                          xs: theme.spacing(20),
-                          md: theme.spacing(28)
+                          xs: theme.spacing(16),
+                          md: theme.spacing(26)
                         }),
                         left: theme => theme.spacing(4)
                       }}
@@ -118,8 +118,8 @@ const PublicFundListDataGrid = (props: Props) => {
                           src={baseCurrencyProperties.imageUrl}
                           alt={baseCurrencyProperties.displayName}
                           sx={{
-                            height: 48,
-                            width: 48,
+                            height: 64,
+                            width: 64,
                             borderWidth: '5px !important',
                             backgroundColor: theme => theme.palette.background.default
                           }}
@@ -130,8 +130,8 @@ const PublicFundListDataGrid = (props: Props) => {
                           src='/images/funds/rwa.png'
                           alt='rwa'
                           sx={{
-                            height: 48,
-                            width: 48,
+                            height: 64,
+                            width: 64,
                             borderWidth: '5px !important',
                             backgroundColor: theme => theme.palette.background.default
                           }}
@@ -166,7 +166,7 @@ const PublicFundListDataGrid = (props: Props) => {
                               lineHeight: 1
                             }}
                           >
-                            {`${14}%`}
+                            {`${fund.estimatedAPY}%`}
                           </Typography>
                           <Sub> average APY</Sub>
                         </Stack>
@@ -201,7 +201,7 @@ const PublicFundListDataGrid = (props: Props) => {
                             Redemption Frequency
                           </Typography>
                           <Typography sx={{ fontWeight: 600 }}>
-                            {fund.performanceFeePercentage > 0 ? `${fund.performanceFeePercentage} Days` : 'No limit'}
+                            {fund.redemptionFrequencyInDays > 0 ? `${fund.redemptionFrequencyInDays} Days` : 'No limit'}
                           </Typography>
                         </Stack>
                       </Stack>

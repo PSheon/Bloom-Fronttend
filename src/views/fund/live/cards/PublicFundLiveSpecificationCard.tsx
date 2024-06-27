@@ -161,7 +161,7 @@ const PublicFundLiveSpecificationCard = (props: Props) => {
             <SpecDetailStack title='Vault SFT' content={initFundEntity.vault?.contractAddress ?? 'Generating'} />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
-            <SpecDetailStack title='Est.APY' hint='Estimated APY.' content={`${8}%`} />
+            <SpecDetailStack title='Est.APY' hint='Estimated APY.' content={`${initFundEntity.estimatedAPY}%`} />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack title='Redemption Freq' content={`${initFundEntity.redemptionFrequencyInDays} Days`} />

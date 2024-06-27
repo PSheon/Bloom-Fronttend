@@ -35,6 +35,7 @@ export type FundType = {
   maturityDate: Date
   performanceFeePercentage: number
   redemptionFrequencyInDays: number
+  estimatedAPY: number
   defaultPackages?: {
     data: {
       id: number
