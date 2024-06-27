@@ -88,37 +88,39 @@ const PublicArticleLiveSection = (props: Props) => {
         </Stack>
       </Stack>
 
-      <Grid container spacing={6}>
-        <Grid item xs={12} md={8} lg={9} sx={{ lineBreak: 'anywhere' }}>
-          <TextEditorPreview blocks={initArticleEntity.content} />
-        </Grid>
-        <Grid item xs={12} md={4} lg={3}>
-          <Stack spacing={4}>
-            <Typography variant='subtitle2' component='p' color='secondary'>
-              Posted by
-            </Typography>
+      <Stack alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
+        <Grid container spacing={6}>
+          <Grid item xs={12} md={8} lg={9} sx={{ lineBreak: 'anywhere' }}>
+            <TextEditorPreview blocks={initArticleEntity.content} />
+          </Grid>
+          <Grid item xs={12} md={4} lg={3}>
+            <Stack spacing={4}>
+              <Typography variant='subtitle2' component='p' color='secondary'>
+                Posted by
+              </Typography>
 
-            <Stack direction='row' spacing={4} alignItems='center'>
-              <Avatar
-                src={getPublicMediaAssetUrl(initArticleEntity?.author?.data?.attributes.avatar.data?.attributes.url)}
-                alt={initArticleEntity?.author?.data?.attributes.username}
-                sx={{ width: 34, height: 34 }}
-              />
+              <Stack direction='row' spacing={4} alignItems='center'>
+                <Avatar
+                  src={getPublicMediaAssetUrl(initArticleEntity?.author?.data?.attributes.avatar.data?.attributes.url)}
+                  alt={initArticleEntity?.author?.data?.attributes.username}
+                  sx={{ width: 34, height: 34 }}
+                />
 
-              <Stack alignItems='flex-start'>
-                <Typography variant='body1' component='p'>
-                  {initArticleEntity?.author?.data?.attributes?.username ?? 'Paul'}
-                </Typography>
-                <Typography variant='body2' component='p' color='secondary'>
-                  {initArticleEntity?.author?.data?.attributes?.title ??
-                    initArticleEntity?.author?.data?.attributes?.email ??
-                    'Custom Service Agent'}
-                </Typography>
+                <Stack alignItems='flex-start'>
+                  <Typography variant='body1' component='p'>
+                    {initArticleEntity?.author?.data?.attributes?.username ?? 'Paul'}
+                  </Typography>
+                  <Typography variant='body2' component='p' color='secondary'>
+                    {initArticleEntity?.author?.data?.attributes?.title ??
+                      initArticleEntity?.author?.data?.attributes?.email ??
+                      'Custom Service Agent'}
+                  </Typography>
+                </Stack>
               </Stack>
             </Stack>
-          </Stack>
+          </Grid>
         </Grid>
-      </Grid>
+      </Stack>
     </StyledRootStack>
   )
 }
