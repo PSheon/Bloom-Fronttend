@@ -173,6 +173,7 @@ export type VaultSignHashParamsType = {
     contractName: string
     stakerAddress: string
     tokenId: string
+    packageId: number
     balance: string
     periodInDays: number
     apy: number

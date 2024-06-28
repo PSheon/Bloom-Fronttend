@@ -326,7 +326,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
           data: {
             contractName: initFundEntity.vault.contractName,
             stakerAddress: walletAccount.address!,
-            tokenId: tokenId,
+            tokenId,
+            packageId: sftSlot!.id,
             balance: formattedBalanceString,
             periodInDays: selectedStakePeriod.periodInDays,
             apy: totalAPY
@@ -780,7 +781,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                           Total APY
                         </Typography>
                         <Typography variant='subtitle2' component='p'>
-                          (Level + Base + Bonus)
+                          Base + Level + Bonus
                         </Typography>
                       </Stack>
                       <Stack alignItems='flex-end' justifyContent='center'>
@@ -788,7 +789,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                           {`${totalAPY} %`}
                         </Typography>
                         <Typography variant='subtitle1' component='p'>
-                          {`(${meLevelAPYPrivileges?.value ?? 0} % + ${sftSlotBaseAPY} % + ${selectedStakePeriod.bonusAPY} %)`}
+                          {`${sftSlotBaseAPY} + ${meLevelAPYPrivileges?.value ?? 0} + ${selectedStakePeriod.bonusAPY}`}
                         </Typography>
                       </Stack>
                     </Stack>
