@@ -3,16 +3,18 @@ import { useSearchParams } from 'next/navigation'
 
 // ** MUI Imports
 import { styled, useTheme } from '@mui/material/styles'
+import useMediaQuery from '@mui/material/useMediaQuery'
 import Grid from '@mui/material/Grid'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import Card from '@mui/material/Card'
 import Stack from '@mui/material/Stack'
-import FormHelperText from '@mui/material/FormHelperText'
 import LoadingButton from '@mui/lab/LoadingButton'
 
-// ** Third-Party Components
+// ** Third-Party Imports
+import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
+import { yupResolver } from '@hookform/resolvers/yup'
 import { MuiOtpInput } from 'mui-one-time-password-input'
 import toast from 'react-hot-toast'
 
@@ -33,6 +35,31 @@ const StyledCard = styled(Card)<CardProps>(({ theme }) => ({
   backgroundImage: `url(/images/pages/pages-header-bg-${theme.palette.mode}.png)`
 }))
 
+const StyledReFerralBox = styled(MuiOtpInput)(({ theme }) => ({
+  '& .MuiOtpInput-TextField': {
+    '& input': {
+      color: theme.palette.primary.main,
+      fontSize: '1.6rem',
+      fontWeight: 900,
+      padding: '0.5rem'
+    }
+  },
+  [theme.breakpoints.down('md')]: {
+    '& .MuiOtpInput-TextField': {
+      '& input': {
+        fontSize: '1.2rem'
+      }
+    }
+  }
+}))
+
+const schema = yup.object().shape({
+  referralId: yup
+    .string()
+    .matches(/^[23456789A-HJ-NP-Z]{8}$/, 'Code invalid')
+    .required()
+})
+
 interface FormData {
   referralId: string
 }
@@ -40,6 +67,7 @@ interface FormData {
 const PointsJoinSection = () => {
   // ** Hooks
   const theme = useTheme()
+  const isDesktopView = useMediaQuery(theme.breakpoints.up('md'))
   const searchParams = useSearchParams()
 
   const [joinReferral, { isLoading: isJoinReferralLoading }] = useJoinMutation()
@@ -48,11 +76,14 @@ const PointsJoinSection = () => {
     reset,
     control,
     handleSubmit,
-    formState: { errors }
+
+    formState: { isValid, errors }
   } = useForm({
     defaultValues: {
       referralId: searchParams.get('referral-id') ?? ''
-    }
+    },
+    mode: 'onBlur',
+    resolver: yupResolver(schema)
   })
 
   // ** Logics
@@ -86,7 +117,7 @@ const PointsJoinSection = () => {
         </StyledCard>
       </Grid>
       <Grid item xs={12}>
-        <Stack spacing={4} alignItems='center' justifyContent='center' sx={{ my: 36 }}>
+        <Stack spacing={4} alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ mt: 24, mb: 36 }}>
           <Stack spacing={2} alignItems='center' justifyContent='center'>
             <Typography variant='h5' component='p'>
               Join points program
@@ -97,43 +128,33 @@ const PointsJoinSection = () => {
           </Stack>
 
           <form onSubmit={handleSubmit(onSubmit)}>
-            <Stack spacing={6} alignItems='center' justifyContent='center'>
+            <Stack
+              spacing={6}
+              alignSelf='stretch'
+              alignItems='center'
+              justifyContent='center'
+              sx={{ maxWidth: theme => theme.spacing(120) }}
+            >
               <Controller
                 name='referralId'
                 control={control}
                 rules={{ validate: value => value!.length === 8 }}
-                render={({ field, fieldState: { invalid } }) => (
+                render={({ field }) => (
                   <Stack spacing={4} alignItems='center' justifyContent='center'>
-                    <MuiOtpInput
+                    <StyledReFerralBox
                       {...field}
+                      display='flex'
+                      gap={isDesktopView ? 2 : 1}
                       length={8}
                       validateChar={value => new RegExp(/^[23456789A-HJ-NP-Z]$/).test(value)}
-                      TextFieldsProps={{
-                        sx: {
-                          maxWidth: 50,
-                          textAlign: 'center',
-                          height: '46px !important',
-                          fontSize: '150% !important',
-                          marginTop: theme.spacing(2),
-                          marginBottom: theme.spacing(2),
-                          '&:not(:last-child)': {
-                            marginRight: theme.spacing(2)
-                          },
-                          '&::-webkit-outer-spin-button, &::-webkit-inner-spin-button': {
-                            margin: 0,
-                            WebkitAppearance: 'none'
-                          }
-                        }
-                      }}
                     />
-                    {invalid ? <FormHelperText error>Code invalid</FormHelperText> : null}
                   </Stack>
                 )}
               />
               <LoadingButton
                 fullWidth
                 loading={isJoinReferralLoading}
-                disabled={Boolean(errors.referralId)}
+                disabled={Boolean(errors.referralId) || !isValid}
                 type='submit'
                 variant='contained'
               >
