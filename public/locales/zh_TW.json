@@ -1,24 +1,130 @@
 {
-  "System": "系統",
-  "System.Dashboard": "系統監控",
-  "System.Roles & Permissions": "角色 & 權限",
-  "Management": "管理",
-  "Management.Dashboard": "分析報表",
-  "Management.Funds": "基金管理",
-  "Management.Users": "使用者管理",
-  "Management.Articles": "文章管理",
-  "Management.Media Assets": "文件管理",
-  "Management.Request Sheets": "申請管理",
-  "Management.Notifications": "通知管理",
-  "Review": "審核",
-  "Review.Dashboard": "資金儀表板",
-  "Public": "公開",
-  "Public.Funds & Strategies": "資金與策略",
-  "Me": "我的",
-  "Me.Portfolio": "投資組合",
-  "Me.Points": "積分",
-  "General": "一般",
-  "General.Account": "帳號",
-  "General.Notifications": "通知",
-  "General.Settings": "設定"
+  "Navigation": {
+    "System": {
+      "SectionTitle": "系統",
+      "Dashboard": "系統監控",
+      "Roles & Permissions": "角色 & 權限"
+    },
+    "Management": {
+      "SectionTitle": "管理",
+      "Dashboard": "分析報表",
+      "Funds": "基金管理",
+      "Users": "使用者管理",
+      "Articles": "文章管理",
+      "Media Assets": "文件管理",
+      "Request Sheets": "申請管理",
+      "Notifications": "通知管理"
+    },
+    "Review": {
+      "SectionTitle": "審核",
+      "Dashboard": "資金儀表板"
+    },
+    "Public": {
+      "SectionTitle": "公開",
+      "Funds & Strategies": "資金與策略"
+    },
+    "Me": {
+      "SectionTitle": "我的",
+      "Portfolio": "投資組合",
+      "Points": "積分"
+    },
+    "General": {
+      "SectionTitle": "一般",
+      "Account": "帳號",
+      "Notifications": "通知",
+      "Settings": "設定"
+    }
+  },
+  "PageBreadcrumb": {
+    "System": {
+      "PageTitle": "系統",
+      "Dashboard": {
+        "PageTitle": "系統監控"
+      },
+      "Roles & Permissions": {
+        "PageTitle": "角色 & 權限"
+      }
+    },
+    "Management": {
+      "PageTitle": "管理",
+      "Dashboard": {
+        "PageTitle": "分析報表"
+      },
+      "Funds": {
+        "PageTitle": "基金管理",
+        "Edit": {
+          "PageTitle": "編輯"
+        },
+        "Preview": {
+          "PageTitle": "預覽"
+        }
+      },
+      "Users": {
+        "PageTitle": "使用者管理",
+        "Edit": {
+          "PageTitle": "編輯"
+        }
+      },
+      "Articles": {
+        "PageTitle": "文章管理",
+        "Edit": {
+          "PageTitle": "編輯"
+        }
+      },
+      "Media Assets": {
+        "PageTitle": "文件管理",
+        "Edit": {
+          "PageTitle": "編輯"
+        }
+      },
+      "Notifications": {
+        "PageTitle": "通知管理",
+        "Edit": {
+          "PageTitle": "編輯"
+        }
+      }
+    },
+    "Review": {
+      "PageTitle": "審核",
+      "Dashboard": {
+        "PageTitle": "資金儀表板"
+      }
+    },
+    "Public": {
+      "PageTitle": "公開",
+      "Funds & Strategies": {
+        "PageTitle": "資金與策略",
+        "Live": {
+          "PageTitle": "資金"
+        }
+      }
+    },
+    "Me": {
+      "PageTitle": "我的",
+      "Portfolio": {
+        "PageTitle": "投資組合"
+      },
+      "Points": {
+        "PageTitle": "積分",
+        "Join": {
+          "PageTitle": "加入計畫"
+        }
+      }
+    },
+    "General": {
+      "PageTitle": "一般",
+      "Account": {
+        "PageTitle": "我的帳號"
+      },
+      "Notifications": {
+        "PageTitle": "我的通知",
+        "Read": {
+          "PageTitle": "閱讀"
+        }
+      },
+      "Settings": {
+        "PageTitle": "設定"
+      }
+    }
+  }
 }

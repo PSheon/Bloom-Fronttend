@@ -17,7 +17,7 @@ const PortfolioPage = () => {
     <ApexChartWrapper>
       <Grid container spacing={6} className='match-height'>
         <Grid item xs={12}>
-          <PortfolioBreadcrumbs pageLevels={[{ title: 'Portfolio' }]} />
+          <PortfolioBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.Me.Portfolio.PageTitle' }]} />
         </Grid>
         <Grid item xs={12}>
           <PortfolioBannerCard />

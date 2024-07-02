@@ -13,7 +13,10 @@ const PublicFundLiveLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <PublicFundLiveBreadcrumbs
-          pageLevels={[{ title: 'Funds & Strategies', href: '/fund/list/' }, { title: 'Fund' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.Public.Funds & Strategies.PageTitle', href: '/fund/list' },
+            { title: 'PageBreadcrumb.Public.Funds & Strategies.live.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12}>

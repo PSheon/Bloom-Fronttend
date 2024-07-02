@@ -13,7 +13,10 @@ const ManagementFundEditLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementFundEditBreadcrumbs
-          pageLevels={[{ title: 'Fund Management', href: '/management/fund/list' }, { title: 'Edit' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.Management.Funds.PageTitle', href: '/management/fund/list' },
+            { title: 'PageBreadcrumb.Management.Funds.Edit.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12}>

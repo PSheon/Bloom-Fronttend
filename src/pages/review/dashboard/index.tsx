@@ -16,7 +16,7 @@ const ReviewDashboardPage = () => {
       <KeenSliderWrapper>
         <Grid container spacing={6} className='match-height'>
           <Grid item xs={12}>
-            <ReviewDashboardBreadcrumbs pageLevels={[{ title: 'Review Dashboard' }]} />
+            <ReviewDashboardBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.Review.Dashboard.PageTitle' }]} />
           </Grid>
 
           <Grid item xs={12} md={6}>

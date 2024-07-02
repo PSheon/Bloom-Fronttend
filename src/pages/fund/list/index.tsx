@@ -74,7 +74,7 @@ const PublicFundListPage = () => {
       <KeenSliderWrapper>
         <Grid container spacing={6} className='match-height'>
           <Grid item xs={12}>
-            <PublicFundListBreadcrumbs pageLevels={[{ title: 'Funds & Strategies' }]} />
+            <PublicFundListBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.Public.Funds & Strategies.PageTitle' }]} />
           </Grid>
 
           <Grid item xs={12}>

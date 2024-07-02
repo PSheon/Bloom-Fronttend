@@ -261,7 +261,7 @@ const ManagementArticleListPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <ManagementArticleListBreadcrumbs pageLevels={[{ title: 'Article Management' }]} />
+        <ManagementArticleListBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.Management.Articles.PageTitle' }]} />
       </Grid>
       <Grid item xs={12}>
         <Card>

@@ -22,7 +22,7 @@ const AccountSection = (props: Props) => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <AccountBreadcrumbs pageLevels={[{ title: 'My Account' }]} />
+        <AccountBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.General.Account.PageTitle' }]} />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
         <Grid container spacing={6}>

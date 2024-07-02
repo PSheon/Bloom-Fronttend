@@ -22,7 +22,6 @@ i18n
     },
     fallbackLng: 'en',
     debug: false,
-    keySeparator: false,
     react: {
       useSuspense: false
     },

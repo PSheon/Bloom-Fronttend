@@ -13,7 +13,10 @@ const ReviewFundEditLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ReviewFundEditBreadcrumbs
-          pageLevels={[{ title: 'Fund Review', href: '/review/dashboard' }, { title: 'Edit' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.Review.PageTitle', href: '/review/dashboard' },
+            { title: 'PageBreadcrumb.Review.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12}>

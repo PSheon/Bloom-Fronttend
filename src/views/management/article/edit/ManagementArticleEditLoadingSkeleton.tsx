@@ -35,7 +35,10 @@ const ManagementArticleEditLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementArticleEditBreadcrumbs
-          pageLevels={[{ title: 'Article Management', href: '/management/article/list' }, { title: 'Edit' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.Management.Articles.PageTitle', href: '/management/article/list' },
+            { title: 'PageBreadcrumb.Management.Articles.Edit.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>

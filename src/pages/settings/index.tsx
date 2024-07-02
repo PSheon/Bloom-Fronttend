@@ -4,6 +4,7 @@ import Grid from '@mui/material/Grid'
 // ** Custom Component Imports
 import SettingsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import SettingsSystemProfileCard from 'src/views/settings/cards/SettingsSystemProfileCard'
+import SettingsLanguageSettingCard from 'src/views/settings/cards/SettingsLanguageSettingCard'
 import SettingsThemingSettingCard from 'src/views/settings/cards/SettingsThemingSettingCard'
 import SettingsLayoutSettingCard from 'src/views/settings/cards/SettingsLayoutSettingCard'
 import SettingsMenuSettingCard from 'src/views/settings/cards/SettingsMenuSettingCard'
@@ -12,12 +13,15 @@ const SettingsPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <SettingsBreadcrumbs pageLevels={[{ title: 'Settings' }]} />
+        <SettingsBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.General.Settings.PageTitle' }]} />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
             <SettingsSystemProfileCard />
+          </Grid>
+          <Grid item xs={12}>
+            <SettingsLanguageSettingCard />
           </Grid>
         </Grid>
       </Grid>

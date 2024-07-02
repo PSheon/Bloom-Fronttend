@@ -15,7 +15,7 @@ const PointsLoadingSkeleton = () => {
   return (
     <Grid container spacing={6} className='match-height'>
       <Grid item xs={12}>
-        <PointsBreadcrumbs pageLevels={[{ title: 'My Points' }]} />
+        <PointsBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.Me.Points.PageTitle' }]} />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
         <Grid container spacing={6}>

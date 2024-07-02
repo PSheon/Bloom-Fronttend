@@ -101,7 +101,12 @@ const PointsJoinSection = () => {
   return (
     <Grid container spacing={6} className='match-height'>
       <Grid item xs={12}>
-        <PointsBreadcrumbs pageLevels={[{ title: 'My Points' }, { title: 'Join' }]} />
+        <PointsBreadcrumbs
+          pageLevels={[
+            { title: 'PageBreadcrumb.Me.Points.PageTitle' },
+            { title: 'PageBreadcrumb.Me.Points.Join.PageTitle' }
+          ]}
+        />
       </Grid>
       <Grid item xs={12}>
         <StyledCard>
