@@ -1,0 +1,58 @@
+{
+  "Profile": {
+    "InService": "服務中",
+    "Language": "語言",
+    "Time Zone": "時區",
+    "System Information": "系統資訊",
+    "Version": "主版本",
+    "API Version": "API 版本",
+    "Socket Version": "Socket 版本"
+  },
+  "LanguageSettings": {
+    "CardTitle": "語言",
+    "Locale-en": "英文",
+    "Locale-zh_TW": "繁體中文",
+    "Locale-zh_CN": "簡體中文",
+    "Locale-es": "西班牙文",
+    "Locale-de": "德文",
+    "Locale-it": "義大利文"
+  },
+  "Theme Settings": {
+    "CardTitle": "主題",
+    "Skin": {
+      "SectionTitle": "外框",
+      "Default": "預設",
+      "Bordered": "有邊框"
+    },
+    "Mode": {
+      "SectionTitle": "模式",
+      "Light": "明亮",
+      "Dark": "暗黑"
+    },
+    "Primary Color": {
+      "SectionTitle": "主要顏色"
+    }
+  },
+  "Layout Settings": {
+    "CardTitle": "版面",
+    "Content Width": {
+      "SectionTitle": "內容寬度",
+      "Full": "滿版",
+      "Boxed": "盒裝"
+    },
+    "AppBar Type": {
+      "SectionTitle": "功能欄樣式",
+      "Fixed": "固定",
+      "Static": "靜態",
+      "Hidden": "隱藏"
+    }
+  },
+  "Menu Settings": {
+    "CardTitle": "選單",
+    "Menu Toggle": {
+      "SectionTitle": "選單開合",
+      "Collapsed": "收起",
+      "Expanded": "展開"
+    }
+  }
+}

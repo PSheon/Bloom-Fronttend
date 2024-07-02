@@ -15,6 +15,7 @@ import ThemeConfigSelectBox from 'src/views/settings/select-box/ThemeConfigSelec
 
 // ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
+import { t } from 'i18next'
 
 const SettingsLanguageSettingCard = () => {
   // ** Hooks
@@ -33,17 +34,17 @@ const SettingsLanguageSettingCard = () => {
 
   return (
     <Card>
-      <CardHeader title='Language' />
+      <CardHeader title={t('general-settings::Language Settings.CardTitle')} />
       <CardContent>
         <Grid container spacing={4}>
           <Grid item xs={12}>
             <Grid container spacing={4}>
-              <Grid item xs={4} sm={3}>
+              <Grid item xs={4}>
                 <ThemeConfigSelectBox
                   selected={i18n.language}
                   value='en'
                   image='/images/settings/language/en.svg'
-                  title='English'
+                  title={t('general-settings::Language Settings.Locale-en')}
                   color='primary'
                   handleClick={() => {
                     handleLangItemClick('en')
@@ -51,12 +52,12 @@ const SettingsLanguageSettingCard = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={4} sm={3}>
+              <Grid item xs={4}>
                 <ThemeConfigSelectBox
                   selected={i18n.language}
                   value='zh_TW'
                   image='/images/settings/language/zh_TW.svg'
-                  title='繁體中文'
+                  title={t('general-settings::Language Settings.Locale-zh_TW')}
                   color='primary'
                   handleClick={() => {
                     handleLangItemClick('zh_TW')
@@ -64,12 +65,12 @@ const SettingsLanguageSettingCard = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={4} sm={3}>
+              <Grid item xs={4}>
                 <ThemeConfigSelectBox
                   selected={i18n.language}
                   value='zh_CN'
                   image='/images/settings/language/zh_CN.svg'
-                  title='简体中文'
+                  title={t('general-settings::Language Settings.Locale-zh_CN')}
                   color='primary'
                   handleClick={() => {
                     handleLangItemClick('zh_CN')
@@ -77,12 +78,12 @@ const SettingsLanguageSettingCard = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={4} sm={3}>
+              <Grid item xs={4}>
                 <ThemeConfigSelectBox
                   selected={i18n.language}
                   value='es'
                   image='/images/settings/language/es.svg'
-                  title='Spanish'
+                  title={t('general-settings::Language Settings.Locale-es')}
                   color='primary'
                   handleClick={() => {
                     handleLangItemClick('es')
@@ -90,12 +91,12 @@ const SettingsLanguageSettingCard = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={4} sm={3}>
+              <Grid item xs={4}>
                 <ThemeConfigSelectBox
                   selected={i18n.language}
                   value='es'
                   image='/images/settings/language/de.svg'
-                  title='Deutsch'
+                  title={t('general-settings::Language Settings.Locale-de')}
                   color='primary'
                   handleClick={() => {
                     handleLangItemClick('de')
@@ -103,12 +104,12 @@ const SettingsLanguageSettingCard = () => {
                   }}
                 />
               </Grid>
-              <Grid item xs={4} sm={3}>
+              <Grid item xs={4}>
                 <ThemeConfigSelectBox
                   selected={i18n.language}
                   value='it'
                   image='/images/settings/language/it.svg'
-                  title='Italian'
+                  title={t('general-settings::Language Settings.Locale-it')}
                   color='primary'
                   handleClick={() => {
                     handleLangItemClick('it')

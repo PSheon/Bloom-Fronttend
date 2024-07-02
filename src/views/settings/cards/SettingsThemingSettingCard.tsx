@@ -6,6 +6,9 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
 
+// ** Third-Party Imports
+import { useTranslation } from 'react-i18next'
+
 // ** Custom Component Imports
 import ThemeConfigSelectBox from 'src/views/settings/select-box/ThemeConfigSelectBox'
 import ThemeColorSelectBox from 'src/views/settings/select-box/ThemeColorSelectBox'
@@ -20,6 +23,7 @@ import type { Skin, Mode, ThemeColor } from 'src/@core/layouts/types'
 const SettingsThemingSettingCard = () => {
   // ** Hooks
   const { settings, saveSettings } = useSettings()
+  const { t } = useTranslation()
 
   // ** Vars
   const { mode, skin, themeColor } = settings
@@ -31,11 +35,11 @@ const SettingsThemingSettingCard = () => {
 
   return (
     <Card>
-      <CardHeader title='Theme' />
+      <CardHeader title={t('general-settings::Theme Settings.CardTitle')} />
       <CardContent>
         <Grid container spacing={6}>
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>Skin</Typography>
+            <Typography variant='subtitle2'>{t('general-settings::Theme Settings.Skin.SectionTitle')}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={6}>
@@ -48,7 +52,7 @@ const SettingsThemingSettingCard = () => {
                       ? `/images/settings/theming/default.svg`
                       : `/images/settings/theming/default-dark.svg`
                   }
-                  title='Default'
+                  title={t('general-settings::Theme Settings.Skin.Default')}
                   color='primary'
                   handleClick={() => handleChange('skin', 'default' as Skin)}
                 />
@@ -62,7 +66,7 @@ const SettingsThemingSettingCard = () => {
                       ? `/images/settings/theming/bordered.svg`
                       : `/images/settings/theming/bordered-dark.svg`
                   }
-                  title='Bordered'
+                  title={t('general-settings::Theme Settings.Skin.Bordered')}
                   color='primary'
                   handleClick={() => handleChange('skin', 'bordered' as Skin)}
                 />
@@ -71,7 +75,7 @@ const SettingsThemingSettingCard = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>Mode</Typography>
+            <Typography variant='subtitle2'>{t('general-settings::Theme Settings.Mode.SectionTitle')}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={4}>
@@ -82,7 +86,7 @@ const SettingsThemingSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/theming/light.svg` : `/images/settings/theming/light-dark.svg`
                   }
-                  title='Light'
+                  title={t('general-settings::Theme Settings.Mode.Light')}
                   color='primary'
                   handleClick={() => handleChange('mode', 'light' as Mode)}
                 />
@@ -94,7 +98,7 @@ const SettingsThemingSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/theming/dark.svg` : `/images/settings/theming/dark-dark.svg`
                   }
-                  title='Dark'
+                  title={t('general-settings::Theme Settings.Mode.Dark')}
                   color='primary'
                   handleClick={() => handleChange('mode', 'dark' as Mode)}
                 />
@@ -103,7 +107,9 @@ const SettingsThemingSettingCard = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>Primary Color</Typography>
+            <Typography variant='subtitle2'>
+              {t('general-settings::Theme Settings.Primary Color.SectionTitle')}
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={4}>
