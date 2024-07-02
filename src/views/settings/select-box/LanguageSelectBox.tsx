@@ -2,6 +2,9 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
+// ** Custom Component Imports
+import CustomChip from 'src/@core/components/mui/chip'
+
 // ** Type Imports
 import type { ThemeColor } from 'src/@core/layouts/types'
 
@@ -9,6 +12,7 @@ interface Props {
   selected: string
   value: string
   image: string
+  progressText: string
   title: string
   color: ThemeColor
   handleClick: () => void
@@ -16,7 +20,7 @@ interface Props {
 
 const LanguageSelectBox = (props: Props) => {
   // ** Props
-  const { selected, value, image, title, color = 'primary', handleClick } = props
+  const { selected, value, image, progressText, title, color = 'primary', handleClick } = props
 
   return (
     <Box
@@ -25,6 +29,7 @@ const LanguageSelectBox = (props: Props) => {
         height: '100%',
         display: 'flex',
         p: 1,
+        pt: 6,
         borderRadius: 1,
         cursor: 'pointer',
         position: 'relative',
@@ -49,6 +54,23 @@ const LanguageSelectBox = (props: Props) => {
         }
       }}
     >
+      <CustomChip
+        skin='light'
+        color='success'
+        rounded
+        label={progressText}
+        sx={{
+          top: 6,
+          left: 6,
+          height: 24,
+          position: 'absolute',
+          '& .MuiChip-label': {
+            px: 1.75,
+            fontWeight: 600,
+            fontSize: '0.75rem'
+          }
+        }}
+      />
       <img src={image} alt={title} />
       <Typography variant='subtitle2' component='p' textAlign='center' color='text.primary' sx={{ my: 1 }}>
         {title}

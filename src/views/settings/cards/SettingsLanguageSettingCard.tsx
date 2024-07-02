@@ -44,6 +44,7 @@ const SettingsLanguageSettingCard = () => {
                   selected={i18n.language}
                   value='en'
                   image='/images/settings/language/en.svg'
+                  progressText='100%'
                   title={t('general-settings::Language Settings.Locale-en')}
                   color='primary'
                   handleClick={() => {
@@ -57,6 +58,7 @@ const SettingsLanguageSettingCard = () => {
                   selected={i18n.language}
                   value='zh_TW'
                   image='/images/settings/language/zh_TW.svg'
+                  progressText='20%'
                   title={t('general-settings::Language Settings.Locale-zh_TW')}
                   color='primary'
                   handleClick={() => {
@@ -70,6 +72,7 @@ const SettingsLanguageSettingCard = () => {
                   selected={i18n.language}
                   value='zh_CN'
                   image='/images/settings/language/zh_CN.svg'
+                  progressText='0%'
                   title={t('general-settings::Language Settings.Locale-zh_CN')}
                   color='primary'
                   handleClick={() => {
@@ -83,6 +86,7 @@ const SettingsLanguageSettingCard = () => {
                   selected={i18n.language}
                   value='es'
                   image='/images/settings/language/es.svg'
+                  progressText='0%'
                   title={t('general-settings::Language Settings.Locale-es')}
                   color='primary'
                   handleClick={() => {
@@ -96,6 +100,7 @@ const SettingsLanguageSettingCard = () => {
                   selected={i18n.language}
                   value='es'
                   image='/images/settings/language/de.svg'
+                  progressText='0%'
                   title={t('general-settings::Language Settings.Locale-de')}
                   color='primary'
                   handleClick={() => {
@@ -109,6 +114,7 @@ const SettingsLanguageSettingCard = () => {
                   selected={i18n.language}
                   value='it'
                   image='/images/settings/language/it.svg'
+                  progressText='0%'
                   title={t('general-settings::Language Settings.Locale-it')}
                   color='primary'
                   handleClick={() => {
