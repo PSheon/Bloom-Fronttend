@@ -1,4 +1,5 @@
 // ** MUI Imports
+import { lighten } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
@@ -111,7 +112,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='primary'
                   handleClick={() => handleChange('themeColor', 'primary' as ThemeColor)}
-                  sx={{ backgroundColor: '#666CFF' }}
+                  sx={{
+                    backgroundColor: '#666CFF',
+                    border: `5px solid ${lighten('#666CFF', 0.1)}`
+                  }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
@@ -119,7 +123,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='secondary'
                   handleClick={() => handleChange('themeColor', 'secondary' as ThemeColor)}
-                  sx={{ backgroundColor: 'secondary.main' }}
+                  sx={{
+                    backgroundColor: 'secondary.main',
+                    border: theme => `5px solid ${lighten(theme.palette.secondary.main, 0.1)}`
+                  }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
@@ -127,7 +134,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='success'
                   handleClick={() => handleChange('themeColor', 'success' as ThemeColor)}
-                  sx={{ backgroundColor: 'success.main' }}
+                  sx={{
+                    backgroundColor: 'success.main',
+                    border: theme => `5px solid ${lighten(theme.palette.success.main, 0.1)}`
+                  }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
@@ -135,7 +145,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='error'
                   handleClick={() => handleChange('themeColor', 'error' as ThemeColor)}
-                  sx={{ backgroundColor: 'error.main' }}
+                  sx={{
+                    backgroundColor: 'error.main',
+                    border: theme => `5px solid ${lighten(theme.palette.error.main, 0.1)}`
+                  }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
@@ -143,7 +156,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='warning'
                   handleClick={() => handleChange('themeColor', 'warning' as ThemeColor)}
-                  sx={{ backgroundColor: 'warning.main' }}
+                  sx={{
+                    backgroundColor: 'warning.main',
+                    border: theme => `5px solid ${lighten(theme.palette.warning.main, 0.1)}`
+                  }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
@@ -151,7 +167,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='info'
                   handleClick={() => handleChange('themeColor', 'info' as ThemeColor)}
-                  sx={{ backgroundColor: 'info.main' }}
+                  sx={{
+                    backgroundColor: 'info.main',
+                    border: theme => `5px solid ${lighten(theme.palette.info.main, 0.1)}`
+                  }}
                 />
               </Grid>
             </Grid>

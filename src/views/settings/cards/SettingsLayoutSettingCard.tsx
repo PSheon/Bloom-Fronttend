@@ -29,7 +29,7 @@ const SettingsLayoutSettingCard = () => {
 
   return (
     <Card>
-      <CardHeader title='LAYOUT' />
+      <CardHeader title='Layout' />
       <CardContent>
         <Grid container spacing={4}>
           <Grid item xs={12}>
