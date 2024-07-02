@@ -44,7 +44,8 @@ const LanguageSelectBox = (props: Props) => {
           maxWidth: 48,
           height: '100%',
           maxHeight: 48,
-          objectFit: 'cover'
+          objectFit: 'cover',
+          filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))'
         }
       }}
     >
