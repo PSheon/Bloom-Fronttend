@@ -2,16 +2,13 @@
 import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
 // ** Type Imports
 import type { ThemeColor } from 'src/@core/layouts/types'
 
 interface Props {
   selected: string
   value: string
-  icon: string
+  image: string
   title: string
   color: ThemeColor
   handleClick: () => void
@@ -19,14 +16,13 @@ interface Props {
 
 const LanguageSelectBox = (props: Props) => {
   // ** Props
-  const { selected, value, icon, title, color = 'primary', handleClick } = props
+  const { selected, value, image, title, color = 'primary', handleClick } = props
 
   return (
     <Box
       onClick={handleClick}
       sx={{
         height: '100%',
-        width: theme => theme.spacing(40),
         display: 'flex',
         p: 1,
         borderRadius: 1,
@@ -41,13 +37,19 @@ const LanguageSelectBox = (props: Props) => {
           ? {
               borderColor: `${color}.main`
             }
-          : { '&:hover': { borderColor: theme => `rgba(${theme.palette.customColors.main}, 0.25)` } })
+          : { '&:hover': { borderColor: theme => `rgba(${theme.palette.customColors.main}, 0.25)` } }),
+        '& img': {
+          padding: 2,
+          width: '100%',
+          maxWidth: 48,
+          height: '100%',
+          maxHeight: 48,
+          objectFit: 'cover'
+        }
       }}
     >
-      <Box sx={{ p: 4 }}>
-        <Icon icon={icon} fontSize={48} />
-      </Box>
-      <Typography variant='subtitle2' sx={{ my: 1, color: 'text.primary' }}>
+      <img src={image} alt={title} />
+      <Typography variant='subtitle2' component='p' textAlign='center' color='text.primary' sx={{ my: 1 }}>
         {title}
       </Typography>
     </Box>

@@ -11,7 +11,7 @@ import CardHeader from '@mui/material/CardHeader'
 import { useTranslation } from 'react-i18next'
 
 // ** Custom Component Imports
-import ThemeConfigSelectBox from 'src/views/settings/select-box/ThemeConfigSelectBox'
+import LanguageSelectBox from 'src/views/settings/select-box/LanguageSelectBox'
 
 // ** Hook Imports
 import { useSettings } from 'src/@core/hooks/useSettings'
@@ -40,7 +40,7 @@ const SettingsLanguageSettingCard = () => {
           <Grid item xs={12}>
             <Grid container spacing={4}>
               <Grid item xs={4}>
-                <ThemeConfigSelectBox
+                <LanguageSelectBox
                   selected={i18n.language}
                   value='en'
                   image='/images/settings/language/en.svg'
@@ -53,7 +53,7 @@ const SettingsLanguageSettingCard = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <ThemeConfigSelectBox
+                <LanguageSelectBox
                   selected={i18n.language}
                   value='zh_TW'
                   image='/images/settings/language/zh_TW.svg'
@@ -66,7 +66,7 @@ const SettingsLanguageSettingCard = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <ThemeConfigSelectBox
+                <LanguageSelectBox
                   selected={i18n.language}
                   value='zh_CN'
                   image='/images/settings/language/zh_CN.svg'
@@ -79,7 +79,7 @@ const SettingsLanguageSettingCard = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <ThemeConfigSelectBox
+                <LanguageSelectBox
                   selected={i18n.language}
                   value='es'
                   image='/images/settings/language/es.svg'
@@ -92,7 +92,7 @@ const SettingsLanguageSettingCard = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <ThemeConfigSelectBox
+                <LanguageSelectBox
                   selected={i18n.language}
                   value='es'
                   image='/images/settings/language/de.svg'
@@ -105,7 +105,7 @@ const SettingsLanguageSettingCard = () => {
                 />
               </Grid>
               <Grid item xs={4}>
-                <ThemeConfigSelectBox
+                <LanguageSelectBox
                   selected={i18n.language}
                   value='it'
                   image='/images/settings/language/it.svg'
