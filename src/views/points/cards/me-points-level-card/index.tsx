@@ -10,7 +10,6 @@ import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CircularProgress from '@mui/material/CircularProgress'
-import IconButton from '@mui/material/IconButton'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -21,6 +20,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
 import MePointsLevelLoadingSkeleton from 'src/views/points/cards/me-points-level-card/MePointsLevelLoadingSkeleton'
+import MePointsLevelShowRoomIconButton from 'src/views/points/cards/me-points-level-card/MePointsLevelShowRoomIconButton'
 import MePointsLevelVerifyWalletTaskStack from 'src/views/points/cards/me-points-level-card/MePointsLevelVerifyWalletTaskStack'
 import MePointsLevelDailyCheckTaskStack from 'src/views/points/cards/me-points-level-card/MePointsLevelDailyCheckTaskStack'
 
@@ -82,7 +82,9 @@ const MePointsLevelCard = () => {
                 variant='determinate'
                 thickness={5}
                 color='success'
-                value={Math.round((meExp / meLevelProperties.expCap) * 100)}
+                value={Math.round(
+                  ((meExp - meLevelProperties.expStart) / (meLevelProperties.expCap - meLevelProperties.expStart)) * 100
+                )}
               />
             </Box>
             <CustomChip
@@ -126,9 +128,7 @@ const MePointsLevelCard = () => {
       <CardContent>
         <Stack direction='row' spacing={2} alignSelf='stretch' alignItems='center' justifyContent='space-between'>
           <Typography variant='subtitle2'>Privileges</Typography>
-          <IconButton size='small'>
-            <Icon icon='mdi:question-mark-circle-outline' fontSize={14} />
-          </IconButton>
+          <MePointsLevelShowRoomIconButton />
         </Stack>
         <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
         <Stack spacing={4} alignItems='center' justifyContent='center'>

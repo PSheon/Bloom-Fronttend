@@ -1,132 +1,26 @@
-export const getLevelProperties = (userExp: number) => {
-  const LEVEL_TABLE = [
-    {
-      level: 1,
-      title: 'Digital Star ⭐',
-      expCap: 300,
-      privileges: [
-        {
-          title: 'APY Boost',
-          displayValue: '+ 0%',
-          value: 0
-        }
-      ]
-    },
-    {
-      level: 2,
-      title: 'Digital Star ⭐⭐',
-      expCap: 750,
-      privileges: [
-        {
-          title: 'APY Boost',
-          displayValue: '+ 0.3%',
-          value: 0.3
-        }
-      ]
-    },
-    {
-      level: 3,
-      title: 'Decentralized Elite ⭐',
-      expCap: 1_250,
-      privileges: [
-        {
-          title: 'APY Boost',
-          displayValue: '+ 0.8%',
-          value: 0.8
-        }
-      ]
-    },
-    {
-      level: 4,
-      title: 'Decentralized Elite ⭐⭐',
-      expCap: 1_800,
-      privileges: [
-        {
-          title: 'APY Boost',
-          displayValue: '+ 1.25%',
-          value: 1.25
-        }
-      ]
-    },
-    {
-      level: 5,
-      title: 'Decentralized Elite ⭐⭐⭐',
-      expCap: 2_500,
-      privileges: [
-        {
-          title: 'APY Boost',
-          displayValue: '+ 1.5%',
-          value: 1.5
-        }
-      ]
-    },
-    {
-      level: 6,
-      title: 'Crypto Navigator ⭐',
-      expCap: 3_500,
-      privileges: [
-        {
-          title: 'APY Boost',
-          displayValue: '+ 2%',
-          value: 2
-        }
-      ]
-    },
-    {
-      level: 7,
-      title: 'Crypto Navigator ⭐⭐',
-      expCap: 3_500,
-      privileges: [
-        {
-          title: 'APY Boost',
-          displayValue: '+ 2.2%',
-          value: 2.2
-        }
-      ]
-    },
-    {
-      level: 8,
-      title: 'Crypto Navigator ⭐⭐⭐',
-      expCap: 5_000,
-      privileges: [
-        {
-          title: 'APY Boost',
-          displayValue: '+ 2.8%',
-          value: 2.8
-        }
-      ]
-    },
-    {
-      level: 9,
-      title: 'Blockchain Titan',
-      expCap: 8_000,
-      privileges: [
-        {
-          title: 'APY Boost',
-          displayValue: '+ 5%',
-          value: 5
-        }
-      ]
-    }
-  ]
+// ** Config Imports
+import { LEVEL_TABLE } from 'src/configs/point'
 
-  if (0 <= userExp && userExp < LEVEL_TABLE[0].expCap) {
+export const getLevelProperties = (userExp: number) => {
+  if (LEVEL_TABLE[0].expStart <= userExp && userExp < LEVEL_TABLE[0].expCap) {
     return LEVEL_TABLE[0]
-  } else if (LEVEL_TABLE[0].expCap <= userExp && userExp < LEVEL_TABLE[1].expCap) {
+  } else if (LEVEL_TABLE[1].expStart <= userExp && userExp < LEVEL_TABLE[1].expCap) {
     return LEVEL_TABLE[1]
-  } else if (LEVEL_TABLE[1].expCap <= userExp && userExp < LEVEL_TABLE[2].expCap) {
+  } else if (LEVEL_TABLE[2].expStart <= userExp && userExp < LEVEL_TABLE[2].expCap) {
     return LEVEL_TABLE[2]
-  } else if (LEVEL_TABLE[2].expCap <= userExp && userExp < LEVEL_TABLE[3].expCap) {
+  } else if (LEVEL_TABLE[3].expStart <= userExp && userExp < LEVEL_TABLE[3].expCap) {
     return LEVEL_TABLE[3]
-  } else if (LEVEL_TABLE[3].expCap <= userExp && userExp < LEVEL_TABLE[4].expCap) {
+  } else if (LEVEL_TABLE[4].expStart <= userExp && userExp < LEVEL_TABLE[4].expCap) {
     return LEVEL_TABLE[4]
-  } else if (LEVEL_TABLE[4].expCap <= userExp && userExp < LEVEL_TABLE[5].expCap) {
+  } else if (LEVEL_TABLE[5].expStart <= userExp && userExp < LEVEL_TABLE[5].expCap) {
     return LEVEL_TABLE[5]
-  } else if (LEVEL_TABLE[5].expCap <= userExp && userExp < LEVEL_TABLE[6].expCap) {
+  } else if (LEVEL_TABLE[6].expStart <= userExp && userExp < LEVEL_TABLE[6].expCap) {
     return LEVEL_TABLE[6]
-  } else if (LEVEL_TABLE[6].expCap <= userExp && userExp < LEVEL_TABLE[7].expCap) {
+  } else if (LEVEL_TABLE[7].expStart <= userExp && userExp < LEVEL_TABLE[7].expCap) {
     return LEVEL_TABLE[7]
-  } else {
+  } else if (LEVEL_TABLE[8].expStart <= userExp) {
     return LEVEL_TABLE[8]
   }
+
+  return LEVEL_TABLE[0]
 }
