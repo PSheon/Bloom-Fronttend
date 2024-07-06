@@ -24,7 +24,7 @@ const ManagementFundPreviewDetailCard = (props: Props) => {
     <Card>
       <CardHeader title='Detail' />
       <CardContent>
-        <TextEditor blocks={initFundEntity.detail} mode='read' />
+        <TextEditor blocks={initFundEntity.detail} mode='preview' />
       </CardContent>
     </Card>
   )
