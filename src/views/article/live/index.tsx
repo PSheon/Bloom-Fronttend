@@ -15,7 +15,7 @@ import format from 'date-fns/format'
 // ** Custom Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 
-const TextEditorPreview = dynamic(() => import('src/views/shared/TextEditorPreview'), { ssr: false })
+const TextEditor = dynamic(() => import('src/views/shared/text-editor'), { ssr: false })
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -91,7 +91,7 @@ const PublicArticleLiveSection = (props: Props) => {
       <Stack alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
         <Grid container spacing={6}>
           <Grid item xs={12} md={8} lg={9} sx={{ lineBreak: 'anywhere' }}>
-            <TextEditorPreview blocks={initArticleEntity.content} />
+            <TextEditor blocks={initArticleEntity.content} editMode={false} />
           </Grid>
           <Grid item xs={12} md={4} lg={3}>
             <Stack spacing={4}>

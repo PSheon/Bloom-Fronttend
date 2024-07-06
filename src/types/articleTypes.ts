@@ -1,5 +1,5 @@
 // ** Type Imports
-import type { OutputData } from '@editorjs/editorjs'
+import type { Block } from '@blocknote/core'
 import type { BaseApiResponseType, UserApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
 
 type categoryType = 'Engineering' | 'Community' | 'Company News' | 'Customer Stories' | 'Changelog' | 'Press'
@@ -9,7 +9,7 @@ export type ArticleType = {
   category: categoryType
   displayName: string
   description?: string
-  content: OutputData
+  content: Block[]
   author: UserApiResponseType
   status: 'Draft' | 'Published' | 'Archived'
   isHighlighted: boolean
@@ -67,7 +67,7 @@ export type UpdateOneArticleParamsType = {
   data: Partial<{
     cover: number | null
     displayName: string
-    content: OutputData
+    content: Block[]
     status: 'Draft' | 'Published' | 'Archived'
     isHighlighted: boolean
   }>

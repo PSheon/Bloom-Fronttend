@@ -5,7 +5,6 @@ import { useState } from 'react'
 import dynamic from 'next/dynamic'
 
 // ** MUI Imports
-import { styled } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -15,13 +14,10 @@ import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
 import type { MouseEvent } from 'react'
-import type { CardProps } from '@mui/material/Card'
-import type { OutputData } from '@editorjs/editorjs'
-import type { EditorCore } from 'src/views/shared/TextEditor'
+import type { BlockNoteEditor, Block } from '@blocknote/core'
 
 // ** Custom Component Imports
-const TextEditor = dynamic(() => import('src/views/shared/TextEditor'), { ssr: false })
-const TextEditorPreview = dynamic(() => import('src/views/shared/TextEditorPreview'), { ssr: false })
+const TextEditor = dynamic(() => import('src/views/shared/text-editor'), { ssr: false })
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -36,25 +32,20 @@ interface Props {
   initFundEntity: FundType
 }
 
-// ** Styled Root Card component
-const StyledRootCard = styled(Card)<CardProps>(({ theme }) => ({
-  minHeight: theme.spacing(200)
-}))
-
 const ReviewFundEditDetailEditorCard = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
   // ** States
-  const [blocks, setBlocks] = useState<OutputData | undefined>(initFundEntity.detail || undefined)
+  const [editorInstance, setEditorInstance] = useState<BlockNoteEditor | null>(null)
   const [isEditMode, setIsEditMode] = useState<boolean>(false)
-  const [editorInstance, setEditorInstance] = useState<EditorCore | null>(null)
+  const [blocks, setBlocks] = useState<Block[]>(initFundEntity.detail)
 
   // ** Hooks
   const [updateFund, { isLoading: isUpdateFundLoading }] = useUpdateOneMutation()
 
   // ** Logics
-  const handleInitializeInstance = (instance: EditorCore) => {
+  const handleInitializeInstance = (instance: BlockNoteEditor) => {
     setEditorInstance(instance)
   }
 
@@ -62,9 +53,9 @@ const ReviewFundEditDetailEditorCard = (props: Props) => {
     e.preventDefault()
 
     if (isEditMode) {
-      const savedBlocks = await editorInstance!.save()
+      const blocks = editorInstance?.document as Block[]
 
-      setBlocks(() => savedBlocks)
+      setBlocks(() => blocks)
       setIsEditMode(() => false)
     } else {
       setIsEditMode(() => true)
@@ -74,14 +65,14 @@ const ReviewFundEditDetailEditorCard = (props: Props) => {
   const handleSaveBlocks = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
-    const outputDetail = await editorInstance!.save()
+    const blocks = editorInstance?.document as Block[]
 
-    setBlocks(() => outputDetail)
-    await updateFund({ id: initFundEntity.id, data: { detail: outputDetail } })
+    setBlocks(() => blocks)
+    await updateFund({ id: initFundEntity.id, data: { detail: blocks } })
   }
 
   return (
-    <StyledRootCard>
+    <Card>
       <CardHeader
         title='細節說明'
         action={
@@ -105,13 +96,9 @@ const ReviewFundEditDetailEditorCard = (props: Props) => {
         }
       />
       <CardContent>
-        {isEditMode ? (
-          <TextEditor blocks={blocks} handleInitializeInstance={handleInitializeInstance} />
-        ) : (
-          <TextEditorPreview blocks={blocks} />
-        )}
+        <TextEditor blocks={blocks} handleInitializeInstance={handleInitializeInstance} editMode={isEditMode} />
       </CardContent>
-    </StyledRootCard>
+    </Card>
   )
 }
 

@@ -2,7 +2,6 @@
 import dynamic from 'next/dynamic'
 
 // ** MUI Imports
-import { styled } from '@mui/material/styles'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import CardContent from '@mui/material/CardContent'
@@ -10,23 +9,17 @@ import Stack from '@mui/material/Stack'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Custom Component Imports
-const TextEditorPreview = dynamic(() => import('src/views/shared/TextEditorPreview'), { ssr: false })
+const TextEditor = dynamic(() => import('src/views/shared/text-editor'), { ssr: false })
 
 // ** API Imports
 import { useUpdateOneMutation } from 'src/store/api/management/notification'
 
 // ** Type Imports
-import type { CardProps } from '@mui/material/Card'
 import type { NotificationType } from 'src/types/notificationTypes'
 
 interface Props {
   initNotificationEntity: NotificationType
 }
-
-// ** Styled Root Card component
-const StyledRootCard = styled(Card)<CardProps>(({ theme }) => ({
-  minHeight: theme.spacing(160)
-}))
 
 const NotificationReadOverviewContentEditorCard = (props: Props) => {
   // ** Props
@@ -44,7 +37,7 @@ const NotificationReadOverviewContentEditorCard = (props: Props) => {
   }
 
   return (
-    <StyledRootCard>
+    <Card>
       <CardHeader
         title='Content'
         action={
@@ -62,9 +55,9 @@ const NotificationReadOverviewContentEditorCard = (props: Props) => {
         }
       />
       <CardContent>
-        <TextEditorPreview blocks={blocks} />
+        <TextEditor blocks={blocks} editMode={false} />
       </CardContent>
-    </StyledRootCard>
+    </Card>
   )
 }
 

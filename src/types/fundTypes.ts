@@ -1,6 +1,6 @@
 // ** Type Imports
 import type { Abi } from 'viem'
-import type { OutputData } from '@editorjs/editorjs'
+import type { Block } from '@blocknote/core'
 import type { BaseApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
 import type { PackageType } from 'src/types/packageTypes'
 
@@ -29,7 +29,7 @@ export type FundType = {
   category: CategoryType
   displayName: string
   description?: string
-  detail: OutputData
+  detail: Block[]
   genesisDate: Date
   saleStartTime: Date
   maturityDate: Date
@@ -123,7 +123,7 @@ export type UpdateOneFundParamsType = {
     estimatedAPY: number
     performanceFeePercentage: number
     redemptionFrequencyInDays: number
-    detail: OutputData
+    detail: Block[]
     defaultPackages: number[]
     isHighlighted: boolean
   }>
