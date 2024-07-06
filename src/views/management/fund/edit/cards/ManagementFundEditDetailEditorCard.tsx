@@ -77,7 +77,7 @@ const ManagementFundEditDetailEditorCard = (props: Props) => {
         action={
           <Stack direction='row' spacing={4}>
             <Button variant='outlined' size='small' onClick={handleToggleEditorMode}>
-              {editorMode === 'edit' ? '編輯' : '預覽'}
+              {editorMode === 'edit' ? '預覽' : '編輯'}
             </Button>
             {editorMode === 'edit' && (
               <LoadingButton
