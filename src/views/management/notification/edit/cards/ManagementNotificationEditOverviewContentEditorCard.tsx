@@ -23,7 +23,8 @@ import { useUpdateOneMutation } from 'src/store/api/management/notification'
 
 // ** Type Imports
 import type { MouseEvent } from 'react'
-import type { BlockNoteEditor, Block } from '@blocknote/core'
+import type { Block } from '@blocknote/core'
+import type { EditorType } from 'src/views/shared/text-editor'
 import type { NotificationType } from 'src/types/notificationTypes'
 
 interface Props {
@@ -35,7 +36,7 @@ const ManagementNotificationEditOverviewContentEditorCard = (props: Props) => {
   const { initNotificationEntity } = props
 
   // ** States
-  const [editorInstance, setEditorInstance] = useState<BlockNoteEditor | null>(null)
+  const [editorInstance, setEditorInstance] = useState<EditorType | null>(null)
   const [editorMode, setEditorMode] = useState<'edit' | 'preview'>('preview')
   const [blocks, setBlocks] = useState<Block[]>(initNotificationEntity.content)
 
@@ -43,7 +44,7 @@ const ManagementNotificationEditOverviewContentEditorCard = (props: Props) => {
   const [updateNotification, { isLoading: isUpdateNotificationLoading }] = useUpdateOneMutation()
 
   // ** Logics
-  const handleInitializeInstance = (instance: BlockNoteEditor) => {
+  const handleInitializeInstance = (instance: EditorType) => {
     setEditorInstance(instance)
   }
 

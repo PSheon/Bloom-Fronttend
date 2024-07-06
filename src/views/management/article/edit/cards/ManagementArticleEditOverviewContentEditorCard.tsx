@@ -23,7 +23,8 @@ import { useUpdateOneMutation } from 'src/store/api/management/article'
 
 // ** Type Imports
 import type { MouseEvent } from 'react'
-import type { BlockNoteEditor, Block } from '@blocknote/core'
+import type { Block } from '@blocknote/core'
+import type { EditorType } from 'src/views/shared/text-editor'
 import type { ArticleType } from 'src/types/articleTypes'
 
 // ** Style Imports
@@ -38,7 +39,7 @@ const ManagementArticleEditOverviewContentEditorCard = (props: Props) => {
   const { initArticleEntity } = props
 
   // ** States
-  const [editorInstance, setEditorInstance] = useState<BlockNoteEditor | null>(null)
+  const [editorInstance, setEditorInstance] = useState<EditorType | null>(null)
   const [editorMode, setEditorMode] = useState<'edit' | 'preview'>('preview')
   const [blocks, setBlocks] = useState<Block[]>(initArticleEntity.content)
 
@@ -46,7 +47,7 @@ const ManagementArticleEditOverviewContentEditorCard = (props: Props) => {
   const [updateArticle, { isLoading: isUpdateArticleLoading }] = useUpdateOneMutation()
 
   // ** Logics
-  const handleInitializeInstance = (instance: BlockNoteEditor) => {
+  const handleInitializeInstance = (instance: EditorType) => {
     setEditorInstance(instance)
   }
 

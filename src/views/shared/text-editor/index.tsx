@@ -6,12 +6,19 @@ import { styled, useTheme } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 
 // ** Third-Party Imports
-import { useCreateBlockNote } from '@blocknote/react'
+import { BlockNoteSchema, defaultBlockSpecs, filterSuggestionItems, insertOrUpdateBlock } from '@blocknote/core'
+import { SuggestionMenuController, getDefaultReactSlashMenuItems, useCreateBlockNote } from '@blocknote/react'
 import { BlockNoteView } from '@blocknote/mantine'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
+
+// ** Custom Component Imports
+import AlertBlock from 'src/views/shared/text-editor/blocks/AlertBlock'
 
 // ** Type Imports
 import type { BoxProps } from '@mui/material'
-import type { Block, BlockNoteEditor } from '@blocknote/core'
+import type { Block } from '@blocknote/core'
 
 // ** Style Imports
 import '@blocknote/mantine/style.css'
@@ -49,10 +56,19 @@ const StyledBox = styled(Box)<BoxProps>(({ theme }) => ({
   }
 }))
 
+const schema = BlockNoteSchema.create({
+  blockSpecs: {
+    ...defaultBlockSpecs,
+    alert: AlertBlock
+  }
+})
+
+export type EditorType = typeof schema.BlockNoteEditor
+
 interface Props {
   blocks: Block[]
   mode: 'edit' | 'preview' | 'read'
-  handleInitializeInstance?: (instance: BlockNoteEditor) => void
+  handleInitializeInstance?: (instance: EditorType) => void
   handleChange?: () => void
 }
 
@@ -64,6 +80,7 @@ const Editor = (props: Props) => {
   const theme = useTheme()
 
   const editor = useCreateBlockNote({
+    schema,
     initialContent: blocks ?? [
       {
         type: 'heading',
@@ -80,6 +97,19 @@ const Editor = (props: Props) => {
     ]
   })
 
+  // ** Logics
+  const insertAlert = (editor: EditorType) => ({
+    title: 'Alert',
+    onItemClick: () => {
+      insertOrUpdateBlock(editor, {
+        type: 'alert'
+      })
+    },
+    aliases: ['alert', 'notification', 'emphasize', 'warning', 'error', 'info', 'success'],
+    group: 'Other',
+    icon: <Icon icon='mdi:alert-outline' fontSize={20} />
+  })
+
   // ** Side Effects
   useEffect(() => {
     if (editor && handleInitializeInstance) {
@@ -89,7 +119,20 @@ const Editor = (props: Props) => {
 
   return (
     <StyledBox className={`${mode}-mode`}>
-      <BlockNoteView editor={editor} editable={mode === 'edit'} theme={theme.palette.mode} onChange={handleChange} />
+      <BlockNoteView
+        editor={editor}
+        slashMenu={false}
+        editable={mode === 'edit'}
+        theme={theme.palette.mode}
+        onChange={handleChange}
+      >
+        <SuggestionMenuController
+          triggerCharacter={'/'}
+          getItems={async query =>
+            filterSuggestionItems([...getDefaultReactSlashMenuItems(editor), insertAlert(editor)], query)
+          }
+        />
+      </BlockNoteView>
     </StyledBox>
   )
 }

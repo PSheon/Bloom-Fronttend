@@ -23,7 +23,8 @@ import { useUpdateOneMutation } from 'src/store/api/management/fund'
 
 // ** Type Imports
 import type { MouseEvent } from 'react'
-import type { BlockNoteEditor, Block } from '@blocknote/core'
+import type { Block } from '@blocknote/core'
+import type { EditorType } from 'src/views/shared/text-editor'
 import type { FundType } from 'src/types/fundTypes'
 
 interface Props {
@@ -35,7 +36,7 @@ const ManagementFundEditDetailEditorCard = (props: Props) => {
   const { initFundEntity } = props
 
   // ** States
-  const [editorInstance, setEditorInstance] = useState<BlockNoteEditor | null>(null)
+  const [editorInstance, setEditorInstance] = useState<EditorType | null>(null)
   const [editorMode, setEditorMode] = useState<'edit' | 'preview'>('preview')
   const [blocks, setBlocks] = useState<Block[]>(initFundEntity.detail)
 
@@ -43,7 +44,7 @@ const ManagementFundEditDetailEditorCard = (props: Props) => {
   const [updateFund, { isLoading: isUpdateFundLoading }] = useUpdateOneMutation()
 
   // ** Logics
-  const handleInitializeInstance = (instance: BlockNoteEditor) => {
+  const handleInitializeInstance = (instance: EditorType) => {
     setEditorInstance(instance)
   }
 

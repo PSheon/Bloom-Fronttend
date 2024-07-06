@@ -14,7 +14,8 @@ import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
 import type { MouseEvent } from 'react'
-import type { BlockNoteEditor, Block } from '@blocknote/core'
+import type { Block } from '@blocknote/core'
+import type { EditorType } from 'src/views/shared/text-editor'
 
 // ** Custom Component Imports
 const TextEditor = dynamic(() => import('src/views/shared/text-editor'), { ssr: false })
@@ -37,7 +38,7 @@ const ReviewFundEditDetailEditorCard = (props: Props) => {
   const { initFundEntity } = props
 
   // ** States
-  const [editorInstance, setEditorInstance] = useState<BlockNoteEditor | null>(null)
+  const [editorInstance, setEditorInstance] = useState<EditorType | null>(null)
   const [editorMode, setEditorMode] = useState<'edit' | 'preview'>('preview')
   const [blocks, setBlocks] = useState<Block[]>(initFundEntity.detail)
 
@@ -45,7 +46,7 @@ const ReviewFundEditDetailEditorCard = (props: Props) => {
   const [updateFund, { isLoading: isUpdateFundLoading }] = useUpdateOneMutation()
 
   // ** Logics
-  const handleInitializeInstance = (instance: BlockNoteEditor) => {
+  const handleInitializeInstance = (instance: EditorType) => {
     setEditorInstance(instance)
   }
 
