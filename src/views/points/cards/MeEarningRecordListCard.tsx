@@ -26,6 +26,7 @@ const MeEarningRecordListCard = () => {
   // ** Hooks
   const { data: pointRecordsData, isLoading: isPointRecordsLoading } = useFindMeQuery({
     filters: {},
+    sort: ['createdAt:desc'],
     pagination: {
       page: paginationModel.page + 1,
       pageSize: paginationModel.pageSize
