@@ -38,7 +38,7 @@ const ReviewFundEditDetailEditorCard = (props: Props) => {
 
   // ** States
   const [editorInstance, setEditorInstance] = useState<BlockNoteEditor | null>(null)
-  const [isEditMode, setIsEditMode] = useState<boolean>(false)
+  const [editorMode, setEditorMode] = useState<'edit' | 'preview'>('preview')
   const [blocks, setBlocks] = useState<Block[]>(initFundEntity.detail)
 
   // ** Hooks
@@ -52,13 +52,13 @@ const ReviewFundEditDetailEditorCard = (props: Props) => {
   const handleToggleEditorMode = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
-    if (isEditMode) {
+    if (editorMode === 'edit') {
       const blocks = editorInstance?.document as Block[]
 
       setBlocks(() => blocks)
-      setIsEditMode(() => false)
+      setEditorMode(() => 'preview')
     } else {
-      setIsEditMode(() => true)
+      setEditorMode(() => 'edit')
     }
   }
 
@@ -78,9 +78,9 @@ const ReviewFundEditDetailEditorCard = (props: Props) => {
         action={
           <Stack direction='row' spacing={4}>
             <Button variant='outlined' size='small' onClick={handleToggleEditorMode}>
-              {isEditMode ? '預覽' : '編輯'}
+              {editorMode === 'edit' ? '編輯' : '預覽'}
             </Button>
-            {isEditMode && (
+            {editorMode === 'edit' && (
               <LoadingButton
                 loading={isUpdateFundLoading}
                 disabled={editorInstance === null}
@@ -96,7 +96,7 @@ const ReviewFundEditDetailEditorCard = (props: Props) => {
         }
       />
       <CardContent>
-        <TextEditor blocks={blocks} handleInitializeInstance={handleInitializeInstance} editMode={isEditMode} />
+        <TextEditor blocks={blocks} handleInitializeInstance={handleInitializeInstance} mode={editorMode} />
       </CardContent>
     </Card>
   )

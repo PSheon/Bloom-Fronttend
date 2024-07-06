@@ -91,7 +91,7 @@ const PublicArticleLiveSection = (props: Props) => {
       <Stack alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
         <Grid container spacing={6}>
           <Grid item xs={12} md={8} lg={9} sx={{ lineBreak: 'anywhere' }}>
-            <TextEditor blocks={initArticleEntity.content} editMode={false} />
+            <TextEditor blocks={initArticleEntity.content} mode='read' />
           </Grid>
           <Grid item xs={12} md={4} lg={3}>
             <Stack spacing={4}>

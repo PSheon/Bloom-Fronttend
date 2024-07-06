@@ -22,7 +22,10 @@ const StyledBox = styled(Box)<BoxProps>(({ theme }) => ({
     backgroundColor: theme.palette.background.paper,
     transition: theme.transitions.create('padding'),
     width: '100%',
-    height: '100%'
+    height: '100%',
+    '& a': {
+      color: `${theme.palette.primary.main} !important`
+    }
   },
   '&.edit-mode': {
     '& .bn-editor': {
@@ -35,19 +38,27 @@ const StyledBox = styled(Box)<BoxProps>(({ theme }) => ({
       paddingRight: 0,
       minHeight: theme.spacing(80)
     }
+  },
+  '&.read-mode': {
+    '& .bn-editor': {
+      backgroundColor: theme.palette.background.default,
+      paddingLeft: 0,
+      paddingRight: 0,
+      minHeight: theme.spacing(80)
+    }
   }
 }))
 
 interface Props {
   blocks: Block[]
-  editMode: boolean
+  mode: 'edit' | 'preview' | 'read'
   handleInitializeInstance?: (instance: BlockNoteEditor) => void
   handleChange?: () => void
 }
 
 const Editor = (props: Props) => {
   // ** Props
-  const { blocks, editMode, handleInitializeInstance, handleChange } = props
+  const { blocks, mode, handleInitializeInstance, handleChange } = props
 
   // ** Hooks
   const theme = useTheme()
@@ -77,8 +88,8 @@ const Editor = (props: Props) => {
   }, [handleInitializeInstance, editor])
 
   return (
-    <StyledBox className={editMode ? 'edit-mode' : 'preview-mode'}>
-      <BlockNoteView editor={editor} editable={editMode} theme={theme.palette.mode} onChange={handleChange} />
+    <StyledBox className={`${mode}-mode`}>
+      <BlockNoteView editor={editor} editable={mode === 'edit'} theme={theme.palette.mode} onChange={handleChange} />
     </StyledBox>
   )
 }

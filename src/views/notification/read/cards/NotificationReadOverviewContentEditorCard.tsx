@@ -55,7 +55,7 @@ const NotificationReadOverviewContentEditorCard = (props: Props) => {
         }
       />
       <CardContent>
-        <TextEditor blocks={blocks} editMode={false} />
+        <TextEditor blocks={blocks} mode='read' />
       </CardContent>
     </Card>
   )

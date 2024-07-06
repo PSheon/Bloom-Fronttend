@@ -24,7 +24,7 @@ const ReviewFundPreviewDetailCard = (props: Props) => {
     <Card>
       <CardHeader title='細節' />
       <CardContent>
-        <TextEditor blocks={initFundEntity.detail} editMode={false} />
+        <TextEditor blocks={initFundEntity.detail} mode='read' />
       </CardContent>
     </Card>
   )
