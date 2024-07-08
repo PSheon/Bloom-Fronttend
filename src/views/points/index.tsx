@@ -6,6 +6,7 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 import PointsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import MePointsLevelCard from 'src/views/points/cards/me-points-level-card'
 import MePointsInvitationCard from 'src/views/points/cards/MePointsInvitationCard'
+import MePointsAccountPointsCard from 'src/views/points/cards/MePointsAccountPointsCard'
 import MePointsStatisticsCard from 'src/views/points/cards/MePointsStatisticsCard'
 import MePointsRecordChartCard from 'src/views/points/cards/MePointsRecordChartCard'
 
@@ -32,7 +33,10 @@ const PointsSection = () => {
         </Grid>
         <Grid item xs={12} md={7} lg={8}>
           <Grid container spacing={6} className='match-height'>
-            <Grid item xs={12}>
+            <Grid item xs={12} md={5}>
+              <MePointsAccountPointsCard />
+            </Grid>
+            <Grid item xs={12} md={7}>
               <MePointsStatisticsCard />
             </Grid>
             <Grid item xs={12}>

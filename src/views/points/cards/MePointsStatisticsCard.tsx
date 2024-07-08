@@ -29,7 +29,7 @@ const MePointsStatisticsCard = () => {
     <Card>
       <CardHeader
         title={
-          <Typography variant='h6' component='h3'>
+          <Typography variant='h6' component='p'>
             Statistics
           </Typography>
         }
@@ -77,7 +77,7 @@ const MePointsStatisticsCard = () => {
                     {totalCompletedTasks}
                   </Typography>
                 )}
-                <Typography variant='caption'>Total Completed Tasks</Typography>
+                <Typography variant='caption'>Completed Tasks</Typography>
               </Stack>
             </Stack>
           </Grid>

@@ -157,7 +157,7 @@ const MePointsRecordChartCard = () => {
       ]
     },
     yaxis: { show: false },
-    colors: [hexToRGBA(theme.palette.primary.main, 1), hexToRGBA(theme.palette.secondary.main, 1)],
+    colors: [hexToRGBA(theme.palette.success.main, 1), hexToRGBA(theme.palette.primary.main, 1)],
     grid: {
       strokeDashArray: 10,
       borderColor: theme.palette.divider,
@@ -264,7 +264,7 @@ const MePointsRecordChartCard = () => {
                     }}
                   >
                     <Icon icon='mdi:circle' fontSize='0.75rem' />
-                    <Typography variant='body2' sx={{ fontWeight: 600, whiteSpace: 'nowrap', color: 'text.primary' }}>
+                    <Typography variant='body2' color='text.primary' noWrap sx={{ fontWeight: 600 }}>
                       {item.displayName}
                     </Typography>
                   </Stack>
