@@ -2,7 +2,7 @@
 import { mainnet, sepolia, blast } from 'wagmi/chains'
 
 // ** Config Imports
-import { ETHEREUM_SEPOLIA_BLT_ABI } from 'src/configs/ethereum'
+import { ETHEREUM_SEPOLIA_USDT_ABI, ETHEREUM_SEPOLIA_BLT_ABI } from 'src/configs/ethereum'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -69,25 +69,25 @@ export const getBaseCurrencyABI = (
   // ** NOTE: Fix here later
   const ABI_TABLE: Record<FundType['chain'], Record<FundType['baseCurrency'], any>> = {
     Ethereum: {
-      ETH: ETHEREUM_SEPOLIA_BLT_ABI,
-      USDT: ETHEREUM_SEPOLIA_BLT_ABI,
-      USDC: ETHEREUM_SEPOLIA_BLT_ABI,
-      DAI: ETHEREUM_SEPOLIA_BLT_ABI,
-      BLT: ETHEREUM_SEPOLIA_BLT_ABI
+      ETH: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      USDT: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      USDC: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      DAI: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      BLT: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */
     },
     'Ethereum Sepolia': {
-      ETH: ETHEREUM_SEPOLIA_BLT_ABI,
-      USDT: ETHEREUM_SEPOLIA_BLT_ABI,
-      USDC: ETHEREUM_SEPOLIA_BLT_ABI,
-      DAI: ETHEREUM_SEPOLIA_BLT_ABI,
+      ETH: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      USDT: ETHEREUM_SEPOLIA_USDT_ABI,
+      USDC: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      DAI: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
       BLT: ETHEREUM_SEPOLIA_BLT_ABI
     },
     Blast: {
-      ETH: ETHEREUM_SEPOLIA_BLT_ABI,
-      USDT: ETHEREUM_SEPOLIA_BLT_ABI,
-      USDC: ETHEREUM_SEPOLIA_BLT_ABI,
-      DAI: ETHEREUM_SEPOLIA_BLT_ABI,
-      BLT: ETHEREUM_SEPOLIA_BLT_ABI
+      ETH: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      USDT: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      USDC: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      DAI: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      BLT: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */
     }
   }
 
@@ -105,21 +105,21 @@ export const getBaseCurrencyAddress = (
       USDT: '0xdAC17F958D2ee523a2206206994597C13D831ec7',
       USDC: '0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606eB48',
       DAI: '0x6B175474E89094C44Da98b954EedeAC495271d0F',
-      BLT: '0x0000000000000000000000000000000000000000' /* NOTE: Unstable */
+      BLT: '0x0000000000000000000000000000000000000000' /* NOTE: check later */
     },
     'Ethereum Sepolia': {
       ETH: '0x2a9fa8CDbF74Ec8Aa1A7DC7a054D16E363E4F41D',
-      USDT: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: Unstable */,
-      USDC: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: Unstable */,
-      DAI: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: Unstable */,
-      BLT: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: Unstable */
+      USDT: '0x8DE274A3cf4F4FD4A19d91b472A6fBBCe90b95a5',
+      USDC: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: check later */,
+      DAI: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: check later */,
+      BLT: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: check later */
     },
     Blast: {
-      ETH: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: Unstable */,
-      USDT: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: Unstable */,
-      USDC: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: Unstable */,
-      DAI: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: Unstable */,
-      BLT: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: Unstable */
+      ETH: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: check later */,
+      USDT: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: check later */,
+      USDC: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: check later */,
+      DAI: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: check later */,
+      BLT: '0x6e454459356Cf2b884d4986C9aA46288E05C9553' /* NOTE: check later */
     }
   }
 
