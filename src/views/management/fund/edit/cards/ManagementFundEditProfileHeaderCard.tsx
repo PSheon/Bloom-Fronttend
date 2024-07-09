@@ -42,6 +42,7 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
 
   // ** Vars
   const fundCategoryProperties = getFundCategoryProperties(initFundEntity.category)
+  const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   const currentBannerMediaAsset = initFundEntity.banner?.data?.id
     ? ({
@@ -49,8 +50,6 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
         ...initFundEntity.banner.data.attributes
       } as MediaAssetType)
     : null
-
-  const baseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   return (
     <Card>
@@ -77,10 +76,10 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
         }}
       >
         <FundAvatarGroup className='pull-up'>
-          <Tooltip title={baseCurrencyProperties.displayName}>
+          <Tooltip title={fundBaseCurrencyProperties.displayName}>
             <CustomAvatar
-              src={baseCurrencyProperties.imageUrl}
-              alt={baseCurrencyProperties.displayName}
+              src={fundBaseCurrencyProperties.imageUrl}
+              alt={fundBaseCurrencyProperties.displayName}
               sx={{
                 height: 120,
                 width: 120,
@@ -102,18 +101,23 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
             />
           </Tooltip>
         </FundAvatarGroup>
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            ml: { xs: 0, md: 6 },
-            alignItems: 'flex-end',
-            flexWrap: ['wrap', 'nowrap'],
-            justifyContent: ['center', 'space-between']
-          }}
+        <Stack
+          direction='row'
+          flexWrap={{ xs: 'wrap', sm: 'nowrap' }}
+          alignItems={{ xs: 'center', sm: 'flex-end' }}
+          justifyContent={{ xs: 'center', sm: 'space-between' }}
+          sx={{ width: '100%', ml: { xs: 0, md: 6 } }}
         >
-          <Box sx={{ mb: [6, 0], display: 'flex', flexDirection: 'column', alignItems: ['center', 'flex-start'] }}>
-            <Typography variant='h5' sx={{ mb: 4, fontSize: '1.375rem' }}>
+          <Stack
+            spacing={4}
+            alignSelf='flex-end'
+            alignItems={{
+              xs: 'center',
+              sm: 'flex-start'
+            }}
+            sx={{ mb: { xs: 6, sm: 0 } }}
+          >
+            <Typography variant='h5' textAlign={{ xs: 'center', sm: 'left' }} sx={{ fontSize: '1.375rem' }}>
               {initFundEntity.displayName}
             </Typography>
             <Stack direction='row' spacing={4} flexWrap='wrap' justifyContent={['center', 'flex-start']}>
@@ -128,16 +132,18 @@ const ManagementFundEditProfileHeaderCard = (props: Props) => {
                 </Typography>
               </Box>
             </Stack>
-          </Box>
-          <Button
-            component={Link}
-            href={`/management/fund/preview/${initFundEntity.id}/overview`}
-            variant='contained'
-            startIcon={<Icon icon='mdi:print-preview' fontSize={20} />}
-          >
-            Preview
-          </Button>
-        </Box>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+            <Button
+              component={Link}
+              href={`/management/fund/preview/${initFundEntity.id}/overview`}
+              variant='contained'
+              startIcon={<Icon icon='mdi:print-preview' fontSize={20} />}
+            >
+              Preview
+            </Button>
+          </Stack>
+        </Stack>
       </CardContent>
     </Card>
   )

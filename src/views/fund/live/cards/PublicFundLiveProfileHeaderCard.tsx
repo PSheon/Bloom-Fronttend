@@ -1,22 +1,13 @@
-// ** Next Imports
-import Link from 'next/link'
-
 // ** MUI Components
 import { styled } from '@mui/material/styles'
 import AvatarGroup from '@mui/material/AvatarGroup'
-import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
 import CardContent from '@mui/material/CardContent'
 import CardMedia from '@mui/material/CardMedia'
-import IconButton from '@mui/material/IconButton'
-import Skeleton from '@mui/material/Skeleton'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
-
-// ** Third-Party Imports
-import { useAccount, useReadContract } from 'wagmi'
-import { ExactNumber as N } from 'exactnumber'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -25,18 +16,7 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
-import {
-  getFundCategoryProperties,
-  getPublicMediaAssetUrl,
-  getChainId,
-  getBaseCurrencyAddress,
-  getFundCurrencyProperties,
-  getBaseCurrencyABI,
-  getFormattedPriceUnit
-} from 'src/utils'
-
-// ** Config Imports
-import type { wagmiConfig } from 'src/configs/ethereum'
+import { getFundCategoryProperties, getPublicMediaAssetUrl, getFundCurrencyProperties } from 'src/utils'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -56,22 +36,6 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
-  // ** Hooks
-  const walletAccount = useAccount()
-
-  const { data: payTokenBalance, isLoading: isPayTokenBalanceLoading } = useReadContract({
-    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
-    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
-    functionName: 'balanceOf',
-    args: [walletAccount.address!],
-    account: walletAccount.address!,
-    query: {
-      enabled: walletAccount.status === 'connected',
-      placeholderData: 0n
-    }
-  })
-
   // ** Vars
   const fundCategoryProperties = getFundCategoryProperties(initFundEntity.category)
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
@@ -82,8 +46,6 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
         ...initFundEntity.banner.data.attributes
       } as MediaAssetType)
     : null
-
-  const baseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   return (
     <Card>
@@ -110,10 +72,10 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
         }}
       >
         <FundAvatarGroup className='pull-up'>
-          <Tooltip title={baseCurrencyProperties.displayName}>
+          <Tooltip title={fundBaseCurrencyProperties.displayName}>
             <CustomAvatar
-              src={baseCurrencyProperties.imageUrl}
-              alt={baseCurrencyProperties.displayName}
+              src={fundBaseCurrencyProperties.imageUrl}
+              alt={fundBaseCurrencyProperties.displayName}
               sx={{
                 height: 120,
                 width: 120,
@@ -135,18 +97,23 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
             />
           </Tooltip>
         </FundAvatarGroup>
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            ml: { xs: 0, md: 6 },
-            alignItems: 'flex-start',
-            flexWrap: ['wrap', 'nowrap'],
-            justifyContent: ['center', 'space-between']
-          }}
+        <Stack
+          direction='row'
+          flexWrap={{ xs: 'wrap', sm: 'nowrap' }}
+          alignItems='flex-start'
+          justifyContent={{ xs: 'center', sm: 'space-between' }}
+          sx={{ width: '100%', ml: { xs: 0, md: 6 } }}
         >
-          <Box sx={{ mb: [6, 0], display: 'flex', flexDirection: 'column', alignItems: ['center', 'flex-start'] }}>
-            <Typography variant='h5' sx={{ mb: 4, fontSize: '1.375rem' }}>
+          <Stack
+            spacing={4}
+            alignSelf='flex-end'
+            alignItems={{
+              xs: 'center',
+              sm: 'flex-start'
+            }}
+            sx={{ mb: { xs: 6, sm: 0 } }}
+          >
+            <Typography variant='h5' textAlign={{ xs: 'center', sm: 'left' }} sx={{ fontSize: '1.375rem' }}>
               {initFundEntity.displayName}
             </Typography>
             <Stack direction='row' spacing={4} flexWrap='wrap' justifyContent={['center', 'flex-start']}>
@@ -175,42 +142,23 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
                 </Typography>
               </Stack>
             </Stack>
-          </Box>
-          <Stack direction='row' spacing={4} justifyContent='center'>
-            <Stack alignItems='flex-end' justifyContent='center'>
-              <Typography variant='caption' color='text.secondary' sx={{ fontWeight: 600 }}>
-                My Total Position
-              </Typography>
-              <Typography
-                variant='caption'
-                color='text.secondary'
-                sx={{ fontWeight: 600 }}
-              >{`(${baseCurrencyProperties.currency})`}</Typography>
-            </Stack>
-            {isPayTokenBalanceLoading ? (
-              <Stack alignItems='center' justifyContent='center'>
-                <Skeleton variant='text' width={100} height={40} />
-              </Stack>
-            ) : (
-              <Stack direction='row' alignItems='center' justifyContent='center'>
-                <Typography variant='h6' component='p'>
-                  {`${fundBaseCurrencyProperties.symbol} ${
-                    typeof payTokenBalance === 'bigint'
-                      ? getFormattedPriceUnit(N(payTokenBalance).div(N(10).pow(18)).toNumber())
-                      : 0n
-                  }`}
-                </Typography>
-                <IconButton
-                  component={Link}
-                  href={`${walletAccount?.chain?.blockExplorers?.default.url}/address/${walletAccount.address}`}
-                  target='_blank'
-                >
-                  <Icon icon='mdi:arrow-top-right-thin-circle-outline' fontSize={16} />
-                </IconButton>
-              </Stack>
-            )}
           </Stack>
-        </Box>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+            {initFundEntity.twitterUrl && (
+              <Button color='info' variant='contained' sx={{ p: 1.5, minWidth: 38 }}>
+                <Icon icon='mdi:twitter' fontSize={20} />
+              </Button>
+            )}
+            {initFundEntity.discordUrl && (
+              <Button color='primary' variant='contained' sx={{ p: 1.5, minWidth: 38 }}>
+                <Icon icon='ic:outline-discord' fontSize={20} />
+              </Button>
+            )}
+            <Button color='primary' variant='outlined' sx={{ p: 1.5, minWidth: 38 }}>
+              <Icon icon='mdi:share-variant-outline' fontSize={20} />
+            </Button>
+          </Stack>
+        </Stack>
       </CardContent>
     </Card>
   )
