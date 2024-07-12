@@ -1,24 +1,28 @@
 // ** Config Imports
 import { LEVEL_TABLE } from 'src/configs/point'
 
-export const getLevelProperties = (userExp: number) => {
-  if (LEVEL_TABLE[0].expStart <= userExp && userExp < LEVEL_TABLE[0].expCap) {
+// ** Type Imports
+import type { LevelType } from 'src/configs/point'
+
+/* TODO: Update get level logic later */
+export const getLevelProperties = (userExp: number): LevelType => {
+  if (LEVEL_TABLE[0].expDisplayMin <= userExp && userExp < LEVEL_TABLE[0].expDisplayMax) {
     return LEVEL_TABLE[0]
-  } else if (LEVEL_TABLE[1].expStart <= userExp && userExp < LEVEL_TABLE[1].expCap) {
+  } else if (LEVEL_TABLE[1].expDisplayMin <= userExp && userExp < LEVEL_TABLE[1].expDisplayMax) {
     return LEVEL_TABLE[1]
-  } else if (LEVEL_TABLE[2].expStart <= userExp && userExp < LEVEL_TABLE[2].expCap) {
+  } else if (LEVEL_TABLE[2].expDisplayMin <= userExp && userExp < LEVEL_TABLE[2].expDisplayMax) {
     return LEVEL_TABLE[2]
-  } else if (LEVEL_TABLE[3].expStart <= userExp && userExp < LEVEL_TABLE[3].expCap) {
+  } else if (LEVEL_TABLE[3].expDisplayMin <= userExp && userExp < LEVEL_TABLE[3].expDisplayMax) {
     return LEVEL_TABLE[3]
-  } else if (LEVEL_TABLE[4].expStart <= userExp && userExp < LEVEL_TABLE[4].expCap) {
+  } else if (LEVEL_TABLE[4].expDisplayMin <= userExp && userExp < LEVEL_TABLE[4].expDisplayMax) {
     return LEVEL_TABLE[4]
-  } else if (LEVEL_TABLE[5].expStart <= userExp && userExp < LEVEL_TABLE[5].expCap) {
+  } else if (LEVEL_TABLE[5].expDisplayMin <= userExp && userExp < LEVEL_TABLE[5].expDisplayMax) {
     return LEVEL_TABLE[5]
-  } else if (LEVEL_TABLE[6].expStart <= userExp && userExp < LEVEL_TABLE[6].expCap) {
+  } else if (LEVEL_TABLE[6].expDisplayMin <= userExp && userExp < LEVEL_TABLE[6].expDisplayMax) {
     return LEVEL_TABLE[6]
-  } else if (LEVEL_TABLE[7].expStart <= userExp && userExp < LEVEL_TABLE[7].expCap) {
+  } else if (LEVEL_TABLE[7].expDisplayMin <= userExp && userExp < LEVEL_TABLE[7].expDisplayMax) {
     return LEVEL_TABLE[7]
-  } else if (LEVEL_TABLE[8].expStart <= userExp) {
+  } else if (LEVEL_TABLE[8].expDisplayMin <= userExp) {
     return LEVEL_TABLE[8]
   }
 

@@ -3,6 +3,7 @@ import { useState } from 'react'
 
 // ** MUI Imports
 import { styled, useTheme, alpha } from '@mui/material/styles'
+import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
@@ -18,10 +19,16 @@ import IconButton from '@mui/material/IconButton'
 import Step from '@mui/material/Step'
 import StepLabel from '@mui/material/StepLabel'
 import Stepper from '@mui/material/Stepper'
+import TableContainer from '@mui/material/TableContainer'
+import Table from '@mui/material/Table'
+import TableRow from '@mui/material/TableRow'
+import TableHead from '@mui/material/TableHead'
+import TableBody from '@mui/material/TableBody'
+import TableCell from '@mui/material/TableCell'
+import Timeline from '@mui/lab/Timeline'
 import TimelineContent from '@mui/lab/TimelineContent'
 import TimelineSeparator from '@mui/lab/TimelineSeparator'
 import TimelineConnector from '@mui/lab/TimelineConnector'
-import Timeline from '@mui/lab/Timeline'
 import TimelineDot from '@mui/lab/TimelineDot'
 import TimelineItem from '@mui/lab/TimelineItem'
 
@@ -45,6 +52,7 @@ import type { TimelineProps } from '@mui/lab/Timeline'
 
 // ** Styled Timeline component
 const StyledTimeline = styled(Timeline)<TimelineProps>(() => ({
+  width: '100%',
   paddingLeft: 0,
   paddingRight: 0,
   '& .MuiTimelineItem-root': {
@@ -69,6 +77,156 @@ const MePointsLevelShowRoomIconButton = () => {
   // ** Logics
   const handleShowRoomOpen = () => setOpenShowRoom(true)
   const handleShowRoomClose = () => setOpenShowRoom(false)
+
+  // ** Renders
+  const renderPrivilegesTableStack = () => {
+    return (
+      <Stack
+        alignSelf='stretch'
+        alignItems='center'
+        justifyContent='center'
+        sx={{
+          borderRadius: 1,
+          border: '1px solid',
+          borderColor: 'divider',
+          '& .MuiTableRow-root:nth-of-type(even)': { backgroundColor: 'action.hover' }
+        }}
+      >
+        <TableContainer>
+          <Table>
+            <TableHead>
+              <TableRow>
+                <TableCell>
+                  <Typography
+                    noWrap
+                    sx={{
+                      fontSize: '.75rem',
+                      fontWeight: 600,
+                      letterSpacing: '.17px',
+                      textTransform: 'capitalize'
+                    }}
+                  >
+                    Privileges
+                  </Typography>
+                </TableCell>
+                <TableCell>
+                  <Typography
+                    noWrap
+                    textAlign='center'
+                    sx={{
+                      fontSize: '.75rem',
+                      fontWeight: 600,
+                      letterSpacing: '.17px',
+                      textTransform: 'capitalize'
+                    }}
+                  >
+                    Boost
+                  </Typography>
+                </TableCell>
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {currentLevelProperties.privileges.map((privilege, index) => (
+                <TableRow key={`privilege-${index}`}>
+                  <TableCell>
+                    <Stack direction='row' spacing={2} alignItems='center'>
+                      <CustomAvatar
+                        color={privilege.color}
+                        skin='light'
+                        variant='rounded'
+                        alt={privilege.title}
+                        sx={{
+                          width: 24,
+                          height: 24,
+                          fontWeight: 600,
+                          filter: 'drop-shadow(0px 4px 4px rgba(0, 0, 0, 0.25))'
+                        }}
+                      >
+                        <Icon icon={privilege.icon} fontSize={18} />
+                      </CustomAvatar>
+                      <Typography noWrap sx={{ fontSize: '0.8rem', fontWeight: 600 }}>
+                        {privilege.title}
+                      </Typography>
+                    </Stack>
+                  </TableCell>
+                  <TableCell
+                    align='center'
+                    sx={{
+                      minWidth: 100,
+                      '& svg': {
+                        verticalAlign: 'middle',
+                        color: privilege.value > 0 ? 'primary.main' : 'text.disabled'
+                      }
+                    }}
+                  >
+                    {privilege.value > 0 ? (
+                      <CustomChip
+                        size='small'
+                        skin='light'
+                        rounded
+                        label={privilege.displayValue}
+                        color={privilege.color}
+                        sx={{ lineHeight: 1 }}
+                      />
+                    ) : (
+                      <Icon fontSize={24} icon={privilege.value > 0 ? 'mdi:check-circle' : 'mdi:close-circle'} />
+                    )}
+                  </TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </TableContainer>
+      </Stack>
+    )
+  }
+
+  const renderUpgradeTasksTimelineStack = () => {
+    const upgradeTasks = currentLevelProperties.upgradeTasks
+
+    if (upgradeTasks.length === 0) {
+      return (
+        <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+          <Alert severity='info'>More tasks coming soon</Alert>
+        </Stack>
+      )
+    }
+
+    return (
+      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+        <Stack direction='row' alignSelf='stretch' alignItems='center'>
+          <Typography variant='subtitle1' component='p'>
+            Upgrade Tasks
+          </Typography>
+        </Stack>
+        <StyledTimeline>
+          {upgradeTasks.map((upgradeTask, index) => (
+            <TimelineItem key={`level-upgrade-task-${index}`}>
+              <TimelineSeparator>
+                <TimelineDot color={upgradeTask.color} />
+                <TimelineConnector />
+              </TimelineSeparator>
+              <TimelineContent sx={{ mt: 0 }}>
+                <Stack
+                  direction='row'
+                  spacing={2}
+                  alignSelf='stretch'
+                  alignItems='center'
+                  justifyContent='space-between'
+                >
+                  <Typography component='p' sx={{ fontWeight: 600 }}>
+                    {upgradeTask.title}
+                  </Typography>
+                  <Typography variant='caption'>{`# ${index + 1}`}</Typography>
+                </Stack>
+                <Typography variant='caption'>{upgradeTask.description}</Typography>
+              </TimelineContent>
+            </TimelineItem>
+          ))}
+        </StyledTimeline>
+      </Stack>
+    )
+  }
 
   return (
     <KeenSliderWrapper>
@@ -137,7 +295,9 @@ const MePointsLevelShowRoomIconButton = () => {
                       width: '100%',
                       height: '3px',
                       backgroundColor:
-                        activeLevel === 2 ? theme.palette.primary.main : alpha(theme.palette.primary.main, 0.3)
+                        activeLevel === LEVEL_TABLE.length - 1
+                          ? theme.palette.primary.main
+                          : alpha(theme.palette.primary.main, 0.3)
                     }}
                   />
                 </Stack>
@@ -188,60 +348,9 @@ const MePointsLevelShowRoomIconButton = () => {
                   />
                 </Stack>
 
-                <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                  <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-                    <Typography variant='subtitle1' component='p'>
-                      Privileges
-                    </Typography>
-                  </Stack>
-                  <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-around'>
-                    {currentLevelProperties.privileges.map((privilege, index) => (
-                      <Stack
-                        key={`level-privilege-${index}`}
-                        direction='row'
-                        spacing={4}
-                        alignItems='center'
-                        justifyContent='center'
-                      >
-                        <CustomAvatar skin='light' variant='rounded' color='info' sx={{ mr: 4 }}>
-                          <Icon icon={privilege.icon} />
-                        </CustomAvatar>
-                        <Stack alignItems='flex-start' justifyContent='center'>
-                          <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
-                            {privilege.displayValue}
-                          </Typography>
-                          <Typography variant='caption'>{privilege.title}</Typography>
-                        </Stack>
-                      </Stack>
-                    ))}
-                  </Stack>
-                </Stack>
+                {renderPrivilegesTableStack()}
 
-                <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                  <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-                    <Typography variant='subtitle1' component='p'>
-                      Requirements
-                    </Typography>
-                  </Stack>
-                  <StyledTimeline>
-                    {currentLevelProperties.requirements.map((requirement, index) => (
-                      <TimelineItem key={`level-requirement-${index}`}>
-                        <TimelineSeparator>
-                          <TimelineDot color='primary' />
-                          <TimelineConnector />
-                        </TimelineSeparator>
-                        <TimelineContent>
-                          <Stack alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
-                            <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
-                              {requirement.title}
-                            </Typography>
-                            <Typography variant='caption'>{requirement.description}</Typography>
-                          </Stack>
-                        </TimelineContent>
-                      </TimelineItem>
-                    ))}
-                  </StyledTimeline>
-                </Stack>
+                {renderUpgradeTasksTimelineStack()}
               </Stack>
             </Grid>
           </Grid>

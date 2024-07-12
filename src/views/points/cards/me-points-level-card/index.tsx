@@ -11,9 +11,6 @@ import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CircularProgress from '@mui/material/CircularProgress'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -21,8 +18,8 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Custom Component Imports
 import MePointsLevelLoadingSkeleton from 'src/views/points/cards/me-points-level-card/MePointsLevelLoadingSkeleton'
 import MePointsLevelShowRoomIconButton from 'src/views/points/cards/me-points-level-card/MePointsLevelShowRoomIconButton'
-import MePointsLevelVerifyWalletTaskStack from 'src/views/points/cards/me-points-level-card/MePointsLevelVerifyWalletTaskStack'
-import MePointsLevelDailyCheckTaskStack from 'src/views/points/cards/me-points-level-card/MePointsLevelDailyCheckTaskStack'
+import MePointsLevelPrivilegesStack from 'src/views/points/cards/me-points-level-card/privileges'
+import MePointsLevelUpgradeTasksStack from 'src/views/points/cards/me-points-level-card/upgrade-tasks'
 
 // ** API Imports
 import { useFindMeOneQuery } from 'src/store/api/management/user'
@@ -82,15 +79,20 @@ const MePointsLevelCard = () => {
                 variant='determinate'
                 thickness={5}
                 color='success'
-                value={Math.round(
-                  ((meExp - meLevelProperties.expStart) / (meLevelProperties.expCap - meLevelProperties.expStart)) * 100
+                value={Math.min(
+                  Math.round(
+                    ((meExp - meLevelProperties.expDisplayMin) /
+                      (meLevelProperties.expDisplayMax - meLevelProperties.expDisplayMin)) *
+                      100
+                  ),
+                  100
                 )}
               />
             </Box>
             <CustomChip
               skin='light'
               size='small'
-              label={`Exp ${getFormattedPriceUnit(meExp)} / ${getFormattedPriceUnit(meLevelProperties.expCap)}`}
+              label={`Exp ${getFormattedPriceUnit(meExp)} / ${getFormattedPriceUnit(meLevelProperties.expDisplayMax)}`}
               color='success'
               sx={{
                 height: 20,
@@ -127,47 +129,20 @@ const MePointsLevelCard = () => {
 
       <CardContent>
         <Stack direction='row' spacing={2} alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-          <Typography variant='subtitle2'>Privileges</Typography>
+          <Typography variant='subtitle2' component='p'>
+            Privileges
+          </Typography>
           <MePointsLevelShowRoomIconButton />
         </Stack>
         <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
-        <Stack spacing={4} alignItems='center' justifyContent='center'>
-          {meLevelProperties.privileges.map((privilege, index) => (
-            <Stack
-              key={`privilege-${index}`}
-              direction='row'
-              spacing={2}
-              alignSelf='stretch'
-              alignItems='center'
-              justifyContent='space-between'
-            >
-              <Typography variant='subtitle2' color='text.primary' sx={{ fontWeight: 600 }}>
-                {privilege.title}
-              </Typography>
-              <Typography variant='subtitle2' color='text.primary' sx={{ fontWeight: 600 }}>
-                {privilege.displayValue}
-              </Typography>
-            </Stack>
-          ))}
-        </Stack>
+        <MePointsLevelPrivilegesStack privileges={meLevelProperties.privileges} />
         <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
         <Stack direction='row' spacing={2} alignSelf='stretch' alignItems='center' justifyContent='flex-start'>
-          <Typography variant='subtitle2'>Tasks</Typography>
+          <Typography variant='subtitle2' component='p'>
+            Upgrade Tasks
+          </Typography>
         </Stack>
-        <Stack
-          spacing={4}
-          alignItems='center'
-          justifyContent='center'
-          divider={<Icon icon='mdi:plus-circle-outline' />}
-          sx={{ mt: 4 }}
-        >
-          {/* Task: Verify Wallet */}
-          <MePointsLevelVerifyWalletTaskStack />
-
-          {/* Task: Daily Check */}
-          <MePointsLevelDailyCheckTaskStack />
-        </Stack>
-
+        <MePointsLevelUpgradeTasksStack levelProperties={meLevelProperties} />
         <Stack alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ mt: 2 }}>
           <Typography variant='caption'>updates may take up to 5 minutes</Typography>
         </Stack>
