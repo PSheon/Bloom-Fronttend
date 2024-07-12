@@ -114,13 +114,13 @@ const MePointsRecordChartCard = () => {
   const daysRecordData: DataType[] = [
     {
       displayName: 'Experience',
-      color: 'primary',
+      color: 'success',
       data: daysRecord.exp,
       total: daysRecord.exp.reduce((acc, curr) => acc + curr, 0)
     },
     {
       displayName: 'Points',
-      color: 'secondary',
+      color: 'primary',
       data: daysRecord.points,
       total: daysRecord.points.reduce((acc, curr) => acc + curr, 0)
     }
