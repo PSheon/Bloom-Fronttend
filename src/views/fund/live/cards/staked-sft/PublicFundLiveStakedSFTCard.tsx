@@ -312,12 +312,10 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
             </Atropos>
           </Box>
           <Stack spacing={4} flex='1' alignSelf='stretch'>
-            <Stack direction='row' spacing={2} flexWrap='wrap' justifyContent='space-between'>
-              <Stack direction='row' spacing={2} alignItems='center'>
-                <Typography variant='h5' component='p'>
-                  {sftSlot?.attributes.displayName}
-                </Typography>
-              </Stack>
+            <Stack direction='row' spacing={4} justifyContent='space-between'>
+              <Typography variant='h5' component='p'>
+                {sftSlot?.attributes.displayName}
+              </Typography>
               <Stack direction='row' sx={{ position: 'relative' }}>
                 <Sup>{fundBaseCurrencyProperties.symbol}</Sup>
                 <Typography
