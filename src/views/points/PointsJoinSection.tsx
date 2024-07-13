@@ -54,14 +54,14 @@ const StyledReFerralBox = styled(MuiOtpInput)(({ theme }) => ({
 }))
 
 const schema = yup.object().shape({
-  referralId: yup
+  referralCode: yup
     .string()
     .matches(/^[23456789A-HJ-NP-Z]{8}$/, 'Code invalid')
     .required()
 })
 
 interface FormData {
-  referralId: string
+  referralCode: string
 }
 
 const PointsJoinSection = () => {
@@ -80,7 +80,7 @@ const PointsJoinSection = () => {
     formState: { isValid, errors }
   } = useForm({
     defaultValues: {
-      referralId: searchParams.get('referral-id') ?? ''
+      referralCode: searchParams.get('referral-id') ?? ''
     },
     mode: 'onBlur',
     resolver: yupResolver(schema)
@@ -88,10 +88,10 @@ const PointsJoinSection = () => {
 
   // ** Logics
   const onSubmit = async (data: FormData) => {
-    const { referralId } = data
+    const { referralCode } = data
 
     try {
-      await joinReferral({ referralId }).unwrap()
+      await joinReferral({ referralCode }).unwrap()
     } catch (error) {
       reset(undefined)
       toast.error('Join referral failed')
@@ -141,7 +141,7 @@ const PointsJoinSection = () => {
               sx={{ maxWidth: theme => theme.spacing(120) }}
             >
               <Controller
-                name='referralId'
+                name='referralCode'
                 control={control}
                 rules={{ validate: value => value!.length === 8 }}
                 render={({ field }) => (
@@ -159,7 +159,7 @@ const PointsJoinSection = () => {
               <LoadingButton
                 fullWidth
                 loading={isJoinReferralLoading}
-                disabled={Boolean(errors.referralId) || !isValid}
+                disabled={Boolean(errors.referralCode) || !isValid}
                 type='submit'
                 variant='contained'
               >

@@ -17,7 +17,9 @@ export type UserDataType = {
   phone?: string
   exp: number
   points: number
-  referralId: string
+  referralLevel?: number
+  referralPath?: string
+  referralCode: string
   blocked: boolean
   confirmed: boolean
   isHighlighted: boolean

@@ -13,7 +13,7 @@ export type ReferralType = {
 
 // ** Join
 export type JoinReferralsParamsType = {
-  referralId: string
+  referralCode: string
 }
 export type JoinReferralsTransformResponseType = BaseApiResponseType<{
   id: number
