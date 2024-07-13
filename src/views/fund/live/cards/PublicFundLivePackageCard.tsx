@@ -580,7 +580,9 @@ const PublicFundLivePackageCard = (props: Props) => {
                         width: '100%',
                         height: '3px',
                         backgroundColor:
-                          activeMintStep === 2 ? theme.palette.primary.main : alpha(theme.palette.primary.main, 0.3)
+                          activeMintStep === STEPS.length - 1
+                            ? theme.palette.primary.main
+                            : alpha(theme.palette.primary.main, 0.3)
                       }}
                     />
                   </Stack>
