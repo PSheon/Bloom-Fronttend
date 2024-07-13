@@ -37,9 +37,11 @@ export type FindMePointRecordsResponseType = BaseApiResponseType<PointRecordType
 // ** Find Me Statistics
 export type FindMeStatisticsPointRecordsParamsType = null
 export type FindMeStatisticsPointRecordsTransformResponseType = {
+  directReferrals: number
   totalReferrals: number
 }
 export type FindMeStatisticsPointRecordsResponseType = {
+  directReferrals: number
   totalReferrals: number
 }
 

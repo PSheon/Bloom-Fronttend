@@ -16,14 +16,13 @@ import Icon from 'src/@core/components/icon'
 // ** API Imports
 import { useFindMeStatisticsQuery } from 'src/store/api/management/pointRecord'
 
-/* TODO: fix here later */
 const MePointsStatisticsCard = () => {
   // ** Hooks
   const { data: meStatisticsData, isLoading: isFindMeStatisticsDataLoading } = useFindMeStatisticsQuery(null)
 
   // ** Vars
+  const directReferrals = meStatisticsData?.directReferrals || 0
   const totalReferrals = meStatisticsData?.totalReferrals || 0
-  const totalCompletedTasks = 0
 
   return (
     <Card>
@@ -50,7 +49,24 @@ const MePointsStatisticsCard = () => {
           <Grid item xs={12} sm={6}>
             <Stack direction='row' spacing={4} alignItems='center'>
               <CustomAvatar skin='light' variant='rounded' color='primary'>
-                <Icon icon='mdi:account-outline' />
+                <Icon icon='mdi:account' />
+              </CustomAvatar>
+              <Stack>
+                {isFindMeStatisticsDataLoading ? (
+                  <Skeleton variant='text' width={100} height={32} />
+                ) : (
+                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                    {directReferrals}
+                  </Typography>
+                )}
+                <Typography variant='caption'>Direct Referrals</Typography>
+              </Stack>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} sm={6}>
+            <Stack direction='row' spacing={4} alignItems='center'>
+              <CustomAvatar skin='light' variant='rounded' color='info'>
+                <Icon icon='mdi:account-group' />
               </CustomAvatar>
               <Stack>
                 {isFindMeStatisticsDataLoading ? (
@@ -61,23 +77,6 @@ const MePointsStatisticsCard = () => {
                   </Typography>
                 )}
                 <Typography variant='caption'>Total Referrals</Typography>
-              </Stack>
-            </Stack>
-          </Grid>
-          <Grid item xs={12} sm={6}>
-            <Stack direction='row' spacing={4} alignItems='center'>
-              <CustomAvatar skin='light' variant='rounded' color='warning'>
-                <Icon icon='mdi:poll' />
-              </CustomAvatar>
-              <Stack>
-                {isFindMeStatisticsDataLoading ? (
-                  <Skeleton variant='text' width={100} height={32} />
-                ) : (
-                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
-                    {totalCompletedTasks}
-                  </Typography>
-                )}
-                <Typography variant='caption'>Completed Tasks</Typography>
               </Stack>
             </Stack>
           </Grid>
