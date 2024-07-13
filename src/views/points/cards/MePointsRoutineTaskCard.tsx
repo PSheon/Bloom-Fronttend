@@ -75,15 +75,20 @@ const MePointsRoutineTaskCard = () => {
       <CardHeader
         title={
           <Typography variant='h5' component='p' noWrap>
-            Claim your Daily Rewards 🎉
+            Claim your daily rewards 🎉
           </Typography>
         }
       />
       <CardContent>
         <Stack spacing={6} alignItems='flex-start' justifyContent='flex-start'>
-          <Typography variant='body2' component='p'>
-            You can claim every 24 hours
-          </Typography>
+          <Stack spacing={2} alignItems='flex-start' justifyContent='center'>
+            <Typography variant='body2' component='p'>
+              you will gain 60 Exp points each time.
+            </Typography>
+            <Typography variant='body2' component='p'>
+              You can claim every 24 hours.
+            </Typography>
+          </Stack>
 
           <Stack alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ maxWidth: theme.spacing(88) }}>
             {allowedDailyCheck ? (

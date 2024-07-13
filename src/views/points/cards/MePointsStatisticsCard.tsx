@@ -23,7 +23,7 @@ const MePointsStatisticsCard = () => {
 
   // ** Vars
   const totalReferrals = meStatisticsData?.totalReferrals || 0
-  const totalCompletedTasks = meStatisticsData?.totalCompletedTasks || 0
+  const totalCompletedTasks = 0
 
   return (
     <Card>

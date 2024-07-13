@@ -38,11 +38,9 @@ export type FindMePointRecordsResponseType = BaseApiResponseType<PointRecordType
 export type FindMeStatisticsPointRecordsParamsType = null
 export type FindMeStatisticsPointRecordsTransformResponseType = {
   totalReferrals: number
-  totalCompletedTasks: number
 }
 export type FindMeStatisticsPointRecordsResponseType = {
   totalReferrals: number
-  totalCompletedTasks: number
 }
 
 // ** Find

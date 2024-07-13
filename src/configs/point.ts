@@ -183,7 +183,7 @@ export const LEVEL_TABLE: LevelType[] = [
         title: 'Refer 1 Friend',
         displayValue: '1',
         value: 1,
-        description: 'Refer 1 friend to join the referral program.'
+        description: 'Refer 1 friend to join the referral program and you can gain 500 exp.'
       },
       {
         color: 'info',
@@ -252,7 +252,7 @@ export const LEVEL_TABLE: LevelType[] = [
         title: 'Refer 2 Friend',
         displayValue: '2',
         value: 2,
-        description: 'Refer 2 friend to join the referral program.'
+        description: 'Refer 2 friend to join the referral program and you can gain 500 exp.'
       },
       {
         color: 'info',
@@ -329,7 +329,7 @@ export const LEVEL_TABLE: LevelType[] = [
         title: 'Refer 3 Friend',
         displayValue: '3',
         value: 3,
-        description: 'Refer 3 friend to join the referral program.'
+        description: 'Refer 3 friend to join the referral program and you can gain 500 exp.'
       },
       {
         color: 'info',
@@ -414,7 +414,7 @@ export const LEVEL_TABLE: LevelType[] = [
         title: 'Refer 5 Friend',
         displayValue: '5',
         value: 5,
-        description: 'Refer 5 friend to join the referral program.'
+        description: 'Refer 5 friend to join the referral program and you can gain 500 exp.'
       },
       {
         color: 'info',
@@ -499,7 +499,7 @@ export const LEVEL_TABLE: LevelType[] = [
         title: 'Refer 8 Friend',
         displayValue: '8',
         value: 8,
-        description: 'Refer 8 friend to join the referral program.'
+        description: 'Refer 8 friend to join the referral program and you can gain 500 exp.'
       },
       {
         color: 'info',
@@ -584,7 +584,7 @@ export const LEVEL_TABLE: LevelType[] = [
         title: 'Refer 12 Friend',
         displayValue: '12',
         value: 12,
-        description: 'Refer 12 friend to join the referral program.'
+        description: 'Refer 12 friend to join the referral program and you can gain 500 exp.'
       },
       {
         color: 'info',
