@@ -6,7 +6,7 @@ import Image from 'next/image'
 import Link from 'next/link'
 
 // ** MUI Imports
-import { styled, useTheme } from '@mui/material/styles'
+import { styled, useTheme, alpha } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Stack from '@mui/material/Stack'
@@ -17,15 +17,20 @@ import Divider from '@mui/material/Divider'
 import Grid from '@mui/material/Grid'
 import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
-import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
+import DialogContent from '@mui/material/DialogContent'
+import DialogActions from '@mui/material/DialogActions'
 import IconButton from '@mui/material/IconButton'
+import Step from '@mui/material/Step'
+import StepLabel from '@mui/material/StepLabel'
+import Stepper from '@mui/material/Stepper'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
-import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import { useAccount, useAccountEffect, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { ExactNumber as N } from 'exactnumber'
 import { Atropos } from 'atropos/react'
+import { motion, AnimatePresence } from 'framer-motion'
 import format from 'date-fns/format'
 import addDays from 'date-fns/addDays'
 import confetti from 'canvas-confetti'
@@ -33,8 +38,10 @@ import confetti from 'canvas-confetti'
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
 import CustomChip from 'src/@core/components/mui/chip'
+import StepperWrapper from 'src/@core/styles/mui/stepper'
 
 // ** Custom Component Imports
+import PublicFundLiveSFTStakeStepperDotBox from 'src/views/fund/live/boxes/PublicFundLiveSFTStakeStepperDotBox'
 import PublicFundLiveOwnedSFTSkeletonCard from 'src/views/fund/live/cards/owned-sft/PublicFundLiveOwnedSFTSkeletonCard'
 import PublicFundLiveTransactionErrorDrawer from 'src/views/fund/live/drawers/PublicFundLiveTransactionErrorDrawer'
 
@@ -105,6 +112,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
 
   // ** States
   const [isStakeSFTDialogOpen, setIsStakeSFTDialogOpen] = useState<boolean>(false)
+  const [activeStakeStep, setActiveStakeStep] = useState<number>(0)
   const [transactionError, setTransactionError] = useState<TransactionErrorType | null>(null)
 
   const [selectedStakePeriod, setSelectedStakePeriod] = useState<StakePeriodType>({
@@ -248,7 +256,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
             selectedStakePeriod.periodInDays >= sftSlotMinimumStakingPeriod &&
             (selectedStakePeriod.periodInDays === 7 ||
               selectedStakePeriod.periodInDays === 30 ||
-              selectedStakePeriod.periodInDays === 60)
+              selectedStakePeriod.periodInDays === 60 ||
+              selectedStakePeriod.periodInDays === 180)
           )
         },
         total: () => {
@@ -287,11 +296,16 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
     {
       img: '/images/vault/stake-30-days.png',
       periodInDays: 30,
-      bonusAPY: 0.8
+      bonusAPY: 0.5
     },
     {
       img: '/images/vault/stake-60-days.png',
       periodInDays: 60,
+      bonusAPY: 1.2
+    },
+    {
+      img: '/images/vault/stake-180-days.png',
+      periodInDays: 180,
       bonusAPY: 2.4
     }
   ]
@@ -396,6 +410,11 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   }
 
   // ** Side Effects
+  useAccountEffect({
+    onDisconnect() {
+      setActiveStakeStep(() => 0)
+    }
+  })
   useEffect(() => {
     if (isApproveSftSuccess) {
       confetti({
@@ -538,13 +557,14 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                 Stake
               </Button>
               {/* TODO: Fill here later */}
-              <Button fullWidth variant='contained' disabled>
+              {/* <Button fullWidth variant='contained' disabled>
                 Redeem
-              </Button>
+              </Button> */}
             </Stack>
           </Stack>
         </Stack>
       </CardContent>
+
       <Dialog
         open={isStakeSFTDialogOpen}
         onClose={handleCloseStakeSFTDialog}
@@ -573,6 +593,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
           <DialogContentText id='stake-view-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
             There will be penalties for un-staking early
           </DialogContentText>
+          <Divider sx={{ mt: 4, mb: -6 }} />
         </DialogTitle>
         <DialogContent
           sx={{
@@ -583,307 +604,467 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
         >
           <Grid container spacing={4}>
             <Grid item xs={12}>
-              <Stack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                  <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-                    <Typography variant='subtitle1' component='p'>
-                      Your wallet
-                    </Typography>
-                  </Stack>
-                  <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-                    <Stack direction='row' spacing={4} alignItems='center' justifyContent='center'>
-                      {renderWalletAvatar(walletAccount.address!)}
-                      <Stack alignItems='flex-start' justifyContent='center'>
-                        <Stack direction='row' alignItems='center' justifyContent='center'>
-                          <Typography variant='subtitle1' component='p'>
-                            {getFormattedEthereumAddress(walletAccount.address!)}
-                          </Typography>
-                          <IconButton size='small' onClick={() => handleCopyAddress(walletAccount.address as string)}>
-                            <Icon icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'} fontSize={16} />
-                          </IconButton>
-                        </Stack>
-                        <Typography variant='caption'>{walletAccount.connector?.name}</Typography>
-                      </Stack>
-                    </Stack>
-
-                    <Stack alignSelf='stretch' alignItems='center' justifyContent='center'>
-                      <Button
-                        variant='outlined'
-                        sx={{ p: 1.5, minWidth: 38 }}
-                        color='secondary'
-                        component={Link}
-                        href='/account'
-                      >
-                        <Icon icon='mdi:verified-user' fontSize={20} />
-                      </Button>
-                    </Stack>
-                  </Stack>
+              <StepperWrapper sx={{ position: 'relative' }}>
+                <Stack
+                  alignItems='center'
+                  justifyContent='center'
+                  sx={{ position: 'absolute', width: 'calc(25% - 16px)', height: '24px' }}
+                >
+                  <Box sx={{ width: '100%', height: '3px', backgroundColor: theme => theme.palette.primary.main }} />
                 </Stack>
-
-                <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                  <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-                    <Typography variant='subtitle1' component='p'>
-                      Your SFT
-                    </Typography>
-                  </Stack>
-                  <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-                    <Stack direction='row' spacing={4} alignItems='center' justifyContent='center'>
-                      <Image
-                        width={48}
-                        height={60}
-                        draggable={false}
-                        alt={sftSlot?.attributes.displayName ?? `SFT #${sftId}`}
-                        src={`/images/funds/packages/card-skin/${sftSlot?.attributes.skin.toLowerCase()}-${
-                          theme.palette.mode
-                        }.webp`}
-                      />
-                      <Typography variant='h6' component='p'>
-                        {`SFT #${sftId}`}
-                      </Typography>
-                    </Stack>
-
-                    <Typography variant='subtitle1' component='p'>{`${fundBaseCurrencyProperties.symbol} ${
-                      typeof sftValue === 'bigint'
-                        ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber())
-                        : 0n
-                    } ${fundBaseCurrencyProperties.currency}`}</Typography>
-                  </Stack>
+                <Stack
+                  alignItems='center'
+                  justifyContent='center'
+                  sx={{ position: 'absolute', right: 0, width: 'calc(25% - 16px)', height: '24px' }}
+                >
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: '3px',
+                      backgroundColor:
+                        activeStakeStep === STEPS.length - 1
+                          ? theme.palette.primary.main
+                          : alpha(theme.palette.primary.main, 0.3)
+                    }}
+                  />
                 </Stack>
-
-                <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                  <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-                    <Typography variant='subtitle1' component='p'>
-                      Stake Period
-                    </Typography>
-                  </Stack>
-                  <Stack
-                    direction='row'
-                    spacing={4}
-                    alignSelf='stretch'
-                    alignItems='center'
-                    justifyContent='space-between'
-                    sx={{ overflowX: 'auto' }}
+                <Stepper alternativeLabel activeStep={activeStakeStep}>
+                  {STEPS.filter(step => step.show).map((step, index) => (
+                    <Step key={`preview-package-mint-${index}`}>
+                      <StepLabel StepIconComponent={PublicFundLiveSFTStakeStepperDotBox}>{step.title}</StepLabel>
+                    </Step>
+                  ))}
+                </Stepper>
+              </StepperWrapper>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider sx={{ m: '0 !important' }} />
+            </Grid>
+            <Grid item xs={12}>
+              <AnimatePresence mode='wait'>
+                {/* Check stake period and APY */}
+                {activeStakeStep === 0 && (
+                  <motion.div
+                    key={`stake-step-${activeStakeStep}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                   >
-                    {STAKE_PERIOD_INFORMATION.map(periodDateInfo => {
-                      const { img, periodInDays, bonusAPY: bonusApy } = periodDateInfo
+                    <Stack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            Your wallet
+                          </Typography>
+                        </Stack>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Stack direction='row' spacing={4} alignItems='center' justifyContent='center'>
+                            {renderWalletAvatar(walletAccount.address!)}
+                            <Stack alignItems='flex-start' justifyContent='center'>
+                              <Stack direction='row' alignItems='center' justifyContent='center'>
+                                <Typography variant='subtitle1' component='p'>
+                                  {getFormattedEthereumAddress(walletAccount.address!)}
+                                </Typography>
+                                <IconButton
+                                  size='small'
+                                  onClick={() => handleCopyAddress(walletAccount.address as string)}
+                                >
+                                  <Icon icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'} fontSize={16} />
+                                </IconButton>
+                              </Stack>
+                              <Typography variant='caption'>{walletAccount.connector?.name}</Typography>
+                            </Stack>
+                          </Stack>
 
-                      return (
-                        <StyledPeriodDateSelectStack
-                          key={`stake-period-${periodInDays}-days`}
+                          <Stack alignSelf='stretch' alignItems='center' justifyContent='center'>
+                            <Button
+                              variant='outlined'
+                              sx={{ p: 1.5, minWidth: 38 }}
+                              color='secondary'
+                              component={Link}
+                              href='/account'
+                            >
+                              <Icon icon='mdi:verified-user' fontSize={20} />
+                            </Button>
+                          </Stack>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            Stake Period
+                          </Typography>
+                        </Stack>
+                        <Stack direction='row' alignSelf='stretch' sx={{ pt: 4 }}>
+                          <Grid container spacing={4} alignItems='center' justifyContent='space-between'>
+                            {STAKE_PERIOD_INFORMATION.map(periodDateInfo => {
+                              const { img, periodInDays, bonusAPY: bonusApy } = periodDateInfo
+
+                              return (
+                                <Grid key={`stake-period-${periodInDays}-days`} item xs={6}>
+                                  <StyledPeriodDateSelectStack
+                                    spacing={2}
+                                    alignSelf='stretch'
+                                    alignItems='center'
+                                    onClick={() => setSelectedStakePeriod(periodDateInfo)}
+                                    sx={{
+                                      flexBasis: '50%',
+                                      border: theme =>
+                                        `1px ${selectedStakePeriod.periodInDays === periodInDays ? theme.palette.primary.main : theme.palette.divider} solid`,
+                                      '&:hover': {
+                                        cursor: 'pointer',
+                                        borderColor: theme => theme.palette.primary.main
+                                      }
+                                    }}
+                                  >
+                                    <Box>
+                                      <Image width={60} height={50} src={img} alt={`${periodInDays} days plan`} />
+                                    </Box>
+                                    <Box>
+                                      <Typography variant='h5' align='center'>
+                                        {`${periodInDays} Days`}
+                                      </Typography>
+                                    </Box>
+                                    <Stack spacing={2} alignContent='center' sx={{ position: 'relative' }}>
+                                      <Stack direction='row' justifyContent='center'>
+                                        <Typography
+                                          variant='body2'
+                                          component='p'
+                                          sx={{ mt: 1.6, fontWeight: 600, alignSelf: 'flex-start' }}
+                                        >
+                                          APY
+                                        </Typography>
+                                        <Typography
+                                          variant='h3'
+                                          component='p'
+                                          color='primary.main'
+                                          sx={{ fontWeight: 600, lineHeight: 1.17 }}
+                                        >
+                                          {`+${bonusApy}`}
+                                        </Typography>
+                                        <Typography
+                                          variant='body2'
+                                          component='p'
+                                          sx={{ ml: 2, mb: 1.6, fontWeight: 600, alignSelf: 'flex-end' }}
+                                        >
+                                          %
+                                        </Typography>
+                                      </Stack>
+                                    </Stack>
+                                  </StyledPeriodDateSelectStack>
+                                </Grid>
+                              )
+                            })}
+                          </Grid>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            Total APY
+                          </Typography>
+                        </Stack>
+                        <Stack
+                          direction='row'
                           spacing={4}
-                          flex='1'
+                          alignSelf='stretch'
                           alignItems='center'
-                          onClick={() => setSelectedStakePeriod(periodDateInfo)}
-                          sx={{
-                            border: theme =>
-                              `1px ${selectedStakePeriod.periodInDays === periodInDays ? theme.palette.primary.main : theme.palette.divider} solid`,
-                            '&:hover': {
-                              cursor: 'pointer',
-                              borderColor: theme => theme.palette.primary.main
-                            }
-                          }}
+                          justifyContent='space-around'
+                          sx={{ pt: 4 }}
                         >
-                          <Box>
-                            <Image width={60} height={50} src={img} alt={`${periodInDays} days plan`} />
-                          </Box>
-                          <Box>
-                            <Typography variant='h5' align='center'>
-                              {`${periodInDays} Days`}
+                          <Stack alignItems='center' justifyContent='center'>
+                            <Typography variant='h4' component='p' sx={{ fontWeight: 600 }}>
+                              {`APY ${totalAPY} %`}
                             </Typography>
-                          </Box>
-                          <Stack spacing={2} alignContent='center' sx={{ position: 'relative' }}>
-                            <Stack direction='row' justifyContent='center'>
-                              <Typography
-                                variant='body2'
-                                component='p'
-                                sx={{ mt: 1.6, fontWeight: 600, alignSelf: 'flex-start' }}
-                              >
-                                APY
+                            <Typography variant='h6' component='p' color='text.secondary' sx={{ fontWeight: 600 }}>
+                              Base + Level + Bonus
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            Information
+                          </Typography>
+                        </Stack>
+                        <Stack alignSelf='stretch' divider={<Divider orientation='horizontal' flexItem />}>
+                          <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                            <Stack direction='row' spacing={4} alignItems='center' justifyContent='center'>
+                              <Image
+                                width={48}
+                                height={60}
+                                draggable={false}
+                                alt={sftSlot?.attributes.displayName ?? `SFT #${sftId}`}
+                                src={`/images/funds/packages/card-skin/${sftSlot?.attributes.skin.toLowerCase()}-${
+                                  theme.palette.mode
+                                }.webp`}
+                              />
+                              <Typography variant='h6' component='p'>
+                                {`SFT #${sftId}`}
                               </Typography>
-                              <Typography
-                                variant='h3'
-                                component='p'
-                                color='primary.main'
-                                sx={{ fontWeight: 600, lineHeight: 1.17 }}
-                              >
-                                {`+${bonusApy}`}
+                            </Stack>
+                            <Stack alignItems='flex-end' justifyContent='center'>
+                              <Typography variant='subtitle1' component='p'>
+                                {`${sftSlotBaseAPY} %`}
                               </Typography>
-                              <Typography
-                                variant='body2'
-                                component='p'
-                                sx={{ ml: 2, mb: 1.6, fontWeight: 600, alignSelf: 'flex-end' }}
-                              >
-                                %
+                              <Typography variant='subtitle1' component='p'>
+                                Base APY
                               </Typography>
                             </Stack>
                           </Stack>
-                        </StyledPeriodDateSelectStack>
-                      )
-                    })}
-                  </Stack>
-                </Stack>
-
-                <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                  <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-                    <Typography variant='subtitle1' component='p'>
-                      Information
-                    </Typography>
-                  </Stack>
-                  <Stack alignSelf='stretch' divider={<Divider orientation='horizontal' flexItem />}>
-                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                      <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                        <CustomAvatar
-                          src={`/images/points/account-level-${meLevelProperties.level}.svg`}
-                          variant='rounded'
-                          alt={`level-${meLevelProperties.level}`}
-                          sx={{ width: 48, height: 48, fontWeight: 600, zIndex: 2 }}
-                        />
-                        <Stack alignItems='flex-start' justifyContent='center'>
-                          <Typography variant='subtitle1' component='p'>
-                            {meLevelProperties.title}
-                          </Typography>
-                          <CustomChip
-                            skin='light'
-                            size='small'
-                            label={`Level ${meLevelProperties.level}`}
-                            color='primary'
-                            sx={{
-                              height: 20,
-                              fontWeight: 600,
-                              borderRadius: '5px',
-                              fontSize: '0.875rem',
-                              textTransform: 'capitalize',
-                              '& .MuiChip-label': { mt: -0.25 }
-                            }}
-                          />
+                          <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                            <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                              <CustomAvatar
+                                src={`/images/points/account-level-${meLevelProperties.level}.svg`}
+                                variant='rounded'
+                                alt={`level-${meLevelProperties.level}`}
+                                sx={{ width: 48, height: 48, fontWeight: 600, zIndex: 2 }}
+                              />
+                              <Stack alignItems='flex-start' justifyContent='center'>
+                                <Typography variant='subtitle1' component='p'>
+                                  {meLevelProperties.title}
+                                </Typography>
+                                <CustomChip
+                                  skin='light'
+                                  size='small'
+                                  label={`Level ${meLevelProperties.level}`}
+                                  color='primary'
+                                  sx={{
+                                    height: 20,
+                                    fontWeight: 600,
+                                    borderRadius: '5px',
+                                    fontSize: '0.875rem',
+                                    textTransform: 'capitalize',
+                                    '& .MuiChip-label': { mt: -0.25 }
+                                  }}
+                                />
+                              </Stack>
+                            </Stack>
+                            <Stack alignItems='flex-end' justifyContent='center'>
+                              <Typography variant='subtitle1' component='p'>
+                                {`+ ${meLevelAPYPrivileges?.value ?? 0} %`}
+                              </Typography>
+                              <Typography variant='subtitle1' component='p'>
+                                Level Boost
+                              </Typography>
+                            </Stack>
+                          </Stack>
                         </Stack>
                       </Stack>
-                      <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                        <Typography variant='subtitle2' component='p'>
-                          Privileges
-                        </Typography>
-                        <Button
-                          variant='outlined'
-                          sx={{ p: 1.5, minWidth: 38 }}
-                          color='success'
-                          component={Link}
-                          href='/points'
-                        >
-                          <Icon icon='mdi:crown-circle-outline' fontSize={20} />
-                        </Button>
-                      </Stack>
                     </Stack>
-                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                      <Stack alignItems='flex-start' justifyContent='center'>
-                        <Typography variant='subtitle2' component='p'>
-                          Total APY
-                        </Typography>
-                        <Typography variant='subtitle2' component='p'>
-                          Base + Level + Bonus
-                        </Typography>
-                      </Stack>
-                      <Stack alignItems='flex-end' justifyContent='center'>
-                        <Typography variant='subtitle1' component='p'>
-                          {`${totalAPY} %`}
-                        </Typography>
-                        <Typography variant='subtitle1' component='p'>
-                          {`${sftSlotBaseAPY} + ${meLevelAPYPrivileges?.value ?? 0} + ${selectedStakePeriod.bonusAPY}`}
-                        </Typography>
-                      </Stack>
-                    </Stack>
-                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                      <Typography variant='subtitle2' component='p'>
-                        Unlock Date
-                      </Typography>
-                      <Typography variant='subtitle1' component='p'>
-                        {format(addDays(new Date(), selectedStakePeriod.periodInDays), 'PPpp')}
-                      </Typography>
-                    </Stack>
-                    <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                      <Typography variant='subtitle2' component='p'>
-                        Earn Expectation
-                      </Typography>
-                      <Typography variant='h6' component='p'>{`${fundBaseCurrencyProperties.symbol} ${
-                        typeof sftValue === 'bigint'
-                          ? getFormattedPriceUnit(
-                              N(getExpectInterestBalanceString(sftValue, totalAPY, selectedStakePeriod.periodInDays))
-                                .div(N(10).pow(18))
-                                .toNumber()
-                            )
-                          : 0n
-                      } ${fundBaseCurrencyProperties.currency}`}</Typography>
-                    </Stack>
-                  </Stack>
-                </Stack>
+                  </motion.div>
+                )}
 
-                <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                  {checkAllowanceSufficient() ? (
-                    <Box
-                      sx={{
-                        px: 4,
-                        py: 2,
-                        width: '100%',
-                        borderRadius: 1,
-                        border: theme => `1px solid ${theme.palette.primary.main}`,
-                        ...bgColors.primaryLight
-                      }}
-                    >
-                      <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                        <Icon icon='mdi:approve' fontSize={16} />
-                        {`SFT #${sftId} Approved`}
-                      </Stack>
-                    </Box>
-                  ) : (
-                    <LoadingButton
-                      fullWidth
-                      loading={isApproveSftPending || isApproveSftConfirming}
-                      variant='contained'
-                      onClick={() => {
-                        approveSft(
-                          {
-                            chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-                            abi: initFundEntity.sft.contractAbi,
-                            address: initFundEntity.sft.contractAddress as `0x${string}`,
-                            functionName: 'approve',
-                            args: [initFundEntity.vault.contractAddress, sftId!],
-                            account: walletAccount.address!
-                          },
-                          {
-                            onError: error => {
-                              setTransactionError(() => ({
-                                from: walletAccount.address!,
-                                to: initFundEntity.sft.contractAddress as `0x${string}`,
-                                chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
-                                message: (error as BaseError)?.shortMessage || 'Failed to approve'
-                              }))
-                            }
-                          }
-                        )
-                      }}
-                    >
-                      <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                        <Icon icon='mdi:approve' fontSize={16} />
-                        {`Approve SFT #${sftId}`}
-                      </Stack>
-                    </LoadingButton>
-                  )}
-                  <LoadingButton
-                    fullWidth
-                    loading={isSignHashLoading || isStakeSftPending || isStakeSftConfirming}
-                    disabled={sftApproved !== initFundEntity.vault.contractAddress}
-                    variant='contained'
-                    onClick={handleStake}
+                {/* Stake */}
+                {activeStakeStep === 1 && (
+                  <motion.div
+                    key={`stake-step-${activeStakeStep}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                   >
-                    <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                      <Icon icon='mdi:hammer' fontSize={16} />
-                      Stake
+                    <Stack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            You Stake
+                          </Typography>
+                        </Stack>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Stack direction='row' spacing={4} alignItems='center' justifyContent='center'>
+                            <Image
+                              width={48}
+                              height={60}
+                              draggable={false}
+                              alt={sftSlot?.attributes.displayName ?? `SFT #${sftId}`}
+                              src={`/images/funds/packages/card-skin/${sftSlot?.attributes.skin.toLowerCase()}-${
+                                theme.palette.mode
+                              }.webp`}
+                            />
+                            <Typography variant='h6' component='p'>
+                              {`SFT #${sftId}`}
+                            </Typography>
+                          </Stack>
+
+                          <Typography variant='subtitle1' component='p'>{`${fundBaseCurrencyProperties.symbol} ${
+                            typeof sftValue === 'bigint'
+                              ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber())
+                              : 0n
+                          } ${fundBaseCurrencyProperties.currency}`}</Typography>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            You Get
+                          </Typography>
+                        </Stack>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='h6' component='p'>
+                            {fundBaseCurrencyProperties.currency}
+                          </Typography>
+                          <Typography variant='h6' component='p'>
+                            {`${fundBaseCurrencyProperties.symbol} ${
+                              typeof sftValue === 'bigint'
+                                ? getFormattedPriceUnit(
+                                    N(
+                                      getExpectInterestBalanceString(
+                                        sftValue,
+                                        totalAPY,
+                                        selectedStakePeriod.periodInDays
+                                      )
+                                    )
+                                      .div(N(10).pow(18))
+                                      .toNumber()
+                                  )
+                                : 0n
+                            } ${fundBaseCurrencyProperties.currency}`}
+                          </Typography>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            Information
+                          </Typography>
+                        </Stack>
+                        <Stack alignSelf='stretch' divider={<Divider orientation='horizontal' flexItem />}>
+                          <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                            <Stack alignItems='flex-start' justifyContent='center'>
+                              <Typography variant='subtitle2' component='p'>
+                                Total APY
+                              </Typography>
+                              <Typography variant='subtitle2' component='p'>
+                                Base + Level + Bonus
+                              </Typography>
+                            </Stack>
+                            <Stack alignItems='flex-end' justifyContent='center'>
+                              <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
+                                {`${totalAPY} %`}
+                              </Typography>
+                              <Typography variant='subtitle1' component='p'>
+                                {`${sftSlotBaseAPY} + ${meLevelAPYPrivileges?.value ?? 0} + ${selectedStakePeriod.bonusAPY}`}
+                              </Typography>
+                            </Stack>
+                          </Stack>
+                          <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                            <Typography variant='subtitle2' component='p'>
+                              Unlock Date
+                            </Typography>
+                            <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
+                              {format(addDays(new Date(), selectedStakePeriod.periodInDays), 'PPpp')}
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        {checkAllowanceSufficient() ? (
+                          <Box
+                            sx={{
+                              px: 4,
+                              py: 2,
+                              width: '100%',
+                              borderRadius: 1,
+                              border: theme => `1px solid ${theme.palette.primary.main}`,
+                              ...bgColors.primaryLight
+                            }}
+                          >
+                            <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                              <Icon icon='mdi:approve' fontSize={16} />
+                              {`SFT #${sftId} Approved`}
+                            </Stack>
+                          </Box>
+                        ) : (
+                          <LoadingButton
+                            fullWidth
+                            loading={isApproveSftPending || isApproveSftConfirming}
+                            variant='contained'
+                            onClick={() => {
+                              approveSft(
+                                {
+                                  chainId: getChainId(
+                                    initFundEntity.chain
+                                  ) as (typeof wagmiConfig)['chains'][number]['id'],
+                                  abi: initFundEntity.sft.contractAbi,
+                                  address: initFundEntity.sft.contractAddress as `0x${string}`,
+                                  functionName: 'approve',
+                                  args: [initFundEntity.vault.contractAddress, sftId!],
+                                  account: walletAccount.address!
+                                },
+                                {
+                                  onError: error => {
+                                    setTransactionError(() => ({
+                                      from: walletAccount.address!,
+                                      to: initFundEntity.sft.contractAddress as `0x${string}`,
+                                      chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
+                                      message: (error as BaseError)?.shortMessage || 'Failed to approve'
+                                    }))
+                                  }
+                                }
+                              )
+                            }}
+                          >
+                            <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                              <Icon icon='mdi:approve' fontSize={16} />
+                              {`Approve SFT #${sftId}`}
+                            </Stack>
+                          </LoadingButton>
+                        )}
+                        <LoadingButton
+                          fullWidth
+                          loading={isSignHashLoading || isStakeSftPending || isStakeSftConfirming}
+                          disabled={sftApproved !== initFundEntity.vault.contractAddress}
+                          variant='contained'
+                          onClick={handleStake}
+                        >
+                          <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                            <Icon icon='mdi:hammer' fontSize={16} />
+                            Stake
+                          </Stack>
+                        </LoadingButton>
+                      </Stack>
                     </Stack>
-                  </LoadingButton>
-                </Stack>
-              </Stack>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </Grid>
           </Grid>
         </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'space-between',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
+          }}
+        >
+          <Stack direction='row' flexGrow='1' alignItems='center' justifyContent='space-between'>
+            <Button
+              disabled={activeStakeStep === 0}
+              onClick={() => {
+                setActiveStakeStep(prev => Math.max(prev - 1, 0))
+              }}
+            >
+              Back
+            </Button>
+            <Button
+              variant='contained'
+              disabled={activeStakeStep >= 1 || !STEPS[activeStakeStep].checks?.total()}
+              onClick={() => {
+                setActiveStakeStep(prev => Math.min(prev + 1, 1))
+              }}
+            >
+              Next
+            </Button>
+          </Stack>
+        </DialogActions>
       </Dialog>
 
       <PublicFundLiveTransactionErrorDrawer
