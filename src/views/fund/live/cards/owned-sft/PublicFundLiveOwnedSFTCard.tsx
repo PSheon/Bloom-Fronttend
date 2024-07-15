@@ -116,8 +116,8 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const [transactionError, setTransactionError] = useState<TransactionErrorType | null>(null)
 
   const [selectedStakePeriod, setSelectedStakePeriod] = useState<StakePeriodType>({
-    img: '/images/vault/stake-7-days.png',
-    periodInDays: 7,
+    img: '/images/vault/stake-180-days.png',
+    periodInDays: 180,
     bonusAPY: 0
   })
 
@@ -289,14 +289,9 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
 
   const STAKE_PERIOD_INFORMATION: StakePeriodType[] = [
     {
-      img: '/images/vault/stake-7-days.png',
-      periodInDays: 7,
-      bonusAPY: 0
-    },
-    {
-      img: '/images/vault/stake-30-days.png',
-      periodInDays: 30,
-      bonusAPY: 0.5
+      img: '/images/vault/stake-180-days.png',
+      periodInDays: 180,
+      bonusAPY: 2.4
     },
     {
       img: '/images/vault/stake-60-days.png',
@@ -304,9 +299,14 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
       bonusAPY: 1.2
     },
     {
-      img: '/images/vault/stake-180-days.png',
-      periodInDays: 180,
-      bonusAPY: 2.4
+      img: '/images/vault/stake-30-days.png',
+      periodInDays: 30,
+      bonusAPY: 0.5
+    },
+    {
+      img: '/images/vault/stake-7-days.png',
+      periodInDays: 7,
+      bonusAPY: 0.0
     }
   ]
 
@@ -722,35 +722,51 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                                       <Image width={60} height={50} src={img} alt={`${periodInDays} days plan`} />
                                     </Box>
                                     <Box>
-                                      <Typography variant='h5' align='center'>
+                                      <Typography variant='h6' align='center'>
                                         {`${periodInDays} Days`}
                                       </Typography>
                                     </Box>
-                                    <Stack spacing={2} alignContent='center' sx={{ position: 'relative' }}>
-                                      <Stack direction='row' justifyContent='center'>
-                                        <Typography
-                                          variant='body2'
-                                          component='p'
-                                          sx={{ mt: 1.6, fontWeight: 600, alignSelf: 'flex-start' }}
-                                        >
-                                          APY
-                                        </Typography>
-                                        <Typography
-                                          variant='h3'
-                                          component='p'
-                                          color='primary.main'
-                                          sx={{ fontWeight: 600, lineHeight: 1.17 }}
-                                        >
-                                          {`+${bonusApy}`}
-                                        </Typography>
-                                        <Typography
-                                          variant='body2'
-                                          component='p'
-                                          sx={{ ml: 2, mb: 1.6, fontWeight: 600, alignSelf: 'flex-end' }}
-                                        >
-                                          %
-                                        </Typography>
-                                      </Stack>
+                                    <Stack
+                                      direction='row'
+                                      alignSelf='stretch'
+                                      alignItems='center'
+                                      justifyContent='center'
+                                    >
+                                      <Typography
+                                        variant='body2'
+                                        component='p'
+                                        textAlign='right'
+                                        sx={{
+                                          width: theme => theme.spacing(8),
+                                          mb: 1.2,
+                                          fontWeight: 600,
+                                          alignSelf: 'flex-end'
+                                        }}
+                                      >
+                                        APY
+                                      </Typography>
+                                      <Typography
+                                        variant='h4'
+                                        component='p'
+                                        color={bonusApy > 0 ? 'primary.main' : 'text.secondary'}
+                                        textAlign='center'
+                                        sx={{ width: theme => theme.spacing(24), fontWeight: 600, lineHeight: 1.17 }}
+                                      >
+                                        {`+${bonusApy.toFixed(1)}`}
+                                      </Typography>
+                                      <Typography
+                                        variant='body2'
+                                        component='p'
+                                        textAlign='left'
+                                        sx={{
+                                          width: theme => theme.spacing(8),
+                                          mb: 1.2,
+                                          fontWeight: 600,
+                                          alignSelf: 'flex-end'
+                                        }}
+                                      >
+                                        %
+                                      </Typography>
                                     </Stack>
                                   </StyledPeriodDateSelectStack>
                                 </Grid>
