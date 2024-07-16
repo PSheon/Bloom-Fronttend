@@ -3,9 +3,11 @@ import { useState, useEffect } from 'react'
 
 // ** Next Imports
 import Image from 'next/image'
+import Link from 'next/link'
 
 // ** MUI Imports
-import { styled, useTheme } from '@mui/material/styles'
+import { styled, useTheme, alpha } from '@mui/material/styles'
+import Alert from '@mui/material/Alert'
 import Box from '@mui/material/Box'
 import Button from '@mui/material/Button'
 import Grid from '@mui/material/Grid'
@@ -18,21 +20,33 @@ import Dialog from '@mui/material/Dialog'
 import DialogTitle from '@mui/material/DialogTitle'
 import DialogContent from '@mui/material/DialogContent'
 import DialogContentText from '@mui/material/DialogContentText'
+import DialogActions from '@mui/material/DialogActions'
 import IconButton from '@mui/material/IconButton'
 import Skeleton from '@mui/material/Skeleton'
+import Step from '@mui/material/Step'
+import StepLabel from '@mui/material/StepLabel'
+import Stepper from '@mui/material/Stepper'
+import Fade from '@mui/material/Fade'
+import LinearProgress from '@mui/material/LinearProgress'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Third-Party Imports
-import { useAccount, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
+import { useAccount, useAccountEffect, useReadContract, useWriteContract, useWaitForTransactionReceipt } from 'wagmi'
 import { ExactNumber as N } from 'exactnumber'
 import { Atropos } from 'atropos/react'
+import { motion, AnimatePresence } from 'framer-motion'
+import Countdown from 'react-countdown'
 import format from 'date-fns/format'
+import isAfter from 'date-fns/isAfter'
 import confetti from 'canvas-confetti'
 
 // ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
 import CustomChip from 'src/@core/components/mui/chip'
+import StepperWrapper from 'src/@core/styles/mui/stepper'
 
 // ** Custom Component Imports
+import PublicFundLiveSFTClaimStepperDotBox from 'src/views/fund/live/boxes/PublicFundLiveSFTClaimStepperDotBox'
 import PublicFundLiveStakedSFTSkeletonCard from 'src/views/fund/live/cards/staked-sft/PublicFundLiveStakedSFTSkeletonCard'
 import PublicFundLiveTransactionErrorDrawer from 'src/views/fund/live/drawers/PublicFundLiveTransactionErrorDrawer'
 
@@ -40,7 +54,13 @@ import PublicFundLiveTransactionErrorDrawer from 'src/views/fund/live/drawers/Pu
 import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
-import { getFundCurrencyProperties, getFormattedPriceUnit, getChainId } from 'src/utils'
+import {
+  getFundCurrencyProperties,
+  getFormattedPriceUnit,
+  getChainId,
+  getFormattedEthereumAddress,
+  getGradientColors
+} from 'src/utils'
 
 // ** Config Imports
 import type { wagmiConfig } from 'src/configs/ethereum'
@@ -48,6 +68,7 @@ import type { wagmiConfig } from 'src/configs/ethereum'
 // ** Type Imports
 import type { BaseError } from 'wagmi'
 import type { FundType } from 'src/types/fundTypes'
+import type { StackProps } from '@mui/material/Stack'
 
 // ** Styled <sup> Component
 const Sup = styled('sup')(({ theme }) => ({
@@ -57,6 +78,19 @@ const Sup = styled('sup')(({ theme }) => ({
   position: 'absolute',
   color: theme.palette.primary.main
 }))
+
+const StyledClaimMethodSelectStack = styled(Stack)<StackProps>(({ theme }) => ({
+  borderRadius: '5px',
+  padding: theme.spacing(6, 8),
+  transition: 'border-color 0.2s'
+}))
+
+type ClaimMethodType = {
+  img: string
+  type: 'Claim Only' | 'Claim and Unstake'
+  title: string
+  subtitle: string
+}
 
 type StakeRecordType = [string, bigint, bigint, number, number, bigint]
 type TransactionErrorType = {
@@ -76,7 +110,17 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
 
   // ** States
   const [isUnstakeSFTDialogOpen, setIsUnstakeSFTDialogOpen] = useState<boolean>(false)
+  const [activeClaimStep, setActiveClaimStep] = useState<number>(0)
   const [transactionError, setTransactionError] = useState<TransactionErrorType | null>(null)
+
+  const [selectedClaimMethod, setSelectedClaimMethod] = useState<ClaimMethodType>({
+    img: '/images/vault/claim-only.png',
+    type: 'Claim Only',
+    title: 'Claim Only',
+    subtitle: 'receive rewards only'
+  })
+
+  const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
 
   // ** Hooks
   const theme = useTheme()
@@ -196,6 +240,12 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
 
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
+  const isInStakeLockPeriod = vaultStakeRecord
+    ? isAfter(new Date((vaultStakeRecord as StakeRecordType)[4] * 1_000), new Date())
+    : false
+
+  const isInPenalty = selectedClaimMethod.type === 'Claim and Unstake' && isInStakeLockPeriod
+
   const stakeRecordStartDate = vaultStakeRecord
     ? format(new Date((vaultStakeRecord as StakeRecordType)[3] * 1_000), 'PPp')
     : '-'
@@ -204,12 +254,103 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
     ? format(new Date((vaultStakeRecord as StakeRecordType)[4] * 1_000), 'PPp')
     : '-'
 
+  const stakeRecordFullRewards = vaultStakeRecord ? (vaultStakeRecord as StakeRecordType)[5] : 0n
+
+  const STEPS = [
+    {
+      show: true,
+      title: 'Select Claim Method',
+      subtitle: 'Select method and check rewards',
+      checks: {
+        checkQuantity: () => {
+          return true
+        },
+        total: () => {
+          return STEPS[0].checks!.checkQuantity!()
+        }
+      }
+    },
+    {
+      show: true,
+      title: 'Claim',
+      subtitle: 'Confirm and claim rewards',
+      checks: {
+        total: () => {
+          return true
+        }
+      }
+    },
+    {
+      show: false,
+      title: 'Claim Succeed',
+      subtitle: 'Check your sft',
+      checks: {
+        total: () => {
+          return true
+        }
+      }
+    }
+  ]
+
+  const CLAIM_METHOD_INFORMATION: ClaimMethodType[] = [
+    {
+      img: '/images/vault/stake-180-days.png',
+      type: 'Claim Only',
+      title: 'Claim Only',
+      subtitle: 'receive rewards only'
+    },
+    {
+      img: '/images/vault/stake-60-days.png',
+      type: 'Claim and Unstake',
+      title: 'Claim & Unstake',
+      subtitle: 'receive rewards and SFT'
+    }
+  ]
+
   // ** Logics
   const handleOpenUnstakeSFTDialog = () => setIsUnstakeSFTDialogOpen(() => true)
   const handleCloseUnstakeSFTDialog = () => setIsUnstakeSFTDialogOpen(() => false)
   const handleCloseTransactionErrorDrawer = () => setTransactionError(() => null)
 
-  const handleUnstake = async () => {
+  const handleCopyAddress = (address: string) => {
+    navigator.clipboard.writeText(address)
+    setIsAddressCopied(() => true)
+    setTimeout(() => {
+      setIsAddressCopied(() => false)
+    }, 2 * 1000)
+  }
+
+  const getRewardsProperties = () => {
+    if (typeof vaultStakedEarningInfo === 'bigint') {
+      const startTimestamp = vaultStakeRecord ? (vaultStakeRecord as StakeRecordType)[3] * 1_000 : 0
+      const endTimestamp = vaultStakeRecord ? (vaultStakeRecord as StakeRecordType)[4] * 1_000 : 0
+      const nowTimestamp = Date.now()
+
+      const percentage = Math.min(
+        Math.round(((nowTimestamp - startTimestamp) / (endTimestamp - startTimestamp)) * 100),
+        100
+      )
+
+      if (isInPenalty) {
+        return {
+          percentage: percentage / 2,
+          formattedNumber: getFormattedPriceUnit(N(vaultStakedEarningInfo).div(N(2)).div(N(10).pow(18)).toNumber())
+        }
+      } else {
+        return {
+          percentage,
+          formattedNumber: getFormattedPriceUnit(N(vaultStakedEarningInfo).div(N(10).pow(18)).toNumber())
+        }
+      }
+    } else {
+      return {
+        percentage: 0,
+        formattedNumber: '0'
+      }
+    }
+  }
+
+  const handleClaim = async () => {
     if (typeof sftId === 'bigint') {
       const tokenId = sftId.toString()
 
@@ -218,7 +359,7 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
           chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
           abi: initFundEntity.vault.contractAbi,
           address: initFundEntity.vault.contractAddress as `0x${string}`,
-          functionName: 'unstake',
+          functionName: selectedClaimMethod.type === 'Claim Only' ? 'claim' : 'unstake',
           args: [[tokenId]],
           account: walletAccount.address!
         },
@@ -243,7 +384,42 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
     }
   }
 
+  // ** Renders
+  const renderWalletAvatar = (address: string) => {
+    const colors = getGradientColors(address)
+
+    return (
+      <CustomAvatar
+        skin='light'
+        sx={{
+          width: 36,
+          height: 36,
+          boxShadow: `${colors[0]} 0px 3px 5px`
+        }}
+      >
+        <Box
+          sx={{
+            width: 36,
+            height: 36,
+            backgroundColor: colors[0],
+            backgroundImage: `
+              radial-gradient(at 66% 77%, ${colors[1]} 0px, transparent 50%),
+              radial-gradient(at 29% 97%, ${colors[2]} 0px, transparent 50%),
+              radial-gradient(at 99% 86%, ${colors[3]} 0px, transparent 50%),
+              radial-gradient(at 29% 88%, ${colors[4]} 0px, transparent 50%)
+            `
+          }}
+        />
+      </CustomAvatar>
+    )
+  }
+
   // ** Side Effects
+  useAccountEffect({
+    onDisconnect() {
+      setActiveClaimStep(() => 0)
+    }
+  })
   useEffect(() => {
     if (isUnstakeSftSuccess) {
       confetti({
@@ -437,10 +613,10 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
             <Stack spacing={2} sx={{ mt: 'auto' }}>
               <Divider />
               <Button disabled fullWidth variant='contained'>
-                Claim
+                Extend
               </Button>
               <Button fullWidth variant='contained' onClick={handleOpenUnstakeSFTDialog}>
-                UnStake
+                Claim
               </Button>
             </Stack>
           </Stack>
@@ -471,10 +647,11 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          {`Unstake #${sftId}`}
+          {`Claim #${sftId}`}
           <DialogContentText id='unstake-view-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
             There will be penalties for unstaking early
           </DialogContentText>
+          <Divider sx={{ mt: 4, mb: -6 }} />
         </DialogTitle>
         <DialogContent
           sx={{
@@ -485,49 +662,417 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
         >
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <Stack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ py: 12 }}>
-                <Stack spacing={2} alignSelf='stretch' divider={<Divider orientation='horizontal' flexItem />}>
-                  <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                    <Typography variant='subtitle2' component='p'>
-                      Token ID
-                    </Typography>
-                    <Typography variant='subtitle1' component='p'>{`# ${sftId ?? '-'}`}</Typography>
-                  </Stack>
-                  <Stack direction='row' alignItems='center' justifyContent='space-between'>
-                    <Typography variant='subtitle2' component='p'>
-                      Earned
-                    </Typography>
-                    <Stack alignItems='flex-end' justifyContent='center'>
-                      <Typography variant='subtitle1' component='p'>{`≈ ${fundBaseCurrencyProperties.symbol} ${
-                        typeof vaultStakedEarningInfo === 'bigint'
-                          ? getFormattedPriceUnit(N(vaultStakedEarningInfo).div(N(10).pow(18)).toNumber())
-                          : 0n
-                      } ${fundBaseCurrencyProperties.currency}`}</Typography>
-                      <Typography variant='subtitle1' component='p'>{`(${
-                        typeof vaultStakedEarningInfo === 'bigint'
-                          ? getFormattedPriceUnit(N(vaultStakedEarningInfo).toNumber())
-                          : 0n
-                      })`}</Typography>
-                    </Stack>
-                  </Stack>
+              <StepperWrapper sx={{ position: 'relative' }}>
+                <Stack
+                  alignItems='center'
+                  justifyContent='center'
+                  sx={{ position: 'absolute', width: 'calc(25% - 16px)', height: '24px' }}
+                >
+                  <Box sx={{ width: '100%', height: '3px', backgroundColor: theme => theme.palette.primary.main }} />
                 </Stack>
-                <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                  <LoadingButton
-                    fullWidth
-                    loading={isUnstakeSftPending || isUnstakeSftConfirming}
-                    variant='contained'
-                    onClick={handleUnstake}
+                <Stack
+                  alignItems='center'
+                  justifyContent='center'
+                  sx={{ position: 'absolute', right: 0, width: 'calc(25% - 16px)', height: '24px' }}
+                >
+                  <Box
+                    sx={{
+                      width: '100%',
+                      height: '3px',
+                      backgroundColor:
+                        activeClaimStep === STEPS.length - 1
+                          ? theme.palette.primary.main
+                          : alpha(theme.palette.primary.main, 0.3)
+                    }}
+                  />
+                </Stack>
+                <Stepper alternativeLabel activeStep={activeClaimStep}>
+                  {STEPS.filter(step => step.show).map((step, index) => (
+                    <Step key={`public-sft-claim-${index}`}>
+                      <StepLabel StepIconComponent={PublicFundLiveSFTClaimStepperDotBox}>{step.title}</StepLabel>
+                    </Step>
+                  ))}
+                </Stepper>
+              </StepperWrapper>
+            </Grid>
+            <Grid item xs={12}>
+              <Divider sx={{ m: '0 !important' }} />
+            </Grid>
+            <Grid item xs={12}>
+              <AnimatePresence mode='wait'>
+                {/* Check claim method and rewards */}
+                {activeClaimStep === 0 && (
+                  <motion.div
+                    key={`claim-step-${activeClaimStep}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
                   >
-                    <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                      <Icon icon='mdi:hammer' fontSize={16} />
-                      Unstake
+                    <Stack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            Your wallet
+                          </Typography>
+                        </Stack>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Stack direction='row' spacing={4} alignItems='center' justifyContent='center'>
+                            {renderWalletAvatar(walletAccount.address!)}
+                            <Stack alignItems='flex-start' justifyContent='center'>
+                              <Stack direction='row' alignItems='center' justifyContent='center'>
+                                <Typography variant='subtitle1' component='p'>
+                                  {getFormattedEthereumAddress(walletAccount.address!)}
+                                </Typography>
+                                <IconButton
+                                  size='small'
+                                  onClick={() => handleCopyAddress(walletAccount.address as string)}
+                                >
+                                  <Icon icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'} fontSize={16} />
+                                </IconButton>
+                              </Stack>
+                              <Typography variant='caption'>{walletAccount.connector?.name}</Typography>
+                            </Stack>
+                          </Stack>
+
+                          <Stack alignSelf='stretch' alignItems='center' justifyContent='center'>
+                            <Button
+                              variant='outlined'
+                              sx={{ p: 1.5, minWidth: 38 }}
+                              color='secondary'
+                              component={Link}
+                              href='/account'
+                            >
+                              <Icon icon='mdi:verified-user' fontSize={20} />
+                            </Button>
+                          </Stack>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            Method
+                          </Typography>
+                        </Stack>
+                        <Stack direction='row' alignSelf='stretch' sx={{ pt: 4 }}>
+                          <Grid container spacing={4} alignItems='center' justifyContent='space-between'>
+                            {CLAIM_METHOD_INFORMATION.map(claimMethodInfo => {
+                              const { img, type, title, subtitle } = claimMethodInfo
+
+                              return (
+                                <Grid key={`claim-method-${type}`} item xs={12} sm={6}>
+                                  <StyledClaimMethodSelectStack
+                                    spacing={2}
+                                    alignSelf='stretch'
+                                    alignItems='center'
+                                    onClick={() => setSelectedClaimMethod(claimMethodInfo)}
+                                    sx={{
+                                      flexBasis: '50%',
+                                      border: theme =>
+                                        `1px ${selectedClaimMethod.type === type ? theme.palette.primary.main : theme.palette.divider} solid`,
+                                      '&:hover': {
+                                        cursor: 'pointer',
+                                        borderColor: theme => theme.palette.primary.main
+                                      }
+                                    }}
+                                  >
+                                    <Box>
+                                      <Image width={60} height={50} src={img} alt={title} />
+                                    </Box>
+                                    <Typography variant='h6' textAlign='center' noWrap>
+                                      {title}
+                                    </Typography>
+                                    <Typography variant='body2' component='p' textAlign='center' noWrap>
+                                      {subtitle}
+                                    </Typography>
+                                  </StyledClaimMethodSelectStack>
+                                </Grid>
+                              )
+                            })}
+                          </Grid>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            Rewards
+                          </Typography>
+                        </Stack>
+                        <Stack
+                          spacing={4}
+                          alignSelf='stretch'
+                          alignItems='center'
+                          justifyContent='space-around'
+                          sx={{ pt: 4 }}
+                        >
+                          <Stack alignItems='center' justifyContent='center'>
+                            {isVaultStakedEarningInfoLoading || isVaultStakedEarningInfoFetching ? (
+                              <Skeleton variant='text' width={120} />
+                            ) : (
+                              <Typography variant='h4' component='p' sx={{ fontWeight: 600 }}>
+                                {`≈ ${fundBaseCurrencyProperties.symbol} ${getRewardsProperties().formattedNumber} ${fundBaseCurrencyProperties.currency}`}
+                              </Typography>
+                            )}
+                            <Typography variant='h6' component='p' color='text.secondary' sx={{ fontWeight: 600 }}>
+                              {`(${
+                                typeof vaultStakedEarningInfo === 'bigint'
+                                  ? getFormattedPriceUnit(N(vaultStakedEarningInfo).toNumber())
+                                  : 0n
+                              })`}
+                            </Typography>
+                          </Stack>
+
+                          <Stack spacing={2} alignSelf='stretch' alignItems='center'>
+                            <Stack
+                              direction='row'
+                              alignSelf='stretch'
+                              alignItems='center'
+                              justifyContent='space-between'
+                            >
+                              <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
+                                {`${getRewardsProperties().percentage}%`}
+                              </Typography>
+                              <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
+                                full rewards
+                              </Typography>
+                            </Stack>
+                            <LinearProgress
+                              value={getRewardsProperties().percentage}
+                              color={isInPenalty ? 'warning' : 'success'}
+                              variant='determinate'
+                              sx={{ width: '100%' }}
+                            />
+                          </Stack>
+
+                          <Fade in={isInPenalty} unmountOnExit>
+                            <Alert severity='warning'>
+                              <Typography variant='body2' component='p'>
+                                Currently, you are in the lock period. You will be penalized 50% if you unstake now.
+                              </Typography>
+                            </Alert>
+                          </Fade>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            Information
+                          </Typography>
+                        </Stack>
+                        <Stack alignSelf='stretch' divider={<Divider orientation='horizontal' flexItem />}>
+                          {isInPenalty && (
+                            <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                              <Typography variant='subtitle2' component='p'>
+                                Early Unstake Penalty
+                              </Typography>
+                              <Typography
+                                variant='subtitle1'
+                                component='p'
+                                color='warning.main'
+                                sx={{ fontWeight: 600 }}
+                              >
+                                - 50%
+                              </Typography>
+                            </Stack>
+                          )}
+                          <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                            <Typography variant='subtitle2' component='p'>
+                              Full Rewards
+                            </Typography>
+                            <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
+                              {`≈ ${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
+                                N(stakeRecordFullRewards).div(N(10).pow(18)).toNumber()
+                              )} ${fundBaseCurrencyProperties.currency}`}
+                            </Typography>
+                          </Stack>
+                          <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                            <Stack alignItems='flex-start' justifyContent='center'>
+                              <Typography variant='subtitle2' component='p'>
+                                Unlock Date
+                              </Typography>
+                              <Typography variant='body2' sx={{ fontWeight: 600 }}>
+                                progress
+                              </Typography>
+                            </Stack>
+                            <Stack alignItems='flex-end' justifyContent='center'>
+                              <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
+                                {stakeRecordUnlockDate}
+                              </Typography>
+                              <Countdown
+                                date={stakeRecordUnlockDate}
+                                renderer={({ days, hours, minutes, seconds, completed }) => {
+                                  if (completed) {
+                                    return null
+                                  }
+
+                                  return (
+                                    <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
+                                      {`${days} ${days > 1 ? 'days' : 'day'} ${hours}:${minutes}:${seconds} left`}
+                                    </Typography>
+                                  )
+                                }}
+                              />
+                            </Stack>
+                          </Stack>
+                        </Stack>
+                      </Stack>
                     </Stack>
-                  </LoadingButton>
-                </Stack>
-              </Stack>
+                  </motion.div>
+                )}
+
+                {/* Claim rewards */}
+                {activeClaimStep === 1 && (
+                  <motion.div
+                    key={`claim-step-${activeClaimStep}`}
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                  >
+                    <Stack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                      {isInPenalty && (
+                        <Alert severity='warning'>
+                          <Typography variant='body2' component='p'>
+                            You will be penalized 50% if you unstake now.
+                          </Typography>
+                        </Alert>
+                      )}
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            You Get
+                          </Typography>
+                        </Stack>
+                        <Stack
+                          spacing={2}
+                          alignSelf='stretch'
+                          alignItems='center'
+                          justifyContent='space-between'
+                          divider={<Icon icon='mdi:plus-circle-outline' />}
+                        >
+                          {selectedClaimMethod.type === 'Claim and Unstake' && (
+                            <Stack
+                              direction='row'
+                              alignSelf='stretch'
+                              alignItems='center'
+                              justifyContent='space-between'
+                            >
+                              <Stack direction='row' spacing={4} alignItems='center' justifyContent='center'>
+                                <Image
+                                  width={48}
+                                  height={60}
+                                  draggable={false}
+                                  alt={sftSlot?.attributes.displayName ?? `SFT #${sftId}`}
+                                  src={`/images/funds/packages/card-skin/${sftSlot?.attributes.skin.toLowerCase()}-${
+                                    theme.palette.mode
+                                  }.webp`}
+                                />
+                                <Typography variant='h6' component='p'>
+                                  {`SFT #${sftId}`}
+                                </Typography>
+                              </Stack>
+
+                              <Typography variant='h6' component='p'>{`${fundBaseCurrencyProperties.symbol} ${
+                                typeof sftValue === 'bigint'
+                                  ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber())
+                                  : 0n
+                              } ${fundBaseCurrencyProperties.currency}`}</Typography>
+                            </Stack>
+                          )}
+                          <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                            <Typography variant='h6' component='p'>
+                              {fundBaseCurrencyProperties.currency}
+                            </Typography>
+                            <Typography variant='h6' component='p'>
+                              {`${fundBaseCurrencyProperties.symbol} ${getRewardsProperties().formattedNumber} ${fundBaseCurrencyProperties.currency}`}
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Typography variant='subtitle1' component='p'>
+                            Information
+                          </Typography>
+                        </Stack>
+                        <Stack spacing={2} alignSelf='stretch' divider={<Divider orientation='horizontal' flexItem />}>
+                          <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                            <Typography variant='subtitle2' component='p'>
+                              Token ID
+                            </Typography>
+                            <Typography variant='subtitle1' component='p'>{`# ${sftId ?? '-'}`}</Typography>
+                          </Stack>
+                          <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                            <Typography variant='subtitle2' component='p'>
+                              Earned
+                            </Typography>
+                            <Stack alignItems='flex-end' justifyContent='center'>
+                              <Typography variant='subtitle1' component='p'>{`≈ ${fundBaseCurrencyProperties.symbol} ${
+                                typeof vaultStakedEarningInfo === 'bigint'
+                                  ? getFormattedPriceUnit(N(vaultStakedEarningInfo).div(N(10).pow(18)).toNumber())
+                                  : 0n
+                              } ${fundBaseCurrencyProperties.currency}`}</Typography>
+                              <Typography variant='subtitle1' component='p'>{`(${
+                                typeof vaultStakedEarningInfo === 'bigint'
+                                  ? getFormattedPriceUnit(N(vaultStakedEarningInfo).toNumber())
+                                  : 0n
+                              })`}</Typography>
+                            </Stack>
+                          </Stack>
+                        </Stack>
+                      </Stack>
+
+                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                        <LoadingButton
+                          fullWidth
+                          loading={isUnstakeSftPending || isUnstakeSftConfirming}
+                          variant='contained'
+                          onClick={handleClaim}
+                        >
+                          <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
+                            <Icon icon='mdi:hammer' fontSize={16} />
+                            {selectedClaimMethod.title}
+                          </Stack>
+                        </LoadingButton>
+                      </Stack>
+                    </Stack>
+                  </motion.div>
+                )}
+              </AnimatePresence>
             </Grid>
           </Grid>
         </DialogContent>
+        <DialogActions
+          sx={{
+            justifyContent: 'space-between',
+            px: theme => [`${theme.spacing(5)} !important`, `${theme.spacing(15)} !important`],
+            pt: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(4)} !important`],
+            pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
+          }}
+        >
+          <Stack direction='row' flexGrow='1' alignItems='center' justifyContent='space-between'>
+            <Button
+              disabled={activeClaimStep === 0}
+              onClick={() => {
+                setActiveClaimStep(prev => Math.max(prev - 1, 0))
+              }}
+            >
+              Back
+            </Button>
+            <Button
+              variant='contained'
+              disabled={activeClaimStep >= 1 || !STEPS[activeClaimStep].checks?.total()}
+              onClick={() => {
+                setActiveClaimStep(prev => Math.min(prev + 1, 1))
+              }}
+            >
+              Next
+            </Button>
+          </Stack>
+        </DialogActions>
       </Dialog>
 
       <PublicFundLiveTransactionErrorDrawer
