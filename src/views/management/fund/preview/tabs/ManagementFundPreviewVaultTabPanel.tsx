@@ -1,8 +1,9 @@
 // ** MUI Imports
-import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
+import Grid from '@mui/material/Grid'
 
 // ** Custom Component Imports
+import ManagementFundPreviewVaultNotPublishedCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultNotPublishedCard'
 import ManagementFundPreviewVaultTotalStakedCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTotalStakedCard'
 import ManagementFundPreviewVaultTVLCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTVLCard'
 import ManagementFundPreviewVaultTVCCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTVCCard'
@@ -22,23 +23,31 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
 
   return (
     <TabPanel sx={{ p: 0 }} value='vault'>
-      <Grid container spacing={6}>
-        <Grid item xs={6} md={3}>
-          <ManagementFundPreviewVaultTotalStakedCard initFundEntity={initFundEntity} />
+      {initFundEntity.vault === null ? (
+        <Grid container spacing={6} className='match-height'>
+          <Grid item xs={12}>
+            <ManagementFundPreviewVaultNotPublishedCard />
+          </Grid>
         </Grid>
-        <Grid item xs={6} md={3}>
-          <ManagementFundPreviewVaultTVLCard initFundEntity={initFundEntity} />
+      ) : (
+        <Grid container spacing={6}>
+          <Grid item xs={6} md={3}>
+            <ManagementFundPreviewVaultTotalStakedCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <ManagementFundPreviewVaultTVLCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <ManagementFundPreviewVaultTVCCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <ManagementFundPreviewVaultBalanceCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={12}>
+            <ManagementFundPreviewVaultSFTWalletCheckGrid initFundEntity={initFundEntity} />
+          </Grid>
         </Grid>
-        <Grid item xs={6} md={3}>
-          <ManagementFundPreviewVaultTVCCard initFundEntity={initFundEntity} />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <ManagementFundPreviewVaultBalanceCard initFundEntity={initFundEntity} />
-        </Grid>
-        <Grid item xs={12}>
-          <ManagementFundPreviewVaultSFTWalletCheckGrid initFundEntity={initFundEntity} />
-        </Grid>
-      </Grid>
+      )}
     </TabPanel>
   )
 }

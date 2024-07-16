@@ -1,8 +1,9 @@
 // ** MUI Imports
-import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
+import Grid from '@mui/material/Grid'
 
 // ** Custom Component Imports
+import PublicFundLiveVaultNotPublishedCard from 'src/views/fund/live/cards/PublicFundLiveVaultNotPublishedCard'
 import PublicFundLiveVaultTotalStakedCard from 'src/views/fund/live/cards/PublicFundLiveVaultTotalStakedCard'
 import PublicFundLiveVaultTVLCard from 'src/views/fund/live/cards/PublicFundLiveVaultTVLCard'
 import PublicFundLiveVaultTVCCard from 'src/views/fund/live/cards/PublicFundLiveVaultTVCCard'
@@ -22,23 +23,31 @@ const PublicFundLiveVaultTabPanel = (props: Props) => {
 
   return (
     <TabPanel sx={{ p: 0 }} value='vault'>
-      <Grid container spacing={6} className='match-height'>
-        <Grid item xs={6} md={3}>
-          <PublicFundLiveVaultTotalStakedCard initFundEntity={initFundEntity} />
+      {initFundEntity.vault === null ? (
+        <Grid container spacing={6} className='match-height'>
+          <Grid item xs={12}>
+            <PublicFundLiveVaultNotPublishedCard />
+          </Grid>
         </Grid>
-        <Grid item xs={6} md={3}>
-          <PublicFundLiveVaultTVLCard initFundEntity={initFundEntity} />
+      ) : (
+        <Grid container spacing={6} className='match-height'>
+          <Grid item xs={6} md={3}>
+            <PublicFundLiveVaultTotalStakedCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <PublicFundLiveVaultTVLCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <PublicFundLiveVaultTVCCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <PublicFundLiveVaultBalanceCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={12}>
+            <PublicFundLiveVaultSFTWalletCheckGrid initFundEntity={initFundEntity} />
+          </Grid>
         </Grid>
-        <Grid item xs={6} md={3}>
-          <PublicFundLiveVaultTVCCard initFundEntity={initFundEntity} />
-        </Grid>
-        <Grid item xs={6} md={3}>
-          <PublicFundLiveVaultBalanceCard initFundEntity={initFundEntity} />
-        </Grid>
-        <Grid item xs={12}>
-          <PublicFundLiveVaultSFTWalletCheckGrid initFundEntity={initFundEntity} />
-        </Grid>
-      </Grid>
+      )}
     </TabPanel>
   )
 }
