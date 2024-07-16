@@ -3,6 +3,8 @@ import type { BaseApiResponseType, UserApiResponseType } from 'src/types/api/bas
 
 export type ReferralType = {
   id: number
+  rank: number
+  path: string
   user: UserApiResponseType
   referrer: UserApiResponseType
   isActive: boolean
