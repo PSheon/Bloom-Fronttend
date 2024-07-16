@@ -514,9 +514,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
               </Stack>
             </Stack>
 
-            <Box>
-              <Typography variant='body2'>{sftSlot?.attributes.description || 'No description'}</Typography>
-            </Box>
+            <Typography variant='body2'>{sftSlot?.attributes.description || 'No description'}</Typography>
             <Box>
               <Divider />
             </Box>
@@ -630,7 +628,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                 </Stack>
                 <Stepper alternativeLabel activeStep={activeStakeStep}>
                   {STEPS.filter(step => step.show).map((step, index) => (
-                    <Step key={`preview-package-mint-${index}`}>
+                    <Step key={`public-sft-stake-${index}`}>
                       <StepLabel StepIconComponent={PublicFundLiveSFTStakeStepperDotBox}>{step.title}</StepLabel>
                     </Step>
                   ))}
@@ -699,7 +697,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                         <Stack direction='row' alignSelf='stretch' sx={{ pt: 4 }}>
                           <Grid container spacing={4} alignItems='center' justifyContent='space-between'>
                             {STAKE_PERIOD_INFORMATION.map(periodDateInfo => {
-                              const { img, periodInDays, bonusAPY: bonusApy } = periodDateInfo
+                              const { img, periodInDays, bonusAPY } = periodDateInfo
 
                               return (
                                 <Grid key={`stake-period-${periodInDays}-days`} item xs={6}>
@@ -721,11 +719,9 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                                     <Box>
                                       <Image width={60} height={50} src={img} alt={`${periodInDays} days plan`} />
                                     </Box>
-                                    <Box>
-                                      <Typography variant='h6' align='center'>
-                                        {`${periodInDays} Days`}
-                                      </Typography>
-                                    </Box>
+                                    <Typography variant='h6' align='center'>
+                                      {`${periodInDays} Days`}
+                                    </Typography>
                                     <Stack
                                       direction='row'
                                       alignSelf='stretch'
@@ -748,11 +744,11 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                                       <Typography
                                         variant='h4'
                                         component='p'
-                                        color={bonusApy > 0 ? 'primary.main' : 'text.secondary'}
+                                        color={bonusAPY > 0 ? 'primary.main' : 'text.secondary'}
                                         textAlign='center'
                                         sx={{ width: theme => theme.spacing(24), fontWeight: 600, lineHeight: 1.17 }}
                                       >
-                                        {`+${bonusApy.toFixed(1)}`}
+                                        {`+${bonusAPY.toFixed(1)}`}
                                       </Typography>
                                       <Typography
                                         variant='body2'

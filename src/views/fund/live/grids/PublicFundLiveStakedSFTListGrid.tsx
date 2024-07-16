@@ -79,7 +79,7 @@ const PublicFundLiveStakedSFTListGrid = (props: Props) => {
         </Grid>
       ) : (
         [...Array(stakedSFTBalanceCount).keys()].map(sftIndex => (
-          <Grid key={`public-fund-live-staked-sft-${sftIndex}`} item xs={12} sm={6} md={4}>
+          <Grid key={`public-fund-live-staked-sft-${sftIndex}`} item xs={12} md={6}>
             <PublicFundLiveStakedSFTCard initFundEntity={initFundEntity} sftIndex={sftIndex} />
           </Grid>
         ))
