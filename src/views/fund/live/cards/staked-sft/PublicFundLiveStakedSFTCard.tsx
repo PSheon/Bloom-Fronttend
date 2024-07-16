@@ -294,13 +294,13 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
 
   const CLAIM_METHOD_INFORMATION: ClaimMethodType[] = [
     {
-      img: '/images/vault/stake-180-days.png',
+      img: '/images/vault/claim-only.png',
       type: 'Claim Only',
       title: 'Claim Only',
       subtitle: 'receive rewards only'
     },
     {
-      img: '/images/vault/stake-60-days.png',
+      img: '/images/vault/claim-and-unstake.png',
       type: 'Claim and Unstake',
       title: 'Claim & Unstake',
       subtitle: 'receive rewards and SFT'
@@ -834,7 +834,7 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
                                 {`${getRewardsProperties().percentage}%`}
                               </Typography>
                               <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
-                                full rewards
+                                progress
                               </Typography>
                             </Stack>
                             <LinearProgress
@@ -845,13 +845,13 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
                             />
                           </Stack>
 
-                          <Fade in={isInPenalty} unmountOnExit>
+                          {isInPenalty && (
                             <Alert severity='warning'>
                               <Typography variant='body2' component='p'>
                                 Currently, you are in the lock period. You will be penalized 50% if you unstake now.
                               </Typography>
                             </Alert>
-                          </Fade>
+                          )}
                         </Stack>
                       </Stack>
 
