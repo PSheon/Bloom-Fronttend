@@ -16,13 +16,22 @@ import Icon from 'src/@core/components/icon'
 // ** API Imports
 import { useFindMeStatisticsQuery } from 'src/store/api/management/pointRecord'
 
+// ** Util Imports
+import { getFormattedPriceUnit } from 'src/utils'
+
 const MePointsStatisticsCard = () => {
   // ** Hooks
   const { data: meStatisticsData, isLoading: isFindMeStatisticsDataLoading } = useFindMeStatisticsQuery(null)
 
   // ** Vars
-  const directReferrals = meStatisticsData?.directReferrals || 0
-  const totalReferrals = meStatisticsData?.totalReferrals || 0
+  const meStakedValue = meStatisticsData?.meStakedValue || 0
+  const directReferralsStakedValue = meStatisticsData?.rankDownLine1?.totalStakedValue || 0
+
+  const teamStakedValue =
+    (meStatisticsData?.rankDownLine1?.totalStakedValue || 0) +
+    (meStatisticsData?.rankDownLine2?.totalStakedValue || 0) +
+    (meStatisticsData?.rankDownLine3?.totalStakedValue || 0) +
+    (meStatisticsData?.rankTeam?.totalStakedValue || 0)
 
   return (
     <Card>
@@ -32,23 +41,29 @@ const MePointsStatisticsCard = () => {
             Statistics
           </Typography>
         }
-        subheader={
-          <Stack direction='row' alignItems='center'>
-            <Typography variant='caption' sx={{ mr: 1.5 }}>
-              Total 42.5k Sales
-            </Typography>
-            <Typography variant='subtitle2' sx={{ '&, & + svg': { color: 'success.main' } }}>
-              +18%
-            </Typography>
-            <Icon icon='mdi:chevron-up' fontSize='1.25rem' />
-          </Stack>
-        }
       />
       <CardContent>
         <Grid container spacing={6}>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <Stack direction='row' spacing={4} alignItems='center'>
               <CustomAvatar skin='light' variant='rounded' color='primary'>
+                <Icon icon='mdi:coins-outline' />
+              </CustomAvatar>
+              <Stack>
+                {isFindMeStatisticsDataLoading ? (
+                  <Skeleton variant='text' width={100} height={32} />
+                ) : (
+                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                    {getFormattedPriceUnit(meStakedValue)}
+                  </Typography>
+                )}
+                <Typography variant='caption'>My Staked Value</Typography>
+              </Stack>
+            </Stack>
+          </Grid>
+          <Grid item xs={12} sm={4}>
+            <Stack direction='row' spacing={4} alignItems='center'>
+              <CustomAvatar skin='light' variant='rounded' color='success'>
                 <Icon icon='mdi:account' />
               </CustomAvatar>
               <Stack>
@@ -56,14 +71,14 @@ const MePointsStatisticsCard = () => {
                   <Skeleton variant='text' width={100} height={32} />
                 ) : (
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
-                    {directReferrals}
+                    {directReferralsStakedValue}
                   </Typography>
                 )}
-                <Typography variant='caption'>Direct Referrals</Typography>
+                <Typography variant='caption'>Direct Referrals Staked</Typography>
               </Stack>
             </Stack>
           </Grid>
-          <Grid item xs={12} sm={6}>
+          <Grid item xs={12} sm={4}>
             <Stack direction='row' spacing={4} alignItems='center'>
               <CustomAvatar skin='light' variant='rounded' color='info'>
                 <Icon icon='mdi:account-group' />
@@ -73,10 +88,10 @@ const MePointsStatisticsCard = () => {
                   <Skeleton variant='text' width={100} height={32} />
                 ) : (
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
-                    {totalReferrals}
+                    {teamStakedValue}
                   </Typography>
                 )}
-                <Typography variant='caption'>Total Referrals</Typography>
+                <Typography variant='caption'>Team Staked Value</Typography>
               </Stack>
             </Stack>
           </Grid>

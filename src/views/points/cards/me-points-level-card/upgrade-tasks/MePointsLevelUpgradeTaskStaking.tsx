@@ -13,7 +13,6 @@ interface Props {
   upgradeTask: UpgradeTaskType
 }
 
-/* TODO: Fill Staking statistics here */
 const MePointsLevelUpgradeTaskStaking = (props: Props) => {
   // ** Props
   const { upgradeTask } = props
@@ -22,8 +21,8 @@ const MePointsLevelUpgradeTaskStaking = (props: Props) => {
   const { data: meStatisticsData } = useFindMeStatisticsQuery(null)
 
   // ** Vars
-  const totalReferrals = meStatisticsData?.totalReferrals || 0
-  const referralGoal = upgradeTask.value
+  const goal = upgradeTask.value
+  const meStakedValue = meStatisticsData?.meStakedValue || 0
 
   return (
     <Stack spacing={2} alignSelf='stretch' alignItems='flex-start' justifyContent='space-between'>
@@ -39,14 +38,14 @@ const MePointsLevelUpgradeTaskStaking = (props: Props) => {
       <Stack spacing={2} alignSelf='stretch' alignItems='center'>
         <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
           <Typography variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
-            {`${totalReferrals} of ${referralGoal} staking`}
+            {`${meStakedValue} of ${goal} staking`}
           </Typography>
           <Typography variant='body2' color='text.primary' sx={{ fontWeight: 600 }}>
-            {totalReferrals > referralGoal ? 'Completed' : `${Math.round((totalReferrals / referralGoal) * 100)} %`}
+            {meStakedValue > goal ? 'Completed' : `${Math.round((meStakedValue / goal) * 100)} %`}
           </Typography>
         </Stack>
         <LinearProgress
-          value={Math.min(Math.round((totalReferrals / referralGoal) * 100), 100)}
+          value={Math.min(Math.round((meStakedValue / goal) * 100), 100)}
           color='success'
           variant='determinate'
           sx={{ width: '100%' }}

@@ -28,9 +28,9 @@ import {
 const IllustrationImg = styled('img')(({ theme }) => ({
   right: theme.spacing(4),
   bottom: 0,
-  width: theme.spacing(60),
+  width: theme.spacing(48),
   position: 'absolute',
-  [theme.breakpoints.down('sm')]: {
+  [theme.breakpoints.down('md')]: {
     opacity: 0
   }
 }))
@@ -78,19 +78,25 @@ const MePointsRoutineTaskCard = () => {
             Claim your daily rewards 🎉
           </Typography>
         }
+        subheader={
+          <Typography variant='caption' sx={{ mr: 1.5 }}>
+            you will gain 60 Exp points each time.
+          </Typography>
+        }
       />
       <CardContent>
         <Stack spacing={6} alignItems='flex-start' justifyContent='flex-start'>
-          <Stack spacing={2} alignItems='flex-start' justifyContent='center'>
-            <Typography variant='body2' component='p'>
-              you will gain 60 Exp points each time.
-            </Typography>
-            <Typography variant='body2' component='p'>
-              You can claim every 24 hours.
-            </Typography>
-          </Stack>
-
-          <Stack alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ maxWidth: theme.spacing(88) }}>
+          <Stack
+            alignSelf='stretch'
+            alignItems='center'
+            justifyContent='center'
+            sx={{
+              maxWidth: {
+                xs: '100%',
+                md: theme.spacing(60)
+              }
+            }}
+          >
             {allowedDailyCheck ? (
               <LoadingButton
                 fullWidth

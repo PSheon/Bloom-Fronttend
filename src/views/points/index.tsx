@@ -7,8 +7,8 @@ import PointsBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import MePointsLevelCard from 'src/views/points/cards/me-points-level-card'
 import MePointsInvitationCard from 'src/views/points/cards/MePointsInvitationCard'
 import MePointsAccountPointsCard from 'src/views/points/cards/MePointsAccountPointsCard'
-import MePointsStatisticsCard from 'src/views/points/cards/MePointsStatisticsCard'
 import MePointsRoutineTaskCard from 'src/views/points/cards/MePointsRoutineTaskCard'
+import MePointsStatisticsCard from 'src/views/points/cards/MePointsStatisticsCard'
 import MePointsRecordChartCard from 'src/views/points/cards/MePointsRecordChartCard'
 
 // import MePointsTeamMembersCard from 'src/views/points/cards/MePointsTeamMembersCard'
@@ -38,10 +38,10 @@ const PointsSection = () => {
               <MePointsAccountPointsCard />
             </Grid>
             <Grid item xs={12} md={7}>
-              <MePointsStatisticsCard />
+              <MePointsRoutineTaskCard />
             </Grid>
             <Grid item xs={12}>
-              <MePointsRoutineTaskCard />
+              <MePointsStatisticsCard />
             </Grid>
             <Grid item xs={12}>
               <MePointsRecordChartCard />
