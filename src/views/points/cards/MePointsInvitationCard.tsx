@@ -29,7 +29,7 @@ const MePointsInvitationCard = () => {
   // ** Vars
   const user = session.data?.user
   const referralCode = user!.referralCode
-  const referralLink = `${window.location.origin}/points?referral=${user!.referralCode}`
+  const referralLink = `${window.location.origin}/points?referral-id=${user!.referralCode}`
 
   // ** Logics
   const handleCopyReferralCode = () => {

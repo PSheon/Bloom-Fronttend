@@ -37,12 +37,50 @@ export type FindMePointRecordsResponseType = BaseApiResponseType<PointRecordType
 // ** Find Me Statistics
 export type FindMeStatisticsPointRecordsParamsType = null
 export type FindMeStatisticsPointRecordsTransformResponseType = {
-  directReferrals: number
-  totalReferrals: number
+  meStakedValue: number
+  rankDownLine1: {
+    totalStakedValue: number
+    totalClaimedRewards: number
+    totalMembers: number
+  }
+  rankDownLine2: {
+    totalStakedValue: number
+    totalClaimedRewards: number
+    totalMembers: number
+  }
+  rankDownLine3: {
+    totalStakedValue: number
+    totalClaimedRewards: number
+    totalMembers: number
+  }
+  rankTeam: {
+    totalStakedValue: number
+    totalClaimedRewards: number
+    totalMembers: number
+  }
 }
 export type FindMeStatisticsPointRecordsResponseType = {
-  directReferrals: number
-  totalReferrals: number
+  meStakedValue: number
+  rankDownLine1: {
+    totalStakedValue: number
+    totalClaimedRewards: number
+    totalMembers: number
+  }
+  rankDownLine2: {
+    totalStakedValue: number
+    totalClaimedRewards: number
+    totalMembers: number
+  }
+  rankDownLine3: {
+    totalStakedValue: number
+    totalClaimedRewards: number
+    totalMembers: number
+  }
+  rankTeam: {
+    totalStakedValue: number
+    totalClaimedRewards: number
+    totalMembers: number
+  }
 }
 
 // ** Find
