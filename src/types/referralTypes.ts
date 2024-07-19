@@ -5,6 +5,8 @@ export type ReferralType = {
   id: number
   rank: number
   path: string
+  level: number
+  claimedRewards: number
   user: UserApiResponseType
   referrer: UserApiResponseType
   isActive: boolean

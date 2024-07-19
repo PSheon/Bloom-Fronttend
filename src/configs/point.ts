@@ -138,7 +138,7 @@ export const LEVEL_TABLE: LevelType[] = [
     expDisplayMin: 750,
     expDisplayMax: 1_250,
     privileges: [
-      { color: 'primary', icon: 'mdi:chevron-double-up', title: 'APY Boost', displayValue: '+ 0.8%', value: 0.8 },
+      { color: 'primary', icon: 'mdi:chevron-double-up', title: 'APY Boost', displayValue: '+ 0.6%', value: 0.6 },
       {
         color: 'info',
         icon: 'mdi:numeric-1-box-outline',
@@ -205,8 +205,8 @@ export const LEVEL_TABLE: LevelType[] = [
         color: 'primary',
         icon: 'mdi:chevron-double-up',
         title: 'APY Boost',
-        displayValue: '+ 1.25%',
-        value: 1.25
+        displayValue: '+ 0.9%',
+        value: 0.9
       },
       {
         color: 'info',
@@ -282,8 +282,8 @@ export const LEVEL_TABLE: LevelType[] = [
         color: 'primary',
         icon: 'mdi:chevron-double-up',
         title: 'APY Boost',
-        displayValue: '+ 1.5%',
-        value: 1.5
+        displayValue: '+ 1.25%',
+        value: 1.25
       },
       {
         color: 'info',
@@ -367,8 +367,8 @@ export const LEVEL_TABLE: LevelType[] = [
         color: 'primary',
         icon: 'mdi:chevron-double-up',
         title: 'APY Boost',
-        displayValue: '+ 2%',
-        value: 2
+        displayValue: '+ 1.6%',
+        value: 1.6
       },
       {
         color: 'info',
@@ -537,8 +537,8 @@ export const LEVEL_TABLE: LevelType[] = [
         color: 'primary',
         icon: 'mdi:chevron-double-up',
         title: 'APY Boost',
-        displayValue: '+ 2.2%',
-        value: 2.2
+        displayValue: '+ 2.8%',
+        value: 2.8
       },
       {
         color: 'info',
@@ -622,8 +622,8 @@ export const LEVEL_TABLE: LevelType[] = [
         color: 'primary',
         icon: 'mdi:chevron-double-up',
         title: 'APY Boost',
-        displayValue: '+ 2.2%',
-        value: 2.2
+        displayValue: '+ 5%',
+        value: 5
       },
       {
         color: 'info',

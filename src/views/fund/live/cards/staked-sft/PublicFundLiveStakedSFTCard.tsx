@@ -368,7 +368,7 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
               from: walletAccount.address!,
               to: initFundEntity.sft.contractAddress as `0x${string}`,
               chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
-              message: (error as BaseError)?.shortMessage || 'Failed to mint'
+              message: (error as BaseError)?.shortMessage || 'Failed to claim'
             }))
           }
         }

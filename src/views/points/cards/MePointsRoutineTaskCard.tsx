@@ -80,7 +80,7 @@ const MePointsRoutineTaskCard = () => {
         }
         subheader={
           <Typography variant='caption' sx={{ mr: 1.5 }}>
-            you will gain 60 Exp points each time.
+            {`We'll check your level when you claim`}
           </Typography>
         }
       />

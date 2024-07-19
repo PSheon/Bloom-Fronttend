@@ -9,6 +9,7 @@ import { getSession } from 'next-auth/react'
 // ** API Imports
 import { userApi } from 'src/store/api/management/user'
 import { pointRecordApi } from 'src/store/api/management/pointRecord'
+import { referralApi } from 'src/store/api/management/referral'
 
 // ** Type Imports
 import type {
@@ -54,6 +55,7 @@ export const dailyCheckRecordApi = createApi({
           await queryFulfilled
           dispatch(userApi.util.invalidateTags(['Me']))
           dispatch(pointRecordApi.util.invalidateTags(['PointRecord']))
+          dispatch(referralApi.util.invalidateTags(['Referral']))
         } catch (err) {
           toast.error('Error fetching post!')
         }

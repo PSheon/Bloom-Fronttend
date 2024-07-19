@@ -23,6 +23,7 @@ import MePointsLevelUpgradeTasksStack from 'src/views/points/cards/me-points-lev
 
 // ** API Imports
 import { useFindMeOneQuery } from 'src/store/api/management/user'
+import { useFindMeQuery } from 'src/store/api/management/referral'
 
 // ** Util Imports
 import { getFormattedPriceUnit, getLevelProperties } from 'src/utils'
@@ -46,13 +47,25 @@ const MePointsLevelCard = () => {
   // ** Hooks
   const { data: meUserData, isLoading: isMeUserDataLoading } = useFindMeOneQuery(null)
 
+  const { data: meReferralsEntity, isLoading: isFindMeReferralsLoading } = useFindMeQuery({
+    filters: {
+      isActive: true
+    },
+    pagination: {
+      page: 1,
+      pageSize: 10
+    }
+  })
+
   // ** Vars
   const meExp = meUserData?.exp ?? 0
-  const meLevelProperties = getLevelProperties(meExp)
+  const meReferrals = meReferralsEntity?.data || []
+  const meLevel = meReferrals[0]?.level || 1
+  const meLevelProperties = getLevelProperties(meLevel)
 
   return (
     <Card>
-      {isMeUserDataLoading ? (
+      {isMeUserDataLoading || isFindMeReferralsLoading ? (
         <MePointsLevelLoadingSkeleton />
       ) : (
         <CardContent

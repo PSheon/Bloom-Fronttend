@@ -52,7 +52,7 @@ import Icon from 'src/@core/components/icon'
 import useBgColor from 'src/@core/hooks/useBgColor'
 
 // ** API Imports
-import { useFindMeOneQuery } from 'src/store/api/management/user'
+import { useFindMeQuery } from 'src/store/api/management/referral'
 import { useVaultSignHashMutation } from 'src/store/api/management/fund'
 
 // ** Util Imports
@@ -118,7 +118,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const [selectedStakePeriod, setSelectedStakePeriod] = useState<StakePeriodType>({
     img: '/images/vault/stake-180-days.png',
     periodInDays: 180,
-    bonusAPY: 0
+    bonusAPY: 2.4
   })
 
   const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
@@ -128,7 +128,15 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const bgColors = useBgColor()
   const walletAccount = useAccount()
 
-  const { data: meUserData } = useFindMeOneQuery(null)
+  const { data: meReferralsEntity } = useFindMeQuery({
+    filters: {
+      isActive: true
+    },
+    pagination: {
+      page: 1,
+      pageSize: 10
+    }
+  })
 
   const { data: sftId, isLoading: isSftIdLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
@@ -223,8 +231,9 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
   const [signHash, { isLoading: isSignHashLoading }] = useVaultSignHashMutation()
 
   // ** Vars
-  const meExp = meUserData?.exp ?? 0
-  const meLevelProperties = getLevelProperties(meExp)
+  const meReferrals = meReferralsEntity?.data || []
+  const meLevel = meReferrals[0]?.level || 1
+  const meLevelProperties = getLevelProperties(meLevel)
   const meLevelAPYPrivileges = meLevelProperties.privileges.find(privilege => privilege.title === 'APY Boost')
 
   const sftSlot = initFundEntity.defaultPackages?.data.find(
@@ -363,7 +372,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                 from: walletAccount.address!,
                 to: initFundEntity.sft.contractAddress as `0x${string}`,
                 chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
-                message: (error as BaseError)?.shortMessage || 'Failed to mint'
+                message: (error as BaseError)?.shortMessage || 'Failed to stake'
               }))
             }
           }
@@ -374,7 +383,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
         from: walletAccount.address!,
         to: initFundEntity.sft.contractAddress as `0x${string}`,
         chainInformation: `${initFundEntity.chain} (${getChainId(initFundEntity.chain)})`,
-        message: 'Failed to mint'
+        message: 'Failed to stake'
       }))
     }
   }
