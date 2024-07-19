@@ -141,7 +141,8 @@ const AuthLoginPage = () => {
   // ** States
   // const [isLoginCredentialsLoading, setIsLoginCredentialsLoading] = useState<boolean>(false)
   const [isLoginGoogleLoading, setIsLoginGoogleLoading] = useState<boolean>(false)
-  const [isLoginFacebookLoading, setIsLoginFacebookLoading] = useState<boolean>(false)
+
+  // const [isLoginFacebookLoading, setIsLoginFacebookLoading] = useState<boolean>(false)
   const [isLoginDiscordLoading, setIsLoginDiscordLoading] = useState<boolean>(false)
   const [isLoginMicrosoftLoading, setIsLoginMicrosoftLoading] = useState<boolean>(false)
 
@@ -205,12 +206,12 @@ const AuthLoginPage = () => {
     await signIn('google', { callbackUrl })
   }
 
-  const handleLoginFacebook = async (e: MouseEvent<HTMLElement>) => {
-    e.preventDefault()
-    setIsLoginFacebookLoading(true)
+  // const handleLoginFacebook = async (e: MouseEvent<HTMLElement>) => {
+  //   e.preventDefault()
+  //   setIsLoginFacebookLoading(true)
 
-    await signIn('facebook', { callbackUrl })
-  }
+  //   await signIn('facebook', { callbackUrl })
+  // }
 
   const handleLoginDiscord = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
@@ -421,7 +422,7 @@ const AuthLoginPage = () => {
                 >
                   Continue with Google
                 </LoadingButton>
-                <LoadingButton
+                {/* <LoadingButton
                   fullWidth
                   loading={isLoginFacebookLoading}
                   size='large'
@@ -431,7 +432,7 @@ const AuthLoginPage = () => {
                   sx={{ fontWeight: 600, fontSize: '1rem' }}
                 >
                   Continue with Facebook
-                </LoadingButton>
+                </LoadingButton> */}
                 <LoadingButton
                   fullWidth
                   loading={isLoginDiscordLoading}
