@@ -47,6 +47,9 @@ import { useFindMeQuery, useGetNonceQuery, useVerifyMutation } from 'src/store/a
 // ** Util Imports
 import { getFormattedEthereumAddress, getChainId, getGradientColors } from 'src/utils'
 
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
 
@@ -130,7 +133,7 @@ const WalletConnectCard = (props: Props) => {
       const message = new SiweMessage({
         domain: window?.location.host,
         address: walletAccount.address!,
-        statement: `Welcome to Bloom, Please sign in with Ethereum`,
+        statement: `Welcome to ${themeConfig.templateName}, Please sign in with Ethereum`,
         uri: window?.location.origin,
         version: '1',
         chainId: walletAccount.chainId!,

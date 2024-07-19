@@ -8,6 +8,9 @@ import IconButton from '@mui/material/IconButton'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
 // ** Type Imports
 import type { ChangeEvent } from 'react'
 
@@ -37,7 +40,7 @@ const PublicFundListHeaderGrid = (props: Props) => {
     <Grid container spacing={6} alignItems='center' justifyContent='center' sx={{ my: 16 }}>
       <Grid item xs={12}>
         <Typography variant='h3' textAlign='center' sx={{ fontWeight: 600, lineHeight: 1.17 }}>
-          Welcome to Bloom Community
+          {`Welcome to ${themeConfig.templateName} Community`}
         </Typography>
       </Grid>
       <Grid item xs={12}>

@@ -143,9 +143,9 @@ const App = (props: ExtendedAppProps) => {
             content='Decentralized finance, RWA trading platform, Cryptocurrency trading, Decentralized lending, Blockchain financial platform, Cryptocurrency exchange, Blockchain collateral, Crypto collateral, Decentralized finance market, DeFi trading platform, Decentralized lending platform'
           />
           <meta name='viewport' content='initial-scale=1, width=device-width' />
-          <meta name='publisher' content='Bloom' />
-          <meta name='apple-mobile-web-app-title' content='Bloom' />
-          <meta name='application-name' content='Bloom' />
+          <meta name='publisher' content={themeConfig.templateName} />
+          <meta name='apple-mobile-web-app-title' content={themeConfig.templateName} />
+          <meta name='application-name' content={themeConfig.templateName} />
           <meta name='msapplication-TileColor' content='#f7f7f9' />
           <meta name='theme-color' content='#f7f7f9' />
 
@@ -163,11 +163,11 @@ const App = (props: ExtendedAppProps) => {
             property='og:description'
             content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
           />
-          <meta property='og:image' content='https://bloom.media.app/api/static-image' />
+          <meta property='og:image' content='https://www.buxx.finance/api/static-image' />
           <meta property='og:image:type' content='image/jpeg' />
           <meta property='og:image:width' content='1200' />
           <meta property='og:image:height' content='800' />
-          <meta property='og:url' content='https://bloom.media.app' />
+          <meta property='og:url' content='https://www.buxx.finance' />
           <meta property='og:site_name' content={themeConfig.templateName} />
           <meta property='og:type' content='website' />
 
@@ -178,7 +178,7 @@ const App = (props: ExtendedAppProps) => {
             name='twitter:description'
             content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
           />
-          <meta name='twitter:image' content='https://bloom.media.app/api/static-image' />
+          <meta name='twitter:image' content='https://www.buxx.finance/api/static-image' />
           <meta name='twitter:image:type' content='image/jpeg' />
           <meta property='twitter:image:width' content='1200' />
           <meta property='twitter:image:height' content='800' />

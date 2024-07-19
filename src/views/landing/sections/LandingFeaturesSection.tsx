@@ -71,7 +71,7 @@ const LandingFeaturesSection = () => {
                   style={{ filter: 'drop-shadow(4px 4px 12px #4444dd)' }}
                 />
                 <Typography variant='h5' textAlign='center' sx={{ fontWeight: 900 }}>
-                  Bloom Payment
+                  Payment
                 </Typography>
                 <Typography variant='body1' textAlign='center'>
                   We have thousands of ATMs located across the U.S. where you can easily convert cash to crypto

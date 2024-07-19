@@ -26,6 +26,7 @@ import Icon from 'src/@core/components/icon'
 import { getChainId, getContractTypeProperties } from 'src/utils'
 
 // ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
 import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
@@ -142,7 +143,7 @@ const ManagementFundEditTokenProtocolCard = (props: Props) => {
             </CustomAvatar>
 
             <Typography variant='body2' sx={{ fontWeight: 600 }}>
-              Bloom DAO
+              {`${themeConfig.templateName} DAO`}
             </Typography>
           </Stack>
         </Stack>

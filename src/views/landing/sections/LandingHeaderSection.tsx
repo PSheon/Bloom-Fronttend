@@ -9,6 +9,9 @@ import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Typography from '@mui/material/Typography'
 
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
 // ** Type Imports
 import type { BoxProps } from '@mui/material/Box'
 import type { ButtonProps } from '@mui/material/Button'
@@ -187,7 +190,7 @@ const LandingHeaderSection = () => {
           We make crypto clear and simple
         </Typography>
         <Typography variant='h5' component='h2' textAlign='center'>
-          Buy, sell, and grow your crypto with Bloom, the platform dedicated to every trader at every level.
+          {`Buy, sell, and grow your crypto with ${themeConfig.templateName}, the platform dedicated to every trader at every level.`}
         </Typography>
       </Stack>
 

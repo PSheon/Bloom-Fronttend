@@ -24,6 +24,9 @@ import Icon from 'src/@core/components/icon'
 // ** Util Imports
 import { getFormattedEthereumAddress } from 'src/utils'
 
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
 
@@ -118,7 +121,7 @@ const ReviewFundPreviewSpecificationCard = (props: Props) => {
       <CardContent>
         <Grid container spacing={4}>
           <Grid item xs={6} sm={4} md={2}>
-            <SpecDetailStack title='Fund Manager' content='Bloom DAO' linkHref='/' />
+            <SpecDetailStack title='Fund Manager' content={`${themeConfig.templateName} DAO`} />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack
