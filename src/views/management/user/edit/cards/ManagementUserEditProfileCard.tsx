@@ -230,7 +230,7 @@ const ManagementUserEditProfileCard = (props: Props) => {
             <Typography variant='subtitle2' color='text.primary'>
               Phone:
             </Typography>
-            <Typography variant='body2'>{updatedUser.phone ? `(+886) ${updatedUser.phone}` : 'Unfilled'}</Typography>
+            <Typography variant='body2'>{updatedUser.phone ? `(+65) ${updatedUser.phone}` : 'Unfilled'}</Typography>
           </Stack>
         </Stack>
       </CardContent>
@@ -316,7 +316,7 @@ const ManagementUserEditProfileCard = (props: Props) => {
                         onChange={onChange}
                         error={Boolean(errors.phone)}
                         InputProps={{
-                          startAdornment: <InputAdornment position='start'>台灣 (+886)</InputAdornment>
+                          startAdornment: <InputAdornment position='start'>SGP (+65)</InputAdornment>
                         }}
                         sx={{ display: 'flex' }}
                       />

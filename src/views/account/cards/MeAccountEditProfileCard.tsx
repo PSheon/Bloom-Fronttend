@@ -125,36 +125,36 @@ const MeAccountEditProfileCard = (props: Props) => {
       </CardContent>
 
       <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
-        <Typography variant='subtitle2'>Information</Typography>
+        <Typography variant='subtitle2' component='p'>
+          Information
+        </Typography>
         <Stack alignSelf='stretch'>
           <Divider />
         </Stack>
         <Stack spacing={2.7}>
           <Stack direction='row' spacing={2} alignItems='center'>
-            <Typography variant='subtitle2' color='text.primary'>
+            <Typography variant='subtitle2' component='p' color='text.primary'>
               Username:
             </Typography>
             <Typography variant='body2'>{initMeUserEntity.username}</Typography>
           </Stack>
           <Stack direction='row' spacing={2} alignItems='center'>
-            <Typography variant='subtitle2' color='text.primary'>
+            <Typography variant='subtitle2' component='p' color='text.primary'>
               Email:
             </Typography>
             <Typography variant='body2'>{initMeUserEntity.email}</Typography>
           </Stack>
           <Stack direction='row' spacing={2} alignItems='center'>
-            <Typography variant='subtitle2' color='text.primary'>
+            <Typography variant='subtitle2' component='p' color='text.primary'>
               Title:
             </Typography>
             <Typography variant='body2'>{updatedMeUser.title || 'Unfilled'}</Typography>
           </Stack>
           <Stack direction='row' spacing={2} alignItems='center'>
-            <Typography variant='subtitle2' color='text.primary'>
+            <Typography variant='subtitle2' component='p' color='text.primary'>
               Phone:
             </Typography>
-            <Typography variant='body2'>
-              {updatedMeUser.phone ? `(+886) ${updatedMeUser.phone}` : 'Unfilled'}
-            </Typography>
+            <Typography variant='body2'>{updatedMeUser.phone ? `(+65) ${updatedMeUser.phone}` : 'Unfilled'}</Typography>
           </Stack>
         </Stack>
       </CardContent>
@@ -239,7 +239,7 @@ const MeAccountEditProfileCard = (props: Props) => {
                         onChange={onChange}
                         error={Boolean(errors.phone)}
                         InputProps={{
-                          startAdornment: <InputAdornment position='start'>(+886)</InputAdornment>
+                          startAdornment: <InputAdornment position='start'>(+65)</InputAdornment>
                         }}
                         sx={{ display: 'flex' }}
                       />
