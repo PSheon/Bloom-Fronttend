@@ -108,7 +108,7 @@ const PublicFundListPinnedGrid = () => {
         articles.map(article => (
           <Grid key={`article-${article.id}`} item xs={12} md={6}>
             <Card
-              onClick={() => handleRedirectToArticle(1)}
+              onClick={() => handleRedirectToArticle(article.id)}
               sx={{
                 border: '1px transparent solid',
                 cursor: 'pointer',
