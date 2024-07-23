@@ -29,7 +29,9 @@ const PublicFundListPinnedGrid = () => {
   const router = useRouter()
 
   const { data: articlesData, isLoading: isArticleListLoading } = useFindQuery({
-    filters: {},
+    filters: {
+      status: 'Published'
+    },
     pagination: {
       page: 1,
       pageSize: 2
