@@ -451,8 +451,7 @@ const AuthLoginPage = () => {
                   variant='outlined'
                   startIcon={<Image src='/images/socials/microsoft.png' alt='microsoft-icon' width={20} height={20} />}
                   onClick={handleLoginMicrosoft}
-
-                  // sx={{ fontWeight: 600, fontSize: '1rem' }}
+                  sx={{ fontWeight: 600, fontSize: '1rem' }}
                 >
                   Continue with Microsoft
                 </LoadingButton>
@@ -533,7 +532,7 @@ const AuthLoginPage = () => {
                     <Typography
                       variant='caption'
                       component='p'
-                      color='text.secondary'
+                      color='text.primary'
                       textAlign='center'
                       sx={{ maxWidth: '48ch' }}
                     >
