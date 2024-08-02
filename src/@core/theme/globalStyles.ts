@@ -20,17 +20,6 @@ const GlobalStyles = (theme: Theme) => {
   }
 
   return {
-    '.demo-space-x > *': {
-      marginTop: '1rem !important',
-      marginRight: '1rem !important',
-      'body[dir="rtl"] &': {
-        marginRight: '0 !important',
-        marginLeft: '1rem !important'
-      }
-    },
-    '.demo-space-y > *:not(:last-of-type)': {
-      marginBottom: '1rem'
-    },
     '.MuiGrid-container.match-height .MuiCard-root': {
       height: '100%'
     },

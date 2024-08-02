@@ -2,22 +2,23 @@
 import Link from 'next/link'
 
 // ** MUI Components
+import { styled } from '@mui/material/styles'
 import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
 import Button from '@mui/material/Button'
-import { styled } from '@mui/material/styles'
 import CardMedia from '@mui/material/CardMedia'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 
 // ** Third-Party Components
+import formatDistance from 'date-fns/formatDistance'
 import { useSession } from 'next-auth/react'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
-import { formatDistance } from 'date-fns'
+import { getPublicMediaAssetUrl } from 'src/utils'
 
 const ProfilePicture = styled('img')(({ theme }) => ({
   width: 120,
@@ -33,12 +34,15 @@ const PortfolioBannerCard = () => {
   // ** Hooks
   const session = useSession()
 
+  // ** Vars
+  const avatarUrl = session.data!.user?.avatar?.formats?.thumbnail?.url
+
   return (
     <Card>
       <CardMedia
         component='img'
         alt='profile-header'
-        image='/images/pages/profile-banner.png'
+        image='/images/pages/profile-banner.webp'
         sx={{
           height: { xs: 150, md: 250 }
         }}
@@ -53,7 +57,7 @@ const PortfolioBannerCard = () => {
           justifyContent: { xs: 'center', md: 'flex-start' }
         }}
       >
-        <ProfilePicture src='/images/avatars/1.png' alt='profile-picture' />
+        <ProfilePicture src={getPublicMediaAssetUrl(avatarUrl)} alt={session.data!.user.username} />
         <Box
           sx={{
             width: '100%',
@@ -82,7 +86,7 @@ const PortfolioBannerCard = () => {
               <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'text.secondary' } }}>
                 <Icon icon='mdi:calendar-blank-outline' />
                 <Typography sx={{ color: 'text.secondary', fontWeight: 600 }}>
-                  {`${formatDistance(new Date(session.data!.user.createdAt), new Date(), { addSuffix: true })} 加入`}
+                  {`${formatDistance(new Date(session.data!.user.createdAt), new Date(), { addSuffix: true })} joined`}
                 </Typography>
               </Box>
             </Box>
@@ -93,7 +97,7 @@ const PortfolioBannerCard = () => {
             component={Link}
             href='/account'
           >
-            我的帳號
+            My Account
           </Button>
         </Box>
       </CardContent>

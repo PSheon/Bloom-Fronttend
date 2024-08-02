@@ -45,34 +45,52 @@ import { useRegisterMutation } from 'src/store/api/auth'
 // ** Type Imports
 import type { ReactNode } from 'react'
 import type { CardContentProps } from '@mui/material/CardContent'
-import type { TypographyProps } from '@mui/material/Typography'
+import type { StackProps } from '@mui/material/Stack'
 import type { FormControlLabelProps } from '@mui/material/FormControlLabel'
 
 // ** Styled Components
-const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
-  position: 'relative',
-  padding: `${theme.spacing(8, 12, 10)} !important`,
+const StyledMainCardContent = styled(CardContent)<CardContentProps>(({ theme }) => ({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  minHeight: theme.spacing(140),
+  padding: `${theme.spacing(10)} !important`,
   [theme.breakpoints.down('md')]: {
-    padding: `${theme.spacing(2, 4, 6.5)} !important`
+    minHeight: theme.spacing(80),
+    padding: `${theme.spacing(8, 6, 8)} !important`
   }
 }))
 
-const TitleTypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
-  fontWeight: 600,
-  letterSpacing: '0.18px',
-  marginBottom: theme.spacing(1.5),
-  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
+const StyledTitleStack = styled(Stack)<StackProps>(({ theme }) => ({
+  marginTop: theme.spacing(2),
+  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(4) }
 }))
 
-const FormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ theme }) => ({
-  marginBottom: theme.spacing(4),
+const StyledFormControlLabel = styled(MuiFormControlLabel)<FormControlLabelProps>(({ theme }) => ({
   '& .MuiFormControlLabel-label': {
     fontSize: '0.875rem',
     color: theme.palette.text.secondary
   }
 }))
 
-const RegisterIllustration = styled('img')(({ theme }) => ({
+const StyledSidecarCardContent = styled(CardContent)<CardContentProps>(({ theme }) => ({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: `${theme.spacing(10, 10, 10, 0)} !important`
+}))
+
+const StyledRegisterIllustrationWrapperStack = styled(Stack)<StackProps>(({ theme }) => ({
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: theme.palette.primary.light
+}))
+
+const StyledRegisterIllustration = styled('img')(({ theme }) => ({
   maxWidth: '48rem',
   [theme.breakpoints.down('xl')]: {
     maxWidth: '38rem'
@@ -82,7 +100,7 @@ const RegisterIllustration = styled('img')(({ theme }) => ({
   }
 }))
 
-const LinkStyled = styled(Link)(({ theme }) => ({
+const StyledLinkStyled = styled(Link)(({ theme }) => ({
   textDecoration: 'none',
   color: theme.palette.primary.main
 }))
@@ -155,172 +173,163 @@ const AuthRegisterPage = () => {
   return (
     <Box className='content-center'>
       <Card sx={{ zIndex: 1, width: '100%', maxWidth: theme => theme.spacing(isDesktopView ? 360 : 120) }}>
-        <Grid container className='match-height'>
-          {isDesktopView && (
-            <Grid
-              item
-              xs={12}
-              md={7}
-              sx={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <RegisterIllustration
-                height={500}
-                alt='register-illustration'
-                src='/images/auth/register-illustration.svg'
-              />
-            </Grid>
-          )}
+        <Grid container>
           <Grid item xs={12} md={5}>
-            <MainCardContentStyled>
-              <Stack spacing={6} alignItems='flex-start'>
+            <StyledMainCardContent>
+              <Stack>
                 <Link href='/'>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    {isDesktopView ? <LogoImage width={80} height={80} /> : <LogoImage width={64} height={64} />}
-                  </Box>
+                  {isDesktopView ? <LogoImage width={64} height={64} /> : <LogoImage width={48} height={48} />}
                 </Link>
-                <Box>
-                  <TitleTypographyStyled variant='h5' sx={{ mt: '0 !important' }}>
-                    Adventure starts here 🚀
-                  </TitleTypographyStyled>
-                  <Typography variant='body2'>Make your app management easy and fun!</Typography>
-                </Box>
-                <Box sx={{ width: '100%' }}>
-                  <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-                    <FormControl fullWidth sx={{ mb: 4 }}>
-                      <Controller
-                        name='username'
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field: { value, onChange, onBlur } }) => (
-                          <TextField
-                            label='名稱'
-                            fullWidth
-                            value={value}
-                            onBlur={onBlur}
-                            onChange={onChange}
-                            error={Boolean(errors.username)}
-                          />
-                        )}
-                      />
-                      {errors.username && (
-                        <FormHelperText sx={{ color: 'error.main' }}>{errors.username.message}</FormHelperText>
-                      )}
-                    </FormControl>
-                    <FormControl fullWidth sx={{ mb: 4 }}>
-                      <Controller
-                        name='email'
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field: { value, onChange, onBlur } }) => (
-                          <TextField
-                            label='Email'
-                            type='email'
-                            value={value}
-                            onBlur={onBlur}
-                            onChange={onChange}
-                            error={Boolean(errors.email)}
-                          />
-                        )}
-                      />
-                      {errors.email && (
-                        <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>
-                      )}
-                    </FormControl>
-                    <FormControl fullWidth>
-                      <InputLabel htmlFor='auth-login-password' error={Boolean(errors.password)}>
-                        Password
-                      </InputLabel>
-                      <Controller
-                        name='password'
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field: { value, onChange, onBlur } }) => (
-                          <OutlinedInput
-                            value={value}
-                            onBlur={onBlur}
-                            label='信箱'
-                            onChange={onChange}
-                            id='auth-login-password'
-                            error={Boolean(errors.password)}
-                            type={showPassword ? 'text' : 'password'}
-                            endAdornment={
-                              <InputAdornment position='end'>
-                                <IconButton
-                                  edge='end'
-                                  onMouseDown={e => e.preventDefault()}
-                                  onClick={() => setShowPassword(!showPassword)}
-                                >
-                                  <Icon icon={showPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'} fontSize={20} />
-                                </IconButton>
-                              </InputAdornment>
-                            }
-                          />
-                        )}
-                      />
-                      {errors.password && (
-                        <FormHelperText sx={{ color: 'error.main' }} id=''>
-                          {errors.password.message}
-                        </FormHelperText>
-                      )}
-                    </FormControl>
+              </Stack>
+              <StyledTitleStack spacing={2}>
+                <Typography variant='h5' component='p' sx={{ fontWeight: 600, letterSpacing: '0.18px' }}>
+                  Adventure starts here 🚀
+                </Typography>
+                <Typography variant='body2'>Make your app management easy and fun!</Typography>
+              </StyledTitleStack>
 
-                    <FormControlLabel
+              <Stack spacing={4} alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ mt: 6 }}>
+                <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+                  <FormControl fullWidth>
+                    <Controller
+                      name='username'
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange, onBlur } }) => (
+                        <TextField
+                          label='名稱'
+                          fullWidth
+                          value={value}
+                          onBlur={onBlur}
+                          onChange={onChange}
+                          error={Boolean(errors.username)}
+                        />
+                      )}
+                    />
+                    {errors.username && (
+                      <FormHelperText sx={{ color: 'error.main' }}>{errors.username.message}</FormHelperText>
+                    )}
+                  </FormControl>
+                  <FormControl fullWidth sx={{ mt: 4 }}>
+                    <Controller
+                      name='email'
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange, onBlur } }) => (
+                        <TextField
+                          label='Email'
+                          type='email'
+                          value={value}
+                          onBlur={onBlur}
+                          onChange={onChange}
+                          error={Boolean(errors.email)}
+                        />
+                      )}
+                    />
+                    {errors.email && (
+                      <FormHelperText sx={{ color: 'error.main' }}>{errors.email.message}</FormHelperText>
+                    )}
+                  </FormControl>
+                  <FormControl fullWidth sx={{ mt: 4 }}>
+                    <InputLabel htmlFor='auth-login-password' error={Boolean(errors.password)}>
+                      Password
+                    </InputLabel>
+                    <Controller
+                      name='password'
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange, onBlur } }) => (
+                        <OutlinedInput
+                          value={value}
+                          onBlur={onBlur}
+                          label='密碼'
+                          onChange={onChange}
+                          id='auth-login-password'
+                          error={Boolean(errors.password)}
+                          type={showPassword ? 'text' : 'password'}
+                          endAdornment={
+                            <InputAdornment position='end'>
+                              <IconButton
+                                edge='end'
+                                onMouseDown={e => e.preventDefault()}
+                                onClick={() => setShowPassword(!showPassword)}
+                              >
+                                <Icon icon={showPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'} fontSize={20} />
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                      )}
+                    />
+                    {errors.password && (
+                      <FormHelperText sx={{ color: 'error.main' }}>{'errors.password.message'}</FormHelperText>
+                    )}
+                  </FormControl>
+                  <Stack
+                    direction='row'
+                    alignItems='center'
+                    justifyContent='space-between'
+                    flexWrap='wrap'
+                    sx={{ mt: 2 }}
+                  >
+                    <StyledFormControlLabel
                       control={<Checkbox checked={isAgreeTerms} onChange={e => setIsAgreeTerms(e.target.checked)} />}
-                      sx={{ mb: 4, mt: 1.5, '& .MuiFormControlLabel-label': { fontSize: '0.875rem' } }}
+                      sx={{ '& .MuiFormControlLabel-label': { fontSize: '0.875rem' } }}
                       label={
                         <Fragment>
                           <Typography variant='body2' component='span'>
                             I agree to{' '}
                           </Typography>
-                          <LinkStyled href='/' onClick={e => e.preventDefault()}>
+                          <StyledLinkStyled href='/' onClick={e => e.preventDefault()}>
                             privacy policy & terms
-                          </LinkStyled>
+                          </StyledLinkStyled>
                         </Fragment>
                       }
                     />
-                    <LoadingButton
-                      fullWidth
-                      loading={isRegisterLoading}
-                      disabled={!isAgreeTerms || Boolean(errors.username || errors.email || errors.password)}
-                      size='large'
-                      type='submit'
-                      variant='contained'
-                    >
-                      Sign up
-                    </LoadingButton>
-                  </form>
-                </Box>
-                <Stack
-                  direction='row'
-                  spacing={2}
-                  alignItems='center'
-                  justifyContent='center'
-                  flexWrap='wrap'
-                  sx={{ width: '100%', pt: 8 }}
-                >
-                  <Typography sx={{ color: 'text.secondary' }}>Already have an account?</Typography>
-                  <Typography
-                    href='/auth/login'
-                    component={Link}
-                    sx={{ color: 'primary.main', textDecoration: 'none' }}
+                  </Stack>
+                  <LoadingButton
+                    fullWidth
+                    loading={isRegisterLoading}
+                    disabled={!isAgreeTerms || Boolean(errors.username || errors.email || errors.password)}
+                    size='large'
+                    type='submit'
+                    variant='contained'
+                    sx={{ mt: 4 }}
                   >
-                    Sign in instead
-                  </Typography>
-                </Stack>
+                    Sign up
+                  </LoadingButton>
+                </form>
               </Stack>
-            </MainCardContentStyled>
+
+              <Stack
+                direction='row'
+                spacing={4}
+                alignSelf='stretch'
+                alignItems='center'
+                justifyContent='center'
+                flexWrap='wrap'
+                sx={{ mt: 'auto', pt: 6 }}
+              >
+                <Typography color='text.secondary'>Already have an account?</Typography>
+                <Typography component={Link} href='/auth/login' color='primary.main' sx={{ textDecoration: 'none' }}>
+                  Sign in instead
+                </Typography>
+              </Stack>
+            </StyledMainCardContent>
           </Grid>
+          {isDesktopView && (
+            <Grid item xs={12} md={7}>
+              <StyledSidecarCardContent>
+                <StyledRegisterIllustrationWrapperStack alignSelf='stretch' alignItems='center' justifyContent='center'>
+                  <StyledRegisterIllustration
+                    height={500}
+                    alt='register-illustration'
+                    src='/images/auth/register-illustration.webp'
+                  />
+                </StyledRegisterIllustrationWrapperStack>
+              </StyledSidecarCardContent>
+            </Grid>
+          )}
         </Grid>
       </Card>
     </Box>
@@ -328,6 +337,7 @@ const AuthRegisterPage = () => {
 }
 
 AuthRegisterPage.guestGuard = true
+AuthRegisterPage.contentHeightFixed = true
 AuthRegisterPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default AuthRegisterPage

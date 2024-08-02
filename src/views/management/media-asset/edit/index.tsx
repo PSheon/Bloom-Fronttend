@@ -22,7 +22,10 @@ const ManagementMediaAssetEditSection = (props: Props) => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementMediaAssetEditBreadcrumbs
-          pageLevels={[{ title: '檔案管理', href: '/management/media-asset/list' }, { title: '編輯檔案' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.Management.Media Assets.PageTitle', href: '/management/media-asset/list' },
+            { title: 'PageBreadcrumb.Management.Media Assets.Edit.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>

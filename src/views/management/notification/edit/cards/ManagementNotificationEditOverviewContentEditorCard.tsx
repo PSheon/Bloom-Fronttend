@@ -5,7 +5,6 @@ import { useState } from 'react'
 import dynamic from 'next/dynamic'
 
 // ** MUI Imports
-import { styled } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -14,8 +13,7 @@ import CardContent from '@mui/material/CardContent'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Custom Component Imports
-const TextEditor = dynamic(() => import('src/views/shared/TextEditor'), { ssr: false })
-const TextEditorPreview = dynamic(() => import('src/views/shared/TextEditorPreview'), { ssr: false })
+const TextEditor = dynamic(() => import('src/views/shared/text-editor'), { ssr: false })
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -25,69 +23,63 @@ import { useUpdateOneMutation } from 'src/store/api/management/notification'
 
 // ** Type Imports
 import type { MouseEvent } from 'react'
-import type { CardProps } from '@mui/material/Card'
-import type { OutputData } from '@editorjs/editorjs'
-import type { EditorCore } from 'src/views/shared/TextEditor'
+import type { Block } from '@blocknote/core'
+import type { EditorType } from 'src/views/shared/text-editor'
 import type { NotificationType } from 'src/types/notificationTypes'
 
 interface Props {
   initNotificationEntity: NotificationType
 }
 
-// ** Styled Root Card component
-const StyledRootCard = styled(Card)<CardProps>(({ theme }) => ({
-  minHeight: theme.spacing(160)
-}))
-
 const ManagementNotificationEditOverviewContentEditorCard = (props: Props) => {
   // ** Props
   const { initNotificationEntity } = props
 
   // ** States
-  const [blocks, setBlocks] = useState<OutputData | undefined>(initNotificationEntity.content || undefined)
-  const [isEditMode, setIsEditMode] = useState<boolean>(false)
-  const [editorInstance, setEditorInstance] = useState<EditorCore | null>(null)
+  const [editorInstance, setEditorInstance] = useState<EditorType | null>(null)
+  const [editorMode, setEditorMode] = useState<'edit' | 'preview'>('preview')
+  const [blocks, setBlocks] = useState<Block[]>(initNotificationEntity.content)
 
   // ** Hooks
   const [updateNotification, { isLoading: isUpdateNotificationLoading }] = useUpdateOneMutation()
 
   // ** Logics
-  const handleInitializeInstance = (instance: EditorCore) => {
+  const handleInitializeInstance = (instance: EditorType) => {
     setEditorInstance(instance)
   }
 
   const handleToggleEditorMode = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
-    if (isEditMode) {
-      const savedBlocks = await editorInstance!.save()
+    if (editorMode === 'edit') {
+      const blocks = editorInstance?.document as Block[]
 
-      setBlocks(() => savedBlocks)
-      setIsEditMode(() => false)
+      setBlocks(() => blocks)
+      setEditorMode(() => 'preview')
     } else {
-      setIsEditMode(() => true)
+      setEditorMode(() => 'edit')
     }
   }
 
   const handleSaveBlocks = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
-    const outputDetail = await editorInstance!.save()
+    const blocks = editorInstance?.document as Block[]
 
-    setBlocks(() => outputDetail)
-    await updateNotification({ id: initNotificationEntity.id, data: { content: outputDetail } })
+    setBlocks(() => blocks)
+    await updateNotification({ id: initNotificationEntity.id, data: { content: blocks } })
   }
 
   return (
-    <StyledRootCard>
+    <Card>
       <CardHeader
         title='內容'
         action={
           <Stack direction='row' spacing={4}>
             <Button variant='outlined' size='small' onClick={handleToggleEditorMode}>
-              {isEditMode ? '預覽' : '編輯'}
+              {editorMode === 'edit' ? '預覽' : '編輯'}
             </Button>
-            {isEditMode && (
+            {editorMode === 'edit' && (
               <LoadingButton
                 loading={isUpdateNotificationLoading}
                 disabled={editorInstance === null}
@@ -103,13 +95,9 @@ const ManagementNotificationEditOverviewContentEditorCard = (props: Props) => {
         }
       />
       <CardContent>
-        {isEditMode ? (
-          <TextEditor blocks={blocks} handleInitializeInstance={handleInitializeInstance} />
-        ) : (
-          <TextEditorPreview blocks={blocks} />
-        )}
+        <TextEditor blocks={blocks} handleInitializeInstance={handleInitializeInstance} mode={editorMode} />
       </CardContent>
-    </StyledRootCard>
+    </Card>
   )
 }
 

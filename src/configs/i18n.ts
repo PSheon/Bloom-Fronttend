@@ -15,14 +15,15 @@ i18n
   // Enables the hook initialization module
   .use(initReactI18next)
   .init({
-    lng: 'en',
+    ns: ['common', 'general-settings'],
+    defaultNS: 'common',
+    nsSeparator: '::',
     backend: {
       /* translation file path */
-      loadPath: '/locales/{{lng}}.json'
+      loadPath: '/locales/{{lng}}/{{ns}}.json'
     },
     fallbackLng: 'en',
     debug: false,
-    keySeparator: false,
     react: {
       useSuspense: false
     },

@@ -1,3 +1,6 @@
+// ** Third-Party Imports
+import { ExactNumber as N } from 'exactnumber'
+
 // ** Type Imports
 import type { ThemeColor } from 'src/@core/layouts/types'
 import type { EditTabIndex, PreviewTabIndex, LiveTabIndex, FundType, CategoryType } from 'src/types/fundTypes'
@@ -48,6 +51,46 @@ export const getNextValidPackageId = (fundEntity: FundType): number => {
     return maxExistedPackageId + 1
   } else {
     return 1
+  }
+}
+
+export const getExpectInterestBalanceString = (balance: bigint, apy: number, periodInDays: number): string => {
+  const formattedApy = 1 + Math.min(Math.max(apy, 1), 24) / 100
+  const interestRatePerDay = Math.pow(formattedApy, 1 / 365)
+  const multiplier = Math.pow(interestRatePerDay, periodInDays)
+
+  return N(balance)
+    .mul(N(multiplier.toFixed(6)).sub(1))
+    .toString()
+}
+
+export const getContractTypeProperties = (contractType: unknown) => {
+  const contractTypeAttributes = {
+    TokenERC20: {
+      color: 'success',
+      displayName: 'Token Drop',
+      description: 'Release collection of unique NFTs for a set price'
+    },
+    TokenERC3525: {
+      color: 'success',
+      displayName: 'SFT Drop',
+      description: 'Release collection of unique NFTs for a set price'
+    },
+    VaultRWA: {
+      color: 'success',
+      displayName: 'RWA Vault',
+      description: 'Release collection of unique NFTs for a set price'
+    }
+  }
+
+  switch (contractType) {
+    case 'TokenERC20':
+      return contractTypeAttributes['TokenERC20']
+    case 'TokenERC3525':
+      return contractTypeAttributes['TokenERC3525']
+    case 'VaultRWA':
+    default:
+      return contractTypeAttributes['VaultRWA']
   }
 }
 
@@ -118,43 +161,56 @@ export const getFundStatusProperties = (status: 'Draft' | 'Published' | 'Archive
 export const getFundCategoryProperties = (category: CategoryType) => {
   const categoryAttributes = {
     'Health and Medical': {
-      displayName: '健康與醫療'
+      // displayName: '健康與醫療'
+      displayName: 'Health & Medical'
     },
     'Arts and Culture': {
-      displayName: '藝術與文化'
+      // displayName: '藝術與文化'
+      displayName: 'Arts & Culture'
     },
     'Finance and Technology': {
-      displayName: '金融與科技'
+      // displayName: '金融與科技'
+      displayName: 'Finance & Technology'
     },
     'Social Enterprise': {
-      displayName: '社會企業'
+      // displayName: '社會企業'
+      displayName: 'Social Enterprise'
     },
     'Emerging Industries': {
-      displayName: '新興產業'
+      // displayName: '新興產業'
+      displayName: 'Emerging Industries'
     },
     'Environment and Sustainability': {
-      displayName: '環保與可持續發展'
+      // displayName: '環保與可持續發展'
+      displayName: 'Environment & Sustainability'
     },
     'Food and Agriculture': {
-      displayName: '食品與農業'
+      // displayName: '食品與農業'
+      displayName: 'Food & Agriculture'
     },
     'Education and Training': {
-      displayName: '教育與培訓'
+      // displayName: '教育與培訓'
+      displayName: 'Education & Training'
     },
     'Travel and Hospitality': {
-      displayName: '旅遊與酒店'
+      // displayName: '旅遊與酒店'
+      displayName: 'Travel & Hospitality'
     },
     'Entertainment and Recreation': {
-      displayName: '娛樂與休閒'
+      // displayName: '娛樂與休閒'
+      displayName: 'Entertainment & Recreation'
     },
     'Fashion and Beauty': {
-      displayName: '時尚與美容'
+      // displayName: '時尚與美容'
+      displayName: 'Fashion & Beauty'
     },
     'Social and Communication': {
-      displayName: '社交與溝通'
+      // displayName: '社交與溝通'
+      displayName: 'Social & Communication'
     },
     'Web3.0 and Blockchain': {
-      displayName: 'Web3.0與區塊鏈'
+      // displayName: 'Web3.0與區塊鏈'
+      displayName: 'Web3.0 & Blockchain'
     }
   }
 

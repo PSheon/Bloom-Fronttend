@@ -49,31 +49,31 @@ const MeAccountSecurityAccessLogListCard = () => {
       field: 'status',
       display: 'flex',
       minWidth: 110,
-      headerName: '狀態',
+      headerName: 'Status',
       renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => (
         <CustomChip
           skin='light'
           size='small'
           rounded
-          label={row.status ? '成功' : '失敗'}
+          label={row.status ? 'Succeed' : 'Failed'}
           color={row.status ? 'success' : 'error'}
           sx={{ textTransform: 'capitalize', '& .MuiChip-label': { lineHeight: '18px' } }}
         />
       ),
-      valueGetter: (data: AccessLogType['status']) => (data ? '成功' : '失敗')
+      valueGetter: (data: AccessLogType['status']) => (data ? 'Succeed' : 'Failed')
     },
     {
       field: 'action',
       display: 'flex',
       minWidth: 120,
-      headerName: '操作',
+      headerName: 'Action',
       renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => renderAccessActionText(row.action)
     },
     {
       field: 'ip',
       display: 'flex',
       minWidth: 140,
-      headerName: '來源IP',
+      headerName: 'IP',
       renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => (
         <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
           {row.ip}
@@ -84,7 +84,7 @@ const MeAccountSecurityAccessLogListCard = () => {
       field: 'os',
       display: 'flex',
       minWidth: 280,
-      headerName: '來源設備',
+      headerName: 'Device',
       renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => (
         <Stack direction='row' spacing={2} alignItems='center'>
           {renderOSIcon(row.os)}
@@ -100,7 +100,7 @@ const MeAccountSecurityAccessLogListCard = () => {
       field: 'date',
       display: 'flex',
       minWidth: 280,
-      headerName: '日期',
+      headerName: 'Date',
       renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => (
         <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
           {format(new Date(row.date), 'PPpp')}
@@ -112,23 +112,23 @@ const MeAccountSecurityAccessLogListCard = () => {
 
   // ** Renders
   const renderAccessActionText = (action: AccessLogType['action']) => {
-    let actionInfo = '@ 登入'
+    let actionInfo = '@ Login'
 
     switch (action) {
       case 'ForgotPassword':
-        actionInfo = '@ 忘記密碼'
+        actionInfo = '@ Forgot Password'
         break
       case 'ResetPassword':
-        actionInfo = '@ 重設密碼'
+        actionInfo = '@ Reset Password'
         break
       case 'ChangePassword':
-        actionInfo = '@ 變更密碼'
+        actionInfo = '@ Change Password'
         break
       case 'VerifyEmail':
-        actionInfo = '@ 驗證信箱'
+        actionInfo = '@ Verify Email'
         break
       default:
-        actionInfo = '@ 登入'
+        actionInfo = '@ Login'
         break
     }
 
@@ -179,7 +179,7 @@ const MeAccountSecurityAccessLogListCard = () => {
 
   return (
     <Card>
-      <CardHeader title='安全記錄' />
+      <CardHeader title='Access Log' />
       <DataGrid
         autoHeight
         loading={isAccessLogsLoading}

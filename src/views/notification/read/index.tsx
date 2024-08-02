@@ -22,7 +22,10 @@ const NotificationReadSection = (props: Props) => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <NotificationReadBreadcrumbs
-          pageLevels={[{ title: '我的通知', href: '/notification/list' }, { title: '查看通知' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.General.Notifications.PageTitle', href: '/notification/list' },
+            { title: 'PageBreadcrumb.General.Notifications.Read.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>

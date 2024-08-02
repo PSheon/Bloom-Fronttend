@@ -5,7 +5,7 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 
 // ** Layout Imports
-import LandingLayout from 'src/layouts/LandingLayout'
+import CommonLayout from 'src/layouts/CommonLayout'
 
 // ** Type Imports
 import type { ReactNode } from 'react'
@@ -20,6 +20,6 @@ const ArticleLivePage = () => {
 }
 
 ArticleLivePage.authGuard = false
-ArticleLivePage.getLayout = (page: ReactNode) => <LandingLayout>{page}</LandingLayout>
+ArticleLivePage.getLayout = (page: ReactNode) => <CommonLayout>{page}</CommonLayout>
 
 export default ArticleLivePage

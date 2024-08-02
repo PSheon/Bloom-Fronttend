@@ -3,6 +3,9 @@ import Typography from '@mui/material/Typography'
 import Breadcrumbs from '@mui/material/Breadcrumbs'
 import Link from '@mui/material/Link'
 
+// ** Third-Party Imports
+import { useTranslation } from 'react-i18next'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
@@ -18,6 +21,9 @@ const PageBreadcrumbs = (props: Props) => {
   // ** Props
   const { pageLevels } = props
 
+  // ** Hooks
+  const { t } = useTranslation()
+
   return (
     <Breadcrumbs separator={<Icon icon='mdi:chevron-right' fontSize={24} />} aria-label='breadcrumb'>
       <Link underline='hover' color='inherit' href='/' sx={{ display: 'flex', alignItems: 'center' }}>
@@ -31,7 +37,7 @@ const PageBreadcrumbs = (props: Props) => {
               color={index === pageLevels.length - 1 ? 'text.primary' : 'text.secondary'}
               sx={{ fontWeight: 600 }}
             >
-              {level.title}
+              {t(level.title)}
             </Typography>
           )
         } else {
@@ -41,7 +47,7 @@ const PageBreadcrumbs = (props: Props) => {
                 color={index === pageLevels.length - 1 ? 'text.primary' : 'text.secondary'}
                 sx={{ fontWeight: 600 }}
               >
-                {level.title}
+                {t(level.title)}
               </Typography>
             </Link>
           )

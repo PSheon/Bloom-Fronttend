@@ -8,9 +8,6 @@ import CardContent from '@mui/material/CardContent'
 import Divider from '@mui/material/Divider'
 import Skeleton from '@mui/material/Skeleton'
 
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
 const PublicFundLiveOwnedSFTSkeletonCard = () => {
   return (
     <Card>
@@ -27,7 +24,7 @@ const PublicFundLiveOwnedSFTSkeletonCard = () => {
               justifyContent: 'center'
             }}
           >
-            <Skeleton variant='rounded' width={180} height={200} />
+            <Skeleton variant='rounded' width={180} height={220} />
           </Box>
         </Stack>
         <Stack spacing={4} alignSelf='stretch'>
@@ -62,21 +59,13 @@ const PublicFundLiveOwnedSFTSkeletonCard = () => {
             </Stack>
           </Stack>
         </Stack>
-        <Stack sx={{ mt: 'auto' }}>
-          <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
-          <Button
-            fullWidth
-            disabled
-            variant='contained'
-            size='small'
-            sx={{
-              '& svg': {
-                transition: theme => theme.transitions.create('transform')
-              }
-            }}
-            startIcon={<Icon icon='mdi:keyboard-arrow-down' />}
-          >
+        <Stack spacing={2} sx={{ mt: 'auto' }}>
+          <Divider />
+          <Button fullWidth disabled variant='contained'>
             Stake
+          </Button>
+          <Button fullWidth disabled variant='contained'>
+            Redeem
           </Button>
         </Stack>
       </CardContent>

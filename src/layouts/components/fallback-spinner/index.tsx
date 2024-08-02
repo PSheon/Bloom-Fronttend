@@ -29,11 +29,7 @@ const FallbackSpinner = (props: Props) => {
     >
       <Box sx={{ position: 'relative', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
         <LogoImage width={80} height={80} />
-        <CircularProgress
-          disableShrink
-          size={96}
-          sx={{ mt: 6, position: 'absolute', top: -28, zIndex: 1, strokeLinecap: 'round' }}
-        />
+        <CircularProgress disableShrink size={140} sx={{ position: 'absolute', zIndex: 1, strokeLinecap: 'round' }} />
       </Box>
     </Box>
   )

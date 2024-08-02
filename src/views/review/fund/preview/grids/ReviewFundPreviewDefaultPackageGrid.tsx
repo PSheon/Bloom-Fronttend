@@ -27,7 +27,6 @@ import LoadingButton from '@mui/lab/LoadingButton'
 import * as yup from 'yup'
 import { useForm, Controller } from 'react-hook-form'
 import { yupResolver } from '@hookform/resolvers/yup'
-import safePrice from 'currency.js'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -124,12 +123,10 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
   }
 
   const onSubmit = async (data: FormData) => {
-    const { quantity } = data
+    const {
+      /* quantity */
+    } = data
 
-    console.log(
-      '🚀 ~ src/views/review/fund/preview/grids/ReviewFundPreviewDefaultPackageGrid.tsx:134 > quantity',
-      quantity
-    )
     reset(undefined, { keepValues: true, keepDirty: false, keepDefaultValues: false })
     handleMintClose()
   }
@@ -245,17 +242,19 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
                     <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
 
                     <Stack spacing={2} justifyContent='center' sx={{ mb: 2 }}>
-                      <Typography variant='subtitle2'>Utility</Typography>
+                      <Typography variant='subtitle2' component='p'>
+                        Utility
+                      </Typography>
 
-                      {defaultPackage.slot?.length === 0 ? (
-                        <Typography sx={{ mb: 2 }}>尚未設定內容</Typography>
+                      {defaultPackage.slots?.length === 0 ? (
+                        <Typography>No utilities</Typography>
                       ) : (
-                        defaultPackage.slot.map(property => {
+                        defaultPackage.slots.map(property => {
                           return (
                             <Typography key={`slot-${property.id}`} sx={{ mb: 2 }}>
-                              {`${property.propertyType}:`}
+                              {`${property.propertyName}:`}
                               <Box component='span' sx={{ fontWeight: 600 }}>
-                                {property.value}
+                                {property.displayValue ?? property.value}
                               </Box>
                             </Typography>
                           )
@@ -362,9 +361,9 @@ const ReviewFundPreviewDefaultPackageGrid = (props: Props) => {
                     )}
                   />
 
-                  <Typography variant='h5'>{`${fundBaseCurrencyProperties.symbol} ${safePrice(
+                  <Typography variant='h5'>{`${fundBaseCurrencyProperties.symbol} ${
                     selectedPackageEntity?.priceInUnit ?? 0
-                  ).multiply(mintQuantity)}`}</Typography>
+                  } x ${mintQuantity}`}</Typography>
                 </Stack>
               </Stack>
             </Stack>

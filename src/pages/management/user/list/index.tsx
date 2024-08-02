@@ -285,7 +285,7 @@ const ManagementUserListPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <ManagementUserListBreadcrumbs pageLevels={[{ title: '使用者管理' }]} />
+        <ManagementUserListBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.Management.Users.PageTitle' }]} />
       </Grid>
       <Grid item xs={12}>
         <Card>

@@ -1,10 +1,23 @@
+// ** React Imports
+import { useState } from 'react'
+
+// ** Next Imports
+import Link from 'next/link'
+
 // ** MUI Imports
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import CardHeader from '@mui/material/CardHeader'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+import IconButton from '@mui/material/IconButton'
+import Skeleton from '@mui/material/Skeleton'
+
+// ** Third-Party Imports
+import { useAccount, useReadContract } from 'wagmi'
+import { ExactNumber as N } from 'exactnumber'
+import formatDistance from 'date-fns/formatDistance'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -12,64 +25,216 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
-const ManagementFundEditVaultStatisticsCard = () => {
+// ** Util Imports
+import {
+  getFundCurrencyProperties,
+  getFormattedPriceUnit,
+  getChainId,
+  getBaseCurrencyABI,
+  getBaseCurrencyAddress
+} from 'src/utils'
+
+// ** Config Imports
+import type { wagmiConfig } from 'src/configs/ethereum'
+
+// ** Type Imports
+import type { FundType } from 'src/types/fundTypes'
+
+interface Props {
+  initFundEntity: FundType
+}
+
+const ManagementFundEditVaultStatisticsCard = (props: Props) => {
+  // ** Props
+  const { initFundEntity } = props
+
+  // ** States
+  const [updatedAtDate, setUpdatedAtDate] = useState<Date>(new Date())
+
+  // ** Hooks
+  const walletAccount = useAccount()
+  const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
+
+  const {
+    data: totalValueLocked,
+    refetch: refetchTotalValueLocked,
+    isLoading: isTotalValueLockedLoading,
+    isFetching: isTotalValueLockedFetching
+  } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.vault.contractAbi,
+    address: initFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'totalValueLocked',
+    args: [],
+    account: walletAccount.address!,
+    query: {
+      refetchOnWindowFocus: false
+    }
+  })
+
+  const {
+    data: totalValueClaimed,
+    refetch: refetchTotalValueClaimed,
+    isLoading: isTotalValueClaimedLoading,
+    isFetching: isTotalValueClaimedFetching
+  } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.vault.contractAbi,
+    address: initFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'totalValueClaimed',
+    args: [],
+    account: walletAccount.address!,
+    query: {
+      refetchOnWindowFocus: false
+    }
+  })
+
+  const {
+    data: payTokenBalance,
+    refetch: refetchPayTokenBalance,
+    isLoading: isPayTokenBalanceLoading,
+    isFetching: isPayTokenBalanceFetching
+  } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: getBaseCurrencyABI(initFundEntity.chain, initFundEntity.baseCurrency),
+    address: getBaseCurrencyAddress(initFundEntity.chain, initFundEntity.baseCurrency),
+    functionName: 'balanceOf',
+    args: [initFundEntity.vault.contractAddress],
+    account: walletAccount.address!,
+    query: {
+      refetchOnWindowFocus: false
+    }
+  })
+
+  // ** Logics
+  const handleReload = () => {
+    // refetchTotalStaked()
+    refetchTotalValueLocked()
+    refetchTotalValueClaimed()
+    refetchPayTokenBalance()
+
+    setUpdatedAtDate(() => new Date())
+  }
+
   return (
     <Card>
       <CardHeader
         title='Vault Statics'
-        titleTypographyProps={{ variant: 'h6' }}
+        titleTypographyProps={{ variant: 'h6', component: 'p' }}
         subheader={
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <Typography variant='caption' sx={{ mr: 1.5 }}>
-              版本
+          <Stack direction='row' alignItems='center'>
+            <Typography variant='caption'>
+              Updated at{' '}
+              <Typography variant='subtitle2' component='span' sx={{ fontWeight: 600 }}>
+                {formatDistance(updatedAtDate, new Date(), { addSuffix: true })}
+              </Typography>
             </Typography>
-            <Typography variant='subtitle2' sx={{ '&, & + svg': { color: 'success.main' } }}>
-              已更新
-            </Typography>
-            <Icon icon='mdi:chevron-up' fontSize='1.25rem' />
-          </Box>
+            <IconButton onClick={handleReload}>
+              <Icon icon='mdi:reload' fontSize={16} />
+            </IconButton>
+          </Stack>
+        }
+        action={
+          <Stack direction='row' alignItems='center'>
+            <Typography variant='caption'>Specification</Typography>
+            <IconButton
+              component={Link}
+              href={`${walletAccount?.chain?.blockExplorers?.default.url}/address/${initFundEntity.vault.contractAddress}#readContract`}
+              target='_blank'
+            >
+              <Icon icon='mdi:external-link' fontSize={16} />
+            </IconButton>
+          </Stack>
         }
       />
       <CardContent>
         <Grid container spacing={6}>
           <Grid item xs={12} sm={4}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CustomAvatar skin='light' variant='rounded' color='primary' sx={{ mr: 4 }}>
+            <Stack direction='row' spacing={4} alignItems='center'>
+              <CustomAvatar skin='light' variant='rounded' color='primary'>
                 <Icon icon='mdi:chart-bar' />
               </CustomAvatar>
-              <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-                <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                  1,246
-                </Typography>
-                <Typography variant='caption'>Total Staked</Typography>
-              </Box>
-            </Box>
+              {/* {isTotalStakedLoading || isTotalStakedFetching ? (
+                <Stack alignItems='flex-start' justifyContent='center'>
+                  <Skeleton width={120} height={28} />
+                  <Skeleton variant='text' width={180} height={20} />
+                </Stack>
+              ) : (
+                <Stack alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
+                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                    {typeof totalStaked === 'bigint' ? getFormattedPriceUnit(totalStaked) : '0'}
+                  </Typography>
+                  <Typography variant='caption'>Total Staked</Typography>
+                </Stack>
+              )} */}
+              {isTotalValueLockedLoading || isTotalValueLockedFetching ? (
+                <Stack alignItems='flex-start' justifyContent='center'>
+                  <Skeleton width={120} height={28} />
+                  <Skeleton variant='text' width={180} height={20} />
+                </Stack>
+              ) : (
+                <Stack alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
+                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                    {/* {typeof totalValueLocked === 'bigint' ? getFormattedPriceUnit(totalValueLocked) : '0'} */}
+
+                    {`${fundBaseCurrencyProperties.symbol} ${
+                      typeof totalValueLocked === 'bigint'
+                        ? getFormattedPriceUnit(N(totalValueLocked).div(N(10).pow(18)).toNumber())
+                        : 0n
+                    } ${fundBaseCurrencyProperties.currency}`}
+                  </Typography>
+                  <Typography variant='caption'>Total Value Locked</Typography>
+                </Stack>
+              )}
+            </Stack>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CustomAvatar skin='light' variant='rounded' color='warning' sx={{ mr: 4 }}>
-                <Icon icon='mdi:percent-outline' />
+            <Stack direction='row' spacing={4} alignItems='center'>
+              <CustomAvatar skin='light' variant='rounded' color='warning'>
+                <Icon icon='mdi:hand-coin-outline' />
               </CustomAvatar>
-              <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-                <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                  21,477,334
-                </Typography>
-                <Typography variant='caption'>Total Net Value</Typography>
-              </Box>
-            </Box>
+              {isTotalValueClaimedLoading || isTotalValueClaimedFetching ? (
+                <Stack alignItems='flex-start' justifyContent='center'>
+                  <Skeleton width={120} height={28} />
+                  <Skeleton variant='text' width={180} height={20} />
+                </Stack>
+              ) : (
+                <Stack alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
+                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                    {`${fundBaseCurrencyProperties.symbol} ${
+                      typeof totalValueClaimed === 'bigint'
+                        ? getFormattedPriceUnit(N(totalValueClaimed).div(N(10).pow(18)).toNumber())
+                        : 0n
+                    } ${fundBaseCurrencyProperties.currency}`}
+                  </Typography>
+                  <Typography variant='caption'>Total Value Claimed</Typography>
+                </Stack>
+              )}
+            </Stack>
           </Grid>
           <Grid item xs={12} sm={4}>
-            <Box sx={{ display: 'flex', alignItems: 'center' }}>
-              <CustomAvatar skin='light' variant='rounded' color='info' sx={{ mr: 4 }}>
+            <Stack direction='row' spacing={4} alignItems='center'>
+              <CustomAvatar skin='light' variant='rounded' color='info'>
                 <Icon icon='ph:vault-bold' />
               </CustomAvatar>
-              <Box sx={{ width: '100%', display: 'flex', flexDirection: 'column' }}>
-                <Typography variant='h6' sx={{ fontWeight: 600 }}>
-                  6,448
-                </Typography>
-                <Typography variant='caption'>Total Holders</Typography>
-              </Box>
-            </Box>
+              {isPayTokenBalanceLoading || isPayTokenBalanceFetching ? (
+                <Stack alignItems='flex-start' justifyContent='center'>
+                  <Skeleton width={120} height={28} />
+                  <Skeleton variant='text' width={180} height={20} />
+                </Stack>
+              ) : (
+                <Stack alignSelf='stretch' alignItems='flex-start' justifyContent='center'>
+                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                    {`${fundBaseCurrencyProperties.symbol} ${
+                      typeof payTokenBalance === 'bigint'
+                        ? getFormattedPriceUnit(N(payTokenBalance).div(N(10).pow(18)).toNumber())
+                        : 0n
+                    } ${fundBaseCurrencyProperties.currency}`}
+                  </Typography>
+                  <Typography variant='caption'>Balance</Typography>
+                </Stack>
+              )}
+            </Stack>
           </Grid>
         </Grid>
       </CardContent>

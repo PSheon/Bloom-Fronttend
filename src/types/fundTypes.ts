@@ -1,6 +1,6 @@
 // ** Type Imports
 import type { Abi } from 'viem'
-import type { OutputData } from '@editorjs/editorjs'
+import type { Block } from '@blocknote/core'
 import type { BaseApiResponseType, MediaAssetApiResponseType } from 'src/types/api/baseApiTypes'
 import type { PackageType } from 'src/types/packageTypes'
 
@@ -29,12 +29,11 @@ export type FundType = {
   category: CategoryType
   displayName: string
   description?: string
-  fundSFTContractAddress: string
-  fundSFTContractAbi: Abi
-  detail: OutputData
+  detail: Block[]
   genesisDate: Date
   saleStartTime: Date
   maturityDate: Date
+  estimatedAPY: number
   performanceFeePercentage: number
   redemptionFrequencyInDays: number
   defaultPackages?: {
@@ -42,6 +41,24 @@ export type FundType = {
       id: number
       attributes: Omit<PackageType, 'id'>
     }[]
+  }
+  sft: {
+    id: number
+    contractName: string
+    contractAddress: string
+    contractRootSignerAddress?: string
+    contractRootSignerPrivateKey?: string
+    contractAbi: Abi
+    version: string
+  }
+  vault: {
+    id: number
+    contractName: string
+    contractAddress: string
+    contractRootSignerAddress?: string
+    contractRootSignerPrivateKey?: string
+    contractAbi: Abi
+    version: string
   }
   twitterUrl?: string
   discordUrl?: string
@@ -103,9 +120,10 @@ export type UpdateOneFundParamsType = {
     description: string
     saleStartTime: Date
     maturityDate: Date
+    estimatedAPY: number
     performanceFeePercentage: number
     redemptionFrequencyInDays: number
-    detail: OutputData
+    detail: Block[]
     defaultPackages: number[]
     isHighlighted: boolean
   }>
@@ -131,8 +149,8 @@ export type DeleteOneFundTransformResponseType = BaseApiResponseType<{
 }>
 export type DeleteOneFundResponseType = FundType
 
-// ** Sign Hash
-export type SignHashParamsType = {
+// ** SFT Sign Hash
+export type SFTSignHashParamsType = {
   id: number
   data: {
     contractName: string
@@ -141,9 +159,33 @@ export type SignHashParamsType = {
     value: string
   }
 }
-export type SignHashTransformResponseType = {
+export type SFTSignHashTransformResponseType = {
   hash: string
 }
-export type SignHashResponseType = {
+export type SFTSignHashResponseType = {
   hash: string
+}
+
+// ** Vault Sign Hash
+export type VaultSignHashParamsType = {
+  id: number
+  data: {
+    contractName: string
+    stakerAddress: string
+    tokenId: string
+    packageId: number
+    balance: string
+    periodInDays: number
+    apy: number
+  }
+}
+export type VaultSignHashTransformResponseType = {
+  hash: string
+  unlockTime: number
+  interest: string
+}
+export type VaultSignHashResponseType = {
+  hash: string
+  unlockTime: number
+  interest: string
 }

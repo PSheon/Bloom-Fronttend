@@ -2,10 +2,11 @@
 import { useState, useCallback } from 'react'
 
 // ** MUI Imports
-import Grid from '@mui/material/Grid'
+import { styled } from '@mui/material/styles'
+import Stack from '@mui/material/Stack'
 
 // ** Layout Imports
-import LandingLayout from 'src/layouts/LandingLayout'
+import CommonLayout from 'src/layouts/CommonLayout'
 
 // ** Custom Component Imports
 import PublicArticleListHeaderGrid from 'src/views/article/list/grids/PublicArticleListHeaderGrid'
@@ -16,6 +17,11 @@ import { useFindQuery } from 'src/store/api/management/article'
 
 // ** Type Imports
 import type { ReactNode } from 'react'
+import type { StackProps } from '@mui/material/Stack'
+
+const StyledRootStack = styled(Stack)<StackProps>({
+  height: '100%'
+})
 
 const ArticleListPage = () => {
   // ** States
@@ -42,25 +48,21 @@ const ArticleListPage = () => {
   }, [])
 
   return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        <PublicArticleListHeaderGrid
-          filteredCategory={filteredCategory}
-          handleFilterCategoryChange={handleFilterCategoryChange}
-        />
-      </Grid>
-      <Grid item xs={12}>
-        <PublicArticleListDataGrid
-          articles={articles}
-          totalRows={totalRows}
-          isArticleListLoading={isArticleListLoading}
-        />
-      </Grid>
-    </Grid>
+    <StyledRootStack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='flex-start'>
+      <PublicArticleListHeaderGrid
+        filteredCategory={filteredCategory}
+        handleFilterCategoryChange={handleFilterCategoryChange}
+      />
+      <PublicArticleListDataGrid
+        articles={articles}
+        totalRows={totalRows}
+        isArticleListLoading={isArticleListLoading}
+      />
+    </StyledRootStack>
   )
 }
 
 ArticleListPage.authGuard = false
-ArticleListPage.getLayout = (page: ReactNode) => <LandingLayout>{page}</LandingLayout>
+ArticleListPage.getLayout = (page: ReactNode) => <CommonLayout>{page}</CommonLayout>
 
 export default ArticleListPage

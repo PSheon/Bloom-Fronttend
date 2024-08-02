@@ -26,17 +26,17 @@ const MeAccountSecurityDangerZoneCard = () => {
 
   return (
     <Card>
-      <CardHeader title='危險區域' />
+      <CardHeader title='Danger Zone' />
       <CardContent>
         <Grid container spacing={6}>
           <Grid item xs={12}>
-            <Typography sx={{ fontWeight: 600, color: 'text.secondary' }}>
-              刪除帳號將會移除你的所有申請資料，並且無法復原 (未開放刪除帳號功能)
+            <Typography color='text.secondary' sx={{ fontWeight: 600 }}>
+              {`It'll remove all your application data and can't be undone (Delete account feature is not available)`}
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Button disabled variant='outlined' color='error' type='submit' onClick={handleOpenDeleteAccountDialog}>
-              刪除帳號
+              Delete account
             </Button>
           </Grid>
         </Grid>
@@ -51,9 +51,9 @@ const MeAccountSecurityDangerZoneCard = () => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          確認要刪除你的帳號？
+          Are you sure you want to delete your account?
           <DialogContentText id='user-view-edit-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
-            此操作將無法復原
+            {`It can't be undone`}
           </DialogContentText>
         </DialogTitle>
         <DialogActions
@@ -65,10 +65,10 @@ const MeAccountSecurityDangerZoneCard = () => {
           }}
         >
           <Button variant='outlined' color='secondary' onClick={handleCloseDeleteAccountDialog}>
-            取消
+            Cancel
           </Button>
           <Button variant='outlined' color='error' startIcon={<Icon icon='mdi:delete-outline' />}>
-            確認
+            Delete
           </Button>
         </DialogActions>
       </Dialog>

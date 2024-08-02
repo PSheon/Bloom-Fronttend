@@ -38,7 +38,7 @@ export const userApi = createApi({
       return headers
     }
   }),
-  tagTypes: ['User'],
+  tagTypes: ['User', 'Me'],
   endpoints: builder => ({
     findMeOne: builder.query<FindMeOneUserResponseType, FindMeOneUserParamsType>({
       query: () => ({
@@ -47,7 +47,7 @@ export const userApi = createApi({
         })}`,
         method: 'GET'
       }),
-      providesTags: ['User'],
+      providesTags: ['Me'],
       transformResponse: (responseData: FindMeOneUserTransformResponseType) => responseData
     }),
     findOne: builder.query<FindOneUserResponseType, FindOneUserParamsType>({
@@ -90,7 +90,7 @@ export const userApi = createApi({
         method: 'PUT',
         body: params.data
       }),
-      invalidatesTags: ['User'],
+      invalidatesTags: ['Me'],
       transformResponse: (responseData: UpdateMeOneUserTransformResponseType) => responseData
     })
   })

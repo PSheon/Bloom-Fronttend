@@ -2,12 +2,12 @@
 import Grid from '@mui/material/Grid'
 
 // ** Layout Imports
-import LandingLayout from 'src/layouts/LandingLayout'
+import CommonLayout from 'src/layouts/CommonLayout'
 
 // ** Custom Component Imports
 import LandingHeaderSection from 'src/views/landing/sections/LandingHeaderSection'
 import LandingFeaturesSection from 'src/views/landing/sections/LandingFeaturesSection'
-import LandingPlatformSection from 'src/views/landing/sections/LandingPlatformSection'
+import LandingLearnSection from 'src/views/landing/sections/LandingLearnSection'
 import LandingCustomerSupportSection from 'src/views/landing/sections/LandingCustomerSupportSection'
 import LandingBuyAndSellSection from 'src/views/landing/sections/LandingBuyAndSellSection'
 import LandingSafeAndSecuritySection from 'src/views/landing/sections/LandingSafeAndSecuritySection'
@@ -25,7 +25,7 @@ const LandingPage = () => {
         <LandingFeaturesSection />
       </Grid>
       <Grid item xs={12}>
-        <LandingPlatformSection />
+        <LandingLearnSection />
       </Grid>
       <Grid item xs={12}>
         <LandingCustomerSupportSection />
@@ -41,6 +41,6 @@ const LandingPage = () => {
 }
 
 LandingPage.authGuard = false
-LandingPage.getLayout = (page: ReactNode) => <LandingLayout>{page}</LandingLayout>
+LandingPage.getLayout = (page: ReactNode) => <CommonLayout>{page}</CommonLayout>
 
 export default LandingPage

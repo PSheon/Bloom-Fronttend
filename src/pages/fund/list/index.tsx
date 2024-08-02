@@ -35,7 +35,8 @@ const PublicFundListPage = () => {
     filters: {
       ...(debouncedFilteredFundDisplayname !== '' && {
         $or: [{ displayName: { $containsi: debouncedFilteredFundDisplayname } }]
-      })
+      }),
+      status: 'Published'
 
       // ...(filteredStatus !== 'all' && { status: filteredStatus }),
       // ...(filteredIsHighlighted !== 'all' && { isHighlighted: filteredIsHighlighted === 'isHighlighted' })
@@ -73,7 +74,7 @@ const PublicFundListPage = () => {
       <KeenSliderWrapper>
         <Grid container spacing={6} className='match-height'>
           <Grid item xs={12}>
-            <PublicFundListBreadcrumbs pageLevels={[{ title: '公開資金列表' }]} />
+            <PublicFundListBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.Public.Funds & Strategies.PageTitle' }]} />
           </Grid>
 
           <Grid item xs={12}>

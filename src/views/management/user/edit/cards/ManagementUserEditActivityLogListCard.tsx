@@ -112,7 +112,7 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
       renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => {
         const link = getActivityLogRefContentLink(row)
 
-        return <LinkStyled href={link}>{`${row.refContentType}#${row.id}`}</LinkStyled>
+        return <LinkStyled href={link}>{`${row.refContentType}#${row.refId}`}</LinkStyled>
       }
     },
     {

@@ -132,7 +132,7 @@ const ManagementFundEditBannerPreviewBox = (props: Props) => {
           justifyContent: 'center'
         }}
       >
-        <BannerPicture src='/images/pages/profile-banner.png' alt={updatedFund.displayName} />
+        <BannerPicture src='/images/pages/profile-banner.webp' alt={updatedFund.displayName} />
       </Box>
       <Box>
         <MediaAssetSelector handleFinish={handleUpdateBanner} />

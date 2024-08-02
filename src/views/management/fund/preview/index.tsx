@@ -24,7 +24,10 @@ const ManagementFundPreviewSection = (props: Props) => {
       <Grid container spacing={6} className='match-height'>
         <Grid item xs={12}>
           <ManagementFundPreviewBreadcrumbs
-            pageLevels={[{ title: '資金管理', href: '/management/fund/list' }, { title: '預覽資金' }]}
+            pageLevels={[
+              { title: 'PageBreadcrumb.Management.Funds.PageTitle', href: '/management/fund/list' },
+              { title: 'PageBreadcrumb.Management.Funds.Preview.PageTitle' }
+            ]}
           />
         </Grid>
         <Grid item xs={12}>

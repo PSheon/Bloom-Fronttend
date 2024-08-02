@@ -15,15 +15,22 @@ import type { BoxProps } from '@mui/material/Box'
 
 const StyledRootBox = styled(Box)<BoxProps>(({ theme }) => ({
   minHeight: theme.spacing(120),
-  paddingTop: theme.spacing(24),
-  paddingBottom: theme.spacing(24),
+  paddingTop: theme.spacing(36),
+  paddingBottom: theme.spacing(12),
   display: 'flex',
   flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   overflow: 'hidden',
   [theme.breakpoints.down('md')]: {
-    minHeight: theme.spacing(180)
+    minHeight: theme.spacing(180),
+    paddingTop: theme.spacing(12),
+    paddingBottom: theme.spacing(12)
+  },
+  [theme.breakpoints.down('sm')]: {
+    minHeight: theme.spacing(120),
+    paddingTop: theme.spacing(0),
+    paddingBottom: theme.spacing(0)
   }
 }))
 
@@ -64,7 +71,7 @@ const LandingFeaturesSection = () => {
                   style={{ filter: 'drop-shadow(4px 4px 12px #4444dd)' }}
                 />
                 <Typography variant='h5' textAlign='center' sx={{ fontWeight: 900 }}>
-                  Bloom Payment
+                  Payment
                 </Typography>
                 <Typography variant='body1' textAlign='center'>
                   We have thousands of ATMs located across the U.S. where you can easily convert cash to crypto

@@ -1,17 +1,33 @@
+// ** Next Imports
+import Link from 'next/link'
+
 // ** MUI Imports
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
-import Avatar from '@mui/material/Avatar'
 import Typography from '@mui/material/Typography'
-import AvatarGroup from '@mui/material/AvatarGroup'
 import CardContent from '@mui/material/CardContent'
-import LinearProgress from '@mui/material/LinearProgress'
+import IconButton from '@mui/material/IconButton'
+import Skeleton from '@mui/material/Skeleton'
+
+// ** Third-Party Imports
+import { useAccount, useReadContract } from 'wagmi'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
+// ** Custom Component Imports
+import LogoImage from 'src/views/shared/LogoImage'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
+
+// ** Util Imports
+import { getChainId, getContractTypeProperties } from 'src/utils'
+
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -24,61 +40,113 @@ const ManagementFundEditVaultProtocolCard = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
+  // ** Hooks
+  const walletAccount = useAccount()
+
+  const { data: contractType, isLoading: isContractTypeLoading } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.vault.contractAbi,
+    address: initFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'contractType',
+    args: [],
+    account: walletAccount.address!,
+    query: {
+      refetchOnWindowFocus: false,
+      placeholderData: ''
+    }
+  })
+
+  const { data: contractVersion, isLoading: isContractVersionLoading } = useReadContract({
+    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initFundEntity.vault.contractAbi,
+    address: initFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'contractVersion',
+    args: [],
+    account: walletAccount.address!,
+    query: {
+      refetchOnWindowFocus: false,
+      placeholderData: ''
+    }
+  })
+
+  // ** Vars
+  const contractTypeProperties = getContractTypeProperties(contractType)
+
   return (
     <Card>
       <CardContent>
-        <Box sx={{ mb: 3.5, display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <CustomChip
-              skin='light'
-              size='small'
-              color='success'
-              label='Audited'
-              sx={{ mr: 2.5, height: 20, fontSize: '0.75rem', fontWeight: 500 }}
-            />
-            <CustomChip
-              skin='light'
-              size='small'
-              color='primary'
-              label='V1.0.1'
-              sx={{ height: 20, fontSize: '0.75rem', fontWeight: 500 }}
-            />
-          </Box>
-        </Box>
+        <Stack spacing={6} alignItems='flex-start' justifyContent='center'>
+          <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+            <Stack direction='row' spacing={2} alignItems='center'>
+              <CustomChip
+                skin='light'
+                size='small'
+                rounded
+                color='success'
+                label='Audited'
+                sx={{ mr: 2.5, height: 20, fontSize: '0.75rem', fontWeight: 500 }}
+              />
+              {isContractVersionLoading || typeof contractVersion !== 'string' ? (
+                <Skeleton variant='rounded' width={80} height={22} />
+              ) : (
+                <CustomChip
+                  skin='light'
+                  size='small'
+                  rounded
+                  color='primary'
+                  label={contractVersion}
+                  sx={{ height: 20, fontSize: '0.75rem', fontWeight: 500 }}
+                />
+              )}
+            </Stack>
+            <Stack direction='row' alignItems='center'>
+              <Typography variant='caption'>Source Code</Typography>
+              <IconButton
+                component={Link}
+                href={`${walletAccount?.chain?.blockExplorers?.default.url}/address/${initFundEntity.vault.contractAddress}#code`}
+                target='_blank'
+              >
+                <Icon icon='mdi:external-link' fontSize={16} />
+              </IconButton>
+            </Stack>
+          </Stack>
 
-        <Typography variant='h6' sx={{ mb: 1 }}>
-          {`RWA Vault ${initFundEntity.chain}`}
-        </Typography>
-        <Typography variant='body2' sx={{ mb: 6.25 }}>
-          For staking ERC3525 NFTs, for ERC20 tokens as rewards.
-        </Typography>
-        <Box sx={{ mb: 1.25, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-          <Typography variant='body2' sx={{ mr: 2, fontWeight: 600, color: 'text.primary' }}>
-            Progress
-          </Typography>
-          <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-            68%
-          </Typography>
-        </Box>
-        <LinearProgress value={68} color='success' sx={{ mb: 5.75 }} variant='determinate' />
-        <Box sx={{ display: 'flex', flexWrap: 'wrap', alignItems: 'center', justifyContent: 'space-between' }}>
-          <AvatarGroup sx={{ mr: 2 }}>
-            <Avatar src='/images/avatars/3.png' alt='Olivia Sparks' />
-            <Avatar src='/images/avatars/5.png' alt='Howard Lloyd' />
-            <Avatar src='/images/avatars/4.png' alt='Hallie Richards' />
-            <Avatar src='/images/avatars/2.png' alt='Alice Cobb' />
-          </AvatarGroup>
-          <Box sx={{ display: 'flex', alignItems: 'center', '& svg': { mr: 1, color: 'text.secondary' } }}>
-            <Icon icon='mdi:paperclip' fontSize='1.375rem' />
-            <Typography variant='body2' sx={{ mr: 2.5, fontWeight: 600 }}>
-              24
-            </Typography>
-            <Icon icon='mdi:check-circle-outline' fontSize='1.375rem' />
+          {isContractTypeLoading ? (
+            <Stack spacing={4} alignItems='flex-start' justifyContent='center'>
+              <Skeleton variant='text' width={140} height={32} />
+              <Stack alignItems='flex-start' justifyContent='center'>
+                <Skeleton variant='text' width={200} height={20} />
+                <Skeleton variant='text' width={200} height={20} />
+              </Stack>
+            </Stack>
+          ) : (
+            <Stack spacing={4} alignItems='flex-start' justifyContent='center'>
+              <Typography variant='h6' component='p'>
+                {contractTypeProperties.displayName}
+              </Typography>
+              <Typography variant='body2' component='p'>
+                {contractTypeProperties.description}
+              </Typography>
+            </Stack>
+          )}
+
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+            <CustomAvatar
+              sx={{
+                height: 20,
+                width: 20,
+                borderWidth: '5px !important',
+                backgroundColor: theme => theme.palette.background.default
+              }}
+            >
+              <LogoImage width={14} height={14} />
+            </CustomAvatar>
+
             <Typography variant='body2' sx={{ fontWeight: 600 }}>
-              74/180
+              {`${themeConfig.templateName} DAO`}
             </Typography>
-          </Box>
-        </Box>
+          </Stack>
+        </Stack>
       </CardContent>
     </Card>
   )

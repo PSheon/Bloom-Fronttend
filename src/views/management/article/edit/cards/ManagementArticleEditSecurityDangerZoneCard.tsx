@@ -57,17 +57,18 @@ const ManagementArticleEditSecurityDangerZoneCard = (props: Props) => {
 
   return (
     <Card>
-      <CardHeader title='危險區域' />
+      <CardHeader title='Danger Zone' />
       <CardContent>
         <Grid container spacing={6}>
           <Grid item xs={12}>
-            <Typography sx={{ fontWeight: 600, color: 'text.secondary' }}>
-              刪除公告，將無法復原，所有修改記錄也將一併刪除
+            <Typography color='text.secondary' sx={{ fontWeight: 600 }}>
+              Please be careful, once you delete the article, it cannot be undone, all modification records will be
+              deleted as well
             </Typography>
           </Grid>
           <Grid item xs={12}>
             <Button variant='outlined' color='error' type='submit' onClick={handleOpenDeleteArticleDialog}>
-              刪除公告
+              Delete Article
             </Button>
           </Grid>
         </Grid>
@@ -82,9 +83,9 @@ const ManagementArticleEditSecurityDangerZoneCard = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          確認要刪除公告？
+          Are you sure you want to delete the article?
           <DialogContentText id='user-view-edit-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
-            此操作將無法復原
+            {`It can't be undone`}
           </DialogContentText>
         </DialogTitle>
         <DialogActions
@@ -95,8 +96,8 @@ const ManagementArticleEditSecurityDangerZoneCard = (props: Props) => {
             pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Button variant='contained' color='secondary' onClick={handleCloseDeleteArticleDialog}>
-            取消
+          <Button variant='contained' color='primary' onClick={handleCloseDeleteArticleDialog}>
+            Cancel
           </Button>
           <LoadingButton
             loading={isDeleteOneArticleLoading}
@@ -105,7 +106,7 @@ const ManagementArticleEditSecurityDangerZoneCard = (props: Props) => {
             startIcon={<Icon icon='mdi:delete-outline' />}
             onClick={handleDeleteOneArticleClick}
           >
-            確認
+            Delete
           </LoadingButton>
         </DialogActions>
       </Dialog>

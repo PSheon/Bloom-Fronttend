@@ -35,7 +35,10 @@ const ManagementUserEditLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementUserEditBreadcrumbs
-          pageLevels={[{ title: '使用者管理', href: '/management/user/list' }, { title: '編輯使用者' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.Management.Users.PageTitle', href: '/management/user/list' },
+            { title: 'PageBreadcrumb.Management.Users.Edit.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
@@ -61,7 +64,7 @@ const ManagementUserEditLoadingSkeleton = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Button fullWidth disabled type='submit' variant='contained'>
-                      編輯
+                      Edit
                     </Button>
                   </Grid>
                 </Grid>
@@ -69,11 +72,11 @@ const ManagementUserEditLoadingSkeleton = () => {
             </Card>
           </Grid>
           <Grid item xs={12}>
-            <Card sx={{ boxShadow: 'none', border: theme => `2px solid ${theme.palette.primary.main}` }}>
+            <Card>
               <CardContent>
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>角色權限</Typography>
+                    <Typography variant='subtitle2'>Role</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />
@@ -88,7 +91,7 @@ const ManagementUserEditLoadingSkeleton = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Button fullWidth disabled type='submit' variant='contained'>
-                      變更權限
+                      Change role
                     </Button>
                   </Grid>
                 </Grid>
@@ -98,9 +101,9 @@ const ManagementUserEditLoadingSkeleton = () => {
           <Grid item xs={12}>
             <Card>
               <CardContent>
-                <Grid container spacing={4}>
+                <Grid container spacing={2.7}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>屬性</Typography>
+                    <Typography variant='subtitle2'>Metadata</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />

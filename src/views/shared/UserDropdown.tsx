@@ -8,6 +8,7 @@ import { useRouter } from 'next/router'
 // ** MUI Imports
 import { styled, lighten } from '@mui/material/styles'
 import Box from '@mui/material/Box'
+import Button from '@mui/material/Button'
 import Menu from '@mui/material/Menu'
 import Badge from '@mui/material/Badge'
 import Avatar from '@mui/material/Avatar'
@@ -22,14 +23,18 @@ import { useSession, signOut } from 'next-auth/react'
 import { useConnectModal, useAccountModal, ConnectButton } from '@rainbow-me/rainbowkit'
 import { useAccount } from 'wagmi'
 
+// ** Core Component Imports
+import CustomAvatar from 'src/@core/components/mui/avatar'
+
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
 // ** API Imports
+import { useFindMeOneQuery } from 'src/store/api/management/user'
 import { useFindMeQuery } from 'src/store/api/management/wallet'
 
 // ** Util Imports
-import { getPublicMediaAssetUrl, getFormattedEthereumAddress } from 'src/utils'
+import { getPublicMediaAssetUrl, getFormattedEthereumAddress, getGradientColors } from 'src/utils'
 
 // ** Type Imports
 import type { SyntheticEvent } from 'react'
@@ -52,11 +57,9 @@ const BadgeContentSpan = styled('span')(({ theme }) => ({
 const MenuItemStack = styled(Stack)<StackProps>(({ theme }) => ({
   padding: theme.spacing(2, 4),
   width: '100%',
-  color: 'text.primary',
   textDecoration: 'none',
   '& svg': {
-    fontSize: '1.375rem',
-    color: 'text.primary'
+    fontSize: '1.375rem'
   }
 }))
 
@@ -74,11 +77,13 @@ const UserDropdown = (props: Props) => {
   const { openAccountModal } = useAccountModal()
   const walletAccount = useAccount()
 
+  const { data: MeUserEntity } = useFindMeOneQuery(null)
+
   const { data: walletsData, isLoading: isWalletListLoading } = useFindMeQuery({
     filters: {},
     pagination: {
       page: 1,
-      pageSize: 6
+      pageSize: 3
     }
   })
 
@@ -125,14 +130,15 @@ const UserDropdown = (props: Props) => {
               <MenuItem sx={{ p: 0 }} onClick={openChainModal}>
                 <MenuItemStack
                   direction='row'
-                  spacing={2}
+                  spacing={3}
                   alignItems='center'
+                  justifyContent='space-between'
                   sx={{ color: theme => theme.palette.error.main }}
                 >
-                  <Icon icon='mdi:warning-box-outline' />
-                  <Typography color='error' sx={{ flex: 1 }}>
-                    Wrong Network
-                  </Typography>
+                  <Stack direction='row' spacing={3} alignItems='center'>
+                    <Icon icon='mdi:warning-box-outline' />
+                    <Typography color='error'>Wrong Network</Typography>
+                  </Stack>
                   <Icon icon='mdi:exchange' />
                 </MenuItemStack>
               </MenuItem>
@@ -141,13 +147,15 @@ const UserDropdown = (props: Props) => {
 
           return (
             <MenuItem sx={{ p: 0 }} onClick={openChainModal}>
-              <MenuItemStack direction='row' spacing={2} alignItems='center'>
-                {chain.hasIcon && chain.iconUrl && chain.name ? (
-                  <Image width={22} height={22} src={chain.iconUrl} alt={chain.name} />
-                ) : (
-                  <Icon icon='mdi:question-mark-circle-outline' />
-                )}
-                <Typography sx={{ flex: 1 }}>{chain.name || 'Unknown'}</Typography>
+              <MenuItemStack direction='row' spacing={3} alignItems='center' justifyContent='space-between'>
+                <Stack direction='row' spacing={3} alignItems='center'>
+                  {chain.hasIcon && chain.iconUrl && chain.name ? (
+                    <Image width={22} height={22} src={chain.iconUrl} alt={chain.name} />
+                  ) : (
+                    <Icon icon='mdi:question-mark-circle-outline' />
+                  )}
+                  <Typography>{chain.name || 'Unknown'}</Typography>
+                </Stack>
                 <Icon icon='mdi:exchange' />
               </MenuItemStack>
             </MenuItem>
@@ -159,34 +167,66 @@ const UserDropdown = (props: Props) => {
 
   const renderSavedWalletListMenuItems = () => {
     if (isWalletListLoading) {
-      return (
-        <MenuItem sx={{ p: 0 }} disabled>
-          <MenuItemStack direction='row' spacing={2} alignItems='center'>
+      return [...Array(3).keys()].map(index => (
+        <MenuItem key={`saved-wallet-skeleton-${index}`} sx={{ p: 0 }} disabled>
+          <MenuItemStack direction='row' spacing={3} alignItems='center' justifyContent='space-between'>
+            <Stack direction='row' spacing={3} alignItems='center'>
+              <Skeleton variant='circular' width={22} height={22} />
+              <Skeleton variant='rounded' width={140} height={16} />
+            </Stack>
             <Skeleton variant='circular' width={22} height={22} />
-            <Skeleton variant='rounded' width={80} height={16} />
           </MenuItemStack>
         </MenuItem>
-      )
+      ))
     }
 
     if (walletAccount.status === 'connected') {
       return wallets.map(wallet => {
         const isVerified = wallet.address.toLowerCase() === walletAccount.address.toLowerCase()
+        const colors = getGradientColors(wallet.address)
 
         return (
           <MenuItem key={wallet.id} sx={{ p: 0 }} disabled={!isVerified} onClick={openAccountModal}>
-            <MenuItemStack direction='row' spacing={2} alignItems='center'>
-              <Stack alignItems='center' justifyContent='center' sx={{ width: 22, height: 22 }}>
-                <Box
-                  sx={{
-                    width: 8,
-                    height: 8,
-                    borderRadius: '50%',
-                    backgroundColor: theme => theme.palette[isVerified ? 'success' : 'warning'].main
+            <MenuItemStack direction='row' spacing={3} alignItems='center' justifyContent='space-between'>
+              <Stack direction='row' spacing={3} alignItems='center'>
+                <Badge
+                  overlap='circular'
+                  badgeContent={
+                    <BadgeContentSpan
+                      sx={{ backgroundColor: theme => theme.palette[isVerified ? 'success' : 'warning'].main }}
+                    />
+                  }
+                  anchorOrigin={{
+                    vertical: 'bottom',
+                    horizontal: 'right'
                   }}
-                />
+                >
+                  <CustomAvatar
+                    skin='light'
+                    sx={{
+                      width: 22,
+                      height: 22,
+                      boxShadow: `${colors[0]} 0px 2px 3px`
+                    }}
+                  >
+                    <Box
+                      sx={{
+                        width: 22,
+                        height: 22,
+                        backgroundColor: colors[0],
+                        backgroundImage: `
+                        radial-gradient(at 66% 77%, ${colors[1]} 0px, transparent 50%),
+                        radial-gradient(at 29% 97%, ${colors[2]} 0px, transparent 50%),
+                        radial-gradient(at 99% 86%, ${colors[3]} 0px, transparent 50%),
+                        radial-gradient(at 29% 88%, ${colors[4]} 0px, transparent 50%)
+                      `
+                      }}
+                    />
+                  </CustomAvatar>
+                </Badge>
+                <Typography>{getFormattedEthereumAddress(wallet.address)}</Typography>
               </Stack>
-              <Typography sx={{ flex: 1 }}>{getFormattedEthereumAddress(wallet.address)}</Typography>
+              <Icon icon='mdi:external-link' />
             </MenuItemStack>
           </MenuItem>
         )
@@ -194,43 +234,27 @@ const UserDropdown = (props: Props) => {
     }
 
     if (walletAccount.status === 'disconnected') {
-      return null
-    }
-
-    return (
-      <MenuItem sx={{ p: 0 }} disabled>
-        <MenuItemStack direction='row' spacing={2} alignItems='center'>
-          <Skeleton variant='circular' width={22} height={22} />
-          <Skeleton variant='rounded' width={80} height={16} />
-        </MenuItemStack>
-      </MenuItem>
-    )
-  }
-
-  const renderManageWalletMenuItem = () => {
-    if (walletAccount.status === 'connected') {
-      return null
-    }
-
-    if (walletAccount.status === 'disconnected') {
       return (
         <MenuItem sx={{ p: 0 }} onClick={openConnectModal}>
-          <MenuItemStack direction='row' spacing={2} alignItems='center'>
+          <MenuItemStack direction='row' spacing={3} alignItems='center'>
             <Icon icon='mdi:add-circle-outline' />
-            <Typography sx={{ flex: 1 }}>Connect Wallet</Typography>
+            <Typography>Connect Wallet</Typography>
           </MenuItemStack>
         </MenuItem>
       )
     }
 
-    return (
-      <MenuItem sx={{ p: 0 }} disabled>
-        <MenuItemStack direction='row' spacing={2} alignItems='center'>
+    return [...Array(3).keys()].map(index => (
+      <MenuItem key={`saved-wallet-skeleton-${index}`} sx={{ p: 0 }} disabled>
+        <MenuItemStack direction='row' spacing={3} alignItems='center' justifyContent='space-between'>
+          <Stack direction='row' spacing={3} alignItems='center'>
+            <Skeleton variant='circular' width={22} height={22} />
+            <Skeleton variant='rounded' width={140} height={16} />
+          </Stack>
           <Skeleton variant='circular' width={22} height={22} />
-          <Skeleton variant='rounded' width={80} height={16} />
         </MenuItemStack>
       </MenuItem>
-    )
+    ))
   }
 
   return (
@@ -246,7 +270,7 @@ const UserDropdown = (props: Props) => {
         }}
       >
         <Avatar
-          alt={session.data!.user?.username}
+          alt={MeUserEntity?.username || 'User'}
           onClick={handleDropdownOpen}
           sx={{
             width: 32,
@@ -254,19 +278,19 @@ const UserDropdown = (props: Props) => {
             boxShadow: theme => theme.shadows[9],
             border: theme => `4px solid ${lighten(theme.palette.background.paper, 0.1)}`
           }}
-          src={getPublicMediaAssetUrl(session.data!.user?.avatar?.url)}
+          src={getPublicMediaAssetUrl(MeUserEntity?.avatar?.url)}
         />
       </Badge>
       <Menu
         anchorEl={anchorEl}
         open={Boolean(anchorEl)}
         onClose={() => handleDropdownClose()}
-        sx={{ '& .MuiMenu-paper': { width: 230, mt: 4 } }}
         anchorOrigin={{ vertical: 'bottom', horizontal: direction === 'ltr' ? 'right' : 'left' }}
         transformOrigin={{ vertical: 'top', horizontal: direction === 'ltr' ? 'right' : 'left' }}
+        sx={{ '& .MuiMenu-paper': { width: 260, mt: 4 } }}
       >
         <Box sx={{ pt: 2, pb: 3, px: 4 }}>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Stack direction='row' spacing={3} alignItems='center'>
             <Badge
               overlap='circular'
               badgeContent={<BadgeContentSpan />}
@@ -276,43 +300,52 @@ const UserDropdown = (props: Props) => {
               }}
             >
               <Avatar
-                alt={session.data!.user?.username}
-                src={getPublicMediaAssetUrl(session.data!.user?.avatar?.url)}
-                sx={{ width: '2.5rem', height: '2.5rem' }}
+                alt={MeUserEntity?.username || 'User'}
+                src={getPublicMediaAssetUrl(MeUserEntity?.avatar?.url)}
+                sx={{
+                  width: '2.5rem',
+                  height: '2.5rem',
+                  boxShadow: theme => theme.shadows[9],
+                  border: theme => `4px solid ${lighten(theme.palette.background.paper, 0.1)}`
+                }}
               />
             </Badge>
-            <Box sx={{ display: 'flex', ml: 3, alignItems: 'flex-start', flexDirection: 'column' }}>
+            <Stack alignItems='flex-start'>
               <Typography sx={{ fontWeight: 600 }}>{session.data!.user?.username}</Typography>
-              <Typography variant='body2' sx={{ fontSize: '0.8rem', color: 'text.disabled' }}>
+              <Typography variant='body2' color='text.disabled' sx={{ fontSize: '0.8rem' }}>
                 {session.data!.user?.role!.name}
               </Typography>
-            </Box>
-          </Box>
+            </Stack>
+          </Stack>
         </Box>
         <Divider sx={{ mt: '0 !important' }} />
         {switchChainMenuItem()}
         {renderSavedWalletListMenuItems()}
-        {renderManageWalletMenuItem()}
-        <Divider />
+        <Divider sx={{ my: '0 !important' }} />
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/account')}>
-          <MenuItemStack direction='row' spacing={2} alignItems='center'>
+          <MenuItemStack direction='row' spacing={3} alignItems='center'>
             <Icon icon='mdi:account-outline' />
-            <Typography sx={{ flex: 1 }}>My Account</Typography>
+            <Typography>My Account</Typography>
           </MenuItemStack>
         </MenuItem>
         <MenuItem sx={{ p: 0 }} onClick={() => handleDropdownClose('/settings')}>
-          <MenuItemStack direction='row' spacing={2} alignItems='center'>
+          <MenuItemStack direction='row' spacing={3} alignItems='center'>
             <Icon icon='mdi:cog-outline' />
-            <Typography sx={{ flex: 1 }}>Settings</Typography>
+            <Typography>Settings</Typography>
           </MenuItemStack>
         </MenuItem>
-        <Divider />
-        <MenuItem onClick={handleLogout} sx={{ p: 0 }}>
-          <MenuItemStack direction='row' spacing={2} alignItems='center'>
-            <Icon icon='mdi:logout-variant' />
-            <Typography sx={{ flex: 1 }}>Sign Out</Typography>
-          </MenuItemStack>
-        </MenuItem>
+        <Box sx={{ px: 4, py: 2 }}>
+          <Button
+            fullWidth
+            variant='contained'
+            color='error'
+            size='small'
+            startIcon={<Icon icon='mdi:logout-variant' />}
+            onClick={handleLogout}
+          >
+            Logout
+          </Button>
+        </Box>
       </Menu>
     </Fragment>
   )

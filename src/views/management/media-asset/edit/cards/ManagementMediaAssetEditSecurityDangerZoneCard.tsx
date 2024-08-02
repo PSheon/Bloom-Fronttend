@@ -58,14 +58,14 @@ const ManagementMediaAssetEditSecurityDangerZoneCard = (props: Props) => {
 
   return (
     <Card>
-      <CardHeader title='危險區域' />
+      <CardHeader title='Danger Zone' />
       <CardContent>
-        <Typography>請注意！檔案將永久刪除且無法重新找回，請務必確認這份檔案沒有在使用中</Typography>
+        <Typography>Please note! The file will be permanently deleted and cannot be recovered</Typography>
       </CardContent>
 
       <CardActions>
         <Button variant='outlined' color='error' onClick={handleOpenDeleteDialog}>
-          刪除檔案
+          Delete
         </Button>
       </CardActions>
 
@@ -78,9 +78,9 @@ const ManagementMediaAssetEditSecurityDangerZoneCard = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          刪除檔案
+          Are you sure you want to delete this media asset?
           <DialogContentText variant='body2' component='p' sx={{ textAlign: 'center' }}>
-            此操作將無法復原
+            {`It can't be undone`}
           </DialogContentText>
         </DialogTitle>
         <DialogActions
@@ -91,8 +91,8 @@ const ManagementMediaAssetEditSecurityDangerZoneCard = (props: Props) => {
             pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Button variant='contained' color='secondary' onClick={handleCloseDeleteDialog}>
-            取消
+          <Button variant='contained' color='primary' onClick={handleCloseDeleteDialog}>
+            Cancel
           </Button>
           <LoadingButton
             loading={isDeleteOneMediaAssetsLoading}
@@ -101,7 +101,7 @@ const ManagementMediaAssetEditSecurityDangerZoneCard = (props: Props) => {
             startIcon={<Icon icon='mdi:delete-outline' />}
             onClick={handleDeleteOneMediaAssetClick}
           >
-            確定
+            Delete
           </LoadingButton>
         </DialogActions>
       </Dialog>

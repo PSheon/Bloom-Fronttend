@@ -35,7 +35,10 @@ const ManagementMediaAssetEditLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementMediaAssetEditBreadcrumbs
-          pageLevels={[{ title: '檔案管理', href: '/management/media-asset/list' }, { title: '編輯檔案' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.Management.Media Assets.PageTitle', href: '/management/media-asset/list' },
+            { title: 'PageBreadcrumb.Management.Media Assets.Edit.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
@@ -61,7 +64,7 @@ const ManagementMediaAssetEditLoadingSkeleton = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Button fullWidth disabled type='submit' variant='contained'>
-                      編輯
+                      Edit
                     </Button>
                   </Grid>
                 </Grid>
@@ -71,9 +74,9 @@ const ManagementMediaAssetEditLoadingSkeleton = () => {
           <Grid item xs={12}>
             <Card>
               <CardContent>
-                <Grid container spacing={4}>
+                <Grid container spacing={2.7}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>屬性</Typography>
+                    <Typography variant='subtitle2'>Metadata</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />

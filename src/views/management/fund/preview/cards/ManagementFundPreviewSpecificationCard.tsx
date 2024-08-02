@@ -24,6 +24,9 @@ import Icon from 'src/@core/components/icon'
 // ** Util Imports
 import { getFormattedEthereumAddress } from 'src/utils'
 
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
 
@@ -117,18 +120,11 @@ const ManagementFundPreviewSpecificationCard = (props: Props) => {
 
   return (
     <Card>
-      <CardHeader title='規格' />
+      <CardHeader title='Specification' />
       <CardContent>
         <Grid container spacing={4}>
           <Grid item xs={6} sm={4} md={2}>
-            <SpecDetailStack title='Fund Manager' content='Bloom DAO' linkHref='/' />
-          </Grid>
-          <Grid item xs={6} sm={4} md={2}>
-            <SpecDetailStack
-              title='Risk Manager'
-              hint='Risk Manager is responsible for fund custody and risk control according to pre-agreed requirements.'
-              content='Bloom DAO'
-            />
+            <SpecDetailStack title='Fund Manager' content={`${themeConfig.templateName} DAO`} />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack
@@ -146,6 +142,13 @@ const ManagementFundPreviewSpecificationCard = (props: Props) => {
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack
+              title='Sale Start Time'
+              hint='(UTC) Date when the fund starts accepting investments.'
+              content={format(new Date(initFundEntity.saleStartTime), 'PPp')}
+            />
+          </Grid>
+          <Grid item xs={6} sm={4} md={2}>
+            <SpecDetailStack
               title='Performance Fee'
               hint='A performance fee is a profit-sharing agreement made with an investment manager.'
               content={`${initFundEntity.performanceFeePercentage}%`}
@@ -155,17 +158,13 @@ const ManagementFundPreviewSpecificationCard = (props: Props) => {
             <SpecDetailStack title='Protocol Fee' content={`${0}%`} />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
-            <SpecDetailStack title='Est.APY' hint='Estimated APY.' content={`${8}%`} />
+            <SpecDetailStack title='Fund SFT' content={initFundEntity.sft?.contractAddress ?? 'Generating'} />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
-            <SpecDetailStack title='Fund SFT' content='0xb794f5ea0ba39494ce839613fffba74279579268' />
+            <SpecDetailStack title='Vault SFT' content={initFundEntity.vault?.contractAddress ?? 'Generating'} />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
-            <SpecDetailStack
-              title='Sale Start Time'
-              hint='(UTC) Date when the fund starts accepting investments.'
-              content={format(new Date(initFundEntity.saleStartTime), 'PPpp')}
-            />
+            <SpecDetailStack title='Est.APY' hint='Estimated APY.' content={`${initFundEntity.estimatedAPY}%`} />
           </Grid>
           <Grid item xs={6} sm={4} md={2}>
             <SpecDetailStack title='Redemption Freq' content={`${initFundEntity.redemptionFrequencyInDays} Days`} />

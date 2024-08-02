@@ -67,15 +67,17 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
 
   return (
     <Card>
-      <CardHeader title='危險區域' />
+      <CardHeader title='Danger Zone' />
       <CardContent>
-        <Typography>帳號被封鎖後，使用者將無法進入系統後台，也無法查看任何資料</Typography>
+        <Typography>
+          Once you block a user, the user will not be able to access the system backend and view any data
+        </Typography>
       </CardContent>
 
       <CardActions>
         {updatedUser.blocked ? (
           <Button variant='contained' onClick={handleUnblockClick}>
-            啟用帳號
+            Active Account
           </Button>
         ) : (
           <Button
@@ -84,7 +86,7 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
             disabled={session.data!.user.id === initUserEntity.id}
             onClick={handleOpen}
           >
-            封鎖帳號
+            Block Account
           </Button>
         )}
       </CardActions>
@@ -98,9 +100,9 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          確定要暫停使用者？
+          Are you sure you want to block this user?
           <DialogContentText variant='body2' component='p' sx={{ textAlign: 'center' }}>
-            此操作將導致使用者無法進入系統
+            This action will prevent the user from entering the system
           </DialogContentText>
         </DialogTitle>
         <DialogActions
@@ -111,8 +113,8 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
             pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Button variant='contained' color='secondary' onClick={handleClose}>
-            取消
+          <Button variant='contained' color='primary' onClick={handleClose}>
+            Cancel
           </Button>
           <LoadingButton
             loading={isUpdateUserLoading}
@@ -121,7 +123,7 @@ const ManagementUserEditDangerZoneCard = (props: Props) => {
             startIcon={<Icon icon='mdi:delete-outline' />}
             onClick={handleBlockClick}
           >
-            確定
+            Block
           </LoadingButton>
         </DialogActions>
       </Dialog>

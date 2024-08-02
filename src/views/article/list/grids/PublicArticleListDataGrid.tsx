@@ -46,7 +46,7 @@ const PublicArticleListDataGrid = (props: Props) => {
       return (
         <Grid container spacing={6}>
           {[...Array(6).keys()].map(index => (
-            <Grid key={`article-skeleton-${index}`} item xs={12} md={6}>
+            <Grid key={`article-skeleton-${index}`} item xs={12} md={4}>
               <PublicArticleListLoadingSkeletonCard />
             </Grid>
           ))}

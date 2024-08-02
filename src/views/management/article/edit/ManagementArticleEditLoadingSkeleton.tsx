@@ -35,7 +35,10 @@ const ManagementArticleEditLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementArticleEditBreadcrumbs
-          pageLevels={[{ title: '文章管理', href: '/management/article/list' }, { title: '編輯文章' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.Management.Articles.PageTitle', href: '/management/article/list' },
+            { title: 'PageBreadcrumb.Management.Articles.Edit.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
@@ -61,7 +64,7 @@ const ManagementArticleEditLoadingSkeleton = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Button fullWidth disabled type='submit' variant='contained'>
-                      編輯
+                      Edit
                     </Button>
                   </Grid>
                 </Grid>
@@ -71,9 +74,9 @@ const ManagementArticleEditLoadingSkeleton = () => {
           <Grid item xs={12}>
             <Card>
               <CardContent>
-                <Grid container spacing={4}>
+                <Grid container spacing={2.7}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>屬性</Typography>
+                    <Typography variant='subtitle2'>Metadata</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />

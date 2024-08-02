@@ -30,7 +30,7 @@ const ManagementDashboardPage = () => {
       <KeenSliderWrapper>
         <Grid container spacing={6} className='match-height'>
           <Grid item xs={12}>
-            <ManagementDashboardBreadcrumbs pageLevels={[{ title: '分析報表' }]} />
+            <ManagementDashboardBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.Management.Dashboard.PageTitle' }]} />
           </Grid>
 
           <Grid item xs={12} md={8}>

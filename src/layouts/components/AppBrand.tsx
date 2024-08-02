@@ -42,8 +42,12 @@ const AppBrand = (props: Props) => {
 
   return (
     <LinkStyled href='/'>
-      <LogoImage width={40} height={40} />
-      <HeaderTitle variant='h6' sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 2 }) }}>
+      <LogoImage width={32} height={32} />
+      <HeaderTitle
+        variant='h6'
+        component='p'
+        sx={{ ...menuCollapsedStyles, ...(navCollapsed && !navHover ? {} : { ml: 2 }) }}
+      >
         {themeConfig.templateName}
       </HeaderTitle>
     </LinkStyled>

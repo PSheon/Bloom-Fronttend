@@ -35,7 +35,10 @@ const ManagementNotificationEditLoadingSkeleton = () => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementNotificationEditBreadcrumbs
-          pageLevels={[{ title: '通知管理', href: '/management/notification/list' }, { title: '編輯通知' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.Management.Notifications.PageTitle', href: '/management/notification/list' },
+            { title: 'PageBreadcrumb.Management.Notifications.Edit.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
@@ -61,7 +64,7 @@ const ManagementNotificationEditLoadingSkeleton = () => {
                   </Grid>
                   <Grid item xs={12}>
                     <Button fullWidth disabled type='submit' variant='contained'>
-                      編輯
+                      Edit
                     </Button>
                   </Grid>
                 </Grid>
@@ -71,9 +74,9 @@ const ManagementNotificationEditLoadingSkeleton = () => {
           <Grid item xs={12}>
             <Card>
               <CardContent>
-                <Grid container spacing={4}>
+                <Grid container spacing={2.7}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>屬性</Typography>
+                    <Typography variant='subtitle2'>Metadata</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />

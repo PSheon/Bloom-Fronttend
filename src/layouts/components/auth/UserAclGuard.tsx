@@ -10,11 +10,11 @@ import { useRouter } from 'next/router'
 // ** Third-Party Components
 import { useSession } from 'next-auth/react'
 
-// ** Core Component Imports
-import BlankLayout from 'src/@core/layouts/BlankLayout'
+// ** Layout Imports
+import CommonLayout from 'src/layouts/CommonLayout'
 
 // ** Custom Component Imports
-import NotAuthorized from 'src/pages/401'
+import NotAuthorizedSection from 'src/views/shared/not-authorized-section'
 import Spinner from 'src/layouts/components/fallback-spinner'
 
 // ** Util Imports
@@ -87,9 +87,9 @@ const UserAclGuard = (props: AclGuardProps) => {
 
   // Render Not Authorized component if the current user has limited access
   return (
-    <BlankLayout>
-      <NotAuthorized />
-    </BlankLayout>
+    <CommonLayout showAppBar={false} showFooter={false}>
+      <NotAuthorizedSection />
+    </CommonLayout>
   )
 }
 

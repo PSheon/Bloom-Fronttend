@@ -2,7 +2,7 @@
 import { useRouter } from 'next/router'
 
 // ** Layout Imports
-import LandingLayout from 'src/layouts/LandingLayout'
+import CommonLayout from 'src/layouts/CommonLayout'
 
 // ** Custom Component Imports
 import PublicArticleLiveLoadingSkeleton from 'src/views/article/live/PublicArticleLiveLoadingSkeleton'
@@ -36,6 +36,6 @@ const ArticleLivePage = () => {
 }
 
 ArticleLivePage.authGuard = false
-ArticleLivePage.getLayout = (page: ReactNode) => <LandingLayout>{page}</LandingLayout>
+ArticleLivePage.getLayout = (page: ReactNode) => <CommonLayout>{page}</CommonLayout>
 
 export default ArticleLivePage

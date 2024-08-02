@@ -1,5 +1,5 @@
 // ** MUI Imports
-import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
@@ -25,64 +25,58 @@ const MeAccountEditMetadataCard = (props: Props) => {
       <CardContent>
         <Grid container spacing={2.7}>
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>屬性</Typography>
+            <Typography variant='subtitle2'>Metadata</Typography>
           </Grid>
           <Grid item xs={12}>
             <Divider />
           </Grid>
           <Grid item xs={12}>
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
+            <Stack
+              direction='row'
+              alignSelf='stretch'
+              flexWrap='wrap'
+              alignItems='center'
+              justifyContent='space-between'
             >
               <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                編號
+                No.
               </Typography>
-              <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
-                {`#${initMeUserEntity.id}`}
+              <Typography variant='body2' color='text.primary' sx={{ fontWeight: 600 }}>
+                {`# ${initMeUserEntity.id}`}
               </Typography>
-            </Box>
+            </Stack>
           </Grid>
           <Grid item xs={12}>
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
+            <Stack
+              direction='row'
+              alignSelf='stretch'
+              flexWrap='wrap'
+              alignItems='center'
+              justifyContent='space-between'
             >
               <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                更新日期
+                Updated at
               </Typography>
-              <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
+              <Typography variant='body2' color='text.primary' sx={{ fontWeight: 600 }}>
                 {format(new Date(initMeUserEntity.updatedAt), 'PPpp')}
               </Typography>
-            </Box>
+            </Stack>
           </Grid>
           <Grid item xs={12}>
-            <Box
-              sx={{
-                width: '100%',
-                display: 'flex',
-                flexWrap: 'wrap',
-                alignItems: 'center',
-                justifyContent: 'space-between'
-              }}
+            <Stack
+              direction='row'
+              alignSelf='stretch'
+              flexWrap='wrap'
+              alignItems='center'
+              justifyContent='space-between'
             >
               <Typography variant='body2' sx={{ fontWeight: 600 }}>
-                建立日期
+                Created at
               </Typography>
-              <Typography variant='body2' sx={{ fontWeight: 600, color: 'text.primary' }}>
+              <Typography variant='body2' color='text.primary' sx={{ fontWeight: 600 }}>
                 {format(new Date(initMeUserEntity.createdAt), 'PPpp')}
               </Typography>
-            </Box>
+            </Stack>
           </Grid>
         </Grid>
       </CardContent>

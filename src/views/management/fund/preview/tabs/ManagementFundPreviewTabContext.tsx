@@ -27,19 +27,33 @@ import type { TabListProps } from '@mui/lab/TabList'
 import type { PreviewTabIndex, FundType } from 'src/types/fundTypes'
 
 const TabList = styled(MuiTabList)<TabListProps>(({ theme }) => ({
+  '&, & .MuiTabs-scroller': {
+    margin: `${theme.spacing(-1, -1, -1.5, -1)} !important`,
+    padding: theme.spacing(1, 1, 1.5, 1)
+  },
   '& .MuiTabs-indicator': {
     display: 'none'
   },
+  '& .MuiTabs-flexContainer': {
+    gap: theme.spacing(2)
+  },
   '& .Mui-selected': {
-    backgroundColor: theme.palette.primary.main,
+    backgroundColor: `${theme.palette.primary.main} !important`,
     color: `${theme.palette.common.white} !important`
   },
   '& .MuiTab-root': {
     minWidth: 65,
     minHeight: 38,
+    padding: theme.spacing(2, 5.5),
     borderRadius: theme.shape.borderRadius,
+    paddingBlockEnd: theme.spacing(2),
+    transition: theme.transitions.create(['background-color']),
+    '&:hover': {
+      border: 0,
+      backgroundColor: theme.palette.background.paper
+    },
     [theme.breakpoints.up('sm')]: {
-      minWidth: 130
+      minWidth: 100
     }
   }
 }))

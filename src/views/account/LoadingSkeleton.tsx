@@ -33,7 +33,7 @@ const AccountLoadingSkeleton = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <AccountBreadcrumbs pageLevels={[{ title: '我的帳號' }]} />
+        <AccountBreadcrumbs pageLevels={[{ title: 'PageBreadcrumb.General.Account.PageTitle' }]} />
       </Grid>
       <Grid item xs={12} md={5} lg={4}>
         <Grid container spacing={6}>
@@ -61,11 +61,11 @@ const AccountLoadingSkeleton = () => {
             </Card>
           </Grid>
           <Grid item xs={12}>
-            <Card sx={{ boxShadow: 'none', border: theme => `2px solid ${theme.palette.primary.main}` }}>
+            <Card>
               <CardContent>
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>角色權限</Typography>
+                    <Typography variant='subtitle2'>Role</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />
@@ -87,7 +87,7 @@ const AccountLoadingSkeleton = () => {
               <CardContent>
                 <Grid container spacing={4}>
                   <Grid item xs={12}>
-                    <Typography variant='subtitle2'>屬性</Typography>
+                    <Typography variant='subtitle2'>Metadata</Typography>
                   </Grid>
                   <Grid item xs={12}>
                     <Divider />

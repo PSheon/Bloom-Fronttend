@@ -6,6 +6,7 @@ import Link from 'next/link'
 
 // ** MUI Imports
 import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Chip from '@mui/material/Chip'
 import Grid from '@mui/material/Grid'
 import Dialog from '@mui/material/Dialog'
@@ -121,7 +122,7 @@ const AvatarUploader = (props: Props) => {
         startIcon={<Icon icon='mdi:upload-outline' fontSize={20} />}
         onClick={handleOpen}
       >
-        上傳頭像
+        Upload Avatar
       </Button>
 
       <Dialog
@@ -143,9 +144,9 @@ const AvatarUploader = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          上傳頭像
+          Upload Avatar
           <DialogContentText id='user-view-edit-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
-            更新個人資料詳細資訊將接受隱私審核
+            Updating personal information will undergo privacy review
           </DialogContentText>
         </DialogTitle>
         <DialogContent
@@ -172,7 +173,7 @@ const AvatarUploader = (props: Props) => {
                             startIcon={<Icon icon='mdi:delete-outline' />}
                             onClick={handleRemoveFiles}
                           >
-                            移除頭像
+                            Remove
                           </Button>
                         </Box>
                         <Box sx={{ position: 'absolute', right: 20, bottom: 20 }}>
@@ -181,21 +182,25 @@ const AvatarUploader = (props: Props) => {
                       </Fragment>
                     ))
                   ) : (
-                    <Box sx={{ display: 'flex', flexDirection: 'column', textAlign: 'center' }}>
+                    <Stack textAlign='center'>
                       <Typography
                         variant='h5'
+                        component='p'
                         color='text.primary'
                         sx={{ mb: 5, '& a': { color: 'primary.main', textDecoration: 'none' } }}
                       >
-                        將圖片拖放到此處或{' '}
+                        Drag and drop an image here
+                        <br />
+                        or
+                        <br />
                         <Link href='/' onClick={e => e.preventDefault()}>
-                          點擊瀏覽
+                          Click to browse
                         </Link>{' '}
-                        您的文件夾
+                        from your folders
                       </Typography>
-                      <Typography color='textSecondary'>支援JPG、PNG</Typography>
-                      <Typography color='textSecondary'>每個圖片大小限制為20MB</Typography>
-                    </Box>
+                      <Typography color='text.secondary'>Accept JPG/PNG</Typography>
+                      <Typography color='text.secondary'>Each image size should be less than 20MB</Typography>
+                    </Stack>
                   )}
                 </Box>
               </DropzoneWrapper>
@@ -211,7 +216,7 @@ const AvatarUploader = (props: Props) => {
           }}
         >
           <Button variant='outlined' color='secondary' onClick={handleClose}>
-            取消
+            Cancel
           </Button>
           <LoadingButton
             loading={isUploadMediaAssetsLoading}
@@ -220,7 +225,7 @@ const AvatarUploader = (props: Props) => {
             startIcon={<Icon icon='mdi:cloud-upload-outline' />}
             onClick={handleUploadClick}
           >
-            上傳頭像
+            Upload
           </LoadingButton>
         </DialogActions>
       </Dialog>
