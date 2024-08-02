@@ -157,7 +157,9 @@ const MePointsLevelCard = () => {
         </Stack>
         <MePointsLevelUpgradeTasksStack levelProperties={meLevelProperties} />
         <Stack alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ mt: 2 }}>
-          <Typography variant='caption'>updates may take up to 5 minutes</Typography>
+          <Typography variant='caption' textAlign='center'>
+            If you have completed all the upgrade tasks, you will level up with your next reward.
+          </Typography>
         </Stack>
       </CardContent>
     </Card>

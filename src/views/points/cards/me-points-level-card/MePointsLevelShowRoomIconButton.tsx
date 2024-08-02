@@ -44,7 +44,15 @@ import MePointsLevelShoRoomStepperDotBox from 'src/views/points/boxes/MePointsLe
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
+// ** API Imports
+import { useFindMeOneQuery } from 'src/store/api/management/user'
+import { useFindMeStatisticsQuery } from 'src/store/api/management/pointRecord'
+
+// ** Util Imports
+import { getFormattedPriceUnit } from 'src/utils'
+
 // ** Config Imports
+import type { UpgradeTaskType } from 'src/configs/point'
 import { LEVEL_TABLE } from 'src/configs/point'
 
 // ** Type Imports
@@ -70,9 +78,21 @@ const MePointsLevelShowRoomIconButton = () => {
 
   // ** Hooks
   const theme = useTheme()
+  const { data: meUserData } = useFindMeOneQuery(null)
+  const { data: meStatisticsData } = useFindMeStatisticsQuery(null)
 
   // ** Vars
   const currentLevelProperties = LEVEL_TABLE[activeLevel]
+  const meExp = meUserData?.exp ?? 0
+  const meStakedValue = meStatisticsData?.meStakedValue || 0
+  const directReferralsMembers = meStatisticsData?.rankDownLine1?.totalMembers || 0
+  const directReferralsStakedValue = meStatisticsData?.rankDownLine1?.totalStakedValue || 0
+
+  const teamStakedValue =
+    Number(meStatisticsData?.rankDownLine1?.totalStakedValue || 0) +
+    Number(meStatisticsData?.rankDownLine2?.totalStakedValue || 0) +
+    Number(meStatisticsData?.rankDownLine3?.totalStakedValue || 0) +
+    Number(meStatisticsData?.rankTeam?.totalStakedValue || 0)
 
   // ** Logics
   const handleShowRoomOpen = () => setOpenShowRoom(true)
@@ -184,6 +204,50 @@ const MePointsLevelShowRoomIconButton = () => {
   const renderUpgradeTasksTimelineStack = () => {
     const upgradeTasks = currentLevelProperties.upgradeTasks
 
+    const getTaskProgressString = (upgradeTask: UpgradeTaskType): string => {
+      if (upgradeTask.taskType === 'Exp') {
+        if (meExp >= upgradeTask.value) {
+          return 'Completed'
+        } else {
+          return `${getFormattedPriceUnit(meExp)}/${getFormattedPriceUnit(upgradeTask.value)}`
+        }
+      }
+
+      if (upgradeTask.taskType === 'Refer') {
+        if (directReferralsMembers >= upgradeTask.value) {
+          return 'Completed'
+        } else {
+          return `${getFormattedPriceUnit(directReferralsMembers)}/${getFormattedPriceUnit(upgradeTask.value)}`
+        }
+      }
+
+      if (upgradeTask.taskType === 'Staking') {
+        if (meStakedValue >= upgradeTask.value) {
+          return 'Completed'
+        } else {
+          return `${getFormattedPriceUnit(meStakedValue)}/${getFormattedPriceUnit(upgradeTask.value)}`
+        }
+      }
+
+      if (upgradeTask.taskType === 'Direct Referral Staking') {
+        if (directReferralsStakedValue >= upgradeTask.value) {
+          return 'Completed'
+        } else {
+          return `${getFormattedPriceUnit(directReferralsStakedValue)}/${getFormattedPriceUnit(upgradeTask.value)}`
+        }
+      }
+
+      if (upgradeTask.taskType === 'Team Staking') {
+        if (teamStakedValue >= upgradeTask.value) {
+          return 'Completed'
+        } else {
+          return `${getFormattedPriceUnit(teamStakedValue)}/${getFormattedPriceUnit(upgradeTask.value)}`
+        }
+      }
+
+      return ''
+    }
+
     if (upgradeTasks.length === 0) {
       return (
         <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
@@ -217,7 +281,7 @@ const MePointsLevelShowRoomIconButton = () => {
                   <Typography component='p' sx={{ fontWeight: 600 }}>
                     {upgradeTask.title}
                   </Typography>
-                  <Typography variant='caption'>{`# ${index + 1}`}</Typography>
+                  <Typography variant='caption'>{getTaskProgressString(upgradeTask)}</Typography>
                 </Stack>
                 <Typography variant='caption'>{upgradeTask.description}</Typography>
               </TimelineContent>

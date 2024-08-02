@@ -28,10 +28,10 @@ const MePointsStatisticsCard = () => {
   const directReferralsStakedValue = meStatisticsData?.rankDownLine1?.totalStakedValue || 0
 
   const teamStakedValue =
-    (meStatisticsData?.rankDownLine1?.totalStakedValue || 0) +
-    (meStatisticsData?.rankDownLine2?.totalStakedValue || 0) +
-    (meStatisticsData?.rankDownLine3?.totalStakedValue || 0) +
-    (meStatisticsData?.rankTeam?.totalStakedValue || 0)
+    Number(meStatisticsData?.rankDownLine1?.totalStakedValue || 0) +
+    Number(meStatisticsData?.rankDownLine2?.totalStakedValue || 0) +
+    Number(meStatisticsData?.rankDownLine3?.totalStakedValue || 0) +
+    Number(meStatisticsData?.rankTeam?.totalStakedValue || 0)
 
   return (
     <Card>
