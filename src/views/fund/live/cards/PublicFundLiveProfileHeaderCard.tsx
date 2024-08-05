@@ -1,13 +1,13 @@
 // ** MUI Components
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Card from '@mui/material/Card'
 import { styled } from '@mui/material/styles'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import CardContent from '@mui/material/CardContent'
-import Tooltip from '@mui/material/Tooltip'
 import AvatarGroup from '@mui/material/AvatarGroup'
+import Button from '@mui/material/Button'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Stack from '@mui/material/Stack'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -38,6 +38,7 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
 
   // ** Vars
   const fundCategoryProperties = getFundCategoryProperties(initFundEntity.category)
+  const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   const currentBannerMediaAsset = initFundEntity.banner?.data?.id
     ? ({
@@ -45,8 +46,6 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
         ...initFundEntity.banner.data.attributes
       } as MediaAssetType)
     : null
-
-  const baseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   return (
     <Card>
@@ -56,7 +55,7 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
         image={
           currentBannerMediaAsset
             ? getPublicMediaAssetUrl(currentBannerMediaAsset.formats?.thumbnail?.url)
-            : '/images/pages/profile-banner.png'
+            : '/images/pages/profile-banner.webp'
         }
         sx={{
           height: { xs: 150, md: 250 }
@@ -73,10 +72,10 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
         }}
       >
         <FundAvatarGroup className='pull-up'>
-          <Tooltip title={baseCurrencyProperties.displayName}>
+          <Tooltip title={fundBaseCurrencyProperties.displayName}>
             <CustomAvatar
-              src={baseCurrencyProperties.imageUrl}
-              alt={baseCurrencyProperties.displayName}
+              src={fundBaseCurrencyProperties.imageUrl}
+              alt={fundBaseCurrencyProperties.displayName}
               sx={{
                 height: 120,
                 width: 120,
@@ -98,18 +97,23 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
             />
           </Tooltip>
         </FundAvatarGroup>
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            ml: { xs: 0, md: 6 },
-            alignItems: 'flex-start',
-            flexWrap: ['wrap', 'nowrap'],
-            justifyContent: ['center', 'space-between']
-          }}
+        <Stack
+          direction='row'
+          flexWrap={{ xs: 'wrap', sm: 'nowrap' }}
+          alignItems='flex-start'
+          justifyContent={{ xs: 'center', sm: 'space-between' }}
+          sx={{ width: '100%', ml: { xs: 0, md: 6 } }}
         >
-          <Box sx={{ mb: [6, 0], display: 'flex', flexDirection: 'column', alignItems: ['center', 'flex-start'] }}>
-            <Typography variant='h5' sx={{ mb: 4, fontSize: '1.375rem' }}>
+          <Stack
+            spacing={4}
+            alignSelf='flex-end'
+            alignItems={{
+              xs: 'center',
+              sm: 'flex-start'
+            }}
+            sx={{ mb: { xs: 6, sm: 0 } }}
+          >
+            <Typography variant='h5' textAlign={{ xs: 'center', sm: 'left' }} sx={{ fontSize: '1.375rem' }}>
               {initFundEntity.displayName}
             </Typography>
             <Stack direction='row' spacing={4} flexWrap='wrap' justifyContent={['center', 'flex-start']}>
@@ -138,22 +142,23 @@ const PublicFundLiveProfileHeaderCard = (props: Props) => {
                 </Typography>
               </Stack>
             </Stack>
-          </Box>
-          <Stack direction='row' spacing={4} justifyContent='center'>
-            <Stack direction='column' alignItems='flex-end'>
-              <Typography variant='caption' sx={{ color: 'text.secondary', fontWeight: 600 }}>
-                My Total Position
-              </Typography>
-              <Typography
-                variant='caption'
-                sx={{ color: 'text.secondary', fontWeight: 600 }}
-              >{`(${baseCurrencyProperties.currency})`}</Typography>
-            </Stack>
-            <Typography variant='h5' sx={{ mb: 4, fontSize: '1.375rem' }}>
-              6,000,122
-            </Typography>
           </Stack>
-        </Box>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+            {initFundEntity.twitterUrl && (
+              <Button color='info' variant='contained' sx={{ p: 1.5, minWidth: 38 }}>
+                <Icon icon='mdi:twitter' fontSize={20} />
+              </Button>
+            )}
+            {initFundEntity.discordUrl && (
+              <Button color='primary' variant='contained' sx={{ p: 1.5, minWidth: 38 }}>
+                <Icon icon='ic:outline-discord' fontSize={20} />
+              </Button>
+            )}
+            <Button color='primary' variant='outlined' sx={{ p: 1.5, minWidth: 38 }}>
+              <Icon icon='mdi:share-variant-outline' fontSize={20} />
+            </Button>
+          </Stack>
+        </Stack>
       </CardContent>
     </Card>
   )

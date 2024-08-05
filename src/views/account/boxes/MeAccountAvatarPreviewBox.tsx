@@ -1,6 +1,7 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
 import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Skeleton from '@mui/material/Skeleton'
 
@@ -85,26 +86,25 @@ const MeAccountAvatarPreviewBox = (props: Props) => {
     return (
       <RootPreviewBox>
         {isImage ? (
-          <Box
+          <Stack
+            alignItems='center'
+            justifyContent='center'
             sx={{
               width: 128,
-              height: 128,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+              height: 128
             }}
           >
             <ProfilePicture
               alt={updatedMeUser.avatar.name}
               src={getPublicMediaAssetUrl(updatedMeUser.avatar.formats?.thumbnail?.url)}
             />
-          </Box>
+          </Stack>
         ) : (
           <Icon icon='mdi:file' fontSize={40} />
         )}
         <Box sx={{ position: 'absolute', bottom: 20 }}>
           <Button variant='outlined' color='error' onClick={() => handleUpdateAvatar(null)}>
-            移除頭像
+            Remove
           </Button>
         </Box>
       </RootPreviewBox>
@@ -113,18 +113,17 @@ const MeAccountAvatarPreviewBox = (props: Props) => {
 
   return (
     <RootPreviewBox>
-      <Box
+      <Stack
+        alignItems='center'
+        justifyContent='center'
         sx={{
           width: 128,
           height: 128,
-          mb: 4,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
+          mb: 4
         }}
       >
         <ProfilePicture src='/images/avatars/1.png' alt={updatedMeUser.username} />
-      </Box>
+      </Stack>
       <Box>
         <AvatarUploader handleFinish={handleUpdateAvatar} />
       </Box>

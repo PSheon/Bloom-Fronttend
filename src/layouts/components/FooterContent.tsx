@@ -7,6 +7,9 @@ import Box from '@mui/material/Box'
 import Typography from '@mui/material/Typography'
 import useMediaQuery from '@mui/material/useMediaQuery'
 
+// ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
+
 // ** Type Imports
 import type { Theme } from '@mui/material/styles'
 
@@ -25,8 +28,8 @@ const FooterContent = () => {
       {hidden ? (
         <Typography sx={{ mr: 2 }}>
           {`© ${new Date().getFullYear()}, By `}
-          <LinkStyled target='_blank' href='https://github.com/PSheon'>
-            PSheon
+          <LinkStyled target='_blank' href='https://github.com'>
+            {`${themeConfig.templateName} Lab`}
           </LinkStyled>
         </Typography>
       ) : (
@@ -36,8 +39,8 @@ const FooterContent = () => {
             ❤️
           </Box>
           {` by `}
-          <LinkStyled target='_blank' href='https://github.com/PSheon'>
-            PSheon
+          <LinkStyled target='_blank' href='https://github.com'>
+            {`${themeConfig.templateName} Lab`}
           </LinkStyled>
         </Typography>
       )}

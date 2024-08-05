@@ -38,7 +38,7 @@ const PortfolioMeNotificationCard = () => {
   return (
     <Card sx={{ display: 'flex', flexDirection: 'column' }}>
       <CardHeader
-        title='我的通知'
+        title='My Notifications'
         action={
           <CustomChip
             skin='light'

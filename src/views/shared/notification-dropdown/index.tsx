@@ -173,7 +173,7 @@ const NotificationDropdown = (props: Props) => {
           sx={{ cursor: 'default', userSelect: 'auto', backgroundColor: 'transparent !important' }}
         >
           <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', width: '100%' }}>
-            <Typography sx={{ cursor: 'text', fontWeight: 600 }}>通知</Typography>
+            <Typography sx={{ cursor: 'text', fontWeight: 600 }}>Notifications</Typography>
             <CustomChip
               skin='light'
               size='small'
@@ -228,7 +228,7 @@ const NotificationDropdown = (props: Props) => {
             href={`/notification/list`}
             onClick={handleDropdownClose}
           >
-            查看所有通知
+            Read all notifications
           </Button>
         </MenuItem>
       </Menu>

@@ -58,6 +58,7 @@ const schema = yup.object().shape({
   description: yup.string().optional(),
   saleStartTime: yup.date().required(),
   maturityDate: yup.date().required(),
+  estimatedAPY: yup.number().required(),
   performanceFeePercentage: yup.number().required(),
   redemptionFrequencyInDays: yup.number().required(),
   discordUrl: yup.string().optional(),
@@ -72,6 +73,7 @@ interface FormData {
   description?: string
   saleStartTime: Date
   maturityDate: Date
+  estimatedAPY: number
   performanceFeePercentage: number
   redemptionFrequencyInDays: number
   discordUrl?: string
@@ -99,6 +101,7 @@ const ManagementFundEditOverviewProfileCard = (props: Props) => {
       description: initFundEntity.description || '',
       saleStartTime: new Date(initFundEntity.saleStartTime),
       maturityDate: new Date(initFundEntity.maturityDate),
+      estimatedAPY: initFundEntity.estimatedAPY,
       performanceFeePercentage: initFundEntity.performanceFeePercentage,
       redemptionFrequencyInDays: initFundEntity.redemptionFrequencyInDays,
       discordUrl: initFundEntity.discordUrl || '',
@@ -121,6 +124,7 @@ const ManagementFundEditOverviewProfileCard = (props: Props) => {
       description,
       saleStartTime,
       maturityDate,
+      estimatedAPY,
       performanceFeePercentage,
       redemptionFrequencyInDays
     } = data
@@ -132,6 +136,7 @@ const ManagementFundEditOverviewProfileCard = (props: Props) => {
         description,
         saleStartTime,
         maturityDate,
+        estimatedAPY,
         performanceFeePercentage,
         redemptionFrequencyInDays
       }
@@ -190,55 +195,63 @@ const ManagementFundEditOverviewProfileCard = (props: Props) => {
         </Box>
       </CardContent>
 
-      <CardContent>
+      <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
         <Typography variant='subtitle2'>資金資料</Typography>
-        <Divider sx={{ mt: theme => `${theme.spacing(4)} !important` }} />
-        <Box sx={{ pt: 2, pb: 1 }}>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+        <Stack alignSelf='stretch'>
+          <Divider />
+        </Stack>
+        <Stack spacing={2.7}>
+          <Stack direction='row' flexWrap='wrap' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
               描述：
             </Typography>
             <Typography variant='body2'>{initFundEntity.description || '未說明'}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
               創始日期：
             </Typography>
             <Typography variant='body2'>{format(new Date(initFundEntity.genesisDate), 'PPpp')}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
               結束日期：
             </Typography>
             <Typography variant='body2'>{format(new Date(initFundEntity.maturityDate), 'PPpp')}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
+              預期APY：
+            </Typography>
+            <Typography variant='body2'>{`${initFundEntity.estimatedAPY}%`}</Typography>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
               績效手續費：
             </Typography>
             <Typography variant='body2'>{`${initFundEntity.performanceFeePercentage}%`}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
               協議手續費：
             </Typography>
             <Typography variant='body2'>{`${0}%`}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
               銷售開始日期：
             </Typography>
             <Typography variant='body2'>{format(new Date(initFundEntity.saleStartTime), 'PPpp')}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' color='text.primary'>
               兌換週期：
             </Typography>
             <Typography variant='body2'>
               {initFundEntity.redemptionFrequencyInDays ? `${initFundEntity.redemptionFrequencyInDays} 天` : '未設定'}
             </Typography>
-          </Box>
-        </Box>
+          </Stack>
+        </Stack>
       </CardContent>
 
       <CardActions sx={{ display: 'flex', justifyContent: 'center' }}>
@@ -402,6 +415,38 @@ const ManagementFundEditOverviewProfileCard = (props: Props) => {
                     />
                     {errors.maturityDate && (
                       <FormHelperText sx={{ color: 'error.main' }}>{errors.maturityDate.message}</FormHelperText>
+                    )}
+                  </FormControl>
+                </Grid>
+                <Grid item xs={12}>
+                  <FormControl fullWidth>
+                    <Controller
+                      name='estimatedAPY'
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange, onBlur } }) => (
+                        <TextField
+                          type='number'
+                          label='預期APY'
+                          placeholder='14%'
+                          value={value}
+                          onBlur={onBlur}
+                          onChange={onChange}
+                          InputProps={{
+                            endAdornment: (
+                              <InputAdornment position='end'>
+                                <Icon icon='mdi:percent-outline' fontSize={18} />
+                              </InputAdornment>
+                            )
+                          }}
+                          error={Boolean(errors.estimatedAPY)}
+                        />
+                      )}
+                    />
+                    {errors.estimatedAPY && (
+                      <FormHelperText sx={{ color: 'error.main' }} id='fund-edit-estimated-apy'>
+                        {errors.estimatedAPY.message}
+                      </FormHelperText>
                     )}
                   </FormControl>
                 </Grid>

@@ -47,7 +47,7 @@ export const packageApi = createApi({
     findOne: builder.query<FindOnePackageResponseType, FindOnePackageParamsType>({
       query: packageId => ({
         url: `/api/packages/${packageId}?${qs.stringify({
-          populate: ['banner', 'slot']
+          populate: ['banner', 'slots']
         })}`,
         method: 'GET'
       }),
@@ -90,7 +90,7 @@ export const packageApi = createApi({
     updateOne: builder.mutation<UpdateOnePackageResponseType, UpdateOnePackageParamsType>({
       query: params => ({
         url: `/api/packages/${params.id}?${qs.stringify({
-          populate: ['banner', 'slot']
+          populate: ['banner', 'slots']
         })}`,
         method: 'PUT',
         body: params

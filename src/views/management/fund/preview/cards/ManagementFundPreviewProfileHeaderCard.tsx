@@ -3,15 +3,14 @@ import Link from 'next/link'
 
 // ** MUI Components
 import { styled } from '@mui/material/styles'
-import Box from '@mui/material/Box'
-import Stack from '@mui/material/Stack'
-import Card from '@mui/material/Card'
-import Button from '@mui/material/Button'
-import CardMedia from '@mui/material/CardMedia'
-import Typography from '@mui/material/Typography'
-import CardContent from '@mui/material/CardContent'
-import Tooltip from '@mui/material/Tooltip'
 import AvatarGroup from '@mui/material/AvatarGroup'
+import Button from '@mui/material/Button'
+import Card from '@mui/material/Card'
+import CardContent from '@mui/material/CardContent'
+import CardMedia from '@mui/material/CardMedia'
+import Stack from '@mui/material/Stack'
+import Tooltip from '@mui/material/Tooltip'
+import Typography from '@mui/material/Typography'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -60,7 +59,7 @@ const ManagementFundPreviewProfileHeaderCard = (props: Props) => {
         image={
           currentBannerMediaAsset
             ? getPublicMediaAssetUrl(currentBannerMediaAsset.formats?.thumbnail?.url)
-            : '/images/pages/profile-banner.png'
+            : '/images/pages/profile-banner.webp'
         }
         sx={{
           height: { xs: 150, md: 250 }
@@ -102,18 +101,23 @@ const ManagementFundPreviewProfileHeaderCard = (props: Props) => {
             />
           </Tooltip>
         </FundAvatarGroup>
-        <Box
-          sx={{
-            width: '100%',
-            display: 'flex',
-            ml: { xs: 0, md: 6 },
-            alignItems: 'flex-end',
-            flexWrap: ['wrap', 'nowrap'],
-            justifyContent: ['center', 'space-between']
-          }}
+        <Stack
+          direction='row'
+          flexWrap={{ xs: 'wrap', sm: 'nowrap' }}
+          alignItems={{ xs: 'center', sm: 'flex-end' }}
+          justifyContent={{ xs: 'center', sm: 'space-between' }}
+          sx={{ width: '100%', ml: { xs: 0, md: 6 } }}
         >
-          <Box sx={{ mb: [6, 0], display: 'flex', flexDirection: 'column', alignItems: ['center', 'flex-start'] }}>
-            <Typography variant='h5' sx={{ mb: 4, fontSize: '1.375rem' }}>
+          <Stack
+            spacing={4}
+            alignSelf='flex-end'
+            alignItems={{
+              xs: 'center',
+              sm: 'flex-start'
+            }}
+            sx={{ mb: { xs: 6, sm: 0 } }}
+          >
+            <Typography variant='h5' textAlign={{ xs: 'center', sm: 'left' }} sx={{ fontSize: '1.375rem' }}>
               {initFundEntity.displayName}
             </Typography>
             <Stack direction='row' spacing={4} flexWrap='wrap' justifyContent={['center', 'flex-start']}>
@@ -142,21 +146,38 @@ const ManagementFundPreviewProfileHeaderCard = (props: Props) => {
                 </Typography>
               </Stack>
             </Stack>
-          </Box>
-          <Stack direction='row' spacing={4}>
-            <Button
-              component={Link}
-              href={`/management/fund/edit/${initFundEntity.id}/overview`}
-              variant='outlined'
-              startIcon={<Icon icon='mdi:edit-box-outline' fontSize={20} />}
-            >
-              編輯資金
-            </Button>
-            <Button variant='contained' startIcon={<Icon icon='mdi:public' fontSize={20} />}>
-              發布資金
-            </Button>
           </Stack>
-        </Box>
+          <Stack spacing={2} alignItems={{ xs: 'center', sm: 'flex-end' }} justifyContent='center'>
+            <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+              {initFundEntity.twitterUrl && (
+                <Button color='info' variant='contained' sx={{ p: 1.5, minWidth: 38 }}>
+                  <Icon icon='mdi:twitter' fontSize={20} />
+                </Button>
+              )}
+              {initFundEntity.discordUrl && (
+                <Button color='primary' variant='contained' sx={{ p: 1.5, minWidth: 38 }}>
+                  <Icon icon='ic:outline-discord' fontSize={20} />
+                </Button>
+              )}
+              <Button color='primary' variant='outlined' sx={{ p: 1.5, minWidth: 38 }}>
+                <Icon icon='mdi:share-variant-outline' fontSize={20} />
+              </Button>
+            </Stack>
+            <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+              <Button
+                component={Link}
+                href={`/management/fund/edit/${initFundEntity.id}/overview`}
+                variant='outlined'
+                startIcon={<Icon icon='mdi:edit-box-outline' fontSize={20} />}
+              >
+                Edit
+              </Button>
+              <Button variant='contained' startIcon={<Icon icon='mdi:public' fontSize={20} />}>
+                Publish
+              </Button>
+            </Stack>
+          </Stack>
+        </Stack>
       </CardContent>
     </Card>
   )

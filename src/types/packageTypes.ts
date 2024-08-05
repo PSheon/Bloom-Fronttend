@@ -2,6 +2,16 @@
 import type { BaseApiResponseType } from 'src/types/api/baseApiTypes'
 
 export type SkinType = 'Green' | 'Purple' | 'Orange'
+export type SlotType = {
+  id: number
+  propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
+  description?: string
+  value: string
+  displayValue?: string
+  isIntrinsic: boolean
+  order: number
+  displayType: 'string' | 'number'
+}
 export type PackageType = {
   id: number
   packageId: number
@@ -9,11 +19,7 @@ export type PackageType = {
   description?: string
   skin: SkinType
   priceInUnit: number
-  slot: {
-    id: number
-    propertyType: 'DisplayName' | 'Period'
-    value: string
-  }[]
+  slots: SlotType[]
   status: 'Draft' | 'Published' | 'Archived'
 }
 
@@ -69,10 +75,25 @@ export type UpdateOnePackageParamsType = {
     displayName: string
     description: string
     skin: SkinType
-    slot: {
-      propertyType: 'DisplayName' | 'Period'
-      value: string
-    }[]
+    slots:
+      | Partial<{
+          propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
+          description: string
+          value: string
+          displayValue: string
+          isIntrinsic: boolean
+          order: number
+          displayType: 'string' | 'number'
+        }>[]
+      | Partial<{
+          id: number
+          propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
+          description: string
+          value: string
+          displayValue: string
+          order: number
+          displayType: 'string' | 'number'
+        }>
     priceInUnit: number
     status: 'Draft' | 'Published' | 'Archived'
   }>

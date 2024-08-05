@@ -4,9 +4,9 @@ import TabPanel from '@mui/lab/TabPanel'
 
 // ** Custom Component Imports
 import ManagementFundEditVaultProtocolCard from 'src/views/management/fund/edit/cards/ManagementFundEditVaultProtocolCard'
-import ManagementFundEditVaultStatementCard from 'src/views/management/fund/edit/cards/ManagementFundEditVaultStatementCard'
+import ManagementFundEditVaultPermissionsCard from 'src/views/management/fund/edit/cards/vault-permissions'
 import ManagementFundEditVaultStatisticsCard from 'src/views/management/fund/edit/cards/ManagementFundEditVaultStatisticsCard'
-import ManagementFundEditVaultStakeListCard from 'src/views/management/fund/edit/cards/ManagementFundEditVaultStakeListCard'
+import ManagementFundEditVaultPointsRecordListCard from 'src/views/management/fund/edit/cards/ManagementFundEditVaultPointsRecordListCard'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -28,17 +28,17 @@ const ManagementFundEditVaultTabPanel = (props: Props) => {
               <ManagementFundEditVaultProtocolCard initFundEntity={initFundEntity} />
             </Grid>
             <Grid item xs={12}>
-              <ManagementFundEditVaultStatementCard />
+              <ManagementFundEditVaultPermissionsCard initFundEntity={initFundEntity} />
             </Grid>
           </Grid>
         </Grid>
         <Grid item xs={12} md={7} lg={8}>
           <Grid container spacing={6}>
             <Grid item xs={12}>
-              <ManagementFundEditVaultStatisticsCard />
+              <ManagementFundEditVaultStatisticsCard initFundEntity={initFundEntity} />
             </Grid>
             <Grid item xs={12}>
-              <ManagementFundEditVaultStakeListCard />
+              <ManagementFundEditVaultPointsRecordListCard initFundEntity={initFundEntity} />
             </Grid>
           </Grid>
         </Grid>

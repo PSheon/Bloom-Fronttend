@@ -32,16 +32,25 @@ import { useUpdateOneMutation } from 'src/store/api/management/package'
 import type { PackageType } from 'src/types/packageTypes'
 
 const schema = yup.object().shape({
-  propertyType: yup.string().oneOf(['DisplayName', 'Period']).required(),
-  value: yup.string().required()
+  propertyName: yup.string().oneOf(['DisplayName', 'APY', 'MinimumStakingPeriod']).required(),
+  description: yup.string().optional(),
+  value: yup.string().required(),
+  displayValue: yup.string().optional(),
+  isIntrinsic: yup.boolean().required(),
+  order: yup.number().required(),
+  displayType: yup.string().oneOf(['string', 'number']).required()
 })
 
 interface Props {
   initPackageEntity: PackageType
 }
 interface FormData {
-  propertyType: 'DisplayName' | 'Period'
+  propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
   value: string
+  displayValue?: string
+  isIntrinsic: boolean
+  order: number
+  displayType: 'string' | 'number'
 }
 
 const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
@@ -61,8 +70,12 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
     formState: { isDirty, errors }
   } = useForm({
     defaultValues: {
-      propertyType: 'DisplayName' as 'DisplayName' | 'Period',
-      value: ''
+      propertyName: 'DisplayName',
+      value: '',
+      displayValue: '',
+      isIntrinsic: false,
+      order: 1,
+      displayType: 'string'
     },
     mode: 'onBlur',
     resolver: yupResolver(schema)
@@ -78,18 +91,21 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
   }
 
   const onSubmit = async (data: FormData) => {
-    const { propertyType, value } = data
+    const { propertyName, value, isIntrinsic, order, displayType } = data
 
-    const currentSlot = initPackageEntity!.slot
+    const currentSlots = initPackageEntity!.slots
 
     await updateOnePackage({
       id: initPackageEntity!.id,
       data: {
-        slot: [
-          ...currentSlot,
+        slots: [
+          ...currentSlots,
           {
-            propertyType,
-            value
+            propertyName,
+            value,
+            isIntrinsic,
+            order,
+            displayType
           }
         ]
       }
@@ -146,18 +162,18 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
               <Grid item xs={12}>
                 <FormControl fullWidth>
                   <Controller
-                    name='propertyType'
+                    name='propertyName'
                     control={control}
                     rules={{ required: true }}
                     render={({ field: { value, onChange } }) => (
-                      <Select fullWidth value={value} onChange={onChange} error={Boolean(errors.propertyType)}>
+                      <Select fullWidth value={value} onChange={onChange} error={Boolean(errors.propertyName)}>
                         <MenuItem value='DisplayName'>DisplayName</MenuItem>
                         <MenuItem value='Period'>Period</MenuItem>
                       </Select>
                     )}
                   />
-                  {errors.propertyType && (
-                    <FormHelperText sx={{ color: 'error.main' }}>{errors.propertyType.message}</FormHelperText>
+                  {errors.propertyName && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.propertyName.message}</FormHelperText>
                   )}
                 </FormControl>
               </Grid>
@@ -198,7 +214,7 @@ const ReviewFundEditPackageSlotAddPropertyButton = (props: Props) => {
           </Button>
           <LoadingButton
             loading={isUpdateOnePackageLoading}
-            disabled={!isDirty || Boolean(errors.propertyType || errors.value)}
+            disabled={!isDirty || Boolean(errors.propertyName || errors.value)}
             variant='contained'
             startIcon={<Icon icon='mdi:content-save-outline' />}
             onClick={handleSubmit(onSubmit)}

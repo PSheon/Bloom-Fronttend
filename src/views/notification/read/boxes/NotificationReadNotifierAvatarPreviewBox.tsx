@@ -1,6 +1,7 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
 import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -69,20 +70,19 @@ const NotificationReadNotifierAvatarPreviewBox = (props: Props) => {
     return (
       <RootPreviewBox>
         {isImage ? (
-          <Box
+          <Stack
+            alignItems='center'
+            justifyContent='center'
             sx={{
               width: 128,
-              height: 128,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+              height: 128
             }}
           >
             <ProfilePicture
               alt={notifier.avatar.name}
               src={getPublicMediaAssetUrl(notifier.avatar.formats?.thumbnail?.url)}
             />
-          </Box>
+          </Stack>
         ) : (
           <Icon icon='mdi:user-outline' fontSize={40} />
         )}
@@ -92,18 +92,17 @@ const NotificationReadNotifierAvatarPreviewBox = (props: Props) => {
 
   return (
     <RootPreviewBox>
-      <Box
+      <Stack
+        alignItems='center'
+        justifyContent='center'
         sx={{
           width: 128,
           height: 128,
-          mb: 4,
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center'
+          mb: 4
         }}
       >
         <ProfilePicture src='/images/avatars/1.png' alt={notifier.username} />
-      </Box>
+      </Stack>
     </RootPreviewBox>
   )
 }

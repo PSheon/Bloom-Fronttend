@@ -1,10 +1,14 @@
 // ** MUI Imports
 import { styled, darken } from '@mui/material/styles'
 import Box from '@mui/material/Box'
+import Stack from '@mui/material/Stack'
 import Card from '@mui/material/Card'
 import Divider from '@mui/material/Divider'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+
+// ** Third-Party Imports
+import { useTranslation } from 'react-i18next'
 
 // ** Core Component Imports
 import CustomChip from 'src/@core/components/mui/chip'
@@ -45,30 +49,32 @@ const RootPreviewBox = styled(Box)<BoxProps>(({ theme }) => ({
 }))
 
 const SettingsSystemProfileCard = () => {
+  // ** Hooks
+  const { t } = useTranslation()
+
   return (
     <Card>
       <CardContent sx={{ display: 'flex', alignItems: 'center', flexDirection: 'column' }}>
         <RootPreviewBox>
-          <Box
+          <Stack
+            alignItems='center'
+            justifyContent='center'
             sx={{
               width: 128,
               height: 128,
-              mb: 4,
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center'
+              mb: 4
             }}
           >
             <LogoImage width={96} height={96} />
-          </Box>
+          </Stack>
         </RootPreviewBox>
-        <Typography variant='h6' sx={{ mt: 4, mb: 2 }}>
+        <Typography variant='h6' component='p' sx={{ mt: 4, mb: 2 }}>
           {themeConfig.templateName}
         </Typography>
         <CustomChip
           skin='light'
           size='small'
-          label='服務中'
+          label={t('general-settings::Profile.In Service')}
           color='success'
           sx={{
             height: 20,
@@ -81,56 +87,60 @@ const SettingsSystemProfileCard = () => {
         />
       </CardContent>
 
-      <CardContent sx={{ my: 1 }}>
-        <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-          <Box sx={{ mr: 8, display: 'flex', alignItems: 'center' }}>
-            <CustomAvatar skin='light' variant='rounded' sx={{ mr: 3 }}>
+      <CardContent sx={{ my: 2 }}>
+        <Stack direction='row' spacing={8} alignItems='center' justifyContent='center'>
+          <Stack direction='row' spacing={4} alignItems='center'>
+            <CustomAvatar skin='light' variant='rounded'>
               <Icon icon='mdi:language' />
             </CustomAvatar>
-            <Box>
-              <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
-                繁體中文
+            <Stack>
+              <Typography variant='h6' component='p' sx={{ lineHeight: 1.3 }}>
+                English
               </Typography>
-              <Typography variant='body2'>語言</Typography>
-            </Box>
-          </Box>
-          <Box sx={{ display: 'flex', alignItems: 'center' }}>
-            <CustomAvatar skin='light' variant='rounded' color='info' sx={{ mr: 3 }}>
+              <Typography variant='body2'>{t(`general-settings::Profile.Language`)}</Typography>
+            </Stack>
+          </Stack>
+          <Stack direction='row' spacing={4} alignItems='center'>
+            <CustomAvatar skin='light' variant='rounded' color='info'>
               <Icon icon='mdi:timezone-outline' />
             </CustomAvatar>
-            <Box>
-              <Typography variant='h6' sx={{ lineHeight: 1.3 }}>
+            <Stack>
+              <Typography variant='h6' component='p' sx={{ lineHeight: 1.3 }}>
                 GMT+8
               </Typography>
-              <Typography variant='body2'>時區</Typography>
-            </Box>
-          </Box>
-        </Box>
+              <Typography variant='body2'>{t(`general-settings::Profile.Time Zone`)}</Typography>
+            </Stack>
+          </Stack>
+        </Stack>
       </CardContent>
 
-      <CardContent>
-        <Typography variant='subtitle2'>系統資料</Typography>
-        <Divider sx={{ mt: theme => `${theme.spacing(4)} !important` }} />
-        <Box sx={{ pt: 2, pb: 1 }}>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              版本:
+      <CardContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start' }}>
+        <Typography variant='subtitle2' component='p'>
+          {t(`general-settings::Profile.System Information`)}
+        </Typography>
+        <Stack alignSelf='stretch'>
+          <Divider />
+        </Stack>
+        <Stack spacing={2.7}>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' component='p' color='text.primary'>
+              {`${t(`general-settings::Profile.Version`)} :`}
             </Typography>
             <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              API 版本:
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' component='p' color='text.primary'>
+              {`${t(`general-settings::Profile.API Version`)} :`}
             </Typography>
             <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
-          </Box>
-          <Box sx={{ display: 'flex', mb: 2.7 }}>
-            <Typography variant='subtitle2' sx={{ mr: 2, color: 'text.primary' }}>
-              Socket 版本:
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' component='p' color='text.primary'>
+              {`${t(`general-settings::Profile.Socket Version`)} :`}
             </Typography>
             <Typography variant='body2'>{`v${packageConfig.version ?? '0.0.1'}`}</Typography>
-          </Box>
-        </Box>
+          </Stack>
+        </Stack>
       </CardContent>
     </Card>
   )

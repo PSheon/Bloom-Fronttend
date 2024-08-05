@@ -1,9 +1,13 @@
 // ** MUI Imports
+import { lighten } from '@mui/material/styles'
 import Grid from '@mui/material/Grid'
 import Card from '@mui/material/Card'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
 import CardHeader from '@mui/material/CardHeader'
+
+// ** Third-Party Imports
+import { useTranslation } from 'react-i18next'
 
 // ** Custom Component Imports
 import ThemeConfigSelectBox from 'src/views/settings/select-box/ThemeConfigSelectBox'
@@ -19,6 +23,7 @@ import type { Skin, Mode, ThemeColor } from 'src/@core/layouts/types'
 const SettingsThemingSettingCard = () => {
   // ** Hooks
   const { settings, saveSettings } = useSettings()
+  const { t } = useTranslation()
 
   // ** Vars
   const { mode, skin, themeColor } = settings
@@ -30,11 +35,11 @@ const SettingsThemingSettingCard = () => {
 
   return (
     <Card>
-      <CardHeader title='主題' />
+      <CardHeader title={t('general-settings::Theme Settings.CardTitle')} />
       <CardContent>
         <Grid container spacing={6}>
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>外框</Typography>
+            <Typography variant='subtitle2'>{t('general-settings::Theme Settings.Skin.SectionTitle')}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={6}>
@@ -47,7 +52,7 @@ const SettingsThemingSettingCard = () => {
                       ? `/images/settings/theming/default.svg`
                       : `/images/settings/theming/default-dark.svg`
                   }
-                  title='無邊框'
+                  title={t('general-settings::Theme Settings.Skin.Default')}
                   color='primary'
                   handleClick={() => handleChange('skin', 'default' as Skin)}
                 />
@@ -61,7 +66,7 @@ const SettingsThemingSettingCard = () => {
                       ? `/images/settings/theming/bordered.svg`
                       : `/images/settings/theming/bordered-dark.svg`
                   }
-                  title='有邊框'
+                  title={t('general-settings::Theme Settings.Skin.Bordered')}
                   color='primary'
                   handleClick={() => handleChange('skin', 'bordered' as Skin)}
                 />
@@ -70,7 +75,7 @@ const SettingsThemingSettingCard = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>模式</Typography>
+            <Typography variant='subtitle2'>{t('general-settings::Theme Settings.Mode.SectionTitle')}</Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={4}>
@@ -81,7 +86,7 @@ const SettingsThemingSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/theming/light.svg` : `/images/settings/theming/light-dark.svg`
                   }
-                  title='明亮'
+                  title={t('general-settings::Theme Settings.Mode.Light')}
                   color='primary'
                   handleClick={() => handleChange('mode', 'light' as Mode)}
                 />
@@ -93,7 +98,7 @@ const SettingsThemingSettingCard = () => {
                   image={
                     mode === 'light' ? `/images/settings/theming/dark.svg` : `/images/settings/theming/dark-dark.svg`
                   }
-                  title='黑暗'
+                  title={t('general-settings::Theme Settings.Mode.Dark')}
                   color='primary'
                   handleClick={() => handleChange('mode', 'dark' as Mode)}
                 />
@@ -102,7 +107,9 @@ const SettingsThemingSettingCard = () => {
           </Grid>
 
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>主色</Typography>
+            <Typography variant='subtitle2'>
+              {t('general-settings::Theme Settings.Primary Color.SectionTitle')}
+            </Typography>
           </Grid>
           <Grid item xs={12}>
             <Grid container spacing={4}>
@@ -111,7 +118,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='primary'
                   handleClick={() => handleChange('themeColor', 'primary' as ThemeColor)}
-                  sx={{ backgroundColor: '#666CFF' }}
+                  sx={{
+                    backgroundColor: '#666CFF',
+                    border: `5px solid ${lighten('#666CFF', 0.1)}`
+                  }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
@@ -119,7 +129,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='secondary'
                   handleClick={() => handleChange('themeColor', 'secondary' as ThemeColor)}
-                  sx={{ backgroundColor: 'secondary.main' }}
+                  sx={{
+                    backgroundColor: 'secondary.main',
+                    border: theme => `5px solid ${lighten(theme.palette.secondary.main, 0.1)}`
+                  }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
@@ -127,7 +140,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='success'
                   handleClick={() => handleChange('themeColor', 'success' as ThemeColor)}
-                  sx={{ backgroundColor: 'success.main' }}
+                  sx={{
+                    backgroundColor: 'success.main',
+                    border: theme => `5px solid ${lighten(theme.palette.success.main, 0.1)}`
+                  }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
@@ -135,7 +151,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='error'
                   handleClick={() => handleChange('themeColor', 'error' as ThemeColor)}
-                  sx={{ backgroundColor: 'error.main' }}
+                  sx={{
+                    backgroundColor: 'error.main',
+                    border: theme => `5px solid ${lighten(theme.palette.error.main, 0.1)}`
+                  }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
@@ -143,7 +162,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='warning'
                   handleClick={() => handleChange('themeColor', 'warning' as ThemeColor)}
-                  sx={{ backgroundColor: 'warning.main' }}
+                  sx={{
+                    backgroundColor: 'warning.main',
+                    border: theme => `5px solid ${lighten(theme.palette.warning.main, 0.1)}`
+                  }}
                 />
               </Grid>
               <Grid item xs={3} sm='auto'>
@@ -151,7 +173,10 @@ const SettingsThemingSettingCard = () => {
                   selected={themeColor}
                   value='info'
                   handleClick={() => handleChange('themeColor', 'info' as ThemeColor)}
-                  sx={{ backgroundColor: 'info.main' }}
+                  sx={{
+                    backgroundColor: 'info.main',
+                    border: theme => `5px solid ${lighten(theme.palette.info.main, 0.1)}`
+                  }}
                 />
               </Grid>
             </Grid>

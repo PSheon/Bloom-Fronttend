@@ -1,5 +1,5 @@
 // ** Type Imports
-import type { OutputData } from '@editorjs/editorjs'
+import type { Block } from '@blocknote/core'
 import type { BaseApiResponseType, UserApiResponseType } from 'src/types/api/baseApiTypes'
 
 export type NotificationType = {
@@ -7,7 +7,7 @@ export type NotificationType = {
   notifier: UserApiResponseType
   category: 'System' | 'Fund'
   title: string
-  content: OutputData
+  content: Block[]
   date: boolean
   isSeen: boolean
   isHighlighted: boolean
@@ -102,7 +102,7 @@ export type UpdateOneNotificationParamsType = {
   id: number
   data: Partial<{
     title: string
-    content: OutputData
+    content: Block[]
     isSeen: boolean
     isHighlighted: boolean
   }>

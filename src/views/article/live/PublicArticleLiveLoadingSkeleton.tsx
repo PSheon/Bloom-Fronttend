@@ -1,128 +1,65 @@
 // ** MUI Imports
 import Grid from '@mui/material/Grid'
 import Stack from '@mui/material/Stack'
-import CardContent from '@mui/material/CardContent'
-import Card from '@mui/material/Card'
+import Typography from '@mui/material/Typography'
 import Skeleton from '@mui/material/Skeleton'
-
-// ** Custom Component Imports
-import PublicArticleLiveBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
 const PublicArticleLiveLoadingSkeleton = () => {
   return (
-    <Grid container spacing={6}>
+    <Grid container spacing={6} className='match-height'>
       <Grid item xs={12}>
-        <PublicArticleLiveBreadcrumbs
-          pageLevels={[{ title: '文章列表', href: '/article/list' }, { title: '查看文章' }]}
-        />
+        <Skeleton variant='text' width={120} />
       </Grid>
       <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            <Stack spacing={4}>
-              <Skeleton variant='rounded' height={160} />
-              <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} alignItems='center'>
-                <Skeleton variant='rounded' width={128} height={96} />
-                <Stack spacing={4} alignItems={{ xs: 'center', md: 'flex-start' }}>
-                  <Skeleton variant='rounded' width={160} height={32} />
-                  <Skeleton variant='rounded' width={256} height={24} />
-                </Stack>
-              </Stack>
-            </Stack>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={8}>
-        <Card>
-          <CardContent>
-            <Stack spacing={2}>
-              <Skeleton variant='text' width={200} sx={{ fontSize: '1.6rem' }} />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-              <Skeleton variant='rounded' height={240} />
-            </Stack>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12} md={4}>
-        <Card>
-          <CardContent>
-            <Stack spacing={2}>
-              <Skeleton variant='text' width={200} sx={{ fontSize: '1.6rem' }} />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-            </Stack>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            <Stack spacing={2}>
-              <Skeleton variant='text' width={200} sx={{ fontSize: '1.6rem' }} />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-            </Stack>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            <Stack spacing={2}>
-              <Skeleton variant='text' width={200} sx={{ fontSize: '1.6rem' }} />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-              <Skeleton variant='text' />
-            </Stack>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Stack spacing={2}>
-          <Skeleton variant='rounded' width={200} height={24} />
-          <Skeleton variant='text' sx={{ fontSize: '1.2rem' }} />
+        <Stack spacing={4}>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='flex-start'>
+            <Skeleton variant='text' width={120} />
+            <Typography variant='subtitle2' component='p'>
+              <Skeleton variant='text' width={80} />
+            </Typography>
+          </Stack>
+
+          <Stack spacing={2}>
+            <Typography variant='h3' component='p'>
+              <Skeleton variant='text' width='60%' />
+            </Typography>
+            <Typography variant='h6' component='p'>
+              <Skeleton variant='text' width='40%' />
+            </Typography>
+          </Stack>
         </Stack>
       </Grid>
       <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            <Stack direction='row' spacing={4}>
-              <Skeleton variant='rounded' width={200} height={200} />
-              <Stack spacing={2} flexGrow={1}>
-                <Skeleton variant='text' width={200} sx={{ fontSize: '1.6rem' }} />
-                <Skeleton variant='text' />
-                <Skeleton variant='text' />
-                <Skeleton variant='text' />
-                <Skeleton variant='text' />
-                <Skeleton variant='text' />
+        <Grid container spacing={6}>
+          <Grid item xs={12} md={8} lg={9}>
+            <Stack spacing={2}>
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+              <Skeleton variant='text' width='100%' />
+            </Stack>
+          </Grid>
+          <Grid item xs={12} md={4} lg={3}>
+            <Stack spacing={4}>
+              <Skeleton variant='text' width={60} />
+              <Stack direction='row' spacing={4} alignItems='center'>
+                <Skeleton variant='circular' width={34} height={34} />
+                <Stack alignItems='flex-start'>
+                  <Skeleton variant='text' width={120} />
+                  <Skeleton variant='text' width={80} />
+                </Stack>
               </Stack>
             </Stack>
-          </CardContent>
-        </Card>
-      </Grid>
-      <Grid item xs={12}>
-        <Card>
-          <CardContent>
-            <Stack direction='row' spacing={4}>
-              <Skeleton variant='rounded' width={200} height={200} />
-              <Stack spacing={2} flexGrow={1}>
-                <Skeleton variant='text' width={200} sx={{ fontSize: '1.6rem' }} />
-                <Skeleton variant='text' />
-                <Skeleton variant='text' />
-                <Skeleton variant='text' />
-                <Skeleton variant='text' />
-                <Skeleton variant='text' />
-              </Stack>
-            </Stack>
-          </CardContent>
-        </Card>
+          </Grid>
+        </Grid>
       </Grid>
     </Grid>
   )

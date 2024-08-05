@@ -43,22 +43,41 @@ import { useResetPasswordMutation } from 'src/store/api/auth'
 // ** Type Imports
 import type { ReactNode } from 'react'
 import type { CardContentProps } from '@mui/material/CardContent'
-import type { TypographyProps } from '@mui/material/Typography'
+import type { StackProps } from '@mui/material/Stack'
 
 // ** Styled Components
-const MainCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
-  position: 'relative',
-  padding: `${theme.spacing(8, 12, 10)} !important`,
+const StyledMainCardContent = styled(CardContent)<CardContentProps>(({ theme }) => ({
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'flex-start',
+  justifyContent: 'center',
+  minHeight: theme.spacing(140),
+  padding: `${theme.spacing(10)} !important`,
   [theme.breakpoints.down('md')]: {
-    padding: `${theme.spacing(2, 4, 6.5)} !important`
+    minHeight: theme.spacing(80),
+    padding: `${theme.spacing(8, 6, 8)} !important`
   }
 }))
 
-const TitleTypographyStyled = styled(Typography)<TypographyProps>(({ theme }) => ({
-  fontWeight: 600,
-  letterSpacing: '0.18px',
-  marginBottom: theme.spacing(1.5),
-  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(8) }
+const StyledTitleStack = styled(Stack)<StackProps>(({ theme }) => ({
+  marginTop: theme.spacing(2),
+  [theme.breakpoints.down('md')]: { marginTop: theme.spacing(4) }
+}))
+
+const SidecarCardContentStyled = styled(CardContent)<CardContentProps>(({ theme }) => ({
+  width: '100%',
+  height: '100%',
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  padding: `${theme.spacing(10, 10, 10, 0)} !important`
+}))
+
+const StyledResetPasswordIllustrationWrapperStack = styled(Stack)<StackProps>(({ theme }) => ({
+  borderRadius: theme.shape.borderRadius,
+  backgroundColor: theme.palette.primary.light
 }))
 
 const ResetPasswordIllustration = styled('img')(({ theme }) => ({
@@ -157,168 +176,153 @@ const AuthResetPasswordPage = () => {
   return (
     <Box className='content-center'>
       <Card sx={{ zIndex: 1, width: '100%', maxWidth: theme => theme.spacing(isDesktopView ? 360 : 120) }}>
-        <Grid container className='match-height'>
+        <Grid container>
+          <Grid item xs={12} md={5}>
+            <StyledMainCardContent>
+              <Stack>
+                <Link href='/'>
+                  {isDesktopView ? <LogoImage width={64} height={64} /> : <LogoImage width={48} height={48} />}
+                </Link>
+              </Stack>
+              <StyledTitleStack spacing={2}>
+                <Typography variant='h5' component='p' sx={{ fontWeight: 600, letterSpacing: '0.18px' }}>
+                  Reset Password 🔒
+                </Typography>
+                <Typography variant='body2'>
+                  Your new password must be different from previously used passwords
+                </Typography>
+              </StyledTitleStack>
+
+              <Stack spacing={4} alignSelf='stretch' alignItems='center' justifyContent='center' sx={{ mt: 6 }}>
+                <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
+                  <FormControl fullWidth sx={{ mb: 4 }}>
+                    <InputLabel htmlFor='auth-reset-password' error={Boolean(errors.password)}>
+                      Password
+                    </InputLabel>
+                    <Controller
+                      name='password'
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange, onBlur } }) => (
+                        <OutlinedInput
+                          value={value}
+                          onBlur={onBlur}
+                          label='Password'
+                          onChange={onChange}
+                          id='auth-reset-password'
+                          error={Boolean(errors.password)}
+                          type={showPassword ? 'text' : 'password'}
+                          endAdornment={
+                            <InputAdornment position='end'>
+                              <IconButton
+                                edge='end'
+                                onMouseDown={e => e.preventDefault()}
+                                onClick={() => setShowPassword(!showPassword)}
+                              >
+                                <Icon icon={showPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'} fontSize={20} />
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                      )}
+                    />
+                    {errors.password && <FormHelperText color='error.main'>{errors.password.message}</FormHelperText>}
+                  </FormControl>
+
+                  <FormControl fullWidth sx={{ mb: 4 }}>
+                    <InputLabel htmlFor='auth-reset-password-confirm' error={Boolean(errors.passwordConfirmation)}>
+                      Password Confirm
+                    </InputLabel>
+                    <Controller
+                      name='passwordConfirmation'
+                      control={control}
+                      rules={{ required: true }}
+                      render={({ field: { value, onChange, onBlur } }) => (
+                        <OutlinedInput
+                          value={value}
+                          onBlur={onBlur}
+                          label='Password Confirm'
+                          onChange={onChange}
+                          id='auth-reset-password-confirm'
+                          error={Boolean(errors.passwordConfirmation)}
+                          type={showPassword ? 'text' : 'password'}
+                          endAdornment={
+                            <InputAdornment position='end'>
+                              <IconButton
+                                edge='end'
+                                onMouseDown={e => e.preventDefault()}
+                                onClick={() => setShowPassword(!showPassword)}
+                              >
+                                <Icon icon={showPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'} fontSize={20} />
+                              </IconButton>
+                            </InputAdornment>
+                          }
+                        />
+                      )}
+                    />
+                    {errors.passwordConfirmation && (
+                      <FormHelperText color='error.main'>{errors.passwordConfirmation.message}</FormHelperText>
+                    )}
+                  </FormControl>
+
+                  <LoadingButton
+                    fullWidth
+                    loading={isResetPasswordLoading}
+                    disabled={Boolean(errors.password || errors.passwordConfirmation)}
+                    size='large'
+                    type='submit'
+                    variant='contained'
+                    sx={{ my: 5.25 }}
+                  >
+                    Set New Password
+                  </LoadingButton>
+                </form>
+              </Stack>
+              <Stack
+                direction='row'
+                spacing={4}
+                alignSelf='stretch'
+                alignItems='center'
+                justifyContent='center'
+                flexWrap='wrap'
+                sx={{ mt: 'auto', pt: 6 }}
+              >
+                <Typography
+                  component={Link}
+                  href='/auth/login'
+                  noWrap
+                  color='primary.main'
+                  sx={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    textDecoration: 'none',
+                    justifyContent: 'center',
+                    '& svg': { mr: 1.5 }
+                  }}
+                >
+                  <Icon icon='mdi:chevron-left' fontSize='2rem' />
+                  Back to login
+                </Typography>
+              </Stack>
+            </StyledMainCardContent>
+          </Grid>
           {isDesktopView && (
-            <Grid
-              item
-              xs={12}
-              md={7}
-              sx={{
-                flex: 1,
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center'
-              }}
-            >
-              <ResetPasswordIllustration
-                height={500}
-                alt='reset-password-illustration'
-                src='/images/auth/reset-password-illustration.svg'
-              />
+            <Grid item xs={12} md={7}>
+              <SidecarCardContentStyled>
+                <StyledResetPasswordIllustrationWrapperStack
+                  alignSelf='stretch'
+                  alignItems='center'
+                  justifyContent='center'
+                >
+                  <ResetPasswordIllustration
+                    height={500}
+                    alt='reset-password-illustration'
+                    src='/images/auth/reset-password-illustration.webp'
+                  />
+                </StyledResetPasswordIllustrationWrapperStack>
+              </SidecarCardContentStyled>
             </Grid>
           )}
-          <Grid item xs={12} md={5}>
-            <MainCardContentStyled>
-              <Stack spacing={6} alignItems='flex-start'>
-                <Link href='/'>
-                  <Box
-                    sx={{
-                      display: 'flex',
-                      alignItems: 'center',
-                      justifyContent: 'center'
-                    }}
-                  >
-                    {isDesktopView ? <LogoImage width={80} height={80} /> : <LogoImage width={64} height={64} />}
-                  </Box>
-                </Link>
-                <Box>
-                  <TitleTypographyStyled variant='h5' sx={{ mt: '0 !important' }}>
-                    Reset Password 🔒
-                  </TitleTypographyStyled>
-                  <Typography variant='body2'>
-                    Your new password must be different from previously used passwords
-                  </Typography>
-                </Box>
-                <Box sx={{ width: '100%' }}>
-                  <form noValidate autoComplete='off' onSubmit={handleSubmit(onSubmit)}>
-                    <FormControl fullWidth sx={{ mb: 4 }}>
-                      <InputLabel htmlFor='auth-reset-password' error={Boolean(errors.password)}>
-                        Password
-                      </InputLabel>
-                      <Controller
-                        name='password'
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field: { value, onChange, onBlur } }) => (
-                          <OutlinedInput
-                            value={value}
-                            onBlur={onBlur}
-                            label='Password'
-                            onChange={onChange}
-                            id='auth-reset-password'
-                            error={Boolean(errors.password)}
-                            type={showPassword ? 'text' : 'password'}
-                            endAdornment={
-                              <InputAdornment position='end'>
-                                <IconButton
-                                  edge='end'
-                                  onMouseDown={e => e.preventDefault()}
-                                  onClick={() => setShowPassword(!showPassword)}
-                                >
-                                  <Icon icon={showPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'} fontSize={20} />
-                                </IconButton>
-                              </InputAdornment>
-                            }
-                          />
-                        )}
-                      />
-                      {errors.password && (
-                        <FormHelperText sx={{ color: 'error.main' }} id=''>
-                          {errors.password.message}
-                        </FormHelperText>
-                      )}
-                    </FormControl>
-
-                    <FormControl fullWidth sx={{ mb: 4 }}>
-                      <InputLabel htmlFor='auth-reset-password-confirm' error={Boolean(errors.passwordConfirmation)}>
-                        Password Confirm
-                      </InputLabel>
-                      <Controller
-                        name='passwordConfirmation'
-                        control={control}
-                        rules={{ required: true }}
-                        render={({ field: { value, onChange, onBlur } }) => (
-                          <OutlinedInput
-                            value={value}
-                            onBlur={onBlur}
-                            label='Password Confirm'
-                            onChange={onChange}
-                            id='auth-reset-password-confirm'
-                            error={Boolean(errors.passwordConfirmation)}
-                            type={showPassword ? 'text' : 'password'}
-                            endAdornment={
-                              <InputAdornment position='end'>
-                                <IconButton
-                                  edge='end'
-                                  onMouseDown={e => e.preventDefault()}
-                                  onClick={() => setShowPassword(!showPassword)}
-                                >
-                                  <Icon icon={showPassword ? 'mdi:eye-outline' : 'mdi:eye-off-outline'} fontSize={20} />
-                                </IconButton>
-                              </InputAdornment>
-                            }
-                          />
-                        )}
-                      />
-                      {errors.passwordConfirmation && (
-                        <FormHelperText sx={{ color: 'error.main' }} id=''>
-                          {errors.passwordConfirmation.message}
-                        </FormHelperText>
-                      )}
-                    </FormControl>
-
-                    <LoadingButton
-                      fullWidth
-                      loading={isResetPasswordLoading}
-                      disabled={Boolean(errors.password || errors.passwordConfirmation)}
-                      size='large'
-                      type='submit'
-                      variant='contained'
-                      sx={{ my: 5.25 }}
-                    >
-                      Set New Password
-                    </LoadingButton>
-
-                    <Stack
-                      direction='row'
-                      spacing={2}
-                      alignItems='center'
-                      justifyContent='center'
-                      flexWrap='wrap'
-                      sx={{ width: '100%', pt: 8 }}
-                    >
-                      <Typography
-                        component={Link}
-                        href='/auth/login'
-                        noWrap
-                        sx={{
-                          display: 'flex',
-                          '& svg': { mr: 1.5 },
-                          alignItems: 'center',
-                          color: 'primary.main',
-                          textDecoration: 'none',
-                          justifyContent: 'center'
-                        }}
-                      >
-                        <Icon icon='mdi:chevron-left' fontSize='2rem' />
-                        <span>Back to login</span>
-                      </Typography>
-                    </Stack>
-                  </form>
-                </Box>
-              </Stack>
-            </MainCardContentStyled>
-          </Grid>
         </Grid>
       </Card>
     </Box>
@@ -326,6 +330,7 @@ const AuthResetPasswordPage = () => {
 }
 
 AuthResetPasswordPage.guestGuard = true
+AuthResetPasswordPage.contentHeightFixed = true
 AuthResetPasswordPage.getLayout = (page: ReactNode) => <BlankLayout>{page}</BlankLayout>
 
 export default AuthResetPasswordPage

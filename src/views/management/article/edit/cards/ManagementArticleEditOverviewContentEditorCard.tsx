@@ -5,7 +5,6 @@ import { useState } from 'react'
 import dynamic from 'next/dynamic'
 
 // ** MUI Imports
-import { styled } from '@mui/material/styles'
 import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import Card from '@mui/material/Card'
@@ -14,8 +13,7 @@ import CardContent from '@mui/material/CardContent'
 import LoadingButton from '@mui/lab/LoadingButton'
 
 // ** Custom Component Imports
-const TextEditor = dynamic(() => import('src/views/shared/TextEditor'), { ssr: false })
-const TextEditorPreview = dynamic(() => import('src/views/shared/TextEditorPreview'), { ssr: false })
+const TextEditor = dynamic(() => import('src/views/shared/text-editor'), { ssr: false })
 
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
@@ -25,9 +23,8 @@ import { useUpdateOneMutation } from 'src/store/api/management/article'
 
 // ** Type Imports
 import type { MouseEvent } from 'react'
-import type { CardProps } from '@mui/material/Card'
-import type { OutputData } from '@editorjs/editorjs'
-import type { EditorCore } from 'src/views/shared/TextEditor'
+import type { Block } from '@blocknote/core'
+import type { EditorType } from 'src/views/shared/text-editor'
 import type { ArticleType } from 'src/types/articleTypes'
 
 // ** Style Imports
@@ -37,63 +34,58 @@ interface Props {
   initArticleEntity: ArticleType
 }
 
-// ** Styled Root Card component
-const StyledRootCard = styled(Card)<CardProps>(({ theme }) => ({
-  minHeight: theme.spacing(160)
-}))
-
 const ManagementArticleEditOverviewContentEditorCard = (props: Props) => {
   // ** Props
   const { initArticleEntity } = props
 
   // ** States
-  const [blocks, setBlocks] = useState<OutputData | undefined>(initArticleEntity.content || undefined)
-  const [isEditMode, setIsEditMode] = useState<boolean>(false)
-  const [editorInstance, setEditorInstance] = useState<EditorCore | null>(null)
+  const [editorInstance, setEditorInstance] = useState<EditorType | null>(null)
+  const [editorMode, setEditorMode] = useState<'edit' | 'preview'>('preview')
+  const [blocks, setBlocks] = useState<Block[]>(initArticleEntity.content)
 
   // ** Hooks
   const [updateArticle, { isLoading: isUpdateArticleLoading }] = useUpdateOneMutation()
 
   // ** Logics
-  const handleInitializeInstance = (instance: EditorCore) => {
+  const handleInitializeInstance = (instance: EditorType) => {
     setEditorInstance(instance)
   }
 
   const handleToggleEditorMode = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
-    if (isEditMode) {
-      const savedBlocks = await editorInstance!.save()
+    if (editorMode === 'edit') {
+      const blocks = editorInstance?.document as Block[]
 
-      setBlocks(() => savedBlocks)
-      setIsEditMode(() => false)
+      setBlocks(() => blocks)
+      setEditorMode(() => 'preview')
     } else {
-      setIsEditMode(() => true)
+      setEditorMode(() => 'edit')
     }
   }
 
   const handleSaveClick = async (e: MouseEvent<HTMLElement>) => {
     e.preventDefault()
 
-    const outputDetail = await editorInstance!.save()
+    const blocks = editorInstance?.document as Block[]
 
-    setBlocks(() => outputDetail)
+    setBlocks(() => blocks)
     await updateArticle({
       id: initArticleEntity.id,
-      data: { content: outputDetail }
+      data: { content: blocks }
     })
   }
 
   return (
-    <StyledRootCard>
+    <Card>
       <CardHeader
         title='內容'
         action={
           <Stack direction='row' spacing={4}>
             <Button variant='outlined' size='small' onClick={handleToggleEditorMode}>
-              {isEditMode ? '預覽' : '編輯'}
+              {editorMode === 'edit' ? '預覽' : '編輯'}
             </Button>
-            {isEditMode && (
+            {editorMode === 'edit' && (
               <LoadingButton
                 onClick={handleSaveClick}
                 disabled={editorInstance === null}
@@ -109,13 +101,9 @@ const ManagementArticleEditOverviewContentEditorCard = (props: Props) => {
         }
       />
       <CardContent>
-        {isEditMode ? (
-          <TextEditor blocks={blocks} handleInitializeInstance={handleInitializeInstance} />
-        ) : (
-          <TextEditorPreview blocks={blocks} />
-        )}
+        <TextEditor blocks={blocks} handleInitializeInstance={handleInitializeInstance} mode={editorMode} />
       </CardContent>
-    </StyledRootCard>
+    </Card>
   )
 }
 

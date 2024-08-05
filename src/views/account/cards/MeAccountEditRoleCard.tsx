@@ -27,22 +27,17 @@ const MeAccountEditRoleCard = (props: Props) => {
   const userRoleAttributes = getUserRoleAttributes(initMeUserEntity.role!.name)
 
   return (
-    <Card sx={{ boxShadow: 'none', border: theme => `2px solid ${theme.palette.primary.main}` }}>
+    <Card>
       <CardContent>
         <Grid container spacing={2.7}>
           <Grid item xs={12}>
-            <Typography variant='subtitle2'>角色權限</Typography>
+            <Typography variant='subtitle2'>Role</Typography>
           </Grid>
           <Grid item xs={12}>
             <Divider />
           </Grid>
           <Grid item xs={12}>
-            <Typography
-              variant='h4'
-              sx={{
-                color: `${userRoleAttributes.color}.main`
-              }}
-            >
+            <Typography variant='h4' component='p' color={`${userRoleAttributes.color}.main`}>
               {userRoleAttributes.displayName}
             </Typography>
           </Grid>

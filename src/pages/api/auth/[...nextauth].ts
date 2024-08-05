@@ -2,6 +2,9 @@
 import NextAuth from 'next-auth'
 import CredentialsProvider from 'next-auth/providers/credentials'
 import GoogleProvider from 'next-auth/providers/google'
+import FacebookProvider from 'next-auth/providers/facebook'
+import DiscordProvider from 'next-auth/providers/discord'
+import AzureADProvider from 'next-auth/providers/azure-ad'
 import axios from 'axios'
 
 // ** Type Imports
@@ -77,6 +80,24 @@ export const authOptions: NextAuthOptions = {
     GoogleProvider({
       clientId: process.env.GOOGLE_CLIENT_ID as string,
       clientSecret: process.env.GOOGLE_CLIENT_SECRET as string
+    }),
+    FacebookProvider({
+      clientId: process.env.FACEBOOK_CLIENT_ID as string,
+      clientSecret: process.env.FACEBOOK_CLIENT_SECRET as string
+    }),
+    DiscordProvider({
+      clientId: process.env.DISCORD_CLIENT_ID as string,
+      clientSecret: process.env.DISCORD_CLIENT_SECRET as string,
+      authorization: 'https://discord.com/api/oauth2/authorize?scope=identify+email'
+    }),
+    AzureADProvider({
+      clientId: `${process.env.MICROSOFT_CLIENT_ID}`,
+      clientSecret: `${process.env.MICROSOFT_CLIENT_SECRET}`,
+      tenantId: `${process.env.MICROSOFT_TENANT_ID}`,
+      authorization: {
+        params: { scope: 'openid email profile user.read offline_access' }
+      },
+      httpOptions: { timeout: 10 * 1_000 }
     })
   ],
 
@@ -107,14 +128,26 @@ export const authOptions: NextAuthOptions = {
   callbacks: {
     async signIn({ account, profile }) {
       if (account && account.provider === 'google' && profile && 'email_verified' in profile) {
-        if (!profile.email_verified) return false
+        if (!profile.email && !profile.email_verified) return '/auth/login?error=GoogleEmailNotVerified'
+      }
+
+      if (account && account.provider === 'facebook' && profile && 'email' in profile) {
+        if (!profile.email) return '/auth/login?error=FacebookEmailNotVerified'
+      }
+
+      if (account && account.provider === 'discord' && profile && 'email' in profile && 'verified' in profile) {
+        if (!profile.email || !profile.verified) return '/auth/login?error=DiscordEmailNotVerified'
+      }
+
+      if (account && account.provider === 'azure-ad' && profile && 'email' in profile) {
+        if (!profile.email) return '/auth/login?error=MicrosoftEmailNotVerified'
       }
 
       return true
     },
 
-    async redirect({ baseUrl }) {
-      return baseUrl
+    async redirect({ url }) {
+      return url
     },
 
     async session({ session, token }) {
@@ -133,11 +166,6 @@ export const authOptions: NextAuthOptions = {
      * via `jwt()` callback to make them accessible in the `session()` callback
      */
     async jwt({ token, trigger, account, user }) {
-      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:136 > token', token)
-      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:137 > trigger', trigger)
-      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:138 > account', account)
-      // console.log('🚀 ~ src/pages/api/auth/[...nextauth].ts:139 > user', user)
-
       if (trigger === 'update') {
         // ** Note, that `session` can be any arbitrary object, remember to validate it!
         const { data: updatedUserData } = await axios.get(`${process.env.NEXT_PUBLIC_BACKEND_URL}/api/users/me`, {
@@ -172,6 +200,81 @@ export const authOptions: NextAuthOptions = {
           try {
             const backendResponse = await fetch(
               `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/${account.provider}/callback?access_token=${account.access_token}`,
+              { cache: 'no-cache' }
+            )
+
+            if (!backendResponse.ok) {
+              const backendError: BaseApiResponseErrorType<null> = await backendResponse.json()
+
+              throw new Error(backendError.error.message)
+            }
+
+            const backendLoginResponse: LoginResponseType = await backendResponse.json()
+
+            token.user = {
+              userData: backendLoginResponse.user,
+              accessToken: backendLoginResponse.jwt
+            }
+          } catch (error) {
+            throw error
+          }
+        }
+
+        if (account.provider === 'facebook') {
+          // ** We are doing a sign in using FacebookProvider
+          try {
+            const backendResponse = await fetch(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/${account.provider}/callback?access_token=${account.access_token}`,
+              { cache: 'no-cache' }
+            )
+
+            if (!backendResponse.ok) {
+              const backendError: BaseApiResponseErrorType<null> = await backendResponse.json()
+
+              throw new Error(backendError.error.message)
+            }
+
+            const backendLoginResponse: LoginResponseType = await backendResponse.json()
+
+            token.user = {
+              userData: backendLoginResponse.user,
+              accessToken: backendLoginResponse.jwt
+            }
+          } catch (error) {
+            throw error
+          }
+        }
+
+        if (account.provider === 'discord') {
+          // ** We are doing a sign in using DiscordProvider
+          try {
+            const backendResponse = await fetch(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/${account.provider}/callback?access_token=${account.access_token}`,
+              { cache: 'no-cache' }
+            )
+
+            if (!backendResponse.ok) {
+              const backendError: BaseApiResponseErrorType<null> = await backendResponse.json()
+
+              throw new Error(backendError.error.message)
+            }
+
+            const backendLoginResponse: LoginResponseType = await backendResponse.json()
+
+            token.user = {
+              userData: backendLoginResponse.user,
+              accessToken: backendLoginResponse.jwt
+            }
+          } catch (error) {
+            throw error
+          }
+        }
+
+        if (account.provider === 'azure-ad') {
+          // ** We are doing a sign in using AzureADProvider
+          try {
+            const backendResponse = await fetch(
+              `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/auth/microsoft/callback?access_token=${account.access_token}`,
               { cache: 'no-cache' }
             )
 

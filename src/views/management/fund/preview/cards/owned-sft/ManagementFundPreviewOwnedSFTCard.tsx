@@ -13,6 +13,7 @@ import Divider from '@mui/material/Divider'
 
 // ** Third-Party Imports
 import { useAccount, useReadContract } from 'wagmi'
+import { ExactNumber as N } from 'exactnumber'
 import { Atropos } from 'atropos/react'
 
 // ** Core Component Imports
@@ -20,6 +21,9 @@ import CustomChip from 'src/@core/components/mui/chip'
 
 // ** Custom Component Imports
 import ManagementFundPreviewOwnedSFTSkeletonCard from 'src/views/management/fund/preview/cards/owned-sft/ManagementFundPreviewOwnedSFTSkeletonCard'
+
+// ** Icon Imports
+import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
 import { getFundCurrencyProperties, getFormattedPriceUnit, getChainId } from 'src/utils'
@@ -41,69 +45,78 @@ const Sup = styled('sup')(({ theme }) => ({
 
 interface Props {
   initFundEntity: FundType
-  sftTokenIndex: number
+  sftIndex: number
 }
 
 const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
   // ** Props
-  const { initFundEntity, sftTokenIndex } = props
+  const { initFundEntity, sftIndex } = props
 
   // ** Hooks
   const theme = useTheme()
   const walletAccount = useAccount()
 
-  const { data: sftTokenId, isLoading: isSftTokenIdLoading } = useReadContract({
+  const { data: sftId, isLoading: isSftIdLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.fundSFTContractAbi,
-    address: initFundEntity.fundSFTContractAddress as `0x${string}`,
+    abi: initFundEntity.sft.contractAbi,
+    address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'tokenOfOwnerByIndex',
-    args: [walletAccount.address!, sftTokenIndex],
+    args: [walletAccount.address!, sftIndex],
     account: walletAccount.address!
   })
 
   const { data: sftValue, isLoading: isSftValueLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.fundSFTContractAbi,
-    address: initFundEntity.fundSFTContractAddress as `0x${string}`,
+    abi: initFundEntity.sft.contractAbi,
+    address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'balanceOf',
-    args: [sftTokenId],
+    args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftTokenIdLoading && sftTokenId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined,
+      placeholderData: 0n
     }
   })
 
   const { data: sftSlotId, isLoading: isSftSlotIdLoading } = useReadContract({
     chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.fundSFTContractAbi,
-    address: initFundEntity.fundSFTContractAddress as `0x${string}`,
+    abi: initFundEntity.sft.contractAbi,
+    address: initFundEntity.sft.contractAddress as `0x${string}`,
     functionName: 'slotOf',
-    args: [sftTokenId],
+    args: [sftId],
     account: walletAccount.address!,
     query: {
-      enabled: !isSftTokenIdLoading && sftTokenId !== undefined
+      enabled: !isSftIdLoading && sftId !== undefined,
+      placeholderData: 0n
     }
   })
 
   // ** Vars
-  const formattedSftValue = BigInt(Number(sftValue ?? 0)) / 10n ** 18n
-  const sftSlot = initFundEntity.defaultPackages?.data.find(pkg => pkg.id === Number(sftSlotId))
+  const sftSlot = initFundEntity.defaultPackages?.data.find(
+    pkg => Number(pkg.attributes.packageId) === Number(sftSlotId)
+  )
+
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
 
   // ** Side Effects
-  if (isSftTokenIdLoading || isSftValueLoading || isSftSlotIdLoading) {
+  if (isSftIdLoading || isSftValueLoading || isSftSlotIdLoading) {
     return <ManagementFundPreviewOwnedSFTSkeletonCard />
   }
 
   return (
     <Card>
-      <CardContent>
-        <Stack spacing={4} alignItems='center' justifyContent='center' sx={{ position: 'relative' }}>
+      <CardContent sx={{ height: '100%' }}>
+        <Stack
+          spacing={4}
+          alignItems='center'
+          justifyContent='flex-start'
+          sx={{ position: 'relative', height: '100%' }}
+        >
           <Box sx={{ position: 'absolute', top: 0, right: 8 }}>
             <CustomChip
               skin='light'
               size='medium'
-              label={`# ${sftTokenId ?? '-'}`}
+              label={`# ${sftId ?? '-'}`}
               color='success'
               sx={{
                 height: 20,
@@ -138,13 +151,11 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
               />
             </Atropos>
           </Box>
-          <Stack spacing={4} alignSelf='stretch'>
-            <Stack direction='row' spacing={2} flexWrap='wrap' justifyContent='space-between'>
-              <Stack direction='row' spacing={2} alignItems='center'>
-                <Typography variant='h5' component='p'>
-                  {sftSlot?.attributes.displayName}
-                </Typography>
-              </Stack>
+          <Stack spacing={4} flex='1' alignSelf='stretch'>
+            <Stack direction='row' spacing={4} justifyContent='space-between'>
+              <Typography variant='h5' component='p'>
+                {sftSlot?.attributes.displayName}
+              </Typography>
               <Stack direction='row' sx={{ position: 'relative' }}>
                 <Sup>{fundBaseCurrencyProperties.symbol}</Sup>
                 <Typography
@@ -157,7 +168,7 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
                     color: 'primary.main'
                   }}
                 >
-                  {getFormattedPriceUnit(formattedSftValue ?? 0)}
+                  {typeof sftValue === 'bigint' ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber()) : 0n}
                 </Typography>
               </Stack>
             </Stack>
@@ -168,13 +179,13 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
             <Box>
               <Divider />
             </Box>
-            <Stack spacing={2} justifyContent='center'>
+            <Stack spacing={2} flex='1' justifyContent='flex-start'>
               <Typography variant='subtitle2' component='p'>
                 Utility
               </Typography>
 
               <Stack spacing={2} alignSelf='stretch'>
-                {sftSlot?.attributes.slot.map(property => {
+                {sftSlot?.attributes.slots.map(property => {
                   return (
                     <Stack
                       key={`slot-${property.id}`}
@@ -182,27 +193,34 @@ const ManagementFundPreviewOwnedSFTCard = (props: Props) => {
                       alignItems='center'
                       justifyContent='space-between'
                     >
-                      <Typography variant='subtitle1' component='p'>
-                        {property.propertyType}
-                      </Typography>
+                      <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                        <Icon
+                          icon={property.displayType === 'string' ? 'mdi:format-text-variant-outline' : 'mdi:numbers'}
+                          fontSize={16}
+                        />
+                        <Typography variant='subtitle1' component='p'>
+                          {property.propertyName}
+                        </Typography>
+                      </Stack>
                       <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
-                        {property.value}
+                        {property.displayValue ?? property.value}
                       </Typography>
                     </Stack>
                   )
                 })}
               </Stack>
             </Stack>
-            <Stack sx={{ mt: 'auto' }}>
-              <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
-              <Stack spacing={2} alignItems='center' justifyContent='center'>
-                <Button fullWidth disabled variant='contained' size='small'>
-                  Stake
-                </Button>
-                <Typography variant='body2' component='p'>
-                  {`Can't stake in preview mode`}
-                </Typography>
-              </Stack>
+            <Stack spacing={2} sx={{ mt: 'auto' }}>
+              <Divider />
+              <Button fullWidth disabled variant='contained' size='small'>
+                Stake
+              </Button>
+              <Button fullWidth variant='contained' disabled>
+                Redeem
+              </Button>
+              <Typography variant='body2' component='p' textAlign='center'>
+                {`Can't stake in preview mode`}
+              </Typography>
             </Stack>
           </Stack>
         </Stack>

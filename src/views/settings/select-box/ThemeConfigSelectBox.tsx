@@ -46,7 +46,7 @@ const ThemeConfigSelectBox = (props: Props) => {
       }}
     >
       <img src={image} alt={title} />
-      <Typography variant='subtitle2' sx={{ my: 1, color: 'text.primary' }}>
+      <Typography variant='subtitle2' component='p' textAlign='center' color='text.primary' sx={{ my: 1 }}>
         {title}
       </Typography>
     </Box>

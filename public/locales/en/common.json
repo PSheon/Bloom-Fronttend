@@ -1,0 +1,129 @@
+{
+  "Navigation": {
+    "System": {
+      "SectionTitle": "System",
+      "Dashboard": "System Monitoring",
+      "Roles & Permissions": "Roles & Permissions"
+    },
+    "Management": {
+      "SectionTitle": "Management",
+      "Dashboard": "Analytics Reports",
+      "Funds": "Funds",
+      "Users": "Users",
+      "Articles": "Articles",
+      "Media Assets": "Media Assets",
+      "Notifications": "Notifications"
+    },
+    "Review": {
+      "SectionTitle": "Review",
+      "Dashboard": "Fund Dashboard"
+    },
+    "Public": {
+      "SectionTitle": "Public",
+      "Funds & Strategies": "Funds & Strategies"
+    },
+    "Me": {
+      "SectionTitle": "Me",
+      "Portfolio": "Portfolio",
+      "Points": "Points"
+    },
+    "General": {
+      "SectionTitle": "General",
+      "Account": "Account",
+      "Notifications": "Notifications",
+      "Settings": "Settings"
+    }
+  },
+  "PageBreadcrumb": {
+    "System": {
+      "PageTitle": "System",
+      "Dashboard": {
+        "PageTitle": "System Monitoring"
+      },
+      "Roles & Permissions": {
+        "PageTitle": "Roles & Permissions"
+      }
+    },
+    "Management": {
+      "PageTitle": "Management",
+      "Dashboard": {
+        "PageTitle": "Analytics Reports"
+      },
+      "Funds": {
+        "PageTitle": "Fund Management",
+        "Edit": {
+          "PageTitle": "Edit"
+        },
+        "Preview": {
+          "PageTitle": "Preview"
+        }
+      },
+      "Users": {
+        "PageTitle": "User Management",
+        "Edit": {
+          "PageTitle": "Edit"
+        }
+      },
+      "Articles": {
+        "PageTitle": "Article Management",
+        "Edit": {
+          "PageTitle": "Edit"
+        }
+      },
+      "Media Assets": {
+        "PageTitle": "Media Asset Management",
+        "Edit": {
+          "PageTitle": "Edit"
+        }
+      },
+      "Notifications": {
+        "PageTitle": "Notification Management",
+        "Edit": {
+          "PageTitle": "Edit"
+        }
+      }
+    },
+    "Review": {
+      "PageTitle": "Review",
+      "Dashboard": {
+        "PageTitle": "Fund Dashboard"
+      }
+    },
+    "Public": {
+      "PageTitle": "Public",
+      "Funds & Strategies": {
+        "PageTitle": "Funds & Strategies",
+        "Live": {
+          "PageTitle": "Fund"
+        }
+      }
+    },
+    "Me": {
+      "PageTitle": "Me",
+      "Portfolio": {
+        "PageTitle": "Portfolio"
+      },
+      "Points": {
+        "PageTitle": "Points",
+        "Join": {
+          "PageTitle": "Join"
+        }
+      }
+    },
+    "General": {
+      "PageTitle": "General",
+      "Account": {
+        "PageTitle": "Account"
+      },
+      "Notifications": {
+        "PageTitle": "Notifications",
+        "Read": {
+          "PageTitle": "Read"
+        }
+      },
+      "Settings": {
+        "PageTitle": "Settings"
+      }
+    }
+  }
+}

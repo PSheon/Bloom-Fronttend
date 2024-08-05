@@ -128,6 +128,7 @@ const ManagementArticleListHeaderCardContent = (props: Props) => {
                 color={isShowFilters ? 'primary' : 'secondary'}
                 variant={isShowFilters ? 'contained' : 'outlined'}
                 onClick={handleFiltersClick}
+                sx={{ p: 1.5, minWidth: 38 }}
               >
                 <Icon icon='mdi:filter-outline' fontSize={20} />
               </Button>

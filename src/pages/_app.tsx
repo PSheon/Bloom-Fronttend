@@ -17,7 +17,7 @@ import { Toaster } from 'react-hot-toast'
 import { SessionProvider } from 'next-auth/react'
 import { SpeedInsights } from '@vercel/speed-insights/next'
 import { Analytics } from '@vercel/analytics/react'
-import { RainbowKitProvider } from '@rainbow-me/rainbowkit'
+import { RainbowKitProvider, darkTheme, lightTheme } from '@rainbow-me/rainbowkit'
 import { WagmiProvider } from 'wagmi'
 import { QueryClientProvider } from '@tanstack/react-query'
 
@@ -143,10 +143,10 @@ const App = (props: ExtendedAppProps) => {
             content='Decentralized finance, RWA trading platform, Cryptocurrency trading, Decentralized lending, Blockchain financial platform, Cryptocurrency exchange, Blockchain collateral, Crypto collateral, Decentralized finance market, DeFi trading platform, Decentralized lending platform'
           />
           <meta name='viewport' content='initial-scale=1, width=device-width' />
-          <meta name='publisher' content='Bloom' />
-          <meta name='apple-mobile-web-app-title' content='Bloom' />
-          <meta name='application-name' content='Bloom' />
-          <meta name='msapplication-TileColor' content='#da532c' />
+          <meta name='publisher' content={themeConfig.templateName} />
+          <meta name='apple-mobile-web-app-title' content={themeConfig.templateName} />
+          <meta name='application-name' content={themeConfig.templateName} />
+          <meta name='msapplication-TileColor' content='#f7f7f9' />
           <meta name='theme-color' content='#f7f7f9' />
 
           {/* Link */}
@@ -154,7 +154,7 @@ const App = (props: ExtendedAppProps) => {
           <link rel='apple-touch-icon' sizes='180x180' href='/seo/apple-touch-icon.png' />
           <link rel='icon' type='image/png' sizes='32x32' href='/seo/favicon-32x32.png' />
           <link rel='icon' type='image/png' sizes='16x16' href='/seo/favicon-16x16.png' />
-          <link rel='mask-icon' href='/seo/safari-pinned-tab.svg' color='#5bbad5' />
+          <link rel='mask-icon' href='/seo/safari-pinned-tab.svg' color='#666cff' />
           <link rel='manifest' href='/seo/site.webmanifest' />
 
           {/* OG */}
@@ -163,11 +163,11 @@ const App = (props: ExtendedAppProps) => {
             property='og:description'
             content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
           />
-          <meta property='og:image' content='https://bloom.media.app/api/static' />
+          <meta property='og:image' content='https://www.buxx.finance/api/static-image' />
           <meta property='og:image:type' content='image/jpeg' />
           <meta property='og:image:width' content='1200' />
           <meta property='og:image:height' content='800' />
-          <meta property='og:url' content='https://bloom.media.app' />
+          <meta property='og:url' content='https://www.buxx.finance' />
           <meta property='og:site_name' content={themeConfig.templateName} />
           <meta property='og:type' content='website' />
 
@@ -178,19 +178,19 @@ const App = (props: ExtendedAppProps) => {
             name='twitter:description'
             content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
           />
-          <meta name='twitter:image' content='https://bloom.media.app/api/static' />
+          <meta name='twitter:image' content='https://www.buxx.finance/api/static-image' />
           <meta name='twitter:image:type' content='image/jpeg' />
           <meta property='twitter:image:width' content='1200' />
           <meta property='twitter:image:height' content='800' />
         </Head>
 
         <SessionProvider session={pageProps.session}>
-          <WagmiProvider config={wagmiConfig}>
-            <QueryClientProvider client={queryClient}>
-              <RainbowKitProvider>
-                <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
-                  <SettingsConsumer>
-                    {({ settings }) => (
+          <SettingsProvider {...(setConfig ? { pageSettings: setConfig() } : {})}>
+            <SettingsConsumer>
+              {({ settings }) => (
+                <WagmiProvider config={wagmiConfig}>
+                  <QueryClientProvider client={queryClient}>
+                    <RainbowKitProvider theme={settings.mode === 'dark' ? darkTheme() : lightTheme()}>
                       <AnimatePresence mode='wait' initial={false}>
                         <ThemeComponent settings={settings}>
                           <Guard authGuard={authGuard} guestGuard={guestGuard}>
@@ -214,12 +214,12 @@ const App = (props: ExtendedAppProps) => {
                           </ReactHotToast>
                         </ThemeComponent>
                       </AnimatePresence>
-                    )}
-                  </SettingsConsumer>
-                </SettingsProvider>
-              </RainbowKitProvider>
-            </QueryClientProvider>
-          </WagmiProvider>
+                    </RainbowKitProvider>
+                  </QueryClientProvider>
+                </WagmiProvider>
+              )}
+            </SettingsConsumer>
+          </SettingsProvider>
         </SessionProvider>
 
         <SpeedInsights />

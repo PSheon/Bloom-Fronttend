@@ -58,14 +58,14 @@ const NotificationReadSecurityDangerZoneCard = (props: Props) => {
 
   return (
     <Card>
-      <CardHeader title='危險區域' />
+      <CardHeader title='Danger Zone' />
       <CardContent>
-        <Typography>請注意！檔案將永久刪除且無法重新找回</Typography>
+        <Typography>Please note! The file will be permanently deleted and cannot be retrieved</Typography>
       </CardContent>
 
       <CardActions>
         <Button variant='outlined' color='error' onClick={handleOpenDeleteDialog}>
-          刪除通知
+          Delete Notification
         </Button>
       </CardActions>
 
@@ -78,9 +78,9 @@ const NotificationReadSecurityDangerZoneCard = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          確定要刪除通知？
+          Are you sure you want to delete the notification?
           <DialogContentText id='user-view-edit-description' variant='body2' component='p' sx={{ textAlign: 'center' }}>
-            此操作將無法復原
+            {`It can't be undone`}
           </DialogContentText>
         </DialogTitle>
         <DialogActions
@@ -91,8 +91,8 @@ const NotificationReadSecurityDangerZoneCard = (props: Props) => {
             pb: theme => [`${theme.spacing(4)} !important`, `${theme.spacing(7.5)} !important`]
           }}
         >
-          <Button variant='contained' color='secondary' onClick={handleCloseDeleteDialog}>
-            取消
+          <Button variant='contained' color='primary' onClick={handleCloseDeleteDialog}>
+            Cancel
           </Button>
           <LoadingButton
             loading={isDeleteOneNotificationLoading}
@@ -101,7 +101,7 @@ const NotificationReadSecurityDangerZoneCard = (props: Props) => {
             startIcon={<Icon icon='mdi:delete-outline' />}
             onClick={handleDeleteOneMediaAssetClick}
           >
-            確定
+            Delete
           </LoadingButton>
         </DialogActions>
       </Dialog>

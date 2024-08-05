@@ -22,7 +22,10 @@ const ManagementFundEditSection = (props: Props) => {
     <Grid container spacing={6}>
       <Grid item xs={12}>
         <ManagementFundEditBreadcrumbs
-          pageLevels={[{ title: '資金管理', href: '/management/fund/list' }, { title: '編輯資金' }]}
+          pageLevels={[
+            { title: 'PageBreadcrumb.Management.Funds.PageTitle', href: '/management/fund/list' },
+            { title: 'PageBreadcrumb.Management.Funds.Edit.PageTitle' }
+          ]}
         />
       </Grid>
       <Grid item xs={12}>

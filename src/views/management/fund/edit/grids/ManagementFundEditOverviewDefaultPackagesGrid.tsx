@@ -6,6 +6,7 @@ import Image from 'next/image'
 
 // ** MUI Components
 import { styled, useTheme } from '@mui/material/styles'
+import Alert from '@mui/material/Alert'
 import Stack from '@mui/material/Stack'
 import Box from '@mui/material/Box'
 import Grid from '@mui/material/Grid'
@@ -47,7 +48,8 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
 import ManagementFundEditPackageSkinSelectBox from 'src/views/management/fund/edit/boxes/ManagementFundEditPackageSkinSelectBox'
-import ManagementFundEditPackageSlotAddPropertyButton from 'src/views/management/fund/edit/buttons/ManagementFundEditPackageSlotAddPropertyButton'
+import ManagementFundEditPackageSlotAddPropertyCreateButton from 'src/views/management/fund/edit/buttons/ManagementFundEditPackageSlotAddPropertyCreateButton'
+import ManagementFundEditPackageSlotAddPropertyEditButton from 'src/views/management/fund/edit/buttons/ManagementFundEditPackageSlotAddPropertyEditButton'
 
 // ** Util Imports
 import { getFundCurrencyProperties, getPackageStatusProperties, getFormattedPriceUnit } from 'src/utils'
@@ -162,12 +164,12 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
 
   const handleRemoveProperty = async (packageId: number, propertyId: number): Promise<void> => {
     const currentPackage = defaultPackages!.find(defaultPackage => defaultPackage.id === packageId)
-    const currentSlot = currentPackage?.slot
-    const newSlot = currentSlot?.filter(property => property.id !== propertyId)
+    const currentSlots = currentPackage?.slots
+    const newSlot = currentSlots?.filter(property => property.id !== propertyId)
 
     await updateOnePackage({
       id: packageId,
-      data: { slot: newSlot }
+      data: { slots: newSlot }
     })
   }
 
@@ -313,43 +315,56 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                       <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
                     </Box>
                     <Stack spacing={2} justifyContent='center'>
-                      <Stack direction='row' alignItems='center' justifyContent='space-between'>
+                      <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
                         <Typography variant='subtitle2' component='p'>
                           Utility
                         </Typography>
 
-                        <ManagementFundEditPackageSlotAddPropertyButton initPackageEntity={defaultPackage} />
+                        <ManagementFundEditPackageSlotAddPropertyCreateButton initPackageEntity={defaultPackage} />
                       </Stack>
 
-                      {defaultPackage.slot?.length === 0 ? (
-                        <Typography>尚未設定內容</Typography>
+                      {defaultPackage.slots?.length === 0 ? (
+                        <Alert severity='warning'>
+                          <Typography>Utility not yet set</Typography>
+                        </Alert>
                       ) : (
-                        defaultPackage.slot.map(property => {
-                          return (
-                            <Stack
-                              key={`slot-${property.id}`}
-                              direction='row'
-                              alignItems='center'
-                              justifyContent='space-between'
-                            >
-                              <Stack direction='row' spacing={4} alignItems='center' justifyContent='space-between'>
-                                <Typography variant='subtitle1' component='p'>
-                                  {property.propertyType}
-                                </Typography>
-                                <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
-                                  {property.value}
-                                </Typography>
-                              </Stack>
-
-                              <IconButton
-                                size='small'
-                                onClick={() => handleRemoveProperty(defaultPackage.id, property.id)}
+                        [...defaultPackage.slots]
+                          .sort((a, b) => a.order - b.order)
+                          .map(property => {
+                            return (
+                              <Stack
+                                key={`slot-${property.id}`}
+                                direction='row'
+                                alignItems='center'
+                                justifyContent='space-between'
                               >
-                                <Icon icon='mdi:close' fontSize={20} />
-                              </IconButton>
-                            </Stack>
-                          )
-                        })
+                                <Stack direction='row' spacing={4} alignItems='center' justifyContent='space-between'>
+                                  <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+                                    <Icon
+                                      icon={
+                                        property.displayType === 'string'
+                                          ? 'mdi:format-text-variant-outline'
+                                          : 'mdi:numbers'
+                                      }
+                                      fontSize={16}
+                                    />
+                                    <Typography variant='subtitle1' component='p'>
+                                      {property.propertyName}
+                                    </Typography>
+                                  </Stack>
+                                  <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
+                                    {property.displayValue ?? property.value}
+                                  </Typography>
+                                </Stack>
+
+                                <ManagementFundEditPackageSlotAddPropertyEditButton
+                                  initPackageEntity={defaultPackage}
+                                  initPropertyEntity={property}
+                                  handleRemoveProperty={handleRemoveProperty}
+                                />
+                              </Stack>
+                            )
+                          })
                       )}
                     </Stack>
                   </CardContent>

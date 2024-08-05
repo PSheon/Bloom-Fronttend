@@ -1,31 +1,14 @@
 // ** MUI Imports
-import Grid from '@mui/material/Grid'
 import TabPanel from '@mui/lab/TabPanel'
-import Stack from '@mui/material/Stack'
-import Typography from '@mui/material/Typography'
-import Card from '@mui/material/Card'
-import CardContent from '@mui/material/CardContent'
-
-// ** Third-Party Imports
-import { useAccount, useReadContract } from 'wagmi'
-
-// ** Core Component Imports
-import CardStatisticsVertical from 'src/@core/components/card-statistics/card-stats-vertical'
-import CustomAvatar from 'src/@core/components/mui/avatar'
+import Grid from '@mui/material/Grid'
 
 // ** Custom Component Imports
-import ManagementFundPreviewAwardCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewAwardCard'
-import ManagementFundPreviewOwnedSFTCard from 'src/views/management/fund/preview/cards/owned-sft/ManagementFundPreviewOwnedSFTCard'
-import ManagementFundPreviewOwnedSFTSkeletonCard from 'src/views/management/fund/preview/cards/owned-sft/ManagementFundPreviewOwnedSFTSkeletonCard'
-
-// ** Icon Imports
-import Icon from 'src/@core/components/icon'
-
-// ** Util Imports
-import { getChainId } from 'src/utils'
-
-// ** Config Imports
-import type { wagmiConfig } from 'src/configs/ethereum'
+import ManagementFundPreviewVaultNotPublishedCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultNotPublishedCard'
+import ManagementFundPreviewVaultTotalStakedCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTotalStakedCard'
+import ManagementFundPreviewVaultTVLCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTVLCard'
+import ManagementFundPreviewVaultTVCCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultTVCCard'
+import ManagementFundPreviewVaultBalanceCard from 'src/views/management/fund/preview/cards/ManagementFundPreviewVaultBalanceCard'
+import ManagementFundPreviewVaultSFTWalletCheckGrid from 'src/views/management/fund/preview/grids/ManagementFundPreviewVaultSFTWalletCheckGrid'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -38,88 +21,33 @@ const ManagementFundPreviewVaultTabPanel = (props: Props) => {
   // ** Props
   const { initFundEntity } = props
 
-  // ** Hooks
-  const walletAccount = useAccount()
-
-  const { data: sftTokenBalance, isLoading: isSftTokenBalanceLoading } = useReadContract({
-    chainId: getChainId(initFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-    abi: initFundEntity.fundSFTContractAbi,
-    address: initFundEntity.fundSFTContractAddress as `0x${string}`,
-    functionName: 'balanceOf',
-    args: [walletAccount.address!],
-    account: walletAccount.address!
-  })
-
-  // ** Vars
-  const sftTokenBalanceCount = Number(sftTokenBalance ?? 0)
-
   return (
     <TabPanel sx={{ p: 0 }} value='vault'>
-      <Grid container spacing={6}>
-        <Grid item xs={12} md={8}>
-          <ManagementFundPreviewAwardCard />
-        </Grid>
-        <Grid item xs={6} md={2}>
-          <CardStatisticsVertical
-            stats='155k'
-            color='primary'
-            trendNumber='+22%'
-            title='Total Orders'
-            chipText='Last 4 Month'
-            icon={<Icon icon='mdi:cart-plus' />}
-          />
-        </Grid>
-        <Grid item xs={6} md={2}>
-          <CardStatisticsVertical
-            stats='$13.4k'
-            color='success'
-            trendNumber='+38%'
-            title='Total Sales'
-            chipText='Last Six Month'
-            icon={<Icon icon='mdi:currency-usd' />}
-          />
-        </Grid>
-        <Grid item xs={12}>
-          <Stack>
-            <Typography variant='h5'>My SFT</Typography>
-            <Typography variant='body2'>
-              List of SFTs that you have staked in the fund. You can redeem the SFTs at any time
-            </Typography>
-          </Stack>
-        </Grid>
-        <Grid item xs={12}>
-          <Grid container spacing={6} className='match-height'>
-            {isSftTokenBalanceLoading ? (
-              [...Array(3).keys()].map(index => (
-                <Grid key={`management-fund-preview-skeleton-${index}`} item xs={12} sm={6} md={4}>
-                  <ManagementFundPreviewOwnedSFTSkeletonCard />
-                </Grid>
-              ))
-            ) : sftTokenBalanceCount === 0 ? (
-              <Grid item xs={12}>
-                <Card>
-                  <CardContent>
-                    <Stack spacing={4} alignItems='center' justifyContent='center'>
-                      <CustomAvatar skin='light' sx={{ width: 56, height: 56 }}>
-                        <Icon icon='mdi:warning-circle-outline' fontSize='2rem' />
-                      </CustomAvatar>
-                      <Typography variant='h6' component='p'>
-                        Do not have any SFT yet
-                      </Typography>
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </Grid>
-            ) : (
-              [...Array(sftTokenBalanceCount).keys()].map(sftTokenIndex => (
-                <Grid key={`sft-token-${sftTokenIndex}`} item xs={12} sm={6} md={4}>
-                  <ManagementFundPreviewOwnedSFTCard initFundEntity={initFundEntity} sftTokenIndex={sftTokenIndex} />
-                </Grid>
-              ))
-            )}
+      {initFundEntity.vault === null ? (
+        <Grid container spacing={6} className='match-height'>
+          <Grid item xs={12}>
+            <ManagementFundPreviewVaultNotPublishedCard />
           </Grid>
         </Grid>
-      </Grid>
+      ) : (
+        <Grid container spacing={6}>
+          <Grid item xs={6} md={3}>
+            <ManagementFundPreviewVaultTotalStakedCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <ManagementFundPreviewVaultTVLCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <ManagementFundPreviewVaultTVCCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={6} md={3}>
+            <ManagementFundPreviewVaultBalanceCard initFundEntity={initFundEntity} />
+          </Grid>
+          <Grid item xs={12}>
+            <ManagementFundPreviewVaultSFTWalletCheckGrid initFundEntity={initFundEntity} />
+          </Grid>
+        </Grid>
+      )}
     </TabPanel>
   )
 }

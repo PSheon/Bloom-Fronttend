@@ -11,9 +11,11 @@ import TabContext from '@mui/lab/TabContext'
 import MuiTab from '@mui/material/Tab'
 
 // ** Custom Component Imports
-import MeAccountOverviewWalletListCard from 'src/views/account/cards/MeAccountOverviewWalletListCard'
+import WalletConnectCard from 'src/views/shared/wallet-connect-card'
+import MeAccountOverviewSocialAccountCard from 'src/views/account/cards/MeAccountOverviewSocialAccountCard'
 import MeAccountOverviewActivityLogListCard from 'src/views/account/cards/MeAccountOverviewActivityLogListCard'
-import MeAccountSecurityChangePasswordCard from 'src/views/account/cards/MeAccountSecurityChangePasswordCard'
+
+// import MeAccountSecurityChangePasswordCard from 'src/views/account/cards/MeAccountSecurityChangePasswordCard'
 import MeAccountSecurityAccessLogListCard from 'src/views/account/cards/MeAccountSecurityAccessLogListCard'
 import MeAccountSecurityDangerZoneCard from 'src/views/account/cards/MeAccountSecurityDangerZoneCard'
 
@@ -34,6 +36,7 @@ const Tab = styled(MuiTab)<TabProps>(({ theme }) => ({
   }
 }))
 
+/* TODO: fill change password */
 const MeAccountEditTabContext = () => {
   // ** States
   const [activeTab, setActiveTab] = useState<string>('overview')
@@ -57,9 +60,12 @@ const MeAccountEditTabContext = () => {
       </TabList>
       <Box sx={{ mt: 6 }}>
         <TabPanel sx={{ p: 0 }} value='overview'>
-          <Grid container spacing={6}>
-            <Grid item xs={12}>
-              <MeAccountOverviewWalletListCard />
+          <Grid container spacing={6} className='match-height'>
+            <Grid item xs={12} sm={7}>
+              <WalletConnectCard />
+            </Grid>
+            <Grid item xs={12} sm={5}>
+              <MeAccountOverviewSocialAccountCard />
             </Grid>
             <Grid item xs={12}>
               <MeAccountOverviewActivityLogListCard />
@@ -68,9 +74,9 @@ const MeAccountEditTabContext = () => {
         </TabPanel>
         <TabPanel sx={{ p: 0 }} value='security'>
           <Grid container spacing={6}>
-            <Grid item xs={12}>
+            {/* <Grid item xs={12}>
               <MeAccountSecurityChangePasswordCard />
-            </Grid>
+            </Grid> */}
             <Grid item xs={12}>
               <MeAccountSecurityAccessLogListCard />
             </Grid>

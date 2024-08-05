@@ -249,7 +249,9 @@ const ManagementMediaAssetListPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <ManagementMediaAssetListBreadcrumbs pageLevels={[{ title: '檔案管理' }]} />
+        <ManagementMediaAssetListBreadcrumbs
+          pageLevels={[{ title: 'PageBreadcrumb.Management.Media Assets.PageTitle' }]}
+        />
       </Grid>
       <Grid item xs={12}>
         <Card>

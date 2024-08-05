@@ -245,7 +245,9 @@ const ManagementNotificationListPage = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
-        <ManagementNotificationListBreadcrumbs pageLevels={[{ title: '通知管理' }]} />
+        <ManagementNotificationListBreadcrumbs
+          pageLevels={[{ title: 'PageBreadcrumb.Management.Notifications.PageTitle' }]}
+        />
       </Grid>
       <Grid item xs={12}>
         <Card>

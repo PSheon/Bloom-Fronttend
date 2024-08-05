@@ -1,0 +1,58 @@
+{
+  "Profile": {
+    "InService": "In Service",
+    "Language": "Language",
+    "Time Zone": "Time Zone",
+    "System Information": "System Information",
+    "Version": "Version",
+    "API Version": "API Version",
+    "Socket Version": "Socket Version"
+  },
+  "Language Settings": {
+    "CardTitle": "Language",
+    "Locale-en": "English",
+    "Locale-zh_TW": "Traditional Chinese",
+    "Locale-zh_CN": "Simplified Chinese",
+    "Locale-es": "Spanish",
+    "Locale-de": "German",
+    "Locale-it": "Italian"
+  },
+  "Theme Settings": {
+    "CardTitle": "Theme",
+    "Skin": {
+      "SectionTitle": "Skin",
+      "Default": "Default",
+      "Bordered": "Bordered"
+    },
+    "Mode": {
+      "SectionTitle": "Mode",
+      "Light": "Light",
+      "Dark": "Dark"
+    },
+    "Primary Color": {
+      "SectionTitle": "Primary Color"
+    }
+  },
+  "Layout Settings": {
+    "CardTitle": "Layout",
+    "Content Width": {
+      "SectionTitle": "Content Width",
+      "Full": "Full",
+      "Boxed": "Boxed"
+    },
+    "AppBar Type": {
+      "SectionTitle": "AppBar Type",
+      "Fixed": "Fixed",
+      "Static": "Static",
+      "Hidden": "Hidden"
+    }
+  },
+  "Menu Settings": {
+    "CardTitle": "Menu",
+    "Menu Toggle": {
+      "SectionTitle": "Menu Toggle",
+      "Collapsed": "Collapsed",
+      "Expanded": "Expanded"
+    }
+  }
+}
