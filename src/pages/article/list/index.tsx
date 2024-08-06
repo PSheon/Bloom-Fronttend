@@ -3,13 +3,14 @@ import { useState, useCallback } from 'react'
 
 // ** MUI Imports
 import { styled } from '@mui/material/styles'
-import Stack from '@mui/material/Stack'
+import Grid from '@mui/material/Grid'
 
 // ** Layout Imports
 import CommonLayout from 'src/layouts/CommonLayout'
 
 // ** Custom Component Imports
-import PublicArticleListHeaderGrid from 'src/views/article/list/grids/PublicArticleListHeaderGrid'
+import PublicArticleListHeaderTabGrid from 'src/views/article/list/grids/PublicArticleListHeaderTabGrid'
+import PublicArticleListHeaderTitleGrid from 'src/views/article/list/grids/PublicArticleListHeaderTitleGrid'
 import PublicArticleListDataGrid from 'src/views/article/list/grids/PublicArticleListDataGrid'
 
 // ** API Imports
@@ -17,11 +18,12 @@ import { useFindQuery } from 'src/store/api/management/article'
 
 // ** Type Imports
 import type { ReactNode } from 'react'
-import type { StackProps } from '@mui/material/Stack'
+import type { GridProps } from '@mui/material/Grid'
 
-const StyledRootStack = styled(Stack)<StackProps>({
-  height: '100%'
-})
+const StyledRootGrid = styled(Grid)<GridProps>(({ theme }) => ({
+  height: '100%',
+  paddingBottom: theme.spacing(12)
+}))
 
 const ArticleListPage = () => {
   // ** States
@@ -48,17 +50,22 @@ const ArticleListPage = () => {
   }, [])
 
   return (
-    <StyledRootStack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='flex-start'>
-      <PublicArticleListHeaderGrid
+    <StyledRootGrid container spacing={6} alignItems='center' justifyContent='flex-start'>
+      <PublicArticleListHeaderTabGrid
         filteredCategory={filteredCategory}
         handleFilterCategoryChange={handleFilterCategoryChange}
       />
-      <PublicArticleListDataGrid
-        articles={articles}
-        totalRows={totalRows}
-        isArticleListLoading={isArticleListLoading}
-      />
-    </StyledRootStack>
+      <PublicArticleListHeaderTitleGrid filteredCategory={filteredCategory} />
+      <Grid item xs={12}>
+        <Grid container spacing={6} className='match-height'>
+          <PublicArticleListDataGrid
+            articles={articles}
+            totalRows={totalRows}
+            isArticleListLoading={isArticleListLoading}
+          />
+        </Grid>
+      </Grid>
+    </StyledRootGrid>
   )
 }
 

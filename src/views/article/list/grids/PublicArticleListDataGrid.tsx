@@ -40,87 +40,68 @@ const PublicArticleListDataGrid = (props: Props) => {
     router.push(`/article/live/${articleId}`)
   }
 
-  // ** Renders
-  const renderTableDataGrid = () => {
-    if (isArticleListLoading) {
-      return (
-        <Grid container spacing={6}>
-          {[...Array(6).keys()].map(index => (
-            <Grid key={`article-skeleton-${index}`} item xs={12} md={4}>
-              <PublicArticleListLoadingSkeletonCard />
-            </Grid>
-          ))}
-        </Grid>
-      )
-    } else if (totalRows === 0) {
-      return (
-        <Grid container spacing={6}>
-          <Grid item xs={12}>
-            <Typography variant='h5' textAlign='center' sx={{ my: 12, fontSize: '1.5rem !important' }}>
-              We are launching soon 🚀
-            </Typography>
-          </Grid>
-        </Grid>
-      )
-    } else {
-      return (
-        <Grid container spacing={6}>
-          {articles.map(article => {
-            return (
-              <Grid key={`article-${article.id}`} item xs={12} md={4}>
-                <Card
-                  onClick={() => handleRedirectToArticle(article.id)}
-                  sx={{
-                    border: '1px transparent solid',
-                    cursor: 'pointer',
-                    transition: 'border-color 0.2s',
-                    '&:hover': {
-                      borderColor: theme => theme.palette.primary.main
-                    }
-                  }}
-                >
-                  <CardMedia sx={{ height: 201 }} image={getPublicMediaAssetUrl(article.cover?.data?.attributes.url)} />
-                  <CardContent sx={{ pt: 4 }}>
-                    <Typography variant='h6' component='h2'>
-                      {article.displayName}
-                    </Typography>
-                    <Typography variant='body2'>{article.description}</Typography>
-                  </CardContent>
-                  <CardContent>
-                    <Stack direction='row' spacing={2} alignItems='center' justifyContent='space-between'>
-                      <Stack direction='row' spacing={2} alignItems='center' justifyContent='space-between'>
-                        <Avatar
-                          src={getPublicMediaAssetUrl(article?.author?.data?.attributes.avatar.data?.attributes.url)}
-                          alt={article?.author?.data?.attributes.username ?? 'Paul'}
-                          sx={{ width: 22, height: 22 }}
-                        />
-
-                        <Typography variant='caption'>
-                          {article?.author?.data?.attributes.username ?? 'Custom Service Agent'}
-                        </Typography>
-                      </Stack>
-
-                      <Typography variant='caption' sx={{ whiteSpace: 'nowrap' }}>
-                        {format(new Date(article.updatedAt), 'E, LLLL do yyyy')}
-                      </Typography>
-                    </Stack>
-                  </CardContent>
-                </Card>
-              </Grid>
-            )
-          })}
-        </Grid>
-      )
-    }
-  }
-
-  return (
-    <Grid container spacing={6}>
-      <Grid item xs={12}>
-        {renderTableDataGrid()}
+  if (isArticleListLoading) {
+    return [...Array(6).keys()].map(index => (
+      <Grid key={`article-skeleton-${index}`} item xs={12} md={4}>
+        <PublicArticleListLoadingSkeletonCard />
       </Grid>
-    </Grid>
-  )
+    ))
+  } else if (totalRows === 0) {
+    return (
+      <Grid item xs={12}>
+        <Typography variant='h5' component='p' textAlign='center' sx={{ my: 12, fontSize: '1.5rem !important' }}>
+          More articles are coming soon 🚀
+        </Typography>
+      </Grid>
+    )
+  } else {
+    return articles.map(article => {
+      return (
+        <Grid key={`article-${article.id}`} item xs={12} md={4}>
+          <Card
+            onClick={() => handleRedirectToArticle(article.id)}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              border: '1px transparent solid',
+              cursor: 'pointer',
+              transition: 'border-color 0.2s',
+              '&:hover': {
+                borderColor: theme => theme.palette.primary.main
+              }
+            }}
+          >
+            <CardMedia sx={{ height: 201 }} image={getPublicMediaAssetUrl(article.cover?.data?.attributes.url)} />
+            <CardContent sx={{ pt: 4 }}>
+              <Typography variant='subtitle1' component='p' noWrap>
+                {article.displayName}
+              </Typography>
+              <Typography variant='body2'>{article.description}</Typography>
+            </CardContent>
+            <CardContent sx={{ mt: 'auto' }}>
+              <Stack direction='row' spacing={2} alignItems='center' justifyContent='space-between'>
+                <Stack direction='row' spacing={2} alignItems='center' justifyContent='space-between'>
+                  <Avatar
+                    src={getPublicMediaAssetUrl(article?.author?.data?.attributes.avatar.data?.attributes.url)}
+                    alt={article?.author?.data?.attributes.username ?? 'Paul'}
+                    sx={{ width: 22, height: 22 }}
+                  />
+
+                  <Typography variant='caption'>
+                    {article?.author?.data?.attributes.username ?? 'Custom Service Agent'}
+                  </Typography>
+                </Stack>
+
+                <Typography variant='caption' sx={{ whiteSpace: 'nowrap' }}>
+                  {format(new Date(article.updatedAt), 'E, LLLL do yyyy')}
+                </Typography>
+              </Stack>
+            </CardContent>
+          </Card>
+        </Grid>
+      )
+    })
+  }
 }
 
 export default PublicArticleListDataGrid
