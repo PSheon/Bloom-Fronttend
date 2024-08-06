@@ -32,7 +32,8 @@ const ArticleListPage = () => {
   // ** Hooks
   const { data: articlesData, isLoading: isArticleListLoading } = useFindQuery({
     filters: {
-      ...(filteredCategory !== 'all' && { category: filteredCategory })
+      ...(filteredCategory !== 'all' && { category: filteredCategory }),
+      status: 'published'
     },
     pagination: {
       page: 1,
