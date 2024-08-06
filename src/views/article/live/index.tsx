@@ -83,7 +83,7 @@ const PublicArticleLiveSection = (props: Props) => {
             {initArticleEntity.displayName}
           </Typography>
           <Typography variant='h6' component='h2' color='secondary'>
-            {initArticleEntity.displayName}
+            {initArticleEntity.description}
           </Typography>
         </Stack>
       </Stack>
