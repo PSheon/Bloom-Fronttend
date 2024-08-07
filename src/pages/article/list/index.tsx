@@ -33,7 +33,7 @@ const ArticleListPage = () => {
   const { data: articlesData, isLoading: isArticleListLoading } = useFindQuery({
     filters: {
       ...(filteredCategory !== 'all' && { category: filteredCategory }),
-      status: 'published'
+      status: 'Published'
     },
     pagination: {
       page: 1,
