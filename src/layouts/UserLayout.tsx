@@ -20,6 +20,7 @@ import toast from 'react-hot-toast'
 import VerticalAppBarContent from 'src/layouts/components/vertical/AppBarContent'
 import HorizontalAppBarContent from 'src/layouts/components/horizontal/AppBarContent'
 import AppBrand from 'src/layouts/components/AppBrand'
+import WalletNetworkAlert from 'src/views/shared/WalletNetworkAlert'
 import FooterContent from 'src/layouts/components/FooterContent'
 
 // ** Hook Imports
@@ -112,6 +113,8 @@ const UserLayout = ({ children, contentHeightFixed }: Props) => {
         content: () => <FooterContent />
       }}
     >
+      <WalletNetworkAlert />
+
       {children}
     </Layout>
   )
