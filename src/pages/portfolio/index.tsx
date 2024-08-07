@@ -7,7 +7,6 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 // ** Custom Component Imports
 import PortfolioBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import PortfolioBannerCard from 'src/views/portfolio/cards/PortfolioBannerCard'
-import PortfolioNetworkAlert from 'src/views/portfolio/alerts/PortfolioNetworkAlert'
 
 // import PortfolioPointsRecordChartCard from 'src/views/portfolio/cards/me-points-record-chart'
 // import PortfolioPointsRecordListCard from 'src/views/portfolio/cards/me-points-record-list'
@@ -22,9 +21,6 @@ const PortfolioPage = () => {
         </Grid>
         <Grid item xs={12}>
           <PortfolioBannerCard />
-        </Grid>
-        <Grid item xs={12}>
-          <PortfolioNetworkAlert />
         </Grid>
 
         {/* TODO: Fill chart here */}

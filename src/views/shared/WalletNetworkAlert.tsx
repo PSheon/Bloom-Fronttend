@@ -5,25 +5,34 @@ import { useState } from 'react'
 import Link from 'next/link'
 
 // ** MUI Imports
+import { styled } from '@mui/material/styles'
 import Alert from '@mui/material/Alert'
 
 // ** Third-Party Imports
-import { useChainId } from 'wagmi'
+import { useAccount } from 'wagmi'
 import { mainnet } from 'wagmi/chains'
 
 // ** Config Imports
 import themeConfig from 'src/configs/themeConfig'
 
-const PortfolioNetworkAlert = () => {
+// ** Type Imports
+import type { AlertProps } from '@mui/material/Alert'
+
+// ** Styled components
+const StyledAlert = styled(Alert)<AlertProps>(({ theme }) => ({
+  marginBottom: theme.spacing(4)
+}))
+
+const WalletNetworkAlert = () => {
   // ** States
   const [isShow, setIsShow] = useState<boolean>(true)
 
   // ** Hooks
-  const chainId = useChainId()
+  const walletAccount = useAccount()
 
   // ** Vars
   const isInProduction = process.env.NEXT_PUBLIC_FRONTEND_URL === 'https://app.buxx.finance'
-  const isUsingMainnetNetwork = chainId === mainnet.id
+  const isUsingMainnetNetwork = walletAccount.isConnected && walletAccount.chainId === mainnet.id
 
   // ** Logics
   const handleClose = () => setIsShow(() => false)
@@ -32,13 +41,13 @@ const PortfolioNetworkAlert = () => {
     return (
       isShow &&
       !isUsingMainnetNetwork && (
-        <Alert severity='info' onClose={handleClose}>
+        <StyledAlert severity='info' onClose={handleClose}>
           {`You're viewing data from the main network, but your wallet is connected to the test network. To use ${themeConfig.templateName}, please
           switch to `}
           <Link href='https://stage.buxx.finance' target='_blank'>
             https://stage.buxx.finance
           </Link>
-        </Alert>
+        </StyledAlert>
       )
     )
   }
@@ -46,14 +55,14 @@ const PortfolioNetworkAlert = () => {
   return (
     isShow &&
     isUsingMainnetNetwork && (
-      <Alert severity='info' onClose={handleClose}>
+      <StyledAlert severity='info' onClose={handleClose}>
         {`You're viewing data from the test network, but your wallet is connected to the main network. To use ${themeConfig.templateName}, please switch to `}
         <Link href='https://app.buxx.finance' target='_blank'>
           https://app.buxx.finance
         </Link>
-      </Alert>
+      </StyledAlert>
     )
   )
 }
 
-export default PortfolioNetworkAlert
+export default WalletNetworkAlert
