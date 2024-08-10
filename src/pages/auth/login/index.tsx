@@ -121,7 +121,7 @@ const StyledLoginIllustration = styled('img')(({ theme }) => ({
 // })
 
 // const defaultValues = {
-//   email: 'admin@www.buxx.finance',
+//   email: 'admin@app.buxx.finance',
 //   password: 'admin123'
 // }
 
@@ -291,17 +291,17 @@ const AuthLoginPage = () => {
                 sx={{ width: '100%', py: 3, mt: 4, ...bgColors.primaryLight, '& .MuiAlert-message': { p: 0 } }}
               >
                 <Typography variant='caption' sx={{ mb: 2, display: 'block', color: 'primary.main' }}>
-                  Admin: <strong>admin@www.buxx.finance</strong> / Pass: <strong>admin123</strong>
+                  Admin: <strong>admin@app.buxx.finance</strong> / Pass: <strong>admin123</strong>
                 </Typography>
                 <Typography variant='caption' sx={{ display: 'block', color: 'primary.main' }}>
-                  Planner: <strong>planner@www.buxx.finance</strong> / Pass: <strong>planner123</strong>
+                  Planner: <strong>planner@app.buxx.finance</strong> / Pass: <strong>planner123</strong>
                 </Typography>
                 <Typography variant='caption' sx={{ display: 'block', color: 'primary.main' }}>
-                  Asset Manager: <strong>asset-manager@www.buxx.finance</strong> / Pass:{' '}
+                  Asset Manager: <strong>asset-manager@app.buxx.finance</strong> / Pass:{' '}
                   <strong>asset-manager123</strong>
                 </Typography>
                 <Typography variant='caption' sx={{ display: 'block', color: 'primary.main' }}>
-                  User: <strong>user@www.buxx.finance</strong> / Pass: <strong>user123</strong>
+                  User: <strong>user@app.buxx.finance</strong> / Pass: <strong>user123</strong>
                 </Typography>
               </Alert> */}
               {authError && (
