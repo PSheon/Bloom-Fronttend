@@ -163,11 +163,11 @@ const App = (props: ExtendedAppProps) => {
             property='og:description'
             content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
           />
-          <meta property='og:image' content='https://www.buxx.finance/api/static-image' />
+          <meta property='og:image' content='https://app.buxx.finance/api/static-image' />
           <meta property='og:image:type' content='image/jpeg' />
           <meta property='og:image:width' content='1200' />
           <meta property='og:image:height' content='800' />
-          <meta property='og:url' content='https://www.buxx.finance' />
+          <meta property='og:url' content='https://app.buxx.finance' />
           <meta property='og:site_name' content={themeConfig.templateName} />
           <meta property='og:type' content='website' />
 
@@ -178,7 +178,7 @@ const App = (props: ExtendedAppProps) => {
             name='twitter:description'
             content={`${themeConfig.templateName} – Decentralized RWA Trade Desk based on Ethereum`}
           />
-          <meta name='twitter:image' content='https://www.buxx.finance/api/static-image' />
+          <meta name='twitter:image' content='https://app.buxx.finance/api/static-image' />
           <meta name='twitter:image:type' content='image/jpeg' />
           <meta property='twitter:image:width' content='1200' />
           <meta property='twitter:image:height' content='800' />
