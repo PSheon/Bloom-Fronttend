@@ -1,3 +1,7 @@
+/*
+ * Deprecated
+ */
+
 // ** Type Imports
 import type { MediaAssetType } from 'src/types/mediaAssetTypes'
 
