@@ -118,7 +118,7 @@ const ManagementFundEditVaultPointsRecordListCard = (props: Props) => {
                 {user.username}
               </LinkStyled>
               <Typography noWrap variant='caption'>
-                {`#${user.title || 'unfilled'}`}
+                {`#${user.nationality || 'unfilled'}`}
               </Typography>
             </Stack>
           </Stack>
