@@ -111,9 +111,7 @@ const PublicArticleLiveSection = (props: Props) => {
                     {initArticleEntity?.author?.data?.attributes?.username ?? 'Paul'}
                   </Typography>
                   <Typography variant='body2' component='p' color='secondary'>
-                    {initArticleEntity?.author?.data?.attributes?.title ??
-                      initArticleEntity?.author?.data?.attributes?.email ??
-                      'Custom Service Agent'}
+                    {initArticleEntity?.author?.data?.attributes?.email ?? 'Custom Service Agent'}
                   </Typography>
                 </Stack>
               </Stack>
