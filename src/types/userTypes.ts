@@ -38,8 +38,12 @@ export type FindUsersResponseType = BaseApiResponseType<UserDataType[]>
 export type UpdateOneUserParamsType = {
   id: number
   data: Partial<{
-    title: string
-    phone: string
+    fullName: string
+    nationality: string
+    phoneNumber: string
+    idType: string
+    idNumber: string
+    contactAddress: string
     role: number
     blocked: boolean
     isHighlighted: boolean
@@ -52,8 +56,12 @@ export type UpdateOneUserResponseType = UserDataType
 export type UpdateMeOneUserParamsType = {
   data: Partial<{
     avatar: number | null
-    title: string
-    phone: string
+    fullName: string
+    nationality: string
+    phoneNumber: string
+    idType: string
+    idNumber: string
+    contactAddress: string
     role: number
     blocked: boolean
   }>
