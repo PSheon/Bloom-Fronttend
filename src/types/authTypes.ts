@@ -13,8 +13,12 @@ export type UserDataType = {
   provider: string
   email: string
   username: string
-  title?: string
-  phone?: string
+  fullName?: string
+  nationality?: string
+  phoneNumber?: string
+  idType?: 'Passport' | 'ID Card' | 'Permanent Resident Card' | 'Driving License'
+  idNumber?: string
+  contactAddress?: string
   exp: number
   points: number
   referralRank?: number

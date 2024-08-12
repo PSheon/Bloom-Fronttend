@@ -4,7 +4,9 @@ import { useState } from 'react'
 // ** MUI Imports
 import Stack from '@mui/material/Stack'
 import Grid from '@mui/material/Grid'
+import Box from '@mui/material/Box'
 import Card from '@mui/material/Card'
+import Autocomplete from '@mui/material/Autocomplete'
 import Button from '@mui/material/Button'
 import Dialog from '@mui/material/Dialog'
 import Divider from '@mui/material/Divider'
@@ -17,7 +19,9 @@ import DialogTitle from '@mui/material/DialogTitle'
 import FormControl from '@mui/material/FormControl'
 import DialogContent from '@mui/material/DialogContent'
 import DialogActions from '@mui/material/DialogActions'
-import InputAdornment from '@mui/material/InputAdornment'
+import InputLabel from '@mui/material/InputLabel'
+import Select from '@mui/material/Select'
+import MenuItem from '@mui/material/MenuItem'
 import DialogContentText from '@mui/material/DialogContentText'
 import IconButton from '@mui/material/IconButton'
 import LoadingButton from '@mui/lab/LoadingButton'
@@ -40,20 +44,33 @@ import Icon from 'src/@core/components/icon'
 // ** API Imports
 import { useUpdateMeOneMutation } from 'src/store/api/management/user'
 
+// ** Config Imports
+import { countries } from 'src/configs/kyc'
+
 // ** Type Imports
+import type { SyntheticEvent } from 'react'
 import type { UserDataType } from 'src/types/authTypes'
+import type { CountryType } from 'src/configs/kyc'
 
 const schema = yup.object().shape({
-  title: yup.string().optional(),
-  phone: yup.string().optional()
+  fullName: yup.string().optional(),
+  nationality: yup.string().optional(),
+  phoneNumber: yup.string().optional(),
+  idType: yup.string().oneOf(['Passport', 'ID Card', 'Permanent Resident Card', 'Driving License']).optional(),
+  idNumber: yup.string().optional(),
+  contactAddress: yup.string().optional()
 })
 
 interface Props {
   initMeUserEntity: UserDataType
 }
 interface FormData {
-  title?: string
-  phone?: string
+  fullName?: string
+  nationality?: string
+  phoneNumber?: string
+  idType?: 'Passport' | 'ID Card' | 'Permanent Resident Card' | 'Driving License'
+  idNumber?: string
+  contactAddress?: string
 }
 
 const MeAccountEditProfileCard = (props: Props) => {
@@ -76,8 +93,12 @@ const MeAccountEditProfileCard = (props: Props) => {
     formState: { isDirty, errors }
   } = useForm({
     defaultValues: {
-      title: initMeUserEntity.title || '',
-      phone: initMeUserEntity.phone || ''
+      fullName: initMeUserEntity.fullName || '',
+      nationality: initMeUserEntity.nationality || '',
+      phoneNumber: initMeUserEntity.phoneNumber || '',
+      idType: initMeUserEntity.idType,
+      idNumber: initMeUserEntity.idNumber || '',
+      contactAddress: initMeUserEntity.contactAddress || ''
     },
     mode: 'onBlur',
     resolver: yupResolver(schema)
@@ -88,12 +109,16 @@ const MeAccountEditProfileCard = (props: Props) => {
   const handleEditClose = () => setOpenEdit(false)
 
   const onSubmit = async (data: FormData) => {
-    const { title, phone } = data
+    const { fullName, nationality, phoneNumber, idType, idNumber, contactAddress } = data
 
     await updateMeUser({
       data: {
-        title,
-        phone
+        fullName,
+        nationality,
+        phoneNumber,
+        idType,
+        idNumber,
+        contactAddress
       }
     })
     await session.update()
@@ -146,15 +171,37 @@ const MeAccountEditProfileCard = (props: Props) => {
           </Stack>
           <Stack direction='row' spacing={2} alignItems='center'>
             <Typography variant='subtitle2' component='p' color='text.primary'>
-              Title:
+              Full Name:
             </Typography>
-            <Typography variant='body2'>{updatedMeUser.title || 'Unfilled'}</Typography>
+            <Typography variant='body2'>{updatedMeUser.fullName || 'Unfilled'}</Typography>
           </Stack>
           <Stack direction='row' spacing={2} alignItems='center'>
             <Typography variant='subtitle2' component='p' color='text.primary'>
-              Phone:
+              Nationality:
             </Typography>
-            <Typography variant='body2'>{updatedMeUser.phone ? `(+65) ${updatedMeUser.phone}` : 'Unfilled'}</Typography>
+            <Typography variant='body2'>{updatedMeUser.nationality || 'Unfilled'}</Typography>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' component='p' color='text.primary'>
+              Phone Number:
+            </Typography>
+            <Typography variant='body2'>{updatedMeUser.phoneNumber || 'Unfilled'}</Typography>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' component='p' color='text.primary'>
+              ID:
+            </Typography>
+            <Typography variant='body2'>
+              {updatedMeUser.idNumber
+                ? `${updatedMeUser.idType ? `(${updatedMeUser.idType}) ` : ''}${updatedMeUser.idNumber}`
+                : 'Unfilled'}
+            </Typography>
+          </Stack>
+          <Stack direction='row' spacing={2} alignItems='center'>
+            <Typography variant='subtitle2' component='p' color='text.primary'>
+              Contact Address:
+            </Typography>
+            <Typography variant='body2'>{updatedMeUser.contactAddress || 'Unfilled'}</Typography>
           </Stack>
         </Stack>
       </CardContent>
@@ -205,30 +252,89 @@ const MeAccountEditProfileCard = (props: Props) => {
               <Grid item xs={12} sm={6}>
                 <TextField fullWidth label='Email' value={updatedMeUser.email} inputProps={{ readOnly: true }} />
               </Grid>
-              <Grid item xs={12} sm={6}>
+              <Grid item xs={12}>
+                <Divider />
+              </Grid>
+              <Grid item xs={12}>
+                <Typography variant='subtitle2'>KYC Information</Typography>
+              </Grid>
+              <Grid item xs={12}>
                 <FormControl fullWidth>
                   <Controller
-                    name='title'
+                    name='fullName'
                     control={control}
                     rules={{ required: true }}
                     render={({ field: { value, onChange, onBlur } }) => (
                       <TextField
-                        label='Title'
-                        placeholder='Doctor/Manager'
+                        label='Full Name'
+                        placeholder='Your legal name'
                         value={value}
                         onBlur={onBlur}
                         onChange={onChange}
-                        error={Boolean(errors.title)}
+                        error={Boolean(errors.fullName)}
                       />
                     )}
                   />
-                  {errors.title && <FormHelperText sx={{ color: 'error.main' }}>{errors.title.message}</FormHelperText>}
+                  {errors.fullName && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.fullName.message}</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
               <Grid item xs={12} sm={6}>
                 <FormControl fullWidth>
                   <Controller
-                    name='phone'
+                    name='nationality'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Autocomplete
+                        autoHighlight
+                        id='autocomplete-country-select'
+                        defaultValue={countries.find(country => country.label === value)}
+                        onChange={(event: SyntheticEvent, newCountry: CountryType | null) => {
+                          onChange(newCountry?.label)
+                        }}
+                        options={countries as CountryType[]}
+                        getOptionLabel={option => option.label || ''}
+                        renderOption={(props, option) => (
+                          <Box
+                            key={`countries-${option.code}`}
+                            component='li'
+                            sx={{ '& > img': { mr: 4, flexShrink: 0 } }}
+                            {...props}
+                          >
+                            <img
+                              alt=''
+                              width='20'
+                              loading='lazy'
+                              src={`https://flagcdn.com/w20/${option.code.toLowerCase()}.png`}
+                              srcSet={`https://flagcdn.com/w40/${option.code.toLowerCase()}.png 2x`}
+                            />
+                            {option.label} ({option.code}) +{option.phone}
+                          </Box>
+                        )}
+                        renderInput={params => (
+                          <TextField
+                            {...params}
+                            label='Choose a country'
+                            inputProps={{
+                              ...params.inputProps,
+                              autocomplete: 'new-password'
+                            }}
+                          />
+                        )}
+                      />
+                    )}
+                  />
+                  {errors.nationality && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.nationality.message}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={6}>
+                <FormControl fullWidth>
+                  <Controller
+                    name='phoneNumber'
                     control={control}
                     rules={{ required: true }}
                     render={({ field: { value, onChange, onBlur } }) => (
@@ -237,15 +343,83 @@ const MeAccountEditProfileCard = (props: Props) => {
                         value={value}
                         onBlur={onBlur}
                         onChange={onChange}
-                        error={Boolean(errors.phone)}
-                        InputProps={{
-                          startAdornment: <InputAdornment position='start'>(+65)</InputAdornment>
-                        }}
-                        sx={{ display: 'flex' }}
+                        error={Boolean(errors.phoneNumber)}
                       />
                     )}
                   />
-                  {errors.phone && <FormHelperText sx={{ color: 'error.main' }}>{errors.phone.message}</FormHelperText>}
+                  {errors.phoneNumber && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.phoneNumber.message}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={5}>
+                <FormControl fullWidth>
+                  <InputLabel id='me-account-edit-profile-id-type'>ID Type</InputLabel>
+                  <Controller
+                    name='idType'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange } }) => (
+                      <Select
+                        fullWidth
+                        labelId='me-account-edit-profile-id-type'
+                        label='ID Type'
+                        value={value}
+                        onChange={onChange}
+                        error={Boolean(errors.idType)}
+                      >
+                        <MenuItem value='Passport'>Passport</MenuItem>
+                        <MenuItem value='ID Card'>ID Card</MenuItem>
+                        <MenuItem value='Permanent Resident Card'>Permanent Resident Card</MenuItem>
+                        <MenuItem value='Driving License'>Driving License</MenuItem>
+                      </Select>
+                    )}
+                  />
+                  {errors.idType && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.idType.message}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12} sm={7}>
+                <FormControl fullWidth>
+                  <Controller
+                    name='idNumber'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        label='ID Number'
+                        value={value}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        error={Boolean(errors.idNumber)}
+                      />
+                    )}
+                  />
+                  {errors.idNumber && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.idNumber.message}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <Controller
+                    name='contactAddress'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        label='Contact Address'
+                        value={value}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        error={Boolean(errors.contactAddress)}
+                      />
+                    )}
+                  />
+                  {errors.contactAddress && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.contactAddress.message}</FormHelperText>
+                  )}
                 </FormControl>
               </Grid>
             </Grid>
@@ -264,7 +438,17 @@ const MeAccountEditProfileCard = (props: Props) => {
           </Button>
           <LoadingButton
             loading={isUpdateMeUserLoading}
-            disabled={!isDirty || Boolean(errors.title || errors.phone)}
+            disabled={
+              !isDirty ||
+              Boolean(
+                errors.fullName ||
+                  errors.nationality ||
+                  errors.phoneNumber ||
+                  errors.idType ||
+                  errors.idNumber ||
+                  errors.contactAddress
+              )
+            }
             variant='contained'
             startIcon={<Icon icon='mdi:content-save-outline' />}
             onClick={handleSubmit(onSubmit)}

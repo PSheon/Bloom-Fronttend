@@ -142,7 +142,7 @@ const ManagementUserListPage = () => {
               {row.username}
             </LinkStyled>
             <Typography noWrap variant='caption'>
-              {`#${row.title || 'unfilled'}`}
+              {`#${row.nationality || 'unfilled'}`}
             </Typography>
           </Stack>
         </Stack>
@@ -170,16 +170,16 @@ const ManagementUserListPage = () => {
       )
     },
     {
-      field: 'phone',
+      field: 'phoneNumber',
       display: 'flex',
       minWidth: 140,
-      headerName: 'Phone',
+      headerName: 'Phone Number',
       renderCell: ({ row }: GridRenderCellParams<UserDataType>) => (
         <Typography noWrap variant='body2' color='text.secondary' sx={{ fontWeight: 600 }}>
-          {row?.phone || 'Unfilled'}
+          {row?.phoneNumber || 'Unfilled'}
         </Typography>
       ),
-      valueGetter: (data: UserDataType) => data?.phone || 'Unfilled'
+      valueGetter: (data: UserDataType) => data?.phoneNumber || 'Unfilled'
     },
     {
       field: 'role',
