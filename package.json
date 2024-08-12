@@ -1,6 +1,6 @@
 {
   "name": "buxx-frontend",
-  "version": "0.0.8",
+  "version": "0.0.9",
   "private": true,
   "scripts": {
     "dev": "PORT=8080 next dev",
