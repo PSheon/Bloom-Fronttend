@@ -8,7 +8,6 @@ export type NotificationType = {
   category: 'System' | 'Fund'
   title: string
   content: Block[]
-  date: boolean
   isSeen: boolean
   isHighlighted: boolean
   updatedAt: string

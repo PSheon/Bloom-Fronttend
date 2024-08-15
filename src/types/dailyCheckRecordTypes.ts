@@ -4,7 +4,6 @@ import type { BaseApiResponseType, UserApiResponseType } from 'src/types/api/bas
 export type DailyCheckRecordType = {
   id: number
   user: UserApiResponseType
-  date: Date
   isHighlighted: boolean
   updatedAt: string
   createdAt: string

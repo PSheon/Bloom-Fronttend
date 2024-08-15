@@ -8,7 +8,6 @@ export type AccessLogType = {
   action: AccessAction
   responseMessage: string
   status: boolean
-  date: string
   user: UserApiResponseType
   ip: string
   os: string
