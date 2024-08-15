@@ -28,8 +28,8 @@ export type TokenType = {
   tokenValue: string
   attributes: AttributeType[]
   status: 'Holding' | 'Staking' | 'Burned'
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Find One

@@ -5,8 +5,8 @@ export type DailyCheckRecordType = {
   id: number
   user: UserApiResponseType
   isHighlighted: boolean
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Daily Check

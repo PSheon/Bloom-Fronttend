@@ -9,8 +9,8 @@ export type ReviewType = {
   modificationSuggestions: string
   replyContent: string
   isPublished: boolean
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Find Me One

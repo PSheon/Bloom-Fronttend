@@ -32,7 +32,7 @@ type RowType = {
   id: string
   displayName: string
   assignedTo: Role[]
-  createdAt: string
+  createdAt: Date
 }
 
 const SystemDashboardPermissionsList = () => {

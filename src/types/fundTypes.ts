@@ -64,8 +64,8 @@ export type FundType = {
   discordUrl?: string
   isHighlighted: boolean
   status: 'Draft' | 'Published' | 'Archived'
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Find One

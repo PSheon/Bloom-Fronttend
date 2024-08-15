@@ -6,8 +6,8 @@ export type RoleType = {
   name: Role
   description: string
   type: string
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
   nb_users: number
 }
 

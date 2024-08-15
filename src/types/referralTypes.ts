@@ -11,8 +11,8 @@ export type ReferralType = {
   referrer: UserApiResponseType
   isActive: boolean
   isHighlighted: boolean
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Join

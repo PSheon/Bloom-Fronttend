@@ -14,8 +14,8 @@ export type ActivityLogType = {
   payload: Record<string, string | number>
   user: UserApiResponseType
   isHighlighted: boolean
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Find Me
