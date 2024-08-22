@@ -40,22 +40,18 @@ export type FindMeStatisticsPointRecordsTransformResponseType = {
   meStakedValue: number
   rankDownLine1: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankDownLine2: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankDownLine3: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankTeam: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
 }
@@ -63,22 +59,18 @@ export type FindMeStatisticsPointRecordsResponseType = {
   meStakedValue: number
   rankDownLine1: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankDownLine2: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankDownLine3: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankTeam: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
 }
