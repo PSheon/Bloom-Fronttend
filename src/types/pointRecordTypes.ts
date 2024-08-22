@@ -9,8 +9,8 @@ export type PointRecordType = {
   earningPoints: number
   receipt: Record<string, string>
   isHighlighted: boolean
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Find Me
@@ -18,7 +18,7 @@ export type FindMePointRecordsParamsType = {
   filters: Partial<{
     isActive: boolean
     isHighlighted: boolean
-    createdAt: string | number | { [key: string]: string }
+    createdAt: Date | { [key: string]: string }
   }>
   sort?: string[]
   pagination: {
@@ -40,22 +40,18 @@ export type FindMeStatisticsPointRecordsTransformResponseType = {
   meStakedValue: number
   rankDownLine1: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankDownLine2: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankDownLine3: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankTeam: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
 }
@@ -63,22 +59,18 @@ export type FindMeStatisticsPointRecordsResponseType = {
   meStakedValue: number
   rankDownLine1: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankDownLine2: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankDownLine3: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
   rankTeam: {
     totalStakedValue: number
-    totalClaimedRewards: number
     totalMembers: number
   }
 }

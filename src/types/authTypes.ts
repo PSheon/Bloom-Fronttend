@@ -6,7 +6,7 @@ export type Permission = {
   id: string
   displayName: string
   assignedTo: Role[]
-  createdAt: string
+  createdAt: Date
 }
 export type UserDataType = {
   id: number
@@ -27,16 +27,16 @@ export type UserDataType = {
   blocked: boolean
   confirmed: boolean
   isHighlighted: boolean
-  createdAt: string
-  updatedAt: string
+  createdAt: Date
+  updatedAt: Date
   avatar?: MediaAssetType
   role?: {
     id: number
     name: Role
     description: string
     type: string
-    createdAt: string
-    updatedAt: string
+    createdAt: Date
+    updatedAt: Date
   }
 }
 

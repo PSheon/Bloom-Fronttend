@@ -8,14 +8,13 @@ export type AccessLogType = {
   action: AccessAction
   responseMessage: string
   status: boolean
-  date: string
   user: UserApiResponseType
   ip: string
   os: string
   browser: string
   isHighlighted: boolean
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Find Me

@@ -33,7 +33,7 @@ const MeAccountSecurityAccessLogListCard = () => {
 
   // ** Hooks
   const { data: accessesData, isLoading: isAccessLogsLoading } = useFindMeQuery({
-    sort: ['date:desc'],
+    sort: ['createdAt:desc'],
     pagination: {
       page: paginationModel.page + 1,
       pageSize: paginationModel.pageSize
@@ -97,16 +97,16 @@ const MeAccountSecurityAccessLogListCard = () => {
       )
     },
     {
-      field: 'date',
+      field: 'createdAt',
       display: 'flex',
       minWidth: 280,
       headerName: 'Date',
       renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => (
         <Typography noWrap sx={{ fontWeight: 600, color: 'text.secondary' }}>
-          {format(new Date(row.date), 'PPpp')}
+          {format(new Date(row.createdAt), 'PPpp')}
         </Typography>
       ),
-      valueGetter: (data: AccessLogType['date']) => format(new Date(data), 'PPpp')
+      valueGetter: (data: AccessLogType['createdAt']) => format(new Date(data), 'PPpp')
     }
   ]
 

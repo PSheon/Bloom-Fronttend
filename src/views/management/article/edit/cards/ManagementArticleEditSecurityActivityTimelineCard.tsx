@@ -86,7 +86,7 @@ const ManagementArticleEditSecurityActivityTimelineCard = (props: Props) => {
       refContentType: 'Article',
       refId: initArticleEntity.id
     },
-    sort: ['date:desc'],
+    sort: ['createdAt:desc'],
     pagination: {
       page: 1,
       pageSize: 5
@@ -147,7 +147,7 @@ const ManagementArticleEditSecurityActivityTimelineCard = (props: Props) => {
                   <Stack direction='row' justifyContent='space-between'>
                     <Typography sx={{ fontWeight: 600 }}>{activityActionObj[activityLog.action].title}</Typography>
                     <Typography variant='caption' sx={{ color: 'text.disabled' }}>
-                      {format(new Date(activityLog.date), 'hh:mm MM/dd')}
+                      {format(new Date(activityLog.createdAt), 'hh:mm MM/dd')}
                     </Typography>
                   </Stack>
                   <Stack direction='row' justifyContent='space-between'>
