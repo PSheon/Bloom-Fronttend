@@ -42,7 +42,7 @@ const ManagementUserEditAccessLogListCard = (props: Props) => {
   // ** Hooks
   const { data: accessesData, isLoading: isAccessLogsLoading } = useFindQuery({
     filters: { user: initUserEntity.id },
-    sort: ['date:desc'],
+    sort: ['createdAt:desc'],
     pagination: {
       page: paginationModel.page + 1,
       pageSize: paginationModel.pageSize
@@ -106,16 +106,16 @@ const ManagementUserEditAccessLogListCard = (props: Props) => {
       )
     },
     {
-      field: 'date',
+      field: 'createdAt',
       display: 'flex',
       minWidth: 280,
       headerName: '日期',
       renderCell: ({ row }: GridRenderCellParams<AccessLogType>) => (
         <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
-          {format(new Date(row.date), 'PPpp')}
+          {format(new Date(row.createdAt), 'PPpp')}
         </Typography>
       ),
-      valueGetter: (data: AccessLogType['date']) => format(new Date(data), 'PPpp')
+      valueGetter: (data: AccessLogType['createdAt']) => format(new Date(data), 'PPpp')
     }
   ]
 

@@ -34,8 +34,8 @@ export type MediaAssetType = {
   provider: string
   provider_metadata?: Record<string, string>
   size: number
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Find One

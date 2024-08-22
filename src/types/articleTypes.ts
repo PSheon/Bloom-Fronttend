@@ -13,8 +13,8 @@ export type ArticleType = {
   author: UserApiResponseType
   status: 'Draft' | 'Published' | 'Archived'
   isHighlighted: boolean
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Find One

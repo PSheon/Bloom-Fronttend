@@ -8,8 +8,8 @@ export type WalletType = {
   address: string
   connector?: string
   isConnected: boolean
-  updatedAt: string
-  createdAt: string
+  updatedAt: Date
+  createdAt: Date
 }
 
 // ** Find Me

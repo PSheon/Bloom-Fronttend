@@ -58,7 +58,7 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
     filters: {
       user: initUserEntity.id
     },
-    sort: ['date:desc'],
+    sort: ['createdAt:desc'],
     pagination: {
       page: paginationModel.page + 1,
       pageSize: paginationModel.pageSize
@@ -116,16 +116,16 @@ const ManagementUserEditActivityLogListCard = (props: Props) => {
       }
     },
     {
-      field: 'date',
+      field: 'createdAt',
       display: 'flex',
       minWidth: 250,
       headerName: '日期',
       renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
         <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
-          {format(new Date(row.date), 'PPpp')}
+          {format(new Date(row.createdAt), 'PPpp')}
         </Typography>
       ),
-      valueGetter: (data: ActivityLogType['date']) => format(new Date(data), 'PPpp')
+      valueGetter: (data: ActivityLogType['createdAt']) => format(new Date(data), 'PPpp')
     }
   ]
 

@@ -52,7 +52,7 @@ const MePointsRoutineTaskCard = () => {
 
   // ** Vars
   const dailyCheckRecords = meDailyCheckRecordsData?.data || []
-  const latestDailyCheckDate = dailyCheckRecords[0]?.date ? new Date(dailyCheckRecords[0].date) : new Date(0)
+  const latestDailyCheckDate = dailyCheckRecords[0]?.createdAt ? new Date(dailyCheckRecords[0].createdAt) : new Date(0)
   const allowedDailyCheck = isAfter(new Date(), addDays(latestDailyCheckDate, 1))
 
   // ** Logics

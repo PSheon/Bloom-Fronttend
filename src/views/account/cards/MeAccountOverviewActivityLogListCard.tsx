@@ -46,7 +46,7 @@ const MeAccountOverviewActivityLogListCard = () => {
   // ** Hooks
   const { data: activitiesData, isLoading: isActivityLogsLoading } = useFindMeQuery({
     filters: {},
-    sort: ['date:desc'],
+    sort: ['createdAt:desc'],
     pagination: {
       page: paginationModel.page + 1,
       pageSize: paginationModel.pageSize
@@ -104,16 +104,16 @@ const MeAccountOverviewActivityLogListCard = () => {
       }
     },
     {
-      field: 'date',
+      field: 'createdAt',
       display: 'flex',
       minWidth: 250,
       headerName: 'Date',
       renderCell: ({ row }: GridRenderCellParams<ActivityLogType>) => (
         <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
-          {format(new Date(row.date), 'PPpp')}
+          {format(new Date(row.createdAt), 'PPpp')}
         </Typography>
       ),
-      valueGetter: (data: ActivityLogType['date']) => format(new Date(data), 'PPpp')
+      valueGetter: (data: ActivityLogType['createdAt']) => format(new Date(data), 'PPpp')
     }
   ]
 
