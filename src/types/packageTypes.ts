@@ -4,7 +4,7 @@ import type { BaseApiResponseType } from 'src/types/api/baseApiTypes'
 export type SkinType = 'Green' | 'Purple' | 'Orange'
 export type SlotType = {
   id: number
-  propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
+  propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod' | 'Duration' | 'PrincipalDelayDays'
   description?: string
   value: string
   displayValue?: string
