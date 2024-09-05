@@ -73,142 +73,273 @@ const PublicFundListDataGrid = (props: Props) => {
               </Typography>
             </Grid>
           ) : (
-            funds.map(fund => {
-              const baseCurrencyProperties = getFundCurrencyProperties(fund.baseCurrency)
-
-              return (
-                <Grid key={`fund-${fund.id}`} item xs={12} sm={6} md={4}>
-                  <Card
-                    onClick={() => handleRedirectToFund(fund.id)}
+            [
+              // TODO: Fix here later
+              // ** NOTE: Remove here in future
+              <Grid key='fund-defi-vault' item xs={12} sm={6} md={4}>
+                <Card
+                  onClick={() => {
+                    router.push('/fund/live/defi-vault')
+                  }}
+                  sx={{
+                    position: 'relative',
+                    border: '1px transparent solid',
+                    cursor: 'pointer',
+                    transition: 'border-color 0.2s',
+                    '&:hover': {
+                      borderColor: theme => theme.palette.primary.main
+                    }
+                  }}
+                >
+                  <CardMedia
+                    component='img'
+                    alt='banner'
+                    image='/images/pages/profile-banner.webp'
+                    sx={{ height: { xs: 120, md: 160 } }}
+                  />
+                  <AvatarGroup
+                    className='pull-up'
                     sx={{
-                      position: 'relative',
-                      border: '1px transparent solid',
-                      cursor: 'pointer',
-                      transition: 'border-color 0.2s',
-                      '&:hover': {
-                        borderColor: theme => theme.palette.primary.main
-                      }
+                      position: 'absolute',
+                      top: theme => ({
+                        xs: theme.spacing(16),
+                        md: theme.spacing(26)
+                      }),
+                      left: theme => theme.spacing(4)
                     }}
                   >
-                    <CardMedia
-                      component='img'
-                      alt='banner'
-                      image={
-                        fund?.banner?.data
-                          ? getPublicMediaAssetUrl(fund.banner.data.attributes.url)
-                          : '/images/pages/profile-banner.webp'
-                      }
-                      sx={{
-                        height: { xs: 120, md: 160 }
-                      }}
-                    />
-                    <AvatarGroup
-                      className='pull-up'
-                      sx={{
-                        position: 'absolute',
-                        top: theme => ({
-                          xs: theme.spacing(16),
-                          md: theme.spacing(26)
-                        }),
-                        left: theme => theme.spacing(4)
-                      }}
+                    <Tooltip title='USDT'>
+                      <CustomAvatar
+                        src={getFundCurrencyProperties('USDT').imageUrl}
+                        alt={getFundCurrencyProperties('USDT').displayName}
+                        sx={{
+                          height: 64,
+                          width: 64,
+                          borderWidth: '5px !important',
+                          backgroundColor: theme => theme.palette.background.default
+                        }}
+                      />
+                    </Tooltip>
+                    <Tooltip title='RWA'>
+                      <CustomAvatar
+                        src='/images/funds/rwa.png'
+                        alt='rwa'
+                        sx={{
+                          height: 64,
+                          width: 64,
+                          borderWidth: '5px !important',
+                          backgroundColor: theme => theme.palette.background.default
+                        }}
+                      />
+                    </Tooltip>
+                  </AvatarGroup>
+                  <CardHeader
+                    title={
+                      <Typography variant='h6' component='p' sx={{ fontSize: '1.375rem' }}>
+                        DeFi Vault - Real Estate
+                      </Typography>
+                    }
+                    subheader={<Typography sx={{ color: 'text.secondary' }}>Ethereum</Typography>}
+                    sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}
+                  />
+                  <CardContent>
+                    <Stack
+                      direction='row'
+                      alignItems='center'
+                      justifyContent='space-between'
+                      flexWrap='wrap'
+                      sx={{ mb: 4, gap: 2 }}
                     >
-                      <Tooltip title={baseCurrencyProperties.displayName}>
-                        <CustomAvatar
-                          src={baseCurrencyProperties.imageUrl}
-                          alt={baseCurrencyProperties.displayName}
+                      <Stack direction='row'>
+                        <Typography
+                          variant='h3'
+                          component='p'
+                          color='primary.main'
                           sx={{
-                            height: 64,
-                            width: 64,
-                            borderWidth: '5px !important',
-                            backgroundColor: theme => theme.palette.background.default
+                            mb: -1.2,
+                            mr: 2,
+                            lineHeight: 1
                           }}
-                        />
-                      </Tooltip>
-                      <Tooltip title='RWA'>
-                        <CustomAvatar
-                          src='/images/funds/rwa.png'
-                          alt='rwa'
-                          sx={{
-                            height: 64,
-                            width: 64,
-                            borderWidth: '5px !important',
-                            backgroundColor: theme => theme.palette.background.default
-                          }}
-                        />
-                      </Tooltip>
-                    </AvatarGroup>
-                    <CardHeader
-                      title={
-                        <Typography variant='h6' component='p' sx={{ fontSize: '1.375rem' }}>
-                          {fund.displayName}
+                        >
+                          15.8%
                         </Typography>
-                      }
-                      subheader={<Typography sx={{ color: 'text.secondary' }}>{fund.chain}</Typography>}
-                      sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}
-                    />
-                    <CardContent>
+                        <Sub> average APY</Sub>
+                      </Stack>
+                    </Stack>
+                    <Typography variant='body2' component='p'>
+                      Offering various repayment plans, investing in real-estate to ensure returns for investors through
+                      real estate income.
+                    </Typography>
+                  </CardContent>
+                  <Divider sx={{ my: '0 !important' }} />
+                  <CardContent>
+                    <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
                       <Stack
                         direction='row'
+                        spacing={2}
+                        alignSelf='stretch'
                         alignItems='center'
                         justifyContent='space-between'
-                        flexWrap='wrap'
-                        sx={{ mb: 4, gap: 2 }}
                       >
-                        <Stack direction='row'>
-                          <Typography
-                            variant='h3'
-                            component='p'
-                            color='primary.main'
-                            sx={{
-                              mb: -1.2,
-                              mr: 2,
-                              lineHeight: 1
-                            }}
-                          >
-                            {`${fund.estimatedAPY}%`}
-                          </Typography>
-                          <Sub> average APY</Sub>
-                        </Stack>
+                        <Typography component='p' color='tet.secondary'>
+                          Performance Fee
+                        </Typography>
+                        <Typography sx={{ fontWeight: 600 }}>0%</Typography>
                       </Stack>
-                      <Typography variant='body2' component='p'>
-                        {fund.description || 'No description'}
-                      </Typography>
-                    </CardContent>
-                    <Divider sx={{ my: '0 !important' }} />
-                    <CardContent>
-                      <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                        <Stack
-                          direction='row'
-                          spacing={2}
-                          alignSelf='stretch'
-                          alignItems='center'
-                          justifyContent='space-between'
-                        >
-                          <Typography component='p' color='tet.secondary'>
-                            Performance Fee
-                          </Typography>
-                          <Typography sx={{ fontWeight: 600 }}>{`${fund.performanceFeePercentage} %`}</Typography>
-                        </Stack>
-                        <Stack
-                          direction='row'
-                          spacing={2}
-                          alignSelf='stretch'
-                          alignItems='center'
-                          justifyContent='space-between'
-                        >
-                          <Typography component='p' color='tet.secondary'>
-                            Redemption Frequency
-                          </Typography>
-                          <Typography sx={{ fontWeight: 600 }}>
-                            {fund.redemptionFrequencyInDays > 0 ? `${fund.redemptionFrequencyInDays} Days` : 'No limit'}
-                          </Typography>
-                        </Stack>
+                      <Stack
+                        direction='row'
+                        spacing={2}
+                        alignSelf='stretch'
+                        alignItems='center'
+                        justifyContent='space-between'
+                      >
+                        <Typography component='p' color='tet.secondary'>
+                          Redemption Frequency
+                        </Typography>
+                        <Typography sx={{ fontWeight: 600 }}>31 Days</Typography>
                       </Stack>
-                    </CardContent>
+                    </Stack>
+                  </CardContent>
+                </Card>
+              </Grid>,
+              funds.map(fund => {
+                const baseCurrencyProperties = getFundCurrencyProperties(fund.baseCurrency)
 
-                    {/* TODO: fill here later */}
-                    {/* <CardContent>
+                return (
+                  <Grid key={`fund-${fund.id}`} item xs={12} sm={6} md={4}>
+                    <Card
+                      onClick={() => handleRedirectToFund(fund.id)}
+                      sx={{
+                        position: 'relative',
+                        border: '1px transparent solid',
+                        cursor: 'pointer',
+                        transition: 'border-color 0.2s',
+                        '&:hover': {
+                          borderColor: theme => theme.palette.primary.main
+                        }
+                      }}
+                    >
+                      <CardMedia
+                        component='img'
+                        alt='banner'
+                        image={
+                          fund?.banner?.data
+                            ? getPublicMediaAssetUrl(fund.banner.data.attributes.url)
+                            : '/images/pages/profile-banner.webp'
+                        }
+                        sx={{
+                          height: { xs: 120, md: 160 }
+                        }}
+                      />
+                      <AvatarGroup
+                        className='pull-up'
+                        sx={{
+                          position: 'absolute',
+                          top: theme => ({
+                            xs: theme.spacing(16),
+                            md: theme.spacing(26)
+                          }),
+                          left: theme => theme.spacing(4)
+                        }}
+                      >
+                        <Tooltip title={baseCurrencyProperties.displayName}>
+                          <CustomAvatar
+                            src={baseCurrencyProperties.imageUrl}
+                            alt={baseCurrencyProperties.displayName}
+                            sx={{
+                              height: 64,
+                              width: 64,
+                              borderWidth: '5px !important',
+                              backgroundColor: theme => theme.palette.background.default
+                            }}
+                          />
+                        </Tooltip>
+                        <Tooltip title='RWA'>
+                          <CustomAvatar
+                            src='/images/funds/rwa.png'
+                            alt='rwa'
+                            sx={{
+                              height: 64,
+                              width: 64,
+                              borderWidth: '5px !important',
+                              backgroundColor: theme => theme.palette.background.default
+                            }}
+                          />
+                        </Tooltip>
+                      </AvatarGroup>
+                      <CardHeader
+                        title={
+                          <Typography variant='h6' component='p' sx={{ fontSize: '1.375rem' }}>
+                            {fund.displayName}
+                          </Typography>
+                        }
+                        subheader={<Typography sx={{ color: 'text.secondary' }}>{fund.chain}</Typography>}
+                        sx={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between' }}
+                      />
+                      <CardContent>
+                        <Stack
+                          direction='row'
+                          alignItems='center'
+                          justifyContent='space-between'
+                          flexWrap='wrap'
+                          sx={{ mb: 4, gap: 2 }}
+                        >
+                          <Stack direction='row'>
+                            <Typography
+                              variant='h3'
+                              component='p'
+                              color='primary.main'
+                              sx={{
+                                mb: -1.2,
+                                mr: 2,
+                                lineHeight: 1
+                              }}
+                            >
+                              {`${fund.estimatedAPY}%`}
+                            </Typography>
+                            <Sub> average APY</Sub>
+                          </Stack>
+                        </Stack>
+                        <Typography variant='body2' component='p'>
+                          {fund.description || 'No description'}
+                        </Typography>
+                      </CardContent>
+                      <Divider sx={{ my: '0 !important' }} />
+                      <CardContent>
+                        <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                          <Stack
+                            direction='row'
+                            spacing={2}
+                            alignSelf='stretch'
+                            alignItems='center'
+                            justifyContent='space-between'
+                          >
+                            <Typography component='p' color='tet.secondary'>
+                              Performance Fee
+                            </Typography>
+                            <Typography sx={{ fontWeight: 600 }}>{`${fund.performanceFeePercentage} %`}</Typography>
+                          </Stack>
+                          <Stack
+                            direction='row'
+                            spacing={2}
+                            alignSelf='stretch'
+                            alignItems='center'
+                            justifyContent='space-between'
+                          >
+                            <Typography component='p' color='tet.secondary'>
+                              Redemption Frequency
+                            </Typography>
+                            <Typography sx={{ fontWeight: 600 }}>
+                              {fund.redemptionFrequencyInDays > 0
+                                ? `${fund.redemptionFrequencyInDays} Days`
+                                : 'No limit'}
+                            </Typography>
+                          </Stack>
+                        </Stack>
+                      </CardContent>
+
+                      {/* TODO: fill here later */}
+                      {/* <CardContent>
                       <Stack spacing={4}>
                         <Box>
                           <CustomChip size='small' rounded skin='light' color='success' label={`${25} days left`} />
@@ -251,10 +382,11 @@ const PublicFundListDataGrid = (props: Props) => {
                         </Stack>
                       </Stack>
                     </CardContent> */}
-                  </Card>
-                </Grid>
-              )
-            })
+                    </Card>
+                  </Grid>
+                )
+              })
+            ]
           )}
         </Grid>
       </Grid>
