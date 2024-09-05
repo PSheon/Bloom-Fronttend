@@ -34,7 +34,10 @@ import { useUpdateOneMutation } from 'src/store/api/management/package'
 import type { PackageType, SlotType } from 'src/types/packageTypes'
 
 const schema = yup.object().shape({
-  propertyName: yup.string().oneOf(['DisplayName', 'APY', 'MinimumStakingPeriod']).required(),
+  propertyName: yup
+    .string()
+    .oneOf(['DisplayName', 'APY', 'MinimumStakingPeriod', 'Duration', 'PrincipalDelayDays'])
+    .required(),
   description: yup.string().optional(),
   value: yup.string().required(),
   displayValue: yup.string().optional(),
@@ -48,7 +51,7 @@ interface Props {
   handleRemoveProperty: (packageId: number, propertyId: number) => Promise<void>
 }
 interface FormData {
-  propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod'
+  propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod' | 'Duration' | 'PrincipalDelayDays'
   description?: string
   value: string
   displayValue?: string

@@ -1,5 +1,19 @@
 // ** Third-Party Imports
 import { ExactNumber as N } from 'exactnumber'
+import {
+  format,
+  addMonths,
+  differenceInDays,
+  setDate,
+  isAfter,
+  startOfDay,
+  setMilliseconds,
+  setSeconds,
+  setMinutes,
+  setHours,
+  addDays,
+  subDays
+} from 'date-fns'
 
 // ** Type Imports
 import type { ThemeColor } from 'src/@core/layouts/types'
@@ -215,4 +229,55 @@ export const getFundCategoryProperties = (category: CategoryType) => {
   }
 
   return categoryAttributes[category]
+}
+
+export const getNextFifthDate = () => {
+  const today = new Date()
+  const thisMonthFifth = setDate(today, 5)
+  const nextMonthFifth = setDate(addMonths(today, 1), 5)
+
+  const nextFifth = isAfter(startOfDay(today), startOfDay(thisMonthFifth)) ? nextMonthFifth : thisMonthFifth
+
+  return setMilliseconds(setSeconds(setMinutes(setHours(nextFifth, 0), 0), 0), 0)
+}
+
+export const getDepositRevenueSeriesData = (
+  startDate: Date = new Date(),
+  amount: number = 2000,
+  interestRate: number = 24,
+  duration: number = 730,
+  principalDelayInDays: number = 0
+) => {
+  const endDate = addDays(startDate, duration)
+  const round = Math.ceil(duration / 31)
+  const principalEachDay = amount / (duration - principalDelayInDays)
+  const interestEachDay = (amount * interestRate) / (365 * 100)
+
+  const principalArray: number[] = []
+  const interestArray: number[] = []
+  const totalArray: number[] = []
+  const categoriesArray: string[] = []
+
+  for (let i = 0; i < round; i++) {
+    let destDate = addDays(startDate, (i + 1) * 31)
+    let diffDays = 31
+
+    if (isAfter(destDate, endDate)) {
+      diffDays = differenceInDays(endDate, subDays(destDate, 31))
+      destDate = endDate
+    }
+
+    const inRoundPrincipal = (i + 1) * 31 > principalDelayInDays ? diffDays * principalEachDay : 0
+    const principal = i > 0 ? principalArray[i - 1] + inRoundPrincipal : inRoundPrincipal
+    const inRoundInterest = diffDays * interestEachDay
+    const interest = i > 0 ? interestArray[i - 1] + inRoundInterest : inRoundInterest
+    const total = principal + interest
+
+    principalArray.push(principal)
+    interestArray.push(interest)
+    totalArray.push(total)
+    categoriesArray.push(format(destDate, 'MM/dd'))
+  }
+
+  return { principalArray, interestArray, totalArray, categoriesArray }
 }
