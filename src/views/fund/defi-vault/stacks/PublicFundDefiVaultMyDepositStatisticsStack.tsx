@@ -31,7 +31,9 @@ interface Props {
 /* TODO: Fill here later */
 const PublicFundDefiVaultMyDepositStatisticsStack = (props: Props) => {
   // ** Props
-  const { initDVFundEntity } = props
+  const {
+    /* initDVFundEntity */
+  } = props
 
   // ** States
   const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
@@ -49,6 +51,7 @@ const PublicFundDefiVaultMyDepositStatisticsStack = (props: Props) => {
       setIsAddressCopied(() => false)
     }, 2 * 1000)
   }
+
   const handleDisconnectWallet = async () => {
     await disconnectAsync()
   }

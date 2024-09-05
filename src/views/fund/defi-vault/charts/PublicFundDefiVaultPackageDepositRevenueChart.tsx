@@ -1,14 +1,14 @@
 // ** MUI Imports
 import { useTheme } from '@mui/material/styles'
 
-// ** Third-Party Imports
-import { ApexOptions } from 'apexcharts'
-
 // ** Core Component Imports
 import ReactApexcharts from 'src/@core/components/react-apexcharts'
 
 // ** Util Imports
 import { getDepositRevenueSeriesData, getFormattedPriceUnit } from 'src/utils'
+
+// ** Type Imports
+import type { ApexOptions } from 'apexcharts'
 
 interface Props {
   startDate: Date
@@ -17,6 +17,7 @@ interface Props {
   duration: number
   principalDelayInDays: number
 }
+
 /* TODO: Fix here later */
 const PublicFundDefiVaultPackageDepositRevenueChart = (props: Props) => {
   // ** Props
@@ -33,11 +34,13 @@ const PublicFundDefiVaultPackageDepositRevenueChart = (props: Props) => {
     duration,
     principalDelayInDays
   )
+
   const areaColors = {
     total: '#26C6F9',
     principal: '#666CFF',
     interest: '#FDB528'
   }
+
   const series = [
     {
       name: 'Total',
@@ -52,6 +55,7 @@ const PublicFundDefiVaultPackageDepositRevenueChart = (props: Props) => {
       data: interestArray
     }
   ]
+
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,

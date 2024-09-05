@@ -30,6 +30,7 @@ import type { DVFundType } from 'src/types/dvFundTypes'
 interface Props {
   initDVFundEntity: DVFundType
 }
+
 const PublicFundDefiVaultStatisticsCard = (props: Props) => {
   // ** Props
   const { initDVFundEntity } = props

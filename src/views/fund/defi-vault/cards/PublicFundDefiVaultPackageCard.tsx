@@ -185,9 +185,9 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
     hash: approvePayTokenHash
   })
 
-  const { data: depositHash, isPending: isMintTokenPending, writeContract: deposit } = useWriteContract()
+  const { data: depositHash, isPending: isMintTokenPending /* writeContract: deposit */ } = useWriteContract()
 
-  const { isLoading: isDepositConfirming, isSuccess: isDepositSuccess } = useWaitForTransactionReceipt({
+  const { isLoading: isDepositConfirming /* isSuccess: isDepositSuccess */ } = useWaitForTransactionReceipt({
     chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     hash: depositHash
   })
@@ -198,12 +198,15 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
   const selectedStartDate = getNextFifthDate()
   const selectedApy = initPackageEntity.slots.find(slot => slot.propertyName === 'APY')!.value
   const selectedDurationDays = initPackageEntity.slots.find(slot => slot.propertyName === 'Duration')!.value
+
   const selectedPrincipalDelayDays = initPackageEntity.slots.find(
     slot => slot.propertyName === 'PrincipalDelayDays'
   )!.value
+
   const totalPriceString = N(initPackageEntity?.priceInUnit ?? 0)
     .mul(depositQuantity)
     .toString()
+
   const expectedInterestEarning =
     (Number(selectedDurationDays) * (initPackageEntity?.priceInUnit ?? 0) * depositQuantity * Number(selectedApy)) /
     (100 * 365)
@@ -274,7 +277,10 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
   const handleDeposit = async () => {
     try {
       const formattedValueString = N(totalPriceString).mul(N(10).pow(18)).toString()
-      const { hash } = await depositSignHash({
+
+      const {
+        /* hash */
+      } = await depositSignHash({
         packageId: initPackageEntity.id,
         data: {
           contractAddress: initDVFundEntity.vault.contractAddress,

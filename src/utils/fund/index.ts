@@ -253,10 +253,10 @@ export const getDepositRevenueSeriesData = (
   const principalEachDay = amount / (duration - principalDelayInDays)
   const interestEachDay = (amount * interestRate) / (365 * 100)
 
-  let principalArray: number[] = []
-  let interestArray: number[] = []
-  let totalArray: number[] = []
-  let categoriesArray: string[] = []
+  const principalArray: number[] = []
+  const interestArray: number[] = []
+  const totalArray: number[] = []
+  const categoriesArray: string[] = []
 
   for (let i = 0; i < round; i++) {
     let destDate = addDays(startDate, (i + 1) * 31)

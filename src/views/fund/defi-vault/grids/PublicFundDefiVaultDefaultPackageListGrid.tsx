@@ -33,6 +33,7 @@ const PublicFundDefiVaultDefaultPackageListGrid = (props: Props) => {
       const hasAPY = pkg.slots?.find(slot => slot.propertyName === 'APY')
       const hasDuration = pkg.slots?.find(slot => slot.propertyName === 'Duration')
       const hasPrincipalDelayDays = pkg.slots?.find(slot => slot.propertyName === 'PrincipalDelayDays')
+
       return pkg.status === 'Published' && hasAPY && hasDuration && hasPrincipalDelayDays
     })
 

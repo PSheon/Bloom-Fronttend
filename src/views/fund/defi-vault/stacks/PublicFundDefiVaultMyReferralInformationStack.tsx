@@ -2,7 +2,6 @@
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
 import Divider from '@mui/material/Divider'
-import Button from '@mui/material/Button'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -57,7 +56,7 @@ const PublicFundDefiVaultMyReferralInformationStack = () => {
               </CustomAvatar>
               <Stack alignItems='center'>
                 <Typography sx={{ fontWeight: 600 }}>$ 40,000</Typography>
-                <Typography variant='body2'>Total referee's deposit</Typography>
+                <Typography variant='body2'>{`Total referee's deposit`}</Typography>
               </Stack>
             </Stack>
           </Stack>
