@@ -15,7 +15,7 @@ const PublicFundLiveLoadingSkeleton = () => {
         <PublicFundLiveBreadcrumbs
           pageLevels={[
             { title: 'PageBreadcrumb.Public.Funds & Strategies.PageTitle', href: '/fund/list' },
-            { title: 'PageBreadcrumb.Public.Funds & Strategies.live.PageTitle' }
+            { title: 'PageBreadcrumb.Public.Funds & Strategies.Live.PageTitle' }
           ]}
         />
       </Grid>
