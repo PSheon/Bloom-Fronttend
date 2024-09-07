@@ -3,7 +3,8 @@ import { useState, useEffect } from 'react'
 
 // ** Next Imports
 import Image from 'next/image'
-import Link from 'next/link'
+import { useSearchParams } from 'next/navigation'
+import { useRouter } from 'next/router'
 
 // ** MUI Components
 import { styled, useTheme, alpha } from '@mui/material/styles'
@@ -41,6 +42,7 @@ import { ExactNumber as N } from 'exactnumber'
 import { Atropos } from 'atropos/react'
 import { motion, AnimatePresence } from 'framer-motion'
 import format from 'date-fns/format'
+import getUnixTime from 'date-fns/getUnixTime'
 import confetti from 'canvas-confetti'
 
 // ** Core Component Imports
@@ -65,7 +67,7 @@ import { useDepositSignHashMutation } from 'src/store/api/management/dvFund'
 
 // ** Util Imports
 import {
-  getNextFifthDate,
+  getNextFirstDate,
   getFundCurrencyProperties,
   getPackageStatusProperties,
   getFormattedPriceUnit,
@@ -73,10 +75,12 @@ import {
   getFormattedEthereumAddress,
   getBaseCurrencyABI,
   getBaseCurrencyAddress,
-  getGradientColors
+  getGradientColors,
+  getValidDefiVaultReferrer
 } from 'src/utils'
 
 // ** Config Imports
+import themeConfig from 'src/configs/themeConfig'
 import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
@@ -135,8 +139,23 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
   // ** Hooks
   const theme = useTheme()
   const bgColors = useBgColor()
+  const router = useRouter()
   const walletAccount = useAccount()
+  const searchParams = useSearchParams()
   const { disconnectAsync } = useDisconnect()
+
+  useReadContract({
+    chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initDVFundEntity.vault.contractAbi,
+    address: initDVFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'getDepositInfo',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: walletAccount.status === 'connected' && activeDepositStep === 2,
+      placeholderData: [0n, 0n, 0n, 0n, 0n] as unknown as bigint[]
+    }
+  })
 
   const {
     data: payTokenBalance,
@@ -185,9 +204,9 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
     hash: approvePayTokenHash
   })
 
-  const { data: depositHash, isPending: isMintTokenPending /* writeContract: deposit */ } = useWriteContract()
+  const { data: depositHash, isPending: isMintTokenPending, writeContract: deposit } = useWriteContract()
 
-  const { isLoading: isDepositConfirming /* isSuccess: isDepositSuccess */ } = useWaitForTransactionReceipt({
+  const { isLoading: isDepositConfirming, isSuccess: isDepositSuccess } = useWaitForTransactionReceipt({
     chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     hash: depositHash
   })
@@ -195,9 +214,11 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
   const [depositSignHash, { isLoading: isDepositSignHashLoading }] = useDepositSignHashMutation()
 
   // ** Vars
-  const selectedStartDate = getNextFifthDate()
+  const DEFAULT_REFERRER = '0x9f88194D0Ca48523A828e7535c35Ab5Ed50c2776'
+  const selectedStartDate = getNextFirstDate()
   const selectedApy = initPackageEntity.slots.find(slot => slot.propertyName === 'APY')!.value
   const selectedDurationDays = initPackageEntity.slots.find(slot => slot.propertyName === 'Duration')!.value
+  const selectedReferrer = getValidDefiVaultReferrer(searchParams.get('referrer') ?? '')
 
   const selectedPrincipalDelayDays = initPackageEntity.slots.find(
     slot => slot.propertyName === 'PrincipalDelayDays'
@@ -221,7 +242,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
       subtitle: 'Select quantity and check fees',
       checks: {
         checkQuantity: () => {
-          return 1 <= depositQuantity && depositQuantity <= 10
+          return 1 <= depositQuantity && depositQuantity <= 100 && selectedReferrer !== walletAccount.address
         },
         total: () => {
           return STEPS[0].checks!.checkQuantity!()
@@ -255,6 +276,16 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
   const handleCloseMintSFTDialog = () => setIsDepositDialogOpen(() => false)
   const handleCloseTransactionErrorDrawer = () => setTransactionError(() => null)
 
+  const handleClearReferrer = () => {
+    const newQuery = Object.assign({}, router.query)
+
+    delete newQuery.referrer
+
+    router.replace({
+      query: newQuery
+    })
+  }
+
   const handleCopyAddress = (address: string) => {
     navigator.clipboard.writeText(address)
     setIsAddressCopied(() => true)
@@ -276,43 +307,48 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
 
   const handleDeposit = async () => {
     try {
-      const formattedValueString = N(totalPriceString).mul(N(10).pow(18)).toString()
+      const formattedAmountString = N(totalPriceString).mul(N(10).pow(18)).toString()
 
-      const {
-        /* hash */
-      } = await depositSignHash({
+      const { hash } = await depositSignHash({
         packageId: initPackageEntity.id,
         data: {
           contractAddress: initDVFundEntity.vault.contractAddress,
-          user: walletAccount.address!,
-          amount: formattedValueString,
-          interestRate: selectedApy,
-          principalDelayDays: selectedPrincipalDelayDays,
-          durationDays: selectedDurationDays
+          sender: walletAccount.address!,
+          interestRate: Number(selectedApy),
+          startTime: getUnixTime(selectedStartDate),
+          principalDelayDays: Number(selectedPrincipalDelayDays),
+          durationDays: Number(selectedDurationDays)
         }
       }).unwrap()
 
-      /* TODO: fill here later */
-      // deposit(
-      //   {
-      //     chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
-      //     abi: initDVFundEntity.vault.contractAbi,
-      //     address: initDVFundEntity.vault.contractAddress as `0x${string}`,
-      //     functionName: 'deposit',
-      //     args: [hash, formattedValueString, selectedApy, selectedStartDate.getMilliseconds(), selectedPrincipalDelayDays, selectedDurationDays],
-      //     account: walletAccount.address!
-      //   },
-      //   {
-      //     onError: error => {
-      //       setTransactionError(() => ({
-      //         from: walletAccount.address!,
-      //         to: initDVFundEntity.vault.contractAddress as `0x${string}`,
-      //         chainInformation: `${initDVFundEntity.chain} (${getChainId(initDVFundEntity.chain)})`,
-      //         message: (error as BaseError)?.shortMessage || 'Failed to deposit'
-      //       }))
-      //     }
-      //   }
-      // )
+      deposit(
+        {
+          chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+          abi: initDVFundEntity.vault.contractAbi,
+          address: initDVFundEntity.vault.contractAddress as `0x${string}`,
+          functionName: 'deposit',
+          args: [
+            hash,
+            formattedAmountString,
+            selectedApy,
+            getUnixTime(selectedStartDate),
+            selectedPrincipalDelayDays,
+            selectedDurationDays,
+            selectedReferrer || DEFAULT_REFERRER
+          ],
+          account: walletAccount.address!
+        },
+        {
+          onError: error => {
+            setTransactionError(() => ({
+              from: walletAccount.address!,
+              to: initDVFundEntity.vault.contractAddress as `0x${string}`,
+              chainInformation: `${initDVFundEntity.chain} (${getChainId(initDVFundEntity.chain)})`,
+              message: (error as BaseError)?.shortMessage || 'Failed to deposit'
+            }))
+          }
+        }
+      )
     } catch {
       setTransactionError(() => ({
         from: walletAccount.address!,
@@ -377,6 +413,18 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
       refetchPayTokenAllowance()
     }
   }, [isApprovePayTokenSuccess, refetchPayTokenAllowance])
+  useEffect(() => {
+    if (isDepositSuccess) {
+      confetti({
+        particleCount: 70,
+        spread: 70,
+        origin: { y: 0.7 },
+        zIndex: 9999
+      })
+      refetchPayTokenBalance()
+      setActiveDepositStep(() => 2)
+    }
+  }, [isDepositSuccess, refetchPayTokenBalance])
 
   return (
     <Card
@@ -700,7 +748,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                             </Stack>
                             <Stack alignItems='center' justifyContent='center'>
                               <Typography
-                                variant='h4'
+                                variant='h5'
                                 component='p'
                                 textAlign='center'
                                 color='primary'
@@ -728,6 +776,50 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                                 Max x10
                               </Typography>
                             </Stack>
+                          </Stack>
+                        </Stack>
+
+                        <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
+                          <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                            <Typography variant='subtitle1' component='p'>
+                              Referrer
+                            </Typography>
+                            {selectedReferrer === walletAccount.address && (
+                              <Button
+                                variant='outlined'
+                                sx={{ p: 1.5, minWidth: 38 }}
+                                color='secondary'
+                                onClick={handleClearReferrer}
+                              >
+                                <Icon icon='mdi:remove-circle-outline' fontSize={20} />
+                              </Button>
+                            )}
+                          </Stack>
+                          <Stack alignItems='center' justifyContent='center'>
+                            <Typography
+                              variant='h5'
+                              component='p'
+                              textAlign='center'
+                              color={
+                                selectedReferrer === walletAccount.address
+                                  ? 'error.main'
+                                  : selectedReferrer
+                                    ? 'primary'
+                                    : 'text.primary'
+                              }
+                              sx={{ fontWeight: 600 }}
+                            >
+                              {selectedReferrer === walletAccount.address
+                                ? 'Invalid referrer'
+                                : selectedReferrer === ''
+                                  ? `${themeConfig.templateName} Team`
+                                  : getFormattedEthereumAddress(selectedReferrer)}
+                            </Typography>
+                            {selectedReferrer === walletAccount.address && (
+                              <Typography variant='subtitle1' component='p' textAlign='center' color='text.secondary'>
+                                Can not refer yourself, please change your wallet or choose another referrer
+                              </Typography>
+                            )}
                           </Stack>
                         </Stack>
 
@@ -880,7 +972,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                               <Typography variant='h6' component='p'>
                                 Estimated Earning
                               </Typography>
-                              <Typography variant='h6' component='p' color='warning.main'>
+                              <Typography variant='h6' component='p' color='warning.main' textAlign='right'>
                                 {`${100 + (Number(selectedApy) * Number(selectedDurationDays)) / 365} %`}
                               </Typography>
                             </Stack>
@@ -892,7 +984,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                             >
                               <Stack>
                                 <Typography variant='h6' component='p'>
-                                  Total Earning
+                                  Total
                                 </Typography>
                                 <Typography variant='subtitle2' component='p'>
                                   Principal Back + Interest Earning
@@ -904,7 +996,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                                   component='p'
                                   color='info.main'
                                 >{`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(Number(totalPriceString) + expectedInterestEarning)}`}</Typography>
-                                <Typography variant='subtitle2' textAlign='right' component='p'>
+                                <Typography variant='subtitle2' component='p' textAlign='right'>
                                   {`($${getFormattedPriceUnit(Number(totalPriceString))} + $${getFormattedPriceUnit(expectedInterestEarning)})`}
                                 </Typography>
                               </Stack>
@@ -957,7 +1049,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                                 Start Earning Date
                               </Typography>
                               <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                                <Typography variant='subtitle1' component='p'>
+                                <Typography variant='subtitle1' component='p' textAlign='right'>
                                   {format(selectedStartDate, 'PPpp')}
                                 </Typography>
                               </Stack>
@@ -967,7 +1059,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                                 Estimated APY
                               </Typography>
                               <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                                <Typography variant='subtitle1' component='p'>
+                                <Typography variant='subtitle1' component='p' textAlign='right'>
                                   {`${selectedApy} %`}
                                 </Typography>
                               </Stack>
@@ -977,7 +1069,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                                 Duration
                               </Typography>
                               <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                                <Typography variant='subtitle1' component='p'>
+                                <Typography variant='subtitle1' component='p' textAlign='right'>
                                   {`${selectedDurationDays} Days`}
                                 </Typography>
                               </Stack>
@@ -987,7 +1079,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                                 Principal Delay
                               </Typography>
                               <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                                <Typography variant='subtitle1' component='p'>
+                                <Typography variant='subtitle1' component='p' textAlign='right'>
                                   {`${selectedPrincipalDelayDays} Days`}
                                 </Typography>
                               </Stack>
@@ -1003,7 +1095,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                                 </Stack>
                               ) : (
                                 <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                                  <Typography variant='subtitle1' component='p'>
+                                  <Typography variant='subtitle1' component='p' textAlign='right'>
                                     {`${fundBaseCurrencyProperties.symbol} ${
                                       typeof payTokenBalance === 'bigint'
                                         ? getFormattedPriceUnit(N(payTokenBalance).div(N(10).pow(18)).toNumber())
@@ -1035,7 +1127,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                                   </Stack>
                                 ) : (
                                   <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                                    <Typography variant='subtitle1' component='p'>
+                                    <Typography variant='subtitle1' component='p' textAlign='right'>
                                       {`${fundBaseCurrencyProperties.symbol} ${
                                         typeof payTokenAllowance === 'bigint'
                                           ? getFormattedPriceUnit(
@@ -1134,10 +1226,10 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                     </motion.div>
                   )}
 
-                  {/* Mint Succeed */}
+                  {/* Deposit Succeed */}
                   {activeDepositStep === 2 && (
                     <motion.div
-                      key={`mint-step-${activeDepositStep}`}
+                      key={`deposit-step-${activeDepositStep}`}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -1147,19 +1239,8 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                           <Icon icon='mdi:check-decagram-outline' fontSize='2rem' />
                         </CustomAvatar>
                         <Typography variant='body2' component='p'>
-                          Mint Successfully
+                          Deposit Successfully, please reload the page to see your new balance
                         </Typography>
-                        <Button
-                          fullWidth
-                          variant='contained'
-                          component={Link}
-                          href={`/fund/live/${initDVFundEntity.id}/vault`}
-                        >
-                          <Stack spacing={2} alignItems='center' sx={{ py: 1 }}>
-                            <Icon icon='mdi:arrow-right-circle-outline' fontSize={16} />
-                            Check SFT
-                          </Stack>
-                        </Button>
                       </Stack>
                     </motion.div>
                   )}

@@ -231,14 +231,20 @@ export const getFundCategoryProperties = (category: CategoryType) => {
   return categoryAttributes[category]
 }
 
-export const getNextFifthDate = () => {
+export const getValidDefiVaultReferrer = (pendingReferrerAddress: string): string => {
+  const isValidDefiVaultReferrer = /^(0x)[0-9a-f]{40}$/i.test(pendingReferrerAddress)
+
+  return isValidDefiVaultReferrer ? pendingReferrerAddress : ''
+}
+
+export const getNextFirstDate = () => {
   const today = new Date()
-  const thisMonthFifth = setDate(today, 5)
-  const nextMonthFifth = setDate(addMonths(today, 1), 5)
+  const thisMonthFirst = setDate(today, 1)
+  const nextMonthFirst = setDate(addMonths(today, 1), 1)
 
-  const nextFifth = isAfter(startOfDay(today), startOfDay(thisMonthFifth)) ? nextMonthFifth : thisMonthFifth
+  const nextFirst = isAfter(startOfDay(today), startOfDay(thisMonthFirst)) ? nextMonthFirst : thisMonthFirst
 
-  return setMilliseconds(setSeconds(setMinutes(setHours(nextFifth, 0), 0), 0), 0)
+  return setMilliseconds(setSeconds(setMinutes(setHours(nextFirst, 0), 0), 0), 0)
 }
 
 export const getDepositRevenueSeriesData = (
