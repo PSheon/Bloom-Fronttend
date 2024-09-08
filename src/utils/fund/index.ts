@@ -248,12 +248,13 @@ export const getNextFirstDate = () => {
 }
 
 export const getDepositRevenueSeriesData = (
-  startDate: Date = new Date(),
-  amount: number = 2000,
-  interestRate: number = 24,
-  duration: number = 730,
-  principalDelayInDays: number = 0
+  startDate: Date,
+  amount: number,
+  interestRate: number,
+  duration: number,
+  principalDelayInDays: number
 ) => {
+  let passedFlag = 0
   const endDate = addDays(startDate, duration)
   const round = Math.ceil(duration / 31)
   const principalEachDay = amount / (duration - principalDelayInDays)
@@ -273,6 +274,10 @@ export const getDepositRevenueSeriesData = (
       destDate = endDate
     }
 
+    if (isAfter(new Date(), destDate)) {
+      passedFlag++
+    }
+
     const inRoundPrincipal = (i + 1) * 31 > principalDelayInDays ? diffDays * principalEachDay : 0
     const principal = i > 0 ? principalArray[i - 1] + inRoundPrincipal : inRoundPrincipal
     const inRoundInterest = diffDays * interestEachDay
@@ -285,5 +290,5 @@ export const getDepositRevenueSeriesData = (
     categoriesArray.push(format(destDate, 'MM/dd'))
   }
 
-  return { principalArray, interestArray, totalArray, categoriesArray }
+  return { principalArray, interestArray, totalArray, categoriesArray, passedFlag }
 }

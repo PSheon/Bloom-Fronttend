@@ -43,7 +43,7 @@ const PublicFundDefiVaultDepositCheckGrid = (props: Props) => {
     account: walletAccount.address!,
     query: {
       enabled: walletAccount.status === 'connected',
-      placeholderData: [0n, 0n, 0n, 0n, 0n] as unknown as bigint[]
+      placeholderData: [0n, 0n, 0n, 0n, 0n, 0n, 0n] as unknown as bigint[]
     }
   })
 

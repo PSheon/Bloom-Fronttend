@@ -144,7 +144,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
   const searchParams = useSearchParams()
   const { disconnectAsync } = useDisconnect()
 
-  useReadContract({
+  const { refetch: refetchMeDepositInfo } = useReadContract({
     chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initDVFundEntity.vault.contractAbi,
     address: initDVFundEntity.vault.contractAddress as `0x${string}`,
@@ -152,8 +152,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
     args: [walletAccount.address!],
     account: walletAccount.address!,
     query: {
-      enabled: walletAccount.status === 'connected' && activeDepositStep === 2,
-      placeholderData: [0n, 0n, 0n, 0n, 0n] as unknown as bigint[]
+      enabled: false
     }
   })
 
@@ -284,6 +283,10 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
     router.replace({
       query: newQuery
     })
+  }
+
+  const handleRefetchMeDepositInfo = () => {
+    refetchMeDepositInfo()
   }
 
   const handleCopyAddress = (address: string) => {
@@ -1239,8 +1242,11 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                           <Icon icon='mdi:check-decagram-outline' fontSize='2rem' />
                         </CustomAvatar>
                         <Typography variant='body2' component='p'>
-                          Deposit Successfully, please reload the page to see your new balance
+                          Deposit Successfully, check your new balance
                         </Typography>
+                        <Button variant='contained' size='medium' onClick={handleRefetchMeDepositInfo}>
+                          Check deposit
+                        </Button>
                       </Stack>
                     </motion.div>
                   )}

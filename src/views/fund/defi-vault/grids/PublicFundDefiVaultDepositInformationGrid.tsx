@@ -27,7 +27,7 @@ const PublicFundDefiVaultDepositInformationGrid = (props: Props) => {
           </Grid>
 
           <Grid item xs={12}>
-            <PublicFundDefiVaultMyDepositClaimCard />
+            <PublicFundDefiVaultMyDepositClaimCard initDVFundEntity={initDVFundEntity} />
           </Grid>
         </Grid>
       </Grid>
@@ -35,7 +35,7 @@ const PublicFundDefiVaultDepositInformationGrid = (props: Props) => {
       <Grid item xs={12} md={4}>
         <Grid container spacing={6}>
           <Grid item xs={12}>
-            <PublicFundDefiVaultMyReferralInformationStack />
+            <PublicFundDefiVaultMyReferralInformationStack initDVFundEntity={initDVFundEntity} />
           </Grid>
 
           <Grid item xs={12}>

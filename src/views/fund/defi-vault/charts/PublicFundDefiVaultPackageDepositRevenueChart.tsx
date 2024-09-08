@@ -18,7 +18,6 @@ interface Props {
   principalDelayInDays: number
 }
 
-/* TODO: Fix here later */
 const PublicFundDefiVaultPackageDepositRevenueChart = (props: Props) => {
   // ** Props
   const { startDate, amount, interestRate, duration, principalDelayInDays } = props
@@ -27,7 +26,7 @@ const PublicFundDefiVaultPackageDepositRevenueChart = (props: Props) => {
   const theme = useTheme()
 
   // ** Vars
-  const { principalArray, interestArray, totalArray, categoriesArray } = getDepositRevenueSeriesData(
+  const { principalArray, interestArray, totalArray, categoriesArray, passedFlag } = getDepositRevenueSeriesData(
     startDate,
     amount,
     interestRate,
@@ -114,6 +113,19 @@ const PublicFundDefiVaultPackageDepositRevenueChart = (props: Props) => {
         style: { colors: theme.palette.text.disabled }
       },
       categories: categoriesArray
+    },
+    annotations: {
+      xaxis: [
+        {
+          x: categoriesArray[0],
+          x2: categoriesArray[passedFlag - 1],
+          fillColor: '#B3F7CA',
+          label: {
+            text: 'Available Claim',
+            orientation: 'horizontal'
+          }
+        }
+      ]
     }
   }
 

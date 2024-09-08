@@ -111,7 +111,6 @@ export type DepositSignHashResponseType = {
 
 // ** Claim Sign Hash
 export type ClaimSignHashParamsType = {
-  id: number
   data: {
     contractAddress: string
     sender: string
