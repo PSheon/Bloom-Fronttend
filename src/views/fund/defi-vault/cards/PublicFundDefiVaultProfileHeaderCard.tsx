@@ -1,3 +1,6 @@
+// ** Next Imports
+import Link from 'next/link'
+
 // ** MUI Components
 import { styled } from '@mui/material/styles'
 import AvatarGroup from '@mui/material/AvatarGroup'
@@ -8,6 +11,9 @@ import CardMedia from '@mui/material/CardMedia'
 import Stack from '@mui/material/Stack'
 import Tooltip from '@mui/material/Tooltip'
 import Typography from '@mui/material/Typography'
+
+// ** Third-Party Imports
+import { useAccount } from 'wagmi'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -35,6 +41,9 @@ const FundAvatarGroup = styled(AvatarGroup)(({ theme }) => ({
 const PublicFundDefiVaultProfileHeaderCard = (props: Props) => {
   // ** Props
   const { initDVFundEntity } = props
+
+  // ** Hooks
+  const walletAccount = useAccount()
 
   // ** Vars
   const fundCategoryProperties = getFundCategoryProperties(initDVFundEntity.category)
@@ -152,9 +161,18 @@ const PublicFundDefiVaultProfileHeaderCard = (props: Props) => {
                 <Icon icon='ic:outline-discord' fontSize={20} />
               </Button>
             )}
-            <Button color='primary' variant='outlined' sx={{ p: 1.5, minWidth: 38 }}>
-              <Icon icon='mdi:share-variant-outline' fontSize={20} />
-            </Button>
+            {walletAccount.chain?.blockExplorers?.default.url && (
+              <Button
+                color='primary'
+                variant='outlined'
+                component={Link}
+                target='_blank'
+                href={`${walletAccount?.chain?.blockExplorers?.default.url}/address/${initDVFundEntity.vault.contractAddress}`}
+                sx={{ p: 1.5, minWidth: 38 }}
+              >
+                <Icon icon='mdi:explore-nearby' fontSize={20} />
+              </Button>
+            )}
           </Stack>
         </Stack>
       </CardContent>

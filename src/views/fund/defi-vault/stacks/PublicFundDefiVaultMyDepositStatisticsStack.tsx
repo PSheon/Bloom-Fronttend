@@ -7,10 +7,12 @@ import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Stack from '@mui/material/Stack'
 import Typography from '@mui/material/Typography'
+import Skeleton from '@mui/material/Skeleton'
 
 // ** Third-Party Imports
 import { useSession } from 'next-auth/react'
-import { useAccount, useDisconnect } from 'wagmi'
+import { useAccount, useReadContract, useDisconnect } from 'wagmi'
+import { ExactNumber as N } from 'exactnumber'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -19,7 +21,16 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
-import { getFormattedEthereumAddress, getGradientColors } from 'src/utils'
+import {
+  getChainId,
+  getGradientColors,
+  getFundCurrencyProperties,
+  getFormattedEthereumAddress,
+  getFormattedPriceUnit
+} from 'src/utils'
+
+// ** Config Imports
+import type { wagmiConfig } from 'src/configs/ethereum'
 
 // ** Type Imports
 import type { DVFundType } from 'src/types/dvFundTypes'
@@ -28,12 +39,9 @@ interface Props {
   initDVFundEntity: DVFundType
 }
 
-/* TODO: Fill here later */
 const PublicFundDefiVaultMyDepositStatisticsStack = (props: Props) => {
   // ** Props
-  const {
-    /* initDVFundEntity */
-  } = props
+  const { initDVFundEntity } = props
 
   // ** States
   const [isAddressCopied, setIsAddressCopied] = useState<boolean>(false)
@@ -42,6 +50,28 @@ const PublicFundDefiVaultMyDepositStatisticsStack = (props: Props) => {
   const session = useSession()
   const walletAccount = useAccount()
   const { disconnectAsync } = useDisconnect()
+
+  const {
+    data: meDepositInfo,
+    isLoading: isMeDepositInfoLoading,
+    isFetching: isMeDepositInfoFetching
+  } = useReadContract({
+    chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+    abi: initDVFundEntity.vault.contractAbi,
+    address: initDVFundEntity.vault.contractAddress as `0x${string}`,
+    functionName: 'getDepositInfo',
+    args: [walletAccount.address!],
+    account: walletAccount.address!,
+    query: {
+      enabled: false
+    }
+  })
+
+  // ** Vars
+  const fundBaseCurrencyProperties = getFundCurrencyProperties(initDVFundEntity.baseCurrency)
+
+  /* amount, initAmount, interestRate, startTime, principalDelayDays, durationDays, lastClaimTime */
+  const [, initAmount, interestRate, , principalDelayDays, durationDays] = meDepositInfo as bigint[]
 
   // ** Logics
   const handleCopyAddress = (address: string) => {
@@ -142,13 +172,22 @@ const PublicFundDefiVaultMyDepositStatisticsStack = (props: Props) => {
           <CustomAvatar skin='light' variant='rounded' color='primary'>
             <Icon icon='mdi:safe' />
           </CustomAvatar>
-
           <Stack>
-            <Typography variant='subtitle1' component='p'>
-              200 U
-            </Typography>
+            {isMeDepositInfoLoading || isMeDepositInfoFetching ? (
+              <Stack alignItems='center' justifyContent='center'>
+                <Skeleton variant='text' width={100} height={32} />
+              </Stack>
+            ) : (
+              <Typography variant='subtitle1' component='p'>
+                {`${fundBaseCurrencyProperties.symbol} ${
+                  typeof initAmount === 'bigint'
+                    ? getFormattedPriceUnit(N(initAmount).div(N(10).pow(18)).toNumber())
+                    : 0n
+                } ${fundBaseCurrencyProperties.currency}`}
+              </Typography>
+            )}
             <Typography variant='subtitle2' component='p'>
-              My deposit
+              Deposit amount
             </Typography>
           </Stack>
         </Stack>
@@ -158,11 +197,17 @@ const PublicFundDefiVaultMyDepositStatisticsStack = (props: Props) => {
           </CustomAvatar>
 
           <Stack>
-            <Typography variant='subtitle1' component='p'>
-              24 %
-            </Typography>
+            {isMeDepositInfoLoading || isMeDepositInfoFetching ? (
+              <Stack alignItems='center' justifyContent='center'>
+                <Skeleton variant='text' width={100} height={32} />
+              </Stack>
+            ) : (
+              <Typography variant='subtitle1' component='p'>
+                {`${interestRate} %`}
+              </Typography>
+            )}
             <Typography variant='subtitle2' component='p'>
-              Annually Interest Rate
+              Interest Rate
             </Typography>
           </Stack>
         </Stack>
@@ -172,9 +217,15 @@ const PublicFundDefiVaultMyDepositStatisticsStack = (props: Props) => {
           </CustomAvatar>
 
           <Stack>
-            <Typography variant='subtitle1' component='p'>
-              730 Days
-            </Typography>
+            {isMeDepositInfoLoading || isMeDepositInfoFetching ? (
+              <Stack alignItems='center' justifyContent='center'>
+                <Skeleton variant='text' width={100} height={32} />
+              </Stack>
+            ) : (
+              <Typography variant='subtitle1' component='p'>
+                {`${durationDays} Days`}
+              </Typography>
+            )}
             <Typography variant='subtitle2' component='p'>
               Duration
             </Typography>
@@ -186,9 +237,15 @@ const PublicFundDefiVaultMyDepositStatisticsStack = (props: Props) => {
           </CustomAvatar>
 
           <Stack>
-            <Typography variant='subtitle1' component='p'>
-              372 Days
-            </Typography>
+            {isMeDepositInfoLoading || isMeDepositInfoFetching ? (
+              <Stack alignItems='center' justifyContent='center'>
+                <Skeleton variant='text' width={100} height={32} />
+              </Stack>
+            ) : (
+              <Typography variant='subtitle1' component='p'>
+                {`${principalDelayDays} Days`}
+              </Typography>
+            )}
             <Typography variant='subtitle2' component='p'>
               Principal Delay
             </Typography>

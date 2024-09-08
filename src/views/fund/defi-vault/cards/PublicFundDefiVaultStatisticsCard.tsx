@@ -106,7 +106,7 @@ const PublicFundDefiVaultStatisticsCard = (props: Props) => {
                 </Stack>
               ) : (
                 <Typography variant='subtitle2' color='success.main'>
-                  {vaultVersion as string}
+                  {typeof vaultVersion === 'string' ? vaultVersion : 'v1.0.0'}
                 </Typography>
               )}
               <Icon icon='mdi:shield-check-outline' fontSize={16} />
@@ -132,7 +132,7 @@ const PublicFundDefiVaultStatisticsCard = (props: Props) => {
                       typeof vaultTotalDeposits === 'bigint'
                         ? getFormattedPriceUnit(N(vaultTotalDeposits).div(N(10).pow(18)).toNumber())
                         : 0n
-                    }`}
+                    } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>
                 )}
                 <Typography variant='caption'>Total deposits</Typography>
@@ -156,7 +156,7 @@ const PublicFundDefiVaultStatisticsCard = (props: Props) => {
                       typeof vaultTotalInterestPaid === 'bigint'
                         ? getFormattedPriceUnit(N(vaultTotalInterestPaid).div(N(10).pow(18)).toNumber())
                         : 0n
-                    }`}
+                    } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>
                 )}
                 <Typography variant='caption'>Total interest paid</Typography>

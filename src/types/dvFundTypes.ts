@@ -95,11 +95,11 @@ export type DepositSignHashParamsType = {
   packageId: number
   data: {
     contractAddress: string
-    user: string
-    amount: string
-    interestRate: string
-    principalDelayDays: string
-    durationDays: string
+    sender: string
+    interestRate: number
+    startTime: number
+    principalDelayDays: number
+    durationDays: number
   }
 }
 export type DepositSignHashTransformResponseType = {
@@ -111,10 +111,9 @@ export type DepositSignHashResponseType = {
 
 // ** Claim Sign Hash
 export type ClaimSignHashParamsType = {
-  id: number
   data: {
     contractAddress: string
-    owner: string
+    sender: string
   }
 }
 export type ClaimSignHashTransformResponseType = {
