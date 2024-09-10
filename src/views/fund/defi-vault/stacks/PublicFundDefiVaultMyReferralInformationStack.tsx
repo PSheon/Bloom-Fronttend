@@ -74,7 +74,6 @@ const PublicFundDefiVaultMyReferralInformationStack = (props: Props) => {
   })
 
   // ** Vars
-  const DEFAULT_REFERRER = '0x9f88194D0Ca48523A828e7535c35Ab5Ed50c2776'
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initDVFundEntity.baseCurrency)
 
   /* reward, totalReferrals, totalReferralDeposits */
@@ -179,7 +178,7 @@ const PublicFundDefiVaultMyReferralInformationStack = (props: Props) => {
               <Typography sx={{ fontWeight: 600 }}>
                 {meReferrer === zeroAddress
                   ? 'Not Linked'
-                  : meReferrer === DEFAULT_REFERRER
+                  : meReferrer === initDVFundEntity.defaultReferrerAddress
                     ? `${themeConfig.templateName} Team`
                     : typeof meReferrer === 'string'
                       ? getFormattedEthereumAddress(meReferrer as string)
@@ -235,7 +234,7 @@ const PublicFundDefiVaultMyReferralInformationStack = (props: Props) => {
               <Icon icon='mdi:number-3-box-outline' />
             </CustomAvatar>
             <Stack>
-              <Typography sx={{ fontWeight: 600 }}>Gain 25% of Referee Interest 😇</Typography>
+              <Typography sx={{ fontWeight: 600 }}>Gain 25% Referral Interest Earning 😇</Typography>
               <Typography variant='body2'>You can share 25% of the interest reward</Typography>
               <Typography variant='body2'>once your referee claims it.</Typography>
             </Stack>

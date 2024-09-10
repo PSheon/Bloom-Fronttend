@@ -148,7 +148,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
     chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initDVFundEntity.vault.contractAbi,
     address: initDVFundEntity.vault.contractAddress as `0x${string}`,
-    functionName: 'getDepositInfo',
+    functionName: 'depositOf',
     args: [walletAccount.address!],
     account: walletAccount.address!,
     query: {
@@ -203,7 +203,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
     hash: approvePayTokenHash
   })
 
-  const { data: depositHash, isPending: isMintTokenPending, writeContract: deposit } = useWriteContract()
+  const { data: depositHash, isPending: isDepositPending, writeContract: deposit } = useWriteContract()
 
   const { isLoading: isDepositConfirming, isSuccess: isDepositSuccess } = useWaitForTransactionReceipt({
     chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
@@ -213,7 +213,6 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
   const [depositSignHash, { isLoading: isDepositSignHashLoading }] = useDepositSignHashMutation()
 
   // ** Vars
-  const DEFAULT_REFERRER = '0x9f88194D0Ca48523A828e7535c35Ab5Ed50c2776'
   const selectedStartDate = getNextFirstDate()
   const selectedApy = initPackageEntity.slots.find(slot => slot.propertyName === 'APY')!.value
   const selectedDurationDays = initPackageEntity.slots.find(slot => slot.propertyName === 'Duration')!.value
@@ -271,8 +270,8 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
   ]
 
   // ** Logics
-  const handleOpenMintSFTDialog = () => setIsDepositDialogOpen(() => true)
-  const handleCloseMintSFTDialog = () => setIsDepositDialogOpen(() => false)
+  const handleOpenDepositDialog = () => setIsDepositDialogOpen(() => true)
+  const handleCloseDepositDialog = () => setIsDepositDialogOpen(() => false)
   const handleCloseTransactionErrorDrawer = () => setTransactionError(() => null)
 
   const handleClearReferrer = () => {
@@ -324,6 +323,11 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
         }
       }).unwrap()
 
+      console.log(
+        '🚀 ~ src/views/fund/defi-vault/cards/PublicFundDefiVaultPackageCard.tsx:326 > initDVFundEntity.defaultReferrerAddress',
+        initDVFundEntity.defaultReferrerAddress
+      )
+
       deposit(
         {
           chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
@@ -337,7 +341,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
             getUnixTime(selectedStartDate),
             selectedPrincipalDelayDays,
             selectedDurationDays,
-            selectedReferrer || DEFAULT_REFERRER
+            selectedReferrer || initDVFundEntity.defaultReferrerAddress
           ],
           account: walletAccount.address!
         },
@@ -581,14 +585,8 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
 
             <Stack sx={{ pt: 8, mt: 'auto' }}>
               <Divider sx={{ my: theme => `${theme.spacing(4)} !important` }} />
-              <Button
-                fullWidth
-                variant='contained'
-                size='small'
-                startIcon={<Icon icon='mdi:keyboard-arrow-down' />}
-                onClick={handleOpenMintSFTDialog}
-              >
-                Mint
+              <Button fullWidth variant='contained' size='small' onClick={handleOpenDepositDialog}>
+                Deposit
               </Button>
             </Stack>
           </CardContent>
@@ -596,21 +594,21 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
 
         <Dialog
           open={isDepositDialogOpen}
-          onClose={handleCloseMintSFTDialog}
-          aria-labelledby='mint-sft'
-          aria-describedby='mint-sft-description'
+          onClose={handleCloseDepositDialog}
+          aria-labelledby='deposit'
+          aria-describedby='deposit-description'
           sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
         >
           <IconButton
             size='small'
-            onClick={handleCloseMintSFTDialog}
+            onClick={handleCloseDepositDialog}
             sx={{ position: 'absolute', right: '1rem', top: '1rem' }}
           >
             <Icon icon='mdi:close' />
           </IconButton>
 
           <DialogTitle
-            id='mint-sft'
+            id='deposit'
             sx={{
               textAlign: 'center',
               fontSize: '1.5rem !important',
@@ -659,7 +657,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                   </Stack>
                   <Stepper alternativeLabel activeStep={activeDepositStep}>
                     {STEPS.filter(step => step.show).map((step, index) => (
-                      <Step key={`preview-package-mint-${index}`}>
+                      <Step key={`preview-package-deposit-${index}`}>
                         <StepLabel StepIconComponent={PublicFundLivePackageMintStepperDotBox}>{step.title}</StepLabel>
                       </Step>
                     ))}
@@ -674,7 +672,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                   {/* Check quantity and fee */}
                   {activeDepositStep === 0 && (
                     <motion.div
-                      key={`mint-step-${activeDepositStep}`}
+                      key={`deposit-step-${activeDepositStep}`}
                       initial={{ opacity: 0 }}
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
@@ -740,7 +738,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                                 size='large'
                                 color='primary'
                                 onClick={() => {
-                                  setDepositQuantity(prevMintQuantity => Math.max(prevMintQuantity - 1, 1))
+                                  setDepositQuantity(prevDepositQuantity => Math.max(prevDepositQuantity - 1, 1))
                                 }}
                               >
                                 <Icon icon='mdi:minus-circle-outline' fontSize={36} />
@@ -770,13 +768,13 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                                 size='large'
                                 color='primary'
                                 onClick={() => {
-                                  setDepositQuantity(prevMintQuantity => Math.min(prevMintQuantity + 1, 10))
+                                  setDepositQuantity(prevDepositQuantity => Math.min(prevDepositQuantity + 1, 50))
                                 }}
                               >
                                 <Icon icon='mdi:plus-circle-outline' fontSize={36} />
                               </IconButton>
                               <Typography variant='caption' component='p'>
-                                Max x10
+                                Max x50
                               </Typography>
                             </Stack>
                           </Stack>
@@ -1211,7 +1209,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                           )}
                           <LoadingButton
                             fullWidth
-                            loading={isDepositSignHashLoading || isMintTokenPending || isDepositConfirming}
+                            loading={isDepositSignHashLoading || isDepositPending || isDepositConfirming}
                             variant='contained'
                             disabled={!checkAllowanceSufficient()}
                             onClick={handleDeposit}

@@ -51,6 +51,7 @@ export type DVFundType = {
     contractAbi: Abi
     version: string
   }
+  defaultReferrerAddress: string
   twitterUrl?: string
   discordUrl?: string
   isHighlighted: boolean
