@@ -59,7 +59,7 @@ const PublicFundDefiVaultMyDepositStatisticsStack = (props: Props) => {
     chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
     abi: initDVFundEntity.vault.contractAbi,
     address: initDVFundEntity.vault.contractAddress as `0x${string}`,
-    functionName: 'getDepositInfo',
+    functionName: 'depositOf',
     args: [walletAccount.address!],
     account: walletAccount.address!,
     query: {
