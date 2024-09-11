@@ -10,7 +10,6 @@ import Skeleton from '@mui/material/Skeleton'
 // ** Third-Party Imports
 import { useAccount, useReadContract } from 'wagmi'
 import { ExactNumber as N } from 'exactnumber'
-import { differenceInDays } from 'date-fns'
 
 // ** Core Component Imports
 import CustomAvatar from 'src/@core/components/mui/avatar'
@@ -170,13 +169,34 @@ const PublicFundDefiVaultStatisticsCard = (props: Props) => {
                 <Icon icon='mdi:calendar-month-outline' />
               </CustomAvatar>
               <Stack>
+                {/* NOTE: Fix here later */}
+                {isVaultTotalInterestPaidLoading ? (
+                  <Stack alignItems='center' justifyContent='center'>
+                    <Skeleton variant='text' width={100} height={32} />
+                  </Stack>
+                ) : (
+                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                    {`Around ${19.3} %`}
+                  </Typography>
+                )}
+                <Typography variant='caption'>Average APY.</Typography>
+              </Stack>
+            </Stack>
+          </Grid>
+
+          {/* <Grid item xs={12} sm={4}>
+            <Stack direction='row' spacing={6} alignItems='center'>
+              <CustomAvatar skin='light' variant='rounded' color='info'>
+                <Icon icon='mdi:calendar-month-outline' />
+              </CustomAvatar>
+              <Stack>
                 <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
                   {`${differenceInDays(new Date(), new Date(initDVFundEntity.saleStartTime))} Days`}
                 </Typography>
                 <Typography variant='caption'>Vault lasted</Typography>
               </Stack>
             </Stack>
-          </Grid>
+          </Grid> */}
         </Grid>
       </CardContent>
     </Card>
