@@ -10,9 +10,9 @@ import type {
   FindOneFundParamsType,
   FindOneFundTransformResponseType,
   FindOneFundResponseType,
-  FindFundsParamsType,
-  FindFundsTransformResponseType,
-  FindFundsResponseType,
+  UpdateOneFundParamsType,
+  UpdateOneFundTransformResponseType,
+  UpdateOneFundResponseType,
   DepositSignHashParamsType,
   DepositSignHashTransformResponseType,
   DepositSignHashResponseType,
@@ -50,21 +50,18 @@ export const dvFundApi = createApi({
         ...responseData?.data?.attributes
       })
     }),
-    find: builder.query<FindFundsResponseType, FindFundsParamsType>({
+    updateOne: builder.mutation<UpdateOneFundResponseType, UpdateOneFundParamsType>({
       query: params => ({
-        url: `/api/funds?${qs.stringify({
-          ...params,
-          populate: ['banner']
+        url: `/api/dv-fund/?${qs.stringify({
+          populate: ['banner', 'defaultPackages', 'defaultPackages.slots', 'tokens']
         })}`,
-        method: 'GET'
+        method: 'PUT',
+        body: params
       }),
-      providesTags: ['DVFund'],
-      transformResponse: (responseData: FindFundsTransformResponseType) => ({
-        ...responseData,
-        data: responseData.data.map(fund => ({
-          id: fund.id,
-          ...fund.attributes
-        }))
+      invalidatesTags: ['DVFund'],
+      transformResponse: (responseData: UpdateOneFundTransformResponseType) => ({
+        id: responseData?.data?.id,
+        ...responseData?.data?.attributes
       })
     }),
     depositSignHash: builder.mutation<DepositSignHashResponseType, DepositSignHashParamsType>({
@@ -86,5 +83,5 @@ export const dvFundApi = createApi({
   })
 })
 
-export const { useFindOneQuery, useFindQuery, useDepositSignHashMutation, useClaimSignHashMutation } = dvFundApi
+export const { useFindOneQuery, useUpdateOneMutation, useDepositSignHashMutation, useClaimSignHashMutation } = dvFundApi
 export default dvFundApi

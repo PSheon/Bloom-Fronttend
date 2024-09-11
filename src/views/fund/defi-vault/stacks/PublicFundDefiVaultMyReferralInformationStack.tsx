@@ -157,7 +157,7 @@ const PublicFundDefiVaultMyReferralInformationStack = (props: Props) => {
                   <Typography sx={{ fontWeight: 600 }}>
                     {`${fundBaseCurrencyProperties.symbol} ${
                       typeof totalReferralDeposits === 'bigint'
-                        ? getFormattedPriceUnit(N('20000000').div(N(10).pow(18)).toNumber())
+                        ? getFormattedPriceUnit(N(totalReferralDeposits).div(N(10).pow(18)).toNumber())
                         : 0n
                     } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>

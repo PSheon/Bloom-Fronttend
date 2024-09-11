@@ -119,9 +119,15 @@ const PublicFundDefiVaultPackageDepositRevenueChart = (props: Props) => {
         {
           x: categoriesArray[0],
           x2: categoriesArray[passedFlag - 1],
-          fillColor: '#B3F7CA',
+          fillColor: theme.palette.primary.main,
+          borderColor: theme.palette.primary.main,
           label: {
-            text: 'Available Claim',
+            text: passedFlag > 1 ? 'Available Claim' : '',
+            borderColor: theme.palette.primary.main,
+            style: {
+              color: '#fff',
+              background: theme.palette.primary.main
+            },
             orientation: 'horizontal'
           }
         }

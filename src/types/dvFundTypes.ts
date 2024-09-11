@@ -68,28 +68,36 @@ export type FindOneFundTransformResponseType = BaseApiResponseType<{
 }>
 export type FindOneFundResponseType = DVFundType
 
-// ** Find
-export type FindFundsParamsType = {
-  filters: Partial<{
-    $or: Partial<{
-      displayName: Record<string, string>
-    }>[]
-    status: string
+// ** Update One
+export type UpdateOneFundParamsType = {
+  id: number
+  data: Partial<{
+    banner: number | null
+    displayName: string
+    description: string
+    saleStartTime: Date
+    maturityDate: Date
+    estimatedAPY: number
+    performanceFeePercentage: number
+    redemptionFrequencyInDays: number
+    defaultReferrerAddress: string
+    detail: Block[]
+    defaultPackages: number[]
+    isHighlighted: boolean
   }>
-  sort?: string[]
-  pagination: {
-    page: number
-    pageSize: number
+  meta?: {
+    pagination?: {
+      page: number
+      pageSize: number
+    }
+    populate?: string[]
   }
-  populate?: string[]
 }
-export type FindFundsTransformResponseType = BaseApiResponseType<
-  {
-    id: number
-    attributes: Omit<DVFundType, 'id'>
-  }[]
->
-export type FindFundsResponseType = BaseApiResponseType<DVFundType[]>
+export type UpdateOneFundTransformResponseType = BaseApiResponseType<{
+  id: number
+  attributes: Omit<DVFundType, 'id'>
+}>
+export type UpdateOneFundResponseType = DVFundType
 
 // ** Deposit Sign Hash
 export type DepositSignHashParamsType = {

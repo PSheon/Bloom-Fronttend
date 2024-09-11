@@ -18,7 +18,14 @@ import CustomAvatar from 'src/@core/components/mui/avatar'
 import Icon from 'src/@core/components/icon'
 
 // ** Util Imports
-import { getChainId, getFundCurrencyProperties, getFormattedPriceUnit } from 'src/utils'
+import {
+  getChainId,
+  getFundCurrencyProperties,
+  getFormattedPriceUnit
+
+  // getBaseCurrencyABI,
+  // getBaseCurrencyAddress
+} from 'src/utils'
 
 // ** Config Imports
 import type { wagmiConfig } from 'src/configs/ethereum'
@@ -30,7 +37,7 @@ interface Props {
   initDVFundEntity: DVFundType
 }
 
-const PublicFundDefiVaultStatisticsCard = (props: Props) => {
+const ManagementFundDefiVaultEditOverviewStatisticsCard = (props: Props) => {
   // ** Props
   const { initDVFundEntity } = props
 
@@ -88,6 +95,24 @@ const PublicFundDefiVaultStatisticsCard = (props: Props) => {
     }
   })
 
+  // const {
+  //   data: vaultPayTokenBalance,
+  //   refetch: refetchVaultPayTokenBalance,
+  //   isLoading: isVaultPayTokenBalanceLoading,
+  //   isFetching: isVaultPayTokenBalanceFetching
+  // } = useReadContract({
+  //   chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],
+  //   abi: getBaseCurrencyABI(initDVFundEntity.chain, initDVFundEntity.baseCurrency),
+  //   address: getBaseCurrencyAddress(initDVFundEntity.chain, initDVFundEntity.baseCurrency),
+  //   functionName: 'balanceOf',
+  //   args: [initDVFundEntity.vault.contractAddress],
+  //   account: walletAccount.address!,
+  //   query: {
+  //     enabled: walletAccount.status === 'connected',
+  //     placeholderData: 0n
+  //   }
+  // })
+
   // ** Vars
   const fundBaseCurrencyProperties = getFundCurrencyProperties(initDVFundEntity.baseCurrency)
 
@@ -95,6 +120,11 @@ const PublicFundDefiVaultStatisticsCard = (props: Props) => {
     <Card>
       <CardHeader
         title='Vault Statistics'
+        subheader={
+          <Typography variant='caption' sx={{ mr: 1.5 }}>
+            {`contract: ${initDVFundEntity.vault.contractAddress}`}
+          </Typography>
+        }
         action={
           <Stack alignItems='flex-end' justifyContent='flex-end'>
             <Typography variant='caption'>Vault version</Typography>
@@ -183,17 +213,26 @@ const PublicFundDefiVaultStatisticsCard = (props: Props) => {
               </Stack>
             </Stack>
           </Grid>
-
           {/* <Grid item xs={12} sm={4}>
             <Stack direction='row' spacing={6} alignItems='center'>
               <CustomAvatar skin='light' variant='rounded' color='info'>
                 <Icon icon='mdi:calendar-month-outline' />
               </CustomAvatar>
               <Stack>
-                <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
-                  {`${differenceInDays(new Date(), new Date(initDVFundEntity.saleStartTime))} Days`}
-                </Typography>
-                <Typography variant='caption'>Vault lasted</Typography>
+                {isVaultPayTokenBalanceLoading || isVaultPayTokenBalanceFetching ? (
+                  <Stack alignItems='center' justifyContent='center'>
+                    <Skeleton variant='text' width={100} height={32} />
+                  </Stack>
+                ) : (
+                  <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
+                    {`${fundBaseCurrencyProperties.symbol} ${
+                      typeof vaultPayTokenBalance === 'bigint'
+                        ? getFormattedPriceUnit(N(vaultPayTokenBalance).div(N(10).pow(18)).toNumber())
+                        : 0n
+                    } ${fundBaseCurrencyProperties.currency}`}
+                  </Typography>
+                )}
+                <Typography variant='caption'>Balance</Typography>
               </Stack>
             </Stack>
           </Grid> */}
@@ -203,4 +242,4 @@ const PublicFundDefiVaultStatisticsCard = (props: Props) => {
   )
 }
 
-export default PublicFundDefiVaultStatisticsCard
+export default ManagementFundDefiVaultEditOverviewStatisticsCard
