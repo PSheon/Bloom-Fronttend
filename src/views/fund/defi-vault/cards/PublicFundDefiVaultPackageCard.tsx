@@ -323,11 +323,6 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
         }
       }).unwrap()
 
-      console.log(
-        '🚀 ~ src/views/fund/defi-vault/cards/PublicFundDefiVaultPackageCard.tsx:326 > initDVFundEntity.defaultReferrerAddress',
-        initDVFundEntity.defaultReferrerAddress
-      )
-
       deposit(
         {
           chainId: getChainId(initDVFundEntity.chain) as (typeof wagmiConfig)['chains'][number]['id'],

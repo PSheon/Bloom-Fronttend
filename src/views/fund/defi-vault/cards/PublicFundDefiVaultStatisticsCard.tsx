@@ -176,7 +176,7 @@ const PublicFundDefiVaultStatisticsCard = (props: Props) => {
                   </Stack>
                 ) : (
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
-                    {`Around ${19.3} %`}
+                    {`≈ ${19.3} %`}
                   </Typography>
                 )}
                 <Typography variant='caption'>Average APY.</Typography>
