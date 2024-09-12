@@ -58,8 +58,11 @@ const PublicFundDefiVaultPackageDepositRevenueChart = (props: Props) => {
   const options: ApexOptions = {
     chart: {
       parentHeightOffset: 0,
-      toolbar: { show: false },
-      zoom: { enabled: false }
+      toolbar: {
+        show: true,
+        tools: { download: false, selection: false, zoom: false },
+        autoSelected: 'pan'
+      }
     },
     tooltip: {
       shared: true,
