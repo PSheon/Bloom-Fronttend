@@ -248,7 +248,7 @@ const ManagementFundDefiVaultEditOverviewDefaultPackageGrid = (props: Props) => 
                         height={256}
                         draggable={false}
                         alt={defaultPackage.displayName}
-                        src={`/images/funds/packages/card-skin/${defaultPackage.skin.toLowerCase()}-${
+                        src={`/images/funds/packages/card-skin/dv-${defaultPackage.skin.toLowerCase()}-${
                           theme.palette.mode
                         }.webp`}
                       />

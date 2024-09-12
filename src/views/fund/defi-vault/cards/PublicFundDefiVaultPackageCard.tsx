@@ -472,7 +472,7 @@ const PublicFundDefiVaultPackageCard = (props: Props) => {
                 height={256}
                 draggable={false}
                 alt={initPackageEntity.displayName}
-                src={`/images/funds/packages/card-skin/${initPackageEntity.skin.toLowerCase()}-${
+                src={`/images/funds/packages/card-skin/dv-${initPackageEntity.skin.toLowerCase()}-${
                   theme.palette.mode
                 }.webp`}
               />
