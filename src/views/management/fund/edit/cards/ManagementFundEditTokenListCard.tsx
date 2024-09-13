@@ -131,7 +131,7 @@ const ManagementFundEditTokenListCard = (props: Props) => {
       headerName: '額度',
       renderCell: ({ row }: GridRenderCellParams<TokenType>) => (
         <Typography noWrap color='text.secondary' sx={{ fontWeight: 600 }}>
-          {`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(N(row.tokenValue).div(N(10).pow(18)).toNumber())}`}
+          {`${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(N(row.tokenValue).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber())}`}
         </Typography>
       )
     },

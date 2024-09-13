@@ -159,7 +159,9 @@ const ManagementFundDefiVaultEditOverviewStatisticsCard = (props: Props) => {
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
                     {`${fundBaseCurrencyProperties.symbol} ${
                       typeof vaultTotalDeposits === 'bigint'
-                        ? getFormattedPriceUnit(N(vaultTotalDeposits).div(N(10).pow(18)).toNumber())
+                        ? getFormattedPriceUnit(
+                            N(vaultTotalDeposits).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                          )
                         : 0n
                     } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>
@@ -183,7 +185,9 @@ const ManagementFundDefiVaultEditOverviewStatisticsCard = (props: Props) => {
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
                     {`${fundBaseCurrencyProperties.symbol} ${
                       typeof vaultTotalInterestPaid === 'bigint'
-                        ? getFormattedPriceUnit(N(vaultTotalInterestPaid).div(N(10).pow(18)).toNumber())
+                        ? getFormattedPriceUnit(
+                            N(vaultTotalInterestPaid).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                          )
                         : 0n
                     } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>
@@ -227,7 +231,7 @@ const ManagementFundDefiVaultEditOverviewStatisticsCard = (props: Props) => {
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
                     {`${fundBaseCurrencyProperties.symbol} ${
                       typeof vaultPayTokenBalance === 'bigint'
-                        ? getFormattedPriceUnit(N(vaultPayTokenBalance).div(N(10).pow(18)).toNumber())
+                        ? getFormattedPriceUnit(N(vaultPayTokenBalance).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber())
                         : 0n
                     } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>

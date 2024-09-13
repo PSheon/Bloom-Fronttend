@@ -333,12 +333,16 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
       if (isInPenalty) {
         return {
           percentage: percentage / 2,
-          formattedNumber: getFormattedPriceUnit(N(vaultStakedEarningInfo).div(N(2)).div(N(10).pow(18)).toNumber())
+          formattedNumber: getFormattedPriceUnit(
+            N(vaultStakedEarningInfo).div(N(2)).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+          )
         }
       } else {
         return {
           percentage,
-          formattedNumber: getFormattedPriceUnit(N(vaultStakedEarningInfo).div(N(10).pow(18)).toNumber())
+          formattedNumber: getFormattedPriceUnit(
+            N(vaultStakedEarningInfo).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+          )
         }
       }
     } else {
@@ -503,7 +507,9 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
                     color: 'primary.main'
                   }}
                 >
-                  {typeof sftValue === 'bigint' ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber()) : 0n}
+                  {typeof sftValue === 'bigint'
+                    ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber())
+                    : 0n}
                 </Typography>
               </Stack>
             </Stack>
@@ -597,7 +603,9 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
                           sx={{ fontWeight: 600 }}
                         >{`≈ ${fundBaseCurrencyProperties.symbol} ${
                           typeof vaultStakedEarningInfo === 'bigint'
-                            ? getFormattedPriceUnit(N(vaultStakedEarningInfo).div(N(10).pow(18)).toNumber())
+                            ? getFormattedPriceUnit(
+                                N(vaultStakedEarningInfo).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                              )
                             : 0n
                         } ${fundBaseCurrencyProperties.currency}`}</Typography>
                         <IconButton size='small' onClick={() => refetchVaultStakedEarningInfo()}>
@@ -882,7 +890,7 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
                             </Typography>
                             <Typography variant='subtitle1' component='p' sx={{ fontWeight: 600 }}>
                               {`≈ ${fundBaseCurrencyProperties.symbol} ${getFormattedPriceUnit(
-                                N(stakeRecordFullRewards).div(N(10).pow(18)).toNumber()
+                                N(stakeRecordFullRewards).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
                               )} ${fundBaseCurrencyProperties.currency}`}
                             </Typography>
                           </Stack>
@@ -975,7 +983,9 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
 
                               <Typography variant='h6' component='p'>{`${fundBaseCurrencyProperties.symbol} ${
                                 typeof sftValue === 'bigint'
-                                  ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber())
+                                  ? getFormattedPriceUnit(
+                                      N(sftValue).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                                    )
                                   : 0n
                               } ${fundBaseCurrencyProperties.currency}`}</Typography>
                             </Stack>
@@ -1011,7 +1021,11 @@ const PublicFundLiveStakedSFTCard = (props: Props) => {
                             <Stack alignItems='flex-end' justifyContent='center'>
                               <Typography variant='subtitle1' component='p'>{`≈ ${fundBaseCurrencyProperties.symbol} ${
                                 typeof vaultStakedEarningInfo === 'bigint'
-                                  ? getFormattedPriceUnit(N(vaultStakedEarningInfo).div(N(10).pow(18)).toNumber())
+                                  ? getFormattedPriceUnit(
+                                      N(vaultStakedEarningInfo)
+                                        .div(N(10).pow(fundBaseCurrencyProperties.decimals))
+                                        .toNumber()
+                                    )
                                   : 0n
                               } ${fundBaseCurrencyProperties.currency}`}</Typography>
                               <Typography variant='subtitle1' component='p'>{`(${

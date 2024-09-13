@@ -115,6 +115,7 @@ export const getFundCurrencyProperties = (currency: FundType['baseCurrency']) =>
       imageUrl: '/images/funds/currencies/eth.svg',
       displayName: 'Ethereum',
       currency: 'ETH',
+      decimals: 18,
       symbol: 'Ξ'
     },
     USDT: {
@@ -122,6 +123,7 @@ export const getFundCurrencyProperties = (currency: FundType['baseCurrency']) =>
       imageUrl: '/images/funds/currencies/usdt.svg',
       displayName: 'Tether',
       currency: 'USDT',
+      decimals: 6,
       symbol: '$'
     },
     USDC: {
@@ -129,6 +131,7 @@ export const getFundCurrencyProperties = (currency: FundType['baseCurrency']) =>
       imageUrl: '/images/funds/currencies/usdc.svg',
       displayName: 'USD Coin',
       currency: 'USDC',
+      decimals: 6,
       symbol: '$'
     },
     DAI: {
@@ -136,6 +139,7 @@ export const getFundCurrencyProperties = (currency: FundType['baseCurrency']) =>
       imageUrl: '/images/funds/currencies/dai.svg',
       displayName: 'Dai',
       currency: 'DAI',
+      decimals: 18,
       symbol: '$'
     },
     BLT: {
@@ -143,6 +147,7 @@ export const getFundCurrencyProperties = (currency: FundType['baseCurrency']) =>
       imageUrl: '/images/funds/currencies/blt.svg',
       displayName: 'Blt',
       currency: 'BLT',
+      decimals: 18,
       symbol: '$'
     }
   }

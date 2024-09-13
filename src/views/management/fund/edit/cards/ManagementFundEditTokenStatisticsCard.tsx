@@ -183,7 +183,9 @@ const ManagementFundEditTokenStatisticsCard = (props: Props) => {
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
                     {`${fundBaseCurrencyProperties.symbol} ${
                       typeof totalNetValue === 'bigint'
-                        ? getFormattedPriceUnit(N(totalNetValue).div(N(10).pow(18)).toNumber())
+                        ? getFormattedPriceUnit(
+                            N(totalNetValue).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                          )
                         : 0n
                     } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>
@@ -207,7 +209,9 @@ const ManagementFundEditTokenStatisticsCard = (props: Props) => {
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
                     {`${fundBaseCurrencyProperties.symbol} ${
                       typeof payTokenBalance === 'bigint'
-                        ? getFormattedPriceUnit(N(payTokenBalance).div(N(10).pow(18)).toNumber())
+                        ? getFormattedPriceUnit(
+                            N(payTokenBalance).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                          )
                         : 0n
                     } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>

@@ -231,7 +231,10 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
     if (isPayTokenAllowanceLoading || isPayTokenAllowanceFetching) return true
     const NPayTokenAllowance = typeof payTokenAllowance === 'bigint' ? N(payTokenAllowance) : N(0)
 
-    return N(totalPriceString).mul(N(10).pow(18)).toNumber() <= NPayTokenAllowance.toNumber()
+    return (
+      N(totalPriceString).mul(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber() <=
+      NPayTokenAllowance.toNumber()
+    )
   }
 
   // ** Renders
@@ -811,7 +814,11 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                   <Typography variant='subtitle1' component='p'>
                                     {`${fundBaseCurrencyProperties.symbol} ${
                                       typeof payTokenBalance === 'bigint'
-                                        ? getFormattedPriceUnit(N(payTokenBalance).div(N(10).pow(18)).toNumber())
+                                        ? getFormattedPriceUnit(
+                                            N(payTokenBalance)
+                                              .div(N(10).pow(fundBaseCurrencyProperties.decimals))
+                                              .toNumber()
+                                          )
                                         : 0n
                                     } ${fundBaseCurrencyProperties.currency}`}
                                   </Typography>
@@ -845,7 +852,7 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                                         typeof payTokenAllowance === 'bigint'
                                           ? getFormattedPriceUnit(
                                               N(payTokenAllowance ?? 0)
-                                                .div(N(10).pow(18))
+                                                .div(N(10).pow(fundBaseCurrencyProperties.decimals))
                                                 .toNumber()
                                             )
                                           : 0
@@ -885,7 +892,9 @@ const ManagementFundPreviewPackageCard = (props: Props) => {
                               loading={isApprovePayTokenPending || isApprovePayTokenConfirming}
                               variant='contained'
                               onClick={() => {
-                                const formattedApproveValueString = N(totalPriceString).mul(N(10).pow(18)).toString()
+                                const formattedApproveValueString = N(totalPriceString)
+                                  .mul(N(10).pow(fundBaseCurrencyProperties.decimals))
+                                  .toString()
 
                                 approvePayToken(
                                   {

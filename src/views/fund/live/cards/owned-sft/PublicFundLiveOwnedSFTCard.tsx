@@ -518,7 +518,9 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                     color: 'primary.main'
                   }}
                 >
-                  {typeof sftValue === 'bigint' ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber()) : 0n}
+                  {typeof sftValue === 'bigint'
+                    ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber())
+                    : 0n}
                 </Typography>
               </Stack>
             </Stack>
@@ -913,7 +915,9 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
 
                           <Typography variant='subtitle1' component='p'>{`${fundBaseCurrencyProperties.symbol} ${
                             typeof sftValue === 'bigint'
-                              ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber())
+                              ? getFormattedPriceUnit(
+                                  N(sftValue).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                                )
                               : 0n
                           } ${fundBaseCurrencyProperties.currency}`}</Typography>
                         </Stack>
@@ -940,7 +944,7 @@ const PublicFundLiveOwnedSFTCard = (props: Props) => {
                                         selectedStakePeriod.periodInDays
                                       )
                                     )
-                                      .div(N(10).pow(18))
+                                      .div(N(10).pow(fundBaseCurrencyProperties.decimals))
                                       .toNumber()
                                   )
                                 : 0n
