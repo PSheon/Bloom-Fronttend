@@ -2,7 +2,13 @@
 import { mainnet, sepolia, blast } from 'wagmi/chains'
 
 // ** Config Imports
-import { ETHEREUM_SEPOLIA_USDT_ABI, ETHEREUM_SEPOLIA_BLT_ABI } from 'src/configs/ethereum'
+import {
+  ETHEREUM_MAINNET_USDT_ABI,
+  ETHEREUM_MAINNET_USDC_ABI,
+  ETHEREUM_MAINNET_DAI_ABI,
+  ETHEREUM_SEPOLIA_USDT_ABI,
+  ETHEREUM_SEPOLIA_BLT_ABI
+} from 'src/configs/ethereum'
 
 // ** Type Imports
 import type { FundType } from 'src/types/fundTypes'
@@ -70,9 +76,9 @@ export const getBaseCurrencyABI = (
   const ABI_TABLE: Record<FundType['chain'], Record<FundType['baseCurrency'], any>> = {
     Ethereum: {
       ETH: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
-      USDT: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
-      USDC: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
-      DAI: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */,
+      USDT: ETHEREUM_MAINNET_USDT_ABI,
+      USDC: ETHEREUM_MAINNET_USDC_ABI,
+      DAI: ETHEREUM_MAINNET_DAI_ABI,
       BLT: ETHEREUM_SEPOLIA_BLT_ABI /* NOTE: check later */
     },
     'Ethereum Sepolia': {
