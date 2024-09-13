@@ -97,7 +97,7 @@ const WalletConnectCard = (props: Props) => {
   })
 
   const { data: nonceData } = useGetNonceQuery(null)
-  const [verifyWallet, { isLoading: isVerifyWalletLoading }] = useVerifyMutation()
+  const [verifyWallet, { isLoading: isVerifyWalletLoading, isError: isVerifyWalletError }] = useVerifyMutation()
 
   // ** Vars
   const wallets = walletsData?.data || []
@@ -424,10 +424,18 @@ const WalletConnectCard = (props: Props) => {
                               p: 4,
                               borderRadius: 1,
                               border: theme =>
-                                `1px solid ${isCurrentWalletVerified ? theme.palette.primary.main : theme.palette.warning.main}`,
-                              ...(isCurrentWalletVerified
-                                ? { ...bgColors.primaryLight }
-                                : { backgroundColor: bgColors.warningLight.backgroundColor })
+                                `1px solid ${
+                                  isVerifyWalletError
+                                    ? theme.palette.error.main
+                                    : isCurrentWalletVerified
+                                      ? theme.palette.primary.main
+                                      : theme.palette.warning.main
+                                }`,
+                              ...(isVerifyWalletError
+                                ? { ...bgColors.errorLight }
+                                : isCurrentWalletVerified
+                                  ? { ...bgColors.primaryLight }
+                                  : { backgroundColor: bgColors.warningLight.backgroundColor })
                             }}
                           >
                             <Stack
@@ -477,7 +485,16 @@ const WalletConnectCard = (props: Props) => {
                             </Stack>
 
                             <Stack alignSelf='stretch' alignItems='center' justifyContent='center'>
-                              {isCurrentWalletVerified ? (
+                              {isVerifyWalletError ? (
+                                <Stack>
+                                  <Typography variant='caption' component='p'>
+                                    This wallet has connected to another account
+                                  </Typography>
+                                  <Typography variant='caption' component='p'>
+                                    Please try another wallet or login with another account
+                                  </Typography>
+                                </Stack>
+                              ) : isCurrentWalletVerified ? (
                                 <CustomChip
                                   skin='light'
                                   size='small'
