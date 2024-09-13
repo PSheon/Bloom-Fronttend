@@ -208,7 +208,9 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
                     color: 'primary.main'
                   }}
                 >
-                  {typeof sftValue === 'bigint' ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber()) : 0n}
+                  {typeof sftValue === 'bigint'
+                    ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber())
+                    : 0n}
                 </Typography>
               </Stack>
             </Stack>
@@ -302,7 +304,9 @@ const ManagementFundPreviewStakedSFTCard = (props: Props) => {
                           sx={{ fontWeight: 600 }}
                         >{`${fundBaseCurrencyProperties.symbol} ${
                           typeof vaultStakedEarningInfo === 'bigint'
-                            ? getFormattedPriceUnit(N(vaultStakedEarningInfo).div(N(10).pow(18)).toNumber())
+                            ? getFormattedPriceUnit(
+                                N(vaultStakedEarningInfo).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                              )
                             : 0n
                         } ${fundBaseCurrencyProperties.currency}`}</Typography>
                         <IconButton size='small' onClick={() => refetchVaultStakedEarningInfo()}>

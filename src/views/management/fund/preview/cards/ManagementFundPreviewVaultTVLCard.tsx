@@ -72,7 +72,9 @@ const ManagementFundPreviewVaultTVLCard = (props: Props) => {
                 <Typography variant='h6' component='p'>
                   {`${fundBaseCurrencyProperties.symbol} ${
                     typeof totalValueLocked === 'bigint'
-                      ? getFormattedPriceUnit(N(totalValueLocked).div(N(10).pow(18)).toNumber())
+                      ? getFormattedPriceUnit(
+                          N(totalValueLocked).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                        )
                       : 0n
                   }`}
                 </Typography>

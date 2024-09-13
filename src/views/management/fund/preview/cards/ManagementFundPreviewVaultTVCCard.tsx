@@ -72,7 +72,9 @@ const ManagementFundPreviewVaultTVCCard = (props: Props) => {
                 <Typography variant='h6' component='p'>
                   {`${fundBaseCurrencyProperties.symbol} ${
                     typeof totalValueClaimed === 'bigint'
-                      ? getFormattedPriceUnit(N(totalValueClaimed).div(N(10).pow(18)).toNumber())
+                      ? getFormattedPriceUnit(
+                          N(totalValueClaimed).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                        )
                       : 0n
                   } ${fundBaseCurrencyProperties.currency}`}
                 </Typography>

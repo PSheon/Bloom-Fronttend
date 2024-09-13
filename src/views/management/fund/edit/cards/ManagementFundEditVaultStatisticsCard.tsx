@@ -179,7 +179,9 @@ const ManagementFundEditVaultStatisticsCard = (props: Props) => {
 
                     {`${fundBaseCurrencyProperties.symbol} ${
                       typeof totalValueLocked === 'bigint'
-                        ? getFormattedPriceUnit(N(totalValueLocked).div(N(10).pow(18)).toNumber())
+                        ? getFormattedPriceUnit(
+                            N(totalValueLocked).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                          )
                         : 0n
                     } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>
@@ -203,7 +205,9 @@ const ManagementFundEditVaultStatisticsCard = (props: Props) => {
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
                     {`${fundBaseCurrencyProperties.symbol} ${
                       typeof totalValueClaimed === 'bigint'
-                        ? getFormattedPriceUnit(N(totalValueClaimed).div(N(10).pow(18)).toNumber())
+                        ? getFormattedPriceUnit(
+                            N(totalValueClaimed).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                          )
                         : 0n
                     } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>
@@ -227,7 +231,9 @@ const ManagementFundEditVaultStatisticsCard = (props: Props) => {
                   <Typography variant='h6' component='p' sx={{ fontWeight: 600 }}>
                     {`${fundBaseCurrencyProperties.symbol} ${
                       typeof payTokenBalance === 'bigint'
-                        ? getFormattedPriceUnit(N(payTokenBalance).div(N(10).pow(18)).toNumber())
+                        ? getFormattedPriceUnit(
+                            N(payTokenBalance).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                          )
                         : 0n
                     } ${fundBaseCurrencyProperties.currency}`}
                   </Typography>

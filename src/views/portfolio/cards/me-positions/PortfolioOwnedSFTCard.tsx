@@ -118,7 +118,8 @@ const PortfolioOwnedSFTCard = (props: Props) => {
                     color: 'primary.main'
                   }}
                 >
-                  {typeof sftValue === 'bigint' ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(18)).toNumber()) : 0n}
+                  {/* NOTE: Fix here later */}
+                  {typeof sftValue === 'bigint' ? getFormattedPriceUnit(N(sftValue).div(N(10).pow(6)).toNumber()) : 0n}
                 </Typography>
               </Stack>
             </Stack>
