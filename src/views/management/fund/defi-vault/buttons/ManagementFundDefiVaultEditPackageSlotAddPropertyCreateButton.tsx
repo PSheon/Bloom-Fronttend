@@ -57,7 +57,7 @@ interface FormData {
   displayType: 'string' | 'number'
 }
 
-const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
+const ManagementFundDefiVaultEditPackageSlotAddPropertyCreateButton = (props: Props) => {
   // ** Props
   const { initPackageEntity } = props
 
@@ -183,6 +183,8 @@ const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
                         <MenuItem value='DisplayName'>DisplayName</MenuItem>
                         <MenuItem value='APY'>APY</MenuItem>
                         <MenuItem value='MinimumStakingPeriod'>MinimumStakingPeriod</MenuItem>
+                        <MenuItem value='Duration'>Duration</MenuItem>
+                        <MenuItem value='PrincipalDelayDays'>PrincipalDelayDays</MenuItem>
                       </Select>
                     )}
                   />
@@ -309,4 +311,4 @@ const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
   )
 }
 
-export default ManagementFundEditPackageSlotAddPropertyCreateButton
+export default ManagementFundDefiVaultEditPackageSlotAddPropertyCreateButton

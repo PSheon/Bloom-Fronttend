@@ -47,16 +47,16 @@ import CustomChip from 'src/@core/components/mui/chip'
 import CustomAvatar from 'src/@core/components/mui/avatar'
 
 // ** Custom Component Imports
-import ManagementFundEditPackageSkinSelectBox from 'src/views/management/fund/edit/boxes/ManagementFundEditPackageSkinSelectBox'
-import ManagementFundEditPackageSlotAddPropertyCreateButton from 'src/views/management/fund/edit/buttons/ManagementFundEditPackageSlotAddPropertyCreateButton'
-import ManagementFundEditPackageSlotAddPropertyEditButton from 'src/views/management/fund/edit/buttons/ManagementFundEditPackageSlotAddPropertyEditButton'
+import ManagementFundDefiVaultEditPackageSkinSelectBox from 'src/views/management/fund/defi-vault/boxes/ManagementFundDefiVaultEditPackageSkinSelectBox'
+import ManagementFundDefiVaultEditPackageSlotAddPropertyCreateButton from 'src/views/management/fund/defi-vault/buttons/ManagementFundDefiVaultEditPackageSlotAddPropertyCreateButton'
+import ManagementFundDefiVaultEditPackageSlotAddPropertyEditButton from 'src/views/management/fund/defi-vault/buttons/ManagementFundDefiVaultEditPackageSlotAddPropertyEditButton'
 
 // ** Util Imports
 import { getFundCurrencyProperties, getPackageStatusProperties, getFormattedPriceUnit } from 'src/utils'
 
 // ** Type Imports
 import type { GridProps } from '@mui/material/Grid'
-import type { FundType } from 'src/types/fundTypes'
+import type { DVFundType } from 'src/types/dvFundTypes'
 import type { PackageType, SkinType } from 'src/types/packageTypes'
 
 // ** Style Imports
@@ -93,7 +93,7 @@ const schema = yup.object().shape({
 })
 
 interface Props {
-  initFundEntity: FundType
+  initDVFundEntity: DVFundType
 }
 interface FormData {
   displayName: string
@@ -103,9 +103,9 @@ interface FormData {
   status: 'Draft' | 'Published' | 'Archived'
 }
 
-const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
+const ManagementFundDefiVaultEditOverviewDefaultPackageGrid = (props: Props) => {
   // ** Props
-  const { initFundEntity } = props
+  const { initDVFundEntity } = props
 
   // ** States
   const [openEdit, setOpenEdit] = useState<boolean>(false)
@@ -133,9 +133,9 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
   })
 
   // ** Vars
-  const { defaultPackages: defaultPackagesData } = initFundEntity
+  const { defaultPackages: defaultPackagesData } = initDVFundEntity
   const defaultPackages = defaultPackagesData?.data?.map(pkg => ({ id: pkg.id, ...pkg.attributes }))
-  const fundBaseCurrencyProperties = getFundCurrencyProperties(initFundEntity.baseCurrency)
+  const fundBaseCurrencyProperties = getFundCurrencyProperties(initDVFundEntity.baseCurrency)
 
   // ** Logics
   const handleEditOpen = (packageEntity: PackageType) => {
@@ -320,7 +320,9 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                           Utility
                         </Typography>
 
-                        <ManagementFundEditPackageSlotAddPropertyCreateButton initPackageEntity={defaultPackage} />
+                        <ManagementFundDefiVaultEditPackageSlotAddPropertyCreateButton
+                          initPackageEntity={defaultPackage}
+                        />
                       </Stack>
 
                       {defaultPackage.slots?.length === 0 ? (
@@ -357,7 +359,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                                   </Typography>
                                 </Stack>
 
-                                <ManagementFundEditPackageSlotAddPropertyEditButton
+                                <ManagementFundDefiVaultEditPackageSlotAddPropertyEditButton
                                   initPackageEntity={defaultPackage}
                                   initPropertyEntity={property}
                                   handleRemoveProperty={handleRemoveProperty}
@@ -486,7 +488,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                       control={control}
                       rules={{ required: true }}
                       render={({ field: { value, onChange } }) => (
-                        <ManagementFundEditPackageSkinSelectBox
+                        <ManagementFundDefiVaultEditPackageSkinSelectBox
                           selected={value as SkinType}
                           value='Green'
                           handleClick={() => {
@@ -506,7 +508,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                       control={control}
                       rules={{ required: true }}
                       render={({ field: { value, onChange } }) => (
-                        <ManagementFundEditPackageSkinSelectBox
+                        <ManagementFundDefiVaultEditPackageSkinSelectBox
                           selected={value as SkinType}
                           value='Purple'
                           handleClick={() => {
@@ -526,7 +528,7 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
                       control={control}
                       rules={{ required: true }}
                       render={({ field: { value, onChange } }) => (
-                        <ManagementFundEditPackageSkinSelectBox
+                        <ManagementFundDefiVaultEditPackageSkinSelectBox
                           selected={value as SkinType}
                           value='Orange'
                           handleClick={() => {
@@ -637,4 +639,4 @@ const ManagementFundEditOverviewDefaultPackagesGrid = (props: Props) => {
   )
 }
 
-export default ManagementFundEditOverviewDefaultPackagesGrid
+export default ManagementFundDefiVaultEditOverviewDefaultPackageGrid

@@ -3,6 +3,7 @@ import { useState, Fragment } from 'react'
 
 // ** MUI Components
 import Grid from '@mui/material/Grid'
+import Stack from '@mui/material/Stack'
 import Button from '@mui/material/Button'
 import IconButton from '@mui/material/IconButton'
 import Dialog from '@mui/material/Dialog'
@@ -30,7 +31,7 @@ import Icon from 'src/@core/components/icon'
 import { useUpdateOneMutation } from 'src/store/api/management/package'
 
 // ** Type Imports
-import type { PackageType } from 'src/types/packageTypes'
+import type { PackageType, SlotType } from 'src/types/packageTypes'
 
 const schema = yup.object().shape({
   propertyName: yup
@@ -40,26 +41,27 @@ const schema = yup.object().shape({
   description: yup.string().optional(),
   value: yup.string().required(),
   displayValue: yup.string().optional(),
-  isIntrinsic: yup.boolean().required(),
   order: yup.number().required(),
   displayType: yup.string().oneOf(['string', 'number']).required()
 })
 
 interface Props {
   initPackageEntity: PackageType
+  initPropertyEntity: SlotType
+  handleRemoveProperty: (packageId: number, propertyId: number) => Promise<void>
 }
 interface FormData {
   propertyName: 'DisplayName' | 'APY' | 'MinimumStakingPeriod' | 'Duration' | 'PrincipalDelayDays'
+  description?: string
   value: string
   displayValue?: string
-  isIntrinsic: boolean
   order: number
   displayType: 'string' | 'number'
 }
 
-const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
+const ManagementFundDefiVaultEditPackageSlotAddPropertyEditButton = (props: Props) => {
   // ** Props
-  const { initPackageEntity } = props
+  const { initPackageEntity, initPropertyEntity, handleRemoveProperty } = props
 
   // ** States
   const [openEdit, setOpenEdit] = useState<boolean>(false)
@@ -74,12 +76,12 @@ const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
     formState: { isDirty, errors }
   } = useForm({
     defaultValues: {
-      propertyName: 'DisplayName',
-      value: '',
-      displayValue: '',
-      isIntrinsic: false,
-      order: 1,
-      displayType: 'string'
+      propertyName: initPropertyEntity.propertyName,
+      description: initPropertyEntity.description ?? '',
+      value: initPropertyEntity.value,
+      displayValue: initPropertyEntity.displayValue ?? '',
+      order: initPropertyEntity.order,
+      displayType: initPropertyEntity.displayType
     },
     mode: 'onBlur',
     resolver: yupResolver(schema)
@@ -95,41 +97,45 @@ const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
   }
 
   const onSubmit = async (data: FormData) => {
-    const { propertyName, value, displayValue, isIntrinsic, order, displayType } = data
+    const { propertyName, value, displayValue, order, displayType } = data
 
-    const currentSlots = initPackageEntity!.slots
+    const updatedSlots = initPackageEntity!.slots.map(slot => {
+      if (slot.id === initPropertyEntity.id) {
+        return {
+          ...slot,
+          propertyName,
+          value,
+          displayValue,
+          order,
+          displayType
+        }
+      }
+
+      return slot
+    })
 
     await updateOnePackage({
       id: initPackageEntity!.id,
       data: {
-        slots: [
-          ...currentSlots,
-          {
-            propertyName,
-            value,
-            displayValue,
-            isIntrinsic,
-            order,
-            displayType
-          }
-        ]
+        slots: updatedSlots
       }
     })
-    reset(undefined)
+
+    reset(undefined, { keepValues: true, keepDirty: false, keepDefaultValues: false })
     handleEditClose()
   }
 
   return (
     <Fragment>
       <IconButton size='small' onClick={handleEditOpen}>
-        <Icon icon='mdi:plus' fontSize={20} />
+        <Icon icon='mdi:edit-box-outline' fontSize={20} />
       </IconButton>
 
       <Dialog
         open={openEdit}
         onClose={handleEditClose}
-        aria-labelledby='property-view-create'
-        aria-describedby='property-view-create-description'
+        aria-labelledby='property-view-edit'
+        aria-describedby='property-view-edit-description'
         sx={{ '& .MuiPaper-root': { width: '100%', maxWidth: 800, position: 'relative' } }}
       >
         <IconButton size='small' onClick={handleEditClose} sx={{ position: 'absolute', right: '1rem', top: '1rem' }}>
@@ -137,7 +143,7 @@ const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
         </IconButton>
 
         <DialogTitle
-          id='property-view-create'
+          id='property-view-edit'
           sx={{
             textAlign: 'center',
             fontSize: '1.5rem !important',
@@ -145,9 +151,9 @@ const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
             pt: theme => [`${theme.spacing(8)} !important`, `${theme.spacing(10)} !important`]
           }}
         >
-          Create Utility Property
+          Edit Utility Property
           <DialogContentText
-            id='property-view-create-description'
+            id='property-view-edit-description'
             variant='body2'
             component='p'
             sx={{ textAlign: 'center' }}
@@ -188,6 +194,28 @@ const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
                   />
                   {errors.propertyName && (
                     <FormHelperText sx={{ color: 'error.main' }}>{errors.propertyName.message}</FormHelperText>
+                  )}
+                </FormControl>
+              </Grid>
+              <Grid item xs={12}>
+                <FormControl fullWidth>
+                  <Controller
+                    name='description'
+                    control={control}
+                    rules={{ required: true }}
+                    render={({ field: { value, onChange, onBlur } }) => (
+                      <TextField
+                        label='Description'
+                        value={value}
+                        onBlur={onBlur}
+                        onChange={onChange}
+                        error={Boolean(errors.description)}
+                        sx={{ display: 'flex' }}
+                      />
+                    )}
+                  />
+                  {errors.description && (
+                    <FormHelperText sx={{ color: 'error.main' }}>{errors.description.message}</FormHelperText>
                   )}
                 </FormControl>
               </Grid>
@@ -294,19 +322,30 @@ const ManagementFundEditPackageSlotAddPropertyCreateButton = (props: Props) => {
           <Button variant='outlined' color='secondary' onClick={handleEditClose}>
             Cancel
           </Button>
-          <LoadingButton
-            loading={isUpdateOnePackageLoading}
-            disabled={!isDirty || Boolean(errors.propertyName || errors.value)}
-            variant='contained'
-            startIcon={<Icon icon='mdi:content-save-outline' />}
-            onClick={handleSubmit(onSubmit)}
-          >
-            Create
-          </LoadingButton>
+          <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
+            <LoadingButton
+              loading={isUpdateOnePackageLoading}
+              variant='outlined'
+              color='error'
+              startIcon={<Icon icon='mdi:remove-box-outline' />}
+              onClick={() => handleRemoveProperty(initPackageEntity.id, initPropertyEntity.id)}
+            >
+              Remove
+            </LoadingButton>
+            <LoadingButton
+              loading={isUpdateOnePackageLoading}
+              disabled={!isDirty || Boolean(errors.propertyName || errors.value)}
+              variant='contained'
+              startIcon={<Icon icon='mdi:content-save-outline' />}
+              onClick={handleSubmit(onSubmit)}
+            >
+              Update
+            </LoadingButton>
+          </Stack>
         </DialogActions>
       </Dialog>
     </Fragment>
   )
 }
 
-export default ManagementFundEditPackageSlotAddPropertyCreateButton
+export default ManagementFundDefiVaultEditPackageSlotAddPropertyEditButton

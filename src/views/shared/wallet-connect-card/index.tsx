@@ -41,6 +41,9 @@ import WalletConnectSkeletonCard from 'src/views/shared/wallet-connect-card/Wall
 // ** Icon Imports
 import Icon from 'src/@core/components/icon'
 
+// ** Hook Imports
+import useBgColor from 'src/@core/hooks/useBgColor'
+
 // ** API Imports
 import { useFindMeQuery, useGetNonceQuery, useVerifyMutation } from 'src/store/api/management/wallet'
 
@@ -79,6 +82,7 @@ const WalletConnectCard = (props: Props) => {
   // ** Hooks
   const session = useSession()
   const walletAccount = useAccount()
+  const bgColors = useBgColor()
   const { switchChain } = useSwitchChain()
   const { signMessageAsync } = useSignMessage()
   const { openConnectModal } = useConnectModal()
@@ -93,7 +97,7 @@ const WalletConnectCard = (props: Props) => {
   })
 
   const { data: nonceData } = useGetNonceQuery(null)
-  const [verifyWallet, { isLoading: isVerifyWalletLoading }] = useVerifyMutation()
+  const [verifyWallet, { isLoading: isVerifyWalletLoading, isError: isVerifyWalletError }] = useVerifyMutation()
 
   // ** Vars
   const wallets = walletsData?.data || []
@@ -322,7 +326,13 @@ const WalletConnectCard = (props: Props) => {
                         <Stack alignItems='center' justifyContent='center'>
                           <Box sx={{ position: 'relative' }}>
                             <IconButton onClick={handleOpenVerifiedWalletsDialog}>
-                              <CustomAvatar skin='filled' color={isCurrentWalletVerified ? 'primary' : 'warning'}>
+                              <CustomAvatar
+                                skin='filled'
+                                color={isCurrentWalletVerified ? 'primary' : 'warning'}
+                                sx={{
+                                  ...(!isCurrentWalletVerified && { ...bgColors.warningLight })
+                                }}
+                              >
                                 <Icon icon='mdi:link-variant' fontSize={20} />
                               </CustomAvatar>
                             </IconButton>
@@ -378,7 +388,7 @@ const WalletConnectCard = (props: Props) => {
                     component='p'
                     sx={{ textAlign: 'center' }}
                   >
-                    You can verify at most 3 wallets
+                    you must sign a message to help us verify your wallet
                   </DialogContentText>
                   <Divider sx={{ mt: 4, mb: -6 }} />
                 </DialogTitle>
@@ -395,11 +405,39 @@ const WalletConnectCard = (props: Props) => {
                       <Stack spacing={6} alignSelf='stretch' alignItems='center' justifyContent='center'>
                         <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
                           <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-                            <Typography variant='subtitle1' component='p'>
-                              Currently Wallet
-                            </Typography>
+                            <Stack>
+                              <Typography variant='subtitle1' component='p'>
+                                Connecting Wallet
+                              </Typography>
+                              <Typography variant='caption' component='p'>
+                                please change your account if you reach the limit
+                              </Typography>
+                            </Stack>
                           </Stack>
-                          <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
+                          <Stack
+                            direction='row'
+                            flexWrap='wrap'
+                            alignSelf='stretch'
+                            alignItems='center'
+                            justifyContent='space-between'
+                            sx={{
+                              p: 4,
+                              borderRadius: 1,
+                              border: theme =>
+                                `1px solid ${
+                                  isVerifyWalletError
+                                    ? theme.palette.error.main
+                                    : isCurrentWalletVerified
+                                      ? theme.palette.primary.main
+                                      : theme.palette.warning.main
+                                }`,
+                              ...(isVerifyWalletError
+                                ? { ...bgColors.errorLight }
+                                : isCurrentWalletVerified
+                                  ? { ...bgColors.primaryLight }
+                                  : { backgroundColor: bgColors.warningLight.backgroundColor })
+                            }}
+                          >
                             <Stack
                               direction='row'
                               spacing={4}
@@ -447,11 +485,20 @@ const WalletConnectCard = (props: Props) => {
                             </Stack>
 
                             <Stack alignSelf='stretch' alignItems='center' justifyContent='center'>
-                              {isCurrentWalletVerified ? (
+                              {isVerifyWalletError ? (
+                                <Stack>
+                                  <Typography variant='caption' component='p'>
+                                    This wallet has connected to another account
+                                  </Typography>
+                                  <Typography variant='caption' component='p'>
+                                    Please try another wallet or login with another account
+                                  </Typography>
+                                </Stack>
+                              ) : isCurrentWalletVerified ? (
                                 <CustomChip
                                   skin='light'
                                   size='small'
-                                  color='success'
+                                  color='primary'
                                   label='verified'
                                   rounded
                                   sx={{ height: 20, fontSize: '0.75rem', fontWeight: 500 }}
@@ -475,119 +522,161 @@ const WalletConnectCard = (props: Props) => {
                           justifyContent='center'
                           sx={{ color: 'text.secondary' }}
                         >
-                          <Icon icon='mdi:plus-circle-outline' fontSize={28} />
+                          <Icon icon='mdi:link-variant' fontSize={28} />
                         </Stack>
                         <Stack spacing={2} alignSelf='stretch' alignItems='center' justifyContent='center'>
                           <Stack direction='row' alignSelf='stretch' alignItems='center' justifyContent='space-between'>
-                            <Typography variant='subtitle1' component='p'>
-                              Verified Wallets
-                            </Typography>
+                            <Stack>
+                              <Typography variant='subtitle1' component='p'>
+                                Verified Wallets
+                              </Typography>
+                              <Typography variant='caption' component='p'>
+                                you can verify at most 3 wallets
+                              </Typography>
+                            </Stack>
                           </Stack>
                           <Stack spacing={4} alignSelf='stretch' alignItems='center' justifyContent='center'>
-                            {isWalletListLoading ? (
-                              [...Array(3).keys()].map(index => (
-                                <Stack
-                                  key={`wallet-list-skeleton-${index}`}
-                                  direction='row'
-                                  spacing={4}
-                                  alignSelf='stretch'
-                                  alignItems='center'
-                                  justifyContent='space-between'
-                                >
-                                  <Stack direction='row' spacing={4} flexGrow='1' alignItems='center'>
-                                    <Skeleton variant='circular' width={40} height={40} />
-                                    <Stack spacing='0.5'>
-                                      <Skeleton variant='text' width={120} />
-                                      <Skeleton variant='text' width={50} />
-                                    </Stack>
-                                  </Stack>
-                                  <Stack>
-                                    <Skeleton variant='text' width={40} />
-                                  </Stack>
-                                </Stack>
-                              ))
-                            ) : wallets.length === 0 ? (
-                              <CardContent
-                                sx={{
-                                  display: 'flex',
-                                  textAlign: 'center',
-                                  alignItems: 'center',
-                                  flexDirection: 'column'
-                                }}
-                              >
-                                <CustomAvatar skin='light' color='warning' sx={{ width: 56, height: 56, mb: 2 }}>
-                                  <Icon icon='mdi:help-circle-outline' fontSize='2rem' />
-                                </CustomAvatar>
-                                <Typography variant='subtitle1' component='p'>
-                                  No verified wallets found
-                                </Typography>
-                              </CardContent>
-                            ) : (
-                              wallets.map((wallet, index: number) => {
-                                return (
+                            {isWalletListLoading
+                              ? [...Array(3).keys()].map(index => (
                                   <Stack
-                                    key={`wallet-list-${index}`}
+                                    key={`wallet-list-skeleton-${index}`}
                                     direction='row'
                                     spacing={4}
                                     alignSelf='stretch'
                                     alignItems='center'
                                     justifyContent='space-between'
+                                    sx={{
+                                      p: 4,
+                                      borderRadius: 1,
+                                      border: theme => `1px solid ${theme.palette.secondary.main}`,
+                                      backgroundColor: bgColors.secondaryLight.backgroundColor
+                                    }}
                                   >
                                     <Stack direction='row' spacing={4} flexGrow='1' alignItems='center'>
-                                      <Badge
-                                        overlap='circular'
-                                        sx={{ ml: 2, cursor: 'pointer' }}
-                                        badgeContent={
-                                          <BadgeContentSpan
-                                            sx={{
-                                              backgroundColor: theme =>
-                                                theme.palette[
-                                                  wallet.address.toLowerCase() === walletAccount?.address?.toLowerCase()
-                                                    ? 'success'
-                                                    : 'warning'
-                                                ].main
-                                            }}
-                                          />
-                                        }
-                                        anchorOrigin={{
-                                          vertical: 'bottom',
-                                          horizontal: 'right'
-                                        }}
-                                      >
-                                        {renderWalletAvatar(wallet.address)}
-                                      </Badge>
+                                      <Skeleton variant='circular' width={40} height={40} />
                                       <Stack spacing='0.5'>
-                                        <Stack direction='row' spacing={2} alignItems='center' justifyContent='center'>
-                                          <Typography sx={{ fontWeight: 500 }}>
-                                            {getFormattedEthereumAddress(wallet.address)}
-                                          </Typography>
-                                          <IconButton
-                                            size='small'
-                                            onClick={() => handleCopyAddress(walletAccount.address as string)}
-                                          >
-                                            <Icon
-                                              icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'}
-                                              fontSize={16}
-                                            />
-                                          </IconButton>
-                                        </Stack>
-                                        <Typography variant='caption'>{wallet.connector}</Typography>
+                                        <Skeleton variant='text' width={120} />
+                                        <Skeleton variant='text' width={50} />
                                       </Stack>
                                     </Stack>
-                                    <Stack alignItems='center'>
-                                      <CustomChip
-                                        skin='light'
-                                        size='small'
-                                        color='success'
-                                        label='verified'
-                                        rounded
-                                        sx={{ height: 20, fontSize: '0.75rem', fontWeight: 500 }}
-                                      />
+                                    <Stack>
+                                      <Skeleton variant='text' width={40} />
                                     </Stack>
                                   </Stack>
-                                )
-                              })
-                            )}
+                                ))
+                              : [...(walletsData?.data || []), ...Array(3)].slice(0, 3).map((wallet, index: number) => {
+                                  if (wallet === undefined) {
+                                    return (
+                                      <Stack
+                                        key={`wallet-list-${index}`}
+                                        direction='row'
+                                        spacing={4}
+                                        alignSelf='stretch'
+                                        alignItems='center'
+                                        justifyContent='space-between'
+                                        sx={{
+                                          height: 75,
+                                          p: 4,
+                                          borderRadius: 1,
+                                          border: theme => `1px solid ${theme.palette.secondary.main}`,
+                                          backgroundColor: bgColors.secondaryLight.backgroundColor
+                                        }}
+                                      >
+                                        <Stack alignItems='center'>
+                                          <CustomChip
+                                            skin='light'
+                                            size='small'
+                                            color='primary'
+                                            label={`# ${index + 1}`}
+                                            rounded
+                                            sx={{ height: 20, fontSize: '0.75rem', fontWeight: 500 }}
+                                          />
+                                        </Stack>
+                                        <Stack direction='row' spacing={4} flexGrow='1' alignItems='center'>
+                                          <Typography sx={{ fontWeight: 500 }}>Empty</Typography>
+                                        </Stack>
+                                      </Stack>
+                                    )
+                                  } else {
+                                    return (
+                                      <Stack
+                                        key={`wallet-list-${index}`}
+                                        direction='row'
+                                        spacing={4}
+                                        alignSelf='stretch'
+                                        alignItems='center'
+                                        justifyContent='space-between'
+                                        sx={{
+                                          p: 4,
+                                          borderRadius: 1,
+                                          border: theme =>
+                                            `1px solid ${wallet.address.toLowerCase() === walletAccount?.address?.toLowerCase() ? theme.palette.primary.main : theme.palette.secondary.main}`,
+                                          ...(wallet.address.toLowerCase() === walletAccount?.address?.toLowerCase()
+                                            ? { ...bgColors.primaryLight }
+                                            : { backgroundColor: bgColors.secondaryLight.backgroundColor })
+                                        }}
+                                      >
+                                        <Stack alignItems='center'>
+                                          <CustomChip
+                                            skin='light'
+                                            size='small'
+                                            color='primary'
+                                            label={`# ${index + 1}`}
+                                            rounded
+                                            sx={{ height: 20, fontSize: '0.75rem', fontWeight: 500 }}
+                                          />
+                                        </Stack>
+                                        <Stack direction='row' spacing={4} flexGrow='1' alignItems='center'>
+                                          <Badge
+                                            overlap='circular'
+                                            sx={{ ml: 2, cursor: 'pointer' }}
+                                            badgeContent={
+                                              <BadgeContentSpan
+                                                sx={{
+                                                  backgroundColor: theme =>
+                                                    theme.palette[
+                                                      wallet.address.toLowerCase() ===
+                                                      walletAccount?.address?.toLowerCase()
+                                                        ? 'success'
+                                                        : 'warning'
+                                                    ].main
+                                                }}
+                                              />
+                                            }
+                                            anchorOrigin={{
+                                              vertical: 'bottom',
+                                              horizontal: 'right'
+                                            }}
+                                          >
+                                            {renderWalletAvatar(wallet.address)}
+                                          </Badge>
+                                          <Stack spacing='0.5'>
+                                            <Stack
+                                              direction='row'
+                                              spacing={2}
+                                              alignItems='center'
+                                              justifyContent='center'
+                                            >
+                                              <Typography sx={{ fontWeight: 500 }}>
+                                                {getFormattedEthereumAddress(wallet.address)}
+                                              </Typography>
+                                              <IconButton
+                                                size='small'
+                                                onClick={() => handleCopyAddress(walletAccount.address as string)}
+                                              >
+                                                <Icon
+                                                  icon={isAddressCopied ? 'mdi:check-bold' : 'mdi:content-copy'}
+                                                  fontSize={16}
+                                                />
+                                              </IconButton>
+                                            </Stack>
+                                            <Typography variant='caption'>{wallet.connector}</Typography>
+                                          </Stack>
+                                        </Stack>
+                                      </Stack>
+                                    )
+                                  }
+                                })}
                           </Stack>
                         </Stack>
                         <Typography variant='caption' component='p' textAlign='center'>

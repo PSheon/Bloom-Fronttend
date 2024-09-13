@@ -8,6 +8,7 @@ import { getSession } from 'next-auth/react'
 
 // ** API Imports
 import { fundApi } from 'src/store/api/management/fund'
+import { dvFundApi } from 'src/store/api/management/dvFund'
 
 // ** Type Imports
 import type {
@@ -104,6 +105,7 @@ export const packageApi = createApi({
         try {
           await queryFulfilled
           dispatch(fundApi.util.invalidateTags(['Fund']))
+          dispatch(dvFundApi.util.invalidateTags(['DVFund']))
         } catch (err) {
           toast.error('Error fetching post!')
         }

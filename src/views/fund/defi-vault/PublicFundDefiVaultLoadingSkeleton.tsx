@@ -8,7 +8,7 @@ import Skeleton from '@mui/material/Skeleton'
 // ** Custom Component Imports
 import PublicFundLiveBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 
-const PublicFundLiveLoadingSkeleton = () => {
+const PublicFundDefiVaultLoadingSkeleton = () => {
   return (
     <Grid container spacing={6}>
       <Grid item xs={12}>
@@ -130,4 +130,4 @@ const PublicFundLiveLoadingSkeleton = () => {
   )
 }
 
-export default PublicFundLiveLoadingSkeleton
+export default PublicFundDefiVaultLoadingSkeleton
