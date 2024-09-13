@@ -197,7 +197,9 @@ const PublicFundLiveDefaultPackageWalletCheckGrid = (props: Props) => {
                   <Typography variant='h6' component='p' noWrap>
                     {`${fundBaseCurrencyProperties.symbol} ${
                       typeof payTokenBalance === 'bigint'
-                        ? getFormattedPriceUnit(N(payTokenBalance).div(N(10).pow(18)).toNumber())
+                        ? getFormattedPriceUnit(
+                            N(payTokenBalance).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                          )
                         : 0n
                     }`}
                   </Typography>

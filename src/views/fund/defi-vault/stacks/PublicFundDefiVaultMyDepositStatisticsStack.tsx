@@ -181,7 +181,9 @@ const PublicFundDefiVaultMyDepositStatisticsStack = (props: Props) => {
               <Typography variant='subtitle1' component='p'>
                 {`${fundBaseCurrencyProperties.symbol} ${
                   typeof initAmount === 'bigint'
-                    ? getFormattedPriceUnit(N(initAmount).div(N(10).pow(18)).toNumber())
+                    ? getFormattedPriceUnit(
+                        N(initAmount).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                      )
                     : 0n
                 } ${fundBaseCurrencyProperties.currency}`}
               </Typography>

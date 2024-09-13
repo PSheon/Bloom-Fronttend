@@ -79,7 +79,9 @@ const PublicFundLiveVaultBalanceCard = (props: Props) => {
                 <Typography variant='h6' component='p'>
                   {`${fundBaseCurrencyProperties.symbol} ${
                     typeof vaultBalance === 'bigint'
-                      ? getFormattedPriceUnit(N(vaultBalance).div(N(10).pow(18)).toNumber())
+                      ? getFormattedPriceUnit(
+                          N(vaultBalance).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                        )
                       : 0n
                   } ${fundBaseCurrencyProperties.currency}`}
                 </Typography>

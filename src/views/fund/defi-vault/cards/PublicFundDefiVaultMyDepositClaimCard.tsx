@@ -250,7 +250,11 @@ const PublicFundDefiVaultMyDepositClaimCard = (props: Props) => {
                         <Typography variant='h4' component='p'>
                           {`${fundBaseCurrencyProperties.symbol} ${
                             typeof totalPrincipalAndInterestToClaim === 'bigint'
-                              ? getFormattedPriceUnit(N(totalPrincipalAndInterestToClaim).div(N(10).pow(18)).toNumber())
+                              ? getFormattedPriceUnit(
+                                  N(totalPrincipalAndInterestToClaim)
+                                    .div(N(10).pow(fundBaseCurrencyProperties.decimals))
+                                    .toNumber()
+                                )
                               : 0n
                           }`}
                         </Typography>
@@ -285,7 +289,9 @@ const PublicFundDefiVaultMyDepositClaimCard = (props: Props) => {
                         <Typography variant='h4' component='p'>
                           {`${fundBaseCurrencyProperties.symbol} ${
                             typeof totalReward === 'bigint'
-                              ? getFormattedPriceUnit(N(totalReward).div(N(10).pow(18)).toNumber())
+                              ? getFormattedPriceUnit(
+                                  N(totalReward).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                                )
                               : 0n
                           }`}
                         </Typography>
@@ -314,7 +320,11 @@ const PublicFundDefiVaultMyDepositClaimCard = (props: Props) => {
               <ApexChartWrapper>
                 <PublicFundDefiVaultPackageDepositRevenueChart
                   startDate={typeof startTime === 'bigint' ? fromUnixTime(N(startTime).toNumber()) : new Date()}
-                  amount={typeof initAmount === 'bigint' ? N(initAmount).div(N(10).pow(18)).toNumber() : 0}
+                  amount={
+                    typeof initAmount === 'bigint'
+                      ? N(initAmount).div(N(10).pow(fundBaseCurrencyProperties.decimals)).toNumber()
+                      : 0
+                  }
                   interestRate={typeof interestRate === 'bigint' ? N(interestRate).toNumber() : 0}
                   duration={typeof durationDays === 'bigint' ? N(durationDays).toNumber() : 0}
                   principalDelayInDays={typeof principalDelayDays === 'bigint' ? N(principalDelayDays).toNumber() : 0}
