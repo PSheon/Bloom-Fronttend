@@ -7,7 +7,8 @@ import ApexChartWrapper from 'src/@core/styles/libs/react-apexcharts'
 // ** Custom Component Imports
 import PublicFundLiveBreadcrumbs from 'src/views/shared/PageBreadcrumbs'
 import PublicFundDefiVaultProfileHeaderCard from 'src/views/fund/defi-vault/cards/PublicFundDefiVaultProfileHeaderCard'
-import PublicFundDefiVaultStatisticsCard from 'src/views/fund/defi-vault/cards/PublicFundDefiVaultStatisticsCard'
+
+// import PublicFundDefiVaultStatisticsCard from 'src/views/fund/defi-vault/cards/PublicFundDefiVaultStatisticsCard'
 import PublicFundDefiVaultDetailCard from 'src/views/fund/defi-vault/cards/PublicFundDefiVaultDetailCard'
 import PublicFundDefiVaultSpecificationCard from 'src/views/fund/defi-vault/cards/PublicFundDefiVaultSpecificationCard'
 import PublicFundDefiVaultWalletCheckGrid from 'src/views/fund/defi-vault/grids/PublicFundDefiVaultWalletCheckGrid'
@@ -37,9 +38,9 @@ const PublicFundDefiVaultSection = (props: Props) => {
         <Grid item xs={12}>
           <PublicFundDefiVaultProfileHeaderCard initDVFundEntity={initDVFundEntity} />
         </Grid>
-        <Grid item xs={12}>
+        {/* <Grid item xs={12}>
           <PublicFundDefiVaultStatisticsCard initDVFundEntity={initDVFundEntity} />
-        </Grid>
+        </Grid> */}
         <Grid item xs={12}>
           <PublicFundDefiVaultWalletCheckGrid initDVFundEntity={initDVFundEntity} />
         </Grid>
